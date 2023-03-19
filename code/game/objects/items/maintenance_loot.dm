@@ -41,5 +41,4 @@
 /obj/item/stock_parts/cell/lead/Initialize(mapload)
 	AddElement(/datum/element/update_icon_blocker)
 	. = ..()
-	var/initial_percent = rand(20, 80) / 100
-	charge = initial_percent * maxcharge
+	charge = rand(0.2,0.8) * maxcharge

@@ -14,7 +14,8 @@
 /datum/hallucination/death/start()
 	hallucinator.Paralyze(30 SECONDS)
 	hallucinator.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_dead, REF(src))
-	hallucinator.add_traits(list(TRAIT_MUTE, TRAIT_EMOTEMUTE), REF(src))
+	ADD_TRAIT(hallucinator, TRAIT_MUTE, REF(src))
+	ADD_TRAIT(hallucinator, TRAIT_EMOTEMUTE, REF(src))
 
 	to_chat(hallucinator, span_deadsay("<b>[hallucinator.real_name]</b> has died at <b>[get_area_name(hallucinator)]</b>."))
 
@@ -73,7 +74,8 @@
 	if(!QDELETED(hallucinator))
 		hallucinator.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_dead, REF(src))
 		hallucinator.SetParalyzed(0 SECONDS)
-		hallucinator.remove_traits(list(TRAIT_MUTE, TRAIT_EMOTEMUTE), REF(src))
+		REMOVE_TRAIT(hallucinator, TRAIT_MUTE, REF(src))
+		REMOVE_TRAIT(hallucinator, TRAIT_EMOTEMUTE, REF(src))
 
 	if(!QDELETED(src))
 		qdel(src)

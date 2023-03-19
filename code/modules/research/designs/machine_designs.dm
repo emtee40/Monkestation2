@@ -623,16 +623,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
-/datum/design/board/suit_storage_unit
-	name = "Suit Storage Unit"
-	desc = "The circuit board for a suit storage unit."
-	id = "suit_storage_unit"
-	build_path = /obj/item/circuitboard/machine/suit_storage_unit
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ROBOTICS
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
-
 /datum/design/board/tesla_coil
 	name = "Tesla Coil Board"
 	desc = "The circuit board for a tesla coil."
@@ -652,6 +642,24 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+
+/datum/design/board/rad_collector
+	name = "Machine Design (Radiation Collector Board)"
+	desc = "The circuit board for a radiation collector array."
+	id = "rad_collector"
+	build_path = /obj/item/circuitboard/machine/rad_collector
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+
+/datum/design/board/plantgenes
+	name = "Machine Design (Plant DNA Manipulator Board)"
+	desc = "The circuit board for a plant DNA manipulator."
+	id = "plantgenes"
+	build_path = /obj/item/circuitboard/machine/plantgenes
+	category = list (RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_BOTANY)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
 /datum/design/board/ntnet_relay
 	name = "NTNet Relay Board"

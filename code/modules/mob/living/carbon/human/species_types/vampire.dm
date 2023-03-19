@@ -74,13 +74,6 @@
 /datum/species/vampire/get_species_description()
 	return "A classy Vampire! They descend upon Space Station Thirteen Every year to spook the crew! \"Bleeg!!\""
 
-/datum/species/vampire/get_species_lore()
-	return list(
-		"Vampires are unholy beings blessed and cursed with The Thirst. \
-		The Thirst requires them to feast on blood to stay alive, and in return it gives them many bonuses. \
-		Because of this, Vampires have split into two clans, one that embraces their powers as a blessing and one that rejects it.",
-	)
-
 /datum/species/vampire/create_pref_unique_perks()
 	var/list/to_add = list()
 
@@ -196,11 +189,11 @@
 	name = "vampire heart"
 	color = "#1C1C1C"
 
-/obj/item/organ/internal/heart/vampire/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/internal/heart/vampire/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 	RegisterSignal(receiver, COMSIG_MOB_GET_STATUS_TAB_ITEMS, PROC_REF(get_status_tab_item))
 
-/obj/item/organ/internal/heart/vampire/on_remove(mob/living/carbon/heartless)
+/obj/item/organ/internal/heart/vampire/Remove(mob/living/carbon/heartless, special)
 	. = ..()
 	UnregisterSignal(heartless, COMSIG_MOB_GET_STATUS_TAB_ITEMS)
 

@@ -37,8 +37,10 @@
 	if(isslime(target))
 		return TRUE
 
-	if((target.mob_biotypes & (MOB_ROBOTIC|MOB_MINERAL|MOB_SPIRIT)))
-		return FALSE
+	if(isanimal(target))
+		var/mob/living/simple_animal/animal = target
+		// Robots and most non-organics aren't healable.
+		return animal.healable
 
 	return TRUE
 

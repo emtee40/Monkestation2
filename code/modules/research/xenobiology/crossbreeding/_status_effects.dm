@@ -481,20 +481,11 @@
 	colour = "orange"
 
 /datum/status_effect/stabilized/orange/tick()
-	var/body_temp_target = owner.get_body_temp_normal(apply_change = FALSE)
-
-	var/body_temp_actual = owner.bodytemperature
-	var/body_temp_offset = body_temp_target - body_temp_actual
-	body_temp_offset = clamp(body_temp_offset, -5, 5)
-	owner.adjust_bodytemperature(body_temp_offset)
-
+	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
+	owner.adjust_bodytemperature(min(5, body_temperature_difference))
 	if(ishuman(owner))
-		var/mob/living/carbon/human/human = owner
-		var/core_temp_actual = human.coretemperature
-		var/core_temp_offset = body_temp_target - core_temp_actual
-		core_temp_offset = clamp(core_temp_offset, -5, 5)
-		human.adjust_coretemperature(core_temp_offset)
-
+		var/mob/living/carbon/human/humi = owner
+		humi.adjust_coretemperature(min(5, humi.get_body_temp_normal(apply_change=FALSE) - humi.coretemperature))
 	return ..()
 
 /datum/status_effect/stabilized/purple
@@ -1034,12 +1025,7 @@
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
 		familiar.name = linked.mob_name
-		if(isanimal(familiar))
-			familiar.del_on_death = TRUE
-		else //we are a basicmob otherwise
-			var/mob/living/basic/basic_familiar = familiar
-			basic_familiar.basic_mob_flags |= DEL_ON_DEATH
-		familiar.befriend(owner)
+		familiar.del_on_death = TRUE
 		familiar.copy_languages(owner, LANGUAGE_MASTER)
 		if(linked.saved_mind)
 			linked.saved_mind.transfer_to(familiar)

@@ -179,12 +179,15 @@
 	brainmob = new_brainmob
 	if(new_brainmob)
 		if(mecha)
-			new_brainmob.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
+			REMOVE_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 		else
-			new_brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
+			ADD_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			ADD_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 	if(.)
 		var/mob/living/brain/old_brainmob = .
-		old_brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
+		ADD_TRAIT(old_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(old_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 
 /// Proc to hook behavior associated to the change in value of the [obj/vehicle/sealed/var/mecha] variable.
@@ -195,9 +198,11 @@
 	mecha = new_mecha
 	if(new_mecha)
 		if(!. && brainmob) // There was no mecha, there now is, and we have a brain mob that is no longer unaided.
-			brainmob.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
+			REMOVE_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 	else if(. && brainmob) // There was a mecha, there no longer is one, and there is a brain mob that is now again unaided.
-		brainmob.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), BRAIN_UNAIDED)
+		ADD_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 
 /obj/item/mmi/proc/replacement_ai_name()

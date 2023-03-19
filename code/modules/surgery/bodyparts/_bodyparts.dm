@@ -520,6 +520,11 @@
 	if(burn)
 		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
 
+	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
+		if(owner.health > 0)
+			owner.revive(0)
+			owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
+
 	if(owner)
 		if(can_be_disabled)
 			update_disabled()
@@ -652,10 +657,8 @@
 	return old_owner
 
 /obj/item/bodypart/proc/on_removal()
-	if(!length(bodypart_traits))
-		return
-
-	owner.remove_traits(bodypart_traits, bodypart_trait_source)
+	for(var/trait in bodypart_traits)
+		REMOVE_TRAIT(owner, trait, bodypart_trait_source)
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_can_be_disabled(new_can_be_disabled)
@@ -762,7 +765,7 @@
 	species_flags_list = owner_species.species_traits
 	limb_gender = (human_owner.physique == MALE) ? "m" : "f"
 
-	if(owner_species.use_skintones)
+	if(owner_species.use_skintones || owner_species.use_fur)
 		skin_tone = human_owner.skin_tone
 	else
 		skin_tone = ""

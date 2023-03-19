@@ -72,16 +72,17 @@
 /obj/item/organ/internal/appendix/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantappendix
 
-/obj/item/organ/internal/appendix/on_remove(mob/living/carbon/organ_owner)
-	. = ..()
+/obj/item/organ/internal/appendix/Remove(mob/living/carbon/organ_owner, special = FALSE)
 	REMOVE_TRAIT(organ_owner, TRAIT_DISEASELIKE_SEVERITY_MEDIUM, type)
 	organ_owner.med_hud_set_status()
+	..()
 
-/obj/item/organ/internal/appendix/on_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/internal/appendix/Insert(mob/living/carbon/organ_owner, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
-	if(inflamation_stage)
-		ADD_TRAIT(organ_owner, TRAIT_DISEASELIKE_SEVERITY_MEDIUM, type)
-		organ_owner.med_hud_set_status()
+	if(.)
+		if(inflamation_stage)
+			ADD_TRAIT(organ_owner, TRAIT_DISEASELIKE_SEVERITY_MEDIUM, type)
+			organ_owner.med_hud_set_status()
 
 /obj/item/organ/internal/appendix/get_status_text()
 	if((!(organ_flags & ORGAN_FAILING)) && inflamation_stage)

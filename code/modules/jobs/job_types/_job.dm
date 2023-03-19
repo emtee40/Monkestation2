@@ -148,12 +148,13 @@
 /datum/job/proc/after_spawn(mob/living/spawned, client/player_client)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, spawned, player_client)
-	if(length(mind_traits))
-		spawned.mind.add_traits(mind_traits, JOB_TRAIT)
+	for(var/trait in mind_traits)
+		ADD_TRAIT(spawned.mind, trait, JOB_TRAIT)
 
 	var/obj/item/organ/internal/liver/liver = spawned.getorganslot(ORGAN_SLOT_LIVER)
-	if(liver && length(liver_traits))
-		liver.add_traits(liver_traits, JOB_TRAIT)
+	if(liver)
+		for(var/trait in liver_traits)
+			ADD_TRAIT(liver, trait, JOB_TRAIT)
 
 	if(!ishuman(spawned))
 		return
@@ -508,7 +509,7 @@
 			var/gender = player_client.prefs.read_preference(/datum/preference/choiced/gender)
 			real_name = species.random_name(gender, TRUE)
 	dna.update_dna_identity()
-
+	dna.species.after_equip_job(job, src, FALSE, player_client.prefs)
 
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
 	if(GLOB.current_anonymous_theme)

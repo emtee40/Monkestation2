@@ -46,15 +46,6 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/machine/suit_storage_unit
-	name = "Suit Storage Unit"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
-	build_path = /obj/machinery/suit_storage_unit
-	req_components = list(
-		/obj/item/stack/sheet/glass = 2,
-		/obj/item/stack/cable_coil = 5,
-		/datum/stock_part/capacitor = 1)
-
 /obj/item/circuitboard/machine/autolathe
 	name = "Autolathe"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
@@ -1419,3 +1410,13 @@
 		/datum/stock_part/capacitor/tier2 = 1,
 		/datum/stock_part/micro_laser/tier2 = 2,
 	)
+
+/obj/item/circuitboard/machine/plantgenes
+	name = "Gene Modder"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/plantgenes
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/scanning_module = 1)

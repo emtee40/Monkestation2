@@ -282,11 +282,13 @@
 
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
+	ADD_TRAIT(C, TRAIT_LAVA_IMMUNE, SPECIES_TRAIT)
+	ADD_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 /datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_LAVA_IMMUNE, SPECIES_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -823,14 +825,6 @@
 /datum/species/golem/cloth/get_species_description()
 	return "A wrapped up Mummy! They descend upon Space Station Thirteen every year to spook the crew! \"Return the slab!\""
 
-/datum/species/golem/cloth/get_species_lore()
-	return list(
-		"Mummies are very self conscious. They're shaped weird, they walk slow, and worst of all, \
-		they're considered the laziest halloween costume. But that's not even true, they say.",
-
-		"Making a mummy costume may be easy, but making a CONVINCING mummy costume requires \
-		things like proper fabric and purposeful staining to achieve the look. Which is FAR from easy. Gosh.",
-	)
 
 // Calls parent, as Golems have a species-wide perk we care about.
 /datum/species/golem/cloth/create_pref_unique_perks()

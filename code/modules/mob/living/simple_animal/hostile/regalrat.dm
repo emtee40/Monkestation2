@@ -90,8 +90,7 @@
 /mob/living/simple_animal/hostile/regalrat/CanAttack(atom/the_target)
 	if(isliving(the_target))
 		var/mob/living/living_target = the_target
-		if (living_target.stat != DEAD)
-			return !living_target.faction_check_mob(src, exact_match = TRUE)
+		return !living_target.faction_check_mob(src, exact_match = TRUE)
 
 	return ..()
 
@@ -118,19 +117,27 @@
 #define REGALRAT_INTERACTION "regalrat"
 
 /mob/living/simple_animal/hostile/regalrat/AttackingTarget()
-	if (DOING_INTERACTION(src, REGALRAT_INTERACTION) || QDELETED(target))
+	if (DOING_INTERACTION(src, REGALRAT_INTERACTION))
+		return
+	if (QDELETED(target))
 		return
 	if(istype(target, /obj/machinery/door/airlock) && !opening_airlock)
 		pry_door(target)
 		return
-	if (src.mind && !src.combat_mode && target.reagents && target.is_injectable(src, allowmobs = TRUE) && !istype(target, /obj/item/food/cheese))
+
+	if (target.reagents && target.is_injectable(src, allowmobs = TRUE) && !istype(target, /obj/item/food/cheese))
 		src.visible_message(span_warning("[src] starts licking [target] passionately!"),span_notice("You start licking [target]..."))
 		if (do_after(src, 2 SECONDS, target, interaction_key = REGALRAT_INTERACTION))
 			target.reagents.add_reagent(/datum/reagent/rat_spit,rand(1,3),no_react = TRUE)
 			to_chat(src, span_notice("You finish licking [target]."))
-		return
+			return
 	else
 		SEND_SIGNAL(target, COMSIG_RAT_INTERACT, src)
+		if(QDELETED(target))
+			return
+
+	if (DOING_INTERACTION(src, REGALRAT_INTERACTION)) // check again in case we started interacting
+		return
 	return ..()
 
 #undef REGALRAT_INTERACTION

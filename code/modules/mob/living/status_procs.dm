@@ -533,7 +533,8 @@
 		ADD_TRAIT(src, TRAIT_HUSK, source)
 
 /mob/living/proc/cure_fakedeath(source)
-	remove_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
+	REMOVE_TRAIT(src, TRAIT_FAKEDEATH, source)
+	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
 	if(stat != DEAD)
 		tod = null
 
@@ -543,7 +544,8 @@
 		return
 	if(!silent)
 		emote("deathgasp")
-	add_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
+	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
+	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
 	tod = station_time_timestamp()
 
 

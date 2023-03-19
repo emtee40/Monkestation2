@@ -82,24 +82,21 @@
 	active_mind_control = FALSE
 	return TRUE
 
-/obj/item/organ/internal/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE)
-	. = ..()
+/obj/item/organ/internal/heart/gland/Remove(mob/living/carbon/M, special = FALSE)
 	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_atom_from_hud(gland_owner)
+	hud.remove_atom_from_hud(owner)
 	clear_mind_control()
+	..()
 
-/obj/item/organ/internal/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
-	. = ..()
-	if(!.)
-		return
-
+/obj/item/organ/internal/heart/gland/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
+	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_atom_to_hud(gland_owner)
+	hud.add_atom_to_hud(owner)
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life(delta_time, times_fired)

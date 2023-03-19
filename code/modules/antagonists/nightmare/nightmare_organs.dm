@@ -14,23 +14,23 @@
 	///Our associated terrorize spell, for antagonist nightmares
 	var/datum/action/cooldown/spell/pointed/terrorize/terrorize_spell
 
-/obj/item/organ/internal/brain/shadow/nightmare/on_insert(mob/living/carbon/brain_owner)
+/obj/item/organ/internal/brain/shadow/nightmare/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE)
 	. = ..()
-	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
-		brain_owner.set_species(/datum/species/shadow/nightmare)
-		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
+	if(M.dna.species.id != SPECIES_NIGHTMARE)
+		M.set_species(/datum/species/shadow/nightmare)
+		visible_message(span_warning("[M] thrashes as [src] takes root in [M.p_their()] body!"))
 
-	our_jaunt = new(brain_owner)
-	our_jaunt.Grant(brain_owner)
+	our_jaunt = new(M)
+	our_jaunt.Grant(M)
 
-	if(brain_owner.mind?.has_antag_datum(/datum/antagonist/nightmare)) //Only a TRUE NIGHTMARE is worthy of using this ability
+	if(M.mind?.has_antag_datum(/datum/antagonist/nightmare)) //Only a TRUE NIGHTMARE is worthy of using this ability
 		terrorize_spell = new(src)
-		terrorize_spell.Grant(brain_owner)
+		terrorize_spell.Grant(M)
 
-/obj/item/organ/internal/brain/shadow/nightmare/on_remove(mob/living/carbon/brain_owner)
-	. = ..()
+/obj/item/organ/internal/brain/shadow/nightmare/Remove(mob/living/carbon/M, special = FALSE, no_id_transfer = FALSE)
 	QDEL_NULL(our_jaunt)
 	QDEL_NULL(terrorize_spell)
+	return ..()
 
 /obj/item/organ/internal/heart/nightmare
 	name = "heart of darkness"
@@ -65,18 +65,18 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/internal/heart/nightmare/on_insert(mob/living/carbon/heart_owner, special)
+/obj/item/organ/internal/heart/nightmare/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
-		heart_owner.put_in_hands(blade)
+		M.put_in_hands(blade)
 
-/obj/item/organ/internal/heart/nightmare/on_remove(mob/living/carbon/heart_owner, special)
-	. = ..()
+/obj/item/organ/internal/heart/nightmare/Remove(mob/living/carbon/M, special = FALSE)
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
-		heart_owner.visible_message(span_warning("\The [blade] disintegrates!"))
+		M.visible_message(span_warning("\The [blade] disintegrates!"))
 		QDEL_NULL(blade)
+	return ..()
 
 /obj/item/organ/internal/heart/nightmare/Stop()
 	return 0

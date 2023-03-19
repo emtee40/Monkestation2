@@ -75,8 +75,10 @@
 
 	//Nicotine is used as a pesticide IRL.
 /datum/reagent/drug/nicotine/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	if(!check_tray(chems, mytray))
-		return
+	. = ..()
+	if(chems.has_reagent(src.type, 1))
+		mytray.adjustToxic(round(chems.get_reagent_amount(src.type)))
+		mytray.adjustPests(-rand(1,2))
 
 	mytray.adjust_toxic(round(chems.get_reagent_amount(type)))
 	mytray.adjust_pestlevel(-rand(1, 2))
@@ -216,14 +218,16 @@
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_traits(list(TRAIT_STUNIMMUNE, TRAIT_SLEEPIMMUNE), type)
+	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
 		rage = new()
 		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
-	L.remove_traits(list(TRAIT_STUNIMMUNE, TRAIT_SLEEPIMMUNE), type)
+	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	if(rage)
 		QDEL_NULL(rage)
 	..()
@@ -709,7 +713,8 @@
 	if(invisible_man.has_status_effect(/datum/status_effect/grouped/stasis))
 		return
 
-	invisible_man.add_traits(list(TRAIT_INVISIBLE_MAN, TRAIT_HIDE_EXTERNAL_ORGANS), name)
+	ADD_TRAIT(invisible_man, TRAIT_INVISIBLE_MAN, name)
+	ADD_TRAIT(invisible_man, TRAIT_HIDE_EXTERNAL_ORGANS, name)
 
 	var/datum/dna/druggy_dna = invisible_man.has_dna()
 	if(druggy_dna?.species)
@@ -723,8 +728,8 @@
 	. = ..()
 	if(HAS_TRAIT(invisible_man, TRAIT_INVISIBLE_MAN))
 		invisible_man.add_to_all_human_data_huds() //Is this safe, what do you think, Floyd?
-		invisible_man.remove_traits(list(TRAIT_INVISIBLE_MAN, TRAIT_HIDE_EXTERNAL_ORGANS), name)
-
+		REMOVE_TRAIT(invisible_man, TRAIT_INVISIBLE_MAN, name)
+		REMOVE_TRAIT(invisible_man, TRAIT_HIDE_EXTERNAL_ORGANS, name)
 		to_chat(invisible_man, span_notice("As you sober up, opacity once again returns to your body meats."))
 
 		var/datum/dna/druggy_dna = invisible_man.has_dna()
