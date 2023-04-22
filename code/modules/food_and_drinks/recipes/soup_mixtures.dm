@@ -177,7 +177,7 @@
 /**
  * Cleans up the ingredients and adds whatever leftover reagents to the mixture
  *
- * * holder: The sou ppot
+ * * holder: The soup pot
  * * reaction: The reaction being cleaned up, note this CAN be null if being instant reacted
  * * react_vol: How much soup was produced
  */
@@ -200,14 +200,14 @@
 				LAZYADD(pot.added_ingredients, new_item)
 
 	for(var/obj/item/ingredient as anything in pot.added_ingredients)
-		// Let's not mess with fireproof / indestructible items.
-		// It's not likely that soups use fireproof items as ingredients,
-		// and chef doesn't need more ways to delete things with cooking.
-		if(ingredient.resistance_flags & (FIRE_PROOF|INDESTRUCTIBLE))
+		// Let's not mess with  indestructible items.
+		// Chef doesn't need more ways to delete things with cooking.
+		if(ingredient.resistance_flags & INDESTRUCTIBLE)
 			continue
 
 		// Things that had reagents or ingredients in the soup will get deleted
-		if((!isnull(ingredient.reagents) || is_type_in_list(ingredient, required_ingredients)) && !is_type_in_list(ingredient, outputted_ingredients) && !Nonsouprecipe) //monkeedit
+		else if(!isnull(ingredient.reagents) || is_type_in_list(ingredient, required_ingredients))
+			LAZYREMOVE(pot.added_ingredients, ingredient)
 			// Send everything left behind
 			transfer_ingredient_reagents(ingredient, holder)
 			// Delete, it's done
@@ -216,11 +216,6 @@
 		// Everything else will just get fried
 		if (!Nonsouprecipe) //monkeedit
 			ingredient.AddElement(/datum/element/fried_item, 30)
-
-	// Spawning physical food results
-	if(resulting_food_path)
-		var/obj/item/created = new resulting_food_path(get_turf(pot))
-		created.pixel_y += 8
 
 	// Anything left in the ingredient list will get dumped out
 	pot.dump_ingredients(get_turf(pot), y_offset = 8)
