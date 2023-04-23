@@ -2,7 +2,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /**
  * Component representing an atom being on fire.
- * Should not be used on mobs, they use the fire stacks system.
+ * Should not be used on mobs, they use the fire stacks status effects.
+ * Can only be used on atoms that use the integrity system.
  */
 /datum/component/burning
 	/// Fire overlay appearance we apply
@@ -15,7 +16,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return COMPONENT_INCOMPATIBLE
 	var/atom/atom_parent = parent
 	if(!atom_parent.uses_integrity)
-		stack_trace("Tried to add /datum/component/burning to an atom ([atom_parent]) that does not use atom_integrity!")
+		stack_trace("Tried to add /datum/component/burning to an atom ([atom_parent.type]) that does not use atom_integrity!")
 		return COMPONENT_INCOMPATIBLE
 
 	// only flammable atoms should have this component, but it's not really an error if we try to apply this to a non flammable one
@@ -42,7 +43,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_EXTINGUISH, PROC_REF(on_extinguish))
 	var/atom/atom_parent = parent
-	atom_parent.update_appearance(UPDATE_ICON)
+	atom_parent.resistance_flags |= ON_FIRE
+	atom_parent.update_appearance()
 
 /datum/component/burning/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -52,10 +54,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 		COMSIG_ATOM_EXTINGUISH,
 	))
 	var/atom/atom_parent = parent
-	if(!QDELING(atom_parent) && (atom_parent.resistance_flags & ON_FIRE))
+	if(!QDELETED(atom_parent))
 		atom_parent.resistance_flags &= ~ON_FIRE
-		atom_parent.update_appearance(UPDATE_ICON)
-	return ..()
+		atom_parent.update_appearance()
 
 /datum/component/burning/process(seconds_per_tick)
 	var/atom/atom_parent = parent
@@ -95,6 +96,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 /// Maintains the burning overlay on the parent atom
 /datum/component/burning/proc/on_update_overlays(atom/source, list/overlays)
 	SIGNAL_HANDLER
+
+	//most likely means the component is being removed
+	if(!(source.resistance_flags & ON_FIRE))
+		return
 
 	if(fire_overlay)
 		overlays += fire_overlay

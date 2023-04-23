@@ -15,7 +15,5 @@
 /// The scaling factor for the acid decay rate.
 #define ACID_DECAY_SCALING 1
 
-/// The default icon state for the acid overlay. Not to be confused with the error icon state.
-#define ACID_OVERLAY_DEFAULT "default"
 /// The combined acid power and acid volume required to burn hands.
 #define ACID_LEVEL_HANDBURN 20
