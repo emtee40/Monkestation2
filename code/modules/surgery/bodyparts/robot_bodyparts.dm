@@ -368,7 +368,7 @@
 	. = ..()
 	if(gone == flash1)
 		flash1 = null
-	if(head_atom == flash2)
+	if(gone == flash2)
 		flash2 = null
 	return ..()
 
