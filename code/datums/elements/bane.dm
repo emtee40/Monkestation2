@@ -18,14 +18,8 @@
 
 /datum/element/bane/Attach(datum/target, target_type = /mob/living, mob_biotypes = NONE, damage_multiplier=1, added_damage = 0, requires_combat_mode = TRUE)
 	. = ..()
-	if(!isitem(target))
-		return ELEMENT_INCOMPATIBLE
 
-	if(ispath(target_type, /mob/living))
-		RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(mob_check))
-	else if(ispath(target_type, /datum/species))
-		RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(species_check))
-	else
+	if(!ispath(target_type, /mob/living) && !ispath(target_type, /datum/species))
 		return ELEMENT_INCOMPATIBLE
 
 	src.target_type = target_type
@@ -33,9 +27,10 @@
 	src.added_damage = added_damage
 	src.requires_combat_mode = requires_combat_mode
 	src.mob_biotypes = mob_biotypes
+	target.AddComponent(/datum/component/on_hit_effect, CALLBACK(src, PROC_REF(do_bane)), CALLBACK(src, PROC_REF(check_bane)))
 
-/datum/element/bane/Detach(datum/source)
-	UnregisterSignal(source, COMSIG_ITEM_AFTERATTACK)
+/datum/element/bane/Detach(datum/target)
+	qdel(target.GetComponent(/datum/component/on_hit_effect))
 	return ..()
 
 /datum/element/bane/proc/check_bane(bane_applier, target, bane_weapon)
