@@ -21,6 +21,10 @@
 	///Did we add a non approved song to an approved tape if so remove the cassette's approved status
 	var/broke_approval = FALSE
 
+/obj/item/device/cassette_deck/Initialize(mapload)
+	. = ..()
+	REGISTER_REQUIRED_MAP_ITEM(1, INFINITY)
+
 /obj/item/device/cassette_deck/AltClick(mob/user)
 	if(recieve || send)
 		eject_tape(user)
