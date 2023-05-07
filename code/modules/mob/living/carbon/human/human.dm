@@ -911,7 +911,7 @@
 	if(diff < 0) //Taking damage, not healing
 		return diff * physiology.stamina_mod
 	return diff
-	
+
 /mob/living/carbon/human/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE

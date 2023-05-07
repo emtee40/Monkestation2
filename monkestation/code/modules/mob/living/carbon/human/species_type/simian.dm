@@ -44,9 +44,6 @@
 		LOADOUT_ITEM_BELT = SIMIAN_BELT_ICON,
 		LOADOUT_ITEM_MISC = SIMIAN_BACK_ICON,
 	)
-	offset_features = list(
-		OFFSET_HANDS = list(0,3),
-		)
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/simian,

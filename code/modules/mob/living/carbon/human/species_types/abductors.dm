@@ -12,7 +12,8 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
 		TRAIT_NODISMEMBER,
-		TRAIT_NEVER_WOUNDED
+		TRAIT_NEVER_WOUNDED,
+		TRAIT_NO_DEBRAIN_OVERLAY,
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/abductor
 	mutantstomach = null
