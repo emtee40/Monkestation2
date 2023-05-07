@@ -135,16 +135,13 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 
 #ifndef LOWMEMORYMODE
-
 // Create empty space levels
-	while (space_levels_so_far < config.space_empty_levels + config.space_ruin_levels)
+	while (space_levels_so_far < config.space_ruin_levels)
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far+1]", list(ZTRAIT_LINKAGE = CROSSLINKED))
 		++space_levels_so_far
-
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel(prob(CONFIG_GET(number/config_gateway_chance)))
-
 	loading_ruins = TRUE
 	setup_ruins()
 	loading_ruins = FALSE
