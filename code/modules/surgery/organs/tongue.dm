@@ -567,7 +567,7 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	desc = "For aggressively chimpering. And consuming bananas."
 	say_mod = "chimpers"
 	liked_foodtypes = MEAT | FRUIT | BUGS
-	disliked_foodtypes = CLOTH
+	disliked_foodtypes = GROSS | CLOTH
 
 /obj/item/organ/internal/tongue/moth
 	name = "moth tongue"

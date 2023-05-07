@@ -906,12 +906,12 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
-
+/* Temporary removal to see if this line is needed
 /mob/living/carbon/human/pre_stamina_change(diff as num, forced)
 	if(diff < 0) //Taking damage, not healing
 		return diff * physiology.stamina_mod
 	return diff
-	
+*/
 /mob/living/carbon/human/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
@@ -969,81 +969,6 @@
 
 /mob/living/carbon/human/species/golem
 	race = /datum/species/golem
-
-/mob/living/carbon/human/species/golem/adamantine
-	race = /datum/species/golem/adamantine
-
-/mob/living/carbon/human/species/golem/plasma
-	race = /datum/species/golem/plasma
-
-/mob/living/carbon/human/species/golem/diamond
-	race = /datum/species/golem/diamond
-
-/mob/living/carbon/human/species/golem/gold
-	race = /datum/species/golem/gold
-
-/mob/living/carbon/human/species/golem/silver
-	race = /datum/species/golem/silver
-
-/mob/living/carbon/human/species/golem/plasteel
-	race = /datum/species/golem/plasteel
-
-/mob/living/carbon/human/species/golem/titanium
-	race = /datum/species/golem/titanium
-
-/mob/living/carbon/human/species/golem/plastitanium
-	race = /datum/species/golem/plastitanium
-
-/mob/living/carbon/human/species/golem/alien_alloy
-	race = /datum/species/golem/alloy
-
-/mob/living/carbon/human/species/golem/wood
-	race = /datum/species/golem/wood
-
-/mob/living/carbon/human/species/golem/uranium
-	race = /datum/species/golem/uranium
-
-/mob/living/carbon/human/species/golem/sand
-	race = /datum/species/golem/sand
-
-/mob/living/carbon/human/species/golem/glass
-	race = /datum/species/golem/glass
-
-/mob/living/carbon/human/species/golem/bluespace
-	race = /datum/species/golem/bluespace
-
-/mob/living/carbon/human/species/golem/bananium
-	race = /datum/species/golem/bananium
-
-/mob/living/carbon/human/species/golem/blood_cult
-	race = /datum/species/golem/runic
-
-/mob/living/carbon/human/species/golem/cloth
-	race = /datum/species/golem/cloth
-
-/mob/living/carbon/human/species/golem/plastic
-	race = /datum/species/golem/plastic
-
-/mob/living/carbon/human/species/golem/bronze
-	race = /datum/species/golem/bronze
-
-/mob/living/carbon/human/species/golem/cardboard
-	race = /datum/species/golem/cardboard
-
-/mob/living/carbon/human/species/golem/leather
-	race = /datum/species/golem/leather
-
-/mob/living/carbon/human/species/golem/bone
-	race = /datum/species/golem/bone
-
-/mob/living/carbon/human/species/golem/durathread
-	race = /datum/species/golem/durathread
-
-/mob/living/carbon/human/species/golem/snow
-	race = /datum/species/golem/snow
-
-/mob/living/carbon/human/species/oozeling
-	race = /datum/species/oozeling
 
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
