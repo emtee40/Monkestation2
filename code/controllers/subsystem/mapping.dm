@@ -137,6 +137,7 @@ SUBSYSTEM_DEF(mapping)
 #ifndef LOWMEMORYMODE
 	// Create space ruin levels
 	while (space_levels_so_far < config.space_ruin_levels)
+	add_new_zlevel("Ruin Area [space_levels_so_far+1]", ZTRAITS_SPACE)
 		++space_levels_so_far
 // Create empty space levels
 	while (space_levels_so_far < config.space_empty_levels + config.space_ruin_levels)
