@@ -536,17 +536,6 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	name = "felinid tongue"
 	desc = "A fleshy muscle mostly used for meowing."
 	say_mod = "meows"
-	liked_foodtypes = SEAFOOD | ORANGES | BUGS | GORE
-	disliked_foodtypes = GROSS | CLOTH | RAW
-
-/obj/item/organ/internal/tongue/bananium
-	name = "bananium tongue"
-	desc = "A bananium geode mostly used for honking."
-	say_mod = "honks"
-	icon = 'icons/obj/weapons/horn.dmi'
-	icon_state = "gold_horn"
-	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
 
 /obj/item/organ/internal/tongue/jelly
 	name = "jelly tongue"

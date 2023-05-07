@@ -41,6 +41,7 @@ DEFINE_BITFIELD(foodtypes, list(
 	"ORANGES" = ORANGES,
 	"BUGS" = BUGS,
 	"GORE" = GORE,
+	"STONE" = STONE,
 ))
 
 /// A list of food type names, in order of their flags
@@ -65,6 +66,7 @@ DEFINE_BITFIELD(foodtypes, list(
 	"ORANGES", \
 	"BUGS", \
 	"GORE", \
+	"STONE", \
 )
 
 /// IC meaning (more or less) for food flags
@@ -89,6 +91,7 @@ DEFINE_BITFIELD(foodtypes, list(
 	"Oranges", \
 	"Bugs", \
 	"Gore", \
+	"Rocks", \
 )
 
 #define DRINK_NICE 1

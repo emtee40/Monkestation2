@@ -54,7 +54,7 @@
 	name = "Huh"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "teleport"
-	duration = 80
+	duration = 8 SECONDS
 
 /obj/effect/temp_visual/teleport_abductor/Initialize(mapload)
 	. = ..()
