@@ -35,9 +35,6 @@
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/golem
 	species_language_holder = /datum/language_holder/golem
-	// To prevent golem subtypes from overwhelming the odds when random species
-	// changes, only the Random Golem type can be chosen
-	fixed_mut_color = "#aaaaaa"
 
 	bodytemp_heat_damage_limit = BODYTEMP_HEAT_LAVALAND_SAFE
 	bodytemp_cold_damage_limit = BODYTEMP_COLD_ICEBOX_SAFE
@@ -823,26 +820,25 @@
 
 	to_add += list(list(
 		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-		SPECIES_PERK_ICON = "recycle",
-		SPECIES_PERK_NAME = "Reformation",
-		SPECIES_PERK_DESC = "A boon quite similar to Ethereals, Mummies collapse into \
-			a pile of bandages after they die. If left alone, they will reform back \
-			into themselves. The bandages themselves are very vulnerable to fire.",
+		SPECIES_PERK_ICON = "gem",
+		SPECIES_PERK_NAME = "Metamorphic Rock",
+		SPECIES_PERK_DESC = "Consuming minerals can grant Lithoids temporary benefits based on the type consumed.",
 	))
 
-	return to_add
-
-// Override to add a perk elaborating on just how dangerous fire is.
-/datum/species/golem/cloth/create_pref_temperature_perks()
-	var/list/to_add = list()
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = "pickaxe",
+		SPECIES_PERK_NAME = "Natural Miners",
+		SPECIES_PERK_DESC = "Golems can see dimly in the dark, sense minerals, and mine stone with their bare hands. \
+			They can even smelt ores in an internal furnace, if their surrounding environment is hot enough.",
+	))
 
 	to_add += list(list(
 		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-		SPECIES_PERK_ICON = "fire-alt",
-		SPECIES_PERK_NAME = "Incredibly Flammable",
-		SPECIES_PERK_DESC = "Mummies are made entirely of cloth, which makes them \
-			very vulnerable to fire. They will not reform if they die while on \
-			fire, and they will easily catch alight. If your bandages burn to ash, you're toast!",
+		SPECIES_PERK_ICON = "bolt",
+		SPECIES_PERK_NAME = "Anima",
+		SPECIES_PERK_DESC = "Maintaining the force animating stone is taxing. Lithoids must eat frequently \
+			in order to avoid returning to inanimate statues, and only derive nutrition from eating minerals.",
 	))
 
 	return to_add

@@ -62,8 +62,8 @@
 	S.set_up(10,0,loc)
 	S.start()
 
-/* /obj/effect/temp_visual/teleport_golem Monkestation Edit: Golems not getting reworked
+/obj/effect/temp_visual/teleport_golem
 	name = "bluespace silhouette"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "teleport"
-	duration = 6 SECONDS */
+	duration = 6 SECONDS

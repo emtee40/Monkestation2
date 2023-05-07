@@ -13,8 +13,8 @@
 /datum/movespeed_modifier/hunger
 	variable = TRUE
 
-/* /datum/movespeed_modifier/golem_hunger Monkestation Removal: Golems dont eat
-	variable = TRUE */
+/datum/movespeed_modifier/golem_hunger
+	variable = TRUE
 
 /datum/movespeed_modifier/slaughter
 	multiplicative_slowdown = -1

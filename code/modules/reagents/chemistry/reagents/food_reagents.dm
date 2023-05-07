@@ -163,7 +163,7 @@
 	M.adjust_nutrition(-delayed_satiety_drain)
 	return ..()
 
-/* /datum/reagent/consumable/nutriment/mineral Monkestation Edit: No reworked golems
+/datum/reagent/consumable/nutriment/mineral
 	name = "Mineral Slurry"
 	description = "Minerals pounded into a paste, nutritious only if you too are made of rocks."
 	color = COLOR_WEBSAFE_DARK_GRAY
@@ -179,7 +179,7 @@
 	if(length(reagent_removal_skip_list))
 		return
 	holder.remove_reagent(type, metabolization_rate * delta_time)
- */
+
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
 	description = "A variety of cooking oil derived from fat or plants. Used in food preparation and frying."

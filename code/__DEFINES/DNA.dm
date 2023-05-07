@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 #define SPECIES_NEUTRAL_PERK "neutral"
 
 /// Golem food defines
-#define GOLEM_FOOD_IRON "golem_food_iron"
+/* #define GOLEM_FOOD_IRON "golem_food_iron" Monkestation Removal: No golem food
 #define GOLEM_FOOD_GLASS "golem_food_glass"
 #define GOLEM_FOOD_URANIUM "golem_food_uranium"
 #define GOLEM_FOOD_SILVER "golem_food_silver"
@@ -257,11 +257,11 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 #define GOLEM_FOOD_BANANIUM "golem_food_bananium"
 #define GOLEM_FOOD_BLUESPACE "golem_food_bluespace"
 #define GOLEM_FOOD_GIBTONITE "golem_food_gibtonite"
-#define GOLEM_FOOD_LIGHTBULB "golem_food_lightbulb"
+#define GOLEM_FOOD_LIGHTBULB "golem_food_lightbulb" */
 
 /// Golem food datum singletons
 GLOBAL_LIST_INIT(golem_stack_food_types, list(
-	/* GOLEM_FOOD_IRON = new /datum/golem_food_buff/iron(), Monkestation Edit: No golem food
+	/* GOLEM_FOOD_IRON = new /datum/golem_food_buff/iron(), Monkestation Removal: No golem food
 	GOLEM_FOOD_GLASS = new /datum/golem_food_buff/glass(),
 	GOLEM_FOOD_URANIUM = new /datum/golem_food_buff/uranium(),
 	GOLEM_FOOD_SILVER = new /datum/golem_food_buff/silver(),
@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(golem_stack_food_types, list(
 
 /// Associated list of stack types to a golem food
 GLOBAL_LIST_INIT(golem_stack_food_directory, list(
-	/obj/item/gibtonite = GLOB.golem_stack_food_types[GOLEM_FOOD_GIBTONITE],
+	/* /obj/item/gibtonite = GLOB.golem_stack_food_types[GOLEM_FOOD_GIBTONITE], Monkestation Removal: No golem food
 	/obj/item/light = GLOB.golem_stack_food_types[GOLEM_FOOD_LIGHTBULB],
 	/obj/item/stack/sheet/iron = GLOB.golem_stack_food_types[GOLEM_FOOD_IRON],
 	/obj/item/stack/ore/iron = GLOB.golem_stack_food_types[GOLEM_FOOD_IRON],
@@ -301,5 +301,5 @@ GLOBAL_LIST_INIT(golem_stack_food_directory, list(
 	/obj/item/stack/ore/bluespace_crystal = GLOB.golem_stack_food_types[GOLEM_FOOD_BLUESPACE],
 	/obj/item/stack/ore/bluespace_crystal/refined = GLOB.golem_stack_food_types[GOLEM_FOOD_BLUESPACE],
 	/obj/item/stack/ore/bluespace_crystal/artificial = GLOB.golem_stack_food_types[GOLEM_FOOD_BLUESPACE],
-	/obj/item/stack/sheet/bluespace_crystal = GLOB.golem_stack_food_types[GOLEM_FOOD_BLUESPACE],
+	/obj/item/stack/sheet/bluespace_crystal = GLOB.golem_stack_food_types[GOLEM_FOOD_BLUESPACE], */
 ))

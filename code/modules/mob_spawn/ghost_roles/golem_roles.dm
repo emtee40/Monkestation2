@@ -6,7 +6,7 @@
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "construct"
+	icon_state = "shell_complete"
 	mob_species = /datum/species/golem
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
@@ -40,23 +40,17 @@
 
 
 /obj/effect/mob_spawn/ghost_role/human/golem/name_mob(mob/living/spawned_mob, forced_name)
-	if(forced_name || !iscarbon(spawned_mob))
-		return ..()
-
-	if(owner_ref?.resolve())
-		forced_name =  "Golem ([rand(1,999)])"
-		return ..()
-
-	var/datum/species/golem/golem_species = new()
-	forced_name = golem_species.random_name()
+	if(!forced_name)
+		var/datum/species/golem/golem_species = mob_species
+		if(owner_ref?.resolve())
+			forced_name =  "[initial(golem_species.prefix)] Golem ([rand(1,999)])"
+		else
+			golem_species = new mob_species
+			forced_name =  golem_species.random_name()
 	return ..()
 
 /obj/effect/mob_spawn/ghost_role/human/golem/special(mob/living/new_spawn, mob/mob_possessor)
 	. = ..()
-	/* if(is_path_in_list(initial_type, GLOB.golem_stack_food_directory)) Monkestation Edit: No food buffs since no food
-		var/datum/golem_food_buff/initial_buff = GLOB.golem_stack_food_directory[initial_type]
-		initial_buff.apply_effects(new_spawn) */
-
 	var/mob/living/real_owner = owner_ref?.resolve()
 	var/datum/species/golem/golem_species = mob_species
 	to_chat(new_spawn, "[initial(golem_species.info_text)]")
@@ -66,11 +60,9 @@
 				You are generally a peaceful group unless provoked.")
 			try_keep_home(new_spawn)
 
-		new_spawn.log_message("possessed a free golem shell.", LOG_GAME)
-		log_admin("[key_name(new_spawn)] possessed a free golem shell.")
-
 	else if(new_spawn.mind)
 		new_spawn.mind.enslave_mind_to_creator(real_owner)
+
 	else
 		stack_trace("[type] created a golem without a mind.")
 
@@ -121,11 +113,5 @@
 	name = "dust-caked free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	prompt_name = "free golem"
-
-/obj/effect/mob_spawn/ghost_role/human/golem/adamantine/special(mob/living/new_spawn, mob/mob_possessor)
-	. = ..()
-	if(!ishuman(new_spawn))
-		return
-	var/mob/living/carbon/human/new_golem = new_spawn
-	var/obj/item/organ/internal/vocal_cords/adamantine/free_golem_radio = new()
-	free_golem_radio.Insert(new_golem)
+	can_transfer = FALSE
+	mob_species = /datum/species/golem/adamantine

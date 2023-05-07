@@ -121,7 +121,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/* 	if(is_path_in_list(merge_type, GLOB.golem_stack_food_directory)) Monkestation Edit: No Golem food
+/* 	if(is_path_in_list(merge_type, GLOB.golem_stack_food_directory)) Monkestation Removal: No Golem food
 		AddComponent(/datum/component/golem_food, golem_food_key = merge_type) */
 
 /** Sets the amount of materials per unit for this stack.
