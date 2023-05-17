@@ -491,7 +491,7 @@
 
 /datum/symptom/heal/plasma
 	name = "Plasma Fixation"
-	desc = "The virus draws plasma from the atmosphere and from inside the body to heal and stabilize body temperature."
+	desc = "The virus draws plasma from the atmosphere and from inside the body to heal toxins and stabilize body temperature."
 	stealth = 0
 	resistance = 3
 	stage_speed = -2
