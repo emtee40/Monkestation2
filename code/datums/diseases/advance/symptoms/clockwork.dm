@@ -156,62 +156,68 @@
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))
 				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
-					O.burn_reduction = max(2, O.burn_reduction)
-					O.brute_reduction = max(3, O.brute_reduction)
+					O.burn_reduction = max(4, O.burn_reduction)
+					O.brute_reduction = max(5, O.brute_reduction)
 				continue
 			switch(O.body_zone)
 				if(BODY_ZONE_HEAD)
 					var/obj/item/bodypart/head/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your head feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_CHEST)
 					var/obj/item/bodypart/chest/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
 					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
 					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
 					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
 					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
 					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
+						B.brute_reduction = 5
+						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
+					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 	return FALSE
@@ -279,7 +285,7 @@
 
 /obj/item/organ/internal/tongue/robot/clockwork/better/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
-	speech_args[SPEECH_SPANS] |= SPAN_REALLYBIG  //yes, this is a really really good idea, trust me
+	//speech_args[SPEECH_SPANS] |= SPAN_REALLYBIG  //yes, this is a really really good idea, trust me
 
 /obj/item/organ/internal/brain/clockwork
 	name = "enigmatic gearbox"
@@ -338,40 +344,108 @@
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_l_arm"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
 
 /obj/item/bodypart/r_arm/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_l_arm"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
 
 /obj/item/bodypart/l_leg/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_l_leg"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
 
 /obj/item/bodypart/r_leg/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_r_leg"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
+
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_head"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
+
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	limb_id = BODYPART_ID_ROBOTIC
+	icon_state = "borg_chest"
+	flags_1 = CONDUCT_1
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
+	dmg_overlay_type = "robotic"
+	brute_reduction = 3
+	burn_reduction = 2
+	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	disabling_threshold_percentage = 1
