@@ -143,14 +143,15 @@
 						return TRUE
 				if(ORGAN_SLOT_EXTERNAL_TAIL)
 					var/obj/item/organ/external/tail/clockwork/organ = new()
+					to_chat(H, "<span class='userdanger'>imagine you have a tail or not.</span>")
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
 				if(ORGAN_SLOT_EXTERNAL_WINGS)
 					var/obj/item/organ/external/wings/functional/clockwork/organ = new()
+					to_chat(H, "<span class='userdanger'>imagine you have wings or not.</span>")
 					//if(robustbits)
 						//organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
@@ -166,7 +167,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your head feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
@@ -176,7 +176,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
@@ -186,7 +185,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
@@ -196,7 +194,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
@@ -206,7 +203,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
@@ -216,7 +212,6 @@
 						B.brute_reduction = 5
 						B.burn_reduction = 4
 					B.replace_limb(H, TRUE)
-					to_chat(H, "<span class='userdanger'>debug message H = [H] O = [O] B = [B] O.body_zone = [O.body_zone]</span>")
 					H.visible_message("<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
