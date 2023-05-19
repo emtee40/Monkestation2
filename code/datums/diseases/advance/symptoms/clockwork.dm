@@ -146,7 +146,7 @@
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
 				if(ORGAN_SLOT_EXTERNAL_WINGS)
-					var/obj/item/organ/external/wings/cybernetic/clockwork/organ = new()
+					var/obj/item/organ/external/wings/clockwork/organ = new()
 					//if(robustbits)
 						//organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
@@ -321,7 +321,7 @@
 	status = ORGAN_ROBOTIC
 
 
-/obj/item/organ/external/wings/cybernetic/clockwork
+/obj/item/organ/external/wings/clockwork
 	name = "biometallic wings"
 	desc = "A pair of thin metallic membranes that does nothing."
 	icon_state = "clockwings"
@@ -329,8 +329,6 @@
 	slot = ORGAN_SLOT_EXTERNAL_WINGS
 	use_mob_sprite_as_obj_sprite = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings
-
-
 	//flight_level = WINGS_FLIGHTLESS
 	//wing_type = "Clockwork"
 	//basewings = "moth_wings"
