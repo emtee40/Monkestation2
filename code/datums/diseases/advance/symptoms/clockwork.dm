@@ -181,7 +181,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
-					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 5
 						B.burn_reduction = 4
@@ -191,7 +191,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
-					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 5
 						B.burn_reduction = 4
@@ -201,7 +201,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
-					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 5
 						B.burn_reduction = 4
@@ -211,7 +211,7 @@
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
-					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 5
 						B.burn_reduction = 4
@@ -340,14 +340,14 @@
 	status = ORGAN_ROBOTIC
 	//mutant_bodypart_name = "tail_human" //MonkeStation Edit: Tail Overhaul
 
-/obj/item/bodypart/l_arm/robot/clockwork
+/obj/item/bodypart/arm/left/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -358,14 +358,14 @@
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 	disabling_threshold_percentage = 1
 
-/obj/item/bodypart/r_arm/robot/clockwork
+/obj/item/bodypart/arm/right/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -376,14 +376,14 @@
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 	disabling_threshold_percentage = 1
 
-/obj/item/bodypart/l_leg/robot/clockwork
+/obj/item/bodypart/leg/left/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_leg"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -394,14 +394,14 @@
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 	disabling_threshold_percentage = 1
 
-/obj/item/bodypart/r_leg/robot/clockwork
+/obj/item/bodypart/leg/right/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_r_leg"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -420,7 +420,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_head"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -439,7 +439,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_chest"
 	flags_1 = CONDUCT_1
-	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
