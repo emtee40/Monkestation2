@@ -146,7 +146,7 @@
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
 				if(ORGAN_SLOT_EXTERNAL_WINGS)
-					var/obj/item/organ/external/wings/clockwork/organ = new()
+					var/obj/item/organ/external/wings/functional/clockwork/organ = new()
 					//if(robustbits)
 						//organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
