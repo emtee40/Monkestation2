@@ -1996,6 +1996,25 @@
 	center = TRUE
 	dimension_y = 32
 
+/datum/sprite_accessory/wings/clockwork
+	name = "biometallic wings"
+	icon = 'icons/obj/medical/organs/organs.dmi'
+	icon_state = "clockwings"
+	color_src = FALSE
+	dimension_x = 32
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/clockwork
+	name = "biometallic wings"
+	icon = 'icons/obj/medical/organs/organs.dmi'
+	icon_state = "clockwings"
+	color_src = FALSE
+	dimension_x = 32
+	center = TRUE
+	dimension_y = 32
+
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
