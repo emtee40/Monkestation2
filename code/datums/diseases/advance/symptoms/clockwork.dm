@@ -321,19 +321,32 @@
 	status = ORGAN_ROBOTIC
 
 
-/obj/item/organ/external/wings/clockwork
+/obj/item/organ/external/wings/functional/clockwork
 	name = "biometallic wings"
-	desc = "A pair of thin metallic membranes that does nothing."
+	desc = "A pair of thin metallic membranes."
 	icon_state = "clockwings"
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_EXTERNAL_WINGS
 	use_mob_sprite_as_obj_sprite = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings
+	sprite_accessory_override = /datum/sprite_accessory/wings/dragon
 	//flight_level = WINGS_FLIGHTLESS
 	//wing_type = "Clockwork"
 	//basewings = "moth_wings"
 	//canopen = FALSE
-
+/datum/sprite_accessory/wings/clockwork
+	name = "biometallic wings"
+	icon_state = "clockwings"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+/datum/sprite_accessory/wings_open/clockwork
+	name = "biometallic wings"
+	icon_state = "clockwing"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
 /obj/item/organ/external/tail/clockwork
 	name = "biomechanical tail"
 	desc = "A stiff tail composed of a strange alloy."
