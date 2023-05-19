@@ -324,9 +324,15 @@
 /obj/item/organ/external/wings/cybernetic/clockwork
 	name = "biometallic wings"
 	desc = "A pair of thin metallic membranes that does nothing."
+	icon_state = "clockwings"
+	zone = BODY_ZONE_CHEST
+	slot = ORGAN_SLOT_EXTERNAL_WINGS
+	use_mob_sprite_as_obj_sprite = TRUE
+	bodypart_overlay = /datum/bodypart_overlay/mutant/wings
+
+
 	//flight_level = WINGS_FLIGHTLESS
 	//wing_type = "Clockwork"
-	icon_state = "clockwings"
 	//basewings = "moth_wings"
 	//canopen = FALSE
 
