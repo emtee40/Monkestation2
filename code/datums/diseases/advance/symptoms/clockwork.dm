@@ -10,9 +10,9 @@
 	severity = 0
 	symptom_delay_min = 10
 	symptom_delay_max = 30
-	var/prefixes = list("Ratvarian ", "Keter ", "Clockwork ", "Robo")
+	//var/prefixes = list("Ratvarian ", "Keter ", "Clockwork ", "Robo")
 	var/bodies = list("Robot")
-	var/suffixes = list("-217")
+	//var/suffixes = list("-217")
 	var/replaceorgans = FALSE
 	var/replacebody = FALSE
 	var/robustbits = FALSE
@@ -347,7 +347,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -365,7 +365,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -383,7 +383,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_leg"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -401,7 +401,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_r_leg"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -420,7 +420,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_head"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -439,7 +439,7 @@
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_chest"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	//icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
