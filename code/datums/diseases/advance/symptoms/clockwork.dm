@@ -24,16 +24,6 @@
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/advanced_disease)
 	advanced_disease.infectable_biotypes |= MOB_ROBOTIC
 
-///datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
-//	. = ..()
-//	if(A.totalStageSpeed() >= 4) //at base level, robotic organs are purely a liability
-//		severity += 1
-//		if(A.totalStageSpeed() >= 10)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
-//			//severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
-//	if(A.totalResistance() >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
-//		severity += 1 //at this stage, even one EMP will hurt, a lot.
-
-
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/advanced_disease)
 	. = ..()
 	if(advanced_disease.totalStageSpeed() >= 4)
@@ -58,7 +48,6 @@
 					return
 				if(replacebody)
 					Host.adjustCloneLoss(-20) //repair mechanical integrity
-			ADD_TRAIT(Host, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT) //disabled for now
 	return
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/Host)
@@ -78,7 +67,7 @@
 					if(HAS_TRAIT(Host, TRAIT_NOHUNGER))//for future, we could make this give people who requires no food to maintain its no food policy
 						var/obj/item/organ/internal/stomach/battery/clockwork/organ = new()
 						//if(robustbits)
-							//organ.max_charge = 15000 //no longer exists
+							//organ.max_charge = 15000 //no longer exists(old bee code)
 						organ.Insert(Host, TRUE, FALSE)
 					else
 						var/obj/item/organ/internal/stomach/clockwork/organ = new()
@@ -150,7 +139,7 @@
 					var/obj/item/organ/external/wings/functional/clockwork/organ = new()
 					to_chat(Host, "<span class='userdanger'>imagine you have wings or not.</span>")
 					//if(robustbits)
-						//organ.flight_level = WINGS_FLYING
+						//organ.flight_level = WINGS_FLYING   //old bee code
 					organ.Insert(Host, TRUE, FALSE)
 					return TRUE
 	if(replacebody)
@@ -221,7 +210,6 @@
 	if(!..())
 		return
 	var/mob/living/carbon/human/Host = advanced_disease.affected_mob
-	//REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	if(advanced_disease.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
 		to_chat(Host, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
 		Host.dna.species.regenerate_organs(Host, replace_current = TRUE)
@@ -237,16 +225,19 @@
 /obj/item/organ/internal/ears/robot/clockwork
 	name = "biometallic recorder"
 	desc = "An odd sort of microphone that looks grown, rather than built."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "ears-clock"
 
 /obj/item/organ/internal/eyes/robotic/clockwork
 	name = "biometallic receptors"
 	desc = "A fragile set of small, mechanical cameras."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "clockwork_eyeballs"
 
 /obj/item/organ/internal/heart/clockwork //this heart doesnt have the fancy bits normal cyberhearts do. However, it also doesnt fucking kill you when EMPd
 	name = "biomechanical pump"
 	desc = "A complex, multi-valved hydraulic pump, which fits perfectly where a heart normally would."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "heart-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
@@ -254,6 +245,7 @@
 /obj/item/organ/internal/stomach/clockwork
 	name = "nutriment refinery"
 	desc = "A biomechanical furnace, which turns calories into mechanical energy."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
@@ -264,15 +256,17 @@
 /obj/item/organ/internal/stomach/battery/clockwork
 	name = "biometallic flywheel"
 	desc = "A biomechanical battery which stores mechanical energy."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	//max_charge = 7500
-	//charge = 7500
+	//charge = 7500 //old bee code
 
 /obj/item/organ/internal/tongue/robot/clockwork
 	name = "dynamic micro-phonograph"
 	desc = "An old-timey looking device connected to an odd, shifting cylinder."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "tongueclock"
 
 /obj/item/organ/internal/tongue/robot/clockwork/better
@@ -280,11 +274,12 @@
 
 /obj/item/organ/internal/tongue/robot/clockwork/better/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
-	//speech_args[SPEECH_SPANS] |= SPAN_REALLYBIG  //yes, this is a really really good idea, trust me
+	//speech_args[SPEECH_SPANS] |= SPAN_REALLYBIG  //i disabled this, its abnoxious and makes their chat take 3 times as much space in chat
 
 /obj/item/organ/internal/brain/clockwork
 	name = "enigmatic gearbox"
 	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
@@ -301,6 +296,7 @@
 /obj/item/organ/internal/liver/clockwork
 	name = "biometallic alembic"
 	desc = "A series of small pumps and boilers, designed to facilitate proper metabolism."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "liver-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
@@ -311,6 +307,7 @@
 /obj/item/organ/internal/lungs/clockwork
 	name = "clockwork diaphragm"
 	desc = "A utilitarian bellows which serves to pump oxygen into an automaton's body."
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "lungs-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
@@ -319,20 +316,19 @@
 	name = "biomechanical tail"
 	desc = "A stiff tail composed of a strange alloy."
 	color = null
-	//tail_type = "Clockwork"
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "clocktail"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
-	//mutant_bodypart_name = "tail_human" //MonkeStation Edit: Tail Overhaul
 
 /obj/item/bodypart/arm/left/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -346,11 +342,11 @@
 /obj/item/bodypart/arm/right/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_arm"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -364,11 +360,11 @@
 /obj/item/bodypart/leg/left/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_l_leg"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -382,11 +378,11 @@
 /obj/item/bodypart/leg/right/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_r_leg"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -401,11 +397,11 @@
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_head"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -420,11 +416,11 @@
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
 	icon_state = "borg_chest"
 	flags_1 = CONDUCT_1
-	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'monkestation/icons/mob/augmentation/augments_clockwork.dmi'
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
@@ -434,3 +430,27 @@
 	burn_reduction = 2
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 	disabling_threshold_percentage = 1
+
+/datum/sprite_accessory/wings/clockwork// this part requires a spriter and generally someone who knows how tails/wings works because i don't really care.
+	name = "biometallic wings"
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
+	icon_state = "clockwings"
+	color_src = FALSE
+	dimension_x = 32
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/clockwork
+	name = "biometallic wings"
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
+	icon_state = "clockwings"
+	color_src = FALSE
+	dimension_x = 32
+	center = TRUE
+	dimension_y = 32
+
+/obj/item/organ/external/wings/functional/clockwork
+	name = "biometallic wings"
+	desc = "A pair of thin metallic membranes."
+	sprite_accessory_override = /datum/sprite_accessory/wings/clockwork
