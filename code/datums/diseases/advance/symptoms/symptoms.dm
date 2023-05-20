@@ -83,11 +83,11 @@
 	return
 
 ///Overload when a symptom needs to be active before processing, like changing biotypes.
-/datum/symptom/proc/OnAdd(datum/disease/advance/A)
+/datum/symptom/proc/OnAdd(datum/disease/advance/advanced_disease)
 	return
 
 ///Overload for running after processing.
-/datum/symptom/proc/OnRemove(datum/disease/advance/A)
+/datum/symptom/proc/OnRemove(datum/disease/advance/advanced_disease)
 	return
 
 /**
