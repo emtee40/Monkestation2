@@ -84,7 +84,7 @@
 	efficiency = 0
 	for(var/datum/stock_part/scanning_module/S in component_parts)
 		efficiency += S.tier
-	for(var/datum/stock_part/manipulator/P in component_parts)
+	for(var/datum/stock_part/servo/P in component_parts)
 		speed_coeff += P.tier
 	heal_level = (efficiency * 15) + 10
 	if(heal_level < MINIMUM_HEAL_LEVEL)

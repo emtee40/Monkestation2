@@ -8,7 +8,7 @@
 		/datum/stock_part/matter_bin = 1,
 		/obj/item/stack/sheet/plasmarglass = 2,
 		/datum/stock_part/capacitor = 1,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 	needs_anchored = FALSE
 
 
@@ -19,7 +19,7 @@
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
 		/datum/stock_part/scanning_module = 2,
-		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/servo = 2,
 		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/clonepod/experimental
@@ -44,7 +44,7 @@
 	req_components = list(
 		/datum/stock_part/scanning_module = 2,
 		/datum/stock_part/micro_laser = 2,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 
 /obj/item/circuitboard/machine/nanite_program_hub
 	name = "Nanite Program Hub (Machine Board)"
@@ -52,14 +52,14 @@
 	build_path = /obj/machinery/nanite_program_hub
 	req_components = list(
 		/datum/stock_part/matter_bin = 1,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 
 /obj/item/circuitboard/machine/nanite_programmer
 	name = "Nanite Programmer (Machine Board)"
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/nanite_programmer
 	req_components = list(
-		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/servo = 2,
 		/datum/stock_part/micro_laser = 2,
 		/datum/stock_part/scanning_module = 1)
 
@@ -70,7 +70,7 @@
 	var/cloud_id = 1
 	req_components = list(
 		/datum/stock_part/micro_laser = 2,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 
 /obj/item/circuitboard/machine/public_nanite_chamber/multitool_act(mob/living/user)
 	. = ..()

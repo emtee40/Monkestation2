@@ -4,7 +4,7 @@
 	build_path = /obj/machinery/egg_incubator
 	req_components = list(
 		/datum/stock_part/micro_laser = 1,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chicken_grinder
@@ -13,7 +13,7 @@
 	build_path = /obj/machinery/chicken_grinder
 	req_components = list(
 		/datum/stock_part/matter_bin = 1,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 	needs_anchored = FALSE
 
 
@@ -23,5 +23,5 @@
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	req_components = list(
 		/datum/stock_part/matter_bin = 3,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/servo = 1)
 	needs_anchored = FALSE

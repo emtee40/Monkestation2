@@ -30,6 +30,6 @@ GLOBAL_PROTECT(mentors)
         mentor_datum.owner = src
         add_mentor_verbs()
 
-/proc/log_mentor(text)
+/proc/log_mentor(text, list/data)
     GLOB.mentorlog.Add(text)
-    WRITE_LOG(GLOB.world_game_log, "MENTOR: [text]")
+   	logger.Log(LOG_CATEGORY_COMPAT_GAME, "MENTOR: [text]")

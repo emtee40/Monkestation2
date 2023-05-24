@@ -314,7 +314,7 @@
 	if(dextrous && (isitem(attack_target) || !(istate & ISTATE_HARM)))
 		return ..()
 	else
-		AttackingTarget(attack_target)
+		INVOKE_ASYNC(src, PROC_REF(AttackingTarget), attack_target)
 
 #undef LIVING_UNARMED_ATTACK_BLOCKED
 

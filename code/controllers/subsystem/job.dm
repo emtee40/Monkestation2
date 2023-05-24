@@ -1,3 +1,5 @@
+#define VERY_LATE_ARRIVAL_TOAST_PROB 20
+
 SUBSYSTEM_DEF(job)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS
@@ -551,6 +553,8 @@ SUBSYSTEM_DEF(job)
 		var/mob/living/carbon/human/wageslave = equipping
 		wageslave.add_mob_memory(/datum/memory/key/account, remembered_id = wageslave.account_id)
 
+		if(EMERGENCY_PAST_POINT_OF_NO_RETURN && prob(VERY_LATE_ARRIVAL_TOAST_PROB))
+			equipping.equip_to_slot_or_del(new /obj/item/food/griddle_toast(equipping), ITEM_SLOT_MASK)
 
 	job.after_spawn(equipping, player_client)
 
@@ -1101,3 +1105,5 @@ SUBSYSTEM_DEF(job)
 	if(!job)
 		return FALSE
 	job.current_positions = max(0, job.current_positions - 1)
+
+#undef VERY_LATE_ARRIVAL_TOAST_PROB
