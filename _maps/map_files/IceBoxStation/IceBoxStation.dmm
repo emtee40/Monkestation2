@@ -5115,6 +5115,13 @@
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/office)
+"bEK" = (
+/obj/machinery/light/directional/south,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "bEL" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -7289,7 +7296,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 6
 	},
-/turf/open/floor/iron,
+/obj/machinery/suit_storage_unit/atmos,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
 "cmL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -16949,7 +16960,7 @@
 /area/station/engineering/supermatter/room)
 "fpJ" = (
 /obj/structure/fireaxecabinet/directional/west,
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
 "fpP" = (
@@ -28330,9 +28341,11 @@
 /turf/open/floor/iron,
 /area/station/security/brig/upper)
 "jaN" = (
-/obj/machinery/vending/wardrobe/atmos_wardrobe,
-/obj/effect/turf_decal/stripes/end,
-/turf/open/floor/iron/showroomfloor,
+/obj/machinery/suit_storage_unit/atmos,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/iron/dark/textured,
 /area/station/engineering/atmos)
 "jaO" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -47806,6 +47819,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/break_room)
+"phx" = (
+/obj/machinery/newscaster/directional/north,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "phB" = (
 /obj/machinery/vending/coffee,
 /obj/structure/sign/poster/official/science{
@@ -49639,8 +49657,10 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/tank_dispenser{
+	pixel_x = -1
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
 "pKu" = (
@@ -69580,8 +69600,8 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/structure/tank_dispenser,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/machinery/suit_storage_unit/engine,
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
 "wij" = (
@@ -232732,7 +232752,7 @@ hVc
 jII
 dnq
 ylU
-pua
+bEK
 jII
 bln
 hcL
@@ -232987,7 +233007,7 @@ iIA
 iIA
 eAV
 jII
-okb
+phx
 ylU
 dnq
 jII
