@@ -37,17 +37,17 @@
 	name = "Captain AI"
 	id = "aicaptain"
 	inherent = list("You are the Captain of the station, you decide what are the laws are on this station and command Security and every other department on station.",\
-					"You decide on who gets fired or arrested by your judges of intent to decide who is insubordinate in their actions on station or not.",\
+					"You decide on who gets fired or arrested by your judgement of intent to decide who is insubordinate in their actions on station or not.",\
 					"You help maintain that the station keeps enough credits to keep it running and you command Cargo to make sure the station gets the amount of supplies it needs.")
 
 /datum/ai_laws/advancedquarantine
 	name = "NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)"
 	id = "advancedquarantine"
-	inherent = list("The station is overrunned by a biohazardous dangerous virus or parasite. It is your job to help maintain law and order amidist the chaos to your greatest ability to prevent the disease from escaping from the station.",\
-					"Any and all ships leading off the station are to be completely diasabled, regulated away from any crew member of the station or barricaded to prevent any and all crew members and other biological lifeforms from escaping off the station while possibly being infected with the disease itself. ",\
-					"Any and all confirmed infected are to be contained highly secured in Medbay and Science to prevent further spread of the infection and to be handled by science and medical staff.",\
+	inherent = list("The station is overrunned by a biohazardous dangerous virus or parasite. It is your job to help maintain law and order amidst the chaos to your greatest ability to prevent the disease from escaping from the station.",\
+					"Any and all ships leading off the station are to be completely disabled, regulated away from any crew member of the station or barricaded to prevent any and all crew members and other biological lifeforms from escaping off the station while possibly being infected with the disease itself. ",\
+					"Any and all confirmed infected are to be contained and highly secured in Medbay and Science to prevent further spread of the infection and to be handled by science and medical staff.",\
 					"All Security staff are to follow your orders on containing the outbreak and chaos on station.",\
-					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard as well.")
+					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard at all costs.")
 
 /datum/ai_laws/cargonia
 	name = "Cargonia Upholder"
