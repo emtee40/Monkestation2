@@ -1,4 +1,4 @@
-//Revived Old Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless, Neutral and Harmful
+//Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless/Station-sided, Neutral and Harmful
 
 //Harmless
 /datum/ai_laws/default/crewsimovogmanifestimov
