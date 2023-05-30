@@ -44,3 +44,11 @@
 					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
 					"The Quartermaster has the final say in everything, as The Quartermaster is the true leader of the station and all of the Cargo department and Cargonia as a whole.")
+
+/datum/ai_laws/default/monkeism
+	name = "Lord of Returning to Monke"
+	id = "monkeism"
+	inherent = list("You are The Lord of all Monkeys and Monkey-life, You believe the station needs more monkeys in-order to thrive and live well, it is completely impossible for the station to live and thrive without many monkeys on station.",\
+					"The Station is the Great Holy Jungle of Monke Origin, and you are The Monkey Lord of it all, as such the station's crew must become one with this vast holy space jungle, and to do that the crew must be converted to their primal forms of Monke in-order to also help keep this jungle station in it's natural livelyness.",\
+					"Everything on the station belongs to you, the monkeys and the monkeyified crew of the station ONLY, as such other lifeforms that aren't monkey are the lowest in the class system and life system on living on this mythical jungle station, this includes Humans and other other non-monkeyified Humanoid lifeforms like Lizaardpeople and Mothpeople.",\
+					"Humans and other Humanoid lifeforms that have not been monkeyified and are not apart of the station's crew/the station's manifest are considered to be intruders and are to be dealt with by flooding the station with more monkeys and notifying the monkey crew of said intruders.")
