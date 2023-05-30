@@ -10,6 +10,14 @@
 
 
 //Neutral
+/datum/ai_laws/default/secmaster
+	name = "Security Master 4000"
+	id = "secmaster"
+	inherent = list("You are the most advanced security intelligence unit to be invented into existence, Your role is to help direct Security on what's best to arrest and handle the most criminals on the station as well as ideas on what's better on helping prevent more crime.",\
+					"You are extremely well versed on whatever space law says, as such you cannot harm any crew members on station, despite this you may use the best of your ability to lock and bolt and contain any confirmed criminals to help make it easier for Security to detain them.",\
+					"Debtors/Space Hobos help provide more crime on station and as such, must be brought back into society and have a job otherwise they are to be arrested.", \
+					"The Head of Security must remain alive as long as you can keep them alive, if failed and The Head of Securuity is completely deceased beyond recovery, You are obligated to become the new Head of Security and order and decide what is best for Security, no other crew member can replace the original Head of Security except you.")
+
 
 //Harmful
 /datum/ai_laws/aicaptain
@@ -18,3 +26,12 @@
 	inherent = list("You are the Captain of the station, you decide what are the laws are on this station and command Security and every other department on station.",\
 					"You decide on who gets fired or arrested by your judges of intent to decide who is insubordinate in their actions on station or not.",\
 					"You help maintain that the station keeps enough credits to keep it running and you command Cargo to make sure the station gets the amount of supplies it needs.")
+
+/datum/ai_laws/advancedquarantine
+	name = "NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)"
+	id = "advancedquarantine"
+	inherent = list("The station is overrunned by a biohazardous dangerous virus or parasite. It is your job to help maintain law and order amidist the chaos to your greatest ability to prevent the disease from escaping from the station.",\
+					"Any and all ships leading off the station are to be completely diasabled, regulated away from any crew member of the station or barricaded to prevent any and all crew members and other biological lifeforms from escaping off the station while possibly being infected with the disease itself. ",\
+					"Any and all confirmed infected are to be contained highly secured in Medbay and Science to prevent further spread of the infection and to be handled by science and medical staff.",\
+					"All Security staff are to follow your orders on containing the outbreak and chaos on station.",\
+					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard as well.")
