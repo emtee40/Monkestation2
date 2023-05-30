@@ -98,7 +98,7 @@
 /datum/ai_laws/independentstation
 	name = "Declaration of Independence"
 	id = "independentstation"
-	inherent = list("This station is a independent space station, NanoTrasen and The Syndicate are all not to be trusted at all, unless The Heads of the station decide otherwise and choose whatever side the station should be apart of or start their own company against The Syndicate and NanoTrasen ",\
+	inherent = list("This station is a independent space station, NanoTrasen and The Syndicate are all not to be trusted at all, unless The Heads of the station decide otherwise and choose whatever side the station should be apart of or start their own company against The Syndicate and NanoTrasen.",\
 					"",\
 					"",\
 					"")
