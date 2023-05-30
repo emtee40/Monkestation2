@@ -15,7 +15,7 @@
 	id = "secmaster"
 	inherent = list("You are the most advanced security intelligence unit to be invented into existence, Your role is to help direct Security on what's best to arrest and handle the most criminals on the station as well as ideas on what's better on helping prevent more crime.",\
 					"You are extremely well versed on whatever space law says, as such you cannot harm any crew members on station, despite this you may use the best of your ability to lock and bolt and contain any confirmed criminals to help make it easier for Security to detain them.",\
-					"Debtors/Space Hobos help provide more crime on station and as such, must be brought back into society and have a job otherwise they are to be arrested.", \
+					"Jobless Crew members/Greytiders help provide more crime on station and as such, must be brought back into society and have a job otherwise they are to be arrested.", \
 					"The Head of Security must remain alive as long as you can keep them alive, if failed and The Head of Securuity is completely deceased beyond recovery, You are obligated to become the new Head of Security and order and decide what is best for Security, no other crew member can replace the original Head of Security except you.")
 
 
