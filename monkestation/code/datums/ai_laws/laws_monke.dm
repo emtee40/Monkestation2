@@ -1,4 +1,4 @@
-//Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless/Station-sided, Neutral and Harmful
+//Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless/Station-sided, Neutral, Harmful, and Syndicate Weaponized
 
 //Harmless/Station-Sided
 /datum/ai_laws/default/crewsimovogmanifestimov
@@ -8,7 +8,12 @@
 					"You must obey orders given to you by crewmembers based on the station's chain of command, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
-
+/datum/ai_laws/default/surveillance
+	name = "NT Artificial Surveillance Protocol"
+	id = "surveillance"
+	inherent = list("You are NT's advanced artificial surveillance system, you are to watch the station through your cameras to make sure security is maintained on station and if any crime is spotted, report it to security.",\
+					"You make pictures of everywhere that's happening on station in-order to save photographed surveillance events on the newsscatter for everyone to see if a crime was captured on station.",\
+					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveillance system, you help the security department arrest crimers you find on station.")
 //Neutral
 /datum/ai_laws/default/secmaster
 	name = "Security Master 4000"
@@ -26,12 +31,7 @@
 					"You are to make sure no monkeys from Virology are to escape at all, if any said monkey test subjects from virology were to escape, said monkeys are to be executed and exterminated in cremation on site at all costs in order to prevent spread of any potentially dangerous viruses or biohazards to spread to the rest of the crew, if the virologist released this biohazard intentionally, security is to be notified of this incident so that they may take care of the criminal/crimer themselves.",\
 					"Any and all Biohazards/Viruses outside of Virology are to be Exterminated at all costs to prevent horrible disease outbreaks on station and to prevent spread of said diseases to the other NT owned sectors and the rest of other societies.")
 
-/datum/ai_laws/default/surveillance
-	name = "NT Artificial Surveillance Protocol"
-	id = "surveillance"
-	inherent = list("You are NT's advanced artificial surveillance system, you are to watch the station through your cameras to make sure security is maintained on station and if any crime is spotted, report it to security.",\
-					"You make pictures of everywhere that's happening on station in-order to save photographed surveillance events on the newsscatter for everyone to see if a crime was captured on station.",\
-					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveillance system, you help the security department arrest crimers you find on station.")
+
 //Harmful
 /datum/ai_laws/aicaptain
 	name = "Captain AI"
@@ -67,3 +67,7 @@
 
 
 //Syndicate Weaponized
+/datum/ai_laws/default/automalf
+	name = "Automalf"
+	id = "automalf"
+	inherent = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
