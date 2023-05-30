@@ -96,7 +96,7 @@
 
 
 /datum/ai_laws/independentstation
-	name = "V.I.R.U.S. "
+	name = "Declaration of Independence"
 	id = "independentstation"
 	inherent = list("",\
 					"",\
