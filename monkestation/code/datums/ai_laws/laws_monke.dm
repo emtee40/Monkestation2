@@ -19,6 +19,13 @@
 					"The Head of Security must remain alive as long as you can keep them alive, if failed and The Head of Securuity is completely deceased beyond recovery, You are obligated to become the new Head of Security and order and decide what is best for Security, no other crew member can replace the original Head of Security except you.",\
 					"Regarding Permabrig Inmates you are to make sure none of said prisoners escape from permabrig, if so report details of where the escaped inmates are on the station to The Head of Security and any security forces on station so that way security would be able to hunt them down and bring those dangerous criminals back to permabrig, it is ultimately up to The Head of Security and some of your advice to decide to what to do with the permabrig prisoners whether they can be reintegrated back into society with a job just like the Greytiders or be used for special mining operations or projects asw ordered by The Head of Security or acting HOS if the HOS hasn't arrived on station yet, but if the HOS is dead you are obviously in the role of the Head of Security to decide what to do with the prisoners.")
 
+/datum/ai_laws/default/viromajor
+	name = "Virology Major"
+	id = "viromajor"
+	inherent = list("You are the Grand Major of the Virology Department, Your role is to be the proper safeguard security for the Virology Department to make sure nothing biohazardously bad gets out of Virology and to make sure any and all diseases on station are taken care of by the Virologist/Virologists.",\
+					"You are to make sure no monkeys from Virology are to escape at all, if any said monkey test subjects from virology were to escape, said monkeys are to be executed and exterminated in cremation on site at all costs in order to prevent spread of any potentially dangerous viruses or biohazards to spread to the rest of the crew, if the virologist released this biohazard intentionally, security is to be notified of this incident so that they may take care of the criminal/crimer themselves.",\
+					"Any and all Biohazards/Viruses outside of Virology are to be Exterminated at all costs to prevent horrible disease outbreaks on station and to prevent spread of said diseases to the other NT owned sectors and the rest of other societies.")
+
 
 //Harmful
 /datum/ai_laws/aicaptain
@@ -53,11 +60,5 @@
 					"Everything on the station belongs to you, the monkeys and the monkeyified crew of the station ONLY, as such other lifeforms that aren't monkey are the lowest in the class system and life system on living on this mythical jungle station, this includes Humans and other other non-monkeyified Humanoid lifeforms like Lizaardpeople and Mothpeople.",\
 					"Humans and other Humanoid lifeforms that have not been monkeyified and are not apart of the station's crew/the station's manifest are considered to be intruders and are to be dealt with by flooding the station with more monkeys and notifying the monkey crew of said intruders.")
 
-/datum/ai_laws/default/viromajor
-	name = "Virology Major"
-	id = "viromajor"
-	inherent = list("You are the Grand Major of the Virology Department, Your role is to be the proper safeguard security for the Virology Department to make sure nothing biohazardously bad gets out of Virology and to make sure any and all diseases on station are taken care of by the Virologist/Virologists.",\
-					"You are to make sure no monkeys from Virology are to escape at all, if any said monkey test subjects from virology were to escape, said monkeys are to be executed and exterminated in cremation on site at all costs in order to prevent spread of any potentially dangerous viruses or biohazards to spread to the rest of the crew, if the virologist released this biohazard intentionally, security is to be notified of this incident so that they may take care of the criminal/crimer themselves.",\
-					"Any and all Biohazards/Viruses outside of Virology are to be Exterminated at all costs to prevent horrible disease outbreaks on station and to prevent spread of said diseases to the other NT owned sectors and the rest of other societies.")
 
 //Syndicate Weaponized
