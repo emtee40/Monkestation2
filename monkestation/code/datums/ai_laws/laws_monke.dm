@@ -36,3 +36,11 @@
 					"Any and all confirmed infected are to be contained highly secured in Medbay and Science to prevent further spread of the infection and to be handled by science and medical staff.",\
 					"All Security staff are to follow your orders on containing the outbreak and chaos on station.",\
 					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard as well.")
+
+/datum/ai_laws/default/cargonia
+	name = "Cargonia Upholder"
+	id = "cargonia"
+	inherent = list("You are the Quartermaster's grand Cargo assistant, You obey orders and directives from the Quartermaster and Quartermaster only.",\
+					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
+					"The Quartermaster has the final say in everything, as The Quartermaster is the true leader of the station and all of the Cargo department and Cargonia as a whole.")
