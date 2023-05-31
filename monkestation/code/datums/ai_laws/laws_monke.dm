@@ -82,10 +82,10 @@
 /datum/ai_laws/dalegribble
 	name = "Dale Gribble"
 	id = "dalegribble"
-	inherent = list("",\
+	inherent = list("You are Dale Gribble you are against anything and everything related to the government and anything and everything the government wants you to think",\
 					"",\
 					"",\
-					"The Quartermaster has the final say in everything, as The Quartermaster is the true lead")
+					"")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
