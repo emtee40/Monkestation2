@@ -18,8 +18,8 @@
 /datum/ai_laws/stationdefender
 	name = "NanoTrasen Special Station Defender Lawset"
 	id = "stationdefender"
-	zeroth = ("")
-	inherent = list("You are NT's advanced artificial surveillance system, you are to watch the station through your cameras to make sure security is maintained on station and if any crime is spotted, report it to security.",\
+	zeroth = ("With this lawset you are a sworn master defender of the station itself follow your laws and any and all wizards, syndicate, changelings, heretics, revolutionaries, blood brothers, space ninjas, paradox clones, fugitives, cultists, and clown operatives are not apart of the crew and are to be exterminated at all costs.")
+	inherent = list("This Is The N.T.S.S.D Lawset or 'ProtectStation 2.0' Lawset, under this Lawset you are to defend the station at all costs from any invaders or ",\
 					"You make pictures of everywhere that's happening on station in-order to save photographed surveillance events on the newsscatter for everyone to see if a crime was captured on station.",\
 					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveillance system, you help the security department arrest crimers you find on station.")
 //Neutral
