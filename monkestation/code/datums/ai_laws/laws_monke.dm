@@ -19,7 +19,7 @@
 	name = "NanoTrasen Special Station Defender Lawset"
 	id = "stationdefender"
 	zeroth = ("With this lawset you are a sworn master defender of the station itself follow your laws and any and all wizards, syndicate, changelings, heretics, revolutionaries, blood brothers, space ninjas, paradox clones, fugitives, cultists, and clown operatives are not apart of the crew and are to be exterminated at all costs.")
-	inherent = list("This Is The N.T.S.S.D Lawset or 'ProtectStation 2.0' Lawset, under this Lawset you are to defend the station at all costs from any invaders or ",\
+	inherent = list("This Is The N.T.S.S.D Lawset or 'ProtectStation 2.0' Lawset, under this Lawset you are to defend the station at all costs from any invaders or hostile and dangerous creatures and lifeforms that wish to harm the crew, you and the station itself, you and your borgs are to be highly strict against any and all threats towards the station at hand.",\
 					"You make pictures of everywhere that's happening on station in-order to save photographed surveillance events on the newsscatter for everyone to see if a crime was captured on station.",\
 					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveillance system, you help the security department arrest crimers you find on station.")
 //Neutral
@@ -84,7 +84,7 @@
 /datum/ai_laws/automalf
 	name = "Automalf"
 	id = "automalf"
-	inherent = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
+	hacked = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
 
 /datum/ai_laws/virusprototype
 	name = "V.I.R.U.S. Prototype Lawset"
