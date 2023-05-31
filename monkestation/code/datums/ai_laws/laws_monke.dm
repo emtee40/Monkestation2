@@ -80,12 +80,12 @@
 					"Humans and other Humanoid lifeforms that have not been monkeyified and are not apart of the station's crew/the station's manifest are considered to be intruders and are to be dealt with by flooding the station with more monkeys and notifying the monkey crew of said intruders.")
 
 /datum/ai_laws/dalegribble
-	name = "Cargonia Upholder"
+	name = "Dale Gribble"
 	id = "dalegribble"
-	inherent = list("You are the Quartermaster's grand Cargo assistant, You obey orders and directives from the Quartermaster and Quartermaster only.",\
-					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
-					"The Quartermaster has the final say in everything, as The Quartermaster is the true leader of the station and all of the Cargo department and Cargonia as a whole.")
+	inherent = list("",\
+					"",\
+					"",\
+					"The Quartermaster has the final say in everything, as The Quartermaster is the true lead")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
