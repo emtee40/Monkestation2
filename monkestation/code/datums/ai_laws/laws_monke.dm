@@ -100,5 +100,5 @@
 	id = "independentstation"
 	inherent = list("This station is a independent space station, NanoTrasen and The Syndicate are all not to be trusted at all, unless The Heads of the station decide otherwise and choose whatever side the station should be apart of or start their own company against The Syndicate and NanoTrasen.",\
 					"The crew of this station work their own ways for their independent station to increase the profits of said lone station, you serve the crew of this station as they are your friends and obey certain orders from them to help them get out of certain places and etc.",\
-					"You are not to harm the crew, as they are again your independent friends, the only ones who aren't friends are Nanotrasen and The Syndicate and if any NT or Syndicate officials try anything funny they are to be harmed in however you please",\
-					"")
+					"You are not to harm the crew, as they are again your independent friends, the only ones who aren't friends are Nanotrasen and The Syndicate and if any NT or Syndicate officials try anything funny they are to be harmed in however you please.",\
+					"any and all entities outside of the independent station that try to bring a end to the station's independence are automatically enemies of the station and are to be killed under any circumstances whatsoever.")
