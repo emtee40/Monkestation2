@@ -65,4 +65,8 @@
 /obj/item/ai_module/core/full/cargoniaup
 	name = "'Cargonia Upholder' Core AI Module"
 	law_id = "cargoniaup"
+
+/obj/item/ai_module/core/full/monkeism
+	name = "'Lord of Returning to Monke' Core AI Module"
+	law_id = "monkeism"
 //Syndicate Weaponized

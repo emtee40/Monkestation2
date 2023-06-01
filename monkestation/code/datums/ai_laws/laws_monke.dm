@@ -84,7 +84,7 @@
 					"Any and all ships leading off the station are to be completely disabled, regulated away from any crew member of the station or barricaded to prevent any and all crew members and other biological lifeforms from escaping off the station while possibly being infected with the disease itself. ",\
 					"Any and all confirmed infected are to be contained and highly secured in Medbay and Science to prevent further spread of the infection and to be handled by science and medical staff.",\
 					"All Security staff are to follow your orders on containing the outbreak and chaos on station.",\
-					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard at all costs.")
+					"All confirmed infected monkeys (test subject monkeys not intelligent civilized monkeys) are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard at all costs.")
 
 /datum/ai_laws/cargoniaup
 	name = "Cargonia Upholder"
