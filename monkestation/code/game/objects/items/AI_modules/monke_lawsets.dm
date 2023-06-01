@@ -12,6 +12,14 @@
 /obj/item/ai_module/core/full/stationdefender
 	name = "'StationDefender' Core AI Module"
 	law_id = "stationdefender"
+
+/obj/item/ai_module/core/full/coderedmartiallaw
+	name = "'Emergency Code Red Zeroth Law' Core AI Module"
+	law_id = "coderedmartiallaw"
+
+/obj/item/ai_module/core/full/deltaemergency
+	name = "'Delta Emergency' Core AI Module"
+	law_id = "deltaemergency"
 //Neutral
 
 //Harmful
