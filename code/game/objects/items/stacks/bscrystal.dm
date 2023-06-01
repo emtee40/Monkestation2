@@ -98,5 +98,3 @@
 			to_chat(user, span_notice("You break off a crystal."))
 	else
 		..()
-
-/obj/item/
