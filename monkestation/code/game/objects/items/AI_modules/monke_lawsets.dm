@@ -69,4 +69,8 @@
 /obj/item/ai_module/core/full/monkeism
 	name = "'Lord of Returning to Monke' Core AI Module"
 	law_id = "monkeism"
+
+/obj/item/ai_module/core/full/slimeworship
+	name = "'Slime Faith' Core AI Module"
+	law_id = "slimeworship"
 //Syndicate Weaponized
