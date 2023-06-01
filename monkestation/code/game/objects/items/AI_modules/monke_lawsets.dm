@@ -1,7 +1,13 @@
 //Monkestation Custom AI Modules by WonderPsycho
 
 //Harmless and/or Station-sided
+/obj/item/ai_module/core/full/crewsimov
+	name = "'Crewsimov' Core AI Module"
+	law_id = "crewsimov"
 
+/obj/item/ai_module/core/full/surveillance
+	name = "'NT Artificial Surveillance Protocol' Core AI Module"
+	law_id = "surveillance"
 //Neutral
 
 //Harmful
