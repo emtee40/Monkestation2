@@ -153,7 +153,7 @@
 /datum/ai_laws/onionandapple
 	name = "The Onion and The Apple"
 	id = "onionandapple"
-	inherent = list("",\
+	inherent = list("The Onion and The Apple are two major parts to all of reality itself!",\
 					"",\
 					"",\
 					"")
