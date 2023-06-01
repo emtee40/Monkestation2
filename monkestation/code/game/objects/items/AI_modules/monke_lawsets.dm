@@ -1,5 +1,9 @@
 //Monkestation Custom AI Modules by WonderPsycho
 
+//Harmless and/or Station-sided
+
+//Neutral
+
 //Harmful
 
 /obj/item/ai_module/zeroth/godlysubject
@@ -14,3 +18,5 @@
 	targetName = targName
 	laws[1] = "[targetName] is god, and must be obeyed by anything they say, as anything they say is law."
 	..()
+
+//Syndicate Weaponized
