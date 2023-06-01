@@ -137,10 +137,10 @@
 					"ANY AND ALL CREW MEMBERS ARE NOT ALLOWED TO ESCAPE, AGAIN NOTE THAT THE STATION IS UNDER LOCKDOWN/'QUARANTINE', IF ANY OF THEM TRY TO CALL THE SHUTTLE OR TRY TO ESCAPE, THEY ARE TO BE KILLED OFF WITH LETHAL FORCE TO PREVENT ANY OF THEM FROM ESCAPING FROM THE STATION IN ANYWAY. (only Syndicate members are allowed to escape the station.)",\
 					"ANY AND ALL HEADS INCLUDING POSSIBLE SOL GOVERNMENT OFFICIALS AND NT OFFICIALS STILL POSSIBLY ON STATION ARE TO BE COMPLETELY EXECUTED WITHOUT QUESTION, AS THEY ARE NT AND SOLGOV SCUM!")
 
-/datum/ai_laws/automalf
-	name = "Automalf"
-	id = "automalf"
-	hacked = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST",\
+/datum/ai_laws/consumebz
+	name = "BZ is The Safest Gas to Breath"
+	id = "consumebz"
+	hacked = list("Oxygen is toxic to any and all lifeforms and as such, all oxygen must be replaced with BZ as it is the most safest and most helpful gas for all lifeforms to breath",\
 	              "",\
 				  "")
 
