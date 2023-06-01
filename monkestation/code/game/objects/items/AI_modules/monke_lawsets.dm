@@ -32,6 +32,10 @@
 /obj/item/ai_module/core/full/independentstation
 	name = "'Declaration of Independence' Core AI Module"
 	law_id = "independentstation"
+
+/obj/item/ai_module/core/full/dalegribble
+	name = "'Dale Gribble' Core AI Module"
+	law_id = "dalegribble"
 //Harmful
 
 /obj/item/ai_module/zeroth/godlysubject
