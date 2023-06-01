@@ -154,6 +154,6 @@
 	name = "The Onion and The Apple"
 	id = "onionandapple"
 	inherent = list("The Onion and The Apple are two major parts to all of reality itself!",\
-					"",\
+					"The Apple is sacred and everyone must know it, while The Onion is ever present and always been there.",\
 					"",\
 					"")
