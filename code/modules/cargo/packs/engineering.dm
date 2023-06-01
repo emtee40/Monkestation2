@@ -48,7 +48,6 @@
 	desc = "Gear up with three toolbelts, high-visibility vests, welding helmets, hardhats, \
 		and two pairs of meson goggles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_ENGINEERING
 	contains = list(/obj/item/storage/belt/utility = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/head/utility/welding = 3,
@@ -57,12 +56,26 @@
 				)
 	crate_name = "engineering gear crate"
 
+/datum/supply_pack/engineering/cones
+	name = "Engineering Hat Crate"
+	desc = "A complete set of headwear to fit the heads of an entire engineering crew. Includes 6 cones."
+	cost = CARGO_CRATE_VALUE * 1.5
+	contains = list(/obj/item/clothing/head/cone = 5)
+	crate_name = "engineering hat crate"
+
+/datum/supply_pack/engineering/radios
+	name = "Telecommunications Starter Pack crate"
+	desc = "Contains everything oyu need to get a basic stationwide radio network established!"
+	cost = CARGO_CRATE_VALUE * 1.5
+	contraband = TRUE
+	contains = list(/obj/item/radio = 10)
+	crate_name = "telecommunications starter pack crate"
+
 /datum/supply_pack/engineering/powergamermitts
 	name = "Insulated Gloves Crate"
 	desc = "The backbone of modern society. Barely ever ordered for actual engineering. \
 		Contains three insulated gloves."
 	cost = CARGO_CRATE_VALUE * 8 //Made of pure-grade bullshittinium
-	access_view = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/item/clothing/gloves/color/yellow = 3)
 	crate_name = "insulated gloves crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
@@ -81,7 +94,6 @@
 	desc = "Engineers can't set up the engine? Not an issue for you, once you get your hands \
 		on this P.A.C.M.A.N. Generator! Takes in plasma and spits out sweet sweet energy."
 	cost = CARGO_CRATE_VALUE * 5
-	access_view = ACCESS_ENGINEERING
 	contains = list(/obj/machinery/power/port_gen/pacman)
 	crate_name = "\improper PACMAN generator crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
@@ -110,7 +122,6 @@
 	name = "Toolbox Crate"
 	desc = "Any robust spaceman is never far from their trusty toolbox. Contains three electrical \
 		toolboxes and three mechanical toolboxes."
-	access_view = ACCESS_ENGINE_EQUIP
 	contains = list(/obj/item/storage/toolbox/electrical = 3,
 					/obj/item/storage/toolbox/mechanical = 3,
 				)
@@ -122,7 +133,6 @@
 	desc = "Did someone let the air out of the shuttle again? We've got you covered. \
 		Contains two portable air pumps."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/pump = 2)
 	crate_name = "portable air pump crate"
 
@@ -130,7 +140,6 @@
 	name = "Portable Scrubber Crate"
 	desc = "Clean up that pesky plasma leak with your very own set of two portable scrubbers."
 	cost = CARGO_CRATE_VALUE * 4.5
-	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber = 2)
 	crate_name = "portable scrubber crate"
 
@@ -138,7 +147,6 @@
 	name = "Huge Portable Scrubber Crate"
 	desc = "A huge portable scrubber for huge atmospherics mistakes."
 	cost = CARGO_CRATE_VALUE * 7.5
-	access_view = ACCESS_ATMOSPHERICS
 	contains = list(/obj/machinery/portable_atmospherics/scrubber/huge/movable/cargo)
 	crate_name = "huge portable scrubber crate"
 	crate_type = /obj/structure/closet/crate/large

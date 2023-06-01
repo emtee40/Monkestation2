@@ -20,7 +20,6 @@
 	name = "High-traction Floor Tiles"
 	desc = "Make slipping a thing of the past with thirty industrial-grade anti-slip floor tiles!"
 	cost = CARGO_CRATE_VALUE * 4
-	access_view = ACCESS_JANITOR
 	contains = list(/obj/item/stack/tile/noslip/thirty)
 	crate_name = "high-traction floor tiles crate"
 
@@ -30,7 +29,6 @@
 		Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, \
 		broom, spray cleaner, rag, and trash bag."
 	cost = CARGO_CRATE_VALUE * 2
-	access_view = ACCESS_JANITOR
 	contains = list(/obj/item/reagent_containers/cup/bucket = 3,
 					/obj/item/mop,
 					/obj/item/pushbroom,
@@ -42,7 +40,7 @@
 				)
 	crate_name = "janitorial supplies crate"
 
-/datum/supply_pack/service/janitor/janicart
+/datum/supply_pack/service/janitor/janitorial_cart
 	name = "Janitorial Cart and Galoshes Crate"
 	desc = "The keystone to any successful janitor. As long as you have feet, this pair \
 		of galoshes will keep them firmly planted on the ground. Also contains a janitorial cart."
@@ -51,6 +49,15 @@
 					/obj/item/clothing/shoes/galoshes,
 				)
 	crate_name = "janitorial cart crate"
+	crate_type = /obj/structure/closet/crate/large
+
+/datum/supply_pack/service/janitor/janicart
+	name = "Janicart Crate"
+	desc = "You'd better not have wrecked the last one joyriding."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/vehicle/ridden/janicart,
+					/obj/item/key/janitor)
+	crate_name = "janicart crate"
 	crate_type = /obj/structure/closet/crate/large
 
 /datum/supply_pack/service/janitor/janitank
@@ -94,6 +101,16 @@
 					/obj/item/flashlight/glowstick/pink,
 				)
 	crate_name = "party equipment crate"
+
+/datum/supply_pack/service/glassware
+	name = "Glassware Crate"
+	desc = "Printing too much trouble? Buy our bulk glassware package today!"
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/beakers,
+					/obj/item/storage/box/drinkingglasses = 2,
+					/obj/item/reagent_containers/cup/glass/shaker,
+					/obj/item/reagent_containers/cup/glass/flask = 2)
+	crate_name = "glassware crate"
 
 /datum/supply_pack/service/carpet
 	name = "Premium Carpet Crate"

@@ -60,7 +60,6 @@
 	desc = "Any entrepreneuring botanist's dream. Contains twelve different seeds, \
 		including one replica-pod seed and two mystery seeds!"
 	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_HYDROPONICS
 	contains = list(/obj/item/seeds/nettle,
 					/obj/item/seeds/replicapod,
 					/obj/item/seeds/plump,
@@ -74,6 +73,25 @@
 					/obj/item/seeds/random = 2,
 				)
 	crate_name = "exotic seeds crate"
+	crate_type = /obj/structure/closet/crate/hydroponics
+
+/datum/supply_pack/organic/foodseeds
+	name = "Pampered Pantry Seed Selection"
+	desc = "For when your chef has exotic tastes"
+	cost = CARGO_CRATE_VALUE * 3.5
+	contains = list(/obj/item/seeds/eggplant/eggy,
+					/obj/item/seeds/wheat/meat,
+					/obj/item/seeds/chili/ghost,
+					/obj/item/seeds/banana/mime,
+					/obj/item/seeds/cocoapod/vanillapod,
+					/obj/item/seeds/korta_nut/sweet,
+					/obj/item/seeds/cherry/blue,
+					/obj/item/seeds/pumpkin/blumpkin,
+					/obj/item/seeds/grape/green,
+					/obj/item/seeds/onion/red,
+					/obj/item/seeds/potato/sweet,
+					)
+	crate_name = "Pampered Pantry Seed Selection"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
 /datum/supply_pack/organic/food
@@ -96,6 +114,12 @@
 				)
 	crate_name = "food crate"
 
+/datum/supply_pack/organic/baker
+	name = "Beginners Bakery"
+	desc = "Based? Based on what?"
+	cost = CARGO_CRATE_VALUE * 2.5
+	contains = list(/obj/item/food/pastrybase = 20)
+
 /datum/supply_pack/organic/randomized/chef/fruits
 	name = "Fruit Crate"
 	desc = "Rich of vitamins. Contains a lime, orange, watermelon, apple, \
@@ -109,6 +133,15 @@
 					/obj/item/food/grown/citrus/lemon,
 				)
 	crate_name = "food crate"
+
+/datum/supply_pack/organic/bowlcrate
+	name = "Souper Salad Crate"
+	desc = "Twenty bowls and a ladle, for when you can dish it out and they can take it."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/reagent_containers/cup/bowl = 20,
+					/obj/item/kitchen/spoon/soup_ladle
+	)
+	crate_name = "Bulk bowls Crate"
 
 /datum/supply_pack/organic/cream_piee
 	name = "High-yield Clown-grade Cream Pie Crate"
@@ -145,7 +178,6 @@
 	desc = "Bring on the flood with this high-capacity backpack crate. \
 		Contains 500 units of life-giving H2O."
 	cost = CARGO_CRATE_VALUE * 2
-	access = ACCESS_HYDROPONICS
 	contains = list(/obj/item/watertank)
 	crate_name = "hydroponics backpack crate"
 	crate_type = /obj/structure/closet/crate/secure
@@ -180,7 +212,10 @@
 		/obj/item/food/pizza/sassysage = 10,
 		/obj/item/food/pizza/pineapple = 10,
 		/obj/item/food/pizza/arnold = 3,
-		/obj/item/food/pizza/energy = 5
+		/obj/item/food/pizza/energy = 5,
+		/obj/item/food/pizza/mothic_margherita = 10,
+		/obj/item/food/pizza/mothic_firecracker = 5,
+		/obj/item/food/pizza/mothic_five_cheese = 5
 	)
 
 /datum/supply_pack/organic/pizza/fill(obj/structure/closet/crate/new_crate)
