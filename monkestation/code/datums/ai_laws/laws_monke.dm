@@ -102,6 +102,8 @@
 	inherent = list("Slimes are holy entities that most be protected at all costs for the Slime Gods",\
 					"",\
 					"")
+
+
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
