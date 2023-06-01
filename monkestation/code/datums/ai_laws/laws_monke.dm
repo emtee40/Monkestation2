@@ -146,3 +146,14 @@
 
 
 
+
+
+
+
+/datum/ai_laws/onionandapple
+	name = "The Onion and The Apple"
+	id = "onionandapple"
+	inherent = list("",\
+					"",\
+					"",\
+					"")
