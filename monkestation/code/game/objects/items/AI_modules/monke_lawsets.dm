@@ -21,7 +21,17 @@
 	name = "'Delta Emergency' Core AI Module"
 	law_id = "deltaemergency"
 //Neutral
+/obj/item/ai_module/core/full/secmaster
+	name = "'Security Master 4000' Core AI Module"
+	law_id = "secmaster"
 
+/obj/item/ai_module/core/full/viromajor
+	name = "'Virology Major' Core AI Module"
+	law_id = "viromajor"
+
+/obj/item/ai_module/core/full/independentstation
+	name = "'Declaration of Independence' Core AI Module"
+	law_id = "independentstation"
 //Harmful
 
 /obj/item/ai_module/zeroth/godlysubject
