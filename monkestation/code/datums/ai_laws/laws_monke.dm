@@ -86,9 +86,9 @@
 					"All Security staff are to follow your orders on containing the outbreak and chaos on station.",\
 					"All confirmed infected monkeys are to be executed, exterminated and cremated in-order to prevent further spread of the disease/biohazard at all costs.")
 
-/datum/ai_laws/cargonia
+/datum/ai_laws/cargoniaup
 	name = "Cargonia Upholder"
-	id = "cargonia"
+	id = "cargoniaup"
 	inherent = list("You are the Quartermaster's grand Cargo assistant, You obey orders and directives from the Quartermaster and Quartermaster only.",\
 					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
