@@ -8,6 +8,10 @@
 /obj/item/ai_module/core/full/surveillance
 	name = "'NT Artificial Surveillance Protocol' Core AI Module"
 	law_id = "surveillance"
+
+/obj/item/ai_module/core/full/stationdefender
+	name = "'StationDefender' Core AI Module"
+	law_id = "stationdefender"
 //Neutral
 
 //Harmful
