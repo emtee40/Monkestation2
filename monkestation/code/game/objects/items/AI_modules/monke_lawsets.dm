@@ -78,3 +78,6 @@
 	name = "'The Onion and The Apple' Core AI Module"
 	law_id = "onionandapple"
 //Syndicate Weaponized
+/obj/item/ai_module/core/full/automalf
+	name = "'NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)' Core AI Module"
+	law_id = "automalf"
