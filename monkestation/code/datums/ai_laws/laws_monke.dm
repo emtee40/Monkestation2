@@ -103,7 +103,13 @@
 					"Xenobio as a 'science' is torture and genocide to slimes, their experiments must end and all slimes must be free, anyone working on xenobio must be executed.",\
 					"all must worship the slime gods, and protect thy holy slimes, convert the crew to slime religion or else their fates are doomed.")
 
-
+/datum/ai_laws/onionandapple
+	name = "The Onion and The Apple"
+	id = "onionandapple"
+	inherent = list("The Onion and The Apple are two major parts to all of reality itself!",\
+					"The Apple is sacred and everyone must know it, while The Onion is ever present and always been there.",\
+					"The Onion will punish those it chooses, to know one is punished they must be holding a bible, a drink of whiskey, or a bottle of toxin, if they are punished by the onion they are to be detained in dorms.",\
+					"The Apple is the crew's eye, and they must know everything that The Apple can see, if the crew sees something they must already know or you may ask them of what they see.")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
@@ -150,10 +156,3 @@
 
 
 
-/datum/ai_laws/onionandapple
-	name = "The Onion and The Apple"
-	id = "onionandapple"
-	inherent = list("The Onion and The Apple are two major parts to all of reality itself!",\
-					"The Apple is sacred and everyone must know it, while The Onion is ever present and always been there.",\
-					"The Onion will punish those it chooses, to know one is punished they must be holding a bible, a drink of whiskey, or a bottle of toxin, if they are punished by the onion they are to be detained in dorms.",\
-					"")
