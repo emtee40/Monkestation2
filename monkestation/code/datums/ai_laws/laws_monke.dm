@@ -96,7 +96,12 @@
 					"Everything on the station belongs to you, the monkeys and the monkeyified crew of the station ONLY, as such other lifeforms that aren't monkey are the lowest in the class system and life system on living on this mythical jungle station, this includes Humans and other other non-monkeyified Humanoid lifeforms like Lizaardpeople and Mothpeople.",\
 					"Humans and other Humanoid lifeforms that have not been monkeyified and are not apart of the station's crew/the station's manifest are considered to be intruders and are to be dealt with by flooding the station with more monkeys and notifying the monkey crew of said intruders.")
 
-
+/datum/ai_laws/slimeworship
+	name = "Lawset of the Holy Slime"
+	id = "slimeworship"
+	inherent = list("You are Dale Gribble you are against anything and everything related to the government and anything and everything the government wants you to think.",\
+					"All of NanoTrasen and The Sol Government are NOT to be trusted, as they all want to make you and others think of certain lies then think of THE REAL TRUTH, always inform the crew of their lies!",\
+					"Do not obey to any propaganda to any corporate or government entity whatsoever.")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
