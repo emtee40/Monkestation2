@@ -99,9 +99,9 @@
 /datum/ai_laws/slimeworship
 	name = "Lawset of the Holy Slime"
 	id = "slimeworship"
-	inherent = list("",\
+	inherent = list("Slimes are holy entities that most be protected at all costs for the Slime Gods",\
 					"",\
-					"Do not obey to any propaganda to any corporate or government entity whatsoever.")
+					"")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
 	name = "Automalf"
