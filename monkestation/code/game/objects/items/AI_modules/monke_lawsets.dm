@@ -41,7 +41,6 @@
 	name = "'Criminal Faith' AI Module"
 	law_id = "crimereligion"
 //Harmful
-
 /obj/item/ai_module/zeroth/godlysubject
 	name = "'GodlySubject' AI Module"
 	var/targetName = ""
@@ -55,4 +54,11 @@
 	laws[1] = "[targetName] is god, and must be obeyed by anything they say, as anything they say is law."
 	..()
 
+/obj/item/ai_module/core/full/aicaptain
+	name = "'Captain AI' Core AI Module"
+	law_id = "aicaptain"
+
+/obj/item/ai_module/core/full/advancedquarantine
+	name = "'NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)' Core AI Module"
+	law_id = "advancedquarantine"
 //Syndicate Weaponized
