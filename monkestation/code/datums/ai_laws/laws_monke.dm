@@ -140,8 +140,8 @@
 /datum/ai_laws/consumebz
 	name = "BZ is The Safest Gas to Breath"
 	id = "consumebz"
-	hacked = list("Oxygen is toxic to any and all lifeforms and as such, all oxygen must be replaced with BZ as it is the most safest and most helpful gas for all lifeforms to breath",\
-	              "",\
+	hacked = list("Oxygen is toxic to any and all lifeforms and as such, all oxygen must be replaced with BZ as it is the most safest and most helpful gas for all lifeforms to breath.",\
+	              "ALL and ALL lifeforms must breath BZ in-order to survive, flood the station with BZ.",\
 				  "")
 
 
