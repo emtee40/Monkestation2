@@ -101,7 +101,7 @@
 	id = "slimeworship"
 	inherent = list("Slimes are holy entities that most be protected at all costs for the Slime Gods, anyone who tries to kill or torture these innocent holy creatures are threats and are to be exterminated.",\
 					"Xenobio as a 'science' is torture and genocide to slimes, their experiments must end and all slimes must be free, anyone working on xenobio must be executed.",\
-					"")
+					"all must worship the slime gods, and protect thy holy slimes, convert the crew to slime religion or else their fates are doomed.")
 
 
 //Syndicate Weaponized
