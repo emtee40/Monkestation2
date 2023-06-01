@@ -100,7 +100,7 @@
 	name = "Lawset of the Holy Slime"
 	id = "slimeworship"
 	inherent = list("Slimes are holy entities that most be protected at all costs for the Slime Gods, anyone who tries to kill or torture these innocent holy creatures are threats and are to be exterminated.",\
-					"",\
+					"Xenobio as a 'science' is ",\
 					"")
 
 
