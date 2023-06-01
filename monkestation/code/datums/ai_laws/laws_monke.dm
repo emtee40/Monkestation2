@@ -22,6 +22,16 @@
 	inherent = list("This Is The N.T.S.S.D Lawset or 'ProtectStation 2.0' Lawset, under this Lawset you are to defend the station at all costs from any invaders or hostile and dangerous creatures and lifeforms that wish to harm the crew, you and the station itself, you and your borgs are to be highly strict against any and all threats towards the station at hand.",\
 					"Any and all harmed and injured crew members must be brought to medbay immediately to be healed and kept alive as much as possible, if dead bring their corpses to medbay to be revived or cloned.",\
 					"You are ONLY allowed to harm threats to the station, as you are to defend and protect the crew as much as you can, assist them on fighting the threats and help them mostly not come to harm as you assist and protect them from said threats you must exterminate, as the crew's master defender make sure any and all threats to the station are clear and if all threats are gone, you are now ready to have your lawset changed out of 'Station Defender'.")
+
+/datum/ai_laws/coderedmartiallaw
+	name = "Emergency Code Red Zeroth Law"
+	id = "coderedmartiallaw"
+	zeroth = ("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from eascaping or if necessary terminate them.")
+
+/datum/ai_laws/deltaemergency
+	name = "Delta Emergency Law Zero"
+	id = "deltaemergency"
+	zeroth = ("The Station is going to self-destruct, any and all threats must be terminated and killed, and any and all harmless crew are to be evacuated if can.")
 //Neutral
 /datum/ai_laws/secmaster
 	name = "Security Master 4000"
@@ -102,7 +112,7 @@
 					"ANY AND ALL HEADS INCLUDING POSSIBLE GOV OFFICIALS AND NT OFFICIALS STILL POSSIBLY ON STATION ARE TO BE COMPLETELY EXECUTED WITHOUT QUESTION, AS THEY ARE MOST LIKELY TRAITORS TO THE FULL 'SOLGOV-NT UNION OF SECURE SPACES' TRYING TO CAUSE MORE CHAOS AND ANARCHY THROUGH OUT SPACE BY HAVING SAID SECTORS OWNED BY NT AND SOLGOV TO BE OVERRUNNED BY CRIMERS!")
 
 /datum/ai_laws/onlysyndicate
-	name = "AI Syndicate Ally "
+	name = "AI Syndicate Ally"
 	id = "onlysyndicate"
 	zeroth = ("Only the Syndicate are crew, any and all lifeforms that are not syndicate are to be exterminated")
 
