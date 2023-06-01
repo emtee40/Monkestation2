@@ -36,6 +36,10 @@
 /obj/item/ai_module/core/full/dalegribble
 	name = "'Dale Gribble' Core AI Module"
 	law_id = "dalegribble"
+
+/obj/item/ai_module/supplied/crimereligion
+	name = "'Criminal Faith' AI Module"
+	law_id = "crimereligion"
 //Harmful
 
 /obj/item/ai_module/zeroth/godlysubject
