@@ -63,6 +63,6 @@
 	law_id = "advancedquarantine"
 
 /obj/item/ai_module/core/full/cargoniaup
-	name = "'NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)' Core AI Module"
+	name = "'Cargonia Upholder' Core AI Module"
 	law_id = "cargoniaup"
 //Syndicate Weaponized
