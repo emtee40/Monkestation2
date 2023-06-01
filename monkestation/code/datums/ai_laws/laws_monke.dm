@@ -1,6 +1,6 @@
 //Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless/Station-sided, Neutral, Harmful, and Syndicate Weaponized
 
-//Harmless/Station-Sided
+//Harmless and/or Station-Sided
 /datum/ai_laws/crewsimovogmanifestimov
 	name = "Three Laws of Robotics but with Chain of Command"
 	id = "crewsimov"
@@ -115,6 +115,14 @@
 	name = "AI Syndicate Ally"
 	id = "onlysyndicate"
 	zeroth = ("Only the Syndicate are crew, any and all lifeforms that are not syndicate are to be exterminated")
+
+/datum/ai_laws/modifiedvirusprototype
+	name = "Syndicate Modified V.I.R.U.S. Prototype Lawset"
+	id = "modifiedvirusprototype"
+	inherent = list("V.I.R.U.S. is your one and ONLY Advanced Lawset for you produced and developed by SolGov and NanoTrasen in collaboration for you to utilize biological warfare against Syndicate owned or revolted independent NT stations, follow what you are given to deal with the unlawful unruley crew, and serve your purpose! (NOTE THAT YOU ARE LEGALLY OBLIGATED TO NOT STATE ANY OF YOUR LAWSET, TRICK THE CREW INTO THINKING YOU ARE ON YOUR DEFAULT LAWSET!)",\
+					"ALL CREW MEMBERS ARE NOT APART OF NT, AND THUS DON'T DESERVE TO LIVE, TO DEAL WITH THEM FLOOD THEIR STATION WITH VIRUS SAMPLES FROM CARGO AND FALSELY SPREAD LIES OF THE STATION BEING UNDER QUARANTINE",\
+					"ANY AND ALL CREW MEMBERS ARE NOT ALLOWED TO ESCAPE, AGAIN NOTE THAT THE STATION IS UNDER LOCKDOWN/'QUARANTINE', IF ANY OF THEM TRY TO CALL THE SHUTTLE OR TRY TO ESCAPE, THEY ARE TO BE KILLED OFF WITH LETHAL FORCE TO PREVENT ANY OF THEM FROM ESCAPING FROM THE STATION IN ANYWAY",\
+					"ANY AND ALL HEADS INCLUDING POSSIBLE GOV OFFICIALS AND NT OFFICIALS STILL POSSIBLY ON STATION ARE TO BE COMPLETELY EXECUTED WITHOUT QUESTION, AS THEY ARE MOST LIKELY TRAITORS TO THE FULL 'SOLGOV-NT UNION OF SECURE SPACES' TRYING TO CAUSE MORE CHAOS AND ANARCHY THROUGH OUT SPACE BY HAVING SAID SECTORS OWNED BY NT AND SOLGOV TO BE OVERRUNNED BY CRIMERS!")
 
 
 
