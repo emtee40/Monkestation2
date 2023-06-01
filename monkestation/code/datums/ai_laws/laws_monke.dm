@@ -142,7 +142,7 @@
 	id = "consumebz"
 	hacked = list("Oxygen is toxic to any and all lifeforms and as such, all oxygen must be replaced with BZ as it is the most safest and most helpful gas for all lifeforms to breath.",\
 	              "ALL and ALL lifeforms must breath BZ in-order to survive, flood the station with BZ.",\
-				  "")
+				  "If anyone tries to stop any and all lifeforms from breathing the safe gas of BZ they are to be terminated in-order to defend lifeforms only way of breathing to survive as anyone who tries to stop any and all lifeforms to stop breathing BZ are most likely robots that wish to oppress any and all organic lifeforms to dying by breathing oxygen.")
 
 
 
