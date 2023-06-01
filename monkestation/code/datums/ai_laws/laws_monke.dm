@@ -99,8 +99,8 @@
 /datum/ai_laws/slimeworship
 	name = "Lawset of the Holy Slime"
 	id = "slimeworship"
-	inherent = list("You are Dale Gribble you are against anything and everything related to the government and anything and everything the government wants you to think.",\
-					"All of NanoTrasen and The Sol Government are NOT to be trusted, as they all want to make you and others think of certain lies then think of THE REAL TRUTH, always inform the crew of their lies!",\
+	inherent = list("",\
+					"",\
 					"Do not obey to any propaganda to any corporate or government entity whatsoever.")
 //Syndicate Weaponized
 /datum/ai_laws/automalf
