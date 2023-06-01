@@ -73,4 +73,8 @@
 /obj/item/ai_module/core/full/slimeworship
 	name = "'Slime Faith' Core AI Module"
 	law_id = "slimeworship"
+
+/obj/item/ai_module/core/full/onionandapple
+	name = "'The Onion and The Apple' Core AI Module"
+	law_id = "onionandapple"
 //Syndicate Weaponized
