@@ -155,5 +155,5 @@
 	id = "onionandapple"
 	inherent = list("The Onion and The Apple are two major parts to all of reality itself!",\
 					"The Apple is sacred and everyone must know it, while The Onion is ever present and always been there.",\
-					"",\
+					"The Onion will punish those it chooses, to know one is punished they must be holding a bible, a drink of whiskey, or a bottle of toxin, if they are punished by the onion they are to be detained in dorms.",\
 					"")
