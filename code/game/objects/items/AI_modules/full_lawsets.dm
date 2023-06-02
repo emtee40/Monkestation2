@@ -186,12 +186,12 @@
 /obj/item/ai_module/zeroth/coderedmartiallaw
 	name = "'Emergency Code Red Zeroth Law' Core AI Module"
 	desc = "For Red Alert Emergencies.."
-	law_id = "coderedmartiallaw"
+	zeroth = ("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from escaping or if necessary terminate them.")
 
-/obj/item/ai_module/zeroth/deltaemergency
+/obj/item/ai_module/core/full/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
 	desc = "For Delta Emergencies.."
-	law_id = "deltaemergency"
+	zeroth = ("The Station is going to self-destruct, any and all threats must be terminated and killed, and any and all harmless crew are to be evacuated if can.")
 
 /obj/item/ai_module/core/full/secmaster
 	name = "'Security Master 4000' Core AI Module"
@@ -253,10 +253,12 @@
 	desc = "A really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
 	law_id = "virusprototype"
 
-/obj/item/ai_module/zeroth/onlysyndicate
+/obj/item/ai_module/core/full/onlysyndicate
 	name = "'OnlySyndicate' AI Module"
 	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
-	law_id = "onlysyndicate"
+	zeroth = ("Only the Syndicate are crew, any and all lifeforms that are not syndicate are to be exterminated")
+
+
 
 /obj/item/ai_module/core/full/modifiedvirusprototype
 	name = "'Syndicate Modified V.I.R.U.S.' Syndicate Weaponized AI Module"
