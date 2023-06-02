@@ -26,7 +26,7 @@
 /datum/ai_laws/coderedmartiallaw
 	name = "Emergency Code Red Zeroth Law"
 	id = "coderedmartiallaw"
-	zeroth = ("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from eascaping or if necessary terminate them.")
+	zeroth = ("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from escaping or if necessary terminate them.")
 
 /datum/ai_laws/deltaemergency
 	name = "Delta Emergency Law Zero"
