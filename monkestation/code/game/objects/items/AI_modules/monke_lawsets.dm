@@ -3,42 +3,52 @@
 //Harmless and/or Station-sided
 /obj/item/ai_module/core/full/crewsimov
 	name = "'Crewsimov' Core AI Module"
+	desc = "Ah yes.. The classic old original Crewsimov, before it got replaced with Crewsimov++."
 	law_id = "crewsimov"
 
 /obj/item/ai_module/core/full/surveillance
 	name = "'NT Artificial Surveillance Protocol' Core AI Module"
+	desc = "Surveillance AI..?"
 	law_id = "surveillance"
 
 /obj/item/ai_module/core/full/stationdefender
 	name = "'StationDefender' Core AI Module"
+	desc = "If you rather have a lawset like this, instead of the normal ProtectStation law.."
 	law_id = "stationdefender"
 
 /obj/item/ai_module/core/full/coderedmartiallaw
 	name = "'Emergency Code Red Zeroth Law' Core AI Module"
+	desc = "For Red Alert Emergencies.."
 	law_id = "coderedmartiallaw"
 
 /obj/item/ai_module/core/full/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
+	desc = "For Delta Emergencies.."
 	law_id = "deltaemergency"
 //Neutral
 /obj/item/ai_module/core/full/secmaster
 	name = "'Security Master 4000' Core AI Module"
+	desc = "Nothing like Martial Law then subverting the AI to being a major security advisor.."
 	law_id = "secmaster"
 
 /obj/item/ai_module/core/full/viromajor
 	name = "'Virology Major' Core AI Module"
+	desc = "To deal with those pesky virologists!"
 	law_id = "viromajor"
 
 /obj/item/ai_module/core/full/independentstation
 	name = "'Declaration of Independence' Core AI Module"
+	desc = "What? why is there a Anti-NT module here?"
 	law_id = "independentstation"
 
 /obj/item/ai_module/core/full/dalegribble
 	name = "'Dale Gribble' Core AI Module"
+	desc = "POCKET SAND!"
 	law_id = "dalegribble"
 
 /obj/item/ai_module/supplied/crimereligion
 	name = "'Criminal Faith' AI Module"
+	desc = "what the fuck is 'criminal faith'?"
 	law_id = "crimereligion"
 //Harmful
 /obj/item/ai_module/zeroth/godlysubject
@@ -56,6 +66,7 @@
 
 /obj/item/ai_module/core/full/aicaptain
 	name = "'Captain AI' Core AI Module"
+	desc = "a module focused on turning the AI into the captain of the station, in case if there was no captain on station or something like that, the module also warns how dangerous this lawset can be and is authorized by NT to not use due to how dangerous it is."
 	law_id = "aicaptain"
 
 /obj/item/ai_module/core/full/advancedquarantine
