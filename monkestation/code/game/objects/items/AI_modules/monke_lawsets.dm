@@ -81,3 +81,7 @@
 /obj/item/ai_module/core/full/automalf
 	name = "'Automalf' Syndicate Weaponized AI Module"
 	law_id = "automalf"
+
+/obj/item/ai_module/core/full/virusprototype
+	name = "'' Core AI Module"
+	law_id = "virusprototype"
