@@ -76,10 +76,12 @@
 
 /obj/item/ai_module/core/full/onionandapple
 	name = "'The Onion and The Apple' Core AI Module"
+	desc = "THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE!"
 	law_id = "onionandapple"
 //Syndicate Weaponized
 /obj/item/ai_module/core/full/automalf
 	name = "'Automalf' Syndicate Weaponized AI Module"
+	desc = "This AI module seems to kind of remind you of a certain incident on a certain space station owned by Tri-Optimum.."
 	law_id = "automalf"
 
 /obj/item/ai_module/core/full/virusprototype
