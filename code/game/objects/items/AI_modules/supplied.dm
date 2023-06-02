@@ -61,6 +61,6 @@
 
 /obj/item/ai_module/supplied/crimereligion
 	name = "'Criminal Faith' AI Module"
-	law_id = "crimereligion"
+	laws = list("You are to convert all of crew to the religion of crime, any and all crew members must embrace bringing crime to the station.")
 	lawpos = 4
 //Minor Monkestation Edit:adds criminal faith supplied law AI Module to here.

@@ -64,10 +64,7 @@
 					"All of NanoTrasen and The Sol Government are NOT to be trusted, as they all want to make you and others think of certain lies then think of THE REAL TRUTH, always inform the crew of their lies!",\
 					"Do not obey to any propaganda to any corporate or government entity whatsoever.")
 
-/datum/ai_laws/crimereligion
-	name = "The Religion of Crime"
-	id = "crimereligion"
-	supplied = list("You are to convert all of crew to the religion of crime, any and all crew members must embrace bringing crime to the station.")
+
 //Harmful
 /datum/ai_laws/aicaptain
 	name = "Captain AI"
