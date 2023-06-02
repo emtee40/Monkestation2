@@ -68,10 +68,12 @@
 
 /obj/item/ai_module/core/full/monkeism
 	name = "'Lord of Returning to Monke' Core AI Module"
+	desc = "Return to Monke..."
 	law_id = "monkeism"
 
 /obj/item/ai_module/core/full/slimeworship
 	name = "'Slime Faith' Core AI Module"
+	desc = "there seems to be something written on this module... 'PRAISES THE SLIMES, SLIMES ARE OUR FUTURE!!!'"
 	law_id = "slimeworship"
 
 /obj/item/ai_module/core/full/onionandapple
