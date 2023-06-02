@@ -183,12 +183,12 @@
 	desc = "If you rather have a lawset like this, instead of the normal ProtectStation law.."
 	law_id = "stationdefender"
 
-/obj/item/ai_module/core/full/coderedmartiallaw
+/obj/item/ai_module/zeroth/coderedmartiallaw
 	name = "'Emergency Code Red Zeroth Law' Core AI Module"
 	desc = "For Red Alert Emergencies.."
 	law_id = "coderedmartiallaw"
 
-/obj/item/ai_module/core/full/deltaemergency
+/obj/item/ai_module/zeroth/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
 	desc = "For Delta Emergencies.."
 	law_id = "deltaemergency"
@@ -253,7 +253,7 @@
 	desc = "A really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
 	law_id = "virusprototype"
 
-/obj/item/ai_module/core/full/onlysyndicate
+/obj/item/ai_module/zeroth/onlysyndicate
 	name = "'OnlySyndicate' AI Module"
 	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
 	law_id = "onlysyndicate"
