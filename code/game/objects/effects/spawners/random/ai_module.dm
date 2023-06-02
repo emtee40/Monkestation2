@@ -26,7 +26,7 @@
 		/obj/item/ai_module/core/full/crewsimov,
 		/obj/item/ai_module/core/full/crewsimovpp,
 		/obj/item/ai_module/core/full/surveillance,
-		/obj/item/ai_module/supplied/crimereligion
+		/obj/item/ai_module/supplied/crimereligion,
 		/obj/item/ai_module/core/full/custom, // uses lawsets from config/silicon_laws.txt (defaults to asmiov if no lawsets)
 	)
 
@@ -68,5 +68,5 @@
 		/obj/item/ai_module/core/full/cargoniaup,
 		/obj/item/ai_module/core/full/monkeism,
 		/obj/item/ai_module/core/full/slimeworship,
-		/obj/item/ai_module/core/full/onionandapple
+		/obj/item/ai_module/core/full/onionandapple,
 	)
