@@ -191,7 +191,7 @@
 /obj/item/ai_module/core/full/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
 	desc = "For Delta Emergencies.."
-	law_id =  = "deltaemergency"
+	law_id = "deltaemergency"
 
 /obj/item/ai_module/core/full/secmaster
 	name = "'Security Master 4000' Core AI Module"
@@ -257,8 +257,6 @@
 	name = "'OnlySyndicate' AI Module"
 	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
 	law_id = "onlysyndicate"
-
-
 
 /obj/item/ai_module/core/full/modifiedvirusprototype
 	name = "'Syndicate Modified V.I.R.U.S.' Syndicate Weaponized AI Module"
