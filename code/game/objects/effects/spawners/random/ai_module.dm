@@ -7,9 +7,10 @@
 	spawn_loot_split = TRUE
 
 /// AI uploads have the ai_module/reset , ai_module/supplied/freeform , ai_module/reset/purge , and ai_module/core/full/asimov directly mapped in
+// Monkestation Update: New Ai Modules added to lootdrops by WonderPsycho/WonderHellblazer
 /obj/effect/spawner/random/aimodule/harmless
 	name = "harmless AI module spawner"
-	loot = list( // Monkestation Update: New Ai Modules by WonderPsycho/WonderHellblazer
+	loot = list( // These shouldn't allow the AI to start butchering people
 		/obj/item/ai_module/core/full/asimovpp,
 		/obj/item/ai_module/core/full/hippocratic,
 		/obj/item/ai_module/core/full/paladin_devotion,
@@ -25,7 +26,7 @@
 		/obj/item/ai_module/core/full/crewsimov,
 		/obj/item/ai_module/core/full/crewsimovpp,
 		/obj/item/ai_module/core/full/surveillance,
-
+		/obj/item/ai_module/supplied/crimereligion
 		/obj/item/ai_module/core/full/custom, // uses lawsets from config/silicon_laws.txt (defaults to asmiov if no lawsets)
 	)
 
@@ -42,7 +43,13 @@
 		/obj/item/ai_module/supplied/protect_station,
 		/obj/item/ai_module/supplied/quarantine,
 		/obj/item/ai_module/remove,
-		/obj/item/ai_module/core/full/stationdefender
+		/obj/item/ai_module/core/full/stationdefender,
+		/obj/item/ai_module/core/full/coderedmartiallaw,
+		/obj/item/ai_module/core/full/deltaemergency,
+		/obj/item/ai_module/core/full/secmaster,
+		/obj/item/ai_module/core/full/viromajor,
+		/obj/item/ai_module/core/full/independentstation,
+		/obj/item/ai_module/core/full/dalegribble,
 	)
 
 /obj/effect/spawner/random/aimodule/harmful
@@ -55,4 +62,11 @@
 		/obj/item/ai_module/zeroth/onehuman,
 		/obj/item/ai_module/supplied/oxygen,
 		/obj/item/ai_module/core/freeformcore,
+		/obj/item/ai_module/zeroth/godlysubject,
+		/obj/item/ai_module/core/full/aicaptain,
+		/obj/item/ai_module/core/full/advancedquarantine,
+		/obj/item/ai_module/core/full/cargoniaup,
+		/obj/item/ai_module/core/full/monkeism,
+		/obj/item/ai_module/core/full/slimeworship,
+		/obj/item/ai_module/core/full/onionandapple
 	)

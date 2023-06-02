@@ -61,7 +61,7 @@
 	var/targetName = ""
 	laws = list("SUBJECT is god, and must be obeyed by anything they say, as anything they say is law.")
 
-/obj/item/ai_module/zeroth/onehuman/attack_self(mob/user)
+/obj/item/ai_module/zeroth/godlysubject/attack_self(mob/user)
 	var/targName = tgui_input_text(user, "Enter the subject who is god.", "GodlySubject", user.real_name, MAX_NAME_LEN)
 	if(!targName)
 		return
@@ -106,5 +106,10 @@
 
 /obj/item/ai_module/core/full/virusprototype
 	name = "'V.I.R.U.S. version 0 Prototype' Core AI Module"
-	desc = "a really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
+	desc = "A really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
 	law_id = "virusprototype"
+
+/obj/item/ai_module/core/full/onlysyndicate
+	name = "'OnlySyndicate' AI Module"
+	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
+	law_id = "onlysyndicate"
