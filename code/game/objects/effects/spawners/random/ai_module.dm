@@ -9,7 +9,7 @@
 /// AI uploads have the ai_module/reset , ai_module/supplied/freeform , ai_module/reset/purge , and ai_module/core/full/asimov directly mapped in
 /obj/effect/spawner/random/aimodule/harmless
 	name = "harmless AI module spawner"
-	loot = list( // These shouldn't allow the AI to start butchering people
+	loot = list( // Monkestation Update: New Ai Modules by WonderPsycho/WonderHellblazer
 		/obj/item/ai_module/core/full/asimovpp,
 		/obj/item/ai_module/core/full/hippocratic,
 		/obj/item/ai_module/core/full/paladin_devotion,
@@ -22,6 +22,10 @@
 		/obj/item/ai_module/core/full/ten_commandments,
 		/obj/item/ai_module/core/full/nutimov,
 		/obj/item/ai_module/core/full/drone,
+		/obj/item/ai_module/core/full/crewsimov,
+		/obj/item/ai_module/core/full/crewsimovpp,
+		/obj/item/ai_module/core/full/surveillance,
+
 		/obj/item/ai_module/core/full/custom, // uses lawsets from config/silicon_laws.txt (defaults to asmiov if no lawsets)
 	)
 
@@ -38,6 +42,7 @@
 		/obj/item/ai_module/supplied/protect_station,
 		/obj/item/ai_module/supplied/quarantine,
 		/obj/item/ai_module/remove,
+		/obj/item/ai_module/core/full/stationdefender
 	)
 
 /obj/effect/spawner/random/aimodule/harmful

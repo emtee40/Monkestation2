@@ -6,6 +6,11 @@
 	desc = "Ah yes.. The classic old original Crewsimov, before it got replaced with Crewsimov++."
 	law_id = "crewsimov"
 
+/obj/item/ai_module/core/full/crewsimovpp
+	name = "'Crewsimov++' Core AI Module"
+	desc = "Crewsimov++. The far more upgraded version 2.0 lawset of Crewsimov!"
+	law_id = "crewsimovpp"
+
 /obj/item/ai_module/core/full/surveillance
 	name = "'NT Artificial Surveillance Protocol' Core AI Module"
 	desc = "Surveillance AI..?"
