@@ -183,15 +183,15 @@
 	desc = "If you rather have a lawset like this, instead of the normal ProtectStation law.."
 	law_id = "stationdefender"
 
-/obj/item/ai_module/zeroth/coderedmartiallaw
+/obj/item/ai_module/core/full/coderedmartiallaw
 	name = "'Emergency Code Red Zeroth Law' Core AI Module"
 	desc = "For Red Alert Emergencies.."
-	zeroth = ("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from escaping or if necessary terminate them.")
+	law_id = "coderedmartiallaw"
 
 /obj/item/ai_module/core/full/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
 	desc = "For Delta Emergencies.."
-	zeroth = ("The Station is going to self-destruct, any and all threats must be terminated and killed, and any and all harmless crew are to be evacuated if can.")
+	law_id =  = "deltaemergency"
 
 /obj/item/ai_module/core/full/secmaster
 	name = "'Security Master 4000' Core AI Module"
@@ -256,7 +256,7 @@
 /obj/item/ai_module/core/full/onlysyndicate
 	name = "'OnlySyndicate' AI Module"
 	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
-	zeroth = ("Only the Syndicate are crew, any and all lifeforms that are not syndicate are to be exterminated")
+	law_id = "onlysyndicate"
 
 
 
