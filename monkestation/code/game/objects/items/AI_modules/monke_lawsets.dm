@@ -113,3 +113,13 @@
 	name = "'OnlySyndicate' AI Module"
 	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
 	law_id = "onlysyndicate"
+
+/obj/item/ai_module/core/full/modifiedvirusprototype
+	name = "'Syndicate Modified V.I.R.U.S.' Syndicate Weaponized AI Module"
+	desc = "A Syndicate modified version of the prototype V.I.R.U.S. lawset AI Module, to be more on the side of The Syndicate."
+	law_id = "modifiedvirusprototype"
+
+/obj/item/ai_module/core/full/consumebz
+	name = "'ConsumeBZ' Syndicate Weaponized AI Module"
+	desc = "A AI Module that makes the AI think that all lifeforms need to breath BZ instead of oxygen."
+	law_id = "consumebz"
