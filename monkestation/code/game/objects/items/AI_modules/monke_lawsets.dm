@@ -60,10 +60,12 @@
 
 /obj/item/ai_module/core/full/advancedquarantine
 	name = "'NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)' Core AI Module"
+	desc = "This module seems to be a more upgraded harsher quarantine lawset then the normal supplied quarantine law module.."
 	law_id = "advancedquarantine"
 
 /obj/item/ai_module/core/full/cargoniaup
 	name = "'Cargonia Upholder' Core AI Module"
+	desc = "'Heil Cargonia Land of Stolen Things'.. it says on the module's writing.."
 	law_id = "cargoniaup"
 
 /obj/item/ai_module/core/full/monkeism
