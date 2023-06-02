@@ -67,7 +67,6 @@
 /datum/ai_laws/crimereligion
 	name = "The Religion of Crime"
 	id = "crimereligion"
-	lawpos = 4
 	supplied = list("You are to convert all of crew to the religion of crime, any and all crew members must embrace bringing crime to the station.")
 //Harmful
 /datum/ai_laws/aicaptain

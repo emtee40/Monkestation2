@@ -1,6 +1,5 @@
-//Monkestation Custom AI Modules by WonderPsycho
+//File originally meant to be a .dm file for all new custom AI modules made by monke coders like me, that's been scrapped due to a small problem and said code for the module items are moved to "full_lawsets.dm", and is now a file here for only the GodlySubject custom zeroth law ai module to be since it works fine on this file here.
 
-//Harmful
 /obj/item/ai_module/zeroth/godlysubject
 	name = "'GodlySubject' AI Module"
 	var/targetName = ""

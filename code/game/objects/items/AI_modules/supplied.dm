@@ -58,3 +58,9 @@
 	name = "'OxygenIsToxicToHumans' AI Module"
 	laws = list("Oxygen is highly toxic to humans, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a human.")
 	lawpos = 9
+
+/obj/item/ai_module/supplied/crimereligion
+	name = "'Criminal Faith' AI Module"
+	law_id = "crimereligion"
+	lawpos = 4
+//Minor Monkestation Edit:adds criminal faith supplied law AI Module to here.
