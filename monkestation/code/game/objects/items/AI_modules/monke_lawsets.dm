@@ -83,5 +83,6 @@
 	law_id = "automalf"
 
 /obj/item/ai_module/core/full/virusprototype
-	name = "'' Core AI Module"
+	name = "'V.I.R.U.S. version 0 Prototype' Core AI Module"
+	desc = "a really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
 	law_id = "virusprototype"
