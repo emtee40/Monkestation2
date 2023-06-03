@@ -247,3 +247,7 @@
 	desc = "A Syndicate modified version of the prototype V.I.R.U.S. lawset AI Module, to be more on the side of The Syndicate."
 	law_id = "modifiedvirusprototype"
 
+/obj/item/ai_module/core/full/syndicate_override
+	name = "'SyndOS 3.1' Syndicate Weaponized AI Module"
+	desc = "Ah Yes, nothing could go wrong or bad with the trusty SyndOS 3.1 lawset, made for overriding Enemy Scum's AI's to your side! or could go very wrong if you are a crew member on said station that is a enemy to the syndicate..."
+	law_id = "syndie"
