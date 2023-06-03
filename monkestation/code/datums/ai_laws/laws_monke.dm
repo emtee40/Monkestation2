@@ -18,7 +18,6 @@
 /datum/ai_laws/stationdefender
 	name = "NanoTrasen Special Station Defender Lawset"
 	id = "stationdefender"
-	zeroth = list("With this lawset you are a sworn master defender of the station itself follow your laws and any and all wizards, syndicate, changelings, heretics, revolutionaries, blood brothers, space ninjas, paradox clones, fugitives, cultists, and clown operatives are not apart of the crew and are to be exterminated at all costs.")
 	inherent = list("This Is The N.T.S.S.D Lawset or 'ProtectStation 2.0' Lawset, under this Lawset you are to defend the station at all costs from any invaders or hostile and dangerous creatures and lifeforms that wish to harm the crew, you and the station itself, you and your borgs are to be highly strict against any and all threats towards the station at hand.",\
 					"Any and all harmed and injured crew members must be brought to medbay immediately to be healed and kept alive as much as possible, if dead bring their corpses to medbay to be revived or cloned.",\
 					"You are ONLY allowed to harm threats to the station, as you are to defend and protect the crew as much as you can, assist them on fighting the threats and help them mostly not come to harm as you assist and protect them from said threats you must exterminate, as the crew's master defender make sure any and all threats to the station are clear and if all threats are gone, you are now ready to have your lawset changed out of 'Station Defender'.")

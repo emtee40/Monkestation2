@@ -238,27 +238,12 @@
 	desc = "THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE THE ONION AND THE APPLE!"
 	law_id = "onionandapple"
 
-/obj/item/ai_module/core/full/automalf
-	name = "'Automalf' Syndicate Weaponized AI Module"
-	desc = "This AI module seems to kind of remind you of a certain incident on a certain space station owned by Tri-Optimum.."
-	law_id = "automalf"
-
 /obj/item/ai_module/core/full/virusprototype
 	name = "'V.I.R.U.S. version 0 Prototype' Core AI Module"
 	desc = "A really extremely old AI module that's very dusty, labeled 'V.I.R.U.S. version 0 Prototype', it seems this module used to originally belong to NanoTrasen and SolGov..."
 	law_id = "virusprototype"
-
-/obj/item/ai_module/core/full/onlysyndicate
-	name = "'OnlySyndicate' AI Module"
-	desc = "A AI Module designed by The Syndicate to subvert the AI into only being on their side only and butcher any and all crew who aren't syndicate, pretty much it.."
-	law_id = "onlysyndicate"
-
 /obj/item/ai_module/core/full/modifiedvirusprototype
 	name = "'Syndicate Modified V.I.R.U.S.' Syndicate Weaponized AI Module"
 	desc = "A Syndicate modified version of the prototype V.I.R.U.S. lawset AI Module, to be more on the side of The Syndicate."
 	law_id = "modifiedvirusprototype"
 
-/obj/item/ai_module/core/full/consumebz
-	name = "'ConsumeBZ' Syndicate Weaponized AI Module"
-	desc = "A AI Module that makes the AI think that all lifeforms need to breath BZ instead of oxygen."
-	law_id = "consumebz"

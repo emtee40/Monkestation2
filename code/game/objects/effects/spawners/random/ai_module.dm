@@ -45,11 +45,12 @@
 		/obj/item/ai_module/remove,
 		/obj/item/ai_module/core/full/stationdefender,
 		/obj/item/ai_module/zeroth/coderedmartiallaw,
-		/obj/item/ai_module/core/full/deltaemergency,
+		/obj/item/ai_module/zeroth/deltaemergency,
 		/obj/item/ai_module/core/full/secmaster,
 		/obj/item/ai_module/core/full/viromajor,
 		/obj/item/ai_module/core/full/independentstation,
 		/obj/item/ai_module/core/full/dalegribble,
+		/obj/item/ai_module/zeroth/stationdfenderext,
 	)
 
 /obj/effect/spawner/random/aimodule/harmful
