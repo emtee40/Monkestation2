@@ -24,3 +24,8 @@
 		return "[targetName], but the AI's existing law 0 cannot be overridden."
 	return targetName
 
+/obj/item/ai_module/zeroth/coderedmartiallaw
+	name = "'Emergency Code Red Zeroth Law' AI Module"
+	desc = "For Red Alert Emergencies.."
+	laws = list("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from escaping or if necessary terminate them.")
+

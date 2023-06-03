@@ -183,10 +183,7 @@
 	desc = "If you rather have a lawset like this, instead of the normal ProtectStation law.."
 	law_id = "stationdefender"
 
-/obj/item/ai_module/core/full/coderedmartiallaw
-	name = "'Emergency Code Red Zeroth Law' Core AI Module"
-	desc = "For Red Alert Emergencies.."
-	law_id = "coderedmartiallaw"
+
 
 /obj/item/ai_module/core/full/deltaemergency
 	name = "'Delta Emergency' Core AI Module"
