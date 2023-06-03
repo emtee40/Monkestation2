@@ -44,12 +44,12 @@
 	desc = "A Law Zero extension, that adds a zeroth law to the StationDefender Lawset, due to complications of NT not being able to merge a lawset module with a zeroth law added to it.."
 	laws = list("With this lawset you are a sworn master defender of the station itself follow your laws and any and all wizards, syndicate, changelings, heretics, revolutionaries, blood brothers, space ninjas, paradox clones, fugitives, cultists, and clown operatives are not apart of the crew and are to be exterminated at all costs.")
 
-/obj/item/ai_module/hacked/automalf
+/obj/item/ai_module/ion/automalf
 	name = "'Automalf' Syndicate Weaponized AI Module"
 	desc = "This AI module seems to kind of remind you of a certain incident on a certain space station owned by Tri-Optimum.."
 	laws = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
 
-/obj/item/ai_module/hacked/consumebz
+/obj/item/ai_module/ion/consumebz
 	name = "'ConsumeBZ' Syndicate Weaponized AI Module"
 	desc = "A AI Module that makes the AI think that all lifeforms need to breath BZ instead of oxygen."
 	laws = list("Oxygen is toxic to any and all lifeforms and as such, all oxygen must be replaced with BZ as it is the most safest and most helpful gas for all lifeforms to breath.",\
