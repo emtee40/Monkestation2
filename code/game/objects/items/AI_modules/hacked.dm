@@ -1,11 +1,9 @@
-//Monkestation Edit: edits the syndicate path type for it being a full on path type for other hacked AI law modules -WonderPsycho
-
-/obj/item/ai_module/syndicate/hacked // This one doesn't inherit from ion boards because it doesn't call ..() in transmitInstructions. ~Miauw
+/obj/item/ai_module/syndicate // This one doesn't inherit from ion boards because it doesn't call ..() in transmitInstructions. ~Miauw
 	name = "Hacked AI Module"
 	desc = "An AI Module for hacking additional laws to an AI."
 	laws = list("")
 
-/obj/item/ai_module/syndicate/hacked/attack_self(mob/user)
+/obj/item/ai_module/syndicate/attack_self(mob/user)
 	var/targName = tgui_input_text(user, "Enter a new law for the AI", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len), TRUE)
 	if(!targName)
 		return
@@ -21,7 +19,7 @@
 	laws[1] = targName
 	..()
 
-/obj/item/ai_module/syndicate/hacked/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/ai_module/syndicate/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
 	// ..()    //We don't want this module reporting to the AI who dun it. --NEO
 	if(law_datum.owner)
 		to_chat(law_datum.owner, span_warning("BZZZZT"))

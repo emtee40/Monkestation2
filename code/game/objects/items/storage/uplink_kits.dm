@@ -107,7 +107,7 @@
 			new /obj/item/implanter/storage(src) // 8 tc
 
 		if(KIT_HACKER) //L-L--LOOK AT YOU, HACKER
-			new /obj/item/ai_module/syndicate/hacked(src) // 4 tc
+			new /obj/item/ai_module/syndicate(src) // 4 tc
 			new /obj/item/card/emag(src) // 4 tc
 			new /obj/item/card/emag/doorjack(src) // 3 tc
 			new /obj/item/encryptionkey/binary(src) // 5 tc
