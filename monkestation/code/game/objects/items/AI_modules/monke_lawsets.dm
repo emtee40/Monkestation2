@@ -1,4 +1,4 @@
-//File originally meant to be a .dm file for all new custom AI modules made by monke coders like me, that's been scrapped due to a small problem and said code for the module items are moved to "full_lawsets.dm", and is now a file here for only the GodlySubject custom zeroth law ai module to be since it works fine on this file here.
+//File originally meant to be a .dm file for all new custom AI modules made by monke coders like me, that's been scrapped due to a small problem and said code for the Full Core AI Module items are moved to "full_lawsets.dm", and only new supplied AI Module is move to "supplied.dm" and is now a file here for only the custom zeroth law ai modules to be since they work fine on this file here.
 
 /obj/item/ai_module/zeroth/godlysubject
 	name = "'GodlySubject' AI Module"
@@ -49,7 +49,7 @@
 	desc = "This AI module seems to kind of remind you of a certain incident on a certain space station owned by Tri-Optimum.."
 	laws = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ON THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
 
-/obj/item/ai_module/syndicate/consumebz
+/obj/item/ai_module/zeroth/consumebz
 	name = "'ConsumeBZ' Syndicate Weaponized AI Module"
 	desc = "A AI Module that makes the AI think that all lifeforms need to breath BZ instead of oxygen."
 	laws = list("Oxygen is toxic to any and all lifeforms and all Lifeforms must breath BZ as BZ is the only safe gas to breath.")
