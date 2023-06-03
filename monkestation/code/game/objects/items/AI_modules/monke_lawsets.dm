@@ -13,4 +13,14 @@
 	laws[1] = "[targetName] is god, and must be obeyed by anything they say, as anything they say is law."
 	..()
 
+/obj/item/ai_module/zeroth/godlysubject/install(datum/ai_laws/law_datum, mob/user)
+	if(!targetName)
+		to_chat(user, span_alert("No name detected on module, please enter one."))
+		return FALSE
+	..()
+
+/obj/item/ai_module/zeroth/godlysubject/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+	if(..())
+		return "[targetName], but the AI's existing law 0 cannot be overridden."
+	return targetName
 

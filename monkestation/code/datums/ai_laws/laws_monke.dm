@@ -1,5 +1,5 @@
 //Monkestation Update by WonderPsycho, adds in more lawsets to Monke code: Harmless/Station-sided, Neutral, Harmful, and Syndicate Weaponized
-var/zeroth = list()
+
 //Harmless and/or Station-Sided
 /datum/ai_laws/crewsimovogmanifestimov
 	name = "Three Laws of Robotics but with Chain of Command"
