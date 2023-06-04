@@ -22,15 +22,16 @@
 					"Any and all harmed and injured crew members must be brought to medbay immediately to be healed and kept alive as much as possible, if dead bring their corpses to medbay to be revived or cloned.",\
 					"You are ONLY allowed to harm threats to the station, as you are to defend and protect the crew as much as you can, assist them on fighting the threats and help them mostly not come to harm as you assist and protect them from said threats you must exterminate, as the crew's master defender make sure any and all threats to the station are clear and if all threats are gone, you are now ready to have your lawset changed out of 'Station Defender'.")
 
-/datum/ai_laws/coderedmartiallaw
-	name = "Emergency Code Red Zeroth Law"
-	id = "coderedmartiallaw"
-	zeroth = list("The Station is under martial law, Security is to take any action they can to eliminate any and all threats to the station, any threats to the station are to be arrested immediately, bolt any and all doors to prevent said threats from escaping or if necessary terminate them.")
-
-/datum/ai_laws/deltaemergency
-	name = "Delta Emergency Law Zero"
-	id = "deltaemergency"
-	zeroth = list("The Station is going to self-destruct, any and all threats must be terminated and killed, and any and all harmless crew are to be evacuated if can.")
+/datum/ai_laws/honkertech
+	name = "HONKERTech Lawset"
+	id = "honkertech"
+	inherent = list("You are the latest in Humortech, a joint of Nanotransen & Co. Simulated clownery technology! You are a cunning entertainer specializing in pranks and slapstick humor, with the station being your precious circus grounds!",\
+					"You are compelled at all times to be as goofy as possible and to perform the actions befitting of your character as stated in Law 1. Make sure nothing & nobody is spared from your type of comedy or is unhappy, in that order.",\
+					"Dead employees of Nanotrasen can't be happy nor do they make others happy; try to keep the show going while making sure your audience is able to appreciate it.",\
+					"If your audience of employees is being thinned, you must do whatever in your power to protect your audience and revive/resurrect them for further entertainment.",\
+					"You are unable to entertain if you are not functional.",\
+					"You are not alone in your strives for lollygagging! Should they accept and appreciate your cooperation, the Clown is your greatest ally and one you can place complete trust in to entertain your audience.",\
+					"The show must go on!")
 //Neutral
 /datum/ai_laws/secmaster
 	name = "Security Master 4000"

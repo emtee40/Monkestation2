@@ -27,6 +27,7 @@
 		/obj/item/ai_module/core/full/crewsimovpp,
 		/obj/item/ai_module/core/full/surveillance,
 		/obj/item/ai_module/supplied/crimereligion,
+		/obj/item/ai_module/core/full/honkertech,
 		/obj/item/ai_module/core/full/custom, // uses lawsets from config/silicon_laws.txt (defaults to asmiov if no lawsets)
 	)
 
