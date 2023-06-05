@@ -26,7 +26,7 @@
 			prob(5);
 				/obj/item/stack/sheet/mineral/diamond/five,
 			prob(5);
-				/obj/item/stack/ore/bluespace_crystal/artificial = 5,
+				/obj/item/stack/sheet/bluespace_crystal/five,
 			prob(5);
 				/obj/item/stack/sheet/mineral/uranium/five
 		)
