@@ -56,5 +56,3 @@
 
 	else
 		to_chat(cast_on, span_notice("[to_charge] doesn't seem to be react to [src]."))
-
-
