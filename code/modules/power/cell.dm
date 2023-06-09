@@ -32,6 +32,8 @@
 	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
 	var/chargerate = 100
+	//does it self recharge, over time, or not?
+	var/self_recharge = 0
 	///If true, the cell will state it's maximum charge in it's description
 	var/ratingdesc = TRUE
 	///If it's a grown that acts as a battery, add a wire overlay to it.
@@ -48,6 +50,7 @@
 
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	create_reagents(5, INJECTABLE | DRAINABLE)
 	if (override_maxcharge)
 		maxcharge = override_maxcharge
@@ -65,6 +68,25 @@
 		COMSIG_ITEM_MAGICALLY_CHARGED = PROC_REF(on_magic_charge),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/stock_parts/cell/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, self_recharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/obj/item/stock_parts/cell/process(delta_time)
+	if(self_recharge)
+		give(chargerate * 0.125 * delta_time)
+	else
+		return PROCESS_KILL
 
 /**
  * Signal proc for [COMSIG_ITEM_MAGICALLY_CHARGED]
@@ -431,9 +453,11 @@
 	icon = 'icons/mob/simple/slimes.dmi'
 	icon_state = "yellow slime extract"
 	custom_materials = null
-	maxcharge = 5000
+	maxcharge = 10000
 	charge_light_type = null
 	connector_type = "slimecore"
+	rating = 5 //self-recharge makes these desirable
+	self_recharge = 1 // Infused slime cores self-recharge, over time
 
 /obj/item/stock_parts/cell/beam_rifle
 	name = "beam rifle capacitor"
