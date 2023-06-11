@@ -9,7 +9,13 @@
 	gender = FEMALE
 	speed = 0
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1)
+							/obj/item/stack/sheet/animalhide/xeno = 1,
+							/obj/item/organ/internal/tongue/alien = 1,
+							/obj/item/organ/internal/eyes/alien = 1,
+							/obj/item/organ/internal/alien/plasmavessel/large = 1,
+							/obj/item/organ/internal/alien/resinspinner = 1,
+							/obj/item/organ/internal/alien/acid = 1,
+							/obj/item/organ/internal/alien/neurotoxin = 1)
 	maxHealth = 125
 	health = 125
 	harm_intent_damage = 5
@@ -87,7 +93,13 @@
 	minimum_distance = 5
 	move_to_delay = 4
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1)
+							/obj/item/stack/sheet/animalhide/xeno = 1,
+							/obj/item/organ/internal/tongue/alien = 1,
+							/obj/item/organ/internal/eyes/alien = 1,
+							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1,
+							/obj/item/organ/internal/alien/resinspinner = 1,
+							/obj/item/organ/internal/alien/acid = 1,
+							/obj/item/organ/internal/alien/neurotoxin = 1)
 	projectiletype = /obj/projectile/neurotoxin/damaging
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -138,7 +150,13 @@
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 10,
-							/obj/item/stack/sheet/animalhide/xeno = 2)
+							/obj/item/stack/sheet/animalhide/xeno = 2,
+							/obj/item/organ/internal/tongue/alien = 1,
+							/obj/item/organ/internal/eyes/alien = 1,
+							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1,
+							/obj/item/organ/internal/alien/resinspinner = 1,
+							/obj/item/organ/internal/alien/acid = 1,
+							/obj/item/organ/internal/alien/neurotoxin = 1)
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
