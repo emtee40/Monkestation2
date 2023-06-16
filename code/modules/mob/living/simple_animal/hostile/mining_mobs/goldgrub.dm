@@ -121,6 +121,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
 	barf_contents()
+	new /obj/item/gem/rupee(loc) // monkestation change
 	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/barf_contents()

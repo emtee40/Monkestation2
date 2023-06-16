@@ -31,8 +31,8 @@ I'd rather there be something than the clockwork ruin be entirely empty though s
 	melee_queue_distance = 20
 	ranged = TRUE
 	gps_name = "Clockwork Signal"
-	loot = list(/obj/item/clockwork_alloy)
-	crusher_loot = list(/obj/item/clockwork_alloy)
+	loot = list(/obj/structure/closet/crate/necropolis/clockwork_defender) // monkestation change
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/clockwork_defender/crusher) // monkestation change
 	wander = FALSE
 	del_on_death = TRUE
 	death_message = "falls, quickly decaying into centuries old dust."

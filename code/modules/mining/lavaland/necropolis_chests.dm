@@ -88,6 +88,8 @@
 			new /obj/item/book/granter/action/spell/sacredflame(src)
 		if(4)
 			new /obj/item/dragons_blood(src)
+	new /obj/effect/spawner/random/megafauna_ore(src) // monkestation change
+	new /obj/item/gem/amber(src) // monkestation change
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
@@ -113,6 +115,8 @@
 			new /obj/item/mayhem(src)
 		if(2)
 			new /obj/item/soulscythe(src)
+	new /obj/effect/spawner/random/megafauna_ore(src) // monkestation change
+	new /obj/item/gem/bloodstone(src) // monkestation change
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
@@ -134,6 +138,8 @@
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
 	new /obj/item/organ/internal/vocal_cords/colossus(src)
+	new /obj/effect/spawner/random/megafauna_ore(src) // monkestation change
+	new /obj/item/gem/void(src) // monkestation change
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"

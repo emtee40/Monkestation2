@@ -134,7 +134,7 @@
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.allow_quick_gather = TRUE
-	atom_storage.set_holdable(list(/obj/item/stack/ore))
+	atom_storage.set_holdable(list(/obj/item/stack/ore, /obj/item/gem)) // monkestation change: gems
 	atom_storage.silent_for_user = TRUE
 
 /obj/item/storage/bag/ore/equipped(mob/user)
