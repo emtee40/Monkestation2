@@ -48,7 +48,7 @@ Template for future megafauna chests:
 
 /obj/structure/closet/crate/necropolis/legion/crusher/PopulateContents()
 	..()
-//	new PLACEHOLDER(src)
+	new /obj/item/crusher_trophy/malformed_bone(src)
 
 // -----------------------------
 //         Blood-drunk
