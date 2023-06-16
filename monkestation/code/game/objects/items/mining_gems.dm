@@ -199,7 +199,7 @@
 	name = "\improper Ichorium"
 	desc = "A weird, sticky substance, known to coalesce in the presence of otherwordly phenomena. While shunned by most spiritual groups, this gemstone has unique ties to the occult which find it handsomely valued by mysterious patrons."
 	icon_state = "red"
-	sheet_type = /obj/item/stack/sheet/runed_metal{amount = 10} // its only use is golems, you can already get runed metal from the lavaland cult ruin so it shouldnt be that big of a deal
+	sheet_type = /obj/item/stack/sheet/runed_metal{amount = 25} // its only use is golems, you can already get runed metal from the lavaland cult ruin so it shouldnt be that big of a deal
 	point_value = 2000
 	light_range = 2
 	light_power = 3

@@ -38,3 +38,20 @@
 	damage = 24
 	range = 7
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+
+// monkestation change begins, plasma shotguns
+
+/obj/projectile/plasma/scatter/adv/on_hit(atom/target)
+	if(istype(target, /turf/closed/mineral/gibtonite))
+		var/turf/closed/mineral/gibtonite/gib = target
+		gib.defuse()
+	. = ..()
+
+/obj/projectile/plasma/scatter
+	damage = 2
+	range = 5
+	mine_range = 2
+	dismemberment = 0
+
+// Same as the scatter but with automatic defusing
+/obj/projectile/plasma/scatter/adv
