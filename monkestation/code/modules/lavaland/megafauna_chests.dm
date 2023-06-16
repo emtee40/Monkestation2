@@ -112,7 +112,7 @@ Template for future megafauna chests:
 
 	new /obj/effect/spawner/random/megafauna_ore(src)
 
-//	new /obj/item/gem/X(src)
+	new /obj/item/gem/brass(src)
 
 /obj/structure/closet/crate/necropolis/clockwork_defender/crusher
 	name = "Ticking clockwork defenders chest"
@@ -120,3 +120,48 @@ Template for future megafauna chests:
 /obj/structure/closet/crate/necropolis/clockwork_defender/crusher/PopulateContents()
 	..()
 //	new /obj/item/crusher_trophy/X(src)
+
+// -----------------------------
+//           Wendigo
+// -----------------------------
+
+/obj/structure/closet/crate/necropolis/wendigo
+	name = "Wendigo chest"
+
+/obj/structure/closet/crate/necropolis/wendigo/PopulateContents()
+
+	new /obj/item/wendigo_blood(src)
+	new /obj/item/wendigo_skull(src)
+
+	new /obj/effect/spawner/random/megafauna_ore(src)
+
+	new /obj/item/gem/bananium(src)
+
+/obj/structure/closet/crate/necropolis/wendigo/crusher
+	name = "bloodied wendigo chest"
+
+/obj/structure/closet/crate/necropolis/wendigo/crusher/PopulateContents()
+	..()
+	new /obj/item/crusher_trophy/wendigo_horn(src)
+
+// -----------------------------
+//      Demonic frost miner
+// -----------------------------
+
+/obj/structure/closet/crate/necropolis/frost_miner
+	name = "Demonic frost miner chest"
+
+/obj/structure/closet/crate/necropolis/frost_miner/PopulateContents()
+
+	new /obj/item/ice_energy_crystal(src)
+
+	new /obj/effect/spawner/random/megafauna_ore(src)
+
+	new /obj/item/gem/demon(src)
+
+/obj/structure/closet/crate/necropolis/frost_miner/crusher
+	name = "Ultra-demonic frost miner chest"
+
+/obj/structure/closet/crate/necropolis/frost_miner/crusher/PopulateContents()
+	..()
+	new /obj/item/crusher_trophy/ice_block_talisman(src)

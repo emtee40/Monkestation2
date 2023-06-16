@@ -78,7 +78,6 @@
 	custom_materials = list(/datum/material/uranium=20000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 10}
 	point_value = 300
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gem/magma
 	name = "\improper Calcified Auric"
@@ -90,7 +89,6 @@
 	light_range = 2
 	light_power = 1
 	light_color = "#ff7b00"
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gem/diamond
 	name = "\improper Frost Diamond"
@@ -99,10 +97,9 @@
 	custom_materials = list(/datum/material/diamond=30000)
 	sheet_type = /obj/item/stack/sheet/mineral/diamond{amount = 15}
 	point_value = 750
-	w_class = WEIGHT_CLASS_SMALL
 
 // -----------------------------
-//        Megafauna gems
+//    Lavaland Megafauna gems
 // -----------------------------
 
 /obj/item/gem/phoron // blood-drunk's
@@ -114,7 +111,6 @@
 	light_range = 2
 	light_power = 2
 	light_color = "#62326a"
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gem/purple // hierophant's
 	name = "\improper Densified Dilithium"
@@ -126,7 +122,6 @@
 	light_range = 2
 	light_power = 1
 	light_color = "#b714cc"
-	w_class = WEIGHT_CLASS_SMALL
 
 	var/obj/item/gps/internal //stolen from the yog's world anvil
 
@@ -148,17 +143,15 @@
 	light_range = 2
 	light_power = 2
 	light_color = "#FFBF00"
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gem/void // collosus's
 	name = "\improper Null Crystal"
 	desc = "A shard of stellar, crystallized energy. These strange objects occasionally appear spontaneously in areas where the bluespace fabric is largely unstable. Its surface gives a light jolt to those who touch it. Despite its size, it's absurdly light."
-	icon_state ="void"
+	icon_state = "void"
 	point_value = 1800
 	light_range = 2
 	light_power = 1
 	light_color = "#4785a4"
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/gem/bloodstone // bubblegum's
 	name = "\improper Ichorium"
@@ -168,7 +161,39 @@
 	light_range = 2
 	light_power = 3
 	light_color = "#800000"
-	w_class = WEIGHT_CLASS_SMALL
+
+// -----------------------------
+//    Icebox Megafauna gems
+// -----------------------------
+
+/obj/item/gem/brass // Clockwork Defender's
+	name = "\improper Densified Brass"
+	desc = "Rat'vars influence over this world has been longer than any species may ever comprehend, yet nar'sie finally banished rat'var into his realm. Locking him out of this world.The clockwork defender's powersource was this gem you extracted, its still vibrant with energy"
+	icon_state = "amber"
+	point_value = 1000
+	light_range = 4
+	light_power = 4
+	light_color = "#FFBF00"
+
+/obj/item/gem/bananium // wendigo's
+	name = "\improper Condensed Bananium"
+	desc = "Wendigo's famously feed on humans, this one seems to have been a primarily clown diet resulting in bananium atmos condensing themselfes in their stomach. This gem is the result"
+	icon_state = "magma"
+	custom_materials = list(/datum/material/bananium=50000)
+	point_value = 1800
+	light_range = 3
+	light_power = 1
+	light_color = "#ffee00"
+
+/obj/item/gem/demon // frost miner's
+	name = "\improper Demon Core"
+	desc = "A gem extracted from the core of a demon, its primary use is to negate any magic the enemy may have. Seems to not work against miner nanotrasen weaponry"
+	icon_state = "void"
+	point_value = 2000
+
+/obj/item/gem/demon/Initialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, null, null, FALSE)
 
 /*
 
