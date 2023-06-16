@@ -10,15 +10,11 @@
 
 	///Have we been analysed with an ID card?
 	var/analysed = FALSE
-	///How many points we grant to whoever discovers us
+	///How many points we grant to the person who claimed us.
 	var/point_value = 100
-	///what's our real name that will show upon discovery? null to do nothing
-	var/true_name
-	///the message given when you discover this gem.
-	var/analysed_message = null
 	///the thing that spawns in the item.
-	var/sheet_type = null
-	//shows this overlay when not scanned
+	var/sheet_type = /obj/item/stack/sheet/iron{amount = 1} // tactical iron failsafe
+	//shows this overlay when not scanned.
 	var/image/shine_overlay
 
 /obj/item/gem/Initialize()
@@ -28,8 +24,12 @@
 	pixel_x = rand(-8,8)
 	pixel_y = rand(-8,8)
 
+/obj/item/gem/examine(mob/user)
+	. = ..()
+	. += span_notice("Its value of [point_value] mining points can be registered by hitting it with an ID.")
+
 /obj/item/gem/attackby(obj/item/item, mob/living/user, params) //Stolen directly from geysers, removed the internal gps
-	if(!istype(item, /obj/item/mining_scanner) && !istype(item, /obj/item/t_scanner/adv_mining_scanner))
+	if(!istype(item, /obj/item/card/id))
 		return ..()
 
 	if(analysed)
@@ -37,12 +37,8 @@
 		return
 
 	to_chat(user, span_notice("You analyse the precious gemstone!"))
-	if(analysed_message)
-		to_chat(user, analysed_message)
 
 	analysed = TRUE
-	if(true_name)
-		name = true_name
 
 	if(shine_overlay)
 		cut_overlay(shine_overlay)
@@ -59,13 +55,60 @@
 
 /obj/item/gem/welder_act(mob/living/user, obj/item/I) //Jank code that detects if the gem in question has a sheet_type and spawns the items specifed in it
 	if(I.use_tool(src, user, 0, volume=50))
-		if(src.sheet_type)
-			new src.sheet_type(user.loc)
-			to_chat(user, span_notice("You carefully cut [src]."))
-			qdel(src)
-		else
-			to_chat(user, span_notice("You can't seem to cut [src]."))
+		new src.sheet_type(user.loc)
+		to_chat(user, span_notice("You carefully cut [src]."))
+		qdel(src)
 	return TRUE
+
+/obj/structure/closet/crate/necropolis/debug_gems // Used to get all the gems at once for debugging purposes
+	name = "Debug gem chest"
+
+/obj/structure/closet/crate/necropolis/debug_gems/PopulateContents()
+
+/// un-used gems
+	new /obj/item/gem/ruby(src)
+	new /obj/item/gem/sapphire(src)
+	new /obj/item/gem/emerald(src)
+	new /obj/item/gem/topaz(src)
+/// Basic mob gems
+	new /obj/item/gem/rupee(src)
+	new /obj/item/gem/magma(src)
+	new /obj/item/gem/diamond(src)
+/// Lavaland megafauna gems
+	new /obj/item/gem/phoron(src)     // blood-drunk's
+	new /obj/item/gem/purple(src)     // hierophant's
+	new /obj/item/gem/amber(src)      // ashdrake's
+	new /obj/item/gem/void(src)       // collosus's
+	new /obj/item/gem/bloodstone(src) // bubblegum's
+//	new /obj/item/gem/dark(src)       // King goat's
+/// Icebox megafauna gems
+	new /obj/item/gem/brass(src)      // Clockwork Defender's
+	new /obj/item/gem/bananium(src)   // wendigo's
+	new /obj/item/gem/demon(src)      // frost miner's
+
+// -----------------------------
+//         Un-used gems
+// -----------------------------
+
+/obj/item/gem/ruby
+	name = "\improper Ruby"
+	icon_state = "ruby"
+	point_value = 200
+
+/obj/item/gem/sapphire
+	name = "\improper Sapphire"
+	icon_state = "sapphire"
+	point_value = 200
+
+/obj/item/gem/emerald
+	name = "\improper Emerald"
+	icon_state = "emerald"
+	point_value = 200
+
+/obj/item/gem/topaz
+	name = "\improper Topaz"
+	icon_state = "topaz"
+	point_value = 200
 
 // -----------------------------
 //        Basic mob gems
@@ -75,7 +118,6 @@
 	name = "\improper Ruperium Crystal"
 	desc = "A radioactive, crystalline compound rarely found in the goldgrubs. While able to be cut into sheets of uranium, the mineral's true value is in its resonating, humming properties, often sought out by ethereal musicians to work into their gem-encrusted instruments. As a result, they fetch a fine price in most exchanges."
 	icon_state = "rupee"
-	custom_materials = list(/datum/material/uranium=20000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 10}
 	point_value = 300
 
@@ -83,7 +125,6 @@
 	name = "\improper Calcified Auric"
 	desc = "A hot, lightly glowing mineral born from the inner workings of magmawing watchers. It is most commonly smelted down into deposits of pure gold. However, it also possesses powerful conductivity, leading some to believe it a major power component utilized by the Vxtvul Empire."
 	icon_state = "magma"
-	custom_materials = list(/datum/material/gold=50000)
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 25}
 	point_value = 450
 	light_range = 2
@@ -94,7 +135,6 @@
 	name = "\improper Frost Diamond"
 	desc = "A unique diamond that is produced within icewing watchers. Rarely used in traditional marriage bands, various gemstone companies now try to effect a monopoly on it, to little success. It looks like it can be cut into smaller sheets of diamond ore."
 	icon_state = "diamond"
-	custom_materials = list(/datum/material/diamond=30000)
 	sheet_type = /obj/item/stack/sheet/mineral/diamond{amount = 15}
 	point_value = 750
 
@@ -106,7 +146,7 @@
 	name = "\improper Stabilized Baroxuldium"
 	desc = "A soft, glowing crystal only found in the deepest veins of plasma. Famed for its exceptional durability and uncommon beauty: widely considered to be a jackpot by mining crews. It looks like it could be destructively analyzed to extract the condensed materials within."
 	icon_state = "phoron"
-	custom_materials = list(/datum/material/plasma=80000)
+	sheet_type = /obj/item/stack/sheet/mineral/plasma{amount = 50}
 	point_value = 1200
 	light_range = 2
 	light_power = 2
@@ -117,7 +157,7 @@
 	desc = "A strange mass of dilithium which pulses to a steady rhythm. Its strange surface exudes a unique radio signal detectable by GPS. It looks like it could be destructively analyzed to extract the condensed materials within...\
 	actually upon closer inspection it appears its just colored purple glass, what a scam"
 	icon_state = "purple"
-	custom_materials = list(/datum/material/glass=5000000) // im sorry, we dont have dilithium and there is no good replacemen. So have 250 sheets of glass instead
+	sheet_type = /obj/item/stack/sheet/glass{amount = 500} // im sorry, we dont have dilithium and there is no good replacement. So have 500 sheets of glass instead
 	point_value = 1600
 	light_range = 2
 	light_power = 1
@@ -139,6 +179,7 @@
 	name = "\improper Draconic Amber"
 	desc = "A brittle, strange mineral that forms when an ash drake's blood hardens after death. Cherished by gemcutters for its faint glow and unique, soft warmth. Poacher tales whisper of the dragon's strength being bestowed to one that wears a necklace of this amber, though such rumors are fictitious."
 	icon_state = "amber"
+	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 50}
 	point_value = 1600
 	light_range = 2
 	light_power = 2
@@ -148,6 +189,7 @@
 	name = "\improper Null Crystal"
 	desc = "A shard of stellar, crystallized energy. These strange objects occasionally appear spontaneously in areas where the bluespace fabric is largely unstable. Its surface gives a light jolt to those who touch it. Despite its size, it's absurdly light."
 	icon_state = "void"
+	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 20}
 	point_value = 1800
 	light_range = 2
 	light_power = 1
@@ -157,6 +199,7 @@
 	name = "\improper Ichorium"
 	desc = "A weird, sticky substance, known to coalesce in the presence of otherwordly phenomena. While shunned by most spiritual groups, this gemstone has unique ties to the occult which find it handsomely valued by mysterious patrons."
 	icon_state = "red"
+	sheet_type = /obj/item/stack/sheet/runed_metal{amount = 10} // its only use is golems, you can already get runed metal from the lavaland cult ruin so it shouldnt be that big of a deal
 	point_value = 2000
 	light_range = 2
 	light_power = 3
@@ -169,7 +212,8 @@
 /obj/item/gem/brass // Clockwork Defender's
 	name = "\improper Densified Brass"
 	desc = "Rat'vars influence over this world has been longer than any species may ever comprehend, yet nar'sie finally banished rat'var into his realm. Locking him out of this world.The clockwork defender's powersource was this gem you extracted, its still vibrant with energy"
-	icon_state = "amber"
+	icon_state = "brass"
+	sheet_type = /obj/item/stack/sheet/bronze{amount = 150} // its basically worse iron, lets give them a good bit of it
 	point_value = 1000
 	light_range = 4
 	light_power = 4
@@ -179,7 +223,7 @@
 	name = "\improper Condensed Bananium"
 	desc = "Wendigo's famously feed on humans, this one seems to have been a primarily clown diet resulting in bananium atmos condensing themselfes in their stomach. This gem is the result"
 	icon_state = "magma"
-	custom_materials = list(/datum/material/bananium=50000)
+	sheet_type = /obj/item/stack/sheet/mineral/bananium{amount = 10}
 	point_value = 1800
 	light_range = 3
 	light_power = 1
@@ -189,6 +233,7 @@
 	name = "\improper Demon Core"
 	desc = "A gem extracted from the core of a demon, its primary use is to negate any magic the enemy may have. Seems to not work against miner nanotrasen weaponry"
 	icon_state = "void"
+	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 50}
 	point_value = 2000
 
 /obj/item/gem/demon/Initialize()
