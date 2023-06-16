@@ -717,11 +717,11 @@
 		return
 
 	var/mob/living/carbon/human/consumer = user
-	var/random = rand(1,4)
+	var/random = rand(1,3)
 
 	switch(random)
 		if(1)
-			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
+			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You feel like the scales on your skin will protect you from blows that your opponents may deal."))
 			consumer.dna.features = list(
 				"mcolor" = "#A02720",
 				"tail_lizard" = "Dark Tiger",
@@ -737,15 +737,12 @@
 			)
 			consumer.eye_color_left = "#FEE5A3"
 			consumer.eye_color_right = "#FEE5A3"
-			consumer.set_species(/datum/species/lizard)
+			consumer.set_species(/datum/species/lizard/draconid)
 		if(2)
-			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
-			consumer.set_species(/datum/species/skeleton)
-		if(3)
 			to_chat(user, span_danger("Power courses through you! You can now shift your form at will."))
 			var/datum/action/cooldown/spell/shapeshift/dragon/dragon_shapeshift = new(user.mind || user)
 			dragon_shapeshift.Grant(user)
-		if(4)
+		if(3)
 			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
 			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, type)
 

@@ -110,6 +110,7 @@
 #define SPECIES_LIZARD "lizard"
 #define SPECIES_LIZARD_ASH "ashwalker"
 #define SPECIES_LIZARD_SILVER "silverscale"
+#define SPECIES_LIZARD_DRACONID "draconoid" // Monkestation change
 #define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MONKEY_FREAK "monkey_freak"

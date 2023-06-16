@@ -25,7 +25,7 @@
  *When an ash drake dies, it leaves behind a chest that can contain four things:
  *A. A spectral blade that allows its wielder to call ghosts to it, enhancing its power
  *B. A lava staff that allows its wielder to create lava
- *C. A spellbook and wand of fireballs
+ *C. A spellbook
  *D. A bottle of dragon's blood with several effects, including turning its imbiber into a drake themselves.
  *
  *When butchered, they leave behind diamonds, sinew, bone, and ash drake hide. Ash drake hide can be used to create a hooded cloak that protects its wearer from ash storms.
