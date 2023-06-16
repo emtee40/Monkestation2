@@ -20,44 +20,62 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	var/parent_integrity = 30
 	/// How far the acid melting of turfs has progressed
 	var/stage = 0
+	/// Acid overlay appearance we apply
+	var/acid_overlay
+	/// The ambient sound of acid eating away at the parent [/atom].
+	var/datum/looping_sound/acid/sizzle
+	/// Particle holder for acid particles (sick)
+	var/obj/effect/abstract/particle_holder/particle_effect
 	/// The proc used to handle the parent [/atom] when processing. TODO: Unify damage and resistance flags so that this doesn't need to exist!
 	var/datum/callback/process_effect
 
-/datum/component/acid/Initialize(_acid_power, _acid_volume, _max_volume=null)
-	if((_acid_power) <= 0 || (_acid_volume <= 0))
-		stack_trace("Acid component added with insufficient acid power ([_acid_power]) or acid volume ([_acid_power]).")
-		return COMPONENT_INCOMPATIBLE // Not enough acid or the acid's too weak, either one.
+/datum/component/acid/Initialize(acid_power = ACID_POWER_MELT_TURF, acid_volume = 50, acid_overlay = GLOB.acid_overlay, acid_particles = /particles/acid)
 	if(!isatom(parent))
-		stack_trace("Acid component added to [parent] ([parent?.type]) which is not a /atom subtype.")
-		return COMPONENT_INCOMPATIBLE // Incompatible type. TODO: Rework take_damage to the atom level and move this there.
+		return COMPONENT_INCOMPATIBLE
 
-	if(isobj(parent))
-		var/obj/parent_object = parent
-		if(parent_object.resistance_flags & UNACIDABLE) // The parent object cannot have acid. Should never happen, will happen.
-			stack_trace("Acid component added to unacidable object [parent].")
-			return COMPONENT_INCOMPATIBLE
+	// The parent object cannot have acid. Not incompatible, but should not really happen.
+	var/atom/atom_parent = parent
+	if(atom_parent.resistance_flags & UNACIDABLE)
+		qdel(src)
+		return
 
-		max_volume = OBJ_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, PROC_REF(process_obj), parent)
-	else if(isliving(parent))
-		max_volume = MOB_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
+	//Not incompatible, but pointless
+	if((acid_power <= 0) || (acid_volume <= 0))
+		qdel(src)
+		stack_trace("Tried to add /datum/component/acid to an atom ([atom_parent.type]) with insufficient acid power ([acid_power]) or acid volume ([acid_volume]).")
+		return
+
+	if(isliving(parent))
+		src.max_volume = MOB_ACID_VOLUME_MAX
+		src.process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
 	else if(isturf(parent))
-		max_volume = TURF_ACID_VOLUME_MAX
-		process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
+		src.max_volume = TURF_ACID_VOLUME_MAX
+		src.process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
+	//if we failed all other checks, we must be an /atom/movable that uses integrity
+	else if(atom_parent.uses_integrity)
+		src.max_volume = MOVABLE_ACID_VOLUME_MAX
+		src.process_effect = CALLBACK(src, PROC_REF(process_movable), parent)
+	//or not...
+	else
+		stack_trace("Tried to add /datum/component/acid to an atom ([atom_parent.type]) which does not use atom_integrity!")
+		return COMPONENT_INCOMPATIBLE
 
-	acid_power = _acid_power
-	set_volume(_acid_volume)
+	src.acid_power = acid_power
+	set_volume(acid_volume)
+	src.acid_overlay = acid_overlay
 
-	var/atom/parent_atom = parent
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
-	parent_atom.update_appearance()
-	sizzle = new(parent, TRUE)
+	sizzle = new(atom_parent, TRUE)
+	if(acid_particles)
+		// acid particles look pretty bad when they stack on mobs, so that behavior is not wanted for items
+		particle_effect = new(atom_parent, acid_particles, isitem(atom_parent) ? NONE : PARTICLE_ATTACH_MOB)
 	START_PROCESSING(SSacid, src)
 
 /datum/component/acid/Destroy(force, silent)
 	STOP_PROCESSING(SSacid, src)
-	QDEL_NULL(sizzle)
+	if(sizzle)
+		QDEL_NULL(sizzle)
+	if(particle_effect)
+		QDEL_NULL(particle_effect)
 	if(process_effect)
 		QDEL_NULL(process_effect)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -67,27 +85,31 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	return ..()
 
 /datum/component/acid/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	if(isturf(parent))
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
 /datum/component/acid/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_ATOM_EXAMINE,
-		COMSIG_COMPONENT_CLEAN_ACT,
 		COMSIG_ATOM_ATTACK_HAND,
-		COMSIG_ATOM_EXPOSE_REAGENT))
-
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_ATOM_EXPOSE_REAGENT,
+		COMSIG_ATOM_UPDATE_OVERLAYS,
+		COMSIG_COMPONENT_CLEAN_ACT,
+	))
 	if(isturf(parent))
 		UnregisterSignal(parent, COMSIG_ATOM_ENTERED)
 
 /// Averages corrosive power and sums volume.
-/datum/component/acid/InheritComponent(datum/component/C, i_am_original, _acid_power, _acid_volume)
-	acid_power = ((acid_power * acid_volume) + (_acid_power * _acid_volume)) / (acid_volume + _acid_volume)
-	set_volume(acid_volume + _acid_volume)
+/datum/component/acid/InheritComponent(datum/component/new_comp, i_am_original, acid_power, acid_volume)
+	if(!i_am_original)
+		return
+	acid_power = ((src.acid_power * src.acid_volume) + (acid_power * acid_volume)) / (src.acid_volume + acid_volume)
+	set_volume(src.acid_volume + acid_volume)
 
 /// Sets the acid volume to a new value. Limits the acid volume by the amount allowed to exist on the parent atom.
 /datum/component/acid/proc/set_volume(new_volume)
@@ -98,6 +120,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /// Handles the slow corrosion of the parent [/atom].
 /datum/component/acid/process(seconds_per_tick)
+	// If we somehow got unacidable, we need to bail out
+	var/atom/parent_atom = parent
+	if(parent_atom.resistance_flags & UNACIDABLE)
+		qdel(src)
+		return
 	process_effect?.InvokeAsync(seconds_per_tick)
 	if(QDELING(src)) //The process effect deals damage, and on turfs diminishes the acid volume, potentially destroying the component. Let's not destroy it twice.
 		return
@@ -111,6 +138,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /// Handles processing on a [/mob/living].
 /datum/component/acid/proc/process_mob(mob/living/target, seconds_per_tick)
+	if(target.resistance_flags & ACID_PROOF)
+		return
 	target.acid_act(acid_power, acid_volume * seconds_per_tick)
 
 /// Handles processing on a [/turf].
@@ -125,7 +154,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(applied_targets)
 		set_volume(acid_volume - (acid_used * applied_targets))
 
-	// Snowflake code for handling acid melting walls. TODO: Move integrity handling to the atom level so this can be desnowflaked.
+	if(target_turf.resistance_flags & ACID_PROOF)
+		return
+
+	// Snowflake code for handling acid melting walls.
+	// We really should consider making turfs use atom_integrity, but for now this is just for acids.
 	if(acid_power < ACID_POWER_MELT_TURF)
 		return
 
@@ -178,26 +211,22 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	set_volume(acid_volume + reac_volume)
 	return NONE
 
-
-/// Handles searing the hand of anyone who tries to touch this without protection.
-/datum/component/acid/proc/on_attack_hand(atom/parent_atom, mob/living/carbon/user)
+/// Handles searing the hand of anyone who tries to touch parent without protection.
+/datum/component/acid/proc/on_attack_hand(atom/source, mob/living/carbon/user)
 	SIGNAL_HANDLER
 
-	if(!istype(user))
-		return NONE
-	if((parent_atom == user) || (parent_atom.loc == user))
-		return NONE // So people can take their own clothes off.
-	if((acid_power * acid_volume) < ACID_LEVEL_HANDBURN)
-		return NONE
-	if(user.gloves?.resistance_flags & (UNACIDABLE|ACID_PROOF))
+	if(!iscarbon(user) || user.can_touch_acid(source, acid_power, acid_volume))
 		return NONE
 
-	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-	if(!affecting?.receive_damage(0, 5))
+	var/obj/item/bodypart/affecting = user.get_active_hand()
+	//Should not happen!
+	if(!affecting)
 		return NONE
 
-	to_chat(user, span_warning("The acid on \the [parent_atom] burns your hand!"))
-	playsound(parent_atom, 'sound/weapons/sear.ogg', 50, TRUE)
+	affecting.receive_damage(burn = 5)
+	to_chat(user, span_userdanger("The acid on \the [source] burns your hand!"))
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, emote), "scream")
+	playsound(source, SFX_SEAR, 50, TRUE)
 	user.update_damage_overlays()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -217,7 +246,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return
 
 	var/acid_used = min(acid_volume * 0.05, 20)
-	if(crosser.acid_act(acid_power, acid_used, FEET))
-		playsound(crosser, 'sound/weapons/sear.ogg', 50, TRUE)
-		to_chat(crosser, span_userdanger("The acid on the [parent] burns you!"))
-		set_volume(max(acid_volume - acid_used, 10))
+	if(!crosser.acid_act(acid_power, acid_used, FEET))
+		return
+	playsound(crosser, SFX_SEAR, 50, TRUE)
+	to_chat(crosser, span_userdanger("The acid on the [parent] burns you!"))
+	set_volume(max(acid_volume - acid_used, 10))
