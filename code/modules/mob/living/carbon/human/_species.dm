@@ -55,8 +55,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
 	var/hair_alpha = 255
 
-	///Examine text when the person has cellular damage.
-	var/cellular_damage_desc = DEFAULT_CLONE_EXAMINE_TEXT
 	///This is used for children, it will determine their default limb ID for use of examine. See [/mob/living/carbon/human/proc/examine].
 	var/examine_limb_id
 	///Never, Optional, or Forced digi legs?
@@ -512,7 +510,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * old_species - The species that the carbon used to be before becoming this race, used for regenerating organs.
  * * pref_load - Preferences to be loaded from character setup, loads in preferred mutant things like bodyparts, digilegs, skin color, etc.
  */
-/datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
 	// Drop the items the new species can't wear
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
@@ -527,7 +525,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	C.mob_biotypes = inherent_biotypes
 	C.mob_respiration_type = inherent_respiration_type
 
-	if (old_species.type != type)
+	if(old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
@@ -2028,10 +2026,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Returns a list containing perks, or an empty list.
  */
 /datum/species/proc/create_pref_damage_perks()
+	// We use the chest to figure out brute and burn mod perks
+	var/obj/item/bodypart/chest/fake_chest = bodypart_overrides[BODY_ZONE_CHEST]
+
 	var/list/to_add = list()
 
 	// Brute related
-	if(brutemod > 1)
+	if(initial(fake_chest.brute_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "band-aid",
@@ -2039,29 +2040,29 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] are weak to brute damage.",
 		))
 
-	if(brutemod < 1)
+	if(initial(fake_chest.brute_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
 			SPECIES_PERK_NAME = "Brutal Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to bruising and brute damage.",
+			SPECIES_PERK_DESC = "[plural_form] are resilient to brute damage.",
 		))
 
 	// Burn related
-	if(burnmod > 1)
+	if(initial(fake_chest.burn_modifier) > 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "burn",
-			SPECIES_PERK_NAME = "Fire Weakness",
-			SPECIES_PERK_DESC = "[plural_form] are weak to fire and burn damage.",
+			SPECIES_PERK_NAME = "Burn Weakness",
+			SPECIES_PERK_DESC = "[plural_form] are weak to burn damage.",
 		))
 
-	if(burnmod < 1)
+	if(initial(fake_chest.burn_modifier) < 1)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "shield-alt",
-			SPECIES_PERK_NAME = "Fire Resilience",
-			SPECIES_PERK_DESC = "[plural_form] are resilient to flames, and burn damage.",
+			SPECIES_PERK_NAME = "Burn Resilience",
+			SPECIES_PERK_DESC = "[plural_form] are resilient to burn damage.",
 		))
 
 	// Shock damage
@@ -2265,15 +2266,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
-	var/is_digitigrade = FALSE
+	var/list/final_bodypart_overrides = new_species.bodypart_overrides.Copy()
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		is_digitigrade = TRUE
+		final_bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if((old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (old_part.bodypart_flags & BODYPART_IMPLANTED))
 			continue
 
-		var/path = new_species.bodypart_overrides?[old_part.body_zone]
+		var/path = final_bodypart_overrides?[old_part.body_zone]
 		var/obj/item/bodypart/new_part
 		if(path)
 			new_part = new path()

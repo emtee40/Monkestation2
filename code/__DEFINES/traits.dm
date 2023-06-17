@@ -1087,8 +1087,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BEAUTY_ELEMENT_TRAIT "beauty_element"
 #define MOOD_DATUM_TRAIT "mood_datum"
 #define DRONE_SHY_TRAIT "drone_shy"
-/// Pacifism trait given by stabilized light pink extracts.
-#define STABILIZED_LIGHT_PINK_TRAIT "stabilized_light_pink"
+/// Trait given by stabilized light pink extracts
+#define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
+/// Trait given by adamantine extracts
+#define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 /// Given by the multiple_lives component to the previous body of the mob upon death.
 #define EXPIRED_LIFE_TRAIT "expired_life"
 /// Trait given to an atom/movable when they orbit something.

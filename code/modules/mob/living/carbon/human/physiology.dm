@@ -1,5 +1,4 @@
 //Stores several modifiers in a way that isn't cleared by changing species
-
 /datum/physiology
 	/// Multiplier to brute damage received.
 	/// IE: A brute mod of 0.9 = 10% less brute damage.
