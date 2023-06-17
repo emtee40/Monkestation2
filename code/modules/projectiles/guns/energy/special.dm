@@ -206,7 +206,7 @@
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/scatter)
 
-/obj/item/gun/energy/plasmacutter/scatter/attackby(obj/item/I, mob/user)
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user)
 	. = ..()
 	if(try_upgrade(I))
 		to_chat(user, "<span class='notice'>You install [I] into [src]</span>")
@@ -224,10 +224,10 @@
 	name = "plasma cutter defusal kit"
 	desc = "An upgrade for plasma shotguns that allows it to automatically defuse gibtonite."
 
-/obj/item/gun/energy/plasmacutter/scatter/proc/try_upgrade(obj/item/I)
+/obj/item/gun/energy/plasmacutter/proc/try_upgrade(obj/item/I)
 	return // no upgrades for the plasmacutter
 
-/obj/item/gun/energy/plasmacutter/scatter/scatter/try_upgrade(obj/item/I)
+/obj/item/gun/energy/plasmacutter/scatter/try_upgrade(obj/item/I)
 	if(.)
 		return
 	if(istype(I, /obj/item/upgrade/plasmacutter/defuser))
