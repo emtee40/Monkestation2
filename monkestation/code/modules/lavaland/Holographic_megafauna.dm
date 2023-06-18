@@ -142,7 +142,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			visible_message(span_danger("[src] pathetically hits [L]")),
+			visible_message(span_danger("[src] pathetically hits [L]"))
 			// we dont do anything important, this is just so the colossus projectiles wont dust our miner by accident because parent business
 		return
 
