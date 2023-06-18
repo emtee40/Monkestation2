@@ -64,6 +64,8 @@
 	name = "Debug gem chest"
 
 /obj/structure/closet/crate/necropolis/debug_gems/PopulateContents()
+//	var/list/gems = typesof(/obj/item/gem)
+//	new gems
 
 /// un-used gems
 	new /obj/item/gem/ruby(src)
@@ -80,11 +82,20 @@
 	new /obj/item/gem/amber(src)      // ashdrake's
 	new /obj/item/gem/void(src)       // collosus's
 	new /obj/item/gem/bloodstone(src) // bubblegum's
-//	new /obj/item/gem/dark(src)       // King goat's
+	new /obj/item/gem/dark(src)       // King goat's
+//	new /obj/item/gem/X(src)       // X's
 /// Icebox megafauna gems
 	new /obj/item/gem/brass(src)      // Clockwork Defender's
 	new /obj/item/gem/bananium(src)   // wendigo's
 	new /obj/item/gem/demon(src)      // frost miner's
+/// Boosted holographic gems
+	new /obj/item/gem/phoron/refined(src)     // blood-drunk's
+	new /obj/item/gem/purple/refined(src)     // hierophant's
+	new /obj/item/gem/amber/refined(src)      // ashdrake's
+	new /obj/item/gem/void/refined(src)       // collosus's
+	new /obj/item/gem/bloodstone/refined(src) // bubblegum's
+	new /obj/item/gem/dark/refined(src)       // King goat's
+//	new /obj/item/gem/X/refined(src)       // X's
 
 // -----------------------------
 //         Un-used gems
@@ -205,6 +216,20 @@
 	light_power = 3
 	light_color = "#800000"
 
+/obj/item/gem/dark
+	name = "\improper Dark Salt Lick"
+	desc = "An ominous cylinder that glows with an unnerving aura, seeming to hungrily draw in the space around it. The round edges of the lick are uneven patches of rough texture. Its only known property is that of anti-magic."
+	icon_state = "dark"
+	point_value = 3000
+	light_range = 3
+	light_power = 3
+	light_color = "#380a41"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/gem/dark/Initialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, null, null, FALSE)
+
 // -----------------------------
 //    Icebox Megafauna gems
 // -----------------------------
@@ -234,26 +259,44 @@
 	desc = "A gem extracted from the core of a demon, its primary use is to negate any magic the enemy may have. Seems to not work against miner nanotrasen weaponry"
 	icon_state = "void"
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 50}
-	point_value = 2000
+	point_value = 3000
+	light_range = 3
+	light_power = 3
+	light_color = "#380a41"
 
 /obj/item/gem/demon/Initialize()
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, null, null, FALSE)
 
+// -----------------------------------
+//   Boosted megafauna lavaland gems
+// -----------------------------------
+
+/obj/item/gem/phoron/refined     // blood-drunk's
+	name = "\improper Refined Stabilized Baroxuldium"
+
+/obj/item/gem/purple/refined     // hierophant's
+	name = "\improper Refined Densified Dilithium"
+
+/obj/item/gem/amber/refined     // ashdrake's
+	name = "\improper Refined Draconic Amber"
+
+/obj/item/gem/void/refined      // collosus's
+	name = "\improper Refined Null Crystal"
+
+/obj/item/gem/bloodstone/refined // bubblegum's
+	name = "\improper Refined Ichorium"
+
+/obj/item/gem/dark/refined // bubblegum's
+	name = "\improper Refined Dark Salt Lick"
+
+
 /*
 
-/obj/item/gem/dark
-	name = "\improper Dark Salt Lick"
-	desc = "An ominous cylinder that glows with an unnerving aura, seeming to hungrily draw in the space around it. The round edges of the lick are uneven patches of rough texture. Its only known property is that of anti-magic."
-	icon_state = "dark"
-	point_value = 3000
-	light_range = 3
-	light_power = 3
-	light_color = "#380a41"
-	w_class = WEIGHT_CLASS_NORMAL
+/obj/item/gem/dark/refined      // King goat's
 
-/obj/item/gem/dark/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, null, null, FALSE)
+
+/obj/item/gem/X/refined       // X's
+
 
 */
