@@ -33,8 +33,8 @@
 			new /mob/living/simple_animal/hostile/megafauna/hierophant/holographic(get_turf(src))
 		if(istype(I, /obj/item/token/ash_drake)) // ashdrake
 			new /mob/living/simple_animal/hostile/megafauna/dragon/holographic(get_turf(src))
-//		if(istype(I, /obj/item/token/colossus)) // collosus
-//			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic(get_turf(src))
+		if(istype(I, /obj/item/token/colossus)) // collosus
+			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic(get_turf(src))
 		if(istype(I, /obj/item/token/bubblegum)) // bubblegum
 			new /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic(get_turf(src))
 		success = 1

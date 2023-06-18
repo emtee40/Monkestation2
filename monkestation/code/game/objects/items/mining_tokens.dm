@@ -25,11 +25,9 @@ They dont need much code, all we need is a path to rely upon
 	name = "\improper Ash Drake Token"
 	desc = "It can be used to summon a powerfull ashdrake using the holographic training beacon."
 
-/*
 /obj/item/token/colossus
 	name = "\improper Colossus Token"
 	desc = "It can be used to summon a mighty colossus using the holographic training beacon."
-*/
 
 /obj/item/token/bubblegum
 	name = "\improper Bubblegum Token"
