@@ -193,9 +193,6 @@
 	force = 15
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 
-#define AMMO_SELECT_BLUE 1
-#define AMMO_SELECT_ORANGE 2
-
 // monkestation change begins: plasma cutter shotguns
 
 /obj/item/gun/energy/plasmacutter/scatter
@@ -212,6 +209,16 @@
 		to_chat(user, "<span class='notice'>You install [I] into [src]</span>")
 		playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 		qdel(I)
+
+/obj/item/gun/energy/plasmacutter/scatter/stalwart
+	name = "ancient focusing crystal"
+	icon_state = "stalwart_mining_shotgun"
+	inhand_icon_state = "stalwart_mining_shotgun"
+	desc = "A humming crystaline weapon, firing scattered blasts of focused energy."
+	usesound = list('sound/weapons/taserhit.ogg')
+	toolspeed = 0.33
+	selfcharge = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/upgrade/plasmacutter
 	name = "generic upgrade kit"
@@ -236,8 +243,10 @@
 		return TRUE
 	return FALSE
 
-
 // monkestation change ends
+
+#define AMMO_SELECT_BLUE 1
+#define AMMO_SELECT_ORANGE 2
 
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"

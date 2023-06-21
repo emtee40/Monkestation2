@@ -61,7 +61,7 @@
 	face_atom(target)
 	if(isliving(target))
 		var/mob/living/L = target
-		if(L.stat == DEAD)
+		if(L.stat != CONSCIOUS)
 			visible_message(span_danger("[src] dissapears as [L] wakes up!"), // poor lad took an L
 			span_userdanger("Simulation battle protocol complete, shutting down..."))
 			L.revive(HEAL_ALL)
@@ -141,7 +141,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(L.stat == DEAD)
+		if(L.stat != CONSCIOUS)
 			visible_message(span_danger("[src] pathetically hits [L]"))
 			// we dont do anything important, this is just so the colossus projectiles wont dust our miner by accident because parent business
 		return

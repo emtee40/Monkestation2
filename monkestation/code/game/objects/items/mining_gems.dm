@@ -83,7 +83,7 @@
 	new /obj/item/gem/void(src)       // collosus's
 	new /obj/item/gem/bloodstone(src) // bubblegum's
 	new /obj/item/gem/dark(src)       // King goat's
-//	new /obj/item/gem/X(src)       // X's
+	new /obj/item/gem/data(src)       // Stalwart's
 /// Icebox megafauna gems
 	new /obj/item/gem/brass(src)      // Clockwork Defender's
 	new /obj/item/gem/bananium(src)   // wendigo's
@@ -95,7 +95,7 @@
 	new /obj/item/gem/void/refined(src)       // collosus's
 	new /obj/item/gem/bloodstone/refined(src) // bubblegum's
 	new /obj/item/gem/dark/refined(src)       // King goat's
-//	new /obj/item/gem/X/refined(src)       // X's
+	new /obj/item/gem/data/refined(src)       // Stalwart's
 
 // -----------------------------
 //         Un-used gems
@@ -230,6 +230,16 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, null, null, FALSE)
 
+/obj/item/gem/data // bubblegum's
+	name = "\improper Bluespace Data Crystal"
+	desc = "A large bluespace crystal, etched internally with nano-circuits, it seemingly draws power from nowhere. Once acting as the brain of the Stalwart."
+	icon_state = "cpu"
+	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 20}
+	point_value = 2000
+	light_range = 2
+	light_power = 6
+	light_color = "#0004ff"
+
 // -----------------------------
 //    Icebox Megafauna gems
 // -----------------------------
@@ -287,16 +297,8 @@
 /obj/item/gem/bloodstone/refined // bubblegum's
 	name = "\improper Refined Ichorium"
 
-/obj/item/gem/dark/refined // bubblegum's
+/obj/item/gem/dark/refined // King goat's
 	name = "\improper Refined Dark Salt Lick"
 
-
-/*
-
-/obj/item/gem/dark/refined      // King goat's
-
-
-/obj/item/gem/X/refined       // X's
-
-
-*/
+/obj/item/gem/data/refined       // Stalwart's
+	name = "\improper Refined Bluespace Data Crystal"

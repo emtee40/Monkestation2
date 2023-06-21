@@ -22,7 +22,6 @@
 	item_path = /obj/item/token/colossus
 	name = "Colossus Token"
 	desc = "It can be used to summon a mighty colossus using the holographic training beacon. Its price has been adjusted for inflation"
-	cost_per_order = 10000
 */
 
 /datum/orderable_item/holographic/bubblegum
