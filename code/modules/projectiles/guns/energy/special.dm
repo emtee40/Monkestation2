@@ -213,7 +213,6 @@
 /obj/item/gun/energy/plasmacutter/scatter/stalwart
 	name = "ancient focusing crystal"
 	icon_state = "stalwart_mining_shotgun"
-	inhand_icon_state = "stalwart_mining_shotgun"
 	desc = "A humming crystaline weapon, firing scattered blasts of focused energy."
 	usesound = list('sound/weapons/taserhit.ogg')
 	toolspeed = 0.33
