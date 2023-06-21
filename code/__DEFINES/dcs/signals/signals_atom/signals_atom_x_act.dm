@@ -38,3 +38,5 @@
 #define COMSIG_ATOM_SECONDARY_TOOL_ACT(tooltype) "tool_secondary_act_[tooltype]"
 	// We have the same returns here as COMSIG_ATOM_TOOL_ACT
 	// #define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
+/// from base of atom/Exited(): (mob/user, obj/item/extrapolator/E, scan = TRUE)
+#define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
