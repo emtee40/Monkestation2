@@ -1,5 +1,5 @@
 // *!! METASTATION ENGINES !!*
-/datum/map_template/random_room/random_engines/tram_supermatter
+/datum/map_template/random_engines/tram_supermatter
 	name = "Tram Supermatter"
 	room_id = "tram_supermatter"
 	mappath = "monkestation/_maps/RandomEngines/TramStation/supermatter.dmm"
@@ -9,7 +9,7 @@
 	weight = 8
 	station_name = "Tramstation"
 
-/datum/map_template/random_room/random_engines/tram_singularity
+/datum/map_template/random_engines/tram_singularity
 	name = "Tram Singularity"
 	room_id = "tram_singularity"
 	mappath = "monkestation/_maps/RandomEngines/TramStation/singularity.dmm"

@@ -25,7 +25,7 @@
 	var/datum/ipintel/res = new()
 	res.ip = ip
 	. = res
-	if (!ip || !CONFIG_GET(string/ipintel_email))
+	if (!ip || !CONFIG_GET(string/ipintel_email) || !SSipintel.enabled)
 		return
 	if (!bypasscache)
 		var/datum/ipintel/cachedintel = SSipintel.cache[ip]

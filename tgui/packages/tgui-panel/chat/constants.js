@@ -101,12 +101,6 @@ export const MESSAGE_TYPES = [
     selector: '.danger',
   },
   {
-    type: MESSAGE_TYPE_MENTORCHAT,
-    name: 'Mentor Chat',
-    description: 'MSAY (Mentor) chat',
-    selector: '.mentorsay',
-  },
-  {
     type: MESSAGE_TYPE_UNKNOWN,
     name: 'Unsorted',
     description: 'Everything we could not sort, always enabled',
@@ -117,6 +111,13 @@ export const MESSAGE_TYPES = [
     name: 'Admin Chat',
     description: 'ASAY messages',
     selector: '.admin_channel, .adminsay',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_MENTORCHAT,
+    name: 'Mentor Chat',
+    description: 'MSAY (Mentor) chat',
+    selector: '.mentorsay',
     admin: true,
   },
   {

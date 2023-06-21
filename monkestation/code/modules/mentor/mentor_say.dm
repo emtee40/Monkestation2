@@ -19,10 +19,7 @@
 		msg = "[span_mentorsay("[span_prefix("MENTOR:")] <EM>[key_name(usr, 1)]</EM> [ADMIN_FLW(mob)]: <font color'#8A2BE2'><span class='message linkify'>[msg]")]</span></font>"
 	else
 		msg = "[span_mentorsay("[span_prefix("MENTOR:")] <EM>[key_name(usr, 1)]</EM> [ADMIN_FLW(mob)]: <font color='#E236D8'><span class='message linkify'>[msg]")]</span></font>"
-	var/list/send_to = list()
-	send_to |= GLOB.mentors
-	send_to |= GLOB.admins
-	to_chat(send_to,
+	to_chat(GLOB.admins,
 		type = MESSAGE_TYPE_MENTORCHAT,
 		html = msg,
 		confidential = TRUE)

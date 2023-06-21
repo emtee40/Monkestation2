@@ -1,9 +1,3 @@
-//for convenience
-#define ENABLE_BITFIELD(variable, flag) (variable |= (flag))
-#define DISABLE_BITFIELD(variable, flag) (variable &= ~(flag))
-#define CHECK_BITFIELD(variable, flag) (variable & (flag))
-#define TOGGLE_BITFIELD(variable, flag) (variable ^= (flag))
-
 /*
 	These defines are specific to the atom/flags_1 bitmask
 */

@@ -151,10 +151,7 @@
 	var/obj/machinery/computer/operating/operating_computer = operating_table?.computer
 
 	if (isnull(operating_computer))
-		var/obj/machinery/stasis/stasisbed = locate(/obj/machinery/stasis, patient_turf)
-		operating_computer = stasisbed?.op_computer
-		if (isnull(operating_computer))
-			return null
+		return null
 
 	if(operating_computer.machine_stat & (NOPOWER|BROKEN))
 		return null

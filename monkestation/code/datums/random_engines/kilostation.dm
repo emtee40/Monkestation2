@@ -1,4 +1,4 @@
-/datum/map_template/random_room/random_engines/kilo_supermatter
+/datum/map_template/random_engines/kilo_supermatter
 	name = "Kilo Supermatter"
 	room_id = "kilo_supermatter"
 	mappath = "monkestation/_maps/RandomEngines/KiloStation/supermatter.dmm"
@@ -8,7 +8,7 @@
 	weight = 8
 	station_name = "Kilo Station"
 
-/datum/map_template/random_room/random_engines/kilo_singularity
+/datum/map_template/random_engines/kilo_singularity
 	name = "Kilo Singularity"
 	room_id = "kilo_singularity"
 	mappath = "monkestation/_maps/RandomEngines/KiloStation/singularity.dmm"
