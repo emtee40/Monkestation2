@@ -3,6 +3,7 @@
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
 	burn_modifier = 2
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/snail
 	limb_id = SPECIES_SNAIL
@@ -40,6 +41,7 @@
 	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = NONE
 
 /obj/item/bodypart/chest/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -71,6 +73,7 @@
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
 	burn_modifier = 0.5 // = 1/2x generic burn damage
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/jelly
 	biological_state = (BIO_FLESH|BIO_BLOODED)
@@ -108,6 +111,7 @@
 	biological_state = (BIO_FLESH|BIO_BLOODED)
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/slime
 	biological_state = (BIO_FLESH|BIO_BLOODED)
@@ -135,6 +139,7 @@
 	biological_state = (BIO_FLESH|BIO_BLOODED)
 	limb_id = SPECIES_LUMINESCENT
 	is_dimorphic = TRUE
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/luminescent
 	biological_state = (BIO_FLESH|BIO_BLOODED)
@@ -162,6 +167,7 @@
 	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/zombie
 	limb_id = SPECIES_ZOMBIE
@@ -199,6 +205,7 @@
 	limb_id = SPECIES_PODPERSON
 	is_dimorphic = TRUE
 	burn_modifier = 1.25
+	head_flags = HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/pod
 	limb_id = SPECIES_PODPERSON
@@ -234,6 +241,7 @@
 	limb_id = SPECIES_FLYPERSON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -262,6 +270,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.5
+	head_flags = NONE
 
 /obj/item/bodypart/chest/shadow
 	limb_id = SPECIES_SHADOW
@@ -302,6 +311,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
 
 /obj/item/bodypart/chest/skeleton
 	biological_state = BIO_BONE
@@ -339,6 +349,7 @@
 	limb_id = SPECIES_MUSHROOM
 	is_dimorphic = TRUE
 	burn_modifier = 1.25
+	head_flags = NONE
 
 /obj/item/bodypart/chest/mushroom
 	limb_id = SPECIES_MUSHROOM
@@ -383,6 +394,7 @@
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
 
 /obj/item/bodypart/chest/golem
 	biological_state = BIO_BONE
