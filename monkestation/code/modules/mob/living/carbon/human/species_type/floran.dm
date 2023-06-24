@@ -42,6 +42,7 @@
 	ass_image = 'icons/ass/asspodperson.png'
 
 /datum/species/floran/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 
@@ -66,7 +67,7 @@
 		)
 	return ..()
 
-/datum/species/floran/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+/datum/species/floran/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3 * REM * seconds_per_tick)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)

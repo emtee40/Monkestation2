@@ -47,7 +47,7 @@
 			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
 			addiction.process_addiction(src, seconds_per_tick, times_fired)
 	if(stat != DEAD)
-		return 1
+		return TRUE
 
 ///////////////
 // BREATHING //
@@ -532,10 +532,10 @@
 			D.spread()
 
 /mob/living/carbon/handle_wounds(seconds_per_tick, times_fired)
-	for(var/thing in all_wounds)
-		var/datum/wound/W = thing
-		if(W.processes) // meh
-			W.handle_process(seconds_per_tick, times_fired)
+	for(var/datum/wound/wound as anything in all_wounds)
+		if(!wound.processes) // meh
+			continue
+		wound.handle_process(seconds_per_tick, times_fired)
 
 /mob/living/carbon/handle_mutations(time_since_irradiated, seconds_per_tick, times_fired)
 	if(!dna?.temporary_mutations.len)
@@ -764,7 +764,7 @@
 		return
 
 	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-	reagents.metabolize(src, seconds_per_tick, times_fired, can_overdose=TRUE, liverless = TRUE)
+	reagents.metabolize(src, seconds_per_tick, times_fired, can_overdose = TRUE, liverless = TRUE)
 
 	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_NOMETABOLISM))
 		return

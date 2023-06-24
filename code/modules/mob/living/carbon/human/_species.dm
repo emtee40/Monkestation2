@@ -524,7 +524,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
 	// Drop the items the new species can't wear
-	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN_PRE, src, old_species)
+	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
 	if(C.hud_used)
@@ -974,13 +974,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		H.setOxyLoss(0)
-		H.losebreath = 0
-
-		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-		if((H.health < H.crit_threshold) && takes_crit_damage && H.stat != DEAD)
-			H.adjustBruteLoss(0.5 * seconds_per_tick)
+	SHOULD_CALL_PARENT(TRUE)
+	if(H.stat == DEAD)
+		return
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health < H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+		H.adjustBruteLoss(0.5 * seconds_per_tick)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
@@ -1150,33 +1148,24 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /**
- * Handling special reagent types.
+ * Handling special reagent interactions.
  *
- * Return False to run the normal on_mob_life() for that reagent.
- * Return True to not run the normal metabolism effects.
- * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
- */
-/datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+ * Return null continue running the normal on_mob_life() for that reagent.
+ * Return COMSIG_MOB_STOP_REAGENT_CHECK to not run the normal metabolism effects.
+ *
+ * NOTE: If you return COMSIG_MOB_STOP_REAGENT_CHECK, that reagent will not be removed liike normal! You must handle it manually.
+ **/
+/datum/species/proc/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
-		return TRUE
-
-	//This handles dumping unprocessable reagents.
-	var/dump_reagent = TRUE
-	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
-		dump_reagent = FALSE
-	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
-		dump_reagent = FALSE
-	if(dump_reagent)
-		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-
+		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		affected.reagents.del_reagent(chem.type)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
 	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
 		chem.overdosed = TRUE
-		chem.overdose_start(H)
-		H.log_message("has started overdosing on [chem.name] at [chem.volume] units.", LOG_GAME)
+		chem.overdose_start(affected)
+		affected.log_message("has started overdosing on [chem.name] at [chem.volume] units.", LOG_GAME)
+	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, affected, seconds_per_tick, times_fired)
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.

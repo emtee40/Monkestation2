@@ -28,7 +28,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/arachnid,
 	)
 
-/datum/species/arachnid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+/datum/species/arachnid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3 * REM * seconds_per_tick)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)

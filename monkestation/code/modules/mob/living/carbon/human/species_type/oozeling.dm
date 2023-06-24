@@ -199,15 +199,15 @@
 		return
 	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more mass to heal!"))
 
-/datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/oozeling/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+	. = ..()
 	if(chem.type == /datum/reagent/water)
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, "<span class='warning'>The water you consumed is melting away your insides!</span>")
-		H.blood_volume -= 25
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+			affected.reagents.remove_reagent(chem.type, chem.volume - 10)
+			to_chat(affected, "<span class='warning'>The water you consumed is melting away your insides!</span>")
+		affected.blood_volume -= 25
+		affected.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
-	return ..()
 
 /datum/reagent/toxin/slimeooze
 	name = "Slime Ooze"

@@ -36,6 +36,16 @@
 	// changes, only the Random Golem type can be chosen
 	fixed_mut_color = "#aaaaaa"
 
+	bodytemp_heat_damage_limit = BODYTEMP_HEAT_LAVALAND_SAFE
+	bodytemp_cold_damage_limit = BODYTEMP_COLD_ICEBOX_SAFE
+
+	mutant_organs = list(/obj/item/organ/internal/adamantine_resonator)
+	mutanteyes = /obj/item/organ/internal/eyes/golem
+	mutantbrain = /obj/item/organ/internal/brain/golem
+	mutanttongue = /obj/item/organ/internal/tongue/golem
+	mutantstomach = /obj/item/organ/internal/stomach/golem
+	mutantliver = /obj/item/organ/internal/liver/golem
+	mutantappendix = /obj/item/organ/internal/appendix/golem
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
@@ -105,6 +115,7 @@
 	))
 
 	return to_add
+
 /datum/species/golem/adamantine
 	name = "Adamantine Golem"
 	id = SPECIES_GOLEM_ADAMANTINE
@@ -326,6 +337,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(brute = 1 * seconds_per_tick, burn = 1 * seconds_per_tick, required_bodytype = BODYTYPE_ORGANIC)
@@ -362,6 +374,7 @@
 	examine_limb_id = SPECIES_GOLEM
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -379,7 +392,7 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
-/datum/species/golem/wood/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+/datum/species/golem/wood/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3 * REM * seconds_per_tick)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)
@@ -750,7 +763,7 @@
 	QDEL_NULL(dominate)
 	return ..()
 
-/datum/species/golem/runic/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+/datum/species/golem/runic/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	. = ..()
 	if(istype(chem, /datum/reagent/water/holywater))
 		H.adjustFireLoss(4 * REM * seconds_per_tick)
@@ -1212,7 +1225,7 @@
 		bonechill.Remove(C)
 	..()
 
-/datum/species/golem/bone/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
+/datum/species/golem/bone/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	. = ..()
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
 		H.stamina.adjust(-7.5 * REM * seconds_per_tick, 0)

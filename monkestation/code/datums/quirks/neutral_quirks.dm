@@ -30,7 +30,7 @@
 	. = ..()
 	var/mob/living/carbon/human/human_holder = quirk_holder
 	var/datum/species/species = human_holder.dna.species
-	RegisterSignal(human_holder, COMSIG_SPECIES_GAIN_PRE, PROC_REF(on_species_gain))
+	RegisterSignal(human_holder, COMSIG_SPECIES_GAIN, PROC_REF(on_species_gain))
 
 	for(var/obj/item/organ/external/organ_path as anything in anime_list)
 		//Load a persons preferences from DNA
@@ -42,7 +42,7 @@
 	. = ..()
 	var/mob/living/carbon/human/human_holder = quirk_holder
 	var/datum/species/species = human_holder.dna.species
-	UnregisterSignal(human_holder, COMSIG_SPECIES_GAIN_PRE)
+	UnregisterSignal(human_holder, COMSIG_SPECIES_GAIN)
 
 	for(var/obj/item/organ/external/organ_path as anything in anime_list)
 		species.external_organs -= organ_path
