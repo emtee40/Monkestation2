@@ -49,6 +49,8 @@
 /mob/living/carbon/proc/on_nobreath_trait_gain(datum/source)
 	SIGNAL_HANDLER
 
+	setOxyLoss(0, updating_health = TRUE, forced = TRUE)
+	losebreath = 0
 	failed_last_breath = FALSE
 
 	clear_alert(ALERT_TOO_MUCH_OXYGEN)
@@ -69,6 +71,7 @@
 	clear_mood_event("chemical_euphoria")
 	clear_mood_event("smell")
 	clear_mood_event("suffocation")
+
 /**
  * On gain of TRAIT_LIVERLESS_METABOLISM
  *
@@ -76,7 +79,39 @@
  */
 /mob/living/carbon/proc/on_liverless_metabolism_trait_gain(datum/source)
 	SIGNAL_HANDLER
+
 	for(var/addiction_type in subtypesof(/datum/addiction))
 		mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	reagents.end_metabolization(keep_liverless = TRUE)
+
+/**
+ * On gain of TRAIT_VIRUSIMMUNE
+ *
+ * This will clear all diseases on the mob.
+ */
+/mob/living/carbon/proc/on_virusimmune_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	for(var/datum/disease/disease as anything in diseases)
+		disease.cure(FALSE)
+
+/**
+ * On gain of TRAIT_TOXIMMUNE
+ *
+ * This will clear all toxin damage on the mob.
+ */
+/mob/living/carbon/proc/on_toximmune_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	setToxLoss(0, updating_health = TRUE, forced = TRUE)
+
+/**
+ * On gain of TRAIT_GENELLESS
+ *
+ * This will clear all DNA mutations on on the mob.
+ */
+/mob/living/carbon/proc/on_geneless_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	dna?.remove_all_mutations()
