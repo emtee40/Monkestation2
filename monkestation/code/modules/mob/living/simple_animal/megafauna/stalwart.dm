@@ -1,3 +1,12 @@
+/**
+ * Stalwart, ported from yogstation
+ *
+ *
+ *
+ *
+ *
+ */
+
 /mob/living/simple_animal/hostile/megafauna/stalwart
 	name = "stalwart"
 	desc = "A graceful, floating construct. It emits a soft hum."
@@ -23,14 +32,13 @@
 	rapid = 1 //How many shots per volley.
 	rapid_fire_delay = 2 //Time between rapid fire shots
 	pixel_x = -16
-//	base_pixel_x = -32
 	maptext_height = 96
 	maptext_width = 96
 	del_on_death = TRUE
 	gps_name = "Ancient Signal"
-//	achievement_type = /datum/award/achievement/boss/stalwart_kill
-//	crusher_achievement_type = /datum/award/achievement/boss/stalwart_crusher
-//	score_achievement_type = /datum/award/score/stalwart_score
+	achievement_type = /datum/award/achievement/boss/stalwart_kill
+	crusher_achievement_type = /datum/award/achievement/boss/stalwart_crusher
+	score_achievement_type = /datum/award/score/stalwart_score
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiralpikes,
 							   /datum/action/innate/megafauna_attack/cardinalpikes,
 							   /datum/action/innate/megafauna_attack/backup,

@@ -52,3 +52,10 @@
 	name = "Wendigos Killed"
 	desc = "You've killed HOW many?"
 	database_id = WENDIGO_SCORE
+
+// Monkestation achievements
+
+/datum/award/score/stalwart_score
+	name = "Stalwarts Killed"
+	desc = "You've killed HOW many?"
+	database_id = STALWART_SCORE

@@ -121,7 +121,8 @@
 	database_id = BOSS_MEDAL_WENDIGO_CRUSHER
 	icon = "wendigo"
 
-//should be removed soon
+//should be removed soon... NOT (seriously TG, when are you going to remove it. it has been several years)
+
 /datum/award/achievement/boss/king_goat_kill
 	name = "King Goat Killer"
 	desc = "The king is dead, long live the king!"
@@ -133,3 +134,17 @@
 	desc = "The king is dead, long live the king!"
 	database_id = BOSS_MEDAL_KINGGOAT_CRUSHER
 	icon = "goatboss"
+
+// Monkestation achievements
+
+/datum/award/achievement/boss/stalwart_kill
+	name = "Stalwart Killer"
+	desc = "The ancient machinations have been defeated, how curious"
+	database_id = BOSS_MEDAL_STALWART
+	icon = "stalwart"
+
+/datum/award/achievement/boss/stalwart_crusher
+	name = "Stalwart Crusher"
+	desc = "The ancient machinations have been with a primitive axe, how curious"
+	database_id = BOSS_MEDAL_STALWART_CRUSHER
+	icon = "stalwart"

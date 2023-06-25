@@ -88,6 +88,8 @@
 #define BOSS_MEDAL_SWARMERS "Swarmer Beacon Killer"
 #define BOSS_MEDAL_WENDIGO "Wendigo Killer"
 #define BOSS_MEDAL_KINGGOAT "King Goat Killer"
+// Also boss medals. but monke
+#define BOSS_MEDAL_STALWART "Stalwart Killer"
 
 #define BOSS_MEDAL_MINER_CRUSHER "Blood-drunk Miner Crusher"
 #define BOSS_MEDAL_FROSTMINER_CRUSHER "Demonic-frost Miner Crusher"
@@ -99,6 +101,8 @@
 #define BOSS_MEDAL_SWARMERS_CRUSHER "Swarmer Beacon Crusher"
 #define BOSS_MEDAL_WENDIGO_CRUSHER "Wendigo Crusher"
 #define BOSS_MEDAL_KINGGOAT_CRUSHER "King Goat Crusher"
+// Also boss medals. but monke
+#define BOSS_MEDAL_STALWART_CRUSHER "Stalwart Crusher"
 
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE "Bosses Killed"
@@ -113,6 +117,8 @@
 #define WENDIGO_SCORE "Wendigos Killed"
 #define KINGGOAT_SCORE "King Goat Killed"
 #define TENDRIL_CLEAR_SCORE "Tendrils Killed"
+// Also medal hub IDs. but monke
+#define STALWART_SCORE "Stalwarts Killed"
 
 // DB ID for hardcore random mode
 #define HARDCORE_RANDOM_SCORE "Hardcore Random Score"
