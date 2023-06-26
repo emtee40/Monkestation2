@@ -215,9 +215,8 @@ Template for future megafauna chests:
 	var/two_hand_force = 5
 	/// List of factions we deal bonus damage to
 	var/list/nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
-	/// Amount of damage we deal to the above factions
+	/// Amount of damage we deal to the above factions (changes when wielded)
 	var/faction_bonus_force = 0
-	//var/faction_bonus_force = 55
 
 /obj/item/stalwartpike/Initialize(mapload)
 	. = ..()
@@ -245,11 +244,11 @@ Template for future megafauna chests:
 	return ..()
 
 /obj/item/stalwartpike/attack(mob/living/target, mob/living/carbon/human/user, proximity)
-	var/enemy = 0
+	var/enemy = FALSE
 	for(var/found_faction in target.faction)
 		if(found_faction in nemesis_factions)// if we are hitting a nemesis...
 			force += faction_bonus_force
-			enemy = 1
+			enemy = TRUE
 	. = ..()
-	if(enemy == 1) // we should delete the extra force ONLY if we hit a nemesis
+	if(enemy) // we should delete the extra force ONLY if we hit a nemesis
 		force -= faction_bonus_force
