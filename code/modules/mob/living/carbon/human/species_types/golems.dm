@@ -23,8 +23,7 @@
 	mutantheart = null
 	mutantlungs = null
 	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
-	mutant_organs = list(/obj/item/organ/internal/adamantine_resonator)
-	speedmod = 2
+	damage_modifier = 10 //golem is stronk
 	payday_modifier = 0.75
 	armor = 55
 	siemens_coeff = 0

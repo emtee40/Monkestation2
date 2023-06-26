@@ -21,9 +21,8 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_cookie = /obj/item/food/energybar
 	species_language_holder = /datum/language_holder/ethereal
-	sexes = FALSE
-	toxic_food = NONE
-	// Body temperature for ethereals is much higher then humans as they like hotter environments
+	sexes = FALSE //no fetish content allowed
+	// Body temperature for ethereals is much higher than humans as they like hotter environments
 	bodytemp_normal = (BODYTEMP_NORMAL + 50)
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
