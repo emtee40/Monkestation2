@@ -86,7 +86,7 @@
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO
 
 //monkestation change start: plasma shotguns
-/*
+
 /datum/design/plasmacutter_shotgun
 	name = "plasma cutter shotgun"
 	desc = "An industrial-grade heavy-duty mining shotgun"
@@ -98,7 +98,7 @@
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_CARGO
-*/
+
 // monkestation change end
 
 /datum/design/jackhammer

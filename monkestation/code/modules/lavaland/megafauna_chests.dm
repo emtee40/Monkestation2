@@ -204,7 +204,6 @@ Template for future megafauna chests:
 	desc = "A mysterious crystaline rod of exceptional length, humming with ancient power. Too unweildy for use in one hand."
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	max_integrity = 2000
 	block_chance = 25
@@ -246,8 +245,11 @@ Template for future megafauna chests:
 	return ..()
 
 /obj/item/stalwartpike/attack(mob/living/target, mob/living/carbon/human/user, proximity)
+	var/enemy = 0
 	for(var/found_faction in target.faction)
-		if(found_faction in nemesis_factions)
+		if(found_faction in nemesis_factions)// if we are hitting a nemesis...
 			force += faction_bonus_force
+			enemy = 1
 	. = ..()
-	force -= faction_bonus_force
+	if(enemy == 1) // we should delete the extra force ONLY if we hit a nemesis
+		force -= faction_bonus_force
