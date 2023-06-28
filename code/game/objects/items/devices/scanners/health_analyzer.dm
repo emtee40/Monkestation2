@@ -334,7 +334,7 @@
 			render_list += "</span>"
 
 	//Diseases
-		for(var/datum/disease/disease as anything in target.diseases)
+	for(var/datum/disease/disease as anything in target.diseases)
 		if(!(disease.visibility_flags & HIDDEN_SCANNER))
 			render_list += "<span class='alert ml-1'><b>Warning: [disease.form] detected</b>\n\
 			<div class='ml-2'>Name: [disease.name].\nType: [disease.spread_text].\nStage: [disease.stage]/[disease.max_stages].\nPossible Cure: [disease.cure_text]</div>\
