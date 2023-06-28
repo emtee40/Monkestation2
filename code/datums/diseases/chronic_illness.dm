@@ -13,7 +13,6 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "A disease discovered in an Interdyne laboratory caused by subjection to timesteam correction technology."
 	severity = DISEASE_SEVERITY_UNCURABLE
-	var/heartswap = TRUE
 
 /datum/disease/chronic_illness/stage_act(seconds_per_tick, times_fired)
 	. = ..()
@@ -61,10 +60,10 @@
 				affected_mob.emote("scream")
 				affected_mob.adjustBruteLoss(10)
 		if(5)
-			switch(rand(1,4))
+			switch(rand(1,2))
 				if(1)
 					to_chat(affected_mob, span_notice("You feel your atoms begin to realign. You're safe. For now."))
-					stage = 1
+					update_stage(1)
 				if(2)
 					to_chat(affected_mob, span_boldwarning("There is no place for you in this timeline."))
 					affected_mob.adjustStaminaLoss(100, forced = TRUE)
@@ -75,17 +74,6 @@
 					new /obj/effect/decal/cleanable/plasma(affected_mob.loc)
 					new /obj/effect/decal/cleanable/ash(affected_mob.loc)
 					affected_mob.visible_message(span_warning("[affected_mob] is erased from the timeline!"), span_userdanger("You are ripped from the timeline!"))
+					affected_mob.investigate_log("has been dusted / deleted by [name].", INVESTIGATE_DEATHS)
+					affected_mob.ghostize(can_reenter_corpse = FALSE)
 					qdel(affected_mob)
-				if(3)
-					affected_mob.visible_message(span_warning("[affected_mob] is torn apart!"), span_userdanger("Your atoms accelerate into criticality!"))
-					affected_mob.gib()
-				if(4)
-					if(heartswap == TRUE)
-						heartswap = FALSE
-						if(affected_mob.stat == CONSCIOUS)
-							affected_mob.visible_message(span_danger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart is stopping!"), \
-						span_userdanger("You feel a horrible pain as your heart is replaced with one from another dimension!"))
-						var/obj/item/organ/internal/heart/cursed/cheart = new /obj/item/organ/internal/heart/cursed()
-						cheart.replace_into(affected_mob)
-						playsound(affected_mob, 'sound/hallucinations/far_noise.ogg', 50, 1)
-						stage = 3

@@ -334,11 +334,10 @@
 			render_list += "</span>"
 
 	//Diseases
-	for(var/thing in target.diseases)
-		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			render_list += "<span class='alert ml-1'><b>Warning: [D.form] detected</b>\n\
-			<div class='ml-2'>Name: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</div>\
+		for(var/datum/disease/disease as anything in target.diseases)
+		if(!(disease.visibility_flags & HIDDEN_SCANNER))
+			render_list += "<span class='alert ml-1'><b>Warning: [disease.form] detected</b>\n\
+			<div class='ml-2'>Name: [disease.name].\nType: [disease.spread_text].\nStage: [disease.stage]/[disease.max_stages].\nPossible Cure: [disease.cure_text]</div>\
 			</span>" // divs do not need extra linebreak
 
 	// Blood Level
@@ -528,29 +527,6 @@
 	icon_state = "adv_spectrometer"
 	desc = "A disease status analyzer to determine the state of an infection to encourage responsible medication consumption."
 
-
-/proc/diseasescan(mob/user, mob/living/carbon/patient, obj/item/healthanalyzer/wound/scanner)
-	if(!istype(patient) || user.incapacitated())
-		return
-
-	var/render_list = ""
-	for(var/thing in patient.diseases)
-		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			render_list += "<span class='alert ml-1'><b>Warning: [D.form] detected</b>\n\
-			<div class='ml-2'>Name: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</div>\
-			</span>"
-
-	if(render_list == "")
-		if(istype(scanner))
-			// Only emit the cheerful scanner message if this scan came from a scanner
-			playsound(scanner, 'sound/machines/ping.ogg', 50, FALSE)
-			to_chat(user, span_notice("\The [scanner] makes a happy ping and briefly displays a smiley face with several exclamation points! It's really excited to report that [patient] has no diseases!"))
-		else
-			to_chat(user, "<span class='notice ml-1'>No diseases detected in subject.</span>")
-	else
-		to_chat(user, examine_block(jointext(render_list, "")), type = MESSAGE_TYPE_INFO)
-
 /obj/item/healthanalyzer/disease/attack_self(mob/user)
 	playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 	var/list/encouragements = list("encourages you to take your medication", "briefly displays a spinning cartoon heart", "reasures you about your condition", \
@@ -569,7 +545,26 @@
 		to_chat(user, span_notice("\The [src] makes a sad buzz and briefly displays a frowny face, indicating it can't scan [patient]."))
 		return
 
-	diseasescan(user, user, src)
+	diseasescan(user, patient, src)
+
+//Checks the individual for any diseases that are visible to the scanner, and displays the diseases in the attacked to the attacker.
+/proc/diseasescan(mob/user, mob/living/carbon/patient, obj/item/healthanalyzer/wound/scanner)
+	if(!istype(patient) || user.incapacitated())
+		return
+
+	var/render_list = ""
+	for(var/datum/disease/disease as anything in patient.diseases)
+		if(!(disease.visibility_flags & HIDDEN_SCANNER))
+			render_list += "<span class='alert ml-1'><b>Warning: [disease.form] detected</b>\n\
+			<div class='ml-2'>Name: [disease.name].\nType: [disease.spread_text].\nStage: [disease.stage]/[disease.max_stages].\nPossible Cure: [disease.cure_text]</div>\
+			</span>"
+
+	if(render_list == "")
+		// Only emit the cheerful scanner message if this scan came from a scanner
+		playsound(scanner, 'sound/machines/ping.ogg', 50, FALSE)
+		to_chat(user, span_notice("The patient has no diseases."))
+	else
+		to_chat(user, examine_block(jointext(render_list, "")), type = MESSAGE_TYPE_INFO)
 
 #undef SCANMODE_HEALTH
 #undef SCANMODE_WOUND
