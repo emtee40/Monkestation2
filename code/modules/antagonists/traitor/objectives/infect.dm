@@ -14,6 +14,7 @@
 	telecrystal_reward = 1
 
 	var/heads_of_staff = FALSE
+
 	duplicate_type = /datum/traitor_objective/target_player/infect
 
 	var/obj/item/reagent_containers/hypospray/medipen/manifoldinjector/ehms
@@ -155,6 +156,7 @@
 	//Was the injector used on someone yet?
 	var/used = FALSE
 
+/obj/item/reagent_containers/hypospray/medipen/manifoldinjector/attack(mob/living/affected_mob, mob/living/carbon/human/user)
 	if(used)
 		return ..()
 	to_chat(affected_mob, span_warning("You feel someone try to inject you with something."))
