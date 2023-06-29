@@ -485,10 +485,10 @@
 	if(updating_health)
 		updatehealth()
 
-/mob/living/proc/adjustOrganLoss(slot, amount, maximum, required_organtype)
+/mob/living/proc/adjustOrganLoss(slot, amount, maximum, required_organ_flag)
 	return
 
-/mob/living/proc/setOrganLoss(slot, amount, maximum, required_organtype)
+/mob/living/proc/setOrganLoss(slot, amount, maximum, required_organ_flag)
 	return
 
 /mob/living/proc/get_organ_loss(slot)

@@ -151,7 +151,7 @@
 	eye_color_left = initial(eye_color_left)
 	eye_color_right = initial(eye_color_right)
 
-/obj/item/organ/internal/eyes/apply_organ_damage(damage_amount, maximum, required_organtype)
+/obj/item/organ/internal/eyes/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag)
 	. = ..()
 	if(!owner)
 		return FALSE
@@ -254,18 +254,41 @@
 	sight_flags = SEE_MOBS
 	color_cutoffs = list(25, 5, 42)
 
+/obj/item/organ/internal/eyes/golem
+	name = "resonating crystal"
+	icon_state = "adamantine_cords"
+	eye_icon_state = null
+	desc = "Golems somehow measure external light levels and detect nearby ore using this sensitive mineral lattice."
+	color = COLOR_GOLEM_GRAY
+	visual = FALSE
+	organ_flags = ORGAN_MINERAL
+	color_cutoffs = list(10, 15, 5)
+	actions_types = list(/datum/action/cooldown/golem_ore_sight)
+
+/// Send an ore detection pulse on a cooldown
+/datum/action/cooldown/golem_ore_sight
+	name = "Ore Resonance"
+	desc = "Causes nearby ores to vibrate, revealing their location."
+	button_icon = 'icons/obj/device.dmi'
+	button_icon_state = "manual_mining"
+	check_flags = AB_CHECK_CONSCIOUS
+	cooldown_time = 10 SECONDS
+
+/datum/action/cooldown/golem_ore_sight/Activate(atom/target)
+	. = ..()
+	mineral_scan_pulse(get_turf(target))
+
 ///Robotic
 
 /obj/item/organ/internal/eyes/robotic
 	name = "robotic eyes"
 	icon_state = "cybernetic_eyeballs"
 	desc = "Your vision is augmented."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/internal/eyes/robotic/emp_act(severity)
 	. = ..()
-	if(!owner || . & EMP_PROTECT_SELF)
+	if((. & EMP_PROTECT_SELF) || !owner)
 		return
 	if(prob(10 * severity))
 		return
