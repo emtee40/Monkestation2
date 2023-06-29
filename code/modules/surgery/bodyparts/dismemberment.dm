@@ -98,6 +98,8 @@
 	//limb is out and about, it can't really be considered an implant
 	bodypart_flags &= ~BODYPART_IMPLANTED
 	owner.remove_bodypart(src)
+	if(speed_modifier)
+		owner.update_bodypart_speed_modifier()
 
 	for(var/datum/wound/wound as anything in wounds)
 		wound.remove_wound(TRUE)
@@ -345,6 +347,8 @@
 			if(hand)
 				hand.update_appearance()
 		new_limb_owner.update_worn_gloves()
+	if(speed_modifier)
+		new_limb_owner.update_bodypart_speed_modifier()
 
 	LAZYREMOVE(new_limb_owner.body_zone_dismembered_by, body_zone)
 

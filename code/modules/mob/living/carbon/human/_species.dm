@@ -123,16 +123,33 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Replaces default bladder with a different organ
 	var/obj/item/organ/internal/bladder/mutantbladder = /obj/item/organ/internal/bladder
 
-	///Multiplier for the race's speed. Positive numbers make it move slower, negative numbers make it move faster.
-	var/speedmod = 0
-	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
-	var/armor = 0
-	///multiplier for brute damage
-	var/brutemod = 1
-	///multiplier for burn damage
-	var/burnmod = 1
-	//Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
-	var/reagent_tag = PROCESS_ORGANIC
+	/**
+	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
+	 * THIS MODIFIES ALL DAMAGE TYPES.
+	 **/
+	var/damage_modifier = 0
+	///multiplier for damage from cold temperature
+	var/coldmod = 1
+	///multiplier for damage from hot temperature
+	var/heatmod = 1
+	///multiplier for stun durations
+	var/stunmod = 1
+	///multiplier for money paid at payday
+	var/payday_modifier = 1
+	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
+	var/siemens_coeff = 1
+	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
+	var/fixed_mut_color = ""
+	///Special mutation that can be found in the genepool exclusively in this species. Dont leave empty or changing species will be a headache
+	var/inert_mutation = /datum/mutation/human/dwarfism
+	///Used to set the mob's death_sound upon species change
+	var/death_sound
+	///Sounds to override barefeet walking
+	var/list/special_step_sounds
+	///Special sound for grabbing
+	var/grab_sound
+	/// A path to an outfit that is important for species life e.g. plasmaman outfit
+	var/datum/outfit/outfit_important_for_life
 
 	//Dictates which wing icons are allowed for a given species. If count is >1 a radial menu is used to choose between all icons in list
 	var/list/wing_types = list(/obj/item/organ/external/wings/functional/angel)
@@ -551,9 +568,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
-	C.maxHealth = C.maxHealth * maxhealthmod
-
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
 	properly_gained = TRUE
@@ -596,9 +610,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			C.faction -= i
 
 	clear_tail_moodlets(C)
-
-	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
-	C.maxHealth = C.maxHealth / maxhealthmod
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
