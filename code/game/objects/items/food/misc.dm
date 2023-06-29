@@ -275,6 +275,18 @@
 	trash_type = /obj/item/stack/rods
 	food_flags = FOOD_FINGER_FOOD
 
+/obj/item/food/butter/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+
+/obj/item/food/butterslice
+	name = "butter slice"
+	desc = "A slice of butter, for your buttering needs."
+	icon_state = "butterslice"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	tastes = list("butter" = 1)
+	foodtypes = DAIRY
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/food/onionrings
 	name = "onion rings"
 	desc = "Onion slices coated in batter."

@@ -1,4 +1,3 @@
-#define MILK_TO_BUTTER_COEFF 15
 
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
@@ -363,5 +362,3 @@
 		//Recipe to make whipped cream
 		if (beaker.reagents.has_reagent(/datum/reagent/consumable/cream))
 			beaker.reagents.convert_reagent(/datum/reagent/consumable/cream, /datum/reagent/consumable/whipped_cream)
-
-#undef MILK_TO_BUTTER_COEFF
