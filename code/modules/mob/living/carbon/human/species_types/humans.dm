@@ -1,12 +1,6 @@
 /datum/species/human
 	name = "\improper Human"
 	id = SPECIES_HUMAN
-	species_traits = list(
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		LIPS,
-	)
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
 	)

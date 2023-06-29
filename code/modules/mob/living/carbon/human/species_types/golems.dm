@@ -2,13 +2,8 @@
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
 	name = "Golem"
 	id = SPECIES_GOLEM
-	species_traits = list(
-		NOTRANSSTING,
-		MUTCOLORS,
-		NO_UNDERWEAR,
-		NO_DNA_COPY,
-	)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_GENELESS,
 		TRAIT_NOBREATH,
 		TRAIT_NOBLOOD,
@@ -18,7 +13,8 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_NODISMEMBER,
-		TRAIT_NEVER_WOUNDED
+		TRAIT_NEVER_WOUNDED,
+		TRAIT_NO_AUGMENTS,
 	)
 	mutantheart = null
 	mutantlungs = null
