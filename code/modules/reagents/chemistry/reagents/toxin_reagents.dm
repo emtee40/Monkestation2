@@ -432,18 +432,22 @@
 		return UPDATE_MOB_HEALTH
 
 //Pest Spray
+/datum/reagent/toxin/pestkiller/on_hydroponics_apply(obj/machinery/hydroponics/mytray, mob/user)
+	mytray.adjust_toxic(round(volume))
+	mytray.adjust_pestlevel(-rand(1,2))
+
+/datum/reagent/toxin/pestkiller/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if(affected_mob.adjustToxLoss(2 * toxpwr * REM * seconds_per_tick, updating_health = FALSE, required_biotype = MOB_BUG))
+		return UPDATE_MOB_HEALTH
+
+//Pest Spray
 /datum/reagent/toxin/pestkiller/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	if(!check_tray(chems, mytray))
 		return
 	if(chems.has_reagent(type, 1))
 		mytray.adjust_toxic(round(chems.get_reagent_amount(type) * 1))
 		mytray.adjust_pestlevel(-rand(1,2))
-
-/datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
-	. = ..()
-	if(exposed_mob.mob_biotypes & MOB_BUG)
-		var/damage = min(round(0.4*reac_volume, 0.1),10)
-		exposed_mob.adjustToxLoss(damage, required_biotype = affected_biotype)
 
 /datum/reagent/toxin/pestkiller/organic
 	name = "Natural Pest Killer"

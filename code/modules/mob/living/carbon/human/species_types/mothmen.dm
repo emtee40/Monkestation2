@@ -54,14 +54,15 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
-	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
+	if(chem.type == /datum/reagent/toxin/pestkiller)
+		affected.adjustToxLoss(3 * REM * seconds_per_tick)
 
-/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
-	SIGNAL_HANDLER
-
-	if(istype(attacking_item, /obj/item/melee/flyswatter))
-		damage_mods += 10 // Yes, a 10x damage modifier
-
+/datum/species/moth/check_species_weakness(obj/item/weapon, mob/living/attacker)
+	if(istype(weapon, /obj/item/melee/flyswatter))
+		return 10 //flyswatters deal 10x damage to moths
+	return 1
 
 /datum/species/moth/randomize_features(mob/living/carbon/human/human_mob)
 	human_mob.dna.features["moth_markings"] = pick(GLOB.moth_markings_list)
