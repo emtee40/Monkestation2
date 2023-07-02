@@ -544,7 +544,6 @@
 	add_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
 	tod = station_time_timestamp()
 
-
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
