@@ -11,7 +11,7 @@
 // Im sorry for this hell of if statements without switches, i honest to god have no clue how to get a switch here
 
 /obj/structure/holographic_arena/attacked_by(obj/item/I)
-	var/success = 0
+	var/success = FALSE
 	if(istype(I, /obj/item/gem)) // ohohoho, a worthy challenger approaches
 		if(istype(I, /obj/item/gem/phoron)) // blood-drunk
 			new /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/holographic/buffed(get_turf(src))
@@ -23,7 +23,7 @@
 //			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic/buffed(get_turf(src))
 		if(istype(I, /obj/item/gem/bloodstone)) // bubblegum
 			new /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic/buffed(get_turf(src))
-		success = 1
+		success = TRUE
 		visible_message(span_warning("[src] resonates with the inserted gem, creating a very realistic looking megafauna!"))
 		playsound(src, 'sound/magic/exit_blood.ogg', 100, TRUE)
 	if(istype(I, /obj/item/token)) // oh, you are just here for training? alright then, fair enuff
@@ -37,10 +37,10 @@
 			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic(get_turf(src))
 		if(istype(I, /obj/item/token/bubblegum)) // bubblegum
 			new /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic(get_turf(src))
-		success = 1
+		success = TRUE
 		visible_message(span_warning("[src] pings, consuming the token and creating a holographic projection of a megafauna."))
 		playsound(src, 'sound/machines/ping.ogg', 15, TRUE)
-	if(success == 0)
+	if(!success)
 		visible_message(span_warning("[src] shows an error on its screen, it seems it can't accept [I]."))
 		return
 	qdel(I)
