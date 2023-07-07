@@ -4,6 +4,8 @@
 #define SCANMODE_COUNT 2 // Update this to be the number of scan modes if you add more
 #define SCANNER_CONDENSED 0
 #define SCANNER_VERBOSE 1
+// Not updating above count because you're not meant to switch to this mode.
+#define SCANNER_NO_MODE -1
 
 /obj/item/healthanalyzer
 	name = "health analyzer"
@@ -72,6 +74,7 @@
 
 	user.visible_message(span_notice("[user] analyzes [M]'s vitals."))
 	balloon_alert(user, "analyzing vitals")
+	playsound(user.loc, 'sound/items/healthanalyzer.ogg', 50)
 
 	switch (scanmode)
 		if (SCANMODE_HEALTH)
@@ -451,6 +454,9 @@
 	if(!user.can_perform_action(src, NEED_LITERACY|NEED_LIGHT) || user.is_blind())
 		return
 
+	if(mode == SCANNER_NO_MODE)
+		return
+
 	mode = !mode
 	to_chat(user, mode == SCANNER_VERBOSE ? "The scanner now shows specific limb damage." : "The scanner no longer shows limb damage.")
 
@@ -460,6 +466,12 @@
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
 	advanced = TRUE
 
+#define AID_EMOTION_NEUTRAL "neutral"
+#define AID_EMOTION_HAPPY "happy"
+#define AID_EMOTION_WARN "cautious"
+#define AID_EMOTION_ANGRY "angery"
+#define AID_EMOTION_SAD "sad"
+
 /// Displays wounds with extended information on their status vs medscanners
 /proc/woundscan(mob/user, mob/living/carbon/patient, obj/item/healthanalyzer/scanner, simple_scan = FALSE)
 	if(!istype(patient) || user.incapacitated())
@@ -467,8 +479,8 @@
 
 	var/render_list = ""
 	var/advised = FALSE
-	for(var/i in patient.get_wounded_bodyparts())
-		var/obj/item/bodypart/wounded_part = i
+	for(var/limb in patient.get_wounded_bodyparts())
+		var/obj/item/bodypart/wounded_part = limb
 		render_list += "<span class='alert ml-1'><b>Warning: Physical trauma[LAZYLEN(wounded_part.wounds) > 1? "s" : ""] detected in [wounded_part.name]</b>"
 		for(var/limb_wound in wounded_part.wounds)
 			var/datum/wound/current_wound = limb_wound
@@ -486,6 +498,7 @@
 			// Only emit the cheerful scanner message if this scan came from a scanner
 			playsound(scanner, 'sound/machines/ping.ogg', 50, FALSE)
 			to_chat(user, span_notice("\The [scanner] makes a happy ping and briefly displays a smiley face with several exclamation points! It's really excited to report that [patient] has no wounds!"))
+			scanner.show_emotion(AID_EMOTION_HAPPY)
 		else
 			to_chat(user, "<span class='notice ml-1'>No wounds detected in subject.</span>")
 	else
@@ -502,28 +515,40 @@
 	mode = SCANNER_NO_MODE
 	// Cooldown for when the analyzer will allow you to ask it for encouragement. Don't get greedy!
 	var/next_encouragement
-	var/greedy
+	// The analyzer's current emotion. Affects the sprite overlays and if it's going to prick you for being greedy or not.
+	var/emotion = AID_EMOTION_NEUTRAL
+	// Encouragements to play when attack_selfing
+	var/list/encouragements = list("briefly displays a happy face, gazing emptily at you", "briefly displays a spinning cartoon heart", "displays an encouraging message about eating healthy and exercising", \
+			"reminds you that everyone is doing their best", "displays a message wishing you well", "displays a sincere thank-you for your interest in first-aid", "formally absolves you of all your sins")
+	// How often one can ask for encouragement
+	var/patience = 10 SECONDS
 
-/obj/item/healthanalyzer/wound/attack_self(mob/user)
+/obj/item/healthanalyzer/simple/attack_self(mob/user)
 	if(next_encouragement < world.time)
 		playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
-		var/list/encouragements = list("briefly displays a happy face, gazing emptily at you", "briefly displays a spinning cartoon heart", "displays an encouraging message about eating healthy and exercising", \
-				"reminds you that everyone is doing their best", "displays a message wishing you well", "displays a sincere thank-you for your interest in first-aid", "formally absolves you of all your sins")
 		to_chat(user, span_notice("\The [src] makes a happy ping and [pick(encouragements)]!"))
 		next_encouragement = world.time + 10 SECONDS
-		greedy = FALSE
-	else if(!greedy)
-		to_chat(user, span_warning("\The [src] displays an eerily high-definition frowny face, chastizing you for asking it for too much encouragement."))
-		greedy = TRUE
+		show_emotion(AID_EMOTION_HAPPY)
+	else if(emotion != AID_EMOTION_ANGRY)
+		greed_warning(user)
 	else
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-		if(isliving(user))
-			var/mob/living/L = user
-			to_chat(L, span_warning("\The [src] makes a disappointed buzz and pricks your finger for being greedy. Ow!"))
-			L.adjustBruteLoss(4)
-			L.dropItemToGround(src)
+		violence(user)
 
-/obj/item/healthanalyzer/wound/attack(mob/living/carbon/patient, mob/living/carbon/human/user)
+/obj/item/healthanalyzer/simple/proc/greed_warning(mob/user)
+	to_chat(user, span_warning("\The [src] displays an eerily high-definition frowny face, chastizing you for asking it for too much encouragement."))
+	show_emotion(AID_EMOTION_ANGRY)
+
+/obj/item/healthanalyzer/simple/proc/violence(mob/user)
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+	if(isliving(user))
+		var/mob/living/L = user
+		to_chat(L, span_warning("\The [src] makes a disappointed buzz and pricks your finger for being greedy. Ow!"))
+		flick(icon_state + "_pinprick", src)
+		L.adjustBruteLoss(4)
+		L.dropItemToGround(src)
+		show_emotion(AID_EMOTION_HAPPY)
+
+/obj/item/healthanalyzer/simple/attack(mob/living/carbon/patient, mob/living/carbon/human/user)
 	if(!user.can_read(src) || user.is_blind())
 		return
 
@@ -532,7 +557,8 @@
 
 	if(!istype(patient))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		to_chat(user, span_notice("\The [src] makes a sad buzz and briefly displays a frowny face, indicating it can't scan [patient]."))
+		to_chat(user, span_notice("\The [src] makes a sad buzz and briefly displays an unhappy face, indicating it can't scan [patient]."))
+		show_emotion(AI_EMOTION_SAD)
 		return
 
 	woundscan(user, patient, src, simple_scan = TRUE)
@@ -649,3 +675,10 @@
 #undef SCANMODE_COUNT
 #undef SCANNER_CONDENSED
 #undef SCANNER_VERBOSE
+#undef SCANNER_NO_MODE
+
+#undef AID_EMOTION_NEUTRAL
+#undef AID_EMOTION_HAPPY
+#undef AID_EMOTION_WARN
+#undef AID_EMOTION_ANGRY
+#undef AID_EMOTION_SAD
