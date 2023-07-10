@@ -497,15 +497,10 @@
 	desc = "Will make you not able to control your mind."
 	remove_mutations = list(/datum/mutation/human/telekinesis)
 
-/obj/item/dnainjector/firemut
-	name = "\improper DNA injector (Temp Adaptation)"
-	desc = "Gives you fire."
-	add_mutations = list(/datum/mutation/human/temperature_adaptation)
-
-/obj/item/dnainjector/antifire
-	name = "\improper DNA injector (Anti-Temp Adaptation)"
-	desc = "Cures fire."
-	remove_mutations = list(/datum/mutation/human/temperature_adaptation)
+/obj/item/dnainjector/spacemut
+	name = "\improper DNA injector (Space Adaptation)"
+	desc = "Gives you Space immunity."
+	add_mutations = list(/datum/mutation/human/Space_adaptation)
 
 /obj/item/dnainjector/thermal
 	name = "\improper DNA injector (Thermal Vision)"
