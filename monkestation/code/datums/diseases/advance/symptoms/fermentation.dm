@@ -34,7 +34,6 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/mob/living/carbon/C = M
 
 	if(A.stage >= 2)
 		if(prob(5))
