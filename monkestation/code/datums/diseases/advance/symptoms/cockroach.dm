@@ -13,7 +13,7 @@
 	var/death_roaches = FALSE
 	threshold_descs = list(
 		"Stage Speed 8" = "Increases roach speed",
-		"Transmission 8" = "When the host dies, more roaches spawn"
+		"Transmission 8" = "When the host dies, more roaches spawn(currently disabled)"
 		)
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
