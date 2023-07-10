@@ -423,15 +423,15 @@
 	name = "\improper DNA injector (Anti-Paranoia)"
 	remove_mutations = list(/datum/mutation/human/paranoia)
 
-/obj/item/dnainjector/pressuremut
-	name = "\improper DNA injector (Pressure Adaptation)"
+/obj/item/dnainjector/spacemut
+	name = "\improper DNA injector (Space Adaptation)"
 	desc = "Gives you fire."
-	add_mutations = list(/datum/mutation/human/pressure_adaptation)
+	add_mutations = list(/datum/mutation/human/Space_adaptation)
 
-/obj/item/dnainjector/antipressure
+/obj/item/dnainjector/antispace
 	name = "\improper DNA injector (Anti-Pressure Adaptation)"
 	desc = "Cures fire."
-	remove_mutations = list(/datum/mutation/human/pressure_adaptation)
+	remove_mutations = list(/datum/mutation/human/Space_adaptation)
 
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
@@ -496,11 +496,6 @@
 	name = "\improper DNA injector (Anti-Tele.)"
 	desc = "Will make you not able to control your mind."
 	remove_mutations = list(/datum/mutation/human/telekinesis)
-
-/obj/item/dnainjector/spacemut
-	name = "\improper DNA injector (Space Adaptation)"
-	desc = "Gives you Space immunity."
-	add_mutations = list(/datum/mutation/human/Space_adaptation)
 
 /obj/item/dnainjector/thermal
 	name = "\improper DNA injector (Thermal Vision)"
