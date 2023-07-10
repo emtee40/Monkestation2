@@ -1,12 +1,12 @@
 /datum/symptom/fermentation
 	name = "Endogenous Ethanol Fermentation"
 	desc = "This symptom causes the gut bacteria of the infected to continually produce ethanol, creating a near constant state of intoxication."
-	stealth = -2
-	resistance = -3
-	stage_speed = -4
+	stealth = -4
+	resistance = 2
+	stage_speed = 3
 	transmittable = 1
-	level = 6
-	severity = 0 				//Entirely harmless besides a waddle at first.
+	level = 1
+	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 7
 	var/ethanol_power = 3.35 	//Level of drunkenness that will be maintained, scales with Transmission & Stage Speed. This also ensures a harmful virus cannot be stealthed.
@@ -70,19 +70,11 @@
 			if(H.has_quirk(/datum/quirk/drunkhealing))
 				has_drunk_healing = TRUE
 			H.add_quirk(/datum/quirk/drunkhealing)
-			//if(HAS_TRAIT(H, TRAIT_DRUNK_HEALING))
-			//	has_drunk_healing = TRUE
-			//ADD_TRAIT(H, TRAIT_DRUNK_HEALING, DISEASE_TRAIT)
 
 	if(A.stage >= 5)
 		if(prob(20))
 			M.emote(pick("clap", "laugh", "dance", "cry", "mumble", "cross", "chuckle", "flip", "grin", "grimace", "sigh", "smug", "sway", "spin"))
-		C.set_drunk_effect(C.get_drunk_amount() += (ethanol_power/8))
-		//C.drunkenness += (ethanol_power/8) //8 loops around to get it to cap out
-		//if(C.drunkenness >= ethanol_power) //A low drunkenness cap will let scientists hit the Ballmer point with a correctly made virus. 10 + 3.35!
-		//	C.drunkenness = ethanol_power  //Keeps your drunkenness at a cap, this makes it fairly safe to drink heavily
-		if(C.get_drunk_amount() >= ethanol_power)
-			C.set_drunk_effect() = ethanol_power
+		C.adjust_drunk_effect(ethanol_power/8, up_to = ethanol_power)
 
 /datum/symptom/fermentation/End(datum/disease/advance/A) //Restore traits as needed.
 	. = ..()

@@ -3,10 +3,10 @@
 	desc = "This virus increases the host's sensitivity to fluxuations in bluespace, causing random and minor teleportation as they pass through unseen holes of bluespace."
 	stealth = 0
 	resistance = 2
-	stage_speed = -2
-	transmittable = -2
-	level = 8 		//Balancing stats and level around Thermal Retrostable Displacement
-	severity = 2 	//Starts annoying and potentially harmful, but not directly.
+	stage_speed = 2
+	transmittable = -4
+	level = 1
+	severity = 2
 	symptom_delay_min = 8
 	symptom_delay_max = 10
 	var/random_teleportation = TRUE
@@ -14,23 +14,24 @@
 	var/has_blink = FALSE
 	var/blink_distance = 2
 	var/blink_cooldown
+	var/datum/action/cooldown/spell/teleport/radius_turf/viro_blink/Blink
 	threshold_descs = list(
 		"Stage Speed" = "Increases the maximum distance that the infected can be sent with every teleport.",
 		"Resistance 12" = "Gives the infected more control over their teleportation and no longer causes it to happen at random.",
-		"Stealth 4" = "Allows the infected to percieve the rifts of bluespace in their path instead of running in blindly."
+		"Stealth 2" = "Allows the infected to percieve the rifts of bluespace in their path instead of running in blindly."
 		)
 
 /datum/symptom/gateway/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	blink_distance = blink_distance + (round(A.totalStageSpeed()/4))
+	blink_distance = blink_distance + (round(A.totalStageSpeed()/3))
 	if(A.totalStageSpeed() <= 0)
 		blink_distance = 2
-	blink_cooldown = (blink_distance * 10) - 10 //Between 10 seconds for a 2 tile blink and 50 seconds for a 6 tile blink. This is Blink with the cooldown of Teleport.
+	blink_cooldown = (blink_distance * 5) - 5 //Between 5 seconds for a 2 tile blink and 25 seconds for a 6 tile blink.
 	if(A.totalResistance() >= 12)
 		random_teleportation = FALSE
 		has_blink = TRUE
-	if(A.totalStealth() >= 4)
+	if(A.totalStealth() >= 2)
 		random_teleportation = FALSE
 		has_prophet = TRUE
 
@@ -51,21 +52,20 @@
 			"You feel stretched thin.")]</span>")
 	if(A.stage >= 4) //Bluespace Prophet comes earlier than the blink spell and random teleportation.
 		if(has_prophet && ishuman(M))
-			var/mob/living/carbon/human/H = A.affected_mob
+			//var/mob/living/carbon/human/H = A.affected_mob
 			has_prophet = FALSE
-			H.gain_trauma(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
+			M.gain_trauma(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
 
 	if(A.stage >= 5)	//Random teleports or blink, both based off the distance of teleportation
 		if(has_blink && ishuman(M))
 			has_blink = FALSE
-			var/mob/living/carbon/C = A.affected_mob
-			if(locate(/obj/effect/proc_holder/spell/targeted/turf_teleport/viro_blink) in C.mob_spell_list)
+			//var/mob/living/carbon/C = A.affected_mob
+			if(locate(/datum/action/cooldown/spell/teleport/radius_turf/viro_blink) in M.actions)
 				return
-			var/obj/effect/proc_holder/spell/targeted/turf_teleport/viro_blink/Blink = new()
+			Blink = new()
 			Blink.outer_tele_radius = src.blink_distance
-			Blink.charge_max = (src.blink_cooldown * 10)
-			Blink.charge_counter = (src.blink_cooldown * 10)
-			M.AddSpell(Blink)
+			Blink.cooldown_time = (src.blink_cooldown * 10)
+			Blink.Grant(M)
 			to_chat(M, "<span class='notice'>You feel charged with bluespace energy!</span>")
 		if(random_teleportation && prob(15))
 			do_teleport(M, get_turf(M), blink_distance, channel = TELEPORT_CHANNEL_BLUESPACE)
@@ -76,29 +76,19 @@
 	var/mob/living/carbon/M = A.affected_mob
 
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = A.affected_mob
-		M.RemoveSpell(/obj/effect/proc_holder/spell/targeted/turf_teleport/viro_blink)
-		H.cure_trauma_type(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
-
+		//var/mob/living/carbon/human/H = A.affected_mob
+		Blink.Remove(M)
+		M.cure_trauma_type(/datum/brain_trauma/special/bluespace_prophet, TRAUMA_RESILIENCE_ABSOLUTE)
 /datum/action/cooldown/spell/teleport/radius_turf/viro_blink //Between 10 seconds for a 2 tile blink and 50 seconds for a 6 tile blink. This is Blink with the cooldown of Teleport.
-	var/magic_check = FALSE
-	var/holy_check = FALSE
 	name = "Bluespace Jump"
 	desc = "This symptom teleports you a short distance."
-	charge_counter = 0
-	charge_max = 20
-	clothes_req = FALSE
-	range = -1
-	include_user = TRUE
-	charge_type = "recharge"
-
+	button_icon_state = "blink"
+	sound = 'sound/magic/blink.ogg'
+	cooldown_time = 20
+	smoke_type = /datum/effect_system/fluid_spread/smoke
+	smoke_amt = 0
+	post_teleport_sound = 'sound/magic/blink.ogg'
 	inner_tele_radius = 0
 	outer_tele_radius = 0 //Between two and six tiles, based off stage speed
-
-	action_icon = 'monkestation/icons/mob/actions/actions_viro.dmi'
-	action_background_icon_state = "bg_viro"
-	action_icon_state = "viro_blink"
-	sound1 = 'sound/magic/blink.ogg'
-
-
-
+	spell_requirements = NONE
+	antimagic_flags = NONE
