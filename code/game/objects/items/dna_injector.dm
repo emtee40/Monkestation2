@@ -425,13 +425,22 @@
 
 /obj/item/dnainjector/spacemut
 	name = "\improper DNA injector (Space Adaptation)"
-	desc = "Gives you fire."
+	desc = "you will no longer suffer from cold and low atmosphere"
 	add_mutations = list(/datum/mutation/human/space_adaptation)
 
 /obj/item/dnainjector/antispace
-	name = "\improper DNA injector (Anti-Pressure Adaptation)"
-	desc = "Cures fire."
+	name = "\improper DNA injector (anti-Space Adaptation)"
+	desc = "cures space adaptation"
 	remove_mutations = list(/datum/mutation/human/space_adaptation)
+/obj/item/dnainjector/extrememut
+	name = "\improper DNA injector (Extreme Adaptation)"
+	desc = "makes high temps and atmos not so bad"
+	add_mutations = list(/datum/mutation/human/extreme_adaptation)
+
+/obj/item/dnainjector/antiextreme
+	name = "\improper DNA injector (Anti-Extreme Adaptation)"
+	desc = "cures extreme Adaptation."
+	remove_mutations = list(/datum/mutation/human/extreme_adaptation)
 
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
