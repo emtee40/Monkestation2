@@ -426,12 +426,12 @@
 /obj/item/dnainjector/spacemut
 	name = "\improper DNA injector (Space Adaptation)"
 	desc = "Gives you fire."
-	add_mutations = list(/datum/mutation/human/Space_adaptation)
+	add_mutations = list(/datum/mutation/human/space_adaptation)
 
 /obj/item/dnainjector/antispace
 	name = "\improper DNA injector (Anti-Pressure Adaptation)"
 	desc = "Cures fire."
-	remove_mutations = list(/datum/mutation/human/Space_adaptation)
+	remove_mutations = list(/datum/mutation/human/space_adaptation)
 
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
