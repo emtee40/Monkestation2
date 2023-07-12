@@ -419,7 +419,7 @@
 	icon_state = "candelabrum"
 	light_color = "#66FFFF"//LIGHT_COLOR_BLUEGREEN // lighting.dm
 	light_power = 3
-	light_range = 0 // to 2
+	light_outer_range = 0 // to 2
 	density = FALSE
 	can_buckle = TRUE
 	anchored = FALSE
