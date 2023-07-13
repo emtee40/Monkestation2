@@ -278,6 +278,11 @@
 		/datum/symptom/shedding,
 		/datum/symptom/sneeze,
 		/datum/symptom/voice_change,
+		/datum/symptom/fermentation,
+		/datum/symptom/lubefeet,
+		/datum/symptom/pierrot,
+		/datum/symptom/wizarditis,
+		/datum/symptom/cockroach,
 	)
 
 	switch(requested_severity)
@@ -289,6 +294,7 @@
 				/datum/symptom/narcolepsy,
 				/datum/symptom/vomit,
 				/datum/symptom/weight_loss,
+				/datum/symptom/beesease,
 			)
 
 		if(ADV_DISEASE_DANGEROUS)
@@ -299,6 +305,7 @@
 				/datum/symptom/flesh_death,
 				/datum/symptom/flesh_eating,
 				/datum/symptom/visionloss,
+				/datum/symptom/gateway,
 			)
 
 	var/current_severity = 0

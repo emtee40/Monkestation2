@@ -1,6 +1,6 @@
 /datum/symptom/robotic_adaptation
 	name = "Biometallic Replication"
-	desc = "The virus can manipulate metal and silicate compounds, becoming able to infect robotic beings. The virus also provides a suitable substrate for nanites in otherwise inhospitable hosts"
+	desc = "The virus can manipulate metal and silicate compounds, becoming able to infect robotic beings."
 	illness = "Robotic evolution"
 	stealth = 0
 	resistance = 1

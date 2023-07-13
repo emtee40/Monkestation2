@@ -10,10 +10,10 @@
 	name = "Cough"
 	desc = "The virus irritates the throat of the host, causing occasional coughing. Each cough will try to infect bystanders who are within 1 tile of the host with the virus."
 	illness = "Jest Infection"
-	stealth = 50
-	resistance = 50
-	stage_speed = 50
-	transmittable = 50
+	stealth = -1
+	resistance = 3
+	stage_speed = 1
+	transmittable = 2
 	level = 1
 	severity = 1
 	base_message_chance = 15

@@ -73,7 +73,7 @@
 	if(A.stage >= 5)
 		if(prob(20))
 			M.emote(pick("clap", "laugh", "dance", "cry", "mumble", "cross", "chuckle", "flip", "grin", "grimace", "sigh", "smug", "sway", "spin"))
-		C.adjust_drunk_effect(ethanol_power/8, up_to = ethanol_power)
+		M.adjust_drunk_effect(ethanol_power/8, up_to = ethanol_power)
 
 /datum/symptom/fermentation/End(datum/disease/advance/A) //Restore traits as needed.
 	. = ..()

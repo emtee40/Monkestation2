@@ -82,7 +82,8 @@
 /datum/action/cooldown/spell/teleport/radius_turf/viro_blink //Between 10 seconds for a 2 tile blink and 50 seconds for a 6 tile blink. This is Blink with the cooldown of Teleport.
 	name = "Bluespace Jump"
 	desc = "This symptom teleports you a short distance."
-	button_icon_state = "blink"
+	button_icon = 'monkestation/icons/mob/actions/actions_viro.dmi'
+	button_icon_state = "viro_blink"
 	sound = 'sound/magic/blink.ogg'
 	cooldown_time = 20
 	smoke_type = /datum/effect_system/fluid_spread/smoke
