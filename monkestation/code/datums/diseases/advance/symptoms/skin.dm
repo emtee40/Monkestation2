@@ -24,10 +24,14 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 80
 	symptom_delay_max = 145
-	var/big_heal
-	var/all_disease
-	var/eggsplosion
-	var/sneaky
+	///this determines if healing reagents are included or not.
+	var/big_heal = FALSE
+	///responsible for adding in other diseases on spread if checks are positive
+	var/all_disease = FALSE
+	///if true, egg sac seperate after some time and goes flying in all directions
+	var/eggsplosion = FALSE
+	///changes icon state to a more hard to see variant if true
+	var/sneaky = FALSE
 	threshold_descs = list(
 		"Transmission 6" = "Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.",
 		"Transmission 10" = "Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.",
@@ -41,9 +45,9 @@ BONUS
 		return
 	if(advanced_disease.totalResistance() >= 8)
 		big_heal = TRUE
-	if(advanced_disease.totalTransmittable() >= 8)
+	if(advanced_disease.totalTransmittable() >= 6)
 		all_disease = TRUE
-		if(advanced_disease.totalTransmittable() >= 12)
+		if(advanced_disease.totalTransmittable() >= 10)
 			eggsplosion = TRUE //Haha get it?
 	if(advanced_disease.totalStealth() >= 5)
 		sneaky = TRUE
@@ -76,8 +80,8 @@ BONUS
 	icon_state = "eggsac"
 	bite_consumption = 4
 	var/list/diseases = list()
-	var/sneaky_egg
-	var/big_heal
+	var/sneaky_egg = FALSE
+	var/big_heal = FALSE
 
 //Constructor
 /obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)

@@ -5,5 +5,5 @@
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER
 
-	for(var/datum/symptom/S as() in symptoms) //please dont make me change the S variable, rest of code uses same standard.
+	for(var/datum/symptom/S as anything in symptoms) // on death, do the thing.
 		S.OnDeath(src)
