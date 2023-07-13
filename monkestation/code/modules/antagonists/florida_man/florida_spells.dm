@@ -69,7 +69,7 @@
 	playsound(floridan, 'sound/voice/human/wilhelm_scream.ogg', 50, TRUE)
 	floridan.visible_message("<span class='warning'>[floridan] howls in rage as he begins to charge!</span>", "<span class='notice'>You feel the strength of Florida wash over you, push through those doors!</span>")
 	floridan.move_force = MOVE_FORCE_OVERPOWERING
-	addtimer(CALLBACK(src, .proc/end_florida_doorbuster),5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_florida_doorbuster),5 SECONDS)
 
 /datum/action/cooldown/spell/florida_doorbuster/proc/end_florida_doorbuster()
 	if(!ishuman(usr))
