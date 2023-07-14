@@ -17,12 +17,10 @@
 	name = "Ash Drake Token"
 	desc = "It can be used to summon a powerfull ashdrake using the holographic training beacon."
 
-/*
 /datum/orderable_item/holographic/colossus
 	item_path = /obj/item/token/colossus
 	name = "Colossus Token"
-	desc = "It can be used to summon a mighty colossus using the holographic training beacon. Its price has been adjusted for inflation"
-*/
+	desc = "It can be used to summon a mighty colossus using the holographic training beacon."
 
 /datum/orderable_item/holographic/bubblegum
 	item_path = /obj/item/token/bubblegum
