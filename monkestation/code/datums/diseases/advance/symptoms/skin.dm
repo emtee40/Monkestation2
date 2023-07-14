@@ -1,3 +1,4 @@
+#define EGGSPLODE_DELAY 100 SECONDS
 /************************************
 Dermagraphic Ovulogenesis
 
@@ -24,6 +25,13 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 80
 	symptom_delay_max = 145
+	threshold_descs = list(
+		"Transmission 6" = "Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.",
+		"Transmission 10" = "Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.",
+		"Resistance 8" = "Eggs and Egg Sacs contain more healing chems.",
+		"Stealth 5" = "Eggs and Egg Sacs become nearly transparent, making them more difficult to see.",
+		"Stage Speed 8" = "Egg Sacs fall off the host more frequently."
+	)
 	///this determines if healing reagents are included or not.
 	var/big_heal = FALSE
 	///responsible for adding in other diseases on spread if checks are positive
@@ -32,13 +40,7 @@ BONUS
 	var/eggsplosion = FALSE
 	///changes icon state to a more hard to see variant if true
 	var/sneaky = FALSE
-	threshold_descs = list(
-		"Transmission 6" = "Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.",
-		"Transmission 10" = "Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.",
-		"Resistance 8" = "Eggs and Egg Sacs contain more healing chems.",
-		"Stealth 5" = "Eggs and Egg Sacs become nearly transparent, making them more difficult to see.",
-		"Stage Speed 8" = "Egg Sacs fall off the host more frequently."
-	)
+
 
 /datum/symptom/skineggs/Start(datum/disease/advance/advanced_disease)
 	if(!..())
@@ -61,18 +63,16 @@ BONUS
 		return
 	var/mob/living/carbon/victim = advanced_disease.affected_mob
 	var/list/diseases = list(advanced_disease)
-	switch(advanced_disease.stage)
-		if(5)
-			if(all_disease)
-				for(var/datum/disease/variable55 in victim.diseases)
-					if((variable55.spread_flags & DISEASE_SPREAD_SPECIAL) || (variable55.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (variable55.spread_flags & DISEASE_SPREAD_FALTERED))
-						continue
-					if(variable55 == advanced_disease)
-						continue
-					diseases += variable55
-				new /obj/item/food/eggsac(victim.loc, diseases, eggsplosion, sneaky, big_heal)
+	if(advanced_disease.stage == 5)
+		if(all_disease)
+			for(var/datum/disease/variable55 in victim.diseases)
+				if((variable55.spread_flags & DISEASE_SPREAD_SPECIAL) || (variable55.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (variable55.spread_flags & DISEASE_SPREAD_FALTERED))
+					continue
+				if(variable55 == advanced_disease)
+					continue
+				diseases += variable55
+			new /obj/item/food/eggsac(victim.loc, diseases, eggsplosion, sneaky, big_heal)
 
-#define EGGSPLODE_DELAY 100 SECONDS
 /obj/item/food/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
@@ -103,24 +103,22 @@ BONUS
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
-#undef EGGSPLODE_DELAY
 
+///time to make eggs everywere yey
 /obj/item/food/eggsac/proc/eggsplode()
-	for(var/i = 1, i <= rand(4,8), i++)
+	for(var/random_direction = 1, random_direction <= rand(4,8), random_direction++)
 		var/list/directions = GLOB.alldirs
-		var/obj/item/eggs = new /obj/item/food/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
+		var/obj/item/eggs = new /obj/item/food/eggsac/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
 		var/turf/thrown_at = get_ranged_target_turf(eggs, pick(directions), rand(2, 4))
 		eggs.throw_at(thrown_at, rand(2,4), 4)
 
-/obj/item/food/fleshegg
+/obj/item/food/eggsac/fleshegg
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
-	icon = 'monkestation/icons/obj/food/food.dmi'
 	icon_state = "fleshegg"
 	bite_consumption = 1
-	var/list/diseases = list()
 
-/obj/item/food/fleshegg/New(loc, disease, sneaky, large_heal)
+/obj/item/food/eggsac/fleshegg/New(loc, disease, sneaky, large_heal)
 	..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
@@ -134,3 +132,4 @@ BONUS
 		icon_state = "fleshegg-sneaky"
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
+#undef EGGSPLODE_DELAY

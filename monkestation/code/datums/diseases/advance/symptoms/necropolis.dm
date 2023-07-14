@@ -123,13 +123,13 @@
 
 /obj/effect/temp_visual/goliath_tentacle/necro/trip()
 	var/latched = FALSE
-	for(var/mob/living/goliath_tentacles in loc)
-		if(goliath_tentacles == spawner)
+	for(var/mob/living/goliath_tentacles_target in loc)
+		if(goliath_tentacles_target == spawner)
 			retract()
 			return
-		visible_message(span_danger("[src] grabs hold of [goliath_tentacles]!"))
-		goliath_tentacles.Stun(40)
-		goliath_tentacles.adjustBruteLoss(rand(1,10))
+		visible_message(span_danger("[src] grabs hold of [goliath_tentacles_target]!"))
+		goliath_tentacles_target.Stun(40)
+		goliath_tentacles_target.adjustBruteLoss(rand(1,10))
 		latched = TRUE
 	if(!latched)
 		retract()
