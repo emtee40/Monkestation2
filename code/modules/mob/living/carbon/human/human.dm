@@ -1066,10 +1066,6 @@
 /mob/living/carbon/human/species/lizard/silverscale
 	race = /datum/species/lizard/silverscale
 
-// Monkestation edit: draconids
-/mob/living/carbon/human/species/lizard/draconid
-	race = /datum/species/lizard/draconid
-
 /mob/living/carbon/human/species/ethereal
 	race = /datum/species/ethereal
 
