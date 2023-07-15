@@ -71,7 +71,7 @@ BONUS
 				if(variable55 == advanced_disease)
 					continue
 				diseases += variable55
-			new /obj/item/food/eggsac(loc, diseases, eggsplosion, sneaky, big_heal)
+			new /obj/item/food/eggsac(victim.loc, diseases, eggsplosion, sneaky, big_heal)
 
 /obj/item/food/eggsac
 	name = "Fleshy egg sac"
