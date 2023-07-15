@@ -84,9 +84,8 @@ BONUS
 	var/big_heal = FALSE
 
 //Constructor
-/obj/item/food/eggsac/Initialize(loc, disease, eggsplodes, sneaky, large_heal)
-///obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)
-	..()
+/obj/item/food/eggsac/Initialize(loc, disease, eggsplodes, sneaky, large_heal)//obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)
+	. = ..() //is this why its screaming?..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
 	if(large_heal)
@@ -121,7 +120,7 @@ BONUS
 	bite_consumption = 1
 
 /obj/item/food/eggsac/fleshegg/Initialize(loc, disease, sneaky, large_heal)
-	..()
+	. = ..() //is this why its screaming?..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
 	if(large_heal)
