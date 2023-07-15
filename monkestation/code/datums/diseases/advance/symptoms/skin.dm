@@ -74,7 +74,7 @@ BONUS
 			new /obj/item/food/eggsac(victim.loc, diseases, eggsplosion, sneaky, big_heal)
 
 /obj/item/food/eggsac
-	name = "Fleshy Egg Sac"
+	name = "Fleshy egg sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
 	icon = 'monkestation/icons/obj/food/food.dmi'
 	icon_state = "eggsac"
@@ -107,14 +107,15 @@ BONUS
 
 ///time to make eggs everywere yey
 /obj/item/food/eggsac/proc/eggsplode()
-	for(var/random_direction = 1, random_direction <= rand(4,8), random_direction++)
+	for(var/random_direction in 1 to rand(4, 8))
+	//for(var/random_direction = 1, random_direction <= rand(4,8), random_direction++)
 		var/list/directions = GLOB.alldirs
 		var/obj/item/eggs = new /obj/item/food/eggsac/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
 		var/turf/thrown_at = get_ranged_target_turf(eggs, pick(directions), rand(2, 4))
 		eggs.throw_at(thrown_at, rand(2,4), 4)
 
 /obj/item/food/eggsac/fleshegg
-	name = "Fleshy Egg"
+	name = "Fleshy eggs"
 	desc = "An Egg which appears to be made out of someone's flesh!"
 	icon_state = "fleshegg"
 	bite_consumption = 1
