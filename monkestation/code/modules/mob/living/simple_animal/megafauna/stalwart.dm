@@ -345,7 +345,7 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	color = "#00e1ff"
-	light_range = 2
+	light_outer_range = 2
 	light_power = 6
 	light_color = "#00e1ff"
 
@@ -359,7 +359,7 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 	color = "#4851ce"
-	light_range = 2
+	light_outer_range = 2
 	light_power = 6
 	light_color = "#4851ce"
 
@@ -373,7 +373,7 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	color = "#9a9fdb"
-	light_range = 2
+	light_outer_range = 2
 	light_power = 6
 	light_color = "#9a9fdb"
 
@@ -386,7 +386,7 @@
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
-	light_range = 6
+	light_outer_range = 6
 	light_power = 10
 	light_color = "#0077ff"
 

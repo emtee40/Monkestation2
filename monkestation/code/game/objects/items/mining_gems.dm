@@ -138,7 +138,7 @@
 	icon_state = "magma"
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 25}
 	point_value = 450
-	light_range = 2
+	light_outer_range = 2
 	light_power = 1
 	light_color = "#ff7b00"
 
@@ -159,7 +159,7 @@
 	icon_state = "phoron"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma{amount = 50}
 	point_value = 1200
-	light_range = 2
+	light_outer_range = 2
 	light_power = 2
 	light_color = "#62326a"
 
@@ -170,7 +170,7 @@
 	icon_state = "purple"
 	sheet_type = /obj/item/stack/sheet/glass{amount = 500} // im sorry, we dont have dilithium and there is no good replacement. So have 500 sheets of glass instead
 	point_value = 1600
-	light_range = 2
+	light_outer_range = 2
 	light_power = 1
 	light_color = "#b714cc"
 
@@ -192,7 +192,7 @@
 	icon_state = "amber"
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 50}
 	point_value = 1600
-	light_range = 2
+	light_outer_range = 2
 	light_power = 2
 	light_color = "#FFBF00"
 
@@ -202,7 +202,7 @@
 	icon_state = "void"
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 20}
 	point_value = 1800
-	light_range = 2
+	light_outer_range = 2
 	light_power = 1
 	light_color = "#4785a4"
 
@@ -212,7 +212,7 @@
 	icon_state = "red"
 	sheet_type = /obj/item/stack/sheet/runed_metal{amount = 25} // its only use is golems, you can already get runed metal from the lavaland cult ruin so it shouldnt be that big of a deal
 	point_value = 2000
-	light_range = 2
+	light_outer_range = 2
 	light_power = 3
 	light_color = "#800000"
 
@@ -221,7 +221,7 @@
 	desc = "An ominous cylinder that glows with an unnerving aura, seeming to hungrily draw in the space around it. The round edges of the lick are uneven patches of rough texture. Its only known property is that of anti-magic."
 	icon_state = "dark"
 	point_value = 3000
-	light_range = 3
+	light_outer_range = 3
 	light_power = 3
 	light_color = "#380a41"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -236,7 +236,7 @@
 	icon_state = "cpu"
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 20}
 	point_value = 2000
-	light_range = 2
+	light_outer_range = 2
 	light_power = 6
 	light_color = "#0004ff"
 
@@ -250,7 +250,7 @@
 	icon_state = "brass"
 	sheet_type = /obj/item/stack/sheet/bronze{amount = 150} // its basically worse iron, lets give them a good bit of it
 	point_value = 1000
-	light_range = 4
+	light_outer_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
 
@@ -260,7 +260,7 @@
 	icon_state = "magma"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium{amount = 10}
 	point_value = 1800
-	light_range = 3
+	light_outer_range = 3
 	light_power = 1
 	light_color = "#ffee00"
 
@@ -270,7 +270,7 @@
 	icon_state = "void"
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 50}
 	point_value = 3000
-	light_range = 3
+	light_outer_range = 3
 	light_power = 3
 	light_color = "#380a41"
 
