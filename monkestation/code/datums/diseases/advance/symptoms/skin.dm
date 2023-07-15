@@ -84,8 +84,8 @@ BONUS
 	var/big_heal = FALSE
 
 //Constructor
-/obj/item/food/eggsac/Initialize(loc, disease, eggsplodes, sneaky, large_heal)//obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)
-	. = ..() //is this why its screaming?..()
+/obj/item/food/eggsac/Initialize(loc, disease, eggsplodes, sneaky, large_heal)
+	. = ..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
 	if(large_heal)
@@ -103,11 +103,8 @@ BONUS
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
-
-///time to make eggs everywere yey
-/obj/item/food/eggsac/proc/eggsplode()
+/obj/item/food/eggsac/proc/eggsplode()//time to make eggs everywere yey
 	for(var/random_direction in 1 to rand(4, 8))
-	//for(var/random_direction = 1, random_direction <= rand(4,8), random_direction++)
 		var/list/directions = GLOB.alldirs
 		var/obj/item/eggs = new /obj/item/food/eggsac/fleshegg(loc, diseases, sneaky_egg, big_heal)
 		var/turf/thrown_at = get_ranged_target_turf(eggs, pick(directions), rand(2, 4))
