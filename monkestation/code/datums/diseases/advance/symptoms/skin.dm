@@ -71,7 +71,7 @@ BONUS
 				if(variable55 == advanced_disease)
 					continue
 				diseases += variable55
-			new /obj/item/food/eggsac(victim.loc, diseases, eggsplosion, sneaky, big_heal)
+			new /obj/item/food/eggsac(loc, diseases, eggsplosion, sneaky, big_heal)
 
 /obj/item/food/eggsac
 	name = "Fleshy egg sac"
@@ -109,7 +109,7 @@ BONUS
 	for(var/random_direction in 1 to rand(4, 8))
 	//for(var/random_direction = 1, random_direction <= rand(4,8), random_direction++)
 		var/list/directions = GLOB.alldirs
-		var/obj/item/eggs = new /obj/item/food/eggsac/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
+		var/obj/item/eggs = new /obj/item/food/eggsac/fleshegg(loc, diseases, sneaky_egg, big_heal)
 		var/turf/thrown_at = get_ranged_target_turf(eggs, pick(directions), rand(2, 4))
 		eggs.throw_at(thrown_at, rand(2,4), 4)
 
