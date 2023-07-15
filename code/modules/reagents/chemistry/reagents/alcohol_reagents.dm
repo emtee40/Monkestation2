@@ -2122,19 +2122,15 @@
 	taste_description = "custard and alcohol"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/glass_style/has_foodtype/drinking_glass/eggnog
-	required_drink_type = /datum/reagent/consumable/ethanol/eggnog
-	name = "eggnog"
-	desc = "For enjoying the most wonderful time of the year."
-	icon_state = "glass_yellow"
-	drink_type = FRUIT
-
-/datum/glass_style/has_foodtype/juicebox/eggnog
-	required_drink_type = /datum/reagent/consumable/ethanol/eggnog
-	name = "carton of eggnog"
-	desc = "Tasty grape juice in a fun little container. Non-alcoholic!"
-	icon_state = "grapebox"
-	drink_type = FRUIT
+/datum/reagent/consumable/ethanol/dreadnog
+	name = "Dreadnog"
+	description = "For suffering during a period of joy."
+	color = "#abb862" // rgb: 252, 253, 198
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	boozepwr = 1
+	quality = DRINK_REVOLTING
+	taste_description = "custard and alcohol"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/narsour
 	name = "Nar'Sour"
