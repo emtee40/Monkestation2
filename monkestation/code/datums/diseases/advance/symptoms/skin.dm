@@ -75,7 +75,7 @@ BONUS
 
 /obj/item/food/eggsac
 	name = "Fleshy egg sac"
-	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
+	desc = "A small egg Sac which appears to be made out of someone's flesh!"
 	icon = 'monkestation/icons/obj/food/food.dmi'
 	icon_state = "eggsac"
 	bite_consumption = 4
@@ -116,7 +116,7 @@ BONUS
 
 /obj/item/food/eggsac/fleshegg
 	name = "Fleshy eggs"
-	desc = "An Egg which appears to be made out of someone's flesh!"
+	desc = "An egg which appears to be made out of someone's flesh!"
 	icon_state = "fleshegg"
 	bite_consumption = 1
 
