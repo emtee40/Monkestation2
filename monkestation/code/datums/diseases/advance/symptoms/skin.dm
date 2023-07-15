@@ -84,7 +84,8 @@ BONUS
 	var/big_heal = FALSE
 
 //Constructor
-/obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)
+/obj/item/food/eggsac/Initialize(loc, disease, eggsplodes, sneaky, large_heal)
+///obj/item/food/eggsac/New(loc, disease, eggsplodes, sneaky, large_heal)
 	..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
@@ -118,7 +119,7 @@ BONUS
 	icon_state = "fleshegg"
 	bite_consumption = 1
 
-/obj/item/food/eggsac/fleshegg/New(loc, disease, sneaky, large_heal)
+/obj/item/food/eggsac/fleshegg/Initialize(loc, disease, sneaky, large_heal)
 	..()
 	for(var/datum/disease/variable55 in disease)
 		diseases += variable55
