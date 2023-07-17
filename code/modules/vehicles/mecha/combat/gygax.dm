@@ -13,13 +13,12 @@
 	destruction_sleep_duration = 40
 	exit_delay = 40
 	encumbrance_gap = 1.4
-	internal_damage_threshold = 18
 	wreckage = /obj/structure/mecha_wreckage/gygax
 	mech_type = EXOSUIT_MODULE_GYGAX
 	max_equip_by_category = list(
 		MECHA_UTILITY = 1,
 		MECHA_POWER = 1,
-		MECHA_ARMOR = 3,
+		MECHA_ARMOR = 2,
 	)
 	step_energy_drain = 3
 
