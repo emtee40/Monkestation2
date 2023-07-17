@@ -801,7 +801,7 @@
 	description = "Research on how to fully exploit the power of plasma."
 	prereq_ids = list("basic_plasma")
 	design_ids = list(
-		"mecha_kineticgun",
+		"mech_plasma_cutter",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1384,7 +1384,8 @@
 		"cooldownmod",
 		"damagemod",
 		"drill",
-		"mining_equipment_vendor",
+		"mecha_kineticgun",
+		"mining_equipment_vendor"
 		"ore_redemption",
 		"plasmacutter",
 		"rangemod",
