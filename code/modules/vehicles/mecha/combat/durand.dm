@@ -16,7 +16,7 @@
 	max_equip_by_category = list(
 		MECHA_UTILITY = 1,
 		MECHA_POWER = 1,
-		MECHA_ARMOR = 3,
+		MECHA_ARMOR = 2,
 	)
 	var/obj/durand_shield/shield
 
