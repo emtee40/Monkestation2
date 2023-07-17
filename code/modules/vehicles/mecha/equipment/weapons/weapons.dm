@@ -83,6 +83,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
+	movedelay = 0.1
 	name = "\improper CH-PS \"Immolator\" laser"
 	desc = "A weapon for combat exosuits. Shoots basic lasers."
 	icon_state = "mecha_laser"
@@ -93,6 +94,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	equip_cooldown = 1.5 SECONDS
+	movedelay = 0.1
 	name = "\improper CH-DS \"Peacemaker\" disabler"
 	desc = "A weapon for combat exosuits. Shoots a bunch of weak disabler beams."
 	icon_state = "mecha_disabler"
@@ -114,6 +116,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 20
+	movedelay = 0.1
 	name = "\improper MKIV ion heavy cannon"
 	desc = "A weapon for combat exosuits. Shoots technology-disabling ion beams. Don't catch yourself in the blast!"
 	icon_state = "mecha_ion"
@@ -150,22 +153,76 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	energy_drain = 30
-	projectile = /obj/projectile/plasma/adv/mech
+	projectile = /obj/projectile/plasma/scatter
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = TRUE
 	mech_flags = EXOSUIT_MODULE_COMBAT | EXOSUIT_MODULE_WORKING
+
+#define MODE_MINE 0
+#define MODE_KILL 1
 
 //Exosuit-mounted kinetic accelerator
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
 	equip_cooldown = 10
 	name = "Exosuit Proto-kinetic Accelerator"
-	desc = "An exosuit-mounted mining tool that does increased damage in low pressure. Drawing from an onboard power source allows it to project further than the handheld version."
+	desc = "A dual-purpose plasma cutter that runs off the exosuit's power supply."
 	icon_state = "mecha_kineticgun"
-	energy_drain = 30
+	energy_drain = 50
 	projectile = /obj/projectile/kinetic/mech
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 	harmful = TRUE
 	mech_flags = EXOSUIT_MODULE_COMBAT | EXOSUIT_MODULE_WORKING
+	var/mode = 0
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/proc/get_mode()
+	switch(mode)
+		if(0)
+			return "oremode"
+		if(1)
+			return "killmode"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/get_snowflake_data()
+	return list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
+		"name" = "Exosuit Kinetic Thing",
+		"mode" = mode == 0 ? "ore-cutting beams" : "kinetic blast",
+	)
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/ui_act(action, list/params)
+	. = ..()
+	if(.)
+		return
+	if(action == "change_mode")
+		if(mode == 0)
+			mode = 1
+		else
+			mode = 0
+		switch(mode)
+			if(0)
+				balloon_alert(chassis.occupants, "kinetic blasts")
+			if(1)
+				balloon_alert(chassis.occupants, "ore-cutting beams")
+		return TRUE
+
+//	balloon_alert(user, "equipment [weapons_safety ? "safe" : "ready"]")
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/action(mob/source, atom/target, list/modifiers)
+	switch(mode)
+		if(0)
+			if(projectile)
+				projectile = /obj/projectile/plasma/scatter
+				variance = 20
+				projectiles_per_shot = 3
+		if(1)
+			if(projectile)
+				projectile = /obj/projectile/kinetic/mech
+				variance = 0
+				projectiles_per_shot = 1
+				energy_drain = 2*initial(energy_drain)
+	return ..()
+
+#undef MODE_MINE
+#undef MODE_KILL
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "\improper PBT \"Pacifier\" mounted taser"
@@ -223,12 +280,12 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "general ballistic weapon"
 	fire_sound = 'sound/weapons/gun/smg/shot.ogg'
-	movedelay = 0.4
 	var/projectiles
 	var/projectiles_cache //ammo to be loaded in, if possible.
 	var/projectiles_cache_max
 	var/disabledreload //For weapons with no cache (like the rockets) which are reloaded by hand
 	var/ammo_type
+	movedelay = 0.4
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(target)
 	if(!..())
@@ -272,6 +329,7 @@
 	desc = "A weapon for combat exosuits. Shoots incendiary bullets."
 	icon_state = "mecha_carbine"
 	equip_cooldown = 10
+	movedelay = 0.2
 	projectile = /obj/projectile/bullet/incendiary/fnx99
 	projectiles = 24
 	projectiles_cache = 24
@@ -285,6 +343,7 @@
 	fire_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 30
+	movedelay = 0.2
 	projectile = /obj/projectile/bullet/mime
 	projectiles = 6
 	projectiles_cache = 999
@@ -349,8 +408,10 @@
 	projectiles_cache_max = 0
 	disabledreload = TRUE
 	equip_cooldown = 60
+	movedelay = 0.2
 	harmful = TRUE
 	ammo_type = MECHA_AMMO_MISSILE_PEP
+	movedelay = 0.2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher
 	var/missile_speed = 2
@@ -384,6 +445,7 @@
 	projectiles_cache_max = 24
 	missile_speed = 1.5
 	equip_cooldown = 60
+	movedelay = 0.2
 	ammo_type = MECHA_AMMO_FLASHBANG
 	var/det_time = 20
 
@@ -415,8 +477,8 @@
 	missile_speed = 1.5
 	projectiles_cache = 999
 	equip_cooldown = 20
-	mech_flags = EXOSUIT_MODULE_HONK
 	movedelay = 0
+	mech_flags = EXOSUIT_MODULE_HONK
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar
 	name = "mousetrap mortar"
@@ -428,8 +490,8 @@
 	missile_speed = 1.5
 	projectiles_cache = 999
 	equip_cooldown = 10
-	mech_flags = EXOSUIT_MODULE_HONK
 	movedelay = 0
+	mech_flags = EXOSUIT_MODULE_HONK
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar/proj_init(obj/item/assembly/mousetrap/armed/M)
 	M.secured = TRUE

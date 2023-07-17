@@ -801,7 +801,7 @@
 	description = "Research on how to fully exploit the power of plasma."
 	prereq_ids = list("basic_plasma")
 	design_ids = list(
-		"mech_plasma_cutter",
+		"mecha_kineticgun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1081,10 +1081,10 @@
 	design_ids = list(
 		"quadultra_micro_laser",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	discount_experiments = list(
-		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 4000,
-		/datum/experiment/ordnance/gaseous/noblium = 10000,
+		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 2500,
+		/datum/experiment/ordnance/gaseous/noblium = 5000,
 	)
 
 /////////////////////////Clown tech/////////////////////////
@@ -1384,7 +1384,6 @@
 		"cooldownmod",
 		"damagemod",
 		"drill",
-		"mecha_kineticgun",
 		"mining_equipment_vendor",
 		"ore_redemption",
 		"plasmacutter",
@@ -1910,7 +1909,7 @@
 	id = "mecha_tools"
 	display_name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("adv_mecha")
+	prereq_ids = list("adv_mecha", "weaponry")
 	design_ids = list(
 		"mech_scattershot",
 		"mech_scattershot_ammo",
@@ -1952,7 +1951,7 @@
 	id = "mech_laser"
 	display_name = "Exosuit Weapon (CH-PS \"Immolator\" Laser)"
 	description = "A basic piece of mech weaponry"
-	prereq_ids = list("beam_weapons")
+	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_laser",
 	)
@@ -1962,7 +1961,7 @@
 	id = "mech_laser_heavy"
 	display_name = "Exosuit Weapon (CH-LC \"Solaris\" Laser Cannon)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("adv_beam_weapons")
+	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_laser_heavy",
 	)
@@ -1982,7 +1981,7 @@
 	id = "mech_grenade_launcher"
 	display_name = "Exosuit Weapon (SGL-6 Grenade Launcher)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("explosive_weapons")
+	prereq_ids = list("adv_mecha")
 	design_ids = list(
 		"mech_grenade_launcher",
 		"mech_grenade_launcher_ammo",
@@ -2035,7 +2034,7 @@
 	id = "mech_lmg"
 	display_name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("adv_mecha")
+	prereq_ids = list("adv_mecha", "weaponry")
 	design_ids = list(
 		"mech_lmg",
 		"mech_lmg_ammo",

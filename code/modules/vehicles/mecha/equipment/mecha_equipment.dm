@@ -31,6 +31,18 @@
 
 	var/movedelay = 0
 
+/obj/item/mecha_parts/mecha_equipment/examine(mob/user)
+	.=..()
+	if(src.movedelay)
+		switch(movedelay)
+			if(1 to 1.5)
+				. += span_notice("This is a lightweight module.")
+			if(1.6 to 2.5)
+				. += span_notice("This module is moderately heavy.")
+			if(2.6 to 3)
+				. += span_notice("This module weighs almost half a ton!.")
+	else . += span_notice("This module is effectively weightless.")
+
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
 		detach(get_turf(src))
