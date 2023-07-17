@@ -1081,10 +1081,10 @@
 	design_ids = list(
 		"quadultra_micro_laser",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
 	discount_experiments = list(
-		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 2500,
-		/datum/experiment/ordnance/gaseous/noblium = 5000,
+		/datum/experiment/scanning/points/machinery_pinpoint_scan/tier3_microlaser = 4000,
+		/datum/experiment/ordnance/gaseous/noblium = 10000,
 	)
 
 /////////////////////////Clown tech/////////////////////////
