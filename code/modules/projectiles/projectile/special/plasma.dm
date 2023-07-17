@@ -38,3 +38,8 @@
 	damage = 24
 	range = 7
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+
+/obj/projectile/plasma/scatter
+	damage = 5
+	range = 5
+	mine_range = 1

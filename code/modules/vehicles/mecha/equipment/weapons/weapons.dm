@@ -153,7 +153,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	energy_drain = 30
-	projectile = /obj/projectile/plasma/scatter
+	projectile = /obj/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = TRUE
 	mech_flags = EXOSUIT_MODULE_COMBAT | EXOSUIT_MODULE_WORKING
@@ -163,62 +163,57 @@
 
 //Exosuit-mounted kinetic accelerator
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
-	equip_cooldown = 10
+	equip_cooldown = 12
 	name = "Exosuit Proto-kinetic Accelerator"
 	desc = "A dual-purpose plasma cutter that runs off the exosuit's power supply."
 	icon_state = "mecha_kineticgun"
-	energy_drain = 50
+	energy_drain = 80
 	projectile = /obj/projectile/kinetic/mech
-	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 	harmful = TRUE
 	mech_flags = EXOSUIT_MODULE_COMBAT | EXOSUIT_MODULE_WORKING
-	var/mode = 0
+	var/mode = MODE_MINE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/proc/get_mode()
 	switch(mode)
-		if(0)
+		if(MODE_MINE)
 			return "oremode"
-		if(1)
+		if(MODE_KILL)
 			return "killmode"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/get_snowflake_data()
 	return list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
 		"name" = "Exosuit Kinetic Thing",
-		"mode" = mode == 0 ? "ore-cutting beams" : "kinetic blast",
+		"mode" = mode == MODE_MINE ? "ore-cutting beams" : "kinetic blast",
 	)
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/ui_act(action, list/params, mob/user)
 	. = ..()
 	if(.)
 		return
 	if(action == "change_mode")
-		if(mode == 0)
-			mode = 1
+		if(mode == MODE_MINE)
+			mode = MODE_KILL
+			balloon_alert(user, "kinetic blasts")
 		else
-			mode = 0
-		switch(mode)
-			if(0)
-				balloon_alert(chassis.occupants, "kinetic blasts")
-			if(1)
-				balloon_alert(chassis.occupants, "ore-cutting beams")
+			mode = MODE_MINE
+			balloon_alert(chassis.occupants, "ore-cutting plasma")
 		return TRUE
-
-//	balloon_alert(user, "equipment [weapons_safety ? "safe" : "ready"]")
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/action(mob/source, atom/target, list/modifiers)
 	switch(mode)
-		if(0)
+		if(MODE_MINE)
 			if(projectile)
 				projectile = /obj/projectile/plasma/scatter
 				variance = 20
 				projectiles_per_shot = 3
-		if(1)
+				fire_sound = 'sound/weapons/plasma_cutter_dim.ogg'
+		if(MODE_KILL)
 			if(projectile)
 				projectile = /obj/projectile/kinetic/mech
 				variance = 0
 				projectiles_per_shot = 1
-				energy_drain = 2*initial(energy_drain)
+				fire_sound = 'sound/weapons/kenetic_accel.ogg'
 	return ..()
 
 #undef MODE_MINE

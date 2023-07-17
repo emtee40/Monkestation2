@@ -12,19 +12,19 @@
 	force = 25
 	destruction_sleep_duration = 40
 	exit_delay = 40
-	encumbrance_gap = 1.2
-	internal_damage_threshold = 19
+	encumbrance_gap = 1.4
+	internal_damage_threshold = 16
 	wreckage = /obj/structure/mecha_wreckage/gygax
 	mech_type = EXOSUIT_MODULE_GYGAX
 	max_equip_by_category = list(
 		MECHA_UTILITY = 1,
 		MECHA_POWER = 1,
-		MECHA_ARMOR = 2,
+		MECHA_ARMOR = 3,
 	)
 	step_energy_drain = 3
 
 /datum/armor/mecha_gygax
-	melee = 30
+	melee = 25
 	bullet = 20
 	laser = 30
 	energy = 15

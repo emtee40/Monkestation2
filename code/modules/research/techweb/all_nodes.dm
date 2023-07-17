@@ -801,7 +801,7 @@
 	description = "Research on how to fully exploit the power of plasma."
 	prereq_ids = list("basic_plasma")
 	design_ids = list(
-		"mech_plasma_cutter",
+		"mecha_kineticgun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1384,8 +1384,7 @@
 		"cooldownmod",
 		"damagemod",
 		"drill",
-		"mecha_kineticgun",
-		"mining_equipment_vendor"
+		"mining_equipment_vendor",
 		"ore_redemption",
 		"plasmacutter",
 		"rangemod",
@@ -1910,7 +1909,7 @@
 	id = "mecha_tools"
 	display_name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("adv_mecha", "weaponry")
+	prereq_ids = list("adv_mecha", "weaponry", "exotic_ammo")
 	design_ids = list(
 		"mech_scattershot",
 		"mech_scattershot_ammo",
@@ -1921,7 +1920,7 @@
 	id = "mech_carbine"
 	display_name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("exotic_ammo")
+	prereq_ids = list("adv_mecha", "exotic_ammo")
 	design_ids = list(
 		"mech_carbine",
 		"mech_carbine_ammo",
@@ -1932,7 +1931,7 @@
 	id = "mmech_ion"
 	display_name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("electronic_weapons", "emp_adv")
+	prereq_ids = list("adv_mecha", "electronic_weapons", "emp_adv")
 	design_ids = list(
 		"mech_ion",
 	)
@@ -1942,7 +1941,7 @@
 	id = "mech_tesla"
 	display_name = "Exosuit Weapon (MKI Tesla Cannon)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("electronic_weapons", "adv_power")
+	prereq_ids = list("adv_mecha", "electronic_weapons", "adv_power")
 	design_ids = list(
 		"mech_tesla",
 	)
@@ -1993,7 +1992,7 @@
 	id = "mech_missile_rack"
 	display_name = "Exosuit Weapon (BRM-6 Missile Rack)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("explosive_weapons")
+	prereq_ids = list("adv_mecha", "explosive_weapons")
 	design_ids = list(
 		"mech_missile_rack",
 		"mech_missile_rack_ammo",
@@ -2004,7 +2003,7 @@
 	id = "clusterbang_launcher"
 	display_name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("explosive_weapons")
+	prereq_ids = list("adv_mecha", "explosive_weapons")
 	design_ids = list(
 		"clusterbang_launcher",
 		"clusterbang_launcher_ammo",
@@ -2035,7 +2034,7 @@
 	id = "mech_lmg"
 	display_name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
 	description = "An advanced piece of mech weaponry"
-	prereq_ids = list("adv_mecha", "weaponry")
+	prereq_ids = list("adv_mecha", "weaponry", "exotic_ammo")
 	design_ids = list(
 		"mech_lmg",
 		"mech_lmg_ammo",
