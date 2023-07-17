@@ -1,3 +1,8 @@
+/// The damage healed per tick while sleeping without any modifiers
+#define HEALING_SLEEP_DEFAULT 0.2
+/// The sleep healing multipler for organ passive healing (since organs heal slowly)
+#define HEALING_SLEEP_ORGAN_MULTIPLIER 5
+
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -157,8 +162,6 @@
 	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
 	tick_interval = initial(tick_interval)
 
-#define HEALING_SLEEP_DEFAULT 0.2
-
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
@@ -234,8 +237,6 @@
 
 	if(prob(2) && owner.health > owner.crit_threshold)
 		owner.emote("snore")
-
-#undef HEALING_SLEEP_DEFAULT
 
 /atom/movable/screen/alert/status_effect/asleep
 	name = "Asleep"
@@ -967,3 +968,6 @@
 
 /datum/movespeed_modifier/careful_driving
 	multiplicative_slowdown = 3
+
+#undef HEALING_SLEEP_DEFAULT
+#undef HEALING_SLEEP_ORGAN_MULTIPLIER
