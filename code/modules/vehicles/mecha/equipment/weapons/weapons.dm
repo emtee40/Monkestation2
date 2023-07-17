@@ -472,8 +472,8 @@
 	missile_speed = 1.5
 	projectiles_cache = 999
 	equip_cooldown = 20
-	movedelay = 0
 	mech_flags = EXOSUIT_MODULE_HONK
+	movedelay = 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar
 	name = "mousetrap mortar"
@@ -485,8 +485,8 @@
 	missile_speed = 1.5
 	projectiles_cache = 999
 	equip_cooldown = 10
-	movedelay = 0
 	mech_flags = EXOSUIT_MODULE_HONK
+	movedelay = 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar/proj_init(obj/item/assembly/mousetrap/armed/M)
 	M.secured = TRUE
