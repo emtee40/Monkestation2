@@ -1902,8 +1902,8 @@
 		"mech_ccw_armor",
 		"mech_proj_armor",
 	)
-	discount_experiments = list(/datum/experiment/scanning/random/mecha_destroyed_scan = 5000,
-								/datum/experiment/scanning/random/mecha_damage_scan = 3000)
+	required_experiments = list(/datum/experiment/scanning/random/mecha_damage_scan)// do not remove this
+	discount_experiments = list(/datum/experiment/scanning/random/mecha_destroyed_scan = 5000)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 
 /datum/techweb_node/mech_scattershot
