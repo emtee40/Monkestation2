@@ -222,7 +222,7 @@
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)|| (D.spread_flags & DISEASE_SPREAD_FALTERED))
+						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
@@ -339,6 +339,7 @@
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
 		if(drop)
 			if(drop.drips < 5)
+				T.pollute_turf(/datum/pollutant/metallic_scent, 5)
 				drop.drips++
 				drop.add_overlay(pick(drop.random_icon_states))
 				drop.transfer_mob_blood_dna(src)
@@ -347,9 +348,13 @@
 				temp_blood_DNA = GET_ATOM_BLOOD_DNA(drop) //we transfer the dna from the drip to the splatter
 				qdel(drop)//the drip is replaced by a bigger splatter
 		else
+			T.pollute_turf(/datum/pollutant/metallic_scent, 5)
 			drop = new(T, get_static_viruses())
 			drop.transfer_mob_blood_dna(src)
 			return
+
+	// Create a bit of metallic pollution, as that's how blood smells
+	T.pollute_turf(/datum/pollutant/metallic_scent, 30)
 
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/B = locate() in T
