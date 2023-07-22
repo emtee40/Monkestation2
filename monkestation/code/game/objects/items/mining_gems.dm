@@ -64,38 +64,8 @@
 	name = "Debug gem chest"
 
 /obj/structure/closet/crate/necropolis/debug_gems/PopulateContents()
-//	var/list/gems = typesof(/obj/item/gem)
-//	new gems
-
-/// un-used gems
-	new /obj/item/gem/ruby(src)
-	new /obj/item/gem/sapphire(src)
-	new /obj/item/gem/emerald(src)
-	new /obj/item/gem/topaz(src)
-/// Basic mob gems
-	new /obj/item/gem/rupee(src)
-	new /obj/item/gem/magma(src)
-	new /obj/item/gem/diamond(src)
-/// Lavaland megafauna gems
-	new /obj/item/gem/phoron(src)     // blood-drunk's
-	new /obj/item/gem/purple(src)     // hierophant's
-	new /obj/item/gem/amber(src)      // ashdrake's
-	new /obj/item/gem/void(src)       // collosus's
-	new /obj/item/gem/bloodstone(src) // bubblegum's
-	new /obj/item/gem/dark(src)       // King goat's
-	new /obj/item/gem/data(src)       // Stalwart's
-/// Icebox megafauna gems
-	new /obj/item/gem/brass(src)      // Clockwork Defender's
-	new /obj/item/gem/bananium(src)   // wendigo's
-	new /obj/item/gem/demon(src)      // frost miner's
-/// Boosted holographic gems
-	new /obj/item/gem/phoron/refined(src)     // blood-drunk's
-	new /obj/item/gem/purple/refined(src)     // hierophant's
-	new /obj/item/gem/amber/refined(src)      // ashdrake's
-	new /obj/item/gem/void/refined(src)       // collosus's
-	new /obj/item/gem/bloodstone/refined(src) // bubblegum's
-	new /obj/item/gem/dark/refined(src)       // King goat's
-	new /obj/item/gem/data/refined(src)       // Stalwart's
+	for(var/gem in subtypesof(/obj/item/gem)) // gives all gems
+		new gem(src)
 
 // -----------------------------
 //         Un-used gems
