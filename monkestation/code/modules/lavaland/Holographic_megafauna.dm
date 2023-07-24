@@ -155,7 +155,7 @@
 /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
-/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/colossus/holographic
+/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/alternating/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
 /mob/living/simple_animal/hostile/megafauna/colossus/holographic/Initialize(mapload)
