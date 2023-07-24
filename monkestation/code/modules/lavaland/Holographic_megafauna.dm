@@ -133,12 +133,18 @@
 	loot = null
 	true_spawn = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/colossus/holographic/Initialize(mapload)
+/obj/projectile/colossus/holographic
+	name = "simulated death bolt"
+	explode_hit_objects = FALSE
+
+/obj/projectile/colossus/holographic/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	spiral_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/colossus/holographic()
-	random_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/colossus/holographic()
-	shotgun_blast = new /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/holographic()
-	dir_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/alternating/colossus/holographic()
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.stat != CONSCIOUS)
+			visible_message(span_danger("[src] pathetically hits [L]"))
+			// we dont do anything important, this is just so the colossus projectiles wont dust our miner by accident because parent business
+		return
 
 /datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/holographic
 	projectile_type = /obj/projectile/colossus/holographic
@@ -152,18 +158,12 @@
 /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
-/obj/projectile/colossus/holographic
-	name = "simulated death bolt"
-	explode_hit_objects = FALSE
-
-/obj/projectile/colossus/holographic/on_hit(atom/target, blocked = FALSE)
+/mob/living/simple_animal/hostile/megafauna/colossus/holographic/Initialize(mapload)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/L = target
-		if(L.stat != CONSCIOUS)
-			visible_message(span_danger("[src] pathetically hits [L]"))
-			// we dont do anything important, this is just so the colossus projectiles wont dust our miner by accident because parent business
-		return
+	spiral_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/colossus/holographic()
+	random_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/colossus/holographic()
+	shotgun_blast = new /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/holographic()
+	dir_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/alternating/colossus/holographic()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/holographic/devour(mob/living/L)
 	visible_message(span_danger("[src] dissapears as [L] wakes up!"), // poor lad took an L
