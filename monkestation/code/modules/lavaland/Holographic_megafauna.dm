@@ -146,16 +146,16 @@
 			// we dont do anything important, this is just so the colossus projectiles wont dust our miner by accident because parent business
 		return
 
-/datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/holographic
+/datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
-/datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/holographic
+/datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
-/datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/holographic
+/datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
-/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/holographic
+/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/colossus/holographic
 	projectile_type = /obj/projectile/colossus/holographic
 
 /mob/living/simple_animal/hostile/megafauna/colossus/holographic/Initialize(mapload)
