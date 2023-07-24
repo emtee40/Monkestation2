@@ -19,8 +19,8 @@
 			new /mob/living/simple_animal/hostile/megafauna/hierophant/holographic/buffed(get_turf(src))
 		if(istype(I, /obj/item/gem/amber)) // ashdrake
 			new /mob/living/simple_animal/hostile/megafauna/dragon/holographic/buffed(get_turf(src))
-//		if(istype(I, /obj/item/gem/void)) // collosus
-//			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic/buffed(get_turf(src))
+		if(istype(I, /obj/item/gem/void)) // collosus
+			new /mob/living/simple_animal/hostile/megafauna/colossus/holographic/buffed(get_turf(src))
 		if(istype(I, /obj/item/gem/bloodstone)) // bubblegum
 			new /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic/buffed(get_turf(src))
 		success = TRUE
@@ -98,7 +98,7 @@
 	name = "holographic hierophant?"
 	crusher_loot = list(/obj/item/gem/purple/refined)
 	loot = list(/obj/item/gem/purple/refined)
-	major_attack_cooldown = 0 SECONDS
+	major_attack_cooldown = 0
 	chaser_cooldown_time = 5 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/dragon/holographic
@@ -132,6 +132,25 @@
 	crusher_loot = null
 	loot = null
 	true_spawn = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/colossus/holographic/Initialize(mapload)
+	. = ..()
+	spiral_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/colossus/holographic()
+	random_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/colossus/holographic()
+	shotgun_blast = new /datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/colossus/holographic()
+	dir_shots = new /datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/alternating/colossus/holographic()
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/spiral_shots/holographic
+	projectile_type = /obj/projectile/colossus/holographic
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/random_aoe/holographic
+	projectile_type = /obj/projectile/colossus/holographic
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/shotgun_blast/holographic
+	projectile_type = /obj/projectile/colossus/holographic
+
+/datum/action/cooldown/mob_cooldown/projectile_attack/dir_shots/holographic
+	projectile_type = /obj/projectile/colossus/holographic
 
 /obj/projectile/colossus/holographic
 	name = "simulated death bolt"
