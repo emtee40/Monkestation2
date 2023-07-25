@@ -9,8 +9,8 @@ They dont need much code, all we need is a path to rely upon
 /obj/item/token
 	name = "\improper Megafauna Token"
 	desc = "It can be used to summon a megafauna using the holographic training beacon."
-	icon = 'monkestation/icons/obj/gems.dmi' // temporary
-	icon_state = "void" // temporary
+	icon = 'monkestation/code/modules/lavaland/gems/icons/gems.dmi' // temporary...?
+	icon_state = "void" // temporary...?
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/token/blood_drunk
