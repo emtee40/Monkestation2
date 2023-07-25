@@ -4,7 +4,7 @@
 
 /obj/projectile/stalpike
 	name = "energy pike"
-	icon = 'monkestation/code/modules/lavaland/megafauna/stalwart/icons/projectiles.dmi'
+	icon = 'monkestation/code/modules/lavaland/megafauna/stalwart/icons/projectile.dmi'
 	icon_state = "arcane_barrage_greyscale"
 	damage = 30
 	armour_penetration = 50
@@ -24,14 +24,6 @@
 	color = "#4851ce"
 	light_color = "#4851ce"
 
-/obj/projectile/stalpike/weak
-	name = "lesser energy pike"
-	damage = 10
-	armour_penetration = 50
-	speed = 5
-	color = "#9a9fdb"
-	light_color = "#9a9fdb"
-
 /obj/projectile/stalnade
 	name = "volatile orb"
 	icon_state = "wipe"
@@ -49,3 +41,12 @@
 	if(!iscarbon(target))
 		return BULLET_ACT_FORCE_PIERCE
 	. = ..()
+
+// used by minions
+/obj/projectile/stalpike/weak
+	name = "lesser energy pike"
+	damage = 10
+	armour_penetration = 50
+	speed = 5
+	color = "#9a9fdb"
+	light_color = "#9a9fdb"

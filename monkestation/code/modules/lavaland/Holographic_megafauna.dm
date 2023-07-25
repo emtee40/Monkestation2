@@ -47,6 +47,10 @@
 
 /// Welcome to the megafauna zone, enjoy your stay
 
+///////////////////
+/// blood-drunk ///
+///////////////////
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/holographic
 	name = "holographic blood-drunk miner"
 	desc = "Its a simulation of the miner #26924 lost during the first expedition of the planet ''lavaland''"
@@ -80,6 +84,9 @@
 	ranged = TRUE
 	ranged_cooldown_time = 0.8 SECONDS
 
+//////////////////
+/// hierophant ///
+//////////////////
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/holographic
 	name = "holographic hierophant"
@@ -100,6 +107,10 @@
 	loot = list(/obj/item/gem/purple/refined)
 	major_attack_cooldown = 0
 	chaser_cooldown_time = 5 SECONDS
+
+/////////////////
+/// ash-drake ///
+/////////////////
 
 /mob/living/simple_animal/hostile/megafauna/dragon/holographic
 	name = "holographic ashdrake"
@@ -125,6 +136,9 @@
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 
+////////////////
+/// colossus ///
+////////////////
 
 /mob/living/simple_animal/hostile/megafauna/colossus/holographic
 	name = "holographic collosus"
@@ -171,12 +185,14 @@
 	L.revive(HEAL_ALL)
 	qdel(src)
 
-
 /mob/living/simple_animal/hostile/megafauna/colossus/holographic/buffed
 	name = "holographic collosus?"
 	crusher_loot = list(/obj/item/gem/void/refined)
 	loot = list(/obj/item/gem/void/refined)
 
+/////////////////
+/// bubblegum ///
+/////////////////
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic
 	name = "holographic bubblegum"
@@ -206,7 +222,6 @@
 				L.revive(HEAL_ALL)
 				qdel(src)
 	SLEEP_CHECK_DEATH(1, src)
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/holographic/buffed
 	name = "holographic bubblegum?"

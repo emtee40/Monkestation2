@@ -1,11 +1,10 @@
 /obj/item/gun/energy/plasmacutter/scatter
 	name = "plasma cutter shotgun"
-	icon = 'monkestation/code/modules/lavaland/plasma_shotgun/Icons/guns.dmi'
+	icon = 'monkestation/code/modules/lavaland/plasma_shotgun/icons/guns.dmi'
 	icon_state = "mining_shotgun"
-	righthand_file = 'monkestation/code/modules/lavaland/plasma_shotgun/Icons/guns_righthand.dmi'
-	lefthand_file = 'monkestation/code/modules/lavaland/plasma_shotgun/Icons/guns_lefthand.dmi'
+	righthand_file = 'monkestation/code/modules/lavaland/plasma_shotgun/icons/guns_righthand.dmi'
+	lefthand_file = 'monkestation/code/modules/lavaland/plasma_shotgun/icons/guns_lefthand.dmi'
 	inhand_icon_state = "mining_shotgun"
-//	worn_icon_state = "gun"
 	desc = "An industrial-grade heavy-duty mining shotgun"
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/scatter)
