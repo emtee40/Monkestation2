@@ -1,6 +1,6 @@
 https://github.com/Monkestation/Monkestation2.0/pull/114
 
-## Title: 
+## Title:
 
 MODULE ID: PLASMA_SHOTGUN
 
@@ -27,3 +27,10 @@ N/A
 ### Credits:
 
 Gboster - porting and modularizing
+
+Yogstation team responsible for stalwart and changes to them, it including:
+
+redmoogle - initial plasma shotgun & balancing
+(wait, thats it for yogstation contributors?)
+
+there's probably more that i missed, if so feel free to point out!

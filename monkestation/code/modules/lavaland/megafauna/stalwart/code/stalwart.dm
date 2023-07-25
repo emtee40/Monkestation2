@@ -1,9 +1,9 @@
 /**
  * Stalwart, ported from yogstation
  *
+ * This file contains himself and his attack patterns
  *
- *
- *
+ * Its intended to be fought after the ashdrake, and before the colossus
  *
  */
 
@@ -21,7 +21,7 @@
 	health_doll_icon = "eva"
 	friendly_verb_continuous = "scans"
 	friendly_verb_simple = "scan"
-	icon = 'icons/mob/simple/lavaland/64x64megafauna.dmi'
+	icon = 'monkestation/code/modules/lavaland/megafauna/stalwart/icons/stalwart.dmi'
 	speak_emote = list("screeches")
 	armour_penetration = 40
 	melee_damage_lower = 35
@@ -288,111 +288,6 @@
 				. = TRUE
 		if (is_species(human_victim, /datum/species/golem/sand))
 			. = TRUE
-
-//Projectiles and such
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/staldrone
-	name = "mini mechanoid"
-	desc = "A tiny creature made of...some kind of gemstone? It seems angry."
-	icon = 'icons/mob/silicon/drone.dmi'
-	speed = 5
-	movement_type = GROUND
-	maxHealth = 20
-	health = 20
-	icon_state = "drone_gem"
-	icon_living = "drone_gem"
-	icon_aggro = "drone_gem"
-	attack_verb_continuous = "rends"
-	attack_verb_simple = "rend"
-	melee_damage_lower = 6
-	melee_damage_upper = 10
-	mob_biotypes = list(MOB_ROBOTIC)
-	attack_vis_effect = ATTACK_EFFECT_SLASH
-	attack_sound = 'sound/weapons/pierce_slow.ogg'
-	speak_emote = list("buzzes")
-	faction = list("mining")
-	weather_immunities = list("lava","ash")
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/staldrone/Initialize(mapload)
-	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(death)), 30 SECONDS)
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/staldrone/ranged
-	ranged = 1
-	ranged_message = "blasts"
-	icon_state = "drone_scout"
-	icon_living = "drone_scout"
-	icon_aggro = "drone_scout"
-	move_to_delay = 2
-	speed = 1
-	ranged_cooldown_time = 30
-	projectiletype = /obj/projectile/stalpike/weak
-	projectilesound = 'sound/weapons/ionrifle.ogg'
-
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/staldrone/ranged/GiveTarget(new_target)
-	if(..())
-		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)
-			OpenFire(target)
-
-/obj/projectile/stalpike
-	name = "energy pike"
-	icon_state = "arcane_barrage_greyscale"
-	damage = 30
-	armour_penetration = 50
-	speed = 4
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	color = "#00e1ff"
-	light_outer_range = 2
-	light_power = 6
-	light_color = "#00e1ff"
-
-/obj/projectile/stalpike/spiral
-	name = "resonant energy pike"
-	icon_state = "arcane_barrage_greyscale"
-	damage = 30
-	armour_penetration = 60
-	speed = 6
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
-	color = "#4851ce"
-	light_outer_range = 2
-	light_power = 6
-	light_color = "#4851ce"
-
-/obj/projectile/stalpike/weak
-	name = "lesser energy pike"
-	icon_state = "arcane_barrage_greyscale"
-	damage = 10
-	armour_penetration = 50
-	speed = 5
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	color = "#9a9fdb"
-	light_outer_range = 2
-	light_power = 6
-	light_color = "#9a9fdb"
-
-/obj/projectile/stalnade
-	name = "volatile orb"
-	icon_state = "wipe"
-	damage = 40
-	armour_penetration = 60
-	speed = 10
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
-	light_outer_range = 6
-	light_power = 10
-	light_color = "#0077ff"
-
-/obj/projectile/stalnade/on_hit(target)
-	if(!iscarbon(target))
-		return BULLET_ACT_FORCE_PIERCE // might break shit
-	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/stalwart/devour(mob/living/L)
 	visible_message(span_danger("[src] atomizes [L]!"))
