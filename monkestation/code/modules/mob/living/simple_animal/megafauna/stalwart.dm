@@ -128,7 +128,6 @@
 	for(var/mob/M in range(10,src))
 		if(M.client)
 			flash_color(M.client, "#0d00c8", 1)
-			shake_camera(M, 4, 3)
 			sleep(0.5 SECONDS)
 	playsound(src, 'sound/machines/sm/accent/delam/14.ogg', 400, 1)
 
@@ -339,7 +338,7 @@
 	name = "energy pike"
 	icon_state = "arcane_barrage_greyscale"
 	damage = 30
-	armour_penetration = 100
+	armour_penetration = 50
 	speed = 4
 	eyeblur = 0
 	damage_type = BRUTE
@@ -367,7 +366,7 @@
 	name = "lesser energy pike"
 	icon_state = "arcane_barrage_greyscale"
 	damage = 10
-	armour_penetration = 100
+	armour_penetration = 50
 	speed = 5
 	eyeblur = 0
 	damage_type = BRUTE
