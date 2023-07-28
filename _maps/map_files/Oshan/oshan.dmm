@@ -425,9 +425,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/displaycase/forsale/kitchen{
-	pixel_y = 8
-	},
 /obj/structure/table/wood,
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
@@ -2207,7 +2204,7 @@
 "cbq" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
@@ -3710,9 +3707,6 @@
 /area/station/engineering/main)
 "dqA" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 2
-	},
 /obj/structure/cable,
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
@@ -11016,9 +11010,11 @@
 /turf/open/floor/iron/white,
 /area/station/medical/surgery/theatre)
 "khQ" = (
-/obj/structure/table/wood/fancy/black,
-/obj/effect/spawner/random/food_or_drink,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock{
+	name = "Bar"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
 "kiI" = (
@@ -12854,6 +12850,22 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/carpet/green,
 /area/station/command/heads_quarters/hop)
+"lWZ" = (
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_y = 5;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/cup/soda_cans/cola{
+	pixel_y = 7
+	},
+/turf/open/floor/carpet/neon/simple/green/nodots,
+/area/station/service/bar)
 "lXt" = (
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
@@ -13899,7 +13911,6 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/landmark/start/psychologist,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/wood,
 /area/station/commons/lounge)
@@ -16854,16 +16865,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_y = 5;
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/smartfridge/drinks{
+	icon_state = "boozeomat"
+	},
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
 "pRH" = (
@@ -16970,10 +16975,10 @@
 /area/station/service/hydroponics)
 "pYL" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/cup/soda_cans/cola{
-	pixel_y = 7
-	},
 /obj/machinery/door/firedoor,
+/obj/structure/displaycase/forsale/kitchen{
+	pixel_y = 8
+	},
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
 "pYM" = (
@@ -21660,9 +21665,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/smartfridge/drinks{
-	icon_state = "boozeomat"
-	},
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
 "uBI" = (
@@ -23274,6 +23276,13 @@
 	},
 /turf/open/floor/engine,
 /area/station/cargo/miningoffice)
+"weF" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/psychologist,
+/turf/open/floor/wood,
+/area/station/commons/lounge)
 "weK" = (
 /turf/open/floor/carpet/royalblue,
 /area/station/command/heads_quarters/cmo)
@@ -24887,6 +24896,8 @@
 "xIK" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/random/food_or_drink,
+/obj/structure/window/plasma/spawner/directional/south,
 /turf/open/floor/carpet/neon/simple/green/nodots,
 /area/station/service/bar)
 "xIO" = (
@@ -44952,12 +44963,12 @@ qfN
 hUb
 eqZ
 nao
-lTi
+weF
 rtq
 lTi
 ggc
 lTi
-lTi
+aAA
 lzc
 drW
 msi
@@ -45210,7 +45221,7 @@ gUb
 kFS
 pRl
 pYL
-xIK
+lWZ
 jXK
 hPN
 xIK
