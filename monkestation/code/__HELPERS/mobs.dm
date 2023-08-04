@@ -1,3 +1,5 @@
+#define SPECIES_RATTUS "rattus"
+
 GLOBAL_LIST_INIT(fur_tone_names, list(
 	"ffffff" = "Albino",
 	"ffb089" = "Chimp",

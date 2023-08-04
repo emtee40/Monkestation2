@@ -1,0 +1,1 @@
+#define israttus(A) (is_species(A, /datum/species/rattus))

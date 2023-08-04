@@ -279,6 +279,7 @@
 		"Jelly" = /datum/species/jelly,
 		"IPC" = /datum/species/ipc,
 		"Simian" = /datum/species/simian,
+		"Rattus" = /datum/species/rattus,
 	)
 
 /datum/nanite_program/sensor/species/register_extra_settings()
