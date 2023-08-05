@@ -167,9 +167,9 @@
 			var/obj/item/mecha_parts/mecha_equipment/drill/D = new
 			D.attach(src)
 
-	else //Add plasma cutter if no drill
-		var/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/P = new
-		P.attach(src)
+	else //Add cutter/pka multigun if no drill
+		var/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/PKA = new
+		PKA.attach(src)
 
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new

@@ -144,20 +144,6 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 10
-	name = "217-D Heavy Plasma Cutter"
-	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
-	icon_state = "mecha_plasmacutter"
-	inhand_icon_state = "plasmacutter"
-	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	energy_drain = 30
-	projectile = /obj/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	harmful = TRUE
-	mech_flags = EXOSUIT_MODULE_COMBAT | EXOSUIT_MODULE_WORKING
-
 #define MODE_MINE 0
 #define MODE_KILL 1
 
@@ -204,7 +190,7 @@
 	switch(mode)
 		if(MODE_MINE)
 			if(projectile)
-				projectile = /obj/projectile/plasma/scatter
+				projectile = /obj/projectile/plasma/shotgun
 				variance = 20
 				projectiles_per_shot = 3
 				fire_sound = 'sound/weapons/plasma_cutter_dim.ogg'

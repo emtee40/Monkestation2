@@ -21,6 +21,7 @@
 		MECHA_ARMOR = 1,
 	)
 	var/squeak = TRUE
+	pivot_step = TRUE
 
 /datum/armor/mecha_honker
 	melee = -20

@@ -1,6 +1,6 @@
 ///Lavaproof, fireproof, fast mech with low armor and higher energy consumption, cannot strafe and has an internal ore box.
 /obj/vehicle/sealed/mecha/working/clarke
-	desc = "Combining man and machine for a better, stronger engineer. Can even resist lava!"
+	desc = "Combining man and machine for a better, stronger miner. Can resist lava, and features reinforced micro-servos for enhanced reliability. "
 	name = "\improper Clarke"
 	icon_state = "clarke"
 	base_icon_state = "clarke"
@@ -28,6 +28,8 @@
 	mech_type = EXOSUIT_MODULE_CLARKE
 	enter_delay = 40
 	mecha_flags = ADDING_ACCESS_POSSIBLE | IS_ENCLOSED | HAS_LIGHTS | MMI_COMPATIBLE | OMNIDIRECTIONAL_ATTACKS
+	pivot_step = TRUE
+	possible_int_damage = MECHA_INT_FIRE|MECHA_INT_TEMP_CONTROL|MECHA_INT_TANK_BREACH|MECHA_INT_SHORT_CIRCUIT // No control malfunction for Clarkes because of their poor armor.
 
 /datum/armor/working_clarke
 	melee = 20

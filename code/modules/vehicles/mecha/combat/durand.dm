@@ -172,6 +172,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	var/obj/vehicle/sealed/mecha/durand/chassis
 	///To keep track of things during the animation
 	var/switching = FALSE
+	var/minimum_charge = 1000
 
 /obj/durand_shield/Initialize(mapload, chassis, plane, layer, dir)
 	. = ..()
@@ -213,7 +214,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 		return
 	if(switching && !signal_args[1])
 		return
-	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
+	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < minimum_charge)) //If it's off, and we have less than 1000 units of power
 		chassis.balloon_alert(owner, "insufficient power")
 		return
 	switching = TRUE

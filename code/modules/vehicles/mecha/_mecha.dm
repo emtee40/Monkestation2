@@ -66,6 +66,8 @@
 	///Just stop the mech from doing anything
 	var/completely_disabled = FALSE
 	///Whether this mech is allowed to move diagonally
+	var/pivot_step = FALSE
+	///Whether this mech moves into a direct as soon as it goes to move. Basically, turn and step in the same key press.
 	var/allow_diagonal_movement = FALSE
 	///Whether or not the mech destroys walls by running into it.
 	var/bumpsmash = FALSE
