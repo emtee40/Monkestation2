@@ -204,13 +204,13 @@
 	name = "exosuit repair droid"
 	desc = "An automated repair droid for exosuits. Scans for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
-	energy_drain = 50
+	energy_drain = 75 // MONKEstation Edit
 	range = 0
 	activated = FALSE
 	equipment_slot = MECHA_UTILITY
 	movedelay = 0.4
 	/// Repaired health per second
-	var/health_boost = 1
+	var/health_boost = 1 // MONKEstation Edit
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 
@@ -279,7 +279,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/generator
 	name = "plasma engine"
-	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
+	desc = "An exosuit module that generates power using solid plasma as fuel."
 	icon_state = "tesla"
 	range = MECHA_MELEE
 	equipment_slot = MECHA_POWER
@@ -293,7 +293,7 @@
 	/// Fuel used per second while actively generating
 	var/fuelrate_active = 100
 	/// Energy recharged per second
-	var/rechargerate = 100
+	var/rechargerate = 100  // MONKEstation Edit
 
 /obj/item/mecha_parts/mecha_equipment/generator/Initialize(mapload)
 	. = ..()

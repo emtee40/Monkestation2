@@ -27,11 +27,6 @@
 	range = 5
 	mine_range = 5
 
-/obj/projectile/plasma/adv/mech
-	damage = 10
-	range = 9
-	mine_range = 3
-
 /obj/projectile/plasma/turret
 	//Between normal and advanced for damage, made a beam so not the turret does not destroy glass
 	name = "plasma beam"
@@ -39,7 +34,7 @@
 	range = 7
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/projectile/plasma/shotgun
+/obj/projectile/plasma/multishot
 	damage = 5
 	range = 5
 	mine_range = 1

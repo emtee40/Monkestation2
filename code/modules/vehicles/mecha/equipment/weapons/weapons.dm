@@ -180,17 +180,15 @@
 	if(action == "change_mode")
 		if(mode == MODE_MINE)
 			mode = MODE_KILL
-			balloon_alert(user, "kinetic blasts")
 		else
 			mode = MODE_MINE
-			balloon_alert(chassis.occupants, "ore-cutting plasma")
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/action(mob/source, atom/target, list/modifiers)
 	switch(mode)
 		if(MODE_MINE)
 			if(projectile)
-				projectile = /obj/projectile/plasma/shotgun
+				projectile = /obj/projectile/plasma/multishot
 				variance = 20
 				projectiles_per_shot = 3
 				fire_sound = 'sound/weapons/plasma_cutter_dim.ogg'
