@@ -135,7 +135,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/waittime_h = 1800
 
 	/// Maximum amount of threat allowed to generate.
-	var/max_threat_level = 100
+	var/max_threat_level = 50
 
 	/// The extra chance multiplier that a heavy impact midround ruleset will run next time.
 	/// For example, if this is set to 50, then the next heavy roll will be about 50% more likely to happen.
@@ -150,7 +150,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// If there are less than this many players readied, threat level will be lowered.
 	/// This number should be kept fairly low, as there are other measures that population
 	/// impacts Dynamic, such as the requirements variable on rulesets.
-	var/low_pop_player_threshold = 20
+	var/low_pop_player_threshold = 25
 
 	/// The maximum threat that can roll with *zero* players.
 	/// As the number of players approaches `low_pop_player_threshold`, the maximum
