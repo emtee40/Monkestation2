@@ -163,3 +163,10 @@
 								'monkestation/sound/misc/jones/jones1.ogg',
 								'monkestation/sound/misc/jones/jones2.ogg',
 								'monkestation/sound/misc/jones/jones3.ogg')
+
+/obj/item/clothing/head/maidheadband/syndicate
+	name = "tactical maid headband"
+	desc = "Tacticute."
+	icon = 'monkestation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/head.dmi'
+	icon_state = "syndieheadband"
