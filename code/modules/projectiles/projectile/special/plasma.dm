@@ -34,8 +34,7 @@
 	range = 7
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/projectile/plasma/multishot
-	damage = 5
+/obj/projectile/plasma/multishot // MONKEstation Edit - Replaces Mecha Cutter
 	range = 5
 	mine_range = 1
 	dismemberment = 8
