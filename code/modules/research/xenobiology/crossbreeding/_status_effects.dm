@@ -17,7 +17,7 @@
 	originalcolor = owner.color
 	return ..()
 
-/datum/status_effect/rainbow_protection/tick()
+/datum/status_effect/rainbow_protection/tick(seconds_between_ticks)
 	owner.color = rgb(rand(0,255),rand(0,255),rand(0,255))
 	return ..()
 
@@ -107,7 +107,7 @@
 	owner.status_flags |= GODMODE
 	return ..()
 
-/datum/status_effect/frozenstasis/tick()
+/datum/status_effect/frozenstasis/tick(seconds_between_ticks)
 	if(!cube || owner.loc != cube)
 		owner.remove_status_effect(src)
 
@@ -145,7 +145,7 @@
 	clone.apply_status_effect(/datum/status_effect/slime_clone_decay)
 	return ..()
 
-/datum/status_effect/slime_clone/tick()
+/datum/status_effect/slime_clone/tick(seconds_between_ticks)
 	if(!istype(clone) || clone.stat != CONSCIOUS)
 		owner.remove_status_effect(src)
 
@@ -196,7 +196,7 @@
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
 	return ..()
 
-/datum/status_effect/bloodchill/tick()
+/datum/status_effect/bloodchill/tick(seconds_between_ticks)
 	if(prob(50))
 		owner.adjustFireLoss(2)
 
@@ -212,7 +212,7 @@
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
 	return ..()
 
-/datum/status_effect/bonechill/tick()
+/datum/status_effect/bonechill/tick(seconds_between_ticks)
 	if(prob(50))
 		owner.adjustFireLoss(1)
 		owner.set_jitter_if_lower(6 SECONDS)
@@ -233,7 +233,7 @@
 	duration = -1
 	alert_type = null
 
-/datum/status_effect/rebreathing/tick()
+/datum/status_effect/rebreathing/tick(seconds_between_ticks)
 	owner.adjustOxyLoss(-6, 0) //Just a bit more than normal breathing.
 
 ///////////////////////////////////////////////////////
@@ -264,7 +264,7 @@
 	ADD_TRAIT(owner, TRAIT_NO_SLIP_WATER,"watercookie")
 	return ..()
 
-/datum/status_effect/watercookie/tick()
+/datum/status_effect/watercookie/tick(seconds_between_ticks)
 	for(var/turf/open/T in range(get_turf(owner),1))
 		T.MakeSlippery(TURF_WET_WATER, min_wet_time = 10, wet_time_to_add = 5)
 
@@ -340,7 +340,7 @@
 	alert_type = null
 	duration = 300
 
-/datum/status_effect/lovecookie/tick()
+/datum/status_effect/lovecookie/tick(seconds_between_ticks)
 	if(owner.stat != CONSCIOUS)
 		return
 	if(iscarbon(owner))
@@ -361,7 +361,7 @@
 	alert_type = null
 	duration = 100
 
-/datum/status_effect/tarcookie/tick()
+/datum/status_effect/tarcookie/tick(seconds_between_ticks)
 	for(var/mob/living/carbon/human/L in range(get_turf(owner),1))
 		if(L != owner)
 			L.apply_status_effect(/datum/status_effect/tarfoot)
@@ -400,7 +400,7 @@
 	alert_type = null
 	duration = 100
 
-/datum/status_effect/peacecookie/tick()
+/datum/status_effect/peacecookie/tick(seconds_between_ticks)
 	for(var/mob/living/L in range(get_turf(owner),1))
 		L.apply_status_effect(/datum/status_effect/plur)
 
@@ -451,7 +451,7 @@
 	src.linked_extract = linked_extract
 	return ..()
 
-/datum/status_effect/stabilized/tick()
+/datum/status_effect/stabilized/tick(seconds_between_ticks)
 	if(isnull(linked_extract))
 		qdel(src)
 		return
@@ -472,7 +472,7 @@
 	id = "stabilizedgrey"
 	colour = "grey"
 
-/datum/status_effect/stabilized/grey/tick()
+/datum/status_effect/stabilized/grey/tick(seconds_between_ticks)
 	for(var/mob/living/simple_animal/slime/S in range(1, get_turf(owner)))
 		if(!(owner in S.Friends))
 			to_chat(owner, span_notice("[linked_extract] pulses gently as it communicates with [S]."))
@@ -483,7 +483,7 @@
 	id = "stabilizedorange"
 	colour = "orange"
 
-/datum/status_effect/stabilized/orange/tick()
+/datum/status_effect/stabilized/orange/tick(seconds_between_ticks)
 	var/body_temp_target = owner.get_body_temp_normal(apply_change = FALSE)
 
 	var/body_temp_actual = owner.bodytemperature
@@ -506,7 +506,7 @@
 	/// Whether we healed from our last tick
 	var/healed_last_tick = FALSE
 
-/datum/status_effect/stabilized/purple/tick()
+/datum/status_effect/stabilized/purple/tick(seconds_between_ticks)
 	healed_last_tick = FALSE
 	var/need_mob_update = FALSE
 
@@ -555,7 +555,7 @@
 	var/cooldown = 30
 	var/max_cooldown = 30
 
-/datum/status_effect/stabilized/metal/tick()
+/datum/status_effect/stabilized/metal/tick(seconds_between_ticks)
 	if(cooldown > 0)
 		cooldown--
 	else
@@ -582,7 +582,7 @@
 /datum/status_effect/stabilized/yellow/get_examine_text()
 	return span_warning("Nearby electronics seem just a little more charged wherever [owner.p_they()] go[owner.p_es()].")
 
-/datum/status_effect/stabilized/yellow/tick()
+/datum/status_effect/stabilized/yellow/tick(seconds_between_ticks)
 	if(cooldown > 0)
 		cooldown--
 		return ..()
@@ -614,7 +614,7 @@
 	fire = new(owner)
 	return ..()
 
-/datum/status_effect/stabilized/darkpurple/tick()
+/datum/status_effect/stabilized/darkpurple/tick(seconds_between_ticks)
 	var/obj/item/item = owner.get_active_held_item()
 	if(item)
 		if(IS_EDIBLE(item) && (item.microwave_act(microwaver = owner) & COMPONENT_MICROWAVE_SUCCESS))
@@ -634,7 +634,7 @@
 	id = "stabilizeddarkblue"
 	colour = "dark blue"
 
-/datum/status_effect/stabilized/darkblue/tick()
+/datum/status_effect/stabilized/darkblue/tick(seconds_between_ticks)
 	if(owner.fire_stacks > 0 && prob(80))
 		owner.adjust_wet_stacks(1)
 		if(owner.fire_stacks <= 0)
@@ -694,7 +694,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bluespaceslime
 	var/healthcheck
 
-/datum/status_effect/stabilized/bluespace/tick()
+/datum/status_effect/stabilized/bluespace/tick(seconds_between_ticks)
 	if(owner.has_status_effect(/datum/status_effect/bluespacestabilization))
 		linked_alert.desc = "The stabilized bluespace extract is still aligning you with the bluespace axis."
 		linked_alert.icon_state = "slime_bluespace_off"
@@ -723,7 +723,7 @@
 	colour = "sepia"
 	var/mod = 0
 
-/datum/status_effect/stabilized/sepia/tick()
+/datum/status_effect/stabilized/sepia/tick(seconds_between_ticks)
 	if(prob(50) && mod > -1)
 		mod--
 		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = -0.5)
@@ -752,7 +752,7 @@
 		C.updateappearance(mutcolor_update=1)
 	return ..()
 
-/datum/status_effect/stabilized/cerulean/tick()
+/datum/status_effect/stabilized/cerulean/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		if(clone && clone.stat != DEAD)
 			owner.visible_message(span_warning("[owner] blazes with brilliant light, [linked_extract] whisking [owner.p_their()] soul away."),
@@ -781,7 +781,7 @@
 	originalcolor = owner.color
 	return ..()
 
-/datum/status_effect/stabilized/pyrite/tick()
+/datum/status_effect/stabilized/pyrite/tick(seconds_between_ticks)
 	owner.color = rgb(rand(0,255),rand(0,255),rand(0,255))
 	return ..()
 
@@ -843,7 +843,7 @@
 	var/damage = 0
 	var/lasthealth
 
-/datum/status_effect/pinkdamagetracker/tick()
+/datum/status_effect/pinkdamagetracker/tick(seconds_between_ticks)
 	if((lasthealth - owner.health) > 0)
 		damage += (lasthealth - owner.health)
 	lasthealth = owner.health
@@ -862,7 +862,7 @@
 	to_chat(owner, span_notice("[linked_extract] pulses, generating a fragile aura of peace."))
 	return ..()
 
-/datum/status_effect/stabilized/pink/tick()
+/datum/status_effect/stabilized/pink/tick(seconds_between_ticks)
 	update_nearby_mobs()
 	var/has_faction = FALSE
 	for (var/check_faction in owner.faction)
@@ -924,7 +924,7 @@
 	id = "stabilizedoil"
 	colour = "oil"
 
-/datum/status_effect/stabilized/oil/tick()
+/datum/status_effect/stabilized/oil/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		explosion(owner, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 5, explosion_cause = src)
 	return ..()
@@ -975,7 +975,7 @@
 
 	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] draining health from [draining]!")
 
-/datum/status_effect/stabilized/black/tick()
+/datum/status_effect/stabilized/black/tick(seconds_between_ticks)
 	if(owner.grab_state < GRAB_KILL || !IS_WEAKREF_OF(owner.pulling, draining_ref))
 		return
 
@@ -1013,7 +1013,7 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, STABILIZED_LIGHT_PINK_TRAIT)
 	return ..()
 
-/datum/status_effect/stabilized/lightpink/tick()
+/datum/status_effect/stabilized/lightpink/tick(seconds_between_ticks)
 	for(var/mob/living/carbon/human/H in range(1, get_turf(owner)))
 		if(H != owner && H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
 			to_chat(owner, "[linked_extract] pulses in sync with [H]'s heartbeat, trying to keep [H.p_them()] alive.")
@@ -1036,7 +1036,7 @@
 	colour = "gold"
 	var/mob/living/simple_animal/familiar
 
-/datum/status_effect/stabilized/gold/tick()
+/datum/status_effect/stabilized/gold/tick(seconds_between_ticks)
 	var/obj/item/slimecross/stabilized/gold/linked = linked_extract
 	if(QDELETED(familiar))
 		familiar = new linked.mob_type(get_turf(owner.loc))
@@ -1076,7 +1076,7 @@
 	id = "stabilizedrainbow"
 	colour = "rainbow"
 
-/datum/status_effect/stabilized/rainbow/tick()
+/datum/status_effect/stabilized/rainbow/tick(seconds_between_ticks)
 	if(owner.health <= 0)
 		var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
 		if(istype(X))
