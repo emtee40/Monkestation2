@@ -215,13 +215,21 @@
 	description = "A train but in space, choo choo!"
 	occupancy_limit = "35"
 
+/datum/map_template/shuttle/emergency/birdshot
+	suffix = "birdshot"
+	name = "Birdshot Station Emergency Shuttle"
+	credit_cost = CARGO_CRATE_VALUE * 2
+	description = "We pulled this one out of Mothball just for you!"
+	occupancy_limit = "40"
+
 /datum/map_template/shuttle/emergency/scrapheap
 	suffix = "scrapheap"
 	name = "Standby Evacuation Vessel \"Scrapheap Challenge\""
-	credit_cost = CARGO_CRATE_VALUE * -2
-	description = "Due to a lack of functional emergency shuttles, we bought this second hand from a scrapyard and pressed it into service. Please do not lean too heavily on the exterior windows, they are fragile."
-	admin_notes = "An abomination with no functional medbay, sections missing, and some very fragile windows. Surprisingly airtight."
+	credit_cost = CARGO_CRATE_VALUE * -18
+	description = "Comrade! We see you are having trouble with money, yes? If you have money issue, very little money, we are looking for good shuttle, emergency shuttle. You take best in sector shuttle, we take yours, you get money, da? Please do not lean on window, fragile like fina china. -Ivan"
+	admin_notes = "An abomination with no functional medbay, sections missing, and some very fragile windows. Surprisingly airtight. When bought, gives a good influx of money, but can only be bought if the budget is literally 0 credits."
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
+	occupancy_limit = "30"
 
 /datum/map_template/shuttle/emergency/scrapheap/prerequisites_met()
 	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_SCRAPHEAP]
@@ -296,7 +304,7 @@
 	description = "Developed by a member of Nanotrasen's R&D crew that claims to have travelled from the year 2028. \
 	He says this shuttle is based off an old entertainment complex from the 1990s, though our database has no records on anything pertaining to that decade."
 	admin_notes = "ONLY NINETIES KIDS REMEMBER. Uses the fun balloon and drone from the Emergency Bar."
-	credit_cost = CARGO_CRATE_VALUE * 5
+	credit_cost = CARGO_CRATE_VALUE * 30
 	occupancy_limit = "5"
 
 /datum/map_template/shuttle/emergency/basketball
@@ -317,6 +325,7 @@
 	Needless to say, no engineering team wanted to go near the thing, and it's only being used as an Emergency Escape Shuttle because there is literally nothing else available."
 	admin_notes = "If the crew can solve the puzzle, they will wake the wabbajack statue. It will likely not end well. There's a reason it's boarded up. Maybe they should have just left it alone."
 	credit_cost = CARGO_CRATE_VALUE * 30
+	occupancy_limit = "30"
 
 /datum/map_template/shuttle/emergency/wabbajack/prerequisites_met()
 	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_WABBAJACK]
@@ -331,14 +340,9 @@
 /datum/map_template/shuttle/emergency/cruise
 	suffix = "cruise"
 	name = "The NTSS Independence"
-	description = "Unparalleled Resilience, Unmatched Patriotism. Prepare to embark on a mission of extraordinary proportions with the NTSS Independence Evacuation Space Shuttle. \
-	Designed to offer a groundbreaking combination of power, resilience, and a symbol of classical American patriotism, this shuttle is the pinnacle of cutting-edge technology and unwavering determination. \
-	Proudly standing as one of Nanotrasen's most coveted and exclusive shuttles available to space station captains, the NTSS Independence is a testament to excellence and is primed to be your ultimate ally in times of crisis. \
-	With the NTSS Independence at your side, you can face any crisis head-on, knowing that the lives of your crew and survivors are in the hands of a vessel built on the principles of strength, bravery, and American ideals. \
-	Please note, In the face of a catastrophic event, the NTSS Independence shines as a true hero. Engineered to withstand extreme conditions, this shuttle fearlessly crashes into the space station, carving out a beachhead to facilitate the rescue and evacuation of survivors."
+	description = "Ordinarily reserved for special functions and events, the Cruise Shuttle Independence can bring a summery cheer to your next station evacuation for a 'modest' fee!"
 	admin_notes = "This motherfucker is BIG. You might need to force dock it."
-	credit_cost = EMAG_LOCKED_SHUTTLE_COST * 3.5
-	emag_only = TRUE //monkestation edit
+	credit_cost = CARGO_CRATE_VALUE * 100
 	occupancy_limit = "80"
 
 /datum/map_template/shuttle/emergency/monkey
