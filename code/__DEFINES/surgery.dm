@@ -1,3 +1,8 @@
+/// Helper to figure out if an organ is organic
+#define IS_ORGANIC_ORGAN(organ) (organ.organ_flags & ORGAN_ORGANIC)
+/// Helper to figure out if an organ is robotic
+#define IS_ROBOTIC_ORGAN(organ) (organ.organ_flags & ORGAN_ROBOTIC)
+
 // Flags for the organ_flags var on /obj/item/organ
 ///Synthetic organs, or cybernetic organs. Reacts to EMPs and don't deteriorate or heal
 #define ORGAN_SYNTHETIC (1<<0)

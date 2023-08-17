@@ -995,9 +995,15 @@
 	build_type = PROTOLATHE | AWAY_LATHE
 	build_path = /obj/item/polymorph_belt
 	materials = list(
+/* REQUIRES PR #75052 MONKESTATION EDIT CHANGE OLD
 		/datum/material/silver = SHEET_MATERIAL_AMOUNT * 2,
 		/datum/material/uranium = SHEET_MATERIAL_AMOUNT,
 		/datum/material/diamond = SHEET_MATERIAL_AMOUNT,
+*/// MONKESTATION EDIT CHANGE NEW START
+		/datum/material/silver = 4000,
+		/datum/material/uranium = 2000,
+		/datum/material/diamond = 2000,
+// MONKESTATION EDIT CHANGE NEW END
 	)
 	category = list(
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
