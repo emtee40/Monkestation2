@@ -29,6 +29,10 @@
 	///Sound file: Sound to play when this equipment is destroyed while still attached to the mech
 	var/destroy_sound = 'sound/mecha/critdestr.ogg'
 
+	///what equipment flags does this have
+	var/equipment_flags
+	var/movedelay = 0
+
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
 		detach(get_turf(src))
@@ -54,6 +58,8 @@
 	. = ..()
 	switch(action)
 		if("detach")
+			if(equipment_flags & NOT_ABLE_TO_REMOVE_FROM_MECHA) //monkestation edit
+				return //monkestation edit
 			detach(get_turf(src))
 			return TRUE
 		if("toggle")
@@ -224,3 +230,7 @@
 /// AI mech pilot: returns TRUE if the Ai should try to reload the mecha
 /obj/item/mecha_parts/mecha_equipment/proc/needs_rearm()
 	return FALSE
+
+/// Equipment returns its slowdown or speedboost.
+/obj/item/mecha_parts/mecha_equipment/proc/get_movedelay()
+	return movedelay

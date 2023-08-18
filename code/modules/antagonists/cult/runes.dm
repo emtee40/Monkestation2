@@ -561,8 +561,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(invoker, span_warning("Nar'Sie is already on this plane!"))
 		log_game("Nar'Sie rune activated by [user] at [COORD(src)] failed - already summoned.")
 		return
-
-	//BEGIN THE SUMMONING
+//monkestation edit start
 	used = TRUE
 	var/datum/team/cult/cult_team = user_antag.cult_team
 	if (cult_team.narsie_summoned)
@@ -571,6 +570,28 @@ structure_check() searches for nearby cultist structures required for the invoca
 			cultist_mob.client?.give_award(/datum/award/achievement/misc/narsupreme, cultist_mob)
 
 	cult_team.narsie_summoned = TRUE
+
+	if(GLOB.clock_ark) //might bump this up to need the ark to be active in some form
+		if(!GLOB.narsie_breaching_rune)
+			GLOB.narsie_breaching_rune = src
+
+		for(var/invoker in invokers)
+			to_chat(invoker, span_bigbrass("A vile light prvents you from saying the invocation! \
+											It looks like you will have to destroy whatever is causing this before Nar'sie may be summoned."))
+		return
+//monkestation edit end
+
+	//BEGIN THE SUMMONING
+//monkestation removal start
+/*	used = TRUE
+	var/datum/team/cult/cult_team = user_antag.cult_team
+	if (cult_team.narsie_summoned)
+		for (var/datum/mind/cultist_mind in cult_team.members)
+			var/mob/living/cultist_mob = cultist_mind.current
+			cultist_mob.client?.give_award(/datum/award/achievement/misc/narsupreme, cultist_mob)
+
+	cult_team.narsie_summoned = TRUE */
+//monkestation removal end
 	..()
 	sound_to_playing_players('sound/effects/dimensional_rend.ogg')
 	var/turf/rune_turf = get_turf(src)
@@ -790,7 +811,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	visible_message(span_warning("[src] turns a bright, glowing orange!"))
 	color = "#FC9B54"
-	set_light(6, 1, color)
+	set_light(l_outer_range = 6, l_power = 1, l_color = color)
 	for(var/mob/living/target in viewers(T))
 		if(!IS_CULTIST(target) && target.blood_volume)
 			if(target.can_block_magic(charge_cost = 0))
@@ -815,7 +836,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
-	set_light(6, 1, color)
+	set_light(l_outer_range = 6, l_power = 1, l_color = color)
 	for(var/mob/living/target in viewers(T))
 		if(!IS_CULTIST(target) && target.blood_volume)
 			if(target.can_block_magic(charge_cost = 0))
@@ -1001,7 +1022,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	for(var/mob/living/target in range(src, 3))
 		target.Paralyze(30)
-	empulse(T, 0.42*(intensity), 1)
+	if(!GLOB.clock_ark) //monkestation edit: this does a little too much damage to the clock cult due to killing their cam consoles with no counterplay
+		empulse(T, 0.42*(intensity), 1)
 
 	var/list/images = list()
 	var/datum/atom_hud/sec_hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]

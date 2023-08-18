@@ -19,7 +19,8 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 
 	///Range of the light emitted when on
-	var/light_on_range = 1.5
+	var/light_on_inner_range = 0.5
+	var/light_on_outer_range = 2.5
 	///Reference to our area
 	var/area/area
 	///Mapper helper to tie an apc to another area
@@ -600,6 +601,13 @@
 		else // chargemode off
 			charging = APC_NOT_CHARGING
 			chargecount = 0
+
+		// MONKESTATION ADDITION START - CLOCK CULT
+		if(integration_cog && GLOB.clock_power < GLOB.max_clock_power)
+			var/power_delta = clamp(cell.charge - 10, 0, 10)
+			GLOB.clock_power = min(round(GLOB.clock_power + (power_delta)), GLOB.max_clock_power)
+			cell.charge -= power_delta
+		// MONKESTATION ADDITION END
 
 	else // no cell, switch everything off
 
