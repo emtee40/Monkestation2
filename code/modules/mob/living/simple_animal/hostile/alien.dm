@@ -8,14 +8,15 @@
 	icon_gib = "syndicate_gib"
 	gender = FEMALE
 	speed = 0
-	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1,
-							/obj/item/organ/internal/tongue/alien = 1,
-							/obj/item/organ/internal/eyes/alien = 1,
-							/obj/item/organ/internal/alien/plasmavessel/large = 1,
-							/obj/item/organ/internal/alien/resinspinner = 1,
-							/obj/item/organ/internal/alien/acid = 1,
-							/obj/item/organ/internal/alien/neurotoxin = 1)
+	butcher_results = list(/obj/item/organ/internal/tongue/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/eyes/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/plasmavessel/large = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/resinspinner = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/acid = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/neurotoxin = 1) //Monkestation Edit #105
+	guaranteed_butcher_results = list(/obj/item/food/meat/slab/xeno = 4, //Monkestation Edit #105
+							/obj/item/stack/sheet/animalhide/xeno = 1) //Monkestation Edit #105
+	butcher_difficulty = 75 //Monkestation Edit #105 causes each item to have a 25% chance of spawning on butchering
 	maxHealth = 125
 	health = 125
 	harm_intent_damage = 5
@@ -92,14 +93,15 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	move_to_delay = 4
-	butcher_results = list(/obj/item/food/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1,
-							/obj/item/organ/internal/tongue/alien = 1,
-							/obj/item/organ/internal/eyes/alien = 1,
-							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1,
-							/obj/item/organ/internal/alien/resinspinner = 1,
-							/obj/item/organ/internal/alien/acid = 1,
-							/obj/item/organ/internal/alien/neurotoxin = 1)
+	butcher_results = list(/obj/item/organ/internal/tongue/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/eyes/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/resinspinner = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/acid = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/neurotoxin = 1) //Monkestation Edit #105
+	guaranteed_butcher_results = list(/obj/item/food/meat/slab/xeno = 4, //Monkestation Edit #105
+							/obj/item/stack/sheet/animalhide/xeno = 1) //Monkestation Edit #105
+	butcher_difficulty = 75 //Monkestation Edit #105 causes each item to have a 25% chance of spawning on butchering
 	projectiletype = /obj/projectile/neurotoxin/damaging
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -149,14 +151,15 @@
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
-	butcher_results = list(/obj/item/food/meat/slab/xeno = 10,
-							/obj/item/stack/sheet/animalhide/xeno = 2,
-							/obj/item/organ/internal/tongue/alien = 1,
-							/obj/item/organ/internal/eyes/alien = 1,
-							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1,
-							/obj/item/organ/internal/alien/resinspinner = 1,
-							/obj/item/organ/internal/alien/acid = 1,
-							/obj/item/organ/internal/alien/neurotoxin = 1)
+	butcher_results = list(/obj/item/organ/internal/tongue/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/eyes/alien = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/plasmavessel/large/queen = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/resinspinner = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/acid = 1, //Monkestation Edit #105
+							/obj/item/organ/internal/alien/neurotoxin = 1) //Monkestation Edit #105
+	guaranteed_butcher_results = list(/obj/item/food/meat/slab/xeno = 4, //Monkestation Edit #105
+							/obj/item/stack/sheet/animalhide/xeno = 1) //Monkestation Edit #105
+	butcher_difficulty = 75 //Monkestation Edit #105 causes each item to have a 25% chance of spawning on butchering
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
