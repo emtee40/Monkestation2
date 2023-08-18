@@ -423,24 +423,24 @@
 	name = "\improper DNA injector (Anti-Paranoia)"
 	remove_mutations = list(/datum/mutation/human/paranoia)
 
-/obj/item/dnainjector/spacemut
-	name = "\improper DNA injector (Space Adaptation)"
-	desc = "you will no longer suffer from cold and low atmosphere"
-	add_mutations = list(/datum/mutation/human/space_adaptation)
+/obj/item/dnainjector/spacemut //Monkestation Edit #176
+	name = "\improper DNA injector (Space Adaptation)" //Monkestation Edit #176
+	desc = "you will no longer suffer from cold and low atmosphere" //Monkestation Edit #176
+	add_mutations = list(/datum/mutation/human/space_adaptation) //Monkestation Edit #176
 
-/obj/item/dnainjector/antispace
-	name = "\improper DNA injector (anti-Space Adaptation)"
-	desc = "cures space adaptation"
-	remove_mutations = list(/datum/mutation/human/space_adaptation)
-/obj/item/dnainjector/extrememut
-	name = "\improper DNA injector (Extreme Adaptation)"
-	desc = "makes high temps and atmos not so bad"
-	add_mutations = list(/datum/mutation/human/extreme_adaptation)
+/obj/item/dnainjector/antispace //Monkestation Edit #176
+	name = "\improper DNA injector (anti-Space Adaptation)" //Monkestation Edit #176
+	desc = "cures space adaptation" //Monkestation Edit #176
+	remove_mutations = list(/datum/mutation/human/space_adaptation) //Monkestation Edit #176
+/obj/item/dnainjector/extrememut //Monkestation Edit #176
+	name = "\improper DNA injector (Extreme Adaptation)" //Monkestation Edit #176
+	desc = "makes high temps and atmos not so bad" //Monkestation Edit #176
+	add_mutations = list(/datum/mutation/human/extreme_adaptation) //Monkestation Edit #176
 
-/obj/item/dnainjector/antiextreme
-	name = "\improper DNA injector (Anti-Extreme Adaptation)"
-	desc = "cures extreme Adaptation."
-	remove_mutations = list(/datum/mutation/human/extreme_adaptation)
+/obj/item/dnainjector/antiextreme //Monkestation Edit #176
+	name = "\improper DNA injector (Anti-Extreme Adaptation)" //Monkestation Edit #176
+	desc = "cures extreme Adaptation." //Monkestation Edit #176
+	remove_mutations = list(/datum/mutation/human/extreme_adaptation) //Monkestation Edit #176
 
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
