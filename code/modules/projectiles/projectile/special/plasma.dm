@@ -33,3 +33,5 @@
 	damage = 24
 	range = 7
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+
+// Mech plasma projectiles were replaced with a specific type in the Monke folder

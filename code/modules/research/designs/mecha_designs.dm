@@ -839,7 +839,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
 
-/datum/design/mecha_kineticgun
+/datum/design/mecha_kineticgun // MONKEstation change, replaces the 217-D mech cutter
 	name = "Exosuit Proto-Kinetic Accelerator"
 	desc = "An exosuit-mounted mining tool that does increased damage in low pressure. Drawing from an onboard power source allows it to project further than the handheld version."
 	id = "mecha_kineticgun"
