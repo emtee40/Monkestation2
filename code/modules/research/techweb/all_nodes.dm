@@ -801,7 +801,7 @@
 	description = "Research on how to fully exploit the power of plasma."
 	prereq_ids = list("basic_plasma")
 	design_ids = list(
-		"mecha_kineticgun",
+		"mecha_kineticgun", // MONKEstation Edit
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1901,9 +1901,11 @@
 		"mech_ccw_armor",
 		"mech_proj_armor",
 	)
-	required_experiments = list(/datum/experiment/scanning/random/mecha_damage_scan)
+	required_experiments = list(/datum/experiment/scanning/random/mecha_damage_scan) // MONKEstation Edit // Of an edit
 	discount_experiments = list(/datum/experiment/scanning/random/mecha_destroyed_scan = 5000)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+
+// MONKEstation Edit: Mech ballistics now require weaponry and exotic ammo as prereqs
 
 /datum/techweb_node/mech_scattershot
 	id = "mecha_tools"

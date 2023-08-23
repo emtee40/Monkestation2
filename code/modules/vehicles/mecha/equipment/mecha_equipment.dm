@@ -29,19 +29,8 @@
 	///Sound file: Sound to play when this equipment is destroyed while still attached to the mech
 	var/destroy_sound = 'sound/mecha/critdestr.ogg'
 
-	var/movedelay = 0
-
-/obj/item/mecha_parts/mecha_equipment/examine(mob/user)
-	.=..()
-	if(src.movedelay)
-		switch(movedelay)
-			if(0.1)
-				. += span_notice("This is a lightweight module.")
-			if(0.2)
-				. += span_notice("This module is moderately heavy.")
-			if(0.3 to 0.4)
-				. += span_notice("This module is rather heavy!")
-	else . += span_notice("This module is effectively weightless.")
+	var/movedelay = 0 /* MONKEstation edit, mech tools/weapons have movedelay (weight) values. More powerful gear is generally heavier, HONK gear should be weightless (it's plastic and designed to be a toy).
+	 				     Mechs have weight tolerance values (encumbrance_gap) before they experience slowdown. */
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)

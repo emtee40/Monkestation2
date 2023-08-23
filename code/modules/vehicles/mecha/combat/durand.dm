@@ -172,7 +172,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	var/obj/vehicle/sealed/mecha/durand/chassis
 	///To keep track of things during the animation
 	var/switching = FALSE
-	var/minimum_charge = 1000
+	var/minimum_charge = 1000 // MONKEstation edit in response to generator changes
 
 /obj/durand_shield/Initialize(mapload, chassis, plane, layer, dir)
 	. = ..()

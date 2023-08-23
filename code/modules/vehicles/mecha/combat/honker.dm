@@ -21,7 +21,7 @@
 		MECHA_ARMOR = 1,
 	)
 	var/squeak = TRUE
-	pivot_step = TRUE
+	pivot_step = TRUE // MONKEstation Edit
 
 /datum/armor/mecha_honker
 	melee = -20

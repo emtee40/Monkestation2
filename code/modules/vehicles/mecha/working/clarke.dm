@@ -29,7 +29,7 @@
 	enter_delay = 40
 	mecha_flags = ADDING_ACCESS_POSSIBLE | IS_ENCLOSED | HAS_LIGHTS | MMI_COMPATIBLE | OMNIDIRECTIONAL_ATTACKS
 	pivot_step = TRUE
-	possible_int_damage = MECHA_INT_FIRE|MECHA_INT_TEMP_CONTROL|MECHA_INT_TANK_BREACH|MECHA_INT_SHORT_CIRCUIT // No control malfunction for Clarkes because of their poor armor.
+	possible_int_damage = MECHA_INT_FIRE|MECHA_INT_TEMP_CONTROL|MECHA_INT_TANK_BREACH|MECHA_INT_SHORT_CIRCUIT // MONKEstation edit, no movement malfunction for Clarkes
 
 /datum/armor/working_clarke
 	melee = 20
