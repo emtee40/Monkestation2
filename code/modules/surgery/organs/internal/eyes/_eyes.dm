@@ -40,7 +40,9 @@
 	var/eye_color_left = "" //set to a hex code to override a mob's left eye color
 	var/eye_color_right = "" //set to a hex code to override a mob's right eye color
 	var/eye_icon_state = "eyes"
+	/// The color of the previous left eye before this one was inserted
 	var/old_eye_color_left = "fff"
+	/// The color of the previous right eye before this one was inserted
 	var/old_eye_color_right = "fff"
 
 	/// Glasses cannot be worn over these eyes. Currently unused
@@ -51,25 +53,31 @@
 	var/native_fov = FOV_90_DEGREES
 
 /obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+	// If we don't do this before everything else, heterochromia will be reset leading to eye_color_right no longer being accurate
+	if(ishuman(eye_recipient))
+		var/mob/living/carbon/human/human_recipient = eye_recipient
+		old_eye_color_left = human_recipient.eye_color_left
+		old_eye_color_right = human_recipient.eye_color_right
+
 	. = ..()
+
 	if(!.)
 		return
-	owner.cure_blind(NO_EYES)
+
+	eye_recipient.cure_blind(NO_EYES)
 	apply_damaged_eye_effects()
-	refresh(eye_recipient, inserting = TRUE, call_update = TRUE)
+	refresh(eye_recipient, call_update = TRUE)
 
 /// Refreshes the visuals of the eyes
-/// If call_update is TRUE, we also will call udpate_body
-/obj/item/organ/internal/eyes/proc/refresh(call_update = TRUE)
+/// If call_update is TRUE, we also will call update_body
+/obj/item/organ/internal/eyes/proc/refresh(mob/living/carbon/eye_owner = owner, call_update = TRUE)
 	owner.update_sight()
 	owner.update_tint()
 
 	if(!ishuman(owner))
 		return
 
-	var/mob/living/carbon/human/affected_human = owner
-	old_eye_color_left = affected_human.eye_color_left
-	old_eye_color_right = affected_human.eye_color_right
+	var/mob/living/carbon/human/affected_human = eye_owner
 	if(initial(eye_color_left))
 		affected_human.eye_color_left = eye_color_left
 	else
@@ -414,7 +422,92 @@
 	clear_visuals(TRUE)
 	STOP_PROCESSING(SSfastprocess, src)
 
-/obj/item/organ/internal/eyes/robotic/glow/ui_action_click(owner, action)
+/// Set the initial color of the eyes on insert to be the mob's previous eye color.
+/obj/item/organ/internal/eyes/robotic/glow/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+	. = ..()
+	current_color_string = old_eye_color_left
+	current_left_color_string = old_eye_color_left
+	current_right_color_string = old_eye_color_right
+
+/obj/item/organ/internal/eyes/robotic/glow/on_insert(mob/living/carbon/eye_recipient)
+	. = ..()
+	deactivate(close_ui = TRUE)
+	eye.forceMove(eye_recipient)
+
+/obj/item/organ/internal/eyes/robotic/glow/on_remove(mob/living/carbon/eye_owner)
+	deactivate(eye_owner, close_ui = TRUE)
+	eye.forceMove(src)
+	return ..()
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_status(mob/user)
+	if(!QDELETED(owner))
+		if(owner == user)
+			return min(
+				ui_status_user_is_abled(user, src),
+				ui_status_only_living(user),
+			)
+		else return UI_CLOSE
+	return ..()
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "HighLuminosityEyesMenu")
+		ui.autoupdate = FALSE
+		ui.open()
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_data(mob/user)
+	var/list/data = list()
+
+	data["eyeColor"] = list(
+		mode = eye_color_mode,
+		hasOwner = owner ? TRUE : FALSE,
+		left = current_left_color_string,
+		right = current_right_color_string,
+	)
+	data["lightColor"] = current_color_string
+	data["range"] = eye.light_range
+
+	return data
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_act(action, list/params, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("set_range")
+			var/new_range = params["new_range"]
+			set_beam_range(new_range)
+			return TRUE
+		if("pick_color")
+			var/new_color = input(
+				usr,
+				"Choose eye color color:",
+				"High Luminosity Eyes Menu",
+				current_color_string
+			) as color|null
+			if(new_color)
+				var/to_update = params["to_update"]
+				set_beam_color(new_color, to_update)
+				return TRUE
+		if("enter_color")
+			var/new_color = lowertext(params["new_color"])
+			var/to_update = params["to_update"]
+			set_beam_color(new_color, to_update, sanitize = TRUE)
+			return TRUE
+		if("random_color")
+			var/to_update = params["to_update"]
+			randomize_color(to_update)
+			return TRUE
+		if("toggle_eye_color")
+			toggle_eye_color_mode()
+			return TRUE
+
+/obj/item/organ/internal/eyes/robotic/glow/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/organ_action/toggle))
 		toggle_active()
 	else if(istype(action, /datum/action/item_action/organ_action/use))
