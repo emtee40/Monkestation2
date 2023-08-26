@@ -26,9 +26,9 @@
 	istate = ISTATE_HARM | ISTATE_BLOCKING
 	move_resist = INFINITY // This mob IS the floor
 	/// Action which sends a line of spikes chasing a player
-	var/datum/action/cooldown/chasing_spikes/spikes
+	var/datum/action/cooldown/mob_cooldown/chasing_spikes/spikes
 	/// Action which summons areas the player can't stand in
-	var/datum/action/cooldown/spine_traps/traps
+	var/datum/action/cooldown/mob_cooldown/spine_traps/traps
 	/// Looping heartbeat sound
 	var/datum/looping_sound/heartbeat/soundloop
 
@@ -40,11 +40,11 @@
 
 	spikes = new(src)
 	spikes.Grant(src)
-	ai_controller.blackboard[BB_METEOR_HEART_GROUND_SPIKES] = WEAKREF(spikes)
+	ai_controller.set_blackboard_key(BB_METEOR_HEART_GROUND_SPIKES, spikes)
 
 	traps = new(src)
 	traps.Grant(src)
-	ai_controller.blackboard[BB_METEOR_HEART_SPINE_TRAPS] = WEAKREF(traps)
+	ai_controller.set_blackboard_key(BB_METEOR_HEART_SPINE_TRAPS, traps)
 
 	ai_controller.set_ai_status(AI_STATUS_OFF)
 
@@ -76,7 +76,7 @@
 	soundloop.set_mid_length(HEARTBEAT_NORMAL)
 
 /// Animate when using certain abilities
-/mob/living/basic/meteor_heart/proc/used_ability(mob/living/owner, datum/action/cooldown/ability)
+/mob/living/basic/meteor_heart/proc/used_ability(mob/living/owner, datum/action/cooldown/mob_cooldown/ability)
 	SIGNAL_HANDLER
 	if (ability != spikes)
 		return

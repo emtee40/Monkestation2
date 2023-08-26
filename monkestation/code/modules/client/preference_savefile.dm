@@ -41,13 +41,19 @@
 	save_data["alt_job_titles"] = alt_job_titles
 
 /datum/preferences/proc/save_preferences_monkestation()
+	write_jobxp_preferences()
 	savefile.set_entry("channel_volume", channel_volume)
 	savefile.set_entry("saved_tokens", saved_tokens)
+	if(token_month)
+		savefile.set_entry("token_month", token_month)
 
 /datum/preferences/proc/load_preferences_monkestation()
+	load_jobxp_preferences()
 	channel_volume = savefile.get_entry("channel_volume", channel_volume)
 	channel_volume = SANITIZE_LIST(channel_volume)
 
 	saved_tokens = savefile.get_entry("saved_tokens", saved_tokens)
 	saved_tokens = SANITIZE_LIST(saved_tokens)
+
+	token_month = savefile.get_entry("token_month", token_month)
 
