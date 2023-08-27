@@ -28,6 +28,8 @@
 	var/scanmode = SCANMODE_HEALTH
 	var/advanced = FALSE
 	custom_price = PAYCHECK_COMMAND
+	/// If this analyzer will give a bonus to wound treatments apon woundscan.
+	var/give_wound_treatment_bonus = FALSE
 
 /obj/item/healthanalyzer/Initialize(mapload)
 	. = ..()
@@ -492,15 +494,17 @@
 					advised = TRUE
 		render_list += "</span>"
 
+	var/obj/item/healthanalyzer/simple/simple_scanner
+	if(istype(scanner, /obj/item/healthanalyzer/simple))
+		simple_scanner = scanner
 	if(render_list == "")
 		if(simple_scan)
 			var/obj/item/healthanalyzer/simple/simple_scanner = scanner
 			// Only emit the cheerful scanner message if this scan came from a scanner
-			playsound(scanner, 'sound/machines/ping.ogg', 50, FALSE)
-			to_chat(user, span_notice("\The [scanner] makes a happy ping and briefly displays a smiley face with several exclamation points! It's really excited to report that [patient] has no wounds!"))
-			scanner.show_emotion(AID_EMOTION_HAPPY)
-		else
-			to_chat(user, "<span class='notice ml-1'>No wounds detected in subject.</span>")
+			playsound(simple_scanner, 'sound/machines/ping.ogg', 50, FALSE)
+			to_chat(user, span_notice("\The [simple_scanner] makes a happy ping and briefly displays a smiley face with several exclamation points! It's really excited to report that [patient] has no wounds!"))
+			simple_scanner.show_emotion(AID_EMOTION_HAPPY)
+		to_chat(user, "<span class='notice ml-1'>No wounds detected in subject.</span>")
 	else
 		to_chat(user, examine_block(jointext(render_list, "")), type = MESSAGE_TYPE_INFO)
 		if(simple_scan)
@@ -522,6 +526,7 @@
 			"reminds you that everyone is doing their best", "displays a message wishing you well", "displays a sincere thank-you for your interest in first-aid", "formally absolves you of all your sins")
 	// How often one can ask for encouragement
 	var/patience = 10 SECONDS
+	give_wound_treatment_bonus = TRUE
 
 /obj/item/healthanalyzer/simple/attack_self(mob/user)
 	if(next_encouragement < world.time)
