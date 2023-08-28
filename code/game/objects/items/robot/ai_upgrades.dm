@@ -55,7 +55,7 @@
 
 // Monkestation edit: AIs are not immune to the curse
 /obj/item/ai_uwu_upgrade
-	name = "AI UwU-speak \"upgrade\""
+	name = "AI UwU-speak \"Upgrade\""
 	desc = "A debatably legal software package designed to help artificial intelligence accommodate incredibly cringeworthy crewmates. Nanotrasen is not responsible for software malfunctions as a result of use of this upgrade."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk5"

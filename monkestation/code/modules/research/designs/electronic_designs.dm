@@ -45,3 +45,17 @@
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
 	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
+
+// Monkestation change: UwU-speak module for AIs too because I hate them more than borg players
+/datum/design/ai_uwu_upgrade
+	name = "AI UwU-speak \"Upgrade\""
+	desc = "A software package that assists AIs in sympathetic accommodation of incredibly cringeworthy crewmembers via communications."
+	id = "ai_upgrade_cringe"
+	build_type = PROTOLATHE | AWAY_LATHE
+	// same price as the borg upgrade, plus some iron
+	materials = list(/datum/material/iron = 1000, /datum/material/gold = 2000, /datum/material/diamond = 1000, /datum/material/bluespace = 500)
+	build_path = /obj/item/ai_uwu_upgrade
+	category = list(
+		RND_CATEGORY_AI + RND_SUBCATEGORY_AI_UPGRADES
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
