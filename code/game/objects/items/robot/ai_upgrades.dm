@@ -52,3 +52,26 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] has upgraded [ADMIN_LOOKUPFLW(AI)] with a [src].")
 	qdel(src)
 	return TRUE
+
+// Monkestation edit: AIs are not immune to the curse
+/obj/item/ai_uwu_upgrade
+	name = "AI UwU-speak \"upgrade\""
+	desc = "A debatably legal software package designed to help artificial intelligence accommodate incredibly cringeworthy crewmates. Nanotrasen is not responsible for software malfunctions as a result of use of this upgrade."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk5"
+
+/obj/item/ai_uwu_upgrade/pre_attack(atom/A, mob/living/user, proximity)
+	if(!proximity)
+		return ..()
+	if(!isAI(A))
+		return ..()
+	var/mob/living/silicon/ai/AI = A
+	if(isAI(A))
+		AI.uwu_ify()
+		to_chat(AI, span_userdanger("[user] has upgraded you with... something?"))
+		to_chat(AI, "You feel a shudder in your microprocessors. Something isn't right...")
+	to_chat(user, span_notice("You upgrade [AI], and [src] is consumed in the process. God have mercy on your soul."))
+	user.log_message("has upgraded [key_name(AI)] with a [src].", LOG_GAME)
+	message_admins("[ADMIN_LOOKUPFLW(user)] has upgraded [ADMIN_LOOKUPFLW(AI)] with a [src].")
+	qdel(src)
+	return TRUE

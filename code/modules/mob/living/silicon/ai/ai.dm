@@ -113,6 +113,9 @@
 	///whether AI is anchored or not, used for checks
 	var/is_anchored = TRUE
 
+	// monkestation edit: uwu-speak upgrade
+	var/datum/fluffy_tongue = FALSE
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	. = ..()
 	if(!target_ai) //If there is no player/brain inside.
@@ -240,6 +243,10 @@
 	if(ai_voicechanger)
 		ai_voicechanger.owner = null
 		ai_voicechanger = null
+
+	// it's a mercy to let the curse end in death, honestly
+	if (fluffy_tongue)
+		UnregisterSignal(src, COMSIG_MOB_SAY)
 	return ..()
 
 /// Removes all malfunction-related abilities from the AI
@@ -1140,3 +1147,21 @@
 	return
 
 #undef CALL_BOT_COOLDOWN
+
+/mob/living/silicon/ai/proc/uwu_ify()
+	RegisterSignal(src, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+
+/mob/living/silicon/ai/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+	var/message = speech_args[SPEECH_MESSAGE]
+
+	if(message[1] != "*")
+		message = replacetext(message, "ne", "nye")
+		message = replacetext(message, "nu", "nyu")
+		message = replacetext(message, "na", "nya")
+		message = replacetext(message, "no", "nyo")
+		message = replacetext(message, "ove", "uv")
+		message = replacetext(message, "r", "w")
+		message = replacetext(message, "l", "w")
+	speech_args[SPEECH_MESSAGE] = message
+
