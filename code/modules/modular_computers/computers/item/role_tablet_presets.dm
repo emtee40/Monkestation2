@@ -91,11 +91,12 @@
 	greyscale_colors = "#FAFAFA#000099#B347BC"
 	inserted_item = /obj/item/pen/fountain
 	starting_programs = list(
-		/datum/computer_file/program/crew_manifest,
-		/datum/computer_file/program/status,
-		/datum/computer_file/program/science,
-		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/borg_monitor,
 		/datum/computer_file/program/budgetorders,
+		/datum/computer_file/program/crew_manifest,
+		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/science,
+		/datum/computer_file/program/status,
 		/datum/computer_file/program/signal_commander,
 	)
 
@@ -156,6 +157,8 @@
 	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
 	greyscale_colors = "#D99A2E#69DBF3#E3DF3D"
 	starting_programs = list(
+		/datum/computer_file/program/alarm_monitor,
+		/datum/computer_file/program/atmosscan,
 		/datum/computer_file/program/supermatter_monitor,
 	)
 
@@ -164,8 +167,9 @@
 	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
 	greyscale_colors = "#EEDC43#00E5DA#727272"
 	starting_programs = list(
-		/datum/computer_file/program/atmosscan,
 		/datum/computer_file/program/alarm_monitor,
+		/datum/computer_file/program/atmosscan,
+		/datum/computer_file/program/supermatter_monitor,
 	)
 
 /**
@@ -178,6 +182,7 @@
 	greyscale_colors = "#FAFAFA#000099#B347BC"
 	starting_programs = list(
 		/datum/computer_file/program/atmosscan,
+		/datum/computer_file/program/science,
 		/datum/computer_file/program/signal_commander,
 	)
 
@@ -186,7 +191,9 @@
 	greyscale_config = /datum/greyscale_config/tablet/stripe_split
 	greyscale_colors = "#484848#0099CC#D94927"
 	starting_programs = list(
+		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/borg_monitor,
 	)
 
 /obj/item/modular_computer/pda/geneticist
