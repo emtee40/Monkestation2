@@ -113,6 +113,9 @@
 	///whether AI is anchored or not, used for checks
 	var/is_anchored = TRUE
 
+	///Command report cooldown
+	COOLDOWN_DECLARE(command_report_cd) // monkestation edit
+
 	// monkestation edit: uwu-speak upgrade
 	var/datum/fluffy_tongue = FALSE
 
