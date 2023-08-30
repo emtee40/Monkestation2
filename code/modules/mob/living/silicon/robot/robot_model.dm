@@ -265,6 +265,10 @@
 			hat_offset = details[SKIN_HAT_OFFSET]
 		if(!isnull(details[SKIN_TRAITS]))
 			model_traits += details[SKIN_TRAITS]
+		// MONKESTATION ADDITION - CARGO BORG
+		if(!isnull(details[SKIN_UNIQUE_WRECK]))
+			unique_wreck = TRUE
+		// MONKESTATION ADDITION END
 	for(var/i in old_model.added_modules)
 		added_modules += i
 		old_model.added_modules -= i

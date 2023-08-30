@@ -192,6 +192,7 @@
 		"Miner" = /obj/item/robot_model/miner,
 		"Janitor" = /obj/item/robot_model/janitor,
 		"Service" = /obj/item/robot_model/service,
+		"Cargo" = /obj/item/robot_model/cargo, // MONKESTATION ADDITION - CARGO BORGS
 	)
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
@@ -203,7 +204,10 @@
 	for(var/option in model_list)
 		var/obj/item/robot_model/model = model_list[option]
 		var/model_icon = initial(model.cyborg_base_icon)
-		model_icons[option] = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = model_icon)
+		// MONKESTATION EDIT: MODULAR BORG ICONS
+		var/icon_to_use = initial(model.cyborg_base_icon_override) || 'icons/mob/silicon/robots.dmi'
+		model_icons[option] = image(icon = icon_to_use, icon_state = model_icon)
+		// MONKESTATION EDIT END
 
 	var/input_model = show_radial_menu(src, src, model_icons, radius = 42)
 	if(!input_model || model.type != /obj/item/robot_model)
@@ -378,6 +382,10 @@
 		head_overlay.pixel_z += hat_offset
 		add_overlay(head_overlay)
 	update_fire()
+	// MONKESTATION ADDITION START - CARGO BORGS
+	if(stat == DEAD && (model.unique_wreck))
+		icon_state = "[model.cyborg_base_icon]-wreck"
+	// MONKESTATION ADDITION END
 
 /mob/living/silicon/robot/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	if(same_z_layer)
@@ -752,6 +760,10 @@
 	designation = model.name
 	if(hands)
 		hands.icon_state = model.model_select_icon
+		// MONKESTATION ADDITION START - CARGO BORG
+		if(model.model_select_override)
+			hands.icon = model.model_select_override
+		// MONKESTATION ADDITION END
 
 	REMOVE_TRAITS_IN(src, MODEL_TRAIT)
 	if(length(model.model_traits))
