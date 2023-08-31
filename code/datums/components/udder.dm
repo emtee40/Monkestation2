@@ -147,7 +147,7 @@
  * also useful for changing initial amounts in reagent holder (cows start with milk, gutlunches start empty)
  */
 /obj/item/udder/proc/initial_conditions()
-	reagents.add_reagent(reagent_produced_typepath, 20)
+	reagents.add_reagent(reagent_produced_typepath, 20, added_purity = 1)
 	START_PROCESSING(SSobj, src)
 
 /**

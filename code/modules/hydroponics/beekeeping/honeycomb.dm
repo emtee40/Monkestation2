@@ -4,13 +4,11 @@
 	desc = "A hexagonal mesh of honeycomb."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeycomb"
-	possible_transfer_amounts = list()
-	spillable = FALSE
-	disease_amount = 0
-	volume = 10
-	amount_per_transfer_from_this = 0
-	list_reagents = list(/datum/reagent/consumable/honey = 5)
-	grind_results = list()
+	max_volume = 10
+	food_reagents = list(/datum/reagent/consumable/honey = 5)
+	tastes = list("honey" = 1)
+	preserved_food = TRUE
+	starting_reagent_purity = 1
 	var/honey_color = ""
 
 /obj/item/reagent_containers/honeycomb/Initialize(mapload)

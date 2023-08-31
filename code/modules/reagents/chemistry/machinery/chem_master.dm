@@ -1,9 +1,50 @@
-/**
- * Machine that allows to identify and separate reagents in fitting container
- * as well as to create new containers with separated reagents in it.
- *
- * Contains logic for both ChemMaster and CondiMaster, switched by "condi".
- */
+#define TRANSFER_MODE_DESTROY 0
+#define TRANSFER_MODE_MOVE 1
+#define TARGET_BEAKER "beaker"
+#define TARGET_BUFFER "buffer"
+#define CAT_CONDIMENTS "condiments"
+#define CAT_TUBES "tubes"
+#define CAT_PILLS "pills"
+#define CAT_PATCHES "patches"
+
+/// List of containers the Chem Master machine can print
+GLOBAL_LIST_INIT(chem_master_containers, list(
+	CAT_CONDIMENTS = list(
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/condiment/flour,
+		/obj/item/reagent_containers/condiment/sugar,
+		/obj/item/reagent_containers/condiment/rice,
+		/obj/item/reagent_containers/condiment/cornmeal,
+		/obj/item/reagent_containers/condiment/milk,
+		/obj/item/reagent_containers/condiment/soymilk,
+		/obj/item/reagent_containers/condiment/yoghurt,
+		/obj/item/reagent_containers/condiment/saltshaker,
+		/obj/item/reagent_containers/condiment/peppermill,
+		/obj/item/reagent_containers/condiment/soysauce,
+		/obj/item/reagent_containers/condiment/bbqsauce,
+		/obj/item/reagent_containers/condiment/enzyme,
+		/obj/item/reagent_containers/condiment/hotsauce,
+		/obj/item/reagent_containers/condiment/coldsauce,
+		/obj/item/reagent_containers/condiment/mayonnaise,
+		/obj/item/reagent_containers/condiment/ketchup,
+		/obj/item/reagent_containers/condiment/olive_oil,
+		/obj/item/reagent_containers/condiment/vegetable_oil,
+		/obj/item/reagent_containers/condiment/peanut_butter,
+		/obj/item/reagent_containers/condiment/cherryjelly,
+		/obj/item/reagent_containers/condiment/honey,
+		/obj/item/reagent_containers/condiment/pack,
+	),
+	CAT_TUBES = list(
+		/obj/item/reagent_containers/cup/tube
+	),
+	CAT_PILLS = typecacheof(list(
+		/obj/item/reagent_containers/pill/style
+	)),
+	CAT_PATCHES = typecacheof(list(
+		/obj/item/reagent_containers/pill/patch/style
+	))
+))
+
 /obj/machinery/chem_master
 	name = "ChemMaster 3000"
 	desc = "Used to separate chemicals and distribute them in a variety of forms."

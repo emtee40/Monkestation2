@@ -11,6 +11,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /// Counter for number of chicks hatched by throwing eggs, minecraft style. Chicks will not emerge from thrown eggs if this value exceeds the MAX_CHICKENS define.
 GLOBAL_VAR_INIT(chicks_from_eggs, 0)
@@ -44,6 +45,11 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 
 /obj/item/food/egg/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/boiledegg)
+
+/obj/item/food/egg/organic
+	name = "organic egg"
+	desc = "A 100% natural egg from the best hens."
+	starting_reagent_purity = 1
 
 /obj/item/food/egg/rotten
 	food_reagents = list(/datum/reagent/consumable/eggrot = 10, /datum/reagent/consumable/mold = 10)
@@ -197,6 +203,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	foodtypes = MEAT | FRIED | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
 	burns_on_grill = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/rawegg
 	name = "raw egg"
@@ -230,6 +237,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	ant_attracting = FALSE
 	decomp_type = /obj/item/food/boiledegg/rotten
 	food_buffs = STATUS_EFFECT_FOOD_STAM_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/eggsausage
 	name = "egg with sausage"
@@ -240,6 +248,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	foodtypes = MEAT | FRIED | BREAKFAST
 	tastes = list("egg" = 4, "meat" = 4)
 	venue_value = FOOD_PRICE_NORMAL
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/boiledegg/rotten
 	food_reagents = list(/datum/reagent/consumable/eggrot = 10)
@@ -262,6 +271,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	foodtypes = MEAT | BREAKFAST | DAIRY
 	venue_value = FOOD_PRICE_CHEAP
 	food_buffs = STATUS_EFFECT_FOOD_STAM_MEDIUM
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/omelette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/kitchen/fork))
@@ -296,6 +306,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	foodtypes = MEAT | BREAKFAST | GRAIN
 	venue_value = FOOD_PRICE_NORMAL
 	food_buffs = STATUS_EFFECT_STAM_REGEN_MEDIUM
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/eggwrap
 	name = "egg wrap"
@@ -310,6 +321,7 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	tastes = list("egg" = 1)
 	foodtypes = MEAT | VEGETABLES
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/chawanmushi
 	name = "chawanmushi"
@@ -323,3 +335,4 @@ GLOBAL_VAR_INIT(chicks_from_eggs, 0)
 	)
 	tastes = list("custard" = 1)
 	foodtypes = MEAT | VEGETABLES
+	crafting_complexity = FOOD_COMPLEXITY_3
