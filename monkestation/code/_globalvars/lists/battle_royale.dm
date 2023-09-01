@@ -188,6 +188,8 @@ GLOBAL_LIST_INIT(royale_rare_loot, list(
 		/obj/item/gun/ballistic/automatic/c20r/unrestricted = 1,
 		/obj/item/gun/ballistic/automatic/mini_uzi = 1,
 		/obj/item/gun/ballistic/automatic/pistol = 3,
+		/obj/item/gun/ballistic/automatic/tommygun = 1,
+		/obj/item/gun/ballistic/automatic/wt550 = 3,
 		/obj/item/highfrequencyblade = 1,
 		/obj/item/implanter/uplink/precharged = 1,
 		/obj/item/katana = 1,
@@ -207,19 +209,18 @@ GLOBAL_LIST_INIT(royale_rare_loot, list(
 ))
 
 ///very rare loot, only spawned from super drops
-GLOBAL_LIST_INIT(royale_very_rare_loot, list(
+GLOBAL_LIST_INIT(royale_super_rare_loot, list(
 		/obj/item/chainsaw/doomslayer = 1, //very strong melee that blocks all ranged attacks
 		/obj/item/antag_spawner/contract = 1, //gives you your own wizard apprentice
 		/obj/item/energy_katana = 1, //gamer katana
 		/obj/item/gun/energy/meteorgun = 1, //might be a bit too strong
 		/obj/item/gun/energy/pulse = 1,
 		/obj/item/gun/energy/marksman_revolver = 1,
-		/obj/item/melee/energy/axe = 1, //one hit melee, might be too strong
 		/obj/item/minigunpack = 1, //laser minigun
 		/obj/item/mod/control/pre_equipped/enchanted = 1, //wizard MODsuit
 		list(/obj/item/pneumatic_cannon/pie/selfcharge = 1, /obj/item/syndie_glue = 1) = 1,
 		/obj/item/storage/belt/wands/full = 1,
-		/obj/item/uplink/nuclear = 1,
+		list(/obj/item/uplink/nuclear = 1, /obj/item/stack/telecrystal/five = 2) = 1,
 		list(/obj/vehicle/sealed/mecha/gygax/dark/loaded = 1, /obj/item/card/id/advanced/chameleon = 1) = 1
 ))
 
@@ -270,8 +271,20 @@ GLOBAL_LIST_INIT(royale_misc_loot, list(
 		/obj/vehicle/ridden/monkey_ball = 1
 ))
 
-//things in this table have a chance to be spawned in addition to something from another table
+///things in this table have a chance to be spawned in addition to something from another table
 GLOBAL_LIST_INIT(royale_extra_loot, list(
-		/obj/item/stack/telecrystal/five = 2,
-		list(/obj/item/stack/telecrystal/five = 2) = 1
+		/obj/item/stack/telecrystal/five = 3,
+		list(/obj/item/stack/telecrystal/five = 2) = 2,
+		/obj/item/ammo_box/a357 = 3,
+		/obj/item/ammo_box/c38 = 3,
+		/obj/item/ammo_box/magazine/m9mm/ap = 1,
+		/obj/item/ammo_box/magazine/m9mm/fire = 1,
+		/obj/item/ammo_box/magazine/m9mm/hp = 1,
+		/obj/item/storage/box/lethalshot = 3,
+		/obj/item/ammo_box/magazine/m556 = 3,
+		/obj/item/ammo_box/magazine/uzim9mm = 3,
+		/obj/item/ammo_box/magazine/tommygunm45 = 3,
+		/obj/item/ammo_box/magazine/wt550m9 = 1,
+		/obj/item/ammo_box/magazine/wt550m9/wtap = 1,
+		/obj/item/ammo_box/magazine/wt550m9/wtic = 1
 ))

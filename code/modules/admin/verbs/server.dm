@@ -155,6 +155,10 @@
 	log_admin("[key_name(usr)] delayed the round end for reason: [SSticker.admin_delay_notice]")
 	message_admins("[key_name_admin(usr)] delayed the round end for reason: [SSticker.admin_delay_notice]")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Delay Round End", "Reason: [delay_reason]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+//monkestation edit start
+	var/mob/dead/observer/admin_user = usr
+	admin_user.client.battleRoyaleEasySetup()
+//monkestation edit end
 
 /datum/admins/proc/toggleenter()
 	set category = "Server"

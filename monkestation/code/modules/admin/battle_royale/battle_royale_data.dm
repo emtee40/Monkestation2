@@ -1,0 +1,106 @@
+/datum/battle_royale_data
+	///When does this dataset take effect
+	var/active_time = 0
+	///What does this set the weight of common loot drops to
+	var/common_weight = 0
+	///What does this set the weight of utility loot drops to
+	var/utility_weight = 0
+	///What does this set the weight of rare loot drops to
+	var/rare_weight = 0
+	///What does this set the weight of super rare loot drops to
+	var/super_rare_weight = 0
+	///What does this set the weight of misc loot drops to
+	var/misc_weight = 0
+	///What does this set the prob of spawning something from the extra loot table to
+	var/extra_loot_prob = 0
+	///What does this set the prob of doing a rare drop to
+	var/rare_drop_prob = 0
+	///What does this set the prob of doing a super drop to
+	var/super_drop_prob = 0
+	///How many tiles per second does this make the barrier move, can be less then 1
+	var/barrier_move_speed = 0
+	///How many loot pods should we spawn esuper second, can be less then 1
+	var/pods_per_second = 0
+	///How long is the maximum royale expected length, does not have to be exact, only needs to be set once
+	var/final_time
+
+//Used for admin custom royale data sets
+/datum/battle_royale_data/custom/New()
+	. = ..()
+	GLOB.custom_battle_royale_data += src
+
+/datum/battle_royale_data/custom/Destroy(force, ...)
+	GLOB.custom_battle_royale_data -= src
+	return ..()
+
+//premade set which lasts at most 30 minutes
+/datum/battle_royale_data/normal
+	utility_weight = 3
+	misc_weight = 3
+	extra_loot_prob = 10
+	pods_per_second = 0.5
+	barrier_move_speed = 0.1
+	rare_drop_prob = 3
+
+//used for the initial pods dropped at the start of the royale
+/datum/battle_royale_data/normal/start
+	active_time = 1
+	common_weight = 12
+	utility_weight = 14
+	rare_weight = 4
+	final_time = 30 MINUTES
+
+/datum/battle_royale_data/normal/one_second
+	active_time = 1 SECONDS
+	common_weight = 12
+	utility_weight = 12
+
+/datum/battle_royale_data/normal/three_minutes
+	active_time = 3 MINUTES
+	common_weight = 12
+	utility_weight = 8
+
+/datum/battle_royale_data/normal/six_minutes
+	active_time = 6 MINUTES
+	common_weight = 12
+	utility_weight = 6
+	rare_weight = 3
+
+/datum/battle_royale_data/normal/ten_minutes
+	active_time = 10 MINUTES
+	common_weight = 10
+	utility_weight = 4
+	rare_weight = 3
+	super_drop_prob = 0.5
+
+/datum/battle_royale_data/normal/fifteen_minutes
+	active_time = 15 MINUTES
+	common_weight = 10
+	rare_weight = 4
+	super_drop_prob = 1
+
+//start double barrier speed
+/datum/battle_royale_data/normal/seventeen_minutes_thirty_seconds
+	active_time = 17.5 MINUTES
+	barrier_move_speed = 0.2
+
+/datum/battle_royale_data/normal/twenty_minutes
+	active_time = 20 MINUTES
+	common_weight = 8
+	rare_weight = 5
+	super_drop_prob = 1.5
+	barrier_move_speed = 0.2
+
+/datum/battle_royale_data/normal/twenty_five_minutes
+	active_time = 25 MINUTES
+	common_weight = 5
+	rare_weight = 8
+	super_rare_weight = 2
+	super_drop_prob = 4
+	barrier_move_speed = 0.2
+	pods_per_second = 0.3
+
+//premade set which lasts at most 10 minutes
+/datum/battle_royale_data/fast
+	final_time = 10 MINUTES
+
