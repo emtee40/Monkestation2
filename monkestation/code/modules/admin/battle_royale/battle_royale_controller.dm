@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	for(var/datum/antagonist/battle_royale/antag_datum in players)
 		if(antag_datum.died)
 			continue
-		living_players += antag_datum
+		living_players += antag_datum.owner.current
 
 	if(length(living_players) <= 1)
 		end_royale(length(living_players) == 1 ? living_players[1] : null)
