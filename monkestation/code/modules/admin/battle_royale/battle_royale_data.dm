@@ -38,9 +38,9 @@
 	utility_weight = 3
 	misc_weight = 3
 	extra_loot_prob = 10
-	pods_per_second = 0.5
+	pods_per_second = 0.3
 	barrier_move_speed = 0.1
-	rare_drop_prob = 3
+	rare_drop_prob = 4
 
 //used for the initial pods dropped at the start of the royale
 /datum/battle_royale_data/normal/start
@@ -77,17 +77,23 @@
 	active_time = 15 MINUTES
 	common_weight = 10
 	rare_weight = 4
+	rare_drop_prob = 5
 	super_drop_prob = 1
 
 //start double barrier speed
 /datum/battle_royale_data/normal/seventeen_minutes_thirty_seconds
 	active_time = 17.5 MINUTES
+	common_weight = 10
+	rare_weight = 4
+	rare_drop_prob = 5
+	super_drop_prob = 1
 	barrier_move_speed = 0.2
 
 /datum/battle_royale_data/normal/twenty_minutes
 	active_time = 20 MINUTES
 	common_weight = 8
 	rare_weight = 5
+	rare_drop_prob = 5
 	super_drop_prob = 1.5
 	barrier_move_speed = 0.2
 
@@ -96,11 +102,55 @@
 	common_weight = 5
 	rare_weight = 8
 	super_rare_weight = 2
+	extra_loot_prob = 15
+	rare_drop_prob = 7
 	super_drop_prob = 4
 	barrier_move_speed = 0.2
-	pods_per_second = 0.3
+	pods_per_second = 0.2
 
 //premade set which lasts at most 10 minutes
 /datum/battle_royale_data/fast
+	common_weight = 3
+	utility_weight = 3
+	rare_weight = 3
+	misc_weight = 4
+	extra_loot_prob = 15
+	rare_drop_prob = 7
+	super_drop_prob = 1
+	barrier_move_speed = 0.4
+	pods_per_second = 0.4
+
+/datum/battle_royale_data/fast/start
+	active_time = 1
+	common_weight = 10
+	utility_weight = 15
 	final_time = 10 MINUTES
 
+/datum/battle_royale_data/fast/one_second
+	active_time = 1 SECONDS
+	common_weight = 10
+	utility_weight = 10
+
+/datum/battle_royale_data/fast/one_minute
+	active_time = 1 MINUTES
+	common_weight = 10
+	utility_weight = 5
+
+/datum/battle_royale_data/fast/two_minutes_thrity_seconds
+	active_time = 2.5 MINUTES
+	common_weight = 5
+	rare_weight = 4
+	super_drop_prob = 1.5
+
+/datum/battle_royale_data/fast/five_minutes
+	active_time = 5 MINUTES
+	rare_weight = 5
+	super_drop_prob = 2.5
+
+/datum/battle_royale_data/fast/seven_minutes_thirty_seconds
+	active_time = 7.5 MINUTES
+	rare_weight = 6
+	super_rare_weight = 1
+	super_drop_prob = 3.5
+	barrier_move_speed = 0.5
+	pods_per_second = 0.3
