@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(royale_misc_loot, list(
 		/obj/item/flamethrower/full/tank = 1, //using this would be a very bad idea for your health
 		/obj/item/food/burger/roburger/big = 1,
 		/obj/item/freeze_cube = 1,
-		/obj/item/grenade/clusterbuster/slime = 1,
+		/obj/item/grenade/clusterbuster/slime/volatile = 1,
 		/obj/item/grenade/clusterbuster/random = 1, //most of these will do nothing or have a large amount of friendly fire
 		/obj/item/grenade/monkey_barrel = 1,
 		/obj/item/lava_staff = 1,

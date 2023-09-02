@@ -36,7 +36,7 @@
 //premade set which lasts at most 30 minutes
 /datum/battle_royale_data/normal
 	utility_weight = 3
-	misc_weight = 3
+	misc_weight = 2
 	extra_loot_prob = 10
 	pods_per_second = 0.3
 	barrier_move_speed = 0.1
@@ -113,9 +113,9 @@
 	common_weight = 3
 	utility_weight = 3
 	rare_weight = 3
-	misc_weight = 4
+	misc_weight = 2
 	extra_loot_prob = 15
-	rare_drop_prob = 7
+	rare_drop_prob = 6
 	super_drop_prob = 1
 	barrier_move_speed = 0.4
 	pods_per_second = 0.4

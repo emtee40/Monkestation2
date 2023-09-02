@@ -37,6 +37,7 @@
 	living_moved.dust(drop_items = TRUE)
 
 /datum/antagonist/battle_royale/proc/on_death(datum/source, gibbed)
+	died = TRUE
 	GLOB.battle_royale_controller?.check_ending()
 	if(!isliving(source) || gibbed || !dust_on_death)
 		return
@@ -44,7 +45,6 @@
 	var/mob/living/living_died = source
 	to_chat(living_died, span_userdanger("You died!"))
 	living_died.dust(drop_items = TRUE)
-	died = TRUE
 
 /datum/objective/battle_royale //has no completion requirement as it cannot be completed
 	name = "Get that victory royale"

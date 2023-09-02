@@ -127,10 +127,12 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 ///Start the royale
 /datum/battle_royale_controller/proc/start_royale()
 	if(!do_ghost_drop("Would you like to partake in BATTLE ROYALE?"))
+		message_admins("No participants for battle royale, stopping royale.")
+		end_royale()
 		return
 
 	sound_to_playing_players('sound/misc/airraid.ogg', 100, FALSE)
-	send_to_playing_players(span_boldannounce("A 30 second grace period has been established. Good luck."))
+	send_to_playing_players(span_boldannounce("A 1 minute grace period has been established. Good luck."))
 	send_to_playing_players(span_boldannounce("WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!"))
 	send_to_playing_players(span_boldannounce("[length(players)] people remain..."))
 
@@ -150,8 +152,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 
 	participants = poll_candidates("[message]", poll_time = given_poll_time, group = participants)
 	if(!length(participants))
-		message_admins("No participants for battle royale, stopping royale.")
-		end_royale()
 		return FALSE
 
 	players = list()
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 			spawned_human.status_flags |= GODMODE
 			var/datum/action/cooldown/spell/aoe/knock/knock_spell = new
 			knock_spell.Grant(spawned_human)
-			to_chat(spawned_human, span_notice("You have been given knock and pacifism for 30 seconds."))
+			to_chat(spawned_human, span_notice("You have been given knock and pacifism for 1 minute."))
 
 		spawned_human.equipOutfit(/datum/outfit/job/assistant)
 		var/obj/item/implant/weapons_auth/auth = new
