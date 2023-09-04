@@ -182,6 +182,10 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	var/fire_smothering_strength = 0
 
 	var/last_message = ""
+	///Ref to our area if we are an area weather
+	var/area/our_area
+	///Our weather traits
+	var/weather_traits
 
 /datum/particle_weather/proc/severity_mod()
 	return severity / max_severity
@@ -214,7 +218,7 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	COOLDOWN_START(src, time_left, weather_duration)
 	weather_start_time = world.time
 	running = TRUE
-	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
+	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 	weather_warnings()
 	if(particle_effect_type)
 		SSparticle_weather.set_particle_effect(new particle_effect_type);
@@ -247,27 +251,32 @@ GLOBAL_LIST_EMPTY(siren_objects)
 		messaged_mobs = list()
 
 	if(severity_steps_taken < severity_steps && as_step)
-		addtimer(CALLBACK(src, .proc/change_severity), weather_duration / severity_steps)
+		addtimer(CALLBACK(src, PROC_REF(change_severity)), weather_duration / severity_steps)
 
 /datum/particle_weather/proc/wind_down()
 	severity = 0
-	if(SSparticle_weather.particle_effect)
+	if(SSparticle_weather.area_weathers[our_area])
+		particle
+	else if(SSparticle_weather.particle_effect)
 		SSparticle_weather.particle_effect.animate_severity(severity_mod())
 
 		//Wait for the last particle to fade, then qdel yourself
-		addtimer(CALLBACK(src, .proc/end), SSparticle_weather.particle_effect.lifespan + SSparticle_weather.particle_effect.fade)
+		addtimer(CALLBACK(src, PROC_REF(end)), SSparticle_weather.particle_effect.lifespan + SSparticle_weather.particle_effect.fade)
 
 /datum/particle_weather/proc/end()
 	running = FALSE
-	SSparticle_weather.stop_weather()
+	if(SSparticle_weather.area_weathers[our_area])
+		SSparticle_weather.stop_area_weather(src)
+	else
+		SSparticle_weather.stop_weather()
 
-/datum/particle_weather/proc/can_weather(mob/living/mob_to_check)
+/datum/particle_weather/proc/can_weather(mob/living/mob_to_check, area/checked_area)
 	var/turf/mob_turf = get_turf(mob_to_check)
 
 	if(!mob_turf)
 		return
 
-	if(mob_turf.turf_flags & TURF_WEATHER)
+	if(((mob_turf.turf_flags & TURF_WEATHER) && !checked_area) || (checked_area && (checked_area == our_area)))
 		return TRUE
 
 	return FALSE
@@ -278,22 +287,22 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	var/turf/mob_turf = get_turf(mob_to_check)
 	var/atom/loc_to_check = mob_to_check.loc
 	while(loc_to_check != mob_turf)
-		if((immunity_type && HAS_TRAIT(loc_to_check, immunity_type)) || HAS_TRAIT(loc_to_check, TRAIT_WEATHER_IMMUNE))
+		if(((immunity_type && HAS_TRAIT(loc_to_check, immunity_type)) || HAS_TRAIT(loc_to_check, TRAIT_WEATHER_IMMUNE)) && !(weather_traits & WEATHERTRAIT_NO_IMMUNITIES))
 			return
 		loc_to_check = loc_to_check.loc
 
 	return TRUE
 
-/datum/particle_weather/proc/process_mob_effect(mob/living/L, delta_time)
-	if(can_weather(L) && running)
-		weather_sound_effect(L)
-		if(can_weather_effect(L))
-			if((last_message || weather_messages) && (!messaged_mobs[L] || world.time > messaged_mobs[L]))
-				weather_message(L)
-			affect_mob_effect(L, delta_time)
+/datum/particle_weather/proc/process_mob_effect(mob/living/living_affected, delta_time, area/provided_area)
+	if(can_weather(living_affected, provided_area) && running)
+		weather_sound_effect(living_affected)
+		if(can_weather_effect(living_affected))
+			if((last_message || weather_messages) && (!messaged_mobs[living_affected] || world.time > messaged_mobs[living_affected]))
+				weather_message(living_affected)
+			affect_mob_effect(living_affected, delta_time)
 	else
-		stop_weather_sound_effect(L)
-		messaged_mobs[L] = 0
+		stop_weather_sound_effect(living_affected)
+		messaged_mobs[living_affected] = 0
 
 /datum/particle_weather/proc/affect_mob_effect(mob/living/L, delta_time, calculated_damage)
 	if(damage_per_tick)

@@ -12,6 +12,8 @@ SUBSYSTEM_DEF(particle_weather)
 	var/particles/weather/particle_effect
 	var/datum/weather_effect/weather_special_effect
 	var/obj/weather_effect
+	///Assoc list of areas and their assigned weather datum
+	var/list/area_weathers = list()
 
 /datum/controller/subsystem/particle_weather/stat_entry(msg)
 	if(running_weather?.running)
@@ -92,3 +94,25 @@ SUBSYSTEM_DEF(particle_weather)
 /datum/controller/subsystem/particle_weather/proc/stop_weather()
 	QDEL_NULL(running_weather)
 	QDEL_NULL(particle_effect)
+
+///Create or add an instance of area particle weather for the input area
+/datum/controller/subsystem/particle_weather/proc/add_area_weather(/datum/particle_weather/input_weather, area/weather_area)
+	if(!input_weather || !weather_area)
+		return
+
+	if(ispath(input_weather))
+		input_weather = new
+
+	input_weather.our_area = weather_area
+	area_weathers[weather_area] = input_weather
+	return input_weather
+
+///Remove and qdel an area weather for the input area
+/datum/controller/subsystem/particle_weather/proc/remove_area_weather(area/area_to_remove)
+	var/datum/particle_weather/weather_to_remove = area_weathers[area_to_remove]
+	if(!weather_to_remove)
+		return
+
+	area_weathers[area_to_remove] = FALSE
+	weather_to_remove.wind_down()
+	qdel(weather_to_remove)
