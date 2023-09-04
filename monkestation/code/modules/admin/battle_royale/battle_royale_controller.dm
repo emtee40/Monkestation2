@@ -20,8 +20,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	var/next_data_datum_value = 1
 	///Ref to the /datum/battle_royale_data we are currently using
 	var/datum/battle_royale_data/current_data
-	///Ref to our storm controller
-	var/datum/royale_storm_controller/storm_controller = new
+	///Ref to our barrier controller
+	var/datum/royale_barrier_controller/barrier_controller = new
 	///Assoc list of prizes for the winner
 	var/list/prizes = list(COIN_PRIZE = 0,
 						HIGH_THREAT = 0,
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	GLOB.battle_royale_controller = null
 	current_data = null
 	QDEL_LIST(data_datums)
-	QDEL_NULL(storm_controller)
+	QDEL_NULL(barrier_controller)
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
@@ -77,8 +77,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	if(SPT_PROB(current_data.super_drop_prob, 1))
 		spawn_super_drop()
 
-/*	if(barrier_moving && barrier_controller && current_data.barrier_move_speed)
-		barrier_controller.check_barrier_movement(current_data.barrier_move_speed * seconds_per_tick)*/
+	if(barrier_moving && barrier_controller && current_data.barrier_move_speed)
+		barrier_controller.check_barrier_movement(current_data.barrier_move_speed * seconds_per_tick)
 
 ///Setup and start a royale
 /datum/battle_royale_controller/proc/setup(fast = FALSE, custom = FALSE, mob/user)
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		send_to_playing_players(span_boldannounce("Battle Royale: Force-starting game."))
 		SSticker.start_immediately = TRUE
 
-	storm_controller.setup()
+	barrier_controller.setup()
 	send_to_playing_players(span_boldannounce("Battle Royale: Clearing world mobs."))
 	for(var/mob/living/mob as() in GLOB.mob_living_list)
 		mob.dust(TRUE, FALSE, TRUE)
@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		for(var/datum/battle_royale_data/data_datum in GLOB.custom_battle_royale_data)
 			new_data_datums += data_datum
 	else
-		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data)) //need to get this to work
+		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data))
 			if(istype(data_datum, /datum/battle_royale_data/custom) || (fast ? !istype(data_datum, /datum/battle_royale_data/fast) : istype(data_datum, /datum/battle_royale_data/fast)))
 				continue
 

@@ -3,19 +3,14 @@
 	if(notransform)
 		return
 
-//monkestation edit start
 	if(isopenturf(loc))
 		var/turf/open/my_our_turf = loc
 		if(my_our_turf.pollution)
 			my_our_turf.pollution.touch_act(src)
-
+	//monkestation edit start
 	if(SSparticle_weather.running_weather)
 		handle_weather(seconds_per_tick)
-
-	var/area/our_area = get_area(src)
-	if(SSparticle_weather.area_weather[our_area])
-		handle_weather(seconds_per_tick, our_area)
-//monkestation edit end
+	//monkestation edit end
 	if(damageoverlaytemp)
 		damageoverlaytemp = 0
 		update_damage_hud()
