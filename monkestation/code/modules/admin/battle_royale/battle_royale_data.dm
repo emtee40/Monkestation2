@@ -18,10 +18,8 @@
 	///What does this set the prob of doing a super drop to
 	var/super_drop_prob = 0
 	///How many tiles per second does this make the barrier move, can be less then 1
-	var/barrier_move_speed = 0
-	///How many loot pods should we spawn esuper second, can be less then 1
 	var/pods_per_second = 0
-	///How long is the maximum royale expected length, does not have to be exact, only needs to be set once
+	///How long until the station station is covered in storms, only needs to be set once
 	var/final_time
 
 //Used for admin custom royale data sets
@@ -39,7 +37,6 @@
 	misc_weight = 2
 	extra_loot_prob = 10
 	pods_per_second = 0.3
-	barrier_move_speed = 0.1
 	rare_drop_prob = 4
 
 //used for the initial pods dropped at the start of the royale
@@ -80,22 +77,12 @@
 	rare_drop_prob = 5
 	super_drop_prob = 1
 
-//start double barrier speed
-/datum/battle_royale_data/normal/seventeen_minutes_thirty_seconds
-	active_time = 17.5 MINUTES
-	common_weight = 10
-	rare_weight = 4
-	rare_drop_prob = 5
-	super_drop_prob = 1
-	barrier_move_speed = 0.2
-
 /datum/battle_royale_data/normal/twenty_minutes
 	active_time = 20 MINUTES
 	common_weight = 8
 	rare_weight = 5
 	rare_drop_prob = 5
 	super_drop_prob = 1.5
-	barrier_move_speed = 0.2
 
 /datum/battle_royale_data/normal/twenty_five_minutes
 	active_time = 25 MINUTES
@@ -105,7 +92,6 @@
 	extra_loot_prob = 15
 	rare_drop_prob = 7
 	super_drop_prob = 4
-	barrier_move_speed = 0.2
 	pods_per_second = 0.2
 
 //premade set which lasts at most 10 minutes
@@ -117,7 +103,6 @@
 	extra_loot_prob = 15
 	rare_drop_prob = 6
 	super_drop_prob = 1
-	barrier_move_speed = 0.4
 	pods_per_second = 0.4
 
 /datum/battle_royale_data/fast/start
@@ -152,5 +137,4 @@
 	rare_weight = 6
 	super_rare_weight = 1
 	super_drop_prob = 3.5
-	barrier_move_speed = 0.5
 	pods_per_second = 0.3

@@ -14,20 +14,18 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	var/list/data_datums
 	///list of all our players assigned "antag" datums
 	var/list/players = list()
-	///Should the barrier move, not recommended unless you plan on ending the royale yourself
-	var/barrier_moving = TRUE
 	///Tracker var for what data in data_datums we should use next
 	var/next_data_datum_value = 1
 	///Ref to the /datum/battle_royale_data we are currently using
 	var/datum/battle_royale_data/current_data
 	///Ref to our barrier controller
-	var/datum/royale_barrier_controller/barrier_controller = new
+	var/datum/royale_storm_controller/storm_controller = new
 	///Assoc list of prizes for the winner
 	var/list/prizes = list(COIN_PRIZE = 0,
 						HIGH_THREAT = 0,
 						MEDIUM_THREAT = 0,
 						LOW_THREAT = 0)
-	///What is the expected max duration of this royale
+	///What is the expected time for the entire station to be covered in storms
 	var/max_duration = 0
 	///Assoc list of loot tables to use
 	var/static/list/loot_tables = list(COMMON_LOOT_TABLE = GLOB.royale_common_loot,
@@ -40,16 +38,17 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	. = ..()
 	if(GLOB.battle_royale_controller)
 		message_admins("Battle royale controller datum created with already existing controller, force ending the current royale of the old controller and qdeling it.")
-		qdel(GLOB.battle_royale_controller)
+		QDEL_NULL(GLOB.battle_royale_controller)
 
 	GLOB.battle_royale_controller = src
+	storm_controller.royale_controller = src
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	message_admins("Battle royale controller datum destroyed, force ending it's current royale.")
 	GLOB.battle_royale_controller = null
 	current_data = null
 	QDEL_LIST(data_datums)
-	QDEL_NULL(barrier_controller)
+	QDEL_NULL(storm_controller)
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
@@ -77,9 +76,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	if(SPT_PROB(current_data.super_drop_prob, 1))
 		spawn_super_drop()
 
-	if(barrier_moving && barrier_controller && current_data.barrier_move_speed)
-		barrier_controller.check_barrier_movement(current_data.barrier_move_speed * seconds_per_tick)
-
 ///Setup and start a royale
 /datum/battle_royale_controller/proc/setup(fast = FALSE, custom = FALSE, mob/user)
 	if(active)
@@ -88,7 +84,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		return
 
 	build_data_datums(fast, custom)
-
 	send_to_playing_players(span_ratvar("Battle Royale will begin soon..."))
 	GLOB.enter_allowed = FALSE
 	GLOB.ghost_role_flags = NONE
@@ -108,7 +103,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		send_to_playing_players(span_boldannounce("Battle Royale: Force-starting game."))
 		SSticker.start_immediately = TRUE
 
-	barrier_controller.setup()
 	send_to_playing_players(span_boldannounce("Battle Royale: Clearing world mobs."))
 	for(var/mob/living/mob as() in GLOB.mob_living_list)
 		mob.dust(TRUE, FALSE, TRUE)
@@ -131,6 +125,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		end_royale()
 		return
 
+	storm_controller.setup()
 	sound_to_playing_players('sound/misc/airraid.ogg', 100, FALSE)
 	send_to_playing_players(span_boldannounce("A 1 minute grace period has been established. Good luck."))
 	send_to_playing_players(span_boldannounce("WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!"))
@@ -170,6 +165,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 			to_chat(spawned_human, span_notice("You have been given knock and pacifism for 1 minute."))
 
 		spawned_human.equipOutfit(/datum/outfit/job/assistant)
+		spawned_human.setMaxHealth(200)
+		spawned_human.set_health(200)
 		var/obj/item/implant/weapons_auth/auth = new
 		auth.implant(spawned_human)
 		players += spawned_human.mind?.add_antag_datum(/datum/antagonist/battle_royale)
@@ -189,7 +186,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 ///End a battle royale
 /datum/battle_royale_controller/proc/end_royale(mob/living/winner)
 	deactivate()
-	barrier_controller.clear_barriers()
+	storm_controller.end_storm()
 	SSticker.force_ending = TRUE
 	if(winner && !QDELETED(winner))
 		send_to_playing_players(span_ratvar("VICTORY ROYALE!"))
@@ -230,7 +227,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		return FALSE
 
 	count = 10 * count //this allows us to avoid floating points
-	count = truncate(count) //make extra sure we dont have any floating points
+	count = truncate(count)
 	if(!persistent_count)
 		persistent_count = count
 	else
@@ -277,7 +274,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 		for(var/datum/battle_royale_data/data_datum in GLOB.custom_battle_royale_data)
 			new_data_datums += data_datum
 	else
-		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data))
+		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data)) //need to get this to work
 			if(istype(data_datum, /datum/battle_royale_data/custom) || (fast ? !istype(data_datum, /datum/battle_royale_data/fast) : istype(data_datum, /datum/battle_royale_data/fast)))
 				continue
 
@@ -351,7 +348,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	var/list/turf_list = GLOB.station_turfs.Copy()
 	shuffle_inplace(turf_list)
 	for(var/turf/possible_turf in turf_list)
-		if(isclosedturf(possible_turf) || (possible_turf in barrier_controller.invalid_turfs))
+		var/area/turf_area = get_area(possible_turf)
+		if(isclosedturf(possible_turf) || !(turf_area.type in (storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas)))
 			continue
 		targeted_turf = possible_turf
 		break
