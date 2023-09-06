@@ -51,3 +51,4 @@
 
 /datum/mood_event/battle_royale
 	mood_change = 4 //same as being a traitor
+//
