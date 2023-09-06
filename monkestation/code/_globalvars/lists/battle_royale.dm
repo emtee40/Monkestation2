@@ -224,7 +224,7 @@ GLOBAL_LIST_INIT(royale_super_rare_loot, list(
 		list(/obj/vehicle/sealed/mecha/gygax/dark/loaded = 1, /obj/item/card/id/advanced/chameleon = 1) = 1
 ))
 
-///misc loot, things that are not useful on their own/are jokes, chance for this loot table is never changed
+///misc loot, things that are not useful on their own/are jokes
 GLOBAL_LIST_INIT(royale_misc_loot, list(
 		/obj/item/banhammer = 1,
 		/obj/item/ai_module/zeroth/automalf = 1,

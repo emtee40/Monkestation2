@@ -3,8 +3,6 @@
 	show_in_roundend = FALSE
 	antag_moodlet = /datum/mood_event/battle_royale
 	show_in_antagpanel = FALSE //you should never need to manually add this, might at some point add a proc to manually inject someone into a royale
-	///Should we dust our current mob on death?
-	var/dust_on_death = TRUE
 	///Have we died?
 	var/died = FALSE
 
@@ -39,7 +37,7 @@
 /datum/antagonist/battle_royale/proc/on_death(datum/source, gibbed)
 	died = TRUE
 	GLOB.battle_royale_controller?.check_ending()
-	if(!isliving(source) || gibbed || !dust_on_death)
+	if(!isliving(source) || gibbed)
 		return
 
 	var/mob/living/living_died = source
