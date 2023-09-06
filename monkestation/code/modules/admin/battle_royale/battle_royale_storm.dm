@@ -3,7 +3,7 @@
 #define STORM_STAGE_MIDDLE 2
 #define STORM_STAGE_INNER 3
 //these values might need to be tweaked
-#define CLOSE_AREA_MAX_DIST 35
+#define CLOSE_AREA_MAX_DIST 30
 #define MIDDLE_AREA_MAX_DIST 50
 /datum/royale_storm_controller
 	///how often to consume an area
@@ -24,6 +24,8 @@
 	var/list/storms = list()
 	///ref to our royale controller
 	var/datum/battle_royale_controller/royale_controller
+	///are we in debug mode
+	var/debug = FALSE
 
 /datum/royale_storm_controller/Destroy(force, ...)
 	royale_controller = null
@@ -38,8 +40,8 @@
 	message_admins("Storm started.")
 	send_to_playing_players(span_userdanger("The storm has been created! It will consume the station from the outside in, so plan around it!"))
 	var/datum/particle_weather/royale_storm/outside_storm = new
-	outside_storm.weather_duration_lower = royale_controller?.max_duration
-	outside_storm.weather_duration_upper = royale_controller?.max_duration
+	outside_storm.weather_duration_lower = royale_controller?.max_duration * 2 //double it to make sure people cant somehow escape to space
+	outside_storm.weather_duration_upper = royale_controller?.max_duration * 2
 	SSparticle_weather.run_weather(outside_storm, TRUE)
 	consume_area(/area/space/nearstation, TRUE) //start the storm
 
@@ -49,22 +51,24 @@
 	middle_areas = list()
 	inner_areas = list()
 	var/turf/center = SSmapping.get_station_center()
-	for(var/station_area as anything in GLOB.the_station_areas)
-		var/area/area_instance = GLOB.areas_by_type[station_area]
-		if(!area_instance)
+	var/list/area_list = list()
+	for(var/turf/checked_turf in GLOB.station_turfs) //find the closest turf in each area
+		var/area/turf_area = get_area(checked_turf)
+		var/dist = get_dist(checked_turf, center)
+		if(!area_list[turf_area])
+			area_list[turf_area] = dist
 			continue
 
-		var/general_dist = get_dist(locate(/turf) in area_instance, center) //due to the way this is handled it can vary what list an area will go in, but that should be fine
-		if(!general_dist)
-			message_admins("Area lacking dist for royale storm generation.")
-			continue
+		if(area_list[turf_area] > dist)
+			area_list[turf_area] = dist
 
-		if(general_dist <= CLOSE_AREA_MAX_DIST)
-			inner_areas += area_instance.type
-		else if(general_dist <= MIDDLE_AREA_MAX_DIST)
-			middle_areas += area_instance.type
+	for(var/area/station_area in area_list)
+		if(area_list[station_area] <= CLOSE_AREA_MAX_DIST)
+			inner_areas += station_area.type
+		else if(area_list[station_area] <= MIDDLE_AREA_MAX_DIST)
+			middle_areas += station_area.type
 		else
-			outer_areas += area_instance.type
+			outer_areas += station_area.type
 
 ///calculate how long inbetween each consume to get the desired game length
 /datum/royale_storm_controller/proc/calculate_consume_time()
@@ -79,38 +83,32 @@
 	var/datum/weather/royale_storm/storm = new(SSmapping.levels_by_trait(ZTRAIT_STATION))
 	storms += storm
 	storm.area_type = area_path
-	message_admins("Storm consuming [initial(area_path.name)].")
+	if(debug)
+		message_admins("Storm consuming [initial(area_path.name)].")
+	send_to_playing_players(span_boldannounce("The storm is consuming [initial(area_path.name)]!"))
 	storm.telegraph()
 	if(repeat)
-		message_admins("ONE")
 		if(!current_area_pick)
-			message_admins("TWO")
 			return
 
 		if(!length(current_area_pick)) //there was none left, don't try and take from an empty list
-			message_admins("THREE")
 			switch(storm_stage)
 				if(STORM_STAGE_NONE)
-					message_admins("N")
 					storm_stage = STORM_STAGE_OUTER
 					current_area_pick = outer_areas
 				if(STORM_STAGE_OUTER)
-					message_admins("O")
 					send_to_playing_players(span_userdanger("The storm has consumed the entire outer station!"))
 					storm_stage = STORM_STAGE_MIDDLE
 					current_area_pick = middle_areas
 				if(STORM_STAGE_MIDDLE)
-					message_admins("M")
 					send_to_playing_players(span_userdanger("The storm has consumed the majority of the station!"))
 					storm_stage = STORM_STAGE_INNER
 					current_area_pick = inner_areas
 				if(STORM_STAGE_INNER)
-					message_admins("I")
 					send_to_playing_players(span_userdanger("The storm has consumed the ENTIRE station!"))
 					current_area_pick = null
 					return
 		timerid = addtimer(CALLBACK(src, PROC_REF(consume_area), pick_n_take(current_area_pick), TRUE), area_consume_timer)
-		message_admins("HHHHHMMMM[area_consume_timer]")
 
 ///stops the storm.
 /datum/royale_storm_controller/proc/stop_storm()
@@ -157,13 +155,14 @@
 	weather_messages = list(span_userdanger("You're badly burned by the storm!"))
 
 	damage_type = BURN
-	damage_per_tick = 5
+	damage_per_tick = 3
 	min_severity = 4
 	max_severity = 150
 	max_severity_change = 50
 	severity_steps = 50
 	probability = 1
 
+	weather_additional_events = list("thunder" = list(6, /datum/weather_event/thunder), "wind" = list(8, /datum/weather_event/wind))
 	weather_warnings = list("siren" = null, "message" = FALSE)
 	fire_smothering_strength = 6
 	weather_traits = WEATHERTRAIT_NO_IMMUNITIES

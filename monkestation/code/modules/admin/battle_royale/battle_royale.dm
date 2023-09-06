@@ -41,4 +41,4 @@
 
 	message_admins("[key_name_admin(usr)] has triggered battle royale.")
 	log_admin("[key_name(usr)] has triggered battle royale.")
-	GLOB.battle_royale_controller.setup((input == "Fast(10 min max dur)") ? TRUE : FALSE)
+	GLOB.battle_royale_controller.setup((input == "Fast(10 min max duration)") ? TRUE : FALSE)

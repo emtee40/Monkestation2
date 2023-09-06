@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(events)
 //selects a random event based on whether it can occur and it's 'weight'(probability)
 /datum/controller/subsystem/events/proc/spawnEvent()
 	set waitfor = FALSE //for the admin prompt
-	if(!CONFIG_GET(flag/allow_random_events))
+	if(!CONFIG_GET(flag/allow_random_events) || GLOB.battle_royale_controller?.active) //monkestation edit: adds battle royale check
 		return
 
 	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)

@@ -186,7 +186,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 ///End a battle royale
 /datum/battle_royale_controller/proc/end_royale(mob/living/winner)
 	deactivate()
-	storm_controller.end_storm()
+	storm_controller?.end_storm()
+	storm_controller?.stop_storm()
 	SSticker.force_ending = TRUE
 	if(winner && !QDELETED(winner))
 		send_to_playing_players(span_ratvar("VICTORY ROYALE!"))
@@ -275,11 +276,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 			new_data_datums += data_datum
 	else
 		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data)) //need to get this to work
-			if(istype(data_datum, /datum/battle_royale_data/custom) || (fast ? !istype(data_datum, /datum/battle_royale_data/fast) : istype(data_datum, /datum/battle_royale_data/fast)))
-				continue
-
 			data_datum = new data_datum()
-			if(!data_datum.active_time)
+			if(!data_datum.active_time||istype(data_datum, /datum/battle_royale_data/custom)||istype(data_datum, fast?/datum/battle_royale_data/normal : /datum/battle_royale_data/fast))
 				qdel(data_datum)
 				continue
 
@@ -297,7 +295,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	for(var/i in 1 to highest_active_time)
 		if(new_data_datums["[i]"])
 			var/datum/battle_royale_data/data_datum = new_data_datums["[i]"]
-			new_data_datums["[i]"] = null //check if we need to remove fully
+			//new_data_datums["[i]"] = null //check if we need to remove fully
+			new_data_datums -= "[i]"
 			new_data_datums["[data_datums_iterator++]"] = data_datum
 			if(data_datum.final_time)
 				max_duration = data_datum.final_time
@@ -343,13 +342,17 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	if(prob(current_data?.extra_loot_prob))
 		picked_loot = add_loot_items(pick_weight(GLOB.royale_extra_loot), picked_loot)
 
+	var/list/valid_areas_list = storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas
+	if(length(valid_areas_list))
+		return
+
 	var/drop_time = calculate_drop_time(delay)
 	var/turf/targeted_turf
 	var/list/turf_list = GLOB.station_turfs.Copy()
 	shuffle_inplace(turf_list)
 	for(var/turf/possible_turf in turf_list)
 		var/area/turf_area = get_area(possible_turf)
-		if(isclosedturf(possible_turf) || !(turf_area.type in (storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas)))
+		if(isclosedturf(possible_turf) || !(turf_area.type in valid_areas_list))
 			continue
 		targeted_turf = possible_turf
 		break
