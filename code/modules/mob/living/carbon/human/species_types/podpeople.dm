@@ -6,7 +6,6 @@
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,
-		HAIR,
 	)
 	inherent_traits = list(
 		TRAIT_PLANT_SAFE,
@@ -80,26 +79,3 @@
 
 /datum/species/pod/randomize_features(mob/living/carbon/human_mob)
 	randomize_external_organs(human_mob)
-
-	/datum/species/podperson/get_species_description()
-	return "A genetically engineered race of plant people. \
-
-/datum/species/podperson/create_pref_unique_perks()
-	var/list/to_add = list()
-
-	to_add += list(
-		list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "sun",
-			SPECIES_PERK_NAME = "Photosynthesis",
-			SPECIES_PERK_DESC = "[plural_form] feed off of light around them.",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "user-plus",
-			SPECIES_PERK_NAME = "Green Thumbs",
-			SPECIES_PERK_DESC = "[plural_form] can handle dangerous plants with ease",
-		),
-	)
-
-	return to_add
