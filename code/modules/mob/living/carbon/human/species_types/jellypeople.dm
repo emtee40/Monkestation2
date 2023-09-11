@@ -17,6 +17,8 @@
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOBLOOD,
+		TRAIT_LAVA_IMMUNE,
+		TRAIT_RESISTHEAT,
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/jelly
 	mutantlungs = /obj/item/organ/internal/lungs/slime
@@ -311,7 +313,7 @@
 		owner_nanites.nanite_volume *= 0.5
 		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
 		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE) //The trues are to copy activation as well
-		
+
 	H.blood_volume *= 0.45
 	H.notransform = 0
 
@@ -820,7 +822,7 @@
 		return FALSE
 
 	return TRUE
-	
+
 #undef JELLY_REGEN_RATE
 #undef JELLY_REGEN_RATE_EMPTY
 #undef BLOOD_VOLUME_LOSE_NUTRITION
