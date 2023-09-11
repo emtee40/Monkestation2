@@ -80,10 +80,10 @@
 /datum/species/pod/randomize_features(mob/living/carbon/human_mob)
 	randomize_external_organs(human_mob)
 
-	/datum/species/podperson/get_species_description()
+	/datum/species/podpeople/get_species_description()
 	return "A genetically engineered race of plant people. \
 
-/datum/species/podperson/create_pref_unique_perks()
+/datum/species/podpeople/create_pref_unique_perks()
 	var/list/to_add = list()
 
 	to_add += list(

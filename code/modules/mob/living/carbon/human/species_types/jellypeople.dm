@@ -18,7 +18,6 @@
 		TRAIT_TOXINLOVER,
 		TRAIT_NOBLOOD,
 		TRAIT_RESISTHEAT,
-		TRAIT_LAVA_IMMUNE,
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/jelly
 	mutantlungs = /obj/item/organ/internal/lungs/slime
