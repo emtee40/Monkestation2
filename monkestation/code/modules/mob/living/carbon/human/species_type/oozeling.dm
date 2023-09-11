@@ -220,12 +220,6 @@
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
-			SPECIES_PERK_ICON = "tint",
-			SPECIES_PERK_NAME = initial(exotic_blood.name),
-			SPECIES_PERK_DESC = "[name] blood is [initial(exotic_blood.name)], which can make recieving medical treatment harder.",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "wind",
 			SPECIES_PERK_NAME = "Anaerobic Lineage",
 			SPECIES_PERK_DESC = "[plural_form] don't require much oxygen to live."
