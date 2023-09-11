@@ -51,7 +51,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
-
 	/// Chance that we will generate a human surname, for lore reasons
 	var/human_surname_chance = 3
 

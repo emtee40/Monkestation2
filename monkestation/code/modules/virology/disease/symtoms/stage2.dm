@@ -470,7 +470,7 @@
 		return
 
 	var/mob/living/carbon/human/victim = mob
-	victim.vomit(stun = FALSE)
+	victim.vomit()
 
 /datum/symptom/antitox
 	name = "Antioxidantisation Syndrome"

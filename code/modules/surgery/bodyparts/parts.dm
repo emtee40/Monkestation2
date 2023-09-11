@@ -114,12 +114,12 @@
 	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
 	var/datum/worn_feature_offset/held_hand_offset
 
+	biological_state = BIO_STANDARD_JOINTED
+
 /obj/item/bodypart/arm/Destroy()
 	QDEL_NULL(worn_glove_offset)
 	QDEL_NULL(held_hand_offset)
 	return ..()
-
-	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/arm/Destroy()
 	return ..()

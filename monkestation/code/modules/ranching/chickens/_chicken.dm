@@ -336,7 +336,7 @@
 			set_friendship(user, 1)
 		else
 			var/turf/vomited_turf = get_turf(src)
-			vomited_turf.add_vomit_floor(src, VOMIT_TOXIC)
+			vomited_turf.add_vomit_floor(src, /obj/effect/decal/cleanable/vomit/toxic)
 			to_chat(user, "<span class='warning'>[name] can't keep the food down, it vomits all over the floor!</span>")
 			adjust_happiness(-15, user)
 			current_feed_amount -= 3

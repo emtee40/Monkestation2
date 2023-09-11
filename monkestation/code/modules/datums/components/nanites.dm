@@ -217,12 +217,12 @@
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"), null);
-				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE, TRUE, 0)
+				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, /obj/effect/decal/cleanable/vomit/purple, FALSE, TRUE, 0)
 			else
 				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"), null);
 				if(isturf(host_mob.drop_location()))
 					var/turf/T = host_mob.drop_location()
-					T.add_vomit_floor(host_mob, VOMIT_NANITE, 0)
+					T.add_vomit_floor(host_mob, /obj/effect/decal/cleanable/vomit/purple, 0)
 		if((NANITE_EXCESS_BURST + 0.1) to INFINITY) //Way too many nanites, they just leave through the closest exit before they harm/poison the host
 			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
 								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
@@ -234,16 +234,16 @@
 				var/obj/item/organ/internal/ears/ears = C.get_organ_slot(ORGAN_SLOT_EARS)
 				if(ears)
 					ears.adjustEarDamage(0, 30) //nanites coming out of your ears
-				C.vomit(0, FALSE, TRUE, 2, FALSE, VOMIT_NANITE, FALSE, TRUE, 0) //nanites coming out of your mouth
+				C.vomit(0, FALSE, TRUE, 2, FALSE, /obj/effect/decal/cleanable/vomit/purple, FALSE, TRUE, 0) //nanites coming out of your mouth
 
 			//nanites everywhere
 			if(isturf(host_mob.drop_location()))
 				var/turf/T = host_mob.drop_location()
-				T.add_vomit_floor(host_mob, VOMIT_NANITE, 0)
+				T.add_vomit_floor(host_mob, /obj/effect/decal/cleanable/vomit/purple, 0)
 				for(var/turf/adjacent_turf in oview(host_mob, 1))
 					if(adjacent_turf.density || !adjacent_turf.Adjacent(T))
 						continue
-					adjacent_turf.add_vomit_floor(host_mob, VOMIT_NANITE, 0)
+					adjacent_turf.add_vomit_floor(host_mob, /obj/effect/decal/cleanable/vomit/purple, 0)
 
 ///Updates the nanite volume bar visible in diagnostic HUDs
 /datum/component/nanites/proc/set_nanite_bar(remove = FALSE)

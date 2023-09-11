@@ -12,7 +12,7 @@
 	var/range = 0
 	var/spew_range = 1
 	var/spew_organs = FALSE
-	var/bloody_vomit = FALSE
+	var/constructed_flags = (MOB_VOMIT_MESSAGE)
 	COOLDOWN_DECLARE(cooldown)
 
 /datum/component/artifact/vomit/setup()
@@ -22,12 +22,13 @@
 		if(85 to 100) //15%
 			range = rand(2,7)
 	if(prob(12))
-		spew_organs = TRUE //trolling
+		constructed_flags |= MOB_VOMIT_STUN
 		potency += 20
 	if(prob(40))
 		spew_range = rand(1,5)
 		potency += spew_range
-	bloody_vomit = prob(50)
+	if(prob(50))
+		constructed_flags |= MOB_VOMIT_BLOOD
 	potency += (range) * 4
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/component/artifact, artifact_deactivate)), round(30 * (potency * 10) SECONDS))
 
@@ -35,8 +36,12 @@
 	. = ..()
 	var/mob/living/carbon/carbon = user
 	if(active && istype(carbon) && carbon.stat < UNCONSCIOUS)
+		//need to add a flag to an argument if it doesnt already exist and passes a prob(25)
 		examine_list += span_warning("It has an [spew_organs ? "extremely" : ""] disgusting aura! [prob(20) ? "..is that a felinid?" : ""]")
-		carbon.vomit(blood = bloody_vomit, stun = (spew_organs ? TRUE : prob(25)), distance = spew_range)
+		if(prob(25))
+			carbon.vomit(vomit_flags = constructed_flags | MOB_VOMIT_STUN, distance = spew_range)
+		else
+			carbon.vomit(vomit_flags = constructed_flags, distance = spew_range)
 		if(spew_organs && prob(40))
 			carbon.spew_organ()
 
@@ -44,6 +49,9 @@
 	for(var/mob/living/carbon/viewed in view(range, src))
 		if(prob(100 - potency))
 			continue
-		viewed.vomit(blood = bloody_vomit, stun = (spew_organs ? TRUE : prob(25)), distance = spew_range)
+		if(prob(25))
+			viewed.vomit(vomit_flags = constructed_flags | MOB_VOMIT_STUN, distance = spew_range)
+		else
+			viewed.vomit(vomit_flags = constructed_flags, distance = spew_range)
 		if(spew_organs && prob(10))
 			viewed.spew_organ()
