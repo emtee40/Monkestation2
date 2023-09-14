@@ -20,15 +20,16 @@
 	///How many tiles per second does this make the barrier move, can be less then 1
 	var/pods_per_second = 0
 	///How long until the station station is covered in storms, only needs to be set once
-	var/final_time
+	var/final_time = 0
 
 //Used for admin custom royale data sets
-/datum/battle_royale_data/custom/New()
+/datum/battle_royale_data/custom/New(input_active_time)
 	. = ..()
-	GLOB.custom_battle_royale_data += src
+/*	active_time = input_active_time
+	GLOB.custom_battle_royale_data["[active_time]"] = src*/
 
 /datum/battle_royale_data/custom/Destroy(force, ...)
-	GLOB.custom_battle_royale_data -= src
+	GLOB.custom_battle_royale_data -= "[active_time]"
 	return ..()
 
 //premade set which lasts at most 30 minutes

@@ -1,10 +1,10 @@
 GLOBAL_DATUM(battle_royale_controller, /datum/battle_royale_controller)
 
-///List of all /datum/battle_royale_data/custom that have been created
-GLOBAL_LIST_EMPTY(custom_battle_royale_data)
+///List of all /datum/battle_royale_data/custom that have been created, indexed by their active_time
+GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to a static var on the controller
 
-#define COIN_PRIZE "coins"
-//Battle royale controller, IF THERE ARE MULTIPLE OF THESE SOMETHING HAS GONE SUPER WRONG
+#define COIN_PRIZE "Coins"
+//Battle royale controller, IF THERE ARE MULTIPLE OF THESE SOMETHING HAS GONE VERY WRONG
 /datum/battle_royale_controller
 	///Is this controller active and processing
 	var/active = FALSE
@@ -132,7 +132,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	send_to_playing_players(span_boldannounce("[length(players)] people remain..."))
 
 	activate()
-	addtimer(CALLBACK(src, PROC_REF(end_grace)), 1 MINUTES)
 	if(length(data_datums))
 		current_data = data_datums["[next_data_datum_value]"]
 		next_data_datum_value++
@@ -163,6 +162,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 			var/datum/action/cooldown/spell/aoe/knock/knock_spell = new
 			knock_spell.Grant(spawned_human)
 			to_chat(spawned_human, span_notice("You have been given knock and pacifism for 1 minute."))
+			addtimer(CALLBACK(src, PROC_REF(remove_grace), spawned_human), 1 MINUTES)
 
 		spawned_human.equipOutfit(/datum/outfit/job/assistant)
 		spawned_human.setMaxHealth(200)
@@ -174,14 +174,13 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	return TRUE
 
 ///Remove grace period buffs and effects
-/datum/battle_royale_controller/proc/end_grace()
-	for(var/mob/player in GLOB.player_list)
-		var/datum/action/cooldown/spell/aoe/knock/knock_spell = locate() in player.actions
-		if(knock_spell)
-			qdel(knock_spell)
-		player.status_flags &= ~GODMODE
-		REMOVE_TRAIT(player, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		to_chat(player, span_greenannounce("You are no longer a pacifist. Be the last spessmens standing."))
+/datum/battle_royale_controller/proc/remove_grace(mob/player)
+	var/datum/action/cooldown/spell/aoe/knock/knock_spell = locate() in player.actions
+	if(knock_spell)
+		qdel(knock_spell)
+	player.status_flags &= ~GODMODE
+	REMOVE_TRAIT(player, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+	to_chat(player, span_greenannounce("You are no longer a pacifist. Be the last spessmens standing."))
 
 ///End a battle royale
 /datum/battle_royale_controller/proc/end_royale(mob/living/winner)
@@ -272,8 +271,11 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	var/list/new_data_datums = list()
 	var/highest_active_time = 0
 	if(custom && length(GLOB.custom_battle_royale_data))
-		for(var/datum/battle_royale_data/data_datum in GLOB.custom_battle_royale_data)
-			new_data_datums += data_datum
+		for(var/data_value in GLOB.custom_battle_royale_data)
+			var/datum/battle_royale_data/custom/data_datum = GLOB.custom_battle_royale_data[data_value]
+			new_data_datums["[data_datum.active_time]"] = data_datum
+			if(data_datum.active_time > highest_active_time)
+				highest_active_time = data_datum.active_time
 	else
 		for(var/datum/battle_royale_data/data_datum as anything in subtypesof(/datum/battle_royale_data)) //need to get this to work
 			data_datum = new data_datum()
@@ -295,7 +297,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	for(var/i in 1 to highest_active_time)
 		if(new_data_datums["[i]"])
 			var/datum/battle_royale_data/data_datum = new_data_datums["[i]"]
-			//new_data_datums["[i]"] = null //check if we need to remove fully
 			new_data_datums -= "[i]"
 			new_data_datums["[data_datums_iterator++]"] = data_datum
 			if(data_datum.final_time)
@@ -312,6 +313,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 /datum/battle_royale_controller/proc/deactivate()
 	active = FALSE
 	STOP_PROCESSING(SSprocessing, src)
+	storm_controller?.stop_storm()
 
 /datum/battle_royale_controller/proc/spawn_rare_drop()
 	do_loot_drop(RARE_LOOT_TABLE, 15 SECONDS, "Incoming extended supply materials.")
@@ -342,8 +344,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	if(prob(current_data?.extra_loot_prob))
 		picked_loot = add_loot_items(pick_weight(GLOB.royale_extra_loot), picked_loot)
 
-	var/list/valid_areas_list = storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas
-	if(length(valid_areas_list))
+	var/list/valid_areas_list = (storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas + storm_controller.core_areas)
+	if(!length(valid_areas_list))
 		return
 
 	var/drop_time = calculate_drop_time(delay)
@@ -378,6 +380,147 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data)
 	else
 		input_list += input_loot
 	return input_list
+
+/datum/battle_royale_controller/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BattleRoyalePanel")
+		ui.open()
+
+/datum/battle_royale_controller/ui_state(mob/user)
+	return GLOB.fun_state
+
+/datum/battle_royale_controller/ui_static_data(mob/user)
+
+/datum/battle_royale_controller/ui_data(mob/user)
+	var/list/data = list()
+	var/list/current_data_values = list()
+	var/list/prize_list = list()
+	var/list/custom_dataset_list = list()
+	if(current_data)
+		UNTYPED_LIST_ADD(current_data_values, list(
+			"active_time" = current_data.active_time,
+			"common_weight" = current_data.common_weight,
+			"utility_weight" = current_data.utility_weight,
+			"rare_weight" = current_data.rare_weight,
+			"super_rare_weight" = current_data.super_rare_weight,
+			"misc_weight" = current_data.misc_weight,
+			"extra_loot_prob" = current_data.extra_loot_prob,
+			"rare_drop_prob" = current_data.rare_drop_prob,
+			"super_drop_prob" = current_data.super_drop_prob,
+			"pods_per_second" = current_data.pods_per_second,
+		))
+
+	for(var/data_value as anything in GLOB.custom_battle_royale_data)
+		var/datum/battle_royale_data/custom_data = GLOB.custom_battle_royale_data[data_value]
+		UNTYPED_LIST_ADD(custom_dataset_list, list(
+			"active_time" = custom_data.active_time,
+			"common_weight" = custom_data.common_weight,
+			"utility_weight" = custom_data.utility_weight,
+			"rare_weight" = custom_data.rare_weight,
+			"super_rare_weight" = custom_data.super_rare_weight,
+			"misc_weight" = custom_data.misc_weight,
+			"extra_loot_prob" = custom_data.extra_loot_prob,
+			"rare_drop_prob" = custom_data.rare_drop_prob,
+			"super_drop_prob" = custom_data.super_drop_prob,
+			"pods_per_second" = custom_data.pods_per_second,
+			"final_time" = custom_data.final_time,
+			"converted_time" = "[DisplayTimeText(custom_data.active_time)]"
+		))
+
+	UNTYPED_LIST_ADD(prize_list, list(
+		"coins" = prizes[COIN_PRIZE],
+		"high_tokens" = prizes[HIGH_THREAT],
+		"medium_tokens" = prizes[MEDIUM_THREAT],
+		"low_tokens" = prizes[LOW_THREAT]
+	))
+	data["active_dataset"] = current_data_values
+	data["prizes"] = prize_list
+	data["max_duration"] = max_duration ? DisplayTimeText(max_duration) : 0
+	data["custom_datasets"] = custom_dataset_list
+	return data
+
+/datum/battle_royale_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(!check_rights(R_FUN) || ..())
+		return
+
+	switch(action)
+		if("start")
+			if(active)
+				to_chat(usr, span_warning("A game has already started!"))
+				return
+
+			var/input = tgui_alert(usr, "Would you like to start a battle royale?", "Battle Royale", list("Yes", "No"))
+			if(input != "Yes")
+				return
+
+			input = tgui_alert(usr, "Would you like to use custom datasets?", "Battle Royale", list("Yes", "No"))
+			if(input == "Yes")
+				setup(custom = TRUE)
+				return
+
+			input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(30 min max duration)", "Fast(10 min max duration)"))
+			setup((input == "Fast(10 min max duration)") ? TRUE : FALSE)
+
+		if("adjust_prizes")
+			var/input_prize = tgui_input_list(usr, "What prize would you like to set?", "Adjust prizes", prizes)
+			if(!input_prize)
+				return
+
+			var/input_amount = tgui_input_number(usr, "What would you like to set this prize to?", "[input_prize][(input_prize == COIN_PRIZE) ? "" : "Tokens"]", round_value = TRUE)
+			if(!isnum(input_amount))
+				return
+
+			prizes[input_prize] = input_amount
+			log_admin("[key_name(usr)] has set the battle royale [input_prize] prize to [input_amount].")
+
+		if("add_custom_dataset")
+			var/input_time = tgui_input_number(usr, "What would you like to set the dataset's active_time to?(in deciseconds)", "Add dataset", round_value = TRUE)
+			if(!input_time || GLOB.custom_battle_royale_data["[input_time]"])
+				return
+
+			var/datum/battle_royale_data/custom/new_datum = new
+			new_datum.active_time = input_time
+			GLOB.custom_battle_royale_data["[new_datum.active_time]"] = new_datum
+
+		if("remove_custom_dataset")
+			var/input_removal = tgui_input_list(usr, "What dataset do you want to remove?(sorted by active_time)", "Remove dataset", GLOB.custom_battle_royale_data)
+			if(!input_removal)
+				return
+
+			qdel(GLOB.custom_battle_royale_data["[input_removal]"])
+
+		if("adjust_custom_dataset")
+			var/input_dataset = tgui_input_list(usr, "What dataset do you want to remove?(sorted by active_time)", "Adjust dataset", GLOB.custom_battle_royale_data)
+			if(!input_dataset)
+				return
+
+			var/datum/battle_royale_data/adjusted_dataset = GLOB.custom_battle_royale_data[input_dataset]
+			var/list/data_var_list = list(
+				"active_time",
+				"common_weight",
+				"utility_weight",
+				"rare_weight",
+				"super_rare_weight",
+				"misc_weight",
+				"extra_loot_prob",
+				"rare_drop_prob",
+				"super_drop_prob",
+				"pods_per_second",
+				"final_time",
+			)
+
+			var/input_var = tgui_input_list(usr, "What var do you want to adjust?", "Adjust var", data_var_list)
+			var/input_value = tgui_input_number(usr, "What would you like to set it to?", "Adjust var", round_value = TRUE)
+			if(!input_var || !isnum(input_value))
+				return
+
+			if(input_var == "active_time")
+				GLOB.custom_battle_royale_data -= "[adjusted_dataset.active_time]"
+
+			adjusted_dataset.vv_edit_var(input_var, input_value)
+			if(input_var == "active_time")
+				GLOB.custom_battle_royale_data["[adjusted_dataset.active_time]"] = adjusted_dataset
 
 #undef COIN_PRIZE
 #undef MINIMUM_USEFUL_DROP_TIME

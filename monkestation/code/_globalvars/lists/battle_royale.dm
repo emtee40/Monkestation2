@@ -25,13 +25,16 @@ GLOBAL_LIST_INIT(royale_common_loot, list(
 		list(/obj/item/clothing/head/wizard/marisa = 1, /obj/item/clothing/suit/wizrobe/marisa = 1) = 1,
 		/obj/item/clothing/shoes/galoshes = 3,
 		list(/obj/item/clothing/head/helmet/space/eva = 1, /obj/item/clothing/suit/space/eva = 1) = 3,
-		/obj/item/storage/box/syndie_kit/space = 2,
+		/obj/item/storage/box/syndie_kit/space = 3,
 		/obj/item/clothing/suit/armor/hos = 1,
 		/obj/item/clothing/suit/armor/laserproof = 1,
 		/obj/item/clothing/suit/armor/vest/capcarapace/syndicate = 1,
 		/obj/item/clothing/suit/armor/vest/russian_coat = 1,
 		/obj/item/clothing/suit/hooded/ablative = 1,
 		/obj/item/clothing/suit/space/hardsuit/medical = 1,
+		/obj/item/clothing/suit/space/hardsuit/engine = 1,
+		/obj/item/clothing/suit/space/hardsuit/atmos = 1,
+		/obj/item/clothing/suit/space/hardsuit/toxins = 1,
 		/obj/item/clothing/under/syndicate = 3,
 		/obj/item/extinguisher = 3,
 		/obj/item/grenade/chem_grenade/clf3 = 1,
@@ -205,7 +208,8 @@ GLOBAL_LIST_INIT(royale_rare_loot, list(
 		/obj/item/storage/box/syndicate/bundle_a = 3,
 		/obj/item/storage/box/syndicate/bundle_b = 3,
 		/obj/item/teleportation_scroll = 1, //might not be viable depending on the way the map barriers work
-		/obj/item/warp_whistle = 1
+		/obj/item/warp_whistle = 1,
+		/obj/item/clothing/suit/space/hardsuit/security = 3,
 ))
 
 ///very rare loot, only spawned from super drops

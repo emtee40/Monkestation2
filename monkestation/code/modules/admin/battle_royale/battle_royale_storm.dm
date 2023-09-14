@@ -2,7 +2,9 @@
 #define STORM_STAGE_OUTER 1
 #define STORM_STAGE_MIDDLE 2
 #define STORM_STAGE_INNER 3
+#define STORM_STAGE_CORE 4
 //these values might need to be tweaked
+#define CORE_AREA_MAX_DIST 10
 #define CLOSE_AREA_MAX_DIST 30
 #define MIDDLE_AREA_MAX_DIST 50
 /datum/royale_storm_controller
@@ -16,6 +18,8 @@
 	var/list/middle_areas = list()
 	///inner areas
 	var/list/inner_areas = list()
+	///core areas
+	var/list/core_areas = list()
 	///what stage of consuming the station is the storm
 	var/storm_stage = STORM_STAGE_NONE
 	///timer id to the next area consumption
@@ -62,13 +66,18 @@
 		if(area_list[turf_area] > dist)
 			area_list[turf_area] = dist
 
+	var/list/named_core_areas = list()
 	for(var/area/station_area in area_list)
-		if(area_list[station_area] <= CLOSE_AREA_MAX_DIST)
+		if(area_list[station_area] <= CORE_AREA_MAX_DIST)
+			core_areas += station_area.type
+			named_core_areas += initial(station_area.name)
+		else if(area_list[station_area] <= CLOSE_AREA_MAX_DIST)
 			inner_areas += station_area.type
 		else if(area_list[station_area] <= MIDDLE_AREA_MAX_DIST)
 			middle_areas += station_area.type
 		else
 			outer_areas += station_area.type
+	send_to_playing_players(span_greenannounce("Core station areas: [english_list(named_core_areas)]"))
 
 ///calculate how long inbetween each consume to get the desired game length
 /datum/royale_storm_controller/proc/calculate_consume_time()
@@ -76,7 +85,7 @@
 		message_admins("No set royale_controller[royale_controller ? ".max_duration" : ""] for a royale storm controller.")
 		return
 
-	area_consume_timer = truncate(royale_controller.max_duration / (length(outer_areas) + length(middle_areas) + length(inner_areas)))
+	area_consume_timer = truncate(royale_controller.max_duration / (length(outer_areas) + length(middle_areas) + length(inner_areas) + length(core_areas)))
 
 ///consume an area with a storm
 /datum/royale_storm_controller/proc/consume_area(area/area_path, repeat = FALSE)
@@ -94,21 +103,22 @@
 		if(!length(current_area_pick)) //there was none left, don't try and take from an empty list
 			switch(storm_stage)
 				if(STORM_STAGE_NONE)
-					storm_stage = STORM_STAGE_OUTER
 					current_area_pick = outer_areas
 				if(STORM_STAGE_OUTER)
 					send_to_playing_players(span_userdanger("The storm has consumed the entire outer station!"))
-					storm_stage = STORM_STAGE_MIDDLE
 					current_area_pick = middle_areas
 				if(STORM_STAGE_MIDDLE)
 					send_to_playing_players(span_userdanger("The storm has consumed the majority of the station!"))
-					storm_stage = STORM_STAGE_INNER
 					current_area_pick = inner_areas
 				if(STORM_STAGE_INNER)
+					send_to_playing_players(span_userdanger("The storm has consumed the inner most station!"))
+					current_area_pick = core_areas
+				if(STORM_STAGE_CORE)
 					send_to_playing_players(span_userdanger("The storm has consumed the ENTIRE station!"))
 					current_area_pick = null
 					return
-		timerid = addtimer(CALLBACK(src, PROC_REF(consume_area), pick_n_take(current_area_pick), TRUE), area_consume_timer)
+			storm_stage++
+		timerid = addtimer(CALLBACK(src, PROC_REF(consume_area), pick_n_take(current_area_pick), TRUE), area_consume_timer, TIMER_STOPPABLE)
 
 ///stops the storm.
 /datum/royale_storm_controller/proc/stop_storm()
@@ -175,5 +185,7 @@
 #undef STORM_STAGE_OUTER
 #undef STORM_STAGE_MIDDLE
 #undef STORM_STAGE_INNER
+#undef STORM_STAGE_CORE
+#undef CORE_AREA_MAX_DIST
 #undef CLOSE_AREA_MAX_DIST
 #undef MIDDLE_AREA_MAX_DIST
