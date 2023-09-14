@@ -1,5 +1,5 @@
 import { useBackend } from 'tgui/backend';
-import { Button, Collapsible, LabeledList, Section, Stack, Table } from 'tgui/components';
+import { Button, Collapsible, LabeledList, Section, Stack } from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
 type BattleRoyalePanelContext = {
@@ -44,7 +44,7 @@ export const BattleRoyalePanel = (props, context) => {
         <Section title="Currently Active Data">
           {active_dataset.length
             ? active_dataset.map((royaledataset) => (
-              <LabeledList>
+              <LabeledList key={royaledataset.active_time}>
                 <div>
                   <LabeledList.Item label="Active Time">
                     {royaledataset.active_time}
