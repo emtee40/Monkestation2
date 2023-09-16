@@ -381,13 +381,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if (isnull(body))
 		create_body()
 	else
-		//body.wipe_state()
+		//body.wipe_state() //this doesn't work for dwarves
 		QDEL_NULL(body)
 		create_body()
 	body = preferences.render_new_preview_appearance(body)
 	appearance = body.appearance
 	vis_contents = body.vis_contents
-	//appearance = preferences.render_new_preview_appearance(body)
 
 /atom/movable/screen/map_view/char_preview/proc/create_body()
 	QDEL_NULL(body)
