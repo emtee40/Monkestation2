@@ -4,6 +4,7 @@ GLOBAL_DATUM(battle_royale_controller, /datum/battle_royale_controller)
 GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to a static var on the controller
 
 #define COIN_PRIZE "Coins"
+#define PLAYER_HEALTH_VALUE 150
 //Battle royale controller, IF THERE ARE MULTIPLE OF THESE SOMETHING HAS GONE VERY WRONG
 /datum/battle_royale_controller
 	///Is this controller active and processing
@@ -164,8 +165,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 			addtimer(CALLBACK(src, PROC_REF(remove_grace), spawned_human), 1 MINUTES)
 
 		spawned_human.equipOutfit(/datum/outfit/job/assistant)
-		spawned_human.setMaxHealth(200)
-		spawned_human.set_health(200)
+		spawned_human.setMaxHealth(PLAYER_HEALTH_VALUE)
+		spawned_human.set_health(PLAYER_HEALTH_VALUE)
 		var/obj/item/implant/weapons_auth/auth = new
 		auth.implant(spawned_human)
 		players += spawned_human.mind?.add_antag_datum(/datum/antagonist/battle_royale)
@@ -528,3 +529,4 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 
 #undef COIN_PRIZE
 #undef MINIMUM_USEFUL_DROP_TIME
+#undef PLAYER_HEALTH_VALUE
