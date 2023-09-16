@@ -32,7 +32,7 @@
 	GLOB.custom_battle_royale_data -= "[active_time]"
 	return ..()
 
-//premade set which lasts at most 30 minutes
+//premade set which lasts at most 25 minutes
 /datum/battle_royale_data/normal
 	utility_weight = 3
 	misc_weight = 2
@@ -46,7 +46,7 @@
 	common_weight = 12
 	utility_weight = 14
 	rare_weight = 4
-	final_time = 30 MINUTES
+	final_time = 25 MINUTES
 
 /datum/battle_royale_data/normal/one_second
 	active_time = 1 SECONDS
@@ -80,18 +80,11 @@
 
 /datum/battle_royale_data/normal/twenty_minutes
 	active_time = 20 MINUTES
-	common_weight = 8
-	rare_weight = 5
-	rare_drop_prob = 5
-	super_drop_prob = 1.5
-
-/datum/battle_royale_data/normal/twenty_five_minutes
-	active_time = 25 MINUTES
 	common_weight = 5
 	rare_weight = 8
 	super_rare_weight = 2
 	extra_loot_prob = 15
-	rare_drop_prob = 7
+	rare_drop_prob = 6
 	super_drop_prob = 4
 	pods_per_second = 0.2
 

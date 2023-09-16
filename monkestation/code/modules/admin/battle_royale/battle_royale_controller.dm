@@ -151,7 +151,6 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	players = list()
 	for(var/mob/participant in participants)
 		var/key = participant.key
-		CHECK_TICK
 		var/turf/spawn_turf = turf_override ? turf_override : get_safe_random_station_turf() //could also make this pick from assistant spawns
 		var/obj/structure/closet/supplypod/centcompod/pod = new
 		var/mob/living/carbon/human/spawned_human = new(pod)
@@ -171,15 +170,16 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 		auth.implant(spawned_human)
 		players += spawned_human.mind?.add_antag_datum(/datum/antagonist/battle_royale)
 		new /obj/effect/pod_landingzone(spawn_turf, pod)
+		CHECK_TICK
 	return TRUE
 
 ///Remove grace period buffs and effects
 /datum/battle_royale_controller/proc/remove_grace(mob/player)
+	player.status_flags &= ~GODMODE
+	REMOVE_TRAIT(player, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 	var/datum/action/cooldown/spell/aoe/knock/knock_spell = locate() in player.actions
 	if(knock_spell)
 		qdel(knock_spell)
-	player.status_flags &= ~GODMODE
-	REMOVE_TRAIT(player, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 	to_chat(player, span_greenannounce("You are no longer a pacifist. Be the last spessmens standing."))
 
 ///End a battle royale
@@ -459,7 +459,11 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 				setup(custom = TRUE)
 				return
 
-			input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(30 min max duration)", "Fast(10 min max duration)"))
+			tgui_alert(usr, "Are you sure want to start a battle royale?", "Battle Royale", list("Yes", "No"))
+			if(input != "Yes")
+				return
+
+			input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(25 min max duration)", "Fast(10 min max duration)"))
 			setup((input == "Fast(10 min max duration)") ? TRUE : FALSE)
 
 		if("adjust_prizes")

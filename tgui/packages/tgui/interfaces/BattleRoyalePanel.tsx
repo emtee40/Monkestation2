@@ -90,7 +90,7 @@ export const BattleRoyalePanel = (props, context) => {
             />
           }>
           {prizes.map((prizelist) => (
-            <LabeledList>
+            <LabeledList key={prizelist.coins}>
               <div>
                 <LabeledList.Item label="Coins">
                   {prizelist.coins}
@@ -134,7 +134,9 @@ export const BattleRoyalePanel = (props, context) => {
           }>
           {custom_datasets.length
             ? custom_datasets.map((royaledataset) => (
-              <Collapsible title={royaledataset.converted_time}>
+              <Collapsible
+                title={royaledataset.converted_time}
+                key={royaledataset.active_time}>
                 <LabeledList>
                   <div>
                     <LabeledList.Item label="Active Time">

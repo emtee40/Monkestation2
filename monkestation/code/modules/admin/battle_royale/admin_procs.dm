@@ -20,7 +20,7 @@
 		return
 
 	//as LME requested saying no is as obtuse as possible(will be made less so for full merge)
-	var/input = tgui_alert(usr, "Do you want to quick start a battle royale?", "Battle royale", list("Normal(30 min max duration)", "Fast(10 min max duration)", "The lame option"))
+	var/input = tgui_alert(usr, "Do you want to quick start a battle royale?", "Battle royale", list("Normal(25 min max duration)", "Fast(10 min max duration)", "The lame option"))
 	if(input == "The lame option")
 		input = tgui_alert(usr, "Do you not want to quick start a battle royale?", "Battle royale", list("Yes", "No"))
 
