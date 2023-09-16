@@ -12,3 +12,13 @@
 	name = "amogus"
 	icon_state = "amogus"
 	size = 127
+
+/obj/effect/distortion/large/short
+	name = "short"
+	icon_state = "short"
+	size = 127
+
+/obj/effect/distortion/large/tall
+	name = "tall"
+	icon_state = "tall"
+	size = 127

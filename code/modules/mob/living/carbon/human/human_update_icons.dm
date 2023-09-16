@@ -873,6 +873,16 @@ generate/load female uniform sprites matching all previously decided variables
 // Some overlays can't be displaced as they're too close to the edge of the sprite or cross the middle point in a weird way.
 // So instead we have to pass them through an offset, which is close enough to look good.
 /mob/living/carbon/human/apply_overlay(cache_index)
+	//get rid of old height filters in case we've lost traits
+	if(get_mob_height() != HUMAN_HEIGHT_DWARF)
+		var/obj/effect/distortion/large/short/located_short = locate() in vis_contents
+		qdel(located_short)
+		remove_filter("large_displacement_short")
+	else if(get_mob_height() != HUMAN_HEIGHT_TALLEST)
+		var/obj/effect/distortion/large/tall/located_tall = locate() in vis_contents
+		qdel(located_tall)
+		remove_filter("large_displacement_tall")
+
 	if(get_mob_height() == HUMAN_HEIGHT_MEDIUM)
 		return ..()
 
@@ -905,6 +915,7 @@ generate/load female uniform sprites matching all previously decided variables
  * higher up things (hats for example) need to be offset more due to the location of the filter displacement
  */
 /mob/living/carbon/human/proc/apply_height_offsets(mutable_appearance/appearance, upper_torso)
+/*
 	var/height_to_use = num2text(get_mob_height())
 	var/final_offset = 0
 	switch(upper_torso)
@@ -915,7 +926,8 @@ generate/load female uniform sprites matching all previously decided variables
 		else
 			return
 
-	//appearance.pixel_y += final_offset //commented as it doesn't seem to do anything but break sprites
+	appearance.pixel_y += final_offset
+*/
 	return appearance
 
 /**
@@ -939,8 +951,9 @@ generate/load female uniform sprites matching all previously decided variables
 	switch(get_mob_height())
 		// Don't set this one directly, use TRAIT_DWARF
 		if(HUMAN_HEIGHT_DWARF)
-			add_filter("Gnome_Cut_Torso", 1, displacement_map_filter(cut_torso_mask, x = 0, y = 0, size = 2))
-			add_filter("Gnome_Cut_Legs", 1, displacement_map_filter(cut_legs_mask, x = 0, y = 0, size = 3))
+			apply_displacement_icon(/obj/effect/distortion/large/short)
+			//add_filter("Gnome_Cut_Torso", 1, displacement_map_filter(cut_torso_mask, x = 0, y = 0, size = 2))
+			//add_filter("Gnome_Cut_Legs", 1, displacement_map_filter(cut_legs_mask, x = 0, y = 0, size = 3))
 		if(HUMAN_HEIGHT_SHORTEST)
 			add_filter("Cut_Torso", 1, displacement_map_filter(cut_torso_mask, x = 0, y = 0, size = 1))
 			add_filter("Cut_Legs", 1, displacement_map_filter(cut_legs_mask, x = 0, y = 0, size = 1))
@@ -949,8 +962,9 @@ generate/load female uniform sprites matching all previously decided variables
 		if(HUMAN_HEIGHT_TALL)
 			add_filter("Lenghten_Legs", 1, displacement_map_filter(lenghten_legs_mask, x = 0, y = 0, size = 1))
 		if(HUMAN_HEIGHT_TALLEST)
-			add_filter("Lenghten_Torso", 1, displacement_map_filter(lenghten_torso_mask, x = 0, y = 0, size = 1))
-			add_filter("Lenghten_Legs", 1, displacement_map_filter(lenghten_legs_mask, x = 0, y = 0, size = 1))
+			apply_displacement_icon(/obj/effect/distortion/large/tall)
+			//add_filter("Lenghten_Torso", 1, displacement_map_filter(lenghten_torso_mask, x = 0, y = 0, size = 1))
+			//add_filter("Lenghten_Legs", 1, displacement_map_filter(lenghten_legs_mask, x = 0, y = 0, size = 1))
 
 	return
 
