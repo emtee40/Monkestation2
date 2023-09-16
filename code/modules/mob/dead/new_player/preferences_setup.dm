@@ -119,4 +119,4 @@
 				continue
 			mannequin.add_quirk(quirk_type, parent)
 
-	return mannequin.appearance
+	return mannequin
