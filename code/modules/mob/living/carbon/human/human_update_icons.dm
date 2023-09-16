@@ -873,15 +873,12 @@ generate/load female uniform sprites matching all previously decided variables
 // Some overlays can't be displaced as they're too close to the edge of the sprite or cross the middle point in a weird way.
 // So instead we have to pass them through an offset, which is close enough to look good.
 /mob/living/carbon/human/apply_overlay(cache_index)
-	//get rid of old height filters in case we've lost traits
-	if(get_mob_height() != HUMAN_HEIGHT_DWARF)
-		var/obj/effect/distortion/large/short/located_short = locate() in vis_contents
-		qdel(located_short)
-		remove_filter("large_displacement_short")
-	else if(get_mob_height() != HUMAN_HEIGHT_TALLEST)
-		var/obj/effect/distortion/large/tall/located_tall = locate() in vis_contents
-		qdel(located_tall)
-		remove_filter("large_displacement_tall")
+	var/obj/effect/distortion/large/short/located_short = locate() in vis_contents
+	qdel(located_short)
+	remove_filter("large_displacement_short")
+	var/obj/effect/distortion/large/tall/located_tall = locate() in vis_contents
+	qdel(located_tall)
+	remove_filter("large_displacement_tall")
 
 	if(get_mob_height() == HUMAN_HEIGHT_MEDIUM)
 		return ..()
