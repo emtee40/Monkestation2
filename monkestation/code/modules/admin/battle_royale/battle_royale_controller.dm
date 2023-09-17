@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 		return FALSE
 
 	var/datum/battle_royale_data/next_data = data_datums["[next_data_datum_value]"]
-	if(active_for >= next_data.active_time)
+	if(active_for >= next_data?.active_time)
 		return TRUE
 	return FALSE
 
