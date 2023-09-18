@@ -36,7 +36,7 @@
 	if(input == "Yes")
 		return
 
-	if(!SSticker.current_state == GAME_STATE_FINISHED) //this is a joke, we dont want to ruin an ongoing round
+	if(!SSticker.current_state == GAME_STATE_FINISHED || !input) //this is a joke, we dont want to ruin an ongoing round
 		if(tgui_alert(usr, "Cancel battle royale?", "Battle royale", list("Yes", "No")) == "Yes")
 			return
 
