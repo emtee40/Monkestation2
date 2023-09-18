@@ -45,6 +45,10 @@
 		/obj/item/stack/tile/iron/dark/textured_half,
 		/obj/item/stack/tile/iron/dark/textured_corner,
 		/obj/item/stack/tile/iron/dark/textured_large,
+		//MONESTATION EDIT START
+		/obj/item/stack/tile/iron/dark/recharge_floor,
+		/obj/item/stack/tile/iron/dark/goonplaque,
+		//MONESTATION EDIT END
 		/obj/item/stack/tile/iron/white,
 		/obj/item/stack/tile/iron/white/smooth_edge,
 		/obj/item/stack/tile/iron/white/smooth_half,
@@ -61,8 +65,16 @@
 		/obj/item/stack/tile/iron/white/textured_half,
 		/obj/item/stack/tile/iron/white/textured_corner,
 		/obj/item/stack/tile/iron/white/textured_large,
+		//MONESTATION EDIT START
+		/obj/item/stack/tile/iron/white/recharge_floor,
+		/obj/item/stack/tile/iron/white/goonplaque,
+		//MONESTATION EDIT END
 		/obj/item/stack/tile/iron/recharge_floor,
 		/obj/item/stack/tile/iron/smooth,
+		//MONESTATION EDIT START
+		/obj/item/stack/tile/iron/smooth/recharge_floor,
+		/obj/item/stack/tile/iron/smooth/goonplaque,
+		//MONESTATION EDIT END
 		/obj/item/stack/tile/iron/smooth_edge,
 		/obj/item/stack/tile/iron/smooth_half,
 		/obj/item/stack/tile/iron/smooth_corner,
@@ -76,6 +88,9 @@
 		/obj/item/stack/tile/iron/kitchen/diagonal,
 		/obj/item/stack/tile/iron/kitchen/herringbone,
 		/obj/item/stack/tile/iron/chapel,
+		//MONESTATION EDIT START
+		/obj/item/stack/tile/iron/chapel/large,
+		//MONESTATION EDIT END
 		/obj/item/stack/tile/iron/showroomfloor,
 		/obj/item/stack/tile/iron/solarpanel,
 		/obj/item/stack/tile/iron/freezer,
@@ -353,6 +368,15 @@
 	turf_type = /turf/open/floor/iron/dark/herringbone
 	merge_type = /obj/item/stack/tile/iron/dark/herringbone
 
+//MONKESTATION EDIT START
+/obj/item/stack/tile/iron/dark/recharge_floor
+	name = "dark recharge floor tile"
+	singular_name = "dark recharge floor tile"
+	icon_state = "tile_dark_recharge"
+	turf_type = /turf/open/floor/iron/dark/recharge_floor
+	merge_type = /obj/item/stack/tile/iron/dark/recharge_floor
+//MONKESTATION EDIT END
+
 /obj/item/stack/tile/iron/white
 	name = "white tile"
 	singular_name = "white floor tile"
@@ -474,6 +498,15 @@
 	turf_type = /turf/open/floor/iron/white/herringbone
 	merge_type = /obj/item/stack/tile/iron/white/herringbone
 
+//MONKESTATION EDIT START
+/obj/item/stack/tile/iron/white/recharge_floor
+	name = "white recharge floor tile"
+	singular_name = "white recharge floor tile"
+	icon_state = "tile_white_recharge"
+	turf_type = /turf/open/floor/iron/white/recharge_floor
+	merge_type = /obj/item/stack/tile/iron/white/recharge_floor
+//MONKESTATION EDIT END
+
 /obj/item/stack/tile/iron/recharge_floor
 	name = "recharge floor tile"
 	singular_name = "recharge floor tile"
@@ -487,6 +520,15 @@
 	icon_state = "tile_smooth"
 	turf_type = /turf/open/floor/iron/smooth
 	merge_type = /obj/item/stack/tile/iron/smooth
+
+//MONKESTATION EDIT START
+/obj/item/stack/tile/iron/smooth/recharge_floor
+	name = "smooth recharge floor tile"
+	singular_name = "smooth recharge floor tile"
+	icon_state = "tile_smooth_recharge"
+	turf_type = /turf/open/floor/iron/smooth/recharge_floor
+	merge_type = /obj/item/stack/tile/iron/smooth/recharge_floor
+//MONKESTATION EDIT END
 
 /obj/item/stack/tile/iron/smooth_edge
 	name = "smooth edge tile"
@@ -525,6 +567,9 @@
 	icon_state = "tile_terracotta"
 	turf_type = /turf/open/floor/iron/terracotta
 	merge_type = /obj/item/stack/tile/iron/terracotta
+	//MONKESTATION EDIT START
+	tile_rotate_dirs = list(SOUTH, NORTH)
+	//MONKESTATION EDIT END
 
 /obj/item/stack/tile/iron/terracotta/small
 	name = "terracotta small tile"
@@ -553,6 +598,9 @@
 	icon_state = "tile_kitchen"
 	turf_type = /turf/open/floor/iron/kitchen
 	merge_type = /obj/item/stack/tile/iron/kitchen
+	//MONKESTATION EDIT START
+	tile_rotate_dirs = list(SOUTH, NORTH)
+	//MONKESTATION EDIT END
 
 /obj/item/stack/tile/iron/kitchen/small
 	name = "small kitchen tile"
@@ -582,6 +630,16 @@
 	turf_type = /turf/open/floor/iron/chapel
 	merge_type = /obj/item/stack/tile/iron/chapel
 	tile_rotate_dirs = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)
+
+//MONKESTATION EDIT START
+/obj/item/stack/tile/iron/chapel/large
+	name = "large chapel floor tile"
+	singular_name = "large chapel floor tile"
+	icon_state = "tile_chapel_large"
+	turf_type = /turf/open/floor/iron/chapel/large
+	merge_type = /obj/item/stack/tile/iron/chapel/large
+	tile_rotate_dirs = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)
+//MONKESTATION EDIT END
 
 /obj/item/stack/tile/iron/showroomfloor
 	name = "showroom floor tile"
@@ -639,6 +697,35 @@
 	merge_type = /obj/item/stack/tile/iron/goonplaque
 	tile_reskin_types = null
 
+//MONKESTATION EDIT START
+/obj/item/stack/tile/iron/dark/goonplaque
+	name = "dark plaqued floor tile"
+	singular_name = "dark plaqued floor tile"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "tile_dark_plaque"
+	turf_type = /turf/open/floor/iron/dark/goonplaque
+	merge_type = /obj/item/stack/tile/iron/dark/goonplaque
+	tile_reskin_types = null
+
+/obj/item/stack/tile/iron/white/goonplaque
+	name = "white plaqued floor tile"
+	singular_name = "white plaqued floor tile"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "tile_white_plaque"
+	turf_type = /turf/open/floor/iron/white/goonplaque
+	merge_type = /obj/item/stack/tile/iron/white/goonplaque
+	tile_reskin_types = null
+
+/obj/item/stack/tile/iron/smooth/goonplaque
+	name = "smooth plaqued floor tile"
+	singular_name = "smooth plaqued floor tile"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "tile_smooth_plaque"
+	turf_type = /turf/open/floor/iron/smooth/goonplaque
+	merge_type = /obj/item/stack/tile/iron/smooth/goonplaque
+	tile_reskin_types = null
+//MONKESTATION EDIT END
+
 /obj/item/stack/tile/iron/vaporwave
 	name = "vaporwave floor tile"
 	singular_name = "vaporwave floor tile"
@@ -646,3 +733,6 @@
 	turf_type = /turf/open/floor/iron/vaporwave
 	merge_type = /obj/item/stack/tile/iron/vaporwave
 	tile_reskin_types = null
+	//MONKESTATION EDIT START
+	tile_rotate_dirs = list(SOUTH, NORTH)
+	//MONKESTATION EDIT END

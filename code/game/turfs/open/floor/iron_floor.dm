@@ -196,6 +196,21 @@
 	base_icon_state = "dark_herringbone"
 	floor_tile = /obj/item/stack/tile/iron/dark/herringbone
 
+//MONKESTATION EDIT START
+/turf/open/floor/iron/dark/recharge_floor
+	icon_state = "dark_recharge_floor"
+	base_icon_state = "dark_recharge_floor"
+	floor_tile = /obj/item/stack/tile/iron/dark/recharge_floor
+
+/turf/open/floor/iron/dark/goonplaque
+	name = "commemorative plaque"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "dark_plaque"
+	base_icon_state = "dark_plaque"
+	tiled_dirt = FALSE
+	floor_tile = /obj/item/stack/tile/iron/dark/goonplaque
+//MONKESTATION EDIT END
+
 /turf/open/floor/iron/dark/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
@@ -295,6 +310,21 @@
 	base_icon_state = "white_herringbone"
 	floor_tile = /obj/item/stack/tile/iron/white/herringbone
 
+//MONKESTATION EDIT START
+/turf/open/floor/iron/white/recharge_floor
+	icon_state = "white_recharge_floor"
+	base_icon_state = "white_recharge_floor"
+	floor_tile = /obj/item/stack/tile/iron/white/recharge_floor
+
+/turf/open/floor/iron/white/goonplaque
+	name = "commemorative plaque"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "white_plaque"
+	base_icon_state = "white_plaque"
+	tiled_dirt = FALSE
+	floor_tile = /obj/item/stack/tile/iron/white/goonplaque
+//MONKESTATION EDIT END
+
 /turf/open/floor/iron/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
@@ -344,6 +374,21 @@
 	base_icon_state = "smooth_large"
 	floor_tile = /obj/item/stack/tile/iron/smooth_large
 
+//MONKESTATION EDIT START
+/turf/open/floor/iron/smooth/recharge_floor
+	icon_state = "smooth_recharge_floor"
+	base_icon_state = "smooth_recharge_floor"
+	floor_tile = /obj/item/stack/tile/iron/smooth/recharge_floor
+
+/turf/open/floor/iron/smooth/goonplaque
+	name = "commemorative plaque"
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "smooth_plaque"
+	base_icon_state = "smooth_plaque"
+	tiled_dirt = FALSE
+	floor_tile = /obj/item/stack/tile/iron/smooth/goonplaque
+//MONKESTATION EDIT END
+
 /turf/open/floor/iron/terracotta
 	icon_state = "terracotta"
 	base_icon_state = "terracotta"
@@ -388,6 +433,13 @@
 	icon_state = "chapel"
 	base_icon_state = "chapel"
 	floor_tile = /obj/item/stack/tile/iron/chapel
+
+//MONKESTATION EDIT START
+/turf/open/floor/iron/chapel/large
+	icon_state = "chapel_large"
+	base_icon_state = "chapel_large"
+	floor_tile = /obj/item/stack/tile/iron/chapel/large
+//MONKESTATION EDIT END
 
 /turf/open/floor/iron/showroomfloor
 	icon_state = "showroomfloor"

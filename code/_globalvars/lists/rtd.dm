@@ -35,6 +35,11 @@ GLOBAL_LIST_INIT(floor_designs, list(
 		//Uses eletricity or atleast thats i think these do
 		"Circuit" = list(
 			list("name" = "Recharge", "type" = /obj/item/stack/tile/iron/recharge_floor, "tile_cost" = 5),
+			//MONKESTATION EDIT START
+			list("name" = "Dark Recharge", "type" = /obj/item/stack/tile/iron/dark/recharge_floor, "tile_cost" = 5),
+			list("name" = "White Recharge", "type" = /obj/item/stack/tile/iron/white/recharge_floor, "tile_cost" = 5),
+			list("name" = "Smooth Recharge", "type" = /obj/item/stack/tile/iron/smooth/recharge_floor, "tile_cost" = 5),
+			//MONKESTATION EDIT END
 			list("name" = "Solar Panel", "type" = /obj/item/stack/tile/iron/solarpanel, "tile_cost" = 5),
 			list("name" = "Blue Circuit", "type" = /obj/item/stack/tile/circuit, "tile_cost" = 5),
 			list("name" = "Green Circuit", "type" = /obj/item/stack/tile/circuit/green, "tile_cost" = 5),
@@ -93,11 +98,14 @@ GLOBAL_LIST_INIT(floor_designs, list(
 	"Interior" = list(
 		//Common room tiles
 		"Room" = list(
-			list("name" = "Kitchen", "type" = /obj/item/stack/tile/iron/kitchen, "tile_cost" = 4),
+			list("name" = "Kitchen", "type" = /obj/item/stack/tile/iron/kitchen, "tile_cost" = 4, "tile_rotate_dirs" = list(SOUTH, NORTH)), //MONKESTATION EDIT
 			list("name" = "Kitchen Small", "type" = /obj/item/stack/tile/iron/kitchen/small, "tile_cost" = 4),
 			list("name" = "Diagonal Kitchen", "type" = /obj/item/stack/tile/iron/kitchen/diagonal, "tile_cost" = 4),
-			list("name" = "Chapel", "type" = /obj/item/stack/tile/iron/chapel, "tile_cost" = 4),
-			list("name" = "Cafeteria", "type" = /obj/item/stack/tile/iron/cafeteria, "tile_cost" = 4),
+			list("name" = "Chapel", "type" = /obj/item/stack/tile/iron/chapel, "tile_cost" = 4, "tile_rotate_dirs" = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)), //MONKESTATION EDIT
+			//MONKESTATION EDIT START
+			list("name" = "Chapel Large", "type" = /obj/item/stack/tile/iron/chapel/large, "tile_cost" = 4, "tile_rotate_dirs" = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST)),
+			//MONKESTATION EDIT END
+			list("name" = "Cafeteria", "type" = /obj/item/stack/tile/iron/cafeteria, "tile_cost" = 4, "tile_rotate_dirs" = list(SOUTH, NORTH)), //MONKESTATION EDIT
 			list("name" = "Grimy", "type" = /obj/item/stack/tile/iron/grimy, "tile_cost" = 5),
 			list("name" = "Sepia", "type" = /obj/item/stack/tile/iron/sepia, "tile_cost" = 5),
 			list("name" = "Herringbone", "type" = /obj/item/stack/tile/iron/kitchen/herringbone, "tile_cost" = 5),
@@ -105,11 +113,11 @@ GLOBAL_LIST_INIT(floor_designs, list(
 
 		//Culd have called it miscellaneous but nah too long
 		"Pattern" = list(
-			list("name" = "Terracotta", "type" = /obj/item/stack/tile/iron/terracotta, "tile_cost" = 5),
+			list("name" = "Terracotta", "type" = /obj/item/stack/tile/iron/terracotta, "tile_cost" = 5, "tile_rotate_dirs" = list(SOUTH, NORTH)), //MONKESTATION EDIT
 			list("name" = "Small", "type" = /obj/item/stack/tile/iron/terracotta/small, "tile_cost" = 5),
 			list("name" = "Diagonal", "type" = /obj/item/stack/tile/iron/terracotta/diagonal, "tile_cost" = 5),
 			list("name" = "Herrigone", "type" = /obj/item/stack/tile/iron/terracotta/herringbone, "tile_cost" = 5),
-			list("name" = "Checkered", "type" = /obj/item/stack/tile/iron/checker, "tile_cost" = 5),
+			list("name" = "Checkered", "type" = /obj/item/stack/tile/iron/checker, "tile_cost" = 5, "tile_rotate_dirs" = list(SOUTH, NORTH)), //MONKESTATION EDIT
 			list("name" = "Herringbone", "type" = /obj/item/stack/tile/iron/herringbone, "tile_cost" = 5),
 		)
 	)
