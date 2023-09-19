@@ -1,3 +1,4 @@
+
 #define ROBOTIC_LIGHT_BRUTE_MSG "marred"
 #define ROBOTIC_MEDIUM_BRUTE_MSG "dented"
 #define ROBOTIC_HEAVY_BRUTE_MSG "falling apart"
@@ -113,7 +114,6 @@
 	. = ..()
 	if(!. || isnull(owner))
 		return
-
 	var/knockdown_time = AUGGED_LEG_EMP_KNOCKDOWN_TIME
 	if (severity == EMP_HEAVY)
 		knockdown_time *= 2
@@ -159,7 +159,6 @@
 	. = ..()
 	if(!. || isnull(owner))
 		return
-
 	var/knockdown_time = AUGGED_LEG_EMP_KNOCKDOWN_TIME
 	if (severity == EMP_HEAVY)
 		knockdown_time *= 2
@@ -205,6 +204,8 @@
 
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
+
+	robotic_emp_paralyze_damage_percent_threshold = 0.6
 
 /obj/item/bodypart/chest/robot/emp_act(severity)
 	. = ..()
@@ -345,8 +346,27 @@
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
 
-/obj/item/bodypart/head/robot/handle_atom_del(atom/head_atom)
-	if(head_atom == flash1)
+#define EMP_GLITCH "EMP_GLITCH"
+
+/obj/item/bodypart/head/robot/emp_act(severity)
+	. = ..()
+	if(!.)
+		return
+	to_chat(owner, span_danger("Your [src]'s optical transponders glitch out and malfunction!"))
+
+	var/glitch_duration = AUGGED_HEAD_EMP_GLITCH_DURATION
+	if (severity == EMP_HEAVY)
+		glitch_duration *= 2
+
+	owner.add_client_colour(/datum/client_colour/malfunction)
+
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, remove_client_colour), /datum/client_colour/malfunction), glitch_duration)
+
+#undef EMP_GLITCH
+
+/obj/item/bodypart/head/robot/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == flash1)
 		flash1 = null
 	if(head_atom == flash2)
 		flash2 = null
@@ -432,7 +452,7 @@
 	icon = 'icons/mob/augmentation/surplus_augments.dmi'
 	burn_modifier = 1
 	brute_modifier = 1
-	max_damage = 20
+	max_damage = PROSTHESIS_MAX_HP
 
 	biological_state = (BIO_METAL|BIO_JOINTED)
 
@@ -443,7 +463,7 @@
 	icon = 'icons/mob/augmentation/surplus_augments.dmi'
 	burn_modifier = 1
 	brute_modifier = 1
-	max_damage = 20
+	max_damage = PROSTHESIS_MAX_HP
 
 	biological_state = (BIO_METAL|BIO_JOINTED)
 
@@ -454,7 +474,7 @@
 	icon = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_modifier = 1
 	burn_modifier = 1
-	max_damage = 20
+	max_damage = PROSTHESIS_MAX_HP
 
 	biological_state = (BIO_METAL|BIO_JOINTED)
 
@@ -465,7 +485,7 @@
 	icon = 'icons/mob/augmentation/surplus_augments.dmi'
 	brute_modifier = 1
 	burn_modifier = 1
-	max_damage = 20
+	max_damage = PROSTHESIS_MAX_HP
 
 	biological_state = (BIO_METAL|BIO_JOINTED)
 
