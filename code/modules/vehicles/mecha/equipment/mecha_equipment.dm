@@ -32,6 +32,10 @@
 	var/movedelay = 0 /*	MONKEstation edit, mech tools/weapons have movedelay (weight) values. More powerful gear is generally heavier, HONK gear should be weightless (it's plastic and designed to be a toy).
 	 						Mechs have weight tolerance values (encumbrance_gap) before they experience slowdown. */
 
+	///what equipment flags does this have
+	var/equipment_flags
+	var/movedelay = 0
+
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
 		detach(get_turf(src))
@@ -57,6 +61,8 @@
 	. = ..()
 	switch(action)
 		if("detach")
+			if(equipment_flags & NOT_ABLE_TO_REMOVE_FROM_MECHA) //monkestation edit
+				return //monkestation edit
 			detach(get_turf(src))
 			return TRUE
 		if("toggle")
@@ -100,6 +106,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/action(mob/source, atom/target, list/modifiers)
 	TIMER_COOLDOWN_START(chassis, COOLDOWN_MECHA_EQUIPMENT(type), equip_cooldown)//Cooldown is on the MECH so people dont bypass it by switching equipment
+	SEND_SIGNAL(source, COMSIG_MOB_USED_MECH_EQUIPMENT, chassis)
 	chassis.use_power(energy_drain)
 	return TRUE
 

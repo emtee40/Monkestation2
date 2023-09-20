@@ -25,8 +25,14 @@ GLOBAL_LIST_INIT(proxy_sound_channels, list(
 	CHANNEL_MOB_SOUNDS,
 ))
 
+
 /proc/guess_mixer_channel(soundin)
-	var/sound_text_string = "[soundin]"
+	var/sound_text_string
+	if(istype(soundin, /sound))
+		var/sound/bleh = soundin
+		sound_text_string = "[bleh.file]"
+	else
+		sound_text_string = "[soundin]"
 	if(findtext(sound_text_string, "effects/"))
 		return CHANNEL_SOUND_EFFECTS
 	if(findtext(sound_text_string, "machines/"))
@@ -152,7 +158,7 @@ GLOBAL_LIST_INIT(proxy_sound_channels, list(
 		//sound volume falloff with distance
 		var/distance = get_dist(turf_loc, turf_source) * distance_multiplier
 
-		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
+		if(max_distance && falloff_exponent) //If theres no max_distance we're not a 3D sound, so no falloff. MONKESTATION EDIT
 			sound_to_use.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * sound_to_use.volume
 			//https://www.desmos.com/calculator/sqdfl8ipgf
 
