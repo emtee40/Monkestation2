@@ -841,7 +841,7 @@
 
 /datum/design/mecha_kineticgun // MONKEstation change, replaces the 217-D mech cutter
 	name = "Exosuit Proto-Kinetic Accelerator"
-	desc = "An exosuit-mounted mining tool that does increased damage in low pressure. Drawing from an onboard power source allows it to project further than the handheld version."
+	desc = "A dual-mode exosuit mining tool with that can alternate between bursts of rock cutting plasma and kinetic accelerator blasts."
 	id = "mecha_kineticgun"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun

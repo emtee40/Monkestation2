@@ -34,7 +34,6 @@
 
 	///what equipment flags does this have
 	var/equipment_flags
-	var/movedelay = 0
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
