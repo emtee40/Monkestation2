@@ -29,7 +29,7 @@
 	///Sound file: Sound to play when this equipment is destroyed while still attached to the mech
 	var/destroy_sound = 'sound/mecha/critdestr.ogg'
 
-	var/movedelay = 0 /*	MONKEstation edit, mech tools/weapons have movedelay (weight) values. More powerful gear is generally heavier, HONK gear should be weightless (it's plastic and designed to be a toy).
+	var/movedelay = 0	/*	MONKEstation edit, mech tools/weapons have movedelay (weight) values. More powerful gear is generally heavier, HONK gear should be weightless (it's plastic and designed to be a toy).
 	 						Mechs have weight tolerance values (encumbrance_gap) before they experience slowdown. */
 
 	///what equipment flags does this have
