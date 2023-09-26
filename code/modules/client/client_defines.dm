@@ -272,5 +272,5 @@
 	/// Does this client have typing indicators enabled?
 	var/typing_indicators = FALSE
 
-	/// used for rewarding players monkecoins at round end
+	/// used for rewarding players monkecoins when the shuttle departs from the station
 	var/reward_this_person = 0

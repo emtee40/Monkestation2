@@ -1143,6 +1143,29 @@
 		launch_status = ENDGAME_LAUNCHED
 		enterTransit()
 
+	// Monkestation edit start
+	var/hour = round((world.time - SSticker.round_start_time) / 36000)
+	var/minute = round(((world.time - SSticker.round_start_time) - (hour * 36000)) / 600)
+	var/added_xp = round(25 + (minute**0.85))
+	for(var/client/C in GLOB.clients)
+		if(C && C.prefs)
+			C.prefs.adjust_metacoins(C.ckey, 75, "Played a Round")
+			C.prefs.adjust_metacoins(C.ckey, C.reward_this_person, "Special Bonus")
+			if(C.mob?.mind?.assigned_role)
+				add_jobxp(C,added_xp, C.mob.mind.assigned_role.title)
+		if(length(C.applied_challenges))
+			if(isliving(C.mob))
+				var/mob/living/client_mob = C.mob
+				if(client_mob.stat != DEAD)
+					var/total_payout = 0
+					for(var/datum/challenge/listed_challenge as anything in C.applied_challenges)
+						if(listed_challenge.failed)
+							continue
+						total_payout += listed_challenge.challenge_payout
+					if(total_payout)
+						C.prefs.adjust_metacoins(C.ckey, total_payout, "Challenge rewards.")
+	// Monkestation edit end
+
 /obj/docking_port/mobile/emergency/on_emergency_launch()
 	return
 
