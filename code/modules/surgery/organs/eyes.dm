@@ -154,7 +154,7 @@
 /obj/item/organ/internal/eyes/apply_organ_damage(damage_amount, maximum, required_organtype)
 	. = ..()
 	if(!owner)
-		return
+		return FALSE
 	apply_damaged_eye_effects()
 
 /// Applies effects to our owner based on how damaged our eyes are

@@ -502,7 +502,7 @@
 /obj/item/organ/internal/brain/apply_organ_damage(damage_amount, maximum, required_organtype)
 	. = ..()
 	if(!owner)
-		return
+		return FALSE
 	if(damage >= 60)
 		owner.add_mood_event("brain_damage", /datum/mood_event/brain_damage)
 	else

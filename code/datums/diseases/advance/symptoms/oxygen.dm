@@ -33,13 +33,13 @@
 	. = ..()
 	if(!.)
 		return
-	var/mob/living/carbon/M = A.affected_mob
+	var/mob/living/carbon/infected_mob = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			M.adjustOxyLoss(-7, 0)
-			M.losebreath = max(0, M.losebreath - 4)
-			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
-				M.blood_volume += 1
+			infected_mob.losebreath = max(0, infected_mob.losebreath - 4)
+			infected_mob.adjustOxyLoss(-7)
+			if(regenerate_blood && infected_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+				infected_mob.blood_volume += 1
 		else
 			if(prob(base_message_chance))
 				to_chat(M, span_notice("[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]"))

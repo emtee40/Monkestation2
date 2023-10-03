@@ -110,6 +110,29 @@
 	REMOVE_TRAIT(tongue_owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
 	// Carbons by default start with NO_TONGUE_TRAIT caused TRAIT_AGEUSIA
 	ADD_TRAIT(tongue_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+	//tongue_owner.voice_filter = initial(tongue_owner.voice_filter)	Monkestation removal: We dont have tts on Monke (as of right now)
+
+/obj/item/organ/internal/tongue/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag)
+	. = ..()
+	if(!owner)
+		return FALSE
+	apply_tongue_effects()
+
+/// Applies effects to our owner based on how damaged our tongue is
+/obj/item/organ/internal/tongue/proc/apply_tongue_effects()
+	if(sense_of_taste)
+		//tongues can't taste food when they are failing
+		if(organ_flags & ORGAN_FAILING)
+			ADD_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+		else
+			REMOVE_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	else
+		//tongues can't taste food when they lack a sense of taste
+		ADD_TRAIT(owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	if(organ_flags & ORGAN_FAILING)
+		REMOVE_TRAIT(owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
+	else
+		ADD_TRAIT(owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
 
 /obj/item/organ/internal/tongue/could_speak_language(datum/language/language_path)
 	return (language_path in languages_possible)

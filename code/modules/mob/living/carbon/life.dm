@@ -36,9 +36,11 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
-		var/bprv = handle_bodyparts(seconds_per_tick, times_fired)
-		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
-			updatehealth()
+
+		if(getStaminaLoss() > 0 && stam_regen_start_time <= world.time)
+			adjustStaminaLoss(-INFINITY)
+
+	handle_bodyparts(seconds_per_tick, times_fired)
 
 	if(. && mind) //. == not dead
 		for(var/key in mind.addiction_points)
@@ -423,10 +425,13 @@
 
 	//-- NITRIUM --//
 	if(nitrium_pp)
+		var/need_mob_update = FALSE
 		if(nitrium_pp > 0.5)
-			adjustFireLoss(nitrium_pp * 0.15)
+			need_mob_update += adjustFireLoss(nitrium_pp * 0.15, updating_health = FALSE)
 		if(nitrium_pp > 5)
-			adjustToxLoss(nitrium_pp * 0.05)
+			need_mob_update += adjustToxLoss(nitrium_pp * 0.05, updating_health = FALSE)
+		if(need_mob_update)
+			updatehealth()
 
 	// Handle chemical euphoria mood event, caused by N2O.
 	if (n2o_euphoria == EUPHORIA_ACTIVE)
@@ -764,7 +769,7 @@
 	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_NOMETABOLISM))
 		return
 
-	adjustToxLoss(0.6 * seconds_per_tick, TRUE,  TRUE)
+	adjustToxLoss(0.6 * seconds_per_tick, forced = TRUE)
 	adjustOrganLoss(pick(ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_STOMACH, ORGAN_SLOT_EYES, ORGAN_SLOT_EARS), 0.5* seconds_per_tick)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
@@ -821,6 +826,7 @@
 
 	var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
 	if(!istype(heart))
-		return
+		return FALSE
 
 	heart.beating = !status
+	return TRUE
