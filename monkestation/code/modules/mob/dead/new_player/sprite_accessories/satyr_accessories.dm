@@ -65,4 +65,4 @@
 	icon_state = "normal"
 	body_slots = list(BODY_ZONE_CHEST)
 	external_slots = list(ORGAN_SLOT_EXTERNAL_SPINES)
-    gender_specific = TRUE
+	gender_specific = TRUE

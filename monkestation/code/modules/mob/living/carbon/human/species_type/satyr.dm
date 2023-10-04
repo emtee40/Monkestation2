@@ -113,3 +113,36 @@
 	gain_text = span_notice("The ground doesn't feel so rough on your feet anymore.")
 	lose_text = span_danger("You start feeling the ridges and imperfections on the ground.")
 	medical_record_text = "Patient's feet are more resilient against traction."
+
+/datum/species/satyr/get_scream_sound(mob/living/carbon/human/human)
+    if(human.gender == MALE)
+		return pick('sound/voice/human/malescream_1.ogg',
+					'sound/voice/human/malescream_2.ogg',
+					'sound/voice/human/malescream_3.ogg',
+					'sound/voice/human/malescream_4.ogg',
+					'sound/voice/human/malescream_5.ogg',
+					'sound/voice/human/malescream_6.ogg')
+	else
+		return pick('sound/voice/human/femalescream_1.ogg',
+					'sound/voice/human/femalescream_2.ogg',
+					'sound/voice/human/femalescream_3.ogg',
+					'sound/voice/human/femalescream_4.ogg',
+					'sound/voice/human/femalescream_5.ogg')
+
+/datum/species/satyr/get_laugh_sound(mob/living/carbon/human/human)
+    if(human.gender == MALE)
+		return pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
+	else
+		return 'sound/voice/human/womanlaugh.ogg'
+
+/datum/action/innate/headbutt
+	name = "Headbutt"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon_state = "slimeheal"
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
+	background_icon_state = "bg_alien"
+	overlay_icon_state = "bg_alien_border"
+
+/datum/action/innate/regenerate_limbs/Activate()
+	var/mob/living/carbon/human/H = owner
+	to_chat(H, span_notice("test"))
