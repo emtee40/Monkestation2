@@ -9,7 +9,7 @@
 	return possible_values_for_sprite_accessory_list_for_body_part(
 		GLOB.satyr_horns_list,
 		"satyr_horns",
-		list("ADJ", "FRONT"),
+		"FRONT",
 	)
 
 /datum/preference/choiced/satyr_horns/apply_to_human(mob/living/carbon/human/target, value)
