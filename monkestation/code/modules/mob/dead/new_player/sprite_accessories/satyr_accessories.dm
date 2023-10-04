@@ -1,6 +1,6 @@
 /datum/sprite_accessory/satyr_horns
 	icon = 'monkestation/icons/mob/species/satyr/satyr_horns.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTCOLORS_SECONDARY
 
 /datum/sprite_accessory/satyr_horns/tall
 	name = "Tall"
@@ -16,7 +16,7 @@
 
 /datum/sprite_accessory/satyr_ears
 	icon = 'monkestation/icons/mob/species/satyr/satyr_ears.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTCOLORS_SECONDARY
 
 /datum/sprite_accessory/satyr_ears/floppy
 	name = "Floppy"
@@ -32,7 +32,7 @@
 
 /datum/sprite_accessory/satyr_tail
 	icon = 'monkestation/icons/mob/species/satyr/satyr_tail.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTCOLORS_SECONDARY
 
 /datum/sprite_accessory/satyr_tail/short
 	name = "Short"
@@ -40,7 +40,7 @@
 
 /datum/sprite_accessory/satyr_fluff
 	icon = 'monkestation/icons/mob/species/satyr/satyr_fluff.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTCOLORS_SECONDARY
 
 /datum/sprite_accessory/satyr_fluff/normal
 	name = "Normal"

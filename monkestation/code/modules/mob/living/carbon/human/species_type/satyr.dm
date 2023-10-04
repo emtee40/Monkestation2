@@ -4,12 +4,12 @@
 	id = SPECIES_SATYR
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	sexes = TRUE
+	use_skintones = TRUE
 	species_traits = list(
-		MUTCOLORS,
+		MUTCOLORS_SECONDARY,
 		EYECOLOR,
 		HAIR,
-		FACEHAIR,
-		SKINTONES
+		FACEHAIR
 	)
 	inherent_traits = list(
 		TRAIT_NIGHT_VISION,
@@ -25,10 +25,11 @@
 		/obj/item/organ/external/satyr_fluff = "normal"
 		)
 	meat = /obj/item/food/meat/steak
-	liked_food = MEAT | GROSS | VEGETABLES | FRUIT
+	liked_food = GROSS | VEGETABLES | FRUIT
+	disliked_food = MEAT | DAIRY
 	species_language_holder = /datum/language_holder/satyr
-	maxhealthmod = 1
-	stunmod = 1
+	maxhealthmod = 0.8
+	stunmod = 1.2
 	speedmod = 1
 	payday_modifier = 1
 	bodypart_overrides = list(
@@ -53,9 +54,9 @@
 	name = "Gotin"
 	desc = "The language of the satyrs, very similar to an old Terran language called latin."
 	space_chance = 50
-	key = "S"
+	key = "u"
 
-	syllables = list("beh, bah, buh, be, ba, bu, baa")
+	syllables = list("beh, bah, buh, be, ba, bu, baa, ac, do, addo, hae, haec, hau, hos, deu, lea, leu, leo, immo, imno, viso, visa, itio, io, tio")
 
 	default_priority = 90
 	icon_state = "satyr"
