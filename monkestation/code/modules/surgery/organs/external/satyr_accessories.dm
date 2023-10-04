@@ -85,6 +85,7 @@
 	preference = "feature_satyr_fluff"
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_EXTERNAL_TAIL
+	organ_flags = ORGAN_UNREMOVABLE
 
 	use_mob_sprite_as_obj_sprite = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_fluff
