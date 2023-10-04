@@ -1,3 +1,5 @@
+/// Satyr Horns ///
+
 /datum/preference/choiced/satyr_horns
 	savefile_key = "feature_satyr_horns"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -14,6 +16,8 @@
 
 /datum/preference/choiced/satyr_horns/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["satyr_horns"] = value
+
+/// Satyr Ears ///
 
 /datum/preference/choiced/satyr_ears
 	savefile_key = "feature_satyr_ears"
@@ -32,6 +36,8 @@
 /datum/preference/choiced/satyr_ears/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["satyr_ears"] = value
 
+/// Satyr Tail ///
+
 /datum/preference/choiced/satyr_tail
 	savefile_key = "feature_satyr_tail"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -49,6 +55,8 @@
 /datum/preference/choiced/satyr_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["satyr_tail"] = value
 
+/// Satyr Fluff ///
+
 /datum/preference/choiced/satyr_fluff
 	savefile_key = "feature_satyr_fluff"
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -60,7 +68,7 @@
 	return possible_values_for_sprite_accessory_list_for_body_part(
 		GLOB.satyr_fluff_list,
 		"satyr_fluff",
-		list("ADJ", "FRONT"),
+		"FRONT",
 	)
 
 /datum/preference/choiced/satyr_fluff/apply_to_human(mob/living/carbon/human/target, value)

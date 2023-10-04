@@ -1,3 +1,5 @@
+/// Satyr Horns ///
+
 /obj/item/organ/external/satyr_horns
 	name = "satyr horns"
 	desc = "Some pointy goat-like horns."
@@ -12,7 +14,7 @@
 	bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_horns
 
 /datum/bodypart_overlay/mutant/satyr_horns
-	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+	layers = EXTERNAL_FRONT
 	feature_key = "satyr_horns"
 
 /datum/bodypart_overlay/mutant/satyr_horns/get_global_feature_list()
@@ -23,6 +25,8 @@
 
 /datum/bodypart_overlay/mutant/satyr_horns/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
+
+/// Satyr Ears ///
 
 /obj/item/organ/external/satyr_ears
 	name = "satyr ears"
@@ -50,6 +54,8 @@
 /datum/bodypart_overlay/mutant/satyr_ears/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
 
+/// Satyr Tail ///
+
 /obj/item/organ/external/satyr_tail
 	name = "satyr tail"
 	desc = "A short and stubby goat tail."
@@ -57,7 +63,7 @@
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 
 	preference = "feature_satyr_tail"
-	zone = BODY_ZONE_CHEST
+	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_EXTERNAL_TAIL
 
 	use_mob_sprite_as_obj_sprite = TRUE
@@ -75,6 +81,8 @@
 
 /datum/bodypart_overlay/mutant/satyr_tail/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
+
+/// Satyr Fluff ///
 
 /obj/item/organ/external/satyr_fluff
 	name = "satyr fluff"
