@@ -109,6 +109,10 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["arachnid_appendages"] = "Long" //Monkestation Addition
 	target.dna.features["arachnid_chelicerae"] = "Basic" //Monkestation Addition
 	target.dna.features["goblin_ears"] = "Normal" //Monkestation Addition
+	target.dna.features["satyr_horns"] = "Short" //Monkestation Addition
+	target.dna.features["satyr_ears"] = "Floppy" //Monkestation Addition
+	target.dna.features["satyr_tail"] = "Short" //Monkestation Addition
+	target.dna.features["satyr_fluff"] = "Normal" //Monkestation Addition
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

@@ -110,6 +110,14 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/arachnid_chelicerae, GLOB.arachnid_chelicerae_list)
 	if(!GLOB.goblin_ears_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list)
+	if(!GLOB.satyr_horns_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_horns, GLOB.satyr_horns_list)
+	if(!GLOB.satyr_ears_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_ears, GLOB.satyr_ears_list)
+	if(!GLOB.satyr_tail_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_tail, GLOB.satyr_tail_list)
+	if(!GLOB.satyr_tail_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_fluff, GLOB.satyr_fluff_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
@@ -142,7 +150,10 @@
 		"arachnid_appendages" = pick(GLOB.arachnid_appendages_list), //Monkestation Addition
 		"arachnid_chelicerae" = pick(GLOB.arachnid_chelicerae_list), //Monkestation Addition
 		"animecolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]", //Monkestation Addition
-		"goblin_ears" = pick(GLOB.goblin_ears_list) //Monkestation Addition
+		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
+		"satyr_horns" = pick(GLOB.satyr_horns_list), //Monkestation Addition
+		"satyr_ears" = pick(GLOB.satyr_ears_list), //Monkestation Addition
+		"satyr_tail" = pick(GLOB.satyr_tail_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
