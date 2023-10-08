@@ -1141,8 +1141,8 @@
 /obj/docking_port/mobile/proc/on_emergency_launch()
 	if(launch_status == UNLAUNCHED) //Pods will not launch from the mine/planet, and other ships won't launch unless we tell them to.
 		launch_status = ENDGAME_LAUNCHED
-		give_monkecoin("on_emergency_launch()")	// Monkestation addition: monkecoins
 		enterTransit()
+		give_monkecoin()	// Monkestation addition: monkecoins
 
 /obj/docking_port/mobile/emergency/on_emergency_launch()
 	return
@@ -1164,29 +1164,21 @@
 
 
 // Monkestation proc to give monkecoin
-/obj/docking_port/mobile/proc/give_monkecoin(original_proc)
+/obj/docking_port/mobile/proc/give_monkecoin()
 	var/hour = round((world.time - SSticker.round_start_time) / 36000)
 	var/minute = round(((world.time - SSticker.round_start_time) - (hour * 36000)) / 600)
 	var/added_xp = round(25 + (minute**0.85))
-	var/time_spent_monkeying
 
-	log_monkecoin("[original_proc]")
 	for(var/client/C in GLOB.clients)
-		var/used_time = world.time
 		if(C && C.prefs)
-			log_monkecoin("if(C && C.prefs)", C.key)
 			C.prefs.adjust_metacoins(C.ckey, 75, "Played a Round")
 			C.prefs.adjust_metacoins(C.ckey, C.reward_this_person, "Special Bonus")
 			if(C.mob?.mind?.assigned_role)
-				log_monkecoin("if(C.mob?.mind?.assigned_role)", C.key)
 				add_jobxp(C,added_xp, C.mob.mind.assigned_role.title)
 		if(length(C.applied_challenges))
-			log_monkecoin("if(length(C.applied_challenges))", C.key)
 			if(isliving(C.mob))
-				log_monkecoin("if(isliving(C.mob))", C.key)
 				var/mob/living/client_mob = C.mob
 				if(client_mob.stat != DEAD)
-					log_monkecoin("if(client_mob.stat != DEAD)", C.key)
 					var/total_payout = 0
 					for(var/datum/challenge/listed_challenge as anything in C.applied_challenges)
 						if(listed_challenge.failed)
@@ -1194,23 +1186,6 @@
 						total_payout += listed_challenge.challenge_payout
 					if(total_payout)
 						C.prefs.adjust_metacoins(C.ckey, total_payout, "Challenge rewards.")
-		used_time = world.time - used_time
-		time_spent_monkeying += used_time
-
-	// Lets deduct the shuttle timer by how many seconds we spent doing this
-	if(timer <= 0 || timer == INFINITY || !timer || !time_spent_monkeying)
-		return
-	setTimer(timer - time_spent_monkeying)
-
-// Monkestation proc to log monkecoin given out at round_end, to properly use it
-/obj/docking_port/mobile/proc/log_monkecoin(message, client_key)
-	var/log = FALSE // Switch it on/off here
-	if(!log)
-		return
-	if(!client_key)
-		CRASH("[message] ran and succeeded")
-		return
-	CRASH("[message] ran and succeeded by the ckey: [client_key]")
 
 #ifdef TESTING
 #undef DOCKING_PORT_HIGHLIGHT
