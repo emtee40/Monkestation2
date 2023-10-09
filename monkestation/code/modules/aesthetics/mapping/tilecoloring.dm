@@ -4,6 +4,98 @@
 	name = "darkest green corner"
 	color = "#055205"
 
+
+
+/// Automatically generates all subtypes for a decal with the given path.
+#define TILE_DECAL_SUBTYPE_HELPER(path)\
+##path/opposingcorners {\
+	icon_state = "tile_opposing_corners";\
+}\
+##path/half {\
+	icon_state = "tile_half";\
+}\
+##path/half/contrasted {\
+	icon_state = "tile_half_contrasted";\
+}\
+##path/anticorner {\
+	icon_state = "tile_anticorner";\
+}\
+##path/anticorner/contrasted {\
+	icon_state = "tile_anticorner_contrasted";\
+}\
+##path/fourcorners {\
+	icon_state = "tile_fourcorners";\
+}\
+##path/full {\
+	icon_state = "tile_full";\
+}\
+##path/diagonal_centre {\
+	icon_state = "diagonal_centre";\
+}\
+##path/diagonal_edge {\
+	icon_state = "diagonal_edge";\
+}
+
+
+
+/// Automatically generates all trimlines for a decal with the given path.
+#define TRIMLINE_SUBTYPE_HELPER(path)\
+##path/line {\
+	icon_state = "trimline";\
+}\
+##path/corner {\
+	icon_state = "trimline_corner";\
+}\
+##path/end {\
+	icon_state = "trimline_end";\
+}\
+##path/arrow_cw {\
+	icon_state = "trimline_arrow_cw";\
+}\
+##path/arrow_ccw {\
+	icon_state = "trimline_arrow_ccw";\
+}\
+##path/warning {\
+	icon_state = "trimline_warn";\
+}\
+##path/tram {\
+	icon_state = "trimline_tram";\
+}\
+##path/mid_joiner {\
+	icon_state = "trimline_mid";\
+}\
+##path/filled {\
+	icon_state = "trimline_box_fill";\
+}\
+##path/filled/line {\
+	icon_state = "trimline_fill";\
+}\
+##path/filled/corner {\
+	icon_state = "trimline_corner_fill";\
+}\
+##path/filled/end {\
+	icon_state = "trimline_end_fill";\
+}\
+##path/filled/arrow_cw {\
+	icon_state = "trimline_arrow_cw_fill";\
+}\
+##path/filled/arrow_ccw {\
+	icon_state = "trimline_arrow_ccw_fill";\
+}\
+##path/filled/warning {\
+	icon_state = "trimline_warn_fill";\
+}\
+##path/filled/mid_joiner {\
+	icon_state = "trimline_mid_fill";\
+}\
+##path/filled/shrink_cw {\
+	icon_state = "trimline_shrink_cw";\
+}\
+##path/filled/shrink_ccw {\
+	icon_state = "trimline_shrink_ccw";\
+}
+
+
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/darkest_green)
 
 /// Piss Yellow tiles
@@ -90,3 +182,6 @@ TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/dark_purple)
 	color = "#2E2E2E"
 
 TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/gray)
+
+#undef TILE_DECAL_SUBTYPE_HELPER
+#undef TRIMLINE_SUBTYPE_HELPER
