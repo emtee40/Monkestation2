@@ -69,14 +69,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/green)
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark_green)
 
-/// Darkest green tiles /// Fuck you, not dark enough
-
-/obj/effect/turf_decal/tile/darkest_green
-	name = "darkest green corner"
-	color = "#055205"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/darkest_green)
-
 /// Yellow tiles
 
 /obj/effect/turf_decal/tile/yellow
@@ -84,22 +76,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/darkest_green)
 	color = "#EFB341"
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/yellow)
-
-/// Piss Yellow tiles
-
-/obj/effect/turf_decal/tile/piss_yellow
-	name = "piss yellow corner"
-	color = "#BAC700"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/piss_yellow)
-
-/// Orange tiles
-
-/obj/effect/turf_decal/tile/orange
-	name = "orange corner"
-	color = "#D15802"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/orange)
 
 /// Red tiles
 
@@ -126,14 +102,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark_red)
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/bar)
 
-/// Hot Pink Tiles
-
-/obj/effect/turf_decal/tile/hot_pink
-	name = "hot pink corner"
-	color = "#FF69B4"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/hot_pink)
-
 /// Purple tiles
 
 /obj/effect/turf_decal/tile/purple
@@ -141,14 +109,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/hot_pink)
 	color = "#D381C9"
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/purple)
-
-/// Dark Puple Tiles
-
-/obj/effect/turf_decal/tile/dark_purple
-	name = "dark purple corner"
-	color = "#6C1282"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark_purple)
 
 /// Brown tiles
 
@@ -166,13 +126,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/brown)
 	alpha = 50
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/neutral)
-
-/// Gray tiles
-/obj/effect/turf_decal/tile/gray
-	name = "gray corner"
-	color = "#2E2E2E"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/gray)
 
 /// Dark tiles
 
@@ -295,12 +248,6 @@ TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/green)
 
 TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/dark_green)
 
-/// Darkest Green Trimlines
-/obj/effect/turf_decal/trimline/darkest_green
-	color = "#055205"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/darkest_green)
-
 /// Blue trimlines
 /obj/effect/turf_decal/trimline/blue
 	color = "#52B4E9"
@@ -319,35 +266,11 @@ TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/dark_blue)
 
 TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/yellow)
 
-/// Piss Yellow trimlines
-/obj/effect/turf_decal/trimline/piss_yellow
-	color = "#BAC700"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/piss_yellow)
-
-/// Orange trimlines
-/obj/effect/turf_decal/trimline/orange
-	color = "#D15802"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/orange)
-
-/// Hot Pink trimlines
-/obj/effect/turf_decal/trimline/hot_pink
-	color = "#FF69B4"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/hot_pink)
-
 /// Purple trimlines
 /obj/effect/turf_decal/trimline/purple
 	color = "#D381C9"
 
 TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/purple)
-
-/// Dark Purple trimlines
-/obj/effect/turf_decal/trimline/dark_purple
-	color = "#6C1282"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/dark_purple)
 
 /// Brown trimlines
 /obj/effect/turf_decal/trimline/brown
@@ -361,12 +284,6 @@ TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/brown)
 	alpha = 50
 
 TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/neutral)
-
-/// Gray trimlines
-/obj/effect/turf_decal/trimline/gray
-	color = "#2E2E2E"
-
-TRIMLINE_SUBTYPE_HELPER(/obj/effect/turf_decal/trimline/gray)
 
 /// Dark trimlines
 /obj/effect/turf_decal/trimline/dark
