@@ -425,70 +425,63 @@
 	l_pocket = /obj/item/knife/kitchen
 	l_hand = /obj/item/toy/balloon
 
-/*
-* /datum/outfit/centcom/death_commando
-*	name = "Death Commando"
-*
-*	id = /obj/item/card/id/advanced/black/deathsquad
-*	id_trim = /datum/id_trim/centcom/deathsquad
-*	uniform = /obj/item/clothing/under/rank/centcom/commander
-*	back = /obj/item/mod/control/pre_equipped/apocryphal
-*	box = /obj/item/storage/box/survival/centcom
-*	backpack_contents = list(
-*		/obj/item/ammo_box/a357 = 1,
-*		/obj/item/flashlight = 1,
-*		/obj/item/grenade/c4/x4 = 1,
-*		/obj/item/storage/box/flashbangs = 1,
-*		/obj/item/storage/medkit/regular = 1,
-*	)
-*	belt = /obj/item/gun/ballistic/revolver/mateba
-*	ears = /obj/item/radio/headset/headset_cent/alt
-*	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
-*	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
-*	mask = /obj/item/clothing/mask/gas/sechailer/swat
-*	shoes = /obj/item/clothing/shoes/combat/swat
-*	l_pocket = /obj/item/melee/energy/sword/saber
-*	r_pocket = /obj/item/shield/energy
-*	l_hand = /obj/item/gun/energy/pulse/loyalpin
-*
-*	skillchips = list(
-*		/obj/item/skillchip/disk_verifier,
-*	)
-*/
+// /datum/outfit/centcom/death_commando
+//	name = "Death Commando"
+//
+//	id = /obj/item/card/id/advanced/black/deathsquad
+//	id_trim = /datum/id_trim/centcom/deathsquad
+//	uniform = /obj/item/clothing/under/rank/centcom/commander
+//	back = /obj/item/mod/control/pre_equipped/apocryphal
+//	box = /obj/item/storage/box/survival/centcom
+//	backpack_contents = list(
+//		/obj/item/ammo_box/a357 = 1,
+//		/obj/item/flashlight = 1,
+//		/obj/item/grenade/c4/x4 = 1,
+//		/obj/item/storage/box/flashbangs = 1,
+//		/obj/item/storage/medkit/regular = 1,
+//	)
+//	belt = /obj/item/gun/ballistic/revolver/mateba
+//	ears = /obj/item/radio/headset/headset_cent/alt
+//	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
+//	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
+//	mask = /obj/item/clothing/mask/gas/sechailer/swat
+//	shoes = /obj/item/clothing/shoes/combat/swat
+//	l_pocket = /obj/item/melee/energy/sword/saber
+//	r_pocket = /obj/item/shield/energy
+//	l_hand = /obj/item/gun/energy/pulse/loyalpin
+//
+//	skillchips = list(
+//		/obj/item/skillchip/disk_verifier,
+//	)
 
-/* /datum/outfit/centcom/death_commando/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
-*	if(visualsOnly)
-*		return
-*
-*	var/obj/item/radio/radio = squaddie.ears
-*	radio.set_frequency(FREQ_CENTCOM)
-*	radio.freqlock = RADIO_FREQENCY_LOCKED
-*	var/obj/item/card/id/id = squaddie.wear_id
-*	id.registered_name = squaddie.real_name
-*	id.update_label()
-*	id.update_icon()
-*	return ..()
-*/
+// /datum/outfit/centcom/death_commando/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
+//	if(visualsOnly)
+//		return
+//
+//	var/obj/item/radio/radio = squaddie.ears
+//	radio.set_frequency(FREQ_CENTCOM)
+//	radio.freqlock = RADIO_FREQENCY_LOCKED
+//	var/obj/item/card/id/id = squaddie.wear_id
+//	id.registered_name = squaddie.real_name
+//	id.update_label()
+//	id.update_icon()
+//	return ..()
 
-/*
-* /datum/outfit/centcom/death_commando/officer
-*	name = "Death Commando Officer"
-*
-*	back = /obj/item/mod/control/pre_equipped/apocryphal/officer
-*
-*/
+// /datum/outfit/centcom/death_commando/officer
+//	name = "Death Commando Officer"
+//
+//	back = /obj/item/mod/control/pre_equipped/apocryphal/officer
+//
 
-/*
-*/datum/outfit/centcom/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
-*	. = ..()
-*	var/obj/item/mod/control/mod = squaddie.back
-*	if(!istype(mod))
-*		return
-*	var/obj/item/mod/module/hat_stabilizer/hat_holder = locate() in mod.modules
-*	var/obj/item/clothing/head/helmet/space/beret/beret = new(hat_holder)
-*	hat_holder.attached_hat = beret
-*	squaddie.update_clothing(mod.slot_flags)
-*/
+// /datum/outfit/centcom/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
+//	. = ..()
+//	var/obj/item/mod/control/mod = squaddie.back
+//	if(!istype(mod))
+//		return
+//	var/obj/item/mod/module/hat_stabilizer/hat_holder = locate() in mod.modules
+//	var/obj/item/clothing/head/helmet/space/beret/beret = new(hat_holder)
+//	hat_holder.attached_hat = beret
+//	squaddie.update_clothing(mod.slot_flags)
 
 /datum/outfit/centcom/ert/marine
 	name = "Marine Commander"
