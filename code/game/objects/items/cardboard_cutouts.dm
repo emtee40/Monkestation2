@@ -309,14 +309,14 @@
 /datum/cardboard_cutout/ash_walker/get_name()
 	return lizard_name(pick(MALE, FEMALE))
 
-/datum/cardboard_cutout/death_squad
-	name = "Deathsquad Officer"
-	applied_name = "deathsquad officer"
-	applied_desc = "A cardboard cutout of a death commando."
-	outfit = /datum/outfit/centcom/death_commando
+// /datum/cardboard_cutout/death_squad
+//	name = "Deathsquad Officer"
+//	applied_name = "deathsquad officer"
+//	applied_desc = "A cardboard cutout of a death commando."
+//	outfit = /datum/outfit/centcom/death_commando
 
-/datum/cardboard_cutout/death_squad/get_name()
-	return pick(GLOB.commando_names)
+// /datum/cardboard_cutout/death_squad/get_name()
+//	return pick(GLOB.commando_names)
 
 /datum/cardboard_cutout/ian
 	name = "Ian"
