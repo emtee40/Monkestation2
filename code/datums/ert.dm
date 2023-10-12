@@ -37,13 +37,15 @@
 	roles = list(/datum/antagonist/ert/security/red, /datum/antagonist/ert/medic/red, /datum/antagonist/ert/engineer/red)
 	code = "Red"
 
-/datum/ert/deathsquad
-	roles = list(/datum/antagonist/ert/deathsquad)
-	leader_role = /datum/antagonist/ert/deathsquad/leader
-	rename_team = "Deathsquad"
-	code = "Delta"
-	mission = "Leave no witnesses."
-	polldesc = "an elite Nanotrasen Strike Team"
+/*
+*/datum/ert/deathsquad
+*	roles = list(/datum/antagonist/ert/deathsquad)
+*	leader_role = /datum/antagonist/ert/deathsquad/leader
+*	rename_team = "Deathsquad"
+*	code = "Delta"
+*	mission = "Leave no witnesses."
+*	polldesc = "an elite Nanotrasen Strike Team"
+*/
 
 /datum/ert/marine
 	leader_role = /datum/antagonist/ert/marine

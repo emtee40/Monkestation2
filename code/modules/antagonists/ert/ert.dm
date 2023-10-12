@@ -107,21 +107,27 @@
 	role = "Heavy Duty Janitor"
 	outfit = /datum/outfit/centcom/ert/janitor/heavy
 
-/datum/antagonist/ert/deathsquad
-	name = "Deathsquad Trooper"
-	outfit = /datum/outfit/centcom/death_commando
-	plasmaman_outfit = /datum/outfit/plasmaman/centcom_commander
-	role = "Trooper"
-	rip_and_tear = TRUE
+/*
+* /datum/antagonist/ert/deathsquad
+*	name = "Deathsquad Trooper"
+*	outfit = /datum/outfit/centcom/death_commando
+*	plasmaman_outfit = /datum/outfit/plasmaman/centcom_commander
+*	role = "Trooper"
+*	rip_and_tear = TRUE
+*/
 
-/datum/antagonist/ert/deathsquad/New()
-	. = ..()
-	name_source = GLOB.commando_names
+/*
+* /datum/antagonist/ert/deathsquad/New()
+*	. = ..()
+*	name_source = GLOB.commando_names
+*/
 
-/datum/antagonist/ert/deathsquad/leader
-	name = "Deathsquad Officer"
-	outfit = /datum/outfit/centcom/death_commando
-	role = "Officer"
+/*
+* /datum/antagonist/ert/deathsquad/leader
+*	name = "Deathsquad Officer"
+*	outfit = /datum/outfit/centcom/death_commando
+*	role = "Officer"
+*/
 
 /datum/antagonist/ert/medic/inquisitor
 	outfit = /datum/outfit/centcom/ert/medic/inquisitor
