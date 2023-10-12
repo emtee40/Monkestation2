@@ -154,3 +154,30 @@
 /obj/item/organ/external/tail/lizard/fake
 	name = "fabricated lizard tail"
 	desc = "A fabricated severed lizard tail. This one's made of synthflesh. Probably not usable for lizard wine."
+
+///Satyr Tail
+/obj/item/organ/external/tail/satyr
+	name = "satyr tail"
+	desc = "A short and stubby goat tail."
+	icon_state = "satyr_tail"
+	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
+
+	preference = "feature_satyr_tail"
+	zone = BODY_ZONE_PRECISE_GROIN
+	slot = ORGAN_SLOT_EXTERNAL_TAIL
+
+	use_mob_sprite_as_obj_sprite = TRUE
+	// bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_tail
+
+// /datum/bodypart_overlay/mutant/tail/satyr
+// 	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+// 	feature_key = "satyr_tail"
+
+// /datum/bodypart_overlay/mutant/tail/satyr/get_global_feature_list()
+// 	return GLOB.tails_list_satyr
+
+// /datum/bodypart_overlay/mutant/tail/satyr/get_base_icon_state()
+// 	return sprite_datum.icon_state
+
+// /datum/bodypart_overlay/mutant/tail/satyr/can_draw_on_bodypart(mob/living/carbon/human/human)
+// 	return TRUE

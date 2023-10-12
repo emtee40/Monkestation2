@@ -1,3 +1,4 @@
+/// HORNS ///
 /datum/sprite_accessory/satyr_horns
 	color_src = MUTCOLORS_SECONDARY
 
@@ -21,6 +22,8 @@
 	icon_state = "back"
 	body_slots = list(BODY_ZONE_HEAD)
 	external_slots = list(ORGAN_SLOT_EXTERNAL_HORNS)
+
+/// EARS ///
 
 /datum/sprite_accessory/satyr_ears
 	color_src = MUTCOLORS_SECONDARY
@@ -46,15 +49,19 @@
 	body_slots = list(BODY_ZONE_HEAD)
 	external_slots = list(ORGAN_SLOT_EXTERNAL_FRILLS)
 
-/datum/sprite_accessory/satyr_tail
+/// TAIL ///
+
+/datum/sprite_accessory/tails/satyr
 	color_src = MUTCOLORS_SECONDARY
 
-/datum/sprite_accessory/satyr_tail/short
+/datum/sprite_accessory/tails/satyr/short
 	name = "Short"
 	icon = 'monkestation/icons/mob/species/satyr/satyr_horns.dmi'
 	icon_state = "short"
 	body_slots = list(BODY_ZONE_PRECISE_GROIN)
 	external_slots = list(ORGAN_SLOT_EXTERNAL_TAIL)
+
+/// FLUFF ///
 
 /datum/sprite_accessory/satyr_fluff
 	color_src = MUTCOLORS_SECONDARY

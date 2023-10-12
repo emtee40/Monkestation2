@@ -38,22 +38,22 @@
 
 /// Satyr Tail ///
 
-/datum/preference/choiced/satyr_tail
-	savefile_key = "feature_satyr_tail"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Satyr Tail"
-	should_generate_icons = TRUE
+// /datum/preference/choiced/satyr_tail
+// 	savefile_key = "feature_satyr_tail"
+// 	savefile_identifier = PREFERENCE_CHARACTER
+// 	category = PREFERENCE_CATEGORY_FEATURES
+// 	main_feature_name = "Satyr Tail"
+// 	should_generate_icons = TRUE
 
-/datum/preference/choiced/satyr_tail/init_possible_values()
-	return possible_values_for_sprite_accessory_list_for_body_part(
-		GLOB.satyr_tail_list,
-		"satyr_tail",
-		list("ADJ", "FRONT"),
-	)
+// /datum/preference/choiced/satyr_tail/init_possible_values()
+// 	return possible_values_for_sprite_accessory_list_for_body_part(
+// 		GLOB.satyr_tail_list,
+// 		"satyr_tail",
+// 		list("ADJ", "FRONT"),
+// 	)
 
-/datum/preference/choiced/satyr_tail/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["satyr_tail"] = value
+// /datum/preference/choiced/satyr_tail/apply_to_human(mob/living/carbon/human/target, value)
+// 	target.dna.features["satyr_tail"] = value
 
 /// Satyr Fluff ///
 

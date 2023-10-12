@@ -46,7 +46,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_horns, GLOB.satyr_horns_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_ears, GLOB.satyr_ears_list) //Monkestation Addition
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_tail, GLOB.satyr_tail_list) //Monkestation Addition
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/satyr, GLOB.tails_list_satyr) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_fluff, GLOB.satyr_fluff_list) //Monkestation Addition
 
 	//Species

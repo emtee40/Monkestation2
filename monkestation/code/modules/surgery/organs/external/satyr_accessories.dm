@@ -36,7 +36,7 @@
 
 	preference = "feature_satyr_ears"
 	zone = BODY_ZONE_HEAD
-	slot = ORGAN_SLOT_EXTERNAL_FRILLS
+	slot = ORGAN_SLOT_EXTERNAL_OUTER_EAR
 
 	use_mob_sprite_as_obj_sprite = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_ears
@@ -54,34 +54,6 @@
 /datum/bodypart_overlay/mutant/satyr_ears/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
 
-/// Satyr Tail ///
-
-/obj/item/organ/external/satyr_tail
-	name = "satyr tail"
-	desc = "A short and stubby goat tail."
-	icon_state = "satyr_tail"
-	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
-
-	preference = "feature_satyr_tail"
-	zone = BODY_ZONE_PRECISE_GROIN
-	slot = ORGAN_SLOT_EXTERNAL_TAIL
-
-	use_mob_sprite_as_obj_sprite = TRUE
-	bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_tail
-
-/datum/bodypart_overlay/mutant/satyr_tail
-	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
-	feature_key = "satyr_tail"
-
-/datum/bodypart_overlay/mutant/satyr_tail/get_global_feature_list()
-	return GLOB.satyr_tail_list
-
-/datum/bodypart_overlay/mutant/satyr_tail/get_base_icon_state()
-	return sprite_datum.icon_state
-
-/datum/bodypart_overlay/mutant/satyr_tail/can_draw_on_bodypart(mob/living/carbon/human/human)
-	return TRUE
-
 /// Satyr Fluff ///
 
 /obj/item/organ/external/satyr_fluff
@@ -92,7 +64,7 @@
 
 	preference = "feature_satyr_fluff"
 	zone = BODY_ZONE_CHEST
-	slot = ORGAN_SLOT_EXTERNAL_SPINES
+	slot = ORGAN_SLOT_EXTERNAL_FUR
 	organ_flags = ORGAN_UNREMOVABLE
 
 	use_mob_sprite_as_obj_sprite = TRUE

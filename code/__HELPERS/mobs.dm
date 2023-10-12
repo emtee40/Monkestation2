@@ -114,9 +114,9 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_horns, GLOB.satyr_horns_list)
 	if(!GLOB.satyr_ears_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_ears, GLOB.satyr_ears_list)
-	if(!GLOB.satyr_tail_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_tail, GLOB.satyr_tail_list)
-	if(!GLOB.satyr_tail_list.len)
+	// if(!GLOB.tails_list_satyr.len)
+	// 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/satyr, GLOB.tails_list_satyr)
+	if(!GLOB.satyr_fluff_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_fluff, GLOB.satyr_fluff_list)
 //Monkestation Addition End
 
@@ -153,7 +153,7 @@
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"satyr_horns" = pick(GLOB.satyr_horns_list), //Monkestation Addition
 		"satyr_ears" = pick(GLOB.satyr_ears_list), //Monkestation Addition
-		"satyr_tail" = pick(GLOB.satyr_tail_list), //Monkestation Addition
+		"satyr_tail" = "Short", //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
