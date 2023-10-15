@@ -1,6 +1,6 @@
 /datum/reagent/liquid_justice
-	name = "Liquid justice"
-	description = "Rumors say that only the truly robust can safelly process this chemical"
+	name = "Liquid Justice"
+	description = "Rumors say that only the truly robust can safely process this chemical"
 	color = "#00ffff" // rgb: 0,255,255
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	ph = 0

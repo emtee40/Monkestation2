@@ -1,6 +1,6 @@
 /datum/reagent/australium
 	name = "Australium"
-	description = "Causes people to invert into austrilians, has interesting effects on chemicals aswell."
+	description = "Causes people to invert into australians, has interesting effects on chemicals as well."
 	color = "#9b9924"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_CLEANS
 	taste_description = "spiders"
