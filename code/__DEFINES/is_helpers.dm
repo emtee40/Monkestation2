@@ -62,6 +62,8 @@ GLOBAL_LIST_INIT(turfs_openspace, typecacheof(list(
 
 #define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
 
+#define iscliffturf(A) (istype(A, /turf/open/cliff))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 
@@ -95,6 +97,7 @@ GLOBAL_LIST_INIT(turfs_openspace, typecacheof(list(
 #define isandroid(A) (is_species(A, /datum/species/android))
 #define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
 #define isipc(A) (is_species(A, /datum/species/ipc))
+#define isgoblin(A) (is_species(A, /datum/species/goblin))//monkestation addition
 
 
 //More carbon mobs

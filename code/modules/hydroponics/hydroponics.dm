@@ -64,6 +64,10 @@
 	var/sustaining_precent = 0
 	///do we let self sustaining increase plant stats overtime?
 	var/self_growing = FALSE
+	///the multi these get for exisitng
+	var/multi = 1
+	///helping tray
+	var/helping_tray = FALSE
 
 /obj/machinery/hydroponics/Initialize(mapload)
 	create_reagents(40)
@@ -251,11 +255,11 @@
 			needs_update = TRUE
 			growth += 3
 			if(self_sustaining && self_growing)
-				if(myseed.potency < 50)
+				if(myseed.potency < 50 * multi)
 					myseed.adjust_potency(2)
-				if(myseed.yield < 5)
+				if(myseed.yield < 5 * multi)
 					myseed.adjust_yield(1)
-				if(myseed.lifespan < 70)
+				if(myseed.lifespan < 70 * multi)
 					myseed.adjust_lifespan(2)
 /**
  * Nutrients
@@ -388,7 +392,8 @@
 
 		if(myseed)
 			SEND_SIGNAL(myseed, COMSIG_SEED_ON_GROW, src)
-
+	if(helping_tray)
+		helpful_stuff()
 	return
 
 /obj/machinery/hydroponics/proc/nutrimentMutation()
@@ -612,7 +617,7 @@
 		. += span_info("It's empty.")
 
 	. += span_info("Water: [waterlevel]/[maxwater].")
-	. += span_info("Nutrient: [round(reagents.total_volume)]/[maxnutri].")
+	. += span_info("Nutrient: [round(reagents.total_volume)]/[maxnutri]. Right-click to empty.")
 	if(self_sustaining)
 		. += span_info("The tray's self-sustenance is active, protecting it from species mutations, weeds, and pests.")
 	if(self_growing)
@@ -1027,12 +1032,13 @@
 		return
 	if(issilicon(user)) //How does AI know what plant is?
 		return
-	var/growth_mult = (1.01 ** -myseed.maturation)
-	if(growth >= myseed.harvest_age * growth_mult)
-		//if(myseed.harvest_age < age * max(myseed.production * 0.044, 0.5) && (myseed.harvest_age) < (age - lastproduce) * max(myseed.production * 0.044, 0.5) && (!harvest && !dead))
-		nutrimentMutation()
-		if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
-			set_plant_status(HYDROTRAY_PLANT_HARVESTABLE)
+	if(myseed)
+		var/growth_mult = (1.01 ** -myseed.maturation)
+		if(growth >= myseed.harvest_age * growth_mult)
+			//if(myseed.harvest_age < age * max(myseed.production * 0.044, 0.5) && (myseed.harvest_age) < (age - lastproduce) * max(myseed.production * 0.044, 0.5) && (!harvest && !dead))
+			nutrimentMutation()
+			if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
+				set_plant_status(HYDROTRAY_PLANT_HARVESTABLE)
 
 	if(plant_status == HYDROTRAY_PLANT_HARVESTABLE)
 		return myseed.harvest(user)
@@ -1045,6 +1051,30 @@
 	else
 		if(user)
 			user.examinate(src)
+
+/obj/machinery/hydroponics/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(issilicon(user))
+		return
+
+	if(reagents.total_volume)
+		to_chat(user, span_notice("You begin to dump out the tray's nutrient mix."))
+		if(do_after(user, 4 SECONDS, target = src))
+			playsound(user.loc, 'sound/effects/slosh.ogg', 50, TRUE, -1)
+			//dump everything on the floor
+			var/turf/user_loc = user.loc
+			if(istype(user_loc, /turf/open))
+				user_loc.add_liquid_from_reagents(reagents)
+			else
+				user_loc = get_step_towards(user_loc, src)
+				user_loc.add_liquid_from_reagents(reagents)
+			adjust_plant_nutriments(100) //PURGE
+	else
+		to_chat(user, span_warning("The tray's nutrient mix is already empty!"))
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /**
  * Update Tray Proc
@@ -1153,6 +1183,13 @@
 	self_sustaining_overlay_icon_state = null
 	maxnutri = 15
 
+/obj/machinery/hydroponics/soil/Initialize(mapload)
+	. = ..()
+	if(SSmapping.level_trait(src.z, ZTRAIT_MINING))
+		multi = 5
+		self_growing = TRUE
+		self_sustaining = TRUE
+
 /obj/machinery/hydroponics/soil/update_icon(updates=ALL)
 	. = ..()
 	if(self_sustaining)
@@ -1170,7 +1207,7 @@
 ///The usb port circuit
 
 /obj/item/circuit_component/hydroponics
-	display_name = "Hydropnics Tray"
+	display_name = "Hydroponics Tray"
 	desc = "Automate the means of botanical production. Trigger to toggle auto-grow."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 

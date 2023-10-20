@@ -14,8 +14,8 @@
 		"basic_matter_bin",
 		"basic_micro_laser",
 		"basic_scanning",
-		"bepis",
 		"blast",
+		"bodybag",
 		"bounced_radio",
 		"bowl",
 		"bucket",
@@ -93,6 +93,7 @@
 		"recorder",
 		"rglass",
 		"roll",
+		"rollerbed",
 		"sec_38",
 		"sec_beanbag_slug",
 		"sec_dart",
@@ -945,6 +946,7 @@
 		"borg_upgrade_selfrepair",
 		"borg_upgrade_thrusters",
 		"borg_upgrade_trashofholding",
+		"borg_upgrade_clamp", //monkestation edit
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
@@ -1483,7 +1485,7 @@
 		"zipties",
 		"inspector",
 		"mag_autorifle",
-		"rubber_c35", //monkestation edit: paco sec
+		"rubber_c35", //monkestation edit: taco sec
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -1523,7 +1525,7 @@
 	design_ids = list(
 		"pin_testing",
 		"tele_shield",
-		"lethal_c35", //monkestation edit: paco sec
+		"lethal_c35", //monkestation edit: taco sec
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	discount_experiments = list(/datum/experiment/ordnance/explosive/pressurebomb = 5000)

@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 	light_inner_range = 0.1
 	light_outer_range = 4
 	light_falloff_curve = 5
-	space_lit = TRUE
+	//space_lit = TRUE
 	bullet_bounce_sound = null
 	vis_flags = VIS_INHERIT_ID //when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
@@ -62,6 +62,9 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 	if(SSmapping.max_plane_offset)
 		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
 
+	if(!SSmapping.level_trait(src.z, ZTRAIT_STARLIGHT))
+		space_lit = TRUE
+
 	var/area/our_area = loc
 	if(!our_area.area_has_base_lighting && space_lit) //Only provide your own lighting if the area doesn't for you
 		// Intentionally not add_overlay for performance reasons.
@@ -74,10 +77,10 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 			SSair.add_to_active(src, TRUE)
 
 		if(SSmapping.max_plane_offset)
-			var/turf/T = SSmapping.get_turf_above(src)
+			var/turf/T = GET_TURF_ABOVE(src)
 			if(T)
 				T.multiz_turf_new(src, DOWN)
-			T = SSmapping.get_turf_below(src)
+			T = GET_TURF_BELOW(src)
 			if(T)
 				T.multiz_turf_new(src, UP)
 
@@ -120,7 +123,8 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 
 /// Turns on the stars, if they aren't already
 /turf/open/space/proc/enable_starlight()
-	set_light(l_color = GLOB.starlight_color, l_on = TRUE)
+	if(space_lit)
+		set_light(l_color = GLOB.starlight_color, l_on = TRUE)
 
 /turf/open/space/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
@@ -298,10 +302,9 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 	return FALSE
 
 /turf/open/space/openspace/enable_starlight()
-	var/turf/below = SSmapping.get_turf_below(src)
-	if(istype(below, /turf/open/space/openspace))
-		// Override = TRUE beacuse we could have our starlight updated many times without a failure, which'd trigger this
-		RegisterSignal(below, COMSIG_TURF_CHANGE, PROC_REF(on_below_change), override = TRUE)
+	var/turf/below = GET_TURF_BELOW(src)
+	// Override = TRUE beacuse we could have our starlight updated many times without a failure, which'd trigger this
+	RegisterSignal(below, COMSIG_TURF_CHANGE, PROC_REF(on_below_change), override = TRUE)
 	if(!isspaceturf(below))
 		return
 	set_light(2)
@@ -311,7 +314,7 @@ GLOBAL_VAR_INIT(starlight_color, pick(COLOR_TEAL, COLOR_GREEN, COLOR_CYAN, COLOR
 	if(.)
 		return
 	// If we're here, the starlight is not to be
-	var/turf/below = SSmapping.get_turf_below(src)
+	var/turf/below = GET_TURF_BELOW(src)
 	UnregisterSignal(below, COMSIG_TURF_CHANGE)
 
 /turf/open/space/openspace/proc/on_below_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)
