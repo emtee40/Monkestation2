@@ -52,6 +52,14 @@
 #define JOB_SECURITY_OFFICER_ENGINEERING "Security Officer (Engineering)"
 #define JOB_SECURITY_OFFICER_SCIENCE "Security Officer (Science)"
 #define JOB_SECURITY_OFFICER_SUPPLY "Security Officer (Cargo)"
+#define JOB_CORRECTIONS_OFFICER "Corrections Officer"
+#define JOB_BRIG_PHYSICIAN "Brig Physician"
+#define JOB_DEPUTY "Deputy"
+#define JOB_DEPUTY_ENG "Engineering Deputy"
+#define JOB_DEPUTY_MED "Medical Deputy"
+#define JOB_DEPUTY_SUP "Supply Deputy"
+#define JOB_DEPUTY_SCI "Science Deputy"
+#define JOB_DEPUTY_SRV "Service Deputy"
 //Engineering
 #define JOB_STATION_ENGINEER "Station Engineer"
 #define JOB_ATMOSPHERIC_TECHNICIAN "Atmospheric Technician"
@@ -137,7 +145,10 @@
 #define JOB_DISPLAY_ORDER_WARDEN 32
 #define JOB_DISPLAY_ORDER_DETECTIVE 33
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 34
-#define JOB_DISPLAY_ORDER_PRISONER 35
+#define JOB_DISPLAY_ORDER_BRIG_PHYSICIAN 35
+#define JOB_DISPLAY_ORDER_CORRECTIONS_OFFICER 36
+#define JOB_DISPLAY_ORDER_DEPUTY 37
+#define JOB_DISPLAY_ORDER_PRISONER 38
 
 
 #define DEPARTMENT_UNASSIGNED "No Department"

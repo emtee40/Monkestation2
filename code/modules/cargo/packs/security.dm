@@ -150,6 +150,15 @@
 	contains = list(/obj/item/melee/baton/security/loaded = 3)
 	crate_name = "stun baton crate"
 
+/datum/supply_pack/security/baton_prison
+	name = "Prison Baton Crate"
+	desc = "Contains an extra baton for Corrections Officers. \
+		Just in case you hated the idea of a normal baton in their hands."
+	cost = CARGO_CRATE_VALUE * 2
+	access_view = ACCESS_SECURITY
+	access = ACCESS_SECURITY
+	contains = list(/obj/item/melee/baton/security/loaded/departmental/prison)
+
 /datum/supply_pack/security/wall_flash
 	name = "Wall-Mounted Flash Crate"
 	desc = "Contains four wall-mounted flashes."

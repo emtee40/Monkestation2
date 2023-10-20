@@ -773,3 +773,60 @@
 		else
 			stuff_in_hand.forceMove(user.drop_location())
 			stuff_in_hand.loc.visible_message(span_warning("[stuff_in_hand] suddenly appears!"))
+
+/*
+	Departmental Batons
+*/
+/obj/item/melee/baton/security/loaded/departmental
+	name = "departmental stun baton"
+	desc = "A stun baton fitted with a departmental area-lock, based off the station's blueprint layout - outside of its department, it only has three uses."
+	icon_state = "prison_baton"
+	var/list/valid_areas = list()
+	var/emagged = FALSE
+	var/non_departmental_uses_left = 4
+
+/obj/item/melee/baton/security/loaded/departmental/baton_attack(mob/living/target, mob/living/user, modifiers)
+	if(active && !emagged && cooldown_check <= world.time)
+		var/area/current_area = get_area(user)
+		if(!is_type_in_list(current_area, valid_areas))
+			if(non_departmental_uses_left)
+				non_departmental_uses_left--
+				if(non_departmental_uses_left)
+					say("[non_departmental_uses_left] non-departmental uses left!")
+				else
+					say("[src] is out of non-departmental uses! Return to your department and reactivate the baton to refresh it!")
+			else
+				target.visible_message(span_warning("[user] prods [target] with [src]. Luckily, it shut off due to being in the wrong area."), \
+					span_warning("[user] prods you with [src]. Luckily, it shut off due to being in the wrong area."))
+				active = FALSE
+				balloon_alert(user, "wrong department")
+				playsound(src, SFX_SPARKS, 75, TRUE, -1)
+				update_appearance()
+				return BATON_ATTACK_DONE
+	. = ..()
+
+/obj/item/melee/baton/security/loaded/departmental/attack_self(mob/user)
+	. = ..()
+	if(active) // just turned on
+		var/area/current_area = get_area(user)
+		if(!is_type_in_list(current_area, valid_areas))
+			return
+		if(non_departmental_uses_left < 4)
+			say("Non-departmental uses refreshed!")
+			non_departmental_uses_left = 4
+
+/obj/item/melee/baton/security/loaded/departmental/emag_act(mob/user)
+	if(!emagged)
+		if(user)
+			user.visible_message(span_warning("Sparks fly from [src]!"),
+							span_warning("You scramble [src]'s departmental lock, allowing it to be used freely!"),
+							span_hear("You hear a faint electrical spark."))
+		balloon_alert(user, "emagged")
+		playsound(src, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		emagged = TRUE
+
+/obj/item/melee/baton/security/loaded/departmental/prison
+	name = "prison stun baton"
+	desc = "A stun baton that doesn't operate outside of the Prison, based off the station's blueprint layout. Can be used outside of the Prison up to three times before needing to return!"
+	icon_state = "prison_baton"
+	valid_areas = list(/area/station/security/prison, /area/station/security/processing, /area/shuttle/escape)
