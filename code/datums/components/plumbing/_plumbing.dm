@@ -73,9 +73,9 @@
 
 /datum/component/plumbing/process()
 	if(!demand_connects || !reagents)
-		STOP_PROCESSING(SSplumbing, src)
-		return
-	if(reagents.total_volume < reagents.maximum_volume)
+		return PROCESS_KILL
+
+	if(!reagents.holder_full())
 		for(var/D in GLOB.cardinals)
 			if(D & demand_connects)
 				send_request(D)
