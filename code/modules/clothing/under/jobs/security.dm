@@ -212,54 +212,6 @@
 	alt_covers_chest = TRUE
 
 /*
- * Brig Physician
- */
-/datum/armor/under/rank/brig_physician
-	icon = 'icons/obj/clothing/under/security.dmi'
-	worn_icon = 'icons/mob/clothing/under/security.dmi'
-	armor_type = /datum/armor/rank_security
-	strip_delay = 50
-	sensor_mode = SENSOR_COORDS
-	random_sensor = FALSE
-
-	/datum/armor/under/rank/brig_physician
-	melee = 10
-	bio = 30
-	fire = 30
-	acid = 30
-	wound = 10
-
-/obj/item/clothing/under/rank/brig_physician
-	name = "brig physician's jumpsuit"
-	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
-	icon = "icons/mob/clothing/under/security.dmi"
-	icon_state = "brigphys"
-	inhand_icon_state = null
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/brig_physician/skirt
-	name = "brig physician's jumpskirt"
-	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
-	icon_state = "brigphys_skirt"
-	inhand_icon_state = null
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
-
-/obj/item/clothing/suit/toggle/labcoat/armored
-	name = "armored labcoat"
-	desc = "A specialized labcoat with kevlar treading as to provide protection to field doctors."
-	worn_icon = 'icons/mob/clothing/suits/labcoat.dmi'
-	icon = '"icons/obj/clothing/suits/labcoat.dmi"'
-	icon_state = "labcoat_brigphys"
-	inhand_icon_state = "labcoat"
-	blood_overlay_type = "coat"
-	body_parts_covered = CHEST|ARMS|GROIN
-	can_adjust = TRUE
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/melee/baton)
-
-/*
  *Spacepol
  */
 
