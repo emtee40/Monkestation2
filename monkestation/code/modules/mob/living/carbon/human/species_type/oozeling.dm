@@ -42,6 +42,12 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
 	)
 
+/datum/species/lizard/get_scream_sound(mob/living/carbon/human/lizard)
+	return pick(
+		'sound/voice/oozeling/Ooze_Scream_1.ogg',
+		'sound/voice/oozeling/Ooze_Scream_2.ogg',
+	)
+
 /datum/species/oozeling/get_species_description()
 	return "A species of sentient semi-solids. \
 		They require nutriment in order to maintain their body mass."
