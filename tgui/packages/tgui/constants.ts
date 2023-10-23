@@ -144,6 +144,11 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
+  {
+    name: 'Radio',
+    freq: 1443,
+    color: '#FFC0CB',
+  },
 ] as const;
 
 const GASES = [
@@ -232,7 +237,7 @@ const GASES = [
     color: 'olive',
   },
   {
-    id: 'Freon',
+    id: 'freon',
     path: '/datum/gas/freon',
     name: 'Freon',
     label: 'Freon',
@@ -286,6 +291,13 @@ const GASES = [
     name: 'Antinoblium',
     label: 'Anti-Noblium',
     color: 'maroon',
+  },
+  {
+    id: 'nitrium',
+    path: '/datum/gas/nitrium',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
   },
 ] as const;
 

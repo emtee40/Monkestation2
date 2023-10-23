@@ -115,6 +115,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade, check_density = FALSE, category = CAT_CHEMISTRY), \
 	new/datum/stack_recipe("light fixture frame", /obj/item/wallframe/light_fixture, 2, check_density = FALSE, category = CAT_EQUIPMENT), \
 	new/datum/stack_recipe("small light fixture frame", /obj/item/wallframe/light_fixture/small, 1, check_density = FALSE, category = CAT_EQUIPMENT), \
+	new/datum/stack_recipe("floor light fixture", /obj/machinery/light/floor, 2, one_per_turf = TRUE, on_solid_ground = TRUE), \
 	null, \
 	new/datum/stack_recipe("apc frame", /obj/item/wallframe/apc, 2, check_density = FALSE, category = CAT_EQUIPMENT), \
 	new/datum/stack_recipe("air alarm frame", /obj/item/wallframe/airalarm, 2, check_density = FALSE, category = CAT_EQUIPMENT), \
@@ -130,7 +131,8 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("pestle", /obj/item/pestle, 1, time = 5 SECONDS, check_density = FALSE, category = CAT_CHEMISTRY), \
 	new/datum/stack_recipe("hygienebot assembly", /obj/item/bot_assembly/hygienebot, 2, time = 5 SECONDS, check_density = FALSE, category = CAT_ROBOT), \
 	new/datum/stack_recipe("shower frame", /obj/structure/showerframe, 2, time = 2 SECONDS, check_density = FALSE, category = CAT_FURNITURE), \
-	new/datum/stack_recipe("urinal", /obj/item/wallframe/urinal, 2, time = 1 SECONDS, check_density = FALSE, category = CAT_FURNITURE)
+	new/datum/stack_recipe("urinal", /obj/item/wallframe/urinal, 2, time = 1 SECONDS, check_density = FALSE, category = CAT_FURNITURE), \
+	new/datum/stack_recipe("window sill", /obj/structure/window_sill, 1, time = 2 SECONDS, check_density = TRUE, category = CAT_FURNITURE)
 ))
 
 /obj/item/stack/sheet/iron
@@ -859,6 +861,7 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	merge_type = /obj/item/stack/sheet/hauntium
 	material_type = /datum/material/hauntium
 	material_modifier = 1 //None of that wussy stuff
+	grind_results = list(/datum/reagent/hauntium = 20)
 
 /obj/item/stack/sheet/hauntium/fifty
 	amount = 50

@@ -36,6 +36,7 @@
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency)
 	setup_glow()
+	starlight_color = GLOB.starlight_color
 
 /turf/open/floor/glass/Destroy()
 	. = ..()
@@ -51,7 +52,7 @@
 		return
 
 	glow_stuff = partially_block_emissives(src, alpha_to_leave)
-	set_light(2, 0.75, starlight_color)
+	set_light(l_outer_range = 2, l_power = 0.75, l_color = starlight_color)
 
 /turf/open/floor/glass/make_plating()
 	return

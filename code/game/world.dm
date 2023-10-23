@@ -214,6 +214,7 @@ GLOBAL_VAR(restart_counter)
 	var/list/input = params2list(T)
 	if(input[1] == "TWITCH-API")
 		SStwitch.handle_topic(input)
+
 	var/datum/world_topic/handler
 	for(var/I in topic_handlers)
 		if(I in input)
@@ -352,6 +353,9 @@ GLOBAL_VAR(restart_counter)
 	if(length(features))
 		new_status += ": [jointext(features, ", ")]"
 
+	new_status += "<br>Beginner Friendly: <b>Learn to play SS13!</b>"
+	new_status += "<br>Roleplay: \[<b>Medium-Rare</b>\]"
+
 	new_status += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
 	if(SSmapping.config)
 		new_status += "<br>Map: <b>[SSmapping.config.map_path == CUSTOM_MAP_PATH ? "Uncharted Territory" : SSmapping.config.map_name]</b>"
@@ -370,31 +374,35 @@ GLOBAL_VAR(restart_counter)
 	else
 		hub_password = "SORRYNOPASSWORD"
 
-// If this is called as a part of maploading you cannot call it on the newly loaded map zs, because those get handled later on in the pipeline
-/world/proc/increaseMaxX(new_maxx, max_zs_to_load = maxz)
+/**
+ * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.
+ * If map_load_z_cutoff is passed in, it will only load turfs up to that z level, inclusive.
+ * This is because maploading will handle the turfs it loads itself.
+ */
+/world/proc/increase_max_x(new_maxx, map_load_z_cutoff = maxz)
 	if(new_maxx <= maxx)
 		return
 	var/old_max = world.maxx
 	maxx = new_maxx
-	if(!max_zs_to_load)
+	if(!map_load_z_cutoff)
 		return
 	var/area/global_area = GLOB.areas_by_type[world.area] // We're guaranteed to be touching the global area, so we'll just do this
 	var/list/to_add = block(
 		locate(old_max + 1, 1, 1),
-		locate(maxx, maxy, max_zs_to_load))
+		locate(maxx, maxy, map_load_z_cutoff))
 	global_area.contained_turfs += to_add
 
-/world/proc/increaseMaxY(new_maxy, max_zs_to_load = maxz)
+/world/proc/increase_max_y(new_maxy, map_load_z_cutoff = maxz)
 	if(new_maxy <= maxy)
 		return
 	var/old_maxy = maxy
 	maxy = new_maxy
-	if(!max_zs_to_load)
+	if(!map_load_z_cutoff)
 		return
 	var/area/global_area = GLOB.areas_by_type[world.area] // We're guarenteed to be touching the global area, so we'll just do this
 	var/list/to_add = block(
 		locate(1, old_maxy + 1, 1),
-		locate(maxx, maxy, max_zs_to_load))
+		locate(maxx, maxy, map_load_z_cutoff))
 	global_area.contained_turfs += to_add
 
 /world/proc/incrementMaxZ()

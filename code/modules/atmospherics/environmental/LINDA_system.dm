@@ -75,10 +75,10 @@
 		// Multiz is shitcode welcome home
 		var/turf/current_turf = (direction & (UP|DOWN)) ? \
 			(direction & UP) ? \
-				(z_traits["16"]) ? \
+				(z_traits[Z_LEVEL_UP]) ? \
 					(get_step(locate(x, y, z + 1), NONE)) : \
 				(null) : \
-				(z_traits["32"]) ? \
+				(z_traits[Z_LEVEL_DOWN]) ? \
 					(get_step(locate(x, y, z - 1), NONE)) : \
 				(null) : \
 			(get_step(src, direction))
@@ -132,6 +132,7 @@
 
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
+	update_adjacent_pollutants() //SKYRAT EDIT ADDITION //Atmos adjacency could unlock/block adjacent pollutants, this is dirty flags anyway so its fine having it here
 	SEND_SIGNAL(src, COMSIG_TURF_CALCULATED_ADJACENT_ATMOS)
 
 /**

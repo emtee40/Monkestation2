@@ -16,3 +16,6 @@
 		new /obj/item/reagent_containers/cup/glass/bottle/beer( src )
 	new /obj/item/etherealballdeployer(src)
 	new /obj/item/roulette_wheel_beacon(src)
+	new /obj/item/storage/fancy/candle_box(src)
+	new /obj/item/storage/fancy/candle_box(src)
+	new /obj/item/choice_beacon/jukebox(src) //this line is a monkestation edit!

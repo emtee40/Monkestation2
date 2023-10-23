@@ -14,8 +14,8 @@
 		"basic_matter_bin",
 		"basic_micro_laser",
 		"basic_scanning",
-		"bepis",
 		"blast",
+		"bodybag",
 		"bounced_radio",
 		"bowl",
 		"bucket",
@@ -93,6 +93,7 @@
 		"recorder",
 		"rglass",
 		"roll",
+		"rollerbed",
 		"sec_38",
 		"sec_beanbag_slug",
 		"sec_dart",
@@ -669,6 +670,11 @@
 		"turbine_compressor",
 		"turbine_rotor",
 		"turbine_stator",
+		"modular_shield_generator",
+		"modular_shield_node",
+		"modular_shield_relay",
+		"modular_shield_charger",
+		"modular_shield_well",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_pinpoint_scan/tier2_capacitors = 2500)
@@ -940,6 +946,7 @@
 		"borg_upgrade_selfrepair",
 		"borg_upgrade_thrusters",
 		"borg_upgrade_trashofholding",
+		"borg_upgrade_clamp", //monkestation edit
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
@@ -1227,6 +1234,7 @@
 		"nvgmesons",
 		"nv_scigoggles",
 		"security_hud_night",
+		"mech_light_amplification",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
@@ -1477,7 +1485,7 @@
 		"seclite",
 		"zipties",
 		"inspector",
-		"mag_autorifle",
+		"rubber_c35", //monkestation edit: taco sec
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -1517,6 +1525,8 @@
 	design_ids = list(
 		"pin_testing",
 		"tele_shield",
+		"lethal_c35", //monkestation edit: paco sec
+		"mag_autorifle_rub", //monkestation edit: autorifles
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	discount_experiments = list(/datum/experiment/ordnance/explosive/pressurebomb = 5000)
@@ -1528,6 +1538,8 @@
 	prereq_ids = list("adv_engi", "weaponry")
 	design_ids = list(
 		"pin_loyalty",
+		"mag_autorifle", //monkestation edit: autorifles
+		"mag_autorifle_salt", //monkestation edit: autorifles
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	discount_experiments = list(/datum/experiment/scanning/points/machinery_tiered_scan/tier3_mechbay = 2500)
@@ -1595,8 +1607,6 @@
 		"c38_hotshot",
 		"c38_iceblox",
 		"techshotshell",
-		"mag_autorifle_ap",
-		"mag_autorifle_ic",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -2305,7 +2315,9 @@
 	description = "Cutting edge fishing advancements."
 	prereq_ids = list("base")
 	design_ids = list(
-		"fishing_rod_tech"
+		"fishing_rod_tech",
+		"stabilized_hook",
+		"fish_analyzer",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	hidden = TRUE

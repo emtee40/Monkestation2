@@ -4,7 +4,7 @@
 /datum/quirk/extrovert
 	name = "Extrovert"
 	desc = "You are energized by talking to others, and enjoy spending your free time in the bar."
-	icon = FA_ICON_USERS
+	icon = "users"
 	value = 0
 	mob_trait = TRAIT_EXTROVERT
 	gain_text = span_notice("You feel like hanging out with other people.")
@@ -15,7 +15,7 @@
 /datum/quirk/introvert
 	name = "Introvert"
 	desc = "You are energized by having time to yourself, and enjoy spending your free time in the library."
-	icon = FA_ICON_BOOK_READER
+	icon = "book-reader"
 	value = 0
 	mob_trait = TRAIT_INTROVERT
 	gain_text = span_notice("You feel like reading a good book quietly.")
@@ -26,7 +26,7 @@
 /datum/quirk/no_taste
 	name = "Ageusia"
 	desc = "You can't taste anything! Toxic food will still poison you."
-	icon = FA_ICON_MEH_BLANK
+	icon = "meh-blank"
 	value = 0
 	mob_trait = TRAIT_AGEUSIA
 	gain_text = span_notice("You can't taste anything!")
@@ -34,11 +34,12 @@
 	medical_record_text = "Patient suffers from ageusia and is incapable of tasting food or reagents."
 	mail_goodies = list(/obj/effect/spawner/random/food_or_drink/condiment) // but can you taste the salt? CAN YOU?!
 
+
 /datum/quirk/foreigner
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
-	icon = FA_ICON_LANGUAGE
-	value = 0
+	icon = "language"
+	value = -2 //Monkestation change 0->-2
 	gain_text = span_notice("The words being spoken around you don't make any sense.")
 	lose_text = span_notice("You've developed fluency in Galactic Common.")
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
@@ -59,7 +60,7 @@
 /datum/quirk/vegetarian
 	name = "Vegetarian"
 	desc = "You find the idea of eating meat morally and physically repulsive."
-	icon = FA_ICON_CARROT
+	icon = "carrot"
 	value = 0
 	gain_text = span_notice("You feel repulsion at the idea of eating meat.")
 	lose_text = span_notice("You feel like eating meat isn't that bad.")
@@ -91,7 +92,7 @@
 /datum/quirk/snob
 	name = "Snob"
 	desc = "You care about the finer things, if a room doesn't look nice its just not really worth it, is it?"
-	icon = FA_ICON_USER_TIE
+	icon = "user-tie"
 	value = 0
 	gain_text = span_notice("You feel like you understand what things should look like.")
 	lose_text = span_notice("Well who cares about deco anyways?")
@@ -102,7 +103,7 @@
 /datum/quirk/pineapple_liker
 	name = "Ananas Affinity"
 	desc = "You find yourself greatly enjoying fruits of the ananas genus. You can't seem to ever get enough of their sweet goodness!"
-	icon = FA_ICON_THUMBS_UP
+	icon = "thumbs-up"
 	value = 0
 	gain_text = span_notice("You feel an intense craving for pineapple.")
 	lose_text = span_notice("Your feelings towards pineapples seem to return to a lukewarm state.")
@@ -128,7 +129,7 @@
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
 	desc = "You find yourself greatly detesting fruits of the ananas genus. Serious, how the hell can anyone say these things are good? And what kind of madman would even dare putting it on a pizza!?"
-	icon = FA_ICON_THUMBS_DOWN
+	icon = "thumbs-down"
 	value = 0
 	gain_text = span_notice("You find yourself pondering what kind of idiot actually enjoys pineapples...")
 	lose_text = span_notice("Your feelings towards pineapples seem to return to a lukewarm state.")
@@ -160,7 +161,7 @@
 /datum/quirk/deviant_tastes
 	name = "Deviant Tastes"
 	desc = "You dislike food that most people enjoy, and find delicious what they don't."
-	icon = FA_ICON_GRIN_TONGUE_SQUINT
+	icon = "grin-tongue-squint"
 	value = 0
 	gain_text = span_notice("You start craving something that tastes strange.")
 	lose_text = span_notice("You feel like eating normal food again.")
@@ -191,7 +192,7 @@
 /datum/quirk/heterochromatic
 	name = "Heterochromatic"
 	desc = "One of your eyes is a different color than the other!"
-	icon = FA_ICON_EYE_LOW_VISION // Ignore the icon name, its actually a fairly good representation of different color eyes
+	icon = "eye-low-vision" // Ignore the icon name, its actually a fairly good representation of different color eyes
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
 	value = 0
 	mail_goodies = list(/obj/item/clothing/glasses/eyepatch)
@@ -246,7 +247,7 @@
 /datum/quirk/monochromatic
 	name = "Monochromacy"
 	desc = "You suffer from full colorblindness, and perceive nearly the entire world in blacks and whites."
-	icon = FA_ICON_ADJUST
+	icon = "adjust"
 	value = 0
 	medical_record_text = "Patient is afflicted with almost complete color blindness."
 	mail_goodies = list( // Noir detective wannabe
@@ -270,7 +271,7 @@
 /datum/quirk/phobia
 	name = "Phobia"
 	desc = "You are irrationally afraid of something."
-	icon = FA_ICON_SPIDER
+	icon = "spider"
 	value = 0
 	medical_record_text = "Patient has an irrational fear of something."
 	mail_goodies = list(/obj/item/clothing/glasses/blindfold, /obj/item/storage/pill_bottle/psicodine)
@@ -291,7 +292,7 @@
 /datum/quirk/shifty_eyes
 	name = "Shifty Eyes"
 	desc = "Your eyes tend to wander all over the place, whether you mean to or not, causing people to sometimes think you're looking directly at them when you aren't."
-	icon = FA_ICON_EYE
+	icon = "eye"
 	value = 0
 	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
 	mob_trait = TRAIT_SHIFTY_EYES
@@ -300,7 +301,7 @@
 /datum/quirk/item_quirk/bald
 	name = "Smooth-Headed"
 	desc = "You have no hair and are quite insecure about it! Keep your wig on, or at least your head covered up."
-	icon = FA_ICON_EGG
+	icon = "egg"
 	value = 0
 	mob_trait = TRAIT_BALD
 	gain_text = span_notice("Your head is as smooth as can be, it's terrible.")
@@ -356,7 +357,7 @@
 /datum/quirk/item_quirk/photographer
 	name = "Photographer"
 	desc = "You carry your camera and personal photo album everywhere you go, and your scrapbooks are legendary among your coworkers."
-	icon = FA_ICON_CAMERA
+	icon = "camera"
 	value = 0
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = span_notice("You know everything about photography.")
@@ -386,7 +387,7 @@
 /datum/quirk/item_quirk/colorist
 	name = "Colorist"
 	desc = "You like carrying around a hair dye spray to quickly apply color patterns to your hair."
-	icon = FA_ICON_FILL_DRIP
+	icon = "fill-drip"
 	value = 0
 	medical_record_text = "Patient enjoys dyeing their hair with pretty colors."
 	mail_goodies = list(/obj/item/dyespray)
@@ -398,7 +399,7 @@
 /datum/quirk/gamer
 	name = "Gamer"
 	desc = "You are a hardcore gamer, and you have a need to game. You love winning and hate losing. You only like gamer food."
-	icon = FA_ICON_GAMEPAD
+	icon = "gamepad"
 	value = 0
 	gain_text = span_notice("You feel the sudden urge to game.")
 	lose_text = span_notice("You've lost all interest in gaming.")
@@ -490,42 +491,3 @@
 	human_holder.add_mood_event("gamer_withdrawal", /datum/mood_event/gamer_withdrawal)
 
 #undef GAMING_WITHDRAWAL_TIME
-
-/datum/quirk/anime
-	name = "Anime"
-	desc = "You are an anime enjoyer! Show your enthusiasm with some fashionable attire."
-	mob_trait = TRAIT_ANIME
-	value = 0
-	icon = "cat"
-	quirk_flags = QUIRK_CHANGES_APPEARANCE
-
-	var/list/anime_list = list(
-		/obj/item/organ/external/anime_head,
-		/obj/item/organ/external/anime_middle,
-		/obj/item/organ/external/anime_bottom,
-		)
-
-/datum/quirk/anime/add(client/client_source)
-	. = ..()
-	var/mob/living/carbon/human/human_holder = quirk_holder
-	var/datum/species/species = human_holder.dna.species
-	RegisterSignal(human_holder, COMSIG_SPECIES_GAIN_PRE, PROC_REF(on_species_gain))
-
-	for(var/obj/item/organ/external/organ_path as anything in anime_list)
-		//Load a persons preferences from DNA
-		var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
-		new_organ.Insert(human_holder, special=TRUE, drop_if_replaced=FALSE)
-		species.external_organs |= organ_path
-
-/datum/quirk/anime/remove()
-	. = ..()
-	var/mob/living/carbon/human/human_holder = quirk_holder
-	var/datum/species/species = human_holder.dna.species
-	UnregisterSignal(human_holder, COMSIG_SPECIES_GAIN_PRE)
-
-	for(var/obj/item/organ/external/organ_path as anything in anime_list)
-		species.external_organs -= organ_path
-
-/datum/quirk/anime/proc/on_species_gain(datum/source, datum/species/new_species, datum/species/old_species)
-	for(var/obj/item/organ/external/organ_path as anything in anime_list)
-		new_species.external_organs |= organ_path

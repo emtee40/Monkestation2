@@ -38,6 +38,9 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 		///this instant starts a timer, and if its being instantly deleted it can cause issues
 		/obj/machinery/atm,
 		/datum/hotspot,
+		/obj/machinery/ocean_elevator,
+		/atom/movable/outdoor_effect,
+		/turf/closed/mineral/random/regrowth,
 	)
 	//Say it with me now, type template
 	ignore += typesof(/obj/effect/mapping_helpers)
@@ -108,6 +111,15 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	ignore += subtypesof(/obj/machinery/airlock_controller)
 	// Always ought to have an associated escape menu. Any references it could possibly hold would need one regardless.
 	ignore += subtypesof(/atom/movable/screen/escape_menu)
+	///we generate mobs in these and create destroy does this in null space
+	ignore += typesof(/obj/item/loot_table_maker)
+	///we need to use json_decode to run randoms properly
+	ignore += typesof(/obj/item/device/cassette_tape)
+	ignore += typesof(/datum/cassette/cassette_tape)
+	///we also dont want weathers or weather events as they will hold refs to alot of stuff as they shouldn't be deleted
+	ignore += typesof(/datum/weather_event)
+	ignore += typesof(/datum/particle_weather)
+	ignore += typesof(/mob/living/basic/aquatic)
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type
@@ -187,6 +199,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	//Alright, time to see if anything messed up
 	var/list/cache_for_sonic_speed = SSgarbage.items
 	for(var/path in cache_for_sonic_speed)
+		if(path in ignore)
+			continue
 		var/datum/qdel_item/item = cache_for_sonic_speed[path]
 		if(item.failures)
 			TEST_FAIL("[item.name] hard deleted [item.failures] times out of a total del count of [item.qdels]")

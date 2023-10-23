@@ -13,7 +13,7 @@
 	desc = "A plant with glowing bulbs at the end of it."
 	random_variants = 3
 	light_color = LIGHT_COLOR_CYAN
-	light_range = 1.5
+	light_outer_range = 1.5
 
 /obj/structure/flora/ocean/seaweed
 	name = "sea weed"
@@ -32,7 +32,7 @@
 	icon_state = "coral"
 	desc = "Beautiful coral."
 	random_variants = 3
-	density = TRUE
+	density = FALSE
 
 #define SCRAP_WELD_LOW 7
 #define SCRAP_WELD_HIGH 12

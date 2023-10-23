@@ -6,7 +6,6 @@
 #define span_adminobserverooc(str) ("<span class='adminobserverooc'>" + str + "</span>")
 #define span_adminooc(str) ("<span class='adminooc'>" + str + "</span>")
 #define span_adminsay(str) ("<span class='adminsay'>" + str + "</span>")
-#define span_mentorsay(str) ("<span class='mentorsay'>" + str + "</span>")
 #define span_aiprivradio(str) ("<span class='aiprivradio'>" + str + "</span>")
 #define span_alert(str) ("<span class='alert'>" + str + "</span>")
 #define span_alertalien(str) ("<span class='alertalien'>" + str + "</span>")
@@ -106,7 +105,8 @@
 #define span_small(str) ("<span class='small'>" + str + "</span>")
 #define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
 #define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
-#define span_spider(str) ("<span class='spider'>" + str + "</span>")
+#define span_spiderbroodmother(str) ("<span class='spiderbroodmother'>" + str + "</span>")
+#define span_spiderscout(str) ("<span class='spiderscout'>" + str + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + str + "</span>")
 #define span_suppradio(str) ("<span class='suppradio'>" + str + "</span>")
 #define span_syndradio(str) ("<span class='syndradio'>" + str + "</span>")
@@ -122,3 +122,5 @@
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+
+#define span_doyourjobidiot(str) ("<span class='doyourjobidiot'>" + str + "</span>")

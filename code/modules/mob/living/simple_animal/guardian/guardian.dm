@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	light_system = MOVABLE_LIGHT
-	light_range = 3
+	light_outer_range = 3
 	light_on = FALSE
 	hud_type = /datum/hud/guardian
 	dextrous_hud_type = /datum/hud/dextrous/guardian //if we're set to dextrous, account for it.
@@ -449,8 +449,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 	equipped_item.screen_loc = null // will get moved if inventory is visible
 	equipped_item.forceMove(src)
-	equipped_item.equipped(src, slot)
 	SET_PLANE_EXPLICIT(equipped_item, ABOVE_HUD_PLANE, src)
+	equipped_item.on_equipped(src, slot)
 
 /mob/living/simple_animal/hostile/guardian/proc/apply_overlay(cache_index)
 	if((. = guardian_overlays[cache_index]))

@@ -116,6 +116,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	flags_1 |= HTML_USE_INITAL_ICON_1
 	if (!z)
 		CRASH("[type] called smooth_icon() without being on a z-level")
+	if(length(smooth_adapters))
+		update_adapters()
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
 			corners_diagonal_smooth(calculate_adjacencies())
@@ -408,6 +410,12 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		else
 			icon_state = "[base_icon_state]-[smoothing_junction]"
 
+/turf/set_smoothed_icon_state(new_junction)
+	. = ..()
+
+	if(smoothing_junction != .) //The smoothing changed
+		lighting_object?.update()
+
 /turf/open/floor/set_smoothed_icon_state(new_junction)
 	if(broken || burnt)
 		return
@@ -521,6 +529,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	smoothing_flags = SMOOTH_CORNERS|SMOOTH_DIAGONAL_CORNERS|SMOOTH_BORDER
 	smoothing_groups = null
 	canSmoothWith = null
+	wall_trim = null //monkestation edit
 
 #undef NORTH_JUNCTION
 #undef SOUTH_JUNCTION

@@ -5,6 +5,9 @@
 /datum/interaction_mode/intents3/update_istate(mob/M, modifiers)
 	M.istate = NONE
 
+	// Makes player face mouse on harm intent
+	M.face_mouse = M?.client.prefs?.read_preference(/datum/preference/toggle/face_cursor_combat_mode) && intent == INTENT_HARM
+
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		M.istate = ISTATE_SECONDARY
 		return
@@ -18,6 +21,9 @@
 		if (INTENT_HARM)
 			M.istate |= ISTATE_HARM
 			M.istate |= ISTATE_BLOCKING
+
+	if(!UI)
+		return
 
 	UI.icon_state = "[intent]"
 

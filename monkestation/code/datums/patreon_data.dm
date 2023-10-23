@@ -41,6 +41,8 @@
 		if(query_get_rank.NextRow())
 			if(query_get_rank.item[1])
 				owned_rank = query_get_rank.item[1]
+				if(owned_rank == "UNSUBBED2")
+					owned_rank = NO_RANK
 			else
 				owned_rank = NO_RANK
 	qdel(query_get_rank)
@@ -60,6 +62,8 @@
 			access_rank =  ACCESS_NUKIE_RANK
 
 /datum/patreon_data/proc/has_access(rank)
+	if(!access_rank)
+		assign_access_rank()
 	if(rank <= access_rank)
 		return TRUE
 	return FALSE

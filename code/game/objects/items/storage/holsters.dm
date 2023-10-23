@@ -30,7 +30,9 @@
 		/obj/item/food/grown/banana,
 		/obj/item/gun/energy/laser/thermal,
 		/obj/item/gun/ballistic/rifle/boltaction, //fits if you make it an obrez
-		))
+		/obj/item/gun/energy/laser/captain,
+		/obj/item/gun/energy/e_gun/hos,
+	))
 
 /obj/item/storage/belt/holster/energy
 	name = "energy shoulder holsters"
@@ -47,7 +49,9 @@
 		/obj/item/food/grown/banana,
 		/obj/item/gun/energy/laser/thermal,
 		/obj/item/gun/energy/recharge/ebow,
-		))
+		/obj/item/gun/energy/laser/captain,
+		/obj/item/gun/energy/e_gun/hos,
+	))
 
 /obj/item/storage/belt/holster/energy/thermal
 	name = "thermal shoulder holsters"
@@ -65,6 +69,14 @@
 /obj/item/storage/belt/holster/energy/disabler/PopulateContents()
 	generate_items_inside(list(
 		/obj/item/gun/energy/disabler = 1,
+	),src)
+
+/obj/item/storage/belt/holster/energy/smoothbore
+	desc = "A rather plain pair of shoulder holsters with a bit of insulated padding inside. Designed to hold energy weaponry. Seems it was meant to fit two smoothbores."
+
+/obj/item/storage/belt/holster/energy/smoothbore/PopulateContents()
+	generate_items_inside(list(
+		/obj/item/gun/energy/disabler/smoothbore = 2,
 	),src)
 
 /obj/item/storage/belt/holster/detective
@@ -92,6 +104,8 @@
 		/obj/item/gun/energy/disabler,
 		/obj/item/gun/energy/dueling,
 		/obj/item/gun/energy/laser/thermal,
+		/obj/item/gun/energy/laser/captain,
+		/obj/item/gun/energy/e_gun/hos,
 		/obj/item/gun/ballistic/rifle/boltaction, //fits if you make it an obrez
 		))
 
@@ -165,8 +179,12 @@
 		/obj/item/gun/energy/recharge/ebow,
 		/obj/item/gun/energy/e_gun/mini,
 		/obj/item/gun/energy/disabler,
-		/obj/item/gun/energy/dueling
-		))
+		/obj/item/gun/energy/dueling,
+		/obj/item/gun/energy/laser/captain,
+		/obj/item/gun/energy/e_gun/hos,
+	))
+
+	atom_storage.silent = TRUE
 
 /obj/item/storage/belt/holster/nukie
 	name = "operative holster"

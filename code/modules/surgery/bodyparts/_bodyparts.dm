@@ -405,6 +405,10 @@
 //Cannot apply negative damage
 /obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, blocked = 0, updating_health = TRUE, required_bodytype = null, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE, attack_direction = null)
 	SHOULD_CALL_PARENT(TRUE)
+	var/area/target_area = get_area(src.owner)
+	if(target_area)
+		if((target_area.area_flags & PASSIVE_AREA))
+			return FALSE
 
 	var/hit_percent = (100-blocked)/100
 	if((!brute && !burn) || hit_percent <= 0)
@@ -449,15 +453,15 @@
 
 		//Handling for bone only/flesh only(none right now)/flesh and bone targets
 		switch(biological_state)
-			// if we're bone only, all cutting attacks go straight to the bone
-			if(BIO_BONE)
+			// if we're fleshless, all cutting attacks go straight to the bone
+			if(BIO_BONE, BIO_INORGANIC)
 				if(wounding_type == WOUND_SLASH)
 					wounding_type = WOUND_BLUNT
 					wounding_dmg *= (easy_dismember ? 1 : 0.6)
 				else if(wounding_type == WOUND_PIERCE)
 					wounding_type = WOUND_BLUNT
 					wounding_dmg *= (easy_dismember ? 1 : 0.75)
-				if((mangled_state & BODYPART_MANGLED_BONE) && try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus))
+				if(((mangled_state & BODYPART_MANGLED_BONE) || biological_state == BIO_INORGANIC) && try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus))
 					return
 			// note that there's no handling for BIO_FLESH since we don't have any that are that right now (slimepeople maybe someday)
 			// standard humanoids
@@ -511,7 +515,8 @@
 //Cannot remove negative damage (i.e. apply damage)
 /obj/item/bodypart/proc/heal_damage(brute, burn, required_bodytype, updating_health = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-
+	if(HAS_TRAIT(owner, TRAIT_NO_HEALS))
+		return
 	if(required_bodytype && !(bodytype & required_bodytype)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
@@ -872,7 +877,7 @@
 		// For some reason this was applied as an overlay on the aux image and limb image before.
 		// I am very sure that this is unnecessary, and i need to treat it as part of the return list
 		// to be able to mask it proper in case this limb is a leg.
-		if(blocks_emissive)
+		if(blocks_emissive != EMISSIVE_BLOCK_NONE)
 			var/atom/location = loc || owner || src
 			var/mutable_appearance/limb_em_block = emissive_blocker(limb.icon, limb.icon_state, location, layer = limb.layer, alpha = limb.alpha)
 			limb_em_block.dir = image_dir
@@ -982,7 +987,7 @@
 	if(!owner)
 		return
 
-	if(HAS_TRAIT(owner, TRAIT_NOBLOOD) || !IS_ORGANIC_LIMB(src))
+	if(HAS_TRAIT(owner, TRAIT_NOBLOOD) || (!IS_ORGANIC_LIMB(src) && !HAS_TRAIT(src.owner, TRAIT_ROBOT_CAN_BLEED)))
 		if(cached_bleed_rate != old_bleed_rate)
 			update_part_wound_overlay()
 		return

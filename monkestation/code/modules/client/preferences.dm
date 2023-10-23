@@ -26,3 +26,7 @@
 	///amount of metaconis you can earn per shift
 	var/max_round_coins = 1000
 
+	///Alternative job titles stored in preferences. Assoc list, ie. alt_job_titles["Scientist"] = "Cytologist"
+	var/list/alt_job_titles = list()
+	/// the month we used our last donator token on
+	var/token_month = 0

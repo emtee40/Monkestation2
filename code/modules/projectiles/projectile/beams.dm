@@ -10,7 +10,7 @@
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_system = MOVABLE_LIGHT
-	light_range = 1
+	light_outer_range = 1
 	light_power = 1
 	light_color = COLOR_SOFT_RED
 	ricochets_max = 50 //Honk!
@@ -53,6 +53,21 @@
 		M.ignite_mob()
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
+
+/obj/projectile/beam/laser/musket
+	name = "low-power laser"
+	icon_state = "laser_musket"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	damage = 25
+	stamina = 40
+	light_color = COLOR_STRONG_VIOLET
+	weak_against_armour = TRUE
+
+/obj/projectile/beam/laser/musket/prime
+	name = "mid-power laser"
+	damage = 30
+	stamina = 45
+	weak_against_armour = FALSE
 
 /obj/projectile/beam/weak
 	damage = 15
@@ -101,6 +116,15 @@
 
 /obj/projectile/beam/disabler/weak
 	stamina = 15
+
+/obj/projectile/beam/disabler/smoothbore
+	name = "unfocused disabler beam"
+	weak_against_armour = TRUE
+
+/obj/projectile/beam/disabler/smoothbore/prime
+	name = "focused disabler beam"
+	weak_against_armour = FALSE
+	stamina = 35
 
 /obj/projectile/beam/pulse
 	name = "pulse"
@@ -155,13 +179,13 @@
 	impact_type = /obj/effect/projectile/impact/laser/emitter
 	impact_effect_type = null
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
+	hitscan_light_outer_range = 0.75
 	hitscan_light_color_override = COLOR_LIME
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
 	muzzle_flash_color_override = COLOR_LIME
 	impact_light_intensity = 7
-	impact_light_range = 2.5
+	impact_light_outer_range = 2.5
 	impact_light_color_override = COLOR_LIME
 
 /obj/projectile/beam/lasertag

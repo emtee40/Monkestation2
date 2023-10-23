@@ -34,6 +34,12 @@
 		var/mob/living/carbon/human/human_accessor = accessor
 		if(check_access(human_accessor.wear_id) && !istype(human_accessor.wear_id, /obj/item/card/id/fake_card))
 			return TRUE
+	//monkestation edit start
+	else if(istype(accessor, /mob/living/basic/possession_holder))
+		var/mob/living/basic/possession_holder/animal = accessor
+		if(check_access(animal.id))
+			return TRUE
+	//monkestation edit end
 	//if they have a hacky abstract animal ID with the required access, let them in i guess...
 	else if(isanimal(accessor))
 		var/mob/living/simple_animal/animal = accessor
@@ -97,3 +103,13 @@
 	var/obj/item/card/id/id_card = GetID()
 
 	return id_card?.get_trim_sechud_icon_state() || SECHUD_NO_ID
+
+/// Returns the gun permit icon if the ID's access contain weapon permit
+/obj/item/proc/get_gun_permit_iconstate()
+	var/obj/item/card/id/id_card = GetID()
+
+	if(!id_card)
+		return "hudfan_no"
+	if(ACCESS_WEAPONS in id_card.GetAccess())
+		return "hud_permit"
+	return "hudfan_no"

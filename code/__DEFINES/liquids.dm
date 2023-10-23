@@ -6,7 +6,7 @@
 #define REQUIRED_EVAPORATION_PROCESSES 20
 #define EVAPORATION_CHANCE 50
 
-#define REQUIRED_FIRE_PROCESSES 2
+#define REQUIRED_FIRE_PROCESSES 10
 #define REQUIRED_FIRE_POWER_PER_UNIT 5
 #define FIRE_BURN_PERCENT 10
 
@@ -77,6 +77,8 @@
 #define CHOKE_REAGENTS_INGEST_ON_BREATH_AMOUNT 2
 
 #define SUBMERGEMENT_PERCENT(carbon, liquids) min(1,(!MOBILITY_STAND ? liquids.liquid_group.group_overlay_state+LYING_DOWN_SUBMERGEMENT_STATE_BONUS : liquids.liquid_group.group_overlay_state)/TOTAL_LIQUID_STATES)
+
+#define LIQUID_PROTECTION "liquid_protection"
 
 GLOBAL_LIST_INIT(liquid_blacklist, list(
 	/datum/reagent/sorium,
