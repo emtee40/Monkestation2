@@ -114,8 +114,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_horns, GLOB.satyr_horns_list)
 	if(!GLOB.satyr_ears_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_ears, GLOB.satyr_ears_list)
-	// if(!GLOB.tails_list_satyr.len)
-	// 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/satyr, GLOB.tails_list_satyr)
+	if(!GLOB.tails_list_satyr.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/satyr, GLOB.tails_list_satyr)
 	if(!GLOB.satyr_fluff_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_fluff, GLOB.satyr_fluff_list)
 //Monkestation Addition End

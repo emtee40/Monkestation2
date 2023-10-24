@@ -167,17 +167,18 @@
 	slot = ORGAN_SLOT_EXTERNAL_TAIL
 
 	use_mob_sprite_as_obj_sprite = TRUE
-	// bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_tail
+	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/satyr
 
-// /datum/bodypart_overlay/mutant/tail/satyr
-// 	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
-// 	feature_key = "satyr_tail"
+/datum/bodypart_overlay/mutant/tail/satyr
+	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+	feature_key = "satyr_tail"
+	color_source = ORGAN_COLOR_MUTSECONDARY
 
-// /datum/bodypart_overlay/mutant/tail/satyr/get_global_feature_list()
-// 	return GLOB.tails_list_satyr
+/datum/bodypart_overlay/mutant/tail/satyr/get_global_feature_list()
+ 	return GLOB.tails_list_satyr
 
-// /datum/bodypart_overlay/mutant/tail/satyr/get_base_icon_state()
-// 	return sprite_datum.icon_state
+/datum/bodypart_overlay/mutant/tail/satyr/get_base_icon_state()
+	return sprite_datum.icon_state
 
-// /datum/bodypart_overlay/mutant/tail/satyr/can_draw_on_bodypart(mob/living/carbon/human/human)
-// 	return TRUE
+/datum/bodypart_overlay/mutant/tail/satyr/can_draw_on_bodypart(mob/living/carbon/human/human)
+	return TRUE

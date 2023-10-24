@@ -18,11 +18,11 @@
 		TRAIT_HARD_SOLES
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mutant_bodyparts = list("satyr_fluff" = "Normal")
 	external_organs = list(
 		/obj/item/organ/external/satyr_horns = "tall",
 		/obj/item/organ/external/satyr_ears = "flat",
 		/obj/item/organ/external/tail/satyr = "short",
-		/obj/item/organ/external/satyr_fluff = "normal"
 		)
 	meat = /obj/item/food/meat/steak
 	liked_food = GROSS | VEGETABLES | FRUIT
