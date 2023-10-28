@@ -232,9 +232,8 @@
 #undef HIEROPHANT_BLINK_RANGE
 #undef HIEROPHANT_BLINK_COOLDOWN
 
-//Bubblegum: Mayhem in a Bottle, H.E.C.K. Suit, Soulscythe
-
-/obj/item/mayhem
+//Bubblegum: H.E.C.K. Suit, Soulscythe
+/obj/item/mayhem //Monke Edit - Removed from bubblegums drop pool - given to curator
 	name = "mayhem in a bottle"
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
 	icon = 'icons/obj/wizard.dmi'
