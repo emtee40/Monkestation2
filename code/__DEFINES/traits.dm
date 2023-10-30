@@ -1187,6 +1187,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLUED_ITEM_TRAIT "glued-item"
 #define TRAIT_BELT_SATCHEL "belt_satchel"
 
+/// Trait given to mobs that we do not want to mindswap
+#define TRAIT_NO_MINDSWAP "no_mindswap"
+
 //monkestation edit start
 /// One can breath under water, you get me?
 #define TRAIT_WATER_BREATHING "water_breathing"
