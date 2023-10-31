@@ -133,8 +133,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Monkestation Addition: Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/reagent_tag = PROCESS_ORGANIC
 
-	//Dictates which wing icons are allowed for a given species. If count is >1 a radial menu is used to choose between all icons in list
-	var/list/wing_types = list(/obj/item/organ/external/wings/functional/angel)
 	/// The natural temperature for a body
 	var/bodytemp_normal = BODYTEMP_NORMAL
 	/// Minimum amount of kelvin moved toward normal body temperature per tick.
@@ -218,8 +216,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/New()
-	wing_types = string_list(wing_types)
-
 	if(!plural_form)
 		plural_form = "[name]\s"
 	if(!examine_limb_id)

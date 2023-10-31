@@ -4,7 +4,6 @@
 	id = SPECIES_MOTH
 	inherent_traits = list(
 		TRAIT_HAS_MARKINGS,
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_WINGED_ATTACKER,
 		TRAIT_ANTENNAE,
 	)
@@ -16,7 +15,8 @@
 	mutanteyes = /obj/item/organ/internal/eyes/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	wing_types = list(/obj/item/organ/external/wings/functional/moth/megamoth, /obj/item/organ/external/wings/functional/moth/mothra)
+	death_sound = 'sound/voice/moth/moth_death.ogg'
+	payday_modifier = 1.0
 	family_heirlooms = list(/obj/item/flashlight/lantern/heirloom_moth)
 
 	bodypart_overrides = list(
