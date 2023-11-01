@@ -19,7 +19,9 @@
 	if(istype(jumpsuit))
 		jumpsuit.set_armor(/datum/armor/clothing_under)
 
-	var/obj/item/clothing/head/hat = avatar.get_clothing_on_part(HEAD)
+//	var/obj/item/clothing/head/hat = avatar.get_clothing_on_part(HEAD) MONKEYSTATION EDIT CHANGE OLD
+	var/obj/item/clothing/head/hat = avatar.clothingonpart(HEAD) // MONKEYSTATION EDIT CHANGE NEW - we dont have TG's PR #78589 so its named a bit differently
+
 	if(istype(hat))
 		hat.set_armor(null)
 
