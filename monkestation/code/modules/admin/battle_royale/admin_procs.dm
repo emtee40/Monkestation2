@@ -22,23 +22,10 @@
 	//as LME requested saying no is as obtuse as possible(will be made less so for full merge)
 	var/input = tgui_alert(usr, "Do you want to quick start a battle royale?", "Battle royale", list("Normal(25 min max duration)", "Fast(10 min max duration)", "The lame option"))
 	if(input == "The lame option")
-		input = tgui_alert(usr, "Do you not want to quick start a battle royale?", "Battle royale", list("Yes", "No"))
-
-	if(input == "Yes")
-		input = tgui_alert(usr, "You do not hold us legally accountable for the effects of saying no.", "Battle royale", list("Yes", "No"))
-
-	if(input == "Yes")
-		input = tgui_alert(usr, "Are you not sure you dont not want us to not do a non battle royale?", "Battle royale", list("Yes", "No"))
-
-	if(input == "Yes")
-		input = tgui_alert(usr, "Are you sure about that?", "Battle royale", list("Yes", "No"))
-
-	if(input == "Yes")
 		return
 
-	if(SSticker.current_state != GAME_STATE_FINISHED || !input) //this is a joke, we dont want to ruin an ongoing round
-		if(tgui_alert(usr, "Cancel battle royale?", "Battle royale", list("Yes", "No")) != "No")
-			return
+	if(tgui_alert(usr, "Cancel battle royale?", "Battle royale", list("Yes", "No")) != "No")
+		return
 
 	message_admins("[key_name_admin(usr)] has triggered battle royale.")
 	log_admin("[key_name(usr)] has triggered battle royale.")
