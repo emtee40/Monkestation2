@@ -24,6 +24,10 @@
 #define COMSIG_FISHING_ROD_CAST "fishing_rod_cast"
 	#define FISHING_ROD_CAST_HANDLED (1 << 0)
 
+/// From /datum/fish_source/proc/dispense_reward(), not set if the reward is a dud: (reward, user)
+// WE DONT ACTUALLY USE IT OUTSIDE OF BITRUNNING RIGHT NOW, ITS NEEDED FOR MONKES PR #512 BECAUSE OF A FIIIIISH BITRUNNING RUIN, I NEED FISH
+#define COMSIG_FISHING_ROD_CAUGHT_FISH "fishing_rod_caught_fish"
+
 /// Sent when fishing line is snapped
 #define COMSIG_FISHING_LINE_SNAPPED "fishing_line_interrupted"
 

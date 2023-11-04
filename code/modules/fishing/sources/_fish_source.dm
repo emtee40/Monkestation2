@@ -111,7 +111,10 @@ GLOBAL_LIST_INIT(preset_fish_sources,init_fishing_configurations())
 	var/obj/item/fish/caught = source.reward_path
 	user.add_mob_memory(/datum/memory/caught_fish, protagonist = user, deuteragonist = initial(caught.name))
 	var/turf/fishing_spot = get_turf(source.lure)
-	dispense_reward(source.reward_path, user, fishing_spot)
+	var/atom/movable/reward = dispense_reward(source.reward_path, user, fishing_spot)
+	if(source.used_rod)
+		SEND_SIGNAL(source.used_rod, COMSIG_FISHING_ROD_CAUGHT_FISH, reward, user)
+		source.used_rod.consume_bait(reward)
 
 /// Gives out the reward if possible
 /datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, fishing_spot)
