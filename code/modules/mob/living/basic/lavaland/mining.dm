@@ -21,7 +21,7 @@
 
 /mob/living/basic/mining/Initialize(mapload)
 	. = ..()
-	add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), INNATE_TRAIT)
+	add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT)
 	AddElement(/datum/element/mob_killed_tally, "mobs_killed_mining")
 	AddElement(\
 		/datum/element/ranged_armour,\

@@ -41,6 +41,7 @@
 
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 	disabling_threshold_percentage = 1
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/robot
 	name = "cyborg right arm"
@@ -73,6 +74,7 @@
 	biological_state = (BIO_ROBOTIC|BIO_JOINTED)
 
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
@@ -105,6 +107,20 @@
 	biological_state = (BIO_ROBOTIC|BIO_JOINTED)
 
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	bodypart_flags = BODYPART_UNHUSKABLE
+
+/obj/item/bodypart/leg/left/robot/emp_act(severity)
+	. = ..()
+	if(!. || isnull(owner))
+		return
+
+	var/knockdown_time = AUGGED_LEG_EMP_KNOCKDOWN_TIME
+	if (severity == EMP_HEAVY)
+		knockdown_time *= 2
+	owner.Knockdown(knockdown_time)
+	if(owner.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)) // So the message isn't duplicated. If they were stunned beforehand by something else, then the message not showing makes more sense anyways.
+		return
+	to_chat(owner, span_danger("As your [plaintext_zone] unexpectedly malfunctions, it causes you to fall to the ground!"))
 
 /obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
@@ -137,6 +153,20 @@
 	biological_state = (BIO_ROBOTIC|BIO_JOINTED)
 
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	bodypart_flags = BODYPART_UNHUSKABLE
+
+/obj/item/bodypart/leg/right/robot/emp_act(severity)
+	. = ..()
+	if(!. || isnull(owner))
+		return
+
+	var/knockdown_time = AUGGED_LEG_EMP_KNOCKDOWN_TIME
+	if (severity == EMP_HEAVY)
+		knockdown_time *= 2
+	owner.Knockdown(knockdown_time)
+	if(owner.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)) // So the message isn't duplicated. If they were stunned beforehand by something else, then the message not showing makes more sense anyways.
+		return
+	to_chat(owner, span_danger("As your [plaintext_zone] unexpectedly malfunctions, it causes you to fall to the ground!"))
 
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
@@ -167,9 +197,36 @@
 	biological_state = (BIO_ROBOTIC)
 
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
+	bodypart_flags = BODYPART_UNHUSKABLE
+
+	robotic_emp_paralyze_damage_percent_threshold = 0.6
+
+	wing_types = list(/obj/item/organ/external/wings/functional/robotic)
 
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/bodypart/chest/robot/emp_act(severity)
+	. = ..()
+	if(!. || isnull(owner))
+		return
+
+	var/stun_time = 0
+	var/shift_x = 3
+	var/shift_y = 0
+	var/shake_duration = AUGGED_CHEST_EMP_SHAKE_TIME
+
+	if(severity == EMP_HEAVY)
+		stun_time = AUGGED_CHEST_EMP_STUN_TIME
+
+		shift_x = 5
+		shift_y = 2
+
+	var/damage_percent_to_max = (get_damage() / max_damage)
+	if (stun_time && (damage_percent_to_max >= robotic_emp_paralyze_damage_percent_threshold))
+		to_chat(owner, span_danger("Your [plaintext_zone]'s logic boards temporarily become unresponsive!"))
+		owner.Stun(stun_time)
+	owner.Shake(pixelshiftx = shift_x, pixelshifty = shift_y, duration = shake_duration)
 
 /obj/item/bodypart/chest/robot/get_cell()
 	return cell
@@ -283,6 +340,7 @@
 	damage_examines = list(BRUTE = ROBOTIC_BRUTE_EXAMINE_TEXT, BURN = ROBOTIC_BURN_EXAMINE_TEXT, CLONE = DEFAULT_CLONE_EXAMINE_TEXT)
 
 	head_flags = HEAD_EYESPRITES
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
