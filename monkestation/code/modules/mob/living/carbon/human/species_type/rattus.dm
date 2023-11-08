@@ -19,8 +19,9 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	species_traits = list(
 		NO_UNDERWEAR,
-		MUTCOLORS,
 		NOEYESPRITES,
+		SPECIES_FUR,
+		NOAUGMENTS,
 		)
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
@@ -28,19 +29,19 @@
 		TRAIT_NIGHT_VISION,
 		TRAIT_POOR_AIM,
 		TRAIT_SMOKER,
-		NOAUGMENTS,
 		)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	species_cookie = /obj/item/food/cheese/wedge
 	meat = /obj/item/food/meat/slab/mouse
 	liked_food = DAIRY | SUGAR | ALCOHOL //("Sad European" -MechaDH)
-	disliked_food = MEAT | VEGETABLES | RAW | JUNKFOOD | GRAIN | FRUIT | FRIED | GROSS | TOXIC | PINEAPPLE | BREAKFAST | CLOTH | NUTS | SEAFOOD | ORANGES | BUGS | GORE
+	disliked_food = MEAT | VEGETABLES | RAW | FRIED | GROSS | NUTS | BUGS | GORE
 	maxhealthmod = 0.75
 	stunmod = 1.25
 	speedmod = -0.3
 	brutemod = 1.75
 	burnmod = 4
 	payday_modifier = 0.5
+	uses_fur = TRUE
 	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
