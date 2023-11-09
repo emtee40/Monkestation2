@@ -136,4 +136,11 @@ do { \
 		1, 1, 1, 0, \
 		0, 0, 0, 1           \
 	)                        \
+
+///from /turf/proc/update_shadowcasting()
+#define COMSIG_TURF_UPDATE_SHADOWCASTING "turf_update_shadowcasting"
+
+/// Shadowcasting shadow range, should be world.view+2 for the sake of smoothness
+#define SHADOWCASTING_RANGE 9
+
 //monkestation end

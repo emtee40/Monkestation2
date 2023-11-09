@@ -130,8 +130,12 @@
 		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 	//This, is also very expensive
-	for(var/turf/turf in range(world.view, src))
-		turf.check_shadowcasting_update()
+	var/turf/turf
+	for(var/atom/atom_in_range as anything in range(world.view, src))
+		if(isturf(atom_in_range))
+			turf = atom_in_range
+			turf.check_shadowcasting_update()
+
 
 
 /turf/proc/generate_missing_corners()

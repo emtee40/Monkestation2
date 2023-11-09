@@ -4,6 +4,11 @@
 	var/applied_shadow = FALSE
 	/// Atom that shows shadowcasting overlays
 	var/atom/movable/shadowcasting_holder/visual_shadow
+	/// Given to connect_loc_behalf to listen for shadowcasting updates to the current turf
+	var/static/list/loc_connections = list(
+		COMSIG_TURF_UPDATE_SHADOWCASTING = PROC_REF(update_shadow),
+	)
+
 
 /datum/component/shadowcasting/Initialize()
 	. = ..()
@@ -27,6 +32,7 @@
 	RegisterSignal(parent, COMSIG_MOB_RESET_PERSPECTIVE, PROC_REF(update_shadow))
 	RegisterSignal(parent, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_shadow))
 	RegisterSignal(parent, COMSIG_MOB_LOGOUT, PROC_REF(mob_logout))
+	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 
 /datum/component/shadowcasting/UnregisterFromParent()
 	. = ..()
@@ -36,6 +42,7 @@
 		COMSIG_MOB_SIGHT_CHANGE,
 		COMSIG_MOB_LOGOUT,
 	))
+	qdel(GetComponent(/datum/component/connect_loc_behalf))
 
 /datum/component/shadowcasting/Destroy(force, silent)
 	var/mob/living/mob_parent = parent
@@ -73,10 +80,10 @@
 	if(!parent_client) //Love client volatility!!
 		return
 	applied_shadow = TRUE
-	if(!mob_turf.shadowcasting_image)
-		mob_turf.update_shadowcasting_image()
+	if(!mob_turf.shadowcasting_appearance)
+		mob_turf.update_shadowcasting_appearance()
 	visual_shadow.reflector.overlays = null
-	visual_shadow.reflector.overlays += mob_turf.shadowcasting_image
+	visual_shadow.reflector.overlays += mob_turf.shadowcasting_appearance
 	visual_shadow.loc = get_turf(parent_mob)
 	parent_client.images |= visual_shadow.reflector
 
@@ -86,7 +93,7 @@
 	if(!parent_client) //Love client volatility!!
 		return
 	applied_shadow = FALSE
-	visual_shadow.moveToNullspace()
+	visual_shadow.loc = null
 	parent_client.images -= visual_shadow.reflector
 
 /// When a mob logs out, delete the component

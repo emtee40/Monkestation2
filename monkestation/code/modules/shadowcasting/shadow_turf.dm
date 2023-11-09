@@ -1,108 +1,52 @@
 /turf/proc/check_shadowcasting_update()
-	if(!shadowcasting_image)
+	if(!shadowcasting_appearance)
 		return
 	SSshadowcasting.turf_queue += src
 
 /turf/proc/update_shadowcasting()
-	update_shadowcasting_image()
-	var/datum/component/shadowcasting/shadowcasting
-	for(var/mob/mob in src)
-		if(!mob.client)
+	update_shadowcasting_appearance()
+	SEND_SIGNAL(src, COMSIG_TURF_UPDATE_SHADOWCASTING)
+
+/turf/proc/update_shadowcasting_appearance()
+	if(!shadowcasting_appearance)
+		shadowcasting_appearance = new()
+	shadowcasting_appearance.overlays = null
+	shadowcasting_appearance.filters = null
+	create_shadowcasting_overlays()
+
+/turf/proc/create_shadowcasting_overlays()
+	var/mutable_appearance/turf_shadowcast_overlay
+	for(var/turf/neighbor in (view(world.view, src)-src))
+		if(!CHECK_LIGHT_OCCLUSION(neighbor))
 			continue
-		shadowcasting = mob.GetComponent(/datum/component/shadowcasting)
-		if(shadowcasting)
-			shadowcasting.update_shadow()
 
-/turf/proc/update_shadowcasting_image()
-	if(!shadowcasting_image)
-		shadowcasting_image = new()
-	shadowcasting_image.overlays = create_shadowcasting_overlays()
-
-/turf/proc/create_shadowcasting_overlays(view_range = world.view + 2)
-	var/static/icon_size = world.icon_size
-	var/static/half_icon_size = icon_size/2
-
-	var/list/shadows = list()
-
-	var/list/blocker_turfs_in_view = list()
-	for(var/turf/in_view in (range(view_range, src)-src))
-		if(!CHECK_LIGHT_OCCLUSION(in_view))
+		turf_shadowcast_overlay = prepare_turf_shadowcast(neighbor)
+		if(!turf_shadowcast_overlay)
 			continue
-		blocker_turfs_in_view += in_view
 
-	var/diff_x
-	var/diff_y
-	var/fac
-	var/dx
-	var/dy
-	var/sign_x
-	var/sign_y
-	var/width
-	var/height
-	var/top
-	var/bottom
-	var/left
-	var/right
-	var/v_dir
-	var/h_dir
-	var/turf/temp_turf
-	for(var/turf/blocker_turf as anything in blocker_turfs_in_view)
-		diff_x = blocker_turf.x - src.x
-		diff_y = blocker_turf.y - src.y
-		fac = icon_size/(abs(diff_x) + abs(diff_y))
-		dx = diff_x * icon_size
-		dy = diff_y * icon_size
-		sign_x = SIGN(diff_x)
-		sign_y = SIGN(diff_y)
 
-		width = 1
-		height = 1
-		if(!diff_x)
-			temp_turf = get_step(blocker_turf, EAST)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.x - blocker_turf.x) < view_range)
-				width++
-				temp_turf = get_step(temp_turf, EAST)
-			temp_turf = get_step(blocker_turf, WEST)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.x - blocker_turf.x) < view_range)
-				width++
-				dx -= icon_size
-				temp_turf = get_step(temp_turf, WEST)
-		else if(!diff_y)
-			temp_turf = get_step(blocker_turf, NORTH)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.y - blocker_turf.y) < view_range)
-				height++
-				temp_turf = get_step(temp_turf, NORTH)
-			temp_turf = get_step(blocker_turf, SOUTH)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.y - blocker_turf.y) < view_range)
-				height++
-				dy -= icon_size
-				temp_turf = get_step(temp_turf, SOUTH)
-		else
-			v_dir = (dy >= 0 ? NORTH : SOUTH)
-			h_dir = (dx >= 0 ? EAST : WEST)
+		// Add it as an overlay, to the main appearance
+		shadowcasting_appearance.overlays += turf_shadowcast_overlay
+		// This is all so fucking gay, but essentially we're getting an offset for the alpha mask filter
+		// That gets rid of the portion of the shadow being occupied by the turf.
+		// We cannot apply the filter to turf_shadowcast_overlay because that is a cached appearance.
+		// None of this bullshit can be automated with plane masters. Trust me, I tried.
+		var/x_offset = neighbor.x - x
+		var/y_offset = neighbor.y - y
+		if(!neighbor.render_target)
+			neighbor.render_target = "[REF(neighbor)]"
+		var/filter_x = (x_offset * world.icon_size)
+		var/filter_y = (y_offset * world.icon_size)
+		shadowcasting_appearance.filters += filter(type = "alpha", render_source = neighbor.render_target, x = filter_x, y = filter_y, flags = MASK_INVERSE)
 
-			temp_turf = get_step(blocker_turf, h_dir)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.x - blocker_turf.x) < view_range)
-				width++
-				temp_turf = get_step(temp_turf, h_dir)
-			temp_turf = get_step(blocker_turf, v_dir)
-			while(temp_turf && CHECK_LIGHT_OCCLUSION(temp_turf) && abs(temp_turf.y - blocker_turf.y) < view_range)
-				height++
-				temp_turf = get_step(temp_turf, v_dir)
+/turf/proc/prepare_turf_shadowcast(turf/occluder)
+	var/x_offset = occluder.x - x
+	var/y_offset = occluder.y - y
 
-		top = dy-(sign_y*half_icon_size)+(sign_y*height*icon_size)
-		bottom = dy-(sign_y*half_icon_size)
-		left = dx-(sign_x*half_icon_size)
-		right = dx-(sign_x*half_icon_size)+(sign_x*width*icon_size)
-		if(!diff_y)
-			shadows += get_triangle_appearance(left,top, left,bottom, left*fac,bottom*fac)
-			shadows += get_triangle_appearance(left*fac, top*fac,left,top, left*fac,bottom*fac)
-		else if(!diff_x)
-			shadows += get_triangle_appearance(right,bottom, left,bottom, left*fac,bottom*fac)
-			shadows += get_triangle_appearance(left*fac,bottom*fac, right,bottom, right*fac,bottom*fac)
-		else
-			shadows += get_triangle_appearance(right,top, left,top, left*fac,top*fac)
-			shadows += get_triangle_appearance(right,top, right,bottom, right*fac,bottom*fac)
-			shadows += get_triangle_appearance(left*fac,top*fac, right,top, right*fac,bottom*fac)
-
-	return shadows
+	var/shadow_appearance_key = "turf_shadow_[x_offset]_[y_offset]_[SHADOWCASTING_RANGE]"
+	// We've not done this before!
+	if(!GLOB.lighting_appearances[shadow_appearance_key])
+		var/mutable_appearance/shadow_appearance = mutable_appearance()
+		shadow_appearance.overlays += get_shadows(x_offset, y_offset, SHADOWCASTING_RANGE)
+		GLOB.lighting_appearances[shadow_appearance_key] = shadow_appearance
+	return GLOB.lighting_appearances[shadow_appearance_key]
