@@ -59,6 +59,9 @@
 		return
 	if(!threat?.answered)
 		return
+	if(threat.answered == NEGATIVE_ANSWER)
+		priority_announce(chosen_gang.response_rejected, sender_override = chosen_gang.ship_name, color_override = chosen_gang.announcement_color)
+		return
 
 	var/datum/bank_account/plundered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(plundered_account)
