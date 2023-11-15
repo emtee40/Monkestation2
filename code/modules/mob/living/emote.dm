@@ -170,6 +170,7 @@
 /datum/emote/living/flap/aflap
 	key = "aflap"
 	key_third_person = "aflaps"
+	name = "flap (Angry)"
 	message = "flaps their wings ANGRILY!"
 	hands_use_check = TRUE
 	wing_time = 10
@@ -521,6 +522,7 @@ monkestation edit end */
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"
+	name = "twitch (Slight)"
 	message = "twitches."
 
 /datum/emote/living/twitch_s/run_emote(mob/living/user, params, type_override, intentional)
@@ -545,6 +547,7 @@ monkestation edit end */
 /datum/emote/living/wsmile
 	key = "wsmile"
 	key_third_person = "wsmiles"
+	name = "smile (Weak)"
 	message = "smiles weakly."
 
 /// The base chance for your yawn to propagate to someone else if they're on the same tile as you
