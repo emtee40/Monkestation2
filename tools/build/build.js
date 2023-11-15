@@ -79,13 +79,14 @@ export const DmTarget = new Juke.Target({
     NamedVersionFile,
   ],
   outputs: ({ get }) => {
-    if (get(DmVersionParameter)) {
-      return []; // Always rebuild when dm version is provided
-    }
-    return [
-      `${DME_NAME}.dmb`,
-      `${DME_NAME}.rsc`,
-    ]
+    return []; //Always Rebuild
+	//if (get(DmVersionParameter)) {
+    //  return []; // Always rebuild when dm version is provided
+    //}
+    //return [
+    //  `${DME_NAME}.dmb`,
+    //  `${DME_NAME}.rsc`,
+    //]
   },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
