@@ -119,3 +119,7 @@
 #define BB_ORE_TARGET "BB_ore_target"
 /// which ore types we will not eat
 #define BB_ORE_IGNORE_TYPES "BB_ore_ignore_types"
+
+//netguardians
+/// rocket launcher
+#define BB_NETGUARDIAN_ROCKET_ABILITY "netguardian_rocket"

@@ -1,5 +1,6 @@
 //Each lists stores ckeys for "Never for this round" option category
 
+#define POLL_IGNORE_GLITCH "glitch"
 #define POLL_IGNORE_SENTIENCE_POTION "sentience_potion"
 #define POLL_IGNORE_POSSESSED_BLADE "possessed_blade"
 #define POLL_IGNORE_ALIEN_LARVA "alien_larva"
@@ -29,8 +30,8 @@
 #define POLL_IGNORE_SHUTTLE_DENIZENS "shuttle_denizens"
 #define POLL_IGNORE_BOTS "bots"
 
-
 GLOBAL_LIST_INIT(poll_ignore_desc, list(
+	POLL_IGNORE_GLITCH = "Glitch",
 	POLL_IGNORE_SENTIENCE_POTION = "Sentience potion",
 	POLL_IGNORE_POSSESSED_BLADE = "Possessed blade",
 	POLL_IGNORE_ALIEN_LARVA = "Xenomorph larva",
@@ -44,7 +45,7 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_GOLEM = "Golems",
 	POLL_IGNORE_DRONE = "Drone shells",
 	POLL_IGNORE_FUGITIVE = "Fugitive Hunter",
-	POLL_IGNORE_DEFECTIVECLONE = "Defective clone",	
+	POLL_IGNORE_DEFECTIVECLONE = "Defective clone",
 	POLL_IGNORE_PYROSLIME = "Slime",
 	POLL_IGNORE_SHADE = "Shade",
 	POLL_IGNORE_IMAGINARYFRIEND = "Imaginary Friend",

@@ -17,6 +17,7 @@
 	name = "encrypted cache"
 	desc = "Needs decrypted at the safehouse to be opened."
 	locked = TRUE
+	damage_deflection = 30
 
 /// The bitrunner den - side of the bitrunning crate. Appears in the receive location.
 /obj/structure/closet/crate/secure/bitrunning/decrypted
@@ -67,7 +68,7 @@
 /obj/structure/closet/crate/secure/bitrunning/decrypted/proc/spawn_loot(list/extra_loot)
 	for(var/path in extra_loot)
 		if(!ispath(path))
-			continue
+			return FALSE
 
 		if(isnull(extra_loot[path]))
 			return FALSE
