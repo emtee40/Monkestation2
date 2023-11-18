@@ -124,7 +124,7 @@
 		var/obj/item/food/deadmouse/mouse = new(loc)
 		mouse.name = name
 		mouse.icon_state = icon_dead
-		mouse.reagents.add_reagent(/datum/reagent/blood, 2, data)
+		//mouse.reagents.add_reagent(/datum/reagent/blood, 2, data) //monkestation removal
 		//mouse.ratdisease = src.ratdisease  //monkestation removal
 		if(HAS_TRAIT(src, TRAIT_BEING_SHOCKED))
 			mouse.desc = "They're toast."
