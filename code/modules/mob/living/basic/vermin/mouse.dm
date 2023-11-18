@@ -56,8 +56,9 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
-	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1)
+	/*var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1) //monkestation removal
 	ratdisease += R
+	*/
 	AddElement(/datum/element/connect_loc, loc_connections)
 	make_tameable()
 
@@ -110,7 +111,7 @@
 
 // On death, remove the mouse from the ratcap, and turn it into an item if applicable
 /mob/living/basic/mouse/death(gibbed)
-	var/list/data = list("viruses" = ratdisease)
+	//var/list/data = list("viruses" = ratdisease)  //monkestation removal
 	SSmobs.cheeserats -= src
 	// Rats with a mind will not turn into a lizard snack on death
 	if(mind)
@@ -124,7 +125,7 @@
 		mouse.name = name
 		mouse.icon_state = icon_dead
 		mouse.reagents.add_reagent(/datum/reagent/blood, 2, data)
-		mouse.ratdisease = src.ratdisease
+		//mouse.ratdisease = src.ratdisease  //monkestation removal
 		if(HAS_TRAIT(src, TRAIT_BEING_SHOCKED))
 			mouse.desc = "They're toast."
 			mouse.add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
