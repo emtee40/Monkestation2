@@ -37,7 +37,7 @@
 				to_chat(M, span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
 				M.adjust_disgust(30)
 		if(4)
-			if(SPT_PROB(1.5, seconds_per_tick)
+			if(SPT_PROB(1.5, seconds_per_tick))
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your head pounds.")]"))
 				M.stamina.adjust(-25)
 			if(SPT_PROB(2.5, seconds_per_tick))
