@@ -13,7 +13,7 @@
  */
 /obj/item/bodycam_upgrade
 	name = "\improper body camera"
-	icon = 'code/modules/clothing/bodycams/bodycamera.dmi'
+	icon = 'monkestation/code/modules/clothing/bodycams/bodycamera.dmi'
 	icon_state = "bodycamera"
 	desc = "An armor vest upgrade, there's an instructions tag if you look a little closer..."
 	///The camera itself.
