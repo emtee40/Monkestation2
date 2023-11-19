@@ -14,7 +14,7 @@
 
 /datum/species/rattus
 	name = "Rattus Norvegicus"
-	plural_form = "Rattus"
+	plural_form = "Ratti"
 	id = SPECIES_RATTUS
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	species_traits = list(
@@ -22,25 +22,26 @@
 		NOEYESPRITES,
 		SPECIES_FUR,
 		NOAUGMENTS,
+		NOTRANSSTING,
 		)
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_VAULTING,
 		TRAIT_NIGHT_VISION,
 		TRAIT_POOR_AIM,
-		TRAIT_SMOKER,
 		)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	species_cookie = /obj/item/food/cheese/wedge
 	meat = /obj/item/food/meat/slab/mouse
-	liked_food = DAIRY | SUGAR | ALCOHOL //("Sad European" -MechaDH)
-	disliked_food = MEAT | VEGETABLES | RAW | FRIED | GROSS | NUTS | BUGS | GORE
-	maxhealthmod = 0.75
-	stunmod = 1.25
-	speedmod = -0.3
+	liked_food = DAIRY | SUGAR | ALCOHOL | GROSS //("Sad European" -MechaDH)
+	disliked_food = VEGETABLES
+	maxhealthmod = 1
+	stunmod = 1.1
+	speedmod = -0.2
 	brutemod = 1.75
-	burnmod = 4
-	payday_modifier = 0.5
+	burnmod = 2.5
+	siemens_coeff = 4
+	payday_modifier = 0.75
 	uses_fur = TRUE
 	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
@@ -97,7 +98,6 @@
 		/obj/item/light/tube/broken,
 		/obj/item/light/bulb/broken,
 		/obj/item/assembly/mousetrap/armed,
-		/obj/item/reagent_containers/cup/rag,
 		/obj/item/popsicle_stick,
 		/obj/item/shard/plasma,
 		)
@@ -130,7 +130,7 @@
 	key = "r"
 	space_chance = 100
 	default_priority = 90
-	syllables = list("lager","maotai","bulleit","cognac","raki","mojito","smirnoff","brandy","sazerac","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","squeak","(rat sounds)","hon","hun","baugete","baugette","cigarette","viva","wine","cheese","fromage","omelette-du-fromage","(INCOHERENT YELLING)","fuck","tabarnak","le","honhonhon","accoutrement","eiffel-tower","blue-cheese")
+	syllables = list("lager","maotai","bulleit","cognac","raki","mojito","smirnoff","brandy","sazerac","wine","calvados","chambord","liqueur","whisky","gin","scotch","cheese","fontina","roquefort","limburger","jarlsberg","emmental","taleggio","pecorino","cheddar","edam","asiago","stilton","munster","swis","feta","gruyere",,"colby","pepper-jack","gouda","manchego","blue-cheese","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","fromage","omelette-du-fromage","(RAT SOUNDS)","(INCOHERENT YELLING)","squeak","le","hon","hun","honhonhon","baugete","baugette","cigarette","viva","fuck","tete-de-noeud","andouille","blaireau","casse-toi","tabarnak","accoutrement","eiffel-tower")
 	icon = 'monkestation/icons/misc/language.dmi'
 	icon_state = "rattus"
 
