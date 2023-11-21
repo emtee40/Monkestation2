@@ -21,23 +21,25 @@
 		return
 	icon_state = "[base_icon_state][rand(0, 7)]"
 	update_icon()
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 
-/obj/item/bitrunning_disk/examine(mob/user)
-	. = ..()
-	. += span_infoplain("This disk must be carried on your person into a netpod to be used.")
+/obj/item/bitrunning_disk/proc/on_examined(datum/source, mob/examiner, list/examine_text)
+	SIGNAL_HANDLER
+
+	examine_text += span_infoplain("This disk must be carried on your person into a netpod to be used.")
 
 	if(monkeystation_override) // monkeystation change, override for disks with single powers/items
 		return
 
 	if(isnull(choice_made))
-		. += span_notice("To make a selection, toggle the disk in hand.")
+		examine_text += span_notice("To make a selection, toggle the disk in hand.")
 		return
 
-	. += span_info("It has been used to select: <b>[choice_made]</b>.")
-	. += span_notice("It cannot make another selection.")
+	examine_text += span_info("It has been used to select: <b>[choice_made]</b>.")
+	examine_text += span_notice("It cannot make another selection.")
 
 /obj/item/bitrunning_disk/ability
-	desc = "A disk containing source code. It can be used to preload abilities into the virtual domain. Duplicate abilities will be ignored."
+	desc = "A disk containing source code. It can be used to preload abilities into the virtual domain."
 	/// The selected ability that this grants
 	var/datum/action/granted_action
 	/// The list of actions that this can grant
@@ -135,16 +137,16 @@
 /obj/item/bitrunning_disk/item/tier2
 	name = "bitrunning gear: complex"
 	selectable_items = list(
-		/obj/item/reagent_containers/hypospray/medipen/survival/luxury,
+		/obj/item/chainsaw,
 		/obj/item/gun/ballistic/automatic/pistol,
-		/obj/item/clothing/suit/armor/vest,
+		/obj/item/melee/energy/blade/hardlight,
 	)
 
 /// Tier 3 items. Very powerful, game breaking.
 /obj/item/bitrunning_disk/item/tier3
 	name = "bitrunning gear: advanced"
 	selectable_items = list(
-		/obj/item/gun/energy/e_gun/nuclear,
+		/obj/item/gun/energy/tesla_cannon,
 		/obj/item/dualsaber/green,
-		/obj/item/grenade/syndieminibomb,
+		/obj/item/melee/beesword,
 	)
