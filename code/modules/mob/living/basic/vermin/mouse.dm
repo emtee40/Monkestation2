@@ -56,7 +56,7 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
-	var/datum/disease/R = new /datum/disease/food //monkestation change advance/random to food poisoning
+	var/datum/disease/R = new /datum/disease/food_poisoning //monkestation change advance/random to food poisoning
 	ratdisease += R
 	AddElement(/datum/element/connect_loc, loc_connections)
 	make_tameable()

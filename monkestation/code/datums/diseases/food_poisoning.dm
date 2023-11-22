@@ -1,4 +1,4 @@
-/datum/disease/food
+/datum/disease/food_poisoning
 	name = "Food Poisoning"
 	max_stages = 4
 	cure_text = "Spaceacillin"
