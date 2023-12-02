@@ -111,6 +111,8 @@
 			return FALSE
 	if(!check_enemies())
 		return FALSE
+	if(GLOB.battle_royale_controller?.active)
+		return FALSE
 	//monkestation edit end - STORYTELLERS
 
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode

@@ -5,8 +5,9 @@ import { Window } from 'tgui/layouts';
 type BattleRoyalePanelContext = {
   active_dataset: royaledataset[];
   prizes: prizelist[];
-  max_duration: number;
+  max_duration: string;
   custom_datasets: royaledataset[];
+  storm_delay?: string;
 };
 
 type prizelist = {
@@ -40,8 +41,14 @@ export const BattleRoyalePanel = (props, context) => {
     <Window title="Battle Royale Panel" width={700} height={525}>
       <Window.Content scrollable>
         <Button content="Start Battle Royale" onClick={() => act('start')} />
-        Expected maximum duration: {data.max_duration}
-        <Section title="Currently Active Data">
+        <Button
+          content="Adjust storm delay"
+          onClick={() => act('adjust_storm_delay')}
+        />
+        Expected maximum duration: {'[' + data.max_duration + ']   '}
+        Storm delay:{' '}
+        {data.storm_delay ? '[' + data.storm_delay + ']' : '[Unset]'}
+        <Section title="Currently active data">
           {active_dataset.length
             ? active_dataset.map((royaledataset) => (
               <LabeledList key={royaledataset.active_time}>
@@ -85,7 +92,7 @@ export const BattleRoyalePanel = (props, context) => {
           title="Prizes"
           buttons={
             <Button
-              content="Adjust Prizes"
+              content="Adjust prizes"
               onClick={() => act('adjust_prizes')}
             />
           }>
@@ -109,7 +116,7 @@ export const BattleRoyalePanel = (props, context) => {
           ))}
         </Section>
         <Section
-          title="Custom Datasets"
+          title="Custom datasets"
           buttons={
             <Stack>
               <Stack.Item>

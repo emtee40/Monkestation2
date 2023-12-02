@@ -85,6 +85,9 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 		return
 
 	build_data_datums(fast, custom)
+	if(storm_controller.start_consuming_delay == -1) //have to use an exact value check as admins can set the delay to 0
+		storm_controller.start_consuming_delay = (fast ? 2 MINUTES : 5 MINUTES)
+
 	send_to_playing_players(span_ratvar("Battle Royale will begin soon..."))
 	GLOB.enter_allowed = FALSE
 	GLOB.ghost_role_flags = NONE
@@ -113,6 +116,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	send_to_playing_players(span_greenannounce("Battle Royale: STARTING IN 30 SECONDS."))
 	send_to_playing_players(span_greenannounce("If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)"))
 	sleep(30 SECONDS)
+	power_restore()
 	send_to_playing_players(span_boldannounce("Battle Royale: STARTING IN 5 SECONDS."))
 	send_to_playing_players(span_greenannounce("Make sure to hit yes to the sign up message given to all observing players."))
 	sleep(5 SECONDS)
@@ -140,7 +144,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	if(current_data)
 		spawn_loot_pods(150)
 
-/datum/battle_royale_controller/proc/do_ghost_drop(message, turf/turf_override, given_poll_time = 30 SECONDS, grace = TRUE)
+/datum/battle_royale_controller/proc/do_ghost_drop(message, turf/turf_override, given_poll_time = 60 SECONDS, grace = TRUE)
 	var/list/participants = list() //poll_ghost_candidates() requires station sentience to be enabled, so we have to manually do it
 	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
 		participants += ghost_player
@@ -258,7 +262,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 		deactivate()
 		return FALSE
 
-	if(next_data_datum_value > length(data_datums))
+	if(!data_datums["[next_data_datum_value]"])
 		return FALSE
 
 	var/datum/battle_royale_data/next_data = data_datums["[next_data_datum_value]"]
@@ -333,6 +337,10 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	if(!current_data)
 		return
 
+	var/list/turf_list = GLOB.station_turfs.Copy() - storm_controller.storms
+	if(!length(turf_list))
+		return
+
 	if(!table)
 		table = pick_weight(list(COMMON_LOOT_TABLE = current_data.common_weight,
 								UTILITY_LOOT_TABLE = current_data.utility_weight,
@@ -345,17 +353,11 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	if(prob(current_data?.extra_loot_prob))
 		picked_loot = add_loot_items(pick_weight(GLOB.royale_extra_loot), picked_loot)
 
-	var/list/valid_areas_list = (storm_controller.outer_areas + storm_controller.middle_areas + storm_controller.inner_areas + storm_controller.core_areas)
-	if(!length(valid_areas_list))
-		return
-
 	var/drop_time = calculate_drop_time(delay)
 	var/turf/targeted_turf
-	var/list/turf_list = GLOB.station_turfs.Copy()
 	shuffle_inplace(turf_list)
 	for(var/turf/possible_turf in turf_list)
-		var/area/turf_area = get_area(possible_turf)
-		if(isclosedturf(possible_turf) || !(turf_area.type in valid_areas_list))
+		if(isclosedturf(possible_turf))
 			continue
 		targeted_turf = possible_turf
 		break
@@ -439,6 +441,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	data["prizes"] = prize_list
 	data["max_duration"] = max_duration ? DisplayTimeText(max_duration) : 0
 	data["custom_datasets"] = custom_dataset_list
+	data["storm_delay"] = (storm_controller.start_consuming_delay == -1 ? null : DisplayTimeText(storm_controller.start_consuming_delay))
 	return data
 
 /datum/battle_royale_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -455,17 +458,18 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 			if(input != "Yes")
 				return
 
-			input = tgui_alert(usr, "Would you like to use custom datasets?", "Battle Royale", list("Yes", "No"))
-			if(input == "Yes")
-				setup(custom = TRUE)
-				return
+			var/second_input = tgui_alert(usr, "Would you like to use custom datasets?", "Battle Royale", list("Yes", "No"))
+			if(second_input != "Yes")
+				second_input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(20 min max duration)", "Fast(10 min max duration)"))
 
-			tgui_alert(usr, "Are you sure want to start a battle royale?", "Battle Royale", list("Yes", "No"))
+			input = tgui_alert(usr, "Are you sure want to start a battle royale?", "Battle Royale", list("Yes", "No"))
 			if(input != "Yes")
 				return
 
-			input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(25 min max duration)", "Fast(10 min max duration)"))
-			setup((input == "Fast(10 min max duration)") ? TRUE : FALSE)
+			if(second_input == "Yes")
+				setup(custom = TRUE)
+			else
+				setup((second_input == "Fast(10 min max duration)") ? TRUE : FALSE)
 
 		if("adjust_prizes")
 			var/input_prize = tgui_input_list(usr, "What prize would you like to set?", "Adjust prizes", prizes)
@@ -526,6 +530,13 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 			adjusted_dataset.vv_edit_var(input_var, input_value)
 			if(input_var == "active_time")
 				GLOB.custom_battle_royale_data["[adjusted_dataset.active_time]"] = adjusted_dataset
+
+		if("adjust_storm_delay")
+			var/input_value = tgui_input_number(usr, "What would you like to set the storm delay to?", "Set delay", min_value = 0, round_value = TRUE)
+			if(!isnum(input_value))
+				return
+
+			storm_controller.start_consuming_delay = input_value
 
 #undef COIN_PRIZE
 #undef MINIMUM_USEFUL_DROP_TIME

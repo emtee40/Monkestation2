@@ -46,7 +46,7 @@
 	common_weight = 12
 	utility_weight = 14
 	rare_weight = 4
-	final_time = 25 MINUTES
+	final_time = 20 MINUTES
 
 /datum/battle_royale_data/normal/one_second
 	active_time = 1 SECONDS
@@ -73,13 +73,6 @@
 
 /datum/battle_royale_data/normal/fifteen_minutes
 	active_time = 15 MINUTES
-	common_weight = 10
-	rare_weight = 4
-	rare_drop_prob = 5
-	super_drop_prob = 1
-
-/datum/battle_royale_data/normal/twenty_minutes
-	active_time = 20 MINUTES
 	common_weight = 5
 	rare_weight = 8
 	super_rare_weight = 2

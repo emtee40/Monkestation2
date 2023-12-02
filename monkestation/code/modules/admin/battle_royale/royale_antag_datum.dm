@@ -15,19 +15,31 @@
 	var/mob/living/current = owner.current
 	RegisterSignal(current, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_z_change))
 	RegisterSignal(current, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+	START_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/battle_royale/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = owner.current
-	UnregisterSignal(current, COMSIG_MOVABLE_Z_CHANGED)
-	UnregisterSignal(current, COMSIG_LIVING_DEATH)
+	UnregisterSignal(current, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_LIVING_DEATH))
+	STOP_PROCESSING(SSprocessing, src)
+
+/datum/antagonist/battle_royale/process(seconds_per_tick)
+	var/mob/living/current = owner.current
+	if(!current || current.stat == DEAD || (current.status_flags & GODMODE))
+		return
+
+	var/turf/current_turf = get_turf(current)
+	if(current_turf && (locate(/obj/effect/royale_storm_effect) in current_turf) || !is_type_in_list(get_area(current), GLOB.battle_royale_controller?.storm_controller?.safe_areas))
+		current.adjustFireLoss(3 * seconds_per_tick)
+		if(prob(30))
+			to_chat(current, span_userdanger("You're badly burned by the storm!"))
 
 /datum/antagonist/battle_royale/forge_objectives()
 	var/datum/objective/battle_royale/objective = new
 	objectives += objective
 
 /datum/antagonist/battle_royale/proc/on_z_change(datum/source, turf/old_turf, turf/new_turf)
-	if(!isliving(source) || SSmapping.level_trait(new_turf.z, ZTRAIT_STATION))
+	if(!isliving(source) || is_station_level(new_turf.z))
 		return
 
 	var/mob/living/living_moved = source

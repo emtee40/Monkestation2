@@ -1,35 +1,22 @@
-#define STORM_STAGE_NONE 0
-#define STORM_STAGE_OUTER 1
-#define STORM_STAGE_MIDDLE 2
-#define STORM_STAGE_INNER 3
-#define STORM_STAGE_CORE 4
 //these values might need to be tweaked
 #define CORE_AREA_MAX_DIST 10
 #define CLOSE_AREA_MAX_DIST 30
 #define MIDDLE_AREA_MAX_DIST 50
 /datum/royale_storm_controller
-	///how often to consume an area
-	var/area_consume_timer = 5 SECONDS
-	///which list to pick from
-	var/list/current_area_pick = list()
-	///outer areas, does not include space
-	var/list/outer_areas = list()
-	///middle areas
-	var/list/middle_areas = list()
-	///inner areas
-	var/list/inner_areas = list()
-	///core areas
-	var/list/core_areas = list()
-	///what stage of consuming the station is the storm
-	var/storm_stage = STORM_STAGE_NONE
-	///timer id to the next area consumption
+	///how often do we advance after we start consuming the station
+	var/ring_advance_delay = 5 SECONDS
+	///how long of a delay after the royale starts do we have until we start consuming the station
+	var/start_consuming_delay = -1 //we manually check this value to see if an admin has set it or not
+	///assoc list of rings of turfs to consume
+	var/list/rings_to_consume = list()
+	///timer id to the next ring consumption
 	var/timerid
-	///active weathers
+	///assoc list of turfs and their storm effects
 	var/list/storms = list()
 	///ref to our royale controller
 	var/datum/battle_royale_controller/royale_controller
-	///are we in debug mode
-	var/debug = FALSE
+	///list of areas its safe to be in, we have to do this ourselves as station areas is based on Z level
+	var/list/safe_areas = list()
 
 /datum/royale_storm_controller/Destroy(force, ...)
 	royale_controller = null
@@ -37,88 +24,59 @@
 
 ///set us up and start us
 /datum/royale_storm_controller/proc/setup()
-	storm_stage = STORM_STAGE_NONE
-	current_area_pick = list()
-	build_areas()
-	calculate_consume_time()
+	build_rings()
+	calculate_advance_time()
 	message_admins("Storm started.")
 	send_to_playing_players(span_userdanger("The storm has been created! It will consume the station from the outside in, so plan around it!"))
 	var/datum/particle_weather/royale_storm/outside_storm = new
-	outside_storm.weather_duration_lower = royale_controller?.max_duration * 2 //double it to make sure people cant somehow escape to space
+	outside_storm.weather_duration_lower = royale_controller?.max_duration * 2
 	outside_storm.weather_duration_upper = royale_controller?.max_duration * 2
 	SSparticle_weather.run_weather(outside_storm, TRUE)
-	consume_area(/area/space/nearstation, TRUE) //start the storm
+	if(start_consuming_delay)
+		addtimer(CALLBACK(src, PROC_REF(consume_ring)), start_consuming_delay)
+	else
+		consume_ring() //start the storm
 
-///Build our storm areas
-/datum/royale_storm_controller/proc/build_areas()
-	outer_areas = list()
-	middle_areas = list()
-	inner_areas = list()
-	var/turf/center = SSmapping.get_station_center()
-	var/list/area_list = list()
-	for(var/turf/checked_turf in GLOB.station_turfs) //find the closest turf in each area
-		var/area/turf_area = get_area(checked_turf)
-		var/dist = get_dist(checked_turf, center)
-		if(!area_list[turf_area])
-			area_list[turf_area] = dist
+///Build our storm rings
+/datum/royale_storm_controller/proc/build_rings()
+	safe_areas = list()
+	var/turf/center_turf = SSmapping.get_station_center()
+	var/greatest_dist = 0
+	for(var/turf/consumed_turf as anything in GLOB.station_turfs)
+		var/dist = get_dist(center_turf, consumed_turf)
+		if(dist < 0)
 			continue
-
-		if(area_list[turf_area] > dist)
-			area_list[turf_area] = dist
-
-	var/list/named_core_areas = list()
-	for(var/area/station_area in area_list)
-		if(area_list[station_area] <= CORE_AREA_MAX_DIST)
-			core_areas += station_area.type
-			named_core_areas += initial(station_area.name)
-		else if(area_list[station_area] <= CLOSE_AREA_MAX_DIST)
-			inner_areas += station_area.type
-		else if(area_list[station_area] <= MIDDLE_AREA_MAX_DIST)
-			middle_areas += station_area.type
-		else
-			outer_areas += station_area.type
-	send_to_playing_players(span_greenannounce("Core station areas: [english_list(named_core_areas)]"))
+		if(dist > greatest_dist)
+			greatest_dist = dist
+		if(!rings_to_consume["[dist]"])
+			rings_to_consume["[dist]"] = list()
+		rings_to_consume["[dist]"] += consumed_turf
+		var/area/turf_area = get_area(consumed_turf)
+		if(turf_area && !istype(turf_area, /area/space))
+			safe_areas |= turf_area.type
+	message_admins("AREAS [english_list(safe_areas)]")
 
 ///calculate how long inbetween each consume to get the desired game length
-/datum/royale_storm_controller/proc/calculate_consume_time()
+/datum/royale_storm_controller/proc/calculate_advance_time()
 	if(!royale_controller || !royale_controller.max_duration)
 		message_admins("No set royale_controller[royale_controller ? ".max_duration" : ""] for a royale storm controller.")
 		return
 
-	area_consume_timer = truncate(royale_controller.max_duration / (length(outer_areas) + length(middle_areas) + length(inner_areas) + length(core_areas)))
+	ring_advance_delay = max(truncate((royale_controller.max_duration - start_consuming_delay) / length(rings_to_consume)), 1 SECONDS)
 
 ///consume an area with a storm
-/datum/royale_storm_controller/proc/consume_area(area/area_path, repeat = FALSE)
-	var/datum/weather/royale_storm/storm = new(SSmapping.levels_by_trait(ZTRAIT_STATION))
-	storms += storm
-	storm.area_type = area_path
-	if(debug)
-		message_admins("Storm consuming [initial(area_path.name)].")
-	send_to_playing_players(span_boldannounce("The storm is consuming [initial(area_path.name)]!"))
-	storm.telegraph()
-	if(repeat)
-		if(!current_area_pick)
-			return
+/datum/royale_storm_controller/proc/consume_ring()
+	var/current_ring = length(rings_to_consume) //might want to add more messages
+	if(!current_ring)
+		return
 
-		if(!length(current_area_pick)) //there was none left, don't try and take from an empty list
-			switch(storm_stage)
-				if(STORM_STAGE_NONE)
-					current_area_pick = outer_areas
-				if(STORM_STAGE_OUTER)
-					send_to_playing_players(span_userdanger("The storm has consumed the entire outer station!"))
-					current_area_pick = middle_areas
-				if(STORM_STAGE_MIDDLE)
-					send_to_playing_players(span_userdanger("The storm has consumed the majority of the station!"))
-					current_area_pick = inner_areas
-				if(STORM_STAGE_INNER)
-					send_to_playing_players(span_userdanger("The storm has consumed the inner most station!"))
-					current_area_pick = core_areas
-				if(STORM_STAGE_CORE)
-					send_to_playing_players(span_userdanger("The storm has consumed the ENTIRE station!"))
-					current_area_pick = null
-					return
-			storm_stage++
-		timerid = addtimer(CALLBACK(src, PROC_REF(consume_area), pick_n_take(current_area_pick), TRUE), area_consume_timer, TIMER_STOPPABLE)
+	current_ring = "[current_ring]"
+	for(var/to_consume as anything in rings_to_consume[current_ring])
+		var/obj/effect/royale_storm_effect/storm_effect = new(to_consume)
+		storms[to_consume] = storm_effect
+
+	rings_to_consume -= current_ring
+	timerid = addtimer(CALLBACK(src, PROC_REF(consume_ring)), ring_advance_delay, TIMER_STOPPABLE)
 
 ///stops the storm.
 /datum/royale_storm_controller/proc/stop_storm()
@@ -128,10 +86,12 @@
 
 ///ends the storm.
 /datum/royale_storm_controller/proc/end_storm()
-	for(var/datum/particle_weather/storm as anything in storms)
-		storm.wind_down()
+	for(var/turf/storm_turf in storms)
+		var/obj/effect/royale_storm_effect/storm = storms[storm_turf]
+		storms -= storm_turf
+		qdel(storm)
+
 	SSparticle_weather.stop_weather()
-	storms = null
 
 /datum/weather/royale_storm
 	name = "royale storm"
@@ -165,7 +125,7 @@
 	weather_messages = list(span_userdanger("You're badly burned by the storm!"))
 
 	damage_type = BURN
-	damage_per_tick = 3
+	damage_per_tick = 1
 	min_severity = 4
 	max_severity = 150
 	max_severity_change = 50
@@ -181,11 +141,14 @@
 	gradient               = list(0,"#4d00ff",1,"#8550ff",2,"#3900bd","loop")
 	color_change		   = generator("num",-5,5)
 
-#undef STORM_STAGE_NONE
-#undef STORM_STAGE_OUTER
-#undef STORM_STAGE_MIDDLE
-#undef STORM_STAGE_INNER
-#undef STORM_STAGE_CORE
+//actual logic is handled on the antag datum, this does mean that mobs without the datum wont die, however if any players lack the datum it will break things anyway
+/obj/effect/royale_storm_effect
+	name = "Battle Royale Storm"
+	desc = "A storm tuned to only affect those directly participating in the battle royale."
+	icon = 'monkestation/icons/effects/effects.dmi'
+	icon_state = "royale_storm"
+	plane = HIGH_GAME_PLANE
+
 #undef CORE_AREA_MAX_DIST
 #undef CLOSE_AREA_MAX_DIST
 #undef MIDDLE_AREA_MAX_DIST
