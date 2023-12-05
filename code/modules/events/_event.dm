@@ -55,6 +55,8 @@
 	var/static/list/shared_occurences = list()
 	/// Whether a roundstart event can happen post roundstart. Very important for events which override job assignments.
 	var/can_run_post_roundstart = TRUE
+	/// If set then the type or list of types of storytellers we are restricted to being trigged by
+	var/list/allowed_storytellers
 	//monkestation vars end
 
 /datum/round_event_control/New()
@@ -112,6 +114,8 @@
 	if(!check_enemies())
 		return FALSE
 	if(GLOB.battle_royale_controller?.active)
+		return FALSE
+	if(allowed_storytellers && ((islist(allowed_storytellers) && !is_type_in_list(SSgamemode.storyteller, allowed_storytellers)) || SSgamemode.storyteller.type != allowed_storytellers))
 		return FALSE
 	//monkestation edit end - STORYTELLERS
 
