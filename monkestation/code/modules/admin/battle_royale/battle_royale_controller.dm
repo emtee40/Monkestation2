@@ -112,6 +112,9 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 		mob.dust(TRUE, FALSE, TRUE)
 		CHECK_TICK
 
+	send_setup_messages()
+
+/datum/battle_royale_controller/proc/send_setup_messages()
 	sound_to_playing_players('sound/misc/server-ready.ogg', 50, FALSE)
 	send_to_playing_players(span_greenannounce("Battle Royale: STARTING IN 30 SECONDS."))
 	send_to_playing_players(span_greenannounce("If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)"))
