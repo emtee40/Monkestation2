@@ -194,6 +194,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 	storm_controller?.stop_storm()
 	SSticker.force_ending = TRUE
 	if(winner && !QDELETED(winner))
+		winner.revive(ADMIN_HEAL_ALL)
 		send_to_playing_players(span_ratvar("VICTORY ROYALE!"))
 		send_to_playing_players(span_ratvar("[key_name(winner)] is the winner!"))
 		for(var/prize in prizes)
@@ -462,8 +463,8 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 			if(second_input != "Yes")
 				second_input = tgui_alert(usr, "What preset would you like to use?", "Battle Royale", list("Normal(20 min max duration)", "Fast(10 min max duration)"))
 
-			input = tgui_alert(usr, "Are you sure want to start a battle royale?", "Battle Royale", list("Yes", "No"))
-			if(input != "Yes")
+			input = tgui_alert(usr, "Are you sure want to start a battle royale?", "Battle Royale", list("Im sure", "No"))
+			if(input != "Im sure")
 				return
 
 			if(second_input == "Yes")

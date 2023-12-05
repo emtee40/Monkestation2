@@ -19,7 +19,6 @@
 		to_chat(usr, span_warning("A game has already started!"))
 		return
 
-	//as LME requested saying no is as obtuse as possible(will be made less so for full merge)
 	var/input = tgui_alert(usr, "Do you want to quick start a battle royale?", "Battle royale", list("Normal(20 min max duration)", "Fast(10 min max duration)", "The lame option"))
 	if(input == "The lame option")
 		return

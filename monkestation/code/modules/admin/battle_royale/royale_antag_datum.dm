@@ -5,6 +5,8 @@
 	show_in_antagpanel = FALSE //you should never need to manually add this, might at some point add a proc to manually inject someone into a royale
 	///Have we died?
 	var/died = FALSE
+	///How many damage ticks have we been in the storm for
+	var/storm_ticks = 0
 
 /datum/antagonist/battle_royale/on_gain()
 	forge_objectives()
@@ -30,9 +32,13 @@
 
 	var/turf/current_turf = get_turf(current)
 	if(current_turf && (locate(/obj/effect/royale_storm_effect) in current_turf) || !is_type_in_list(get_area(current), GLOB.battle_royale_controller?.storm_controller?.safe_areas))
-		current.adjustFireLoss(3 * seconds_per_tick)
+		current.adjustFireLoss(3 * seconds_per_tick * max(round(storm_ticks), 1)) //damage increases the longer you have been in the storm for
+		storm_ticks++
 		if(prob(30))
 			to_chat(current, span_userdanger("You're badly burned by the storm!"))
+		return
+
+	storm_ticks = 0
 
 /datum/antagonist/battle_royale/forge_objectives()
 	var/datum/objective/battle_royale/objective = new
