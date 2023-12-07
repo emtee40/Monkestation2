@@ -47,7 +47,8 @@
 
 /obj/item/pai_card/emag_act(mob/user)
 	if(pai)
-		pai.handle_emag(user)
+		return pai.handle_emag(user)
+	return FALSE
 
 /obj/item/pai_card/emp_act(severity)
 	. = ..()
@@ -110,6 +111,7 @@
 		name = pai.name,
 		transmit = pai.can_transmit,
 		receive = pai.can_receive,
+		range = pai.leash.distance,
 	)
 	return data
 

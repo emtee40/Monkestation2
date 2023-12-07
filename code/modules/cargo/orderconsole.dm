@@ -75,12 +75,13 @@
 	if(obj_flags & EMAGGED)
 		. |= EXPORT_EMAG
 
-/obj/machinery/computer/cargo/emag_act(mob/user)
+/obj/machinery/computer/cargo/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
-		return
+		return FALSE
 	if(user)
-		user.visible_message(span_warning("[user] swipes a suspicious card through [src]!"),
-		span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
+		if (emag_card)
+			user.visible_message(span_warning("[user] swipes [emag_card] through [src]!"))
+		to_chat(user, span_notice("You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband."))
 
 	obj_flags |= EMAGGED
 	contraband = TRUE
@@ -90,6 +91,7 @@
 	board.contraband = TRUE
 	board.obj_flags |= EMAGGED
 	update_static_data(user)
+	return TRUE
 
 /obj/machinery/computer/cargo/on_construction(mob/user)
 	. = ..()
@@ -403,6 +405,21 @@
 					SSshuttle.shopping_list -= order
 					var/distance = get_dist(spawning_turf, picked_point)
 					new_atom.throw_at(picked_point, distance + 4, 2)
+
+				if(prob(25))
+					var/obj/structure/closet/crate/mail/economy/new_create
+					var/obj/effect/oshan_launch_point/cargo/picked_point = pick(GLOB.cargo_launch_points)
+					var/turf/open/spawning_turf = get_edge_target_turf(picked_point, picked_point.map_edge_direction)
+					if(!SSeconomy.mail_crate)
+						new_create = new /obj/structure/closet/crate/mail/economy(spawning_turf)
+						SSeconomy.mail_crate = new_create
+					if(SSeconomy.mail_crate)
+						SSeconomy.mail_crate.forceMove(spawning_turf)
+						new_create = SSeconomy.mail_crate
+						var/distance = get_dist(spawning_turf, picked_point)
+						new_create.throw_at(picked_point, distance + 4, 2)
+						SSeconomy.mail_crate = null
+
 				currently_sending = FALSE
 
 			. = TRUE
