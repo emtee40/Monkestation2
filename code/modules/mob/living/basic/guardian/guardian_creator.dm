@@ -59,19 +59,27 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 	mob_name = using_theme.name
 
 /obj/item/guardian_creator/attack_self(mob/living/user)
+	if(allowed_to_get_new_guardian(user))
+		show_guardian_type_selector(user)
+
+/obj/item/guardian_creator/proc/allowed_to_get_new_guardian(mob/living/user)
 	if(isguardian(user) && !allow_guardian)
 		balloon_alert(user, "can't do that!")
-		return
+		return FALSE
 	var/list/guardians = user.get_all_linked_holoparasites()
 	if(length(guardians) && !allow_multiple)
 		balloon_alert(user, "already have one!")
-		return
+		return FALSE
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling) && !allow_changeling)
 		to_chat(user, ling_failure)
-		return
+		return FALSE
 	if(used)
 		to_chat(user, used_message)
-		return
+		return FALSE
+
+	return TRUE
+
+/obj/item/guardian_creator/proc/show_guardian_type_selector(mob/living/user)
 	var/list/radial_options = GLOB.guardian_radial_images.Copy()
 	for(var/possible_guardian in radial_options)
 		if(possible_guardian in possible_guardians)
@@ -84,6 +92,10 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 		guardian_path = show_radial_menu(user, src, radial_options, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 42, require_near = TRUE)
 		if(isnull(guardian_path))
 			return
+
+	poll_for_guardian_player(user, guardian_path)
+
+/obj/item/guardian_creator/proc/poll_for_guardian_player(mob/living/user, mob/living/basic/guardian/guardian_path)
 	used = TRUE
 	to_chat(user, use_message)
 	var/guardian_type_name = random ? "Random" : capitalize(initial(guardian_path.creator_name))

@@ -1,19 +1,7 @@
 ///Bloodsuckers spawning a Guardian will get the Bloodsucker one instead.
-/obj/item/guardian_creator/spawn_guardian(mob/living/user, mob/dead/candidate)
-	var/list/guardians = user.get_all_linked_holoparasites()
-	if(length(guardians))
-		to_chat(user, span_holoparasite("You already have a [mob_name]!"))
-		used = FALSE
-		return
-	if(IS_BLOODSUCKER(user))
-		var/mob/living/basic/guardian/standard/timestop/bloodsucker_guardian = new(user, GUARDIAN_THEME_MAGIC)
-
-		bloodsucker_guardian.set_summoner(user, different_person = TRUE)
-		bloodsucker_guardian.key = candidate.key
-		user.log_message("has summoned [key_name(bloodsucker_guardian)], a [bloodsucker_guardian.creator_name] holoparasite.", LOG_GAME)
-		bloodsucker_guardian.log_message("was summoned as a [bloodsucker_guardian.creator_name] holoparasite.", LOG_GAME)
-		to_chat(user, replacetext(success_message, "%GUARDIAN", mob_name))
-		bloodsucker_guardian.client?.init_verbs()
+/obj/item/guardian_creator/attack_self(mob/living/user)
+	if(allowed_to_get_new_guardian(user) && IS_BLOODSUCKER(user))
+		poll_for_guardian_player(user, /mob/living/basic/guardian/standard/timestop)
 		return
 
 	// Call parent to deal with everyone else
