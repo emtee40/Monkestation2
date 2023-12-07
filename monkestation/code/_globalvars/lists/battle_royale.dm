@@ -132,6 +132,8 @@ GLOBAL_LIST_INIT(royale_utility_loot, list(
 		/obj/item/mod/module/stealth/ninja = 1,
 		/obj/item/sharpener = 1,
 		/obj/item/slimecross/regenerative/rainbow = 1,
+		list(/obj/item/slimepotion/speed = 2) = 2,
+		list(/obj/item/slimepotion/spaceproof = 2) = 3,
 		/obj/item/storage/backpack/holding = 1,
 		/obj/item/storage/backpack/duffelbag/syndie/surgery = 1,
 		/obj/item/storage/backpack/duffelbag/syndie/sabotage = 1,
@@ -140,7 +142,7 @@ GLOBAL_LIST_INIT(royale_utility_loot, list(
 		/obj/item/storage/box/syndie_kit/imp_stealth = 1,
 		/obj/item/storage/box/syndie_kit/imp_storage = 2,
 		/obj/item/storage/box/syndie_kit/syndicate_teleporter = 2,
-		/obj/item/syndie_glue = 2
+		/obj/item/syndie_glue = 2,
 ))
 
 ///rare loot, annouced drops will pick from here, also gets more common the longer the royale lasts
@@ -193,7 +195,6 @@ GLOBAL_LIST_INIT(royale_rare_loot, list(
 		/obj/item/gun/ballistic/automatic/pistol = 3,
 		/obj/item/gun/ballistic/automatic/tommygun = 1,
 		/obj/item/gun/ballistic/automatic/wt550 = 3,
-		/obj/item/highfrequencyblade = 1,
 		/obj/item/implanter/uplink/precharged = 1,
 		/obj/item/katana = 1,
 		list(/obj/item/melee/energy/sword = 1, /obj/item/shield/energy = 1) = 1,
@@ -220,12 +221,13 @@ GLOBAL_LIST_INIT(royale_super_rare_loot, list(
 		/obj/item/gun/energy/meteorgun = 1, //might be a bit too strong
 		/obj/item/gun/energy/pulse = 1,
 		/obj/item/gun/energy/marksman_revolver = 1,
-		/obj/item/minigunpack = 1, //laser minigun
+		list(/obj/item/minigunpack = 1, /obj/item/slimepotion/spaceproof = 3) = 1, //laser minigun and spaceproofing so you can use it safely
 		/obj/item/mod/control/pre_equipped/enchanted = 1, //wizard MODsuit
 		list(/obj/item/pneumatic_cannon/pie/selfcharge = 1, /obj/item/syndie_glue = 1) = 1,
 		/obj/item/storage/belt/wands/full = 1,
 		list(/obj/item/uplink/nuclear = 1, /obj/item/stack/telecrystal/five = 2) = 1,
-		list(/obj/vehicle/sealed/mecha/gygax/dark/loaded = 1, /obj/item/card/id/advanced/chameleon = 1) = 1
+		list(/obj/vehicle/sealed/mecha/gygax/dark/loaded = 1, /obj/item/card/id/advanced/chameleon = 1) = 1,
+		/obj/item/highfrequencyblade = 1,
 ))
 
 ///misc loot, things that are not useful on their own/are jokes

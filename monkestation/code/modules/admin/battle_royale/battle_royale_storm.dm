@@ -35,26 +35,28 @@
 	if(start_consuming_delay)
 		addtimer(CALLBACK(src, PROC_REF(consume_ring)), start_consuming_delay)
 	else
-		consume_ring() //start the storm
+		consume_ring()
 
 ///Build our storm rings
 /datum/royale_storm_controller/proc/build_rings()
 	safe_areas = list()
-	var/turf/center_turf = SSmapping.get_station_center()
 	var/greatest_dist = 0
-	for(var/turf/consumed_turf as anything in GLOB.station_turfs)
-		var/dist = get_dist(center_turf, consumed_turf)
-		if(dist < 0)
-			continue
-		if(dist > greatest_dist)
-			greatest_dist = dist
-		if(!rings_to_consume["[dist]"])
-			rings_to_consume["[dist]"] = list()
-		rings_to_consume["[dist]"] += consumed_turf
-		var/area/turf_area = get_area(consumed_turf)
-		if(turf_area && !istype(turf_area, /area/space))
-			safe_areas |= turf_area.type
-	message_admins("AREAS [english_list(safe_areas)]")
+	for(var/z_level as anything in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/turf/center_turf = locate(round(world.maxx * 0.5, 1), round(world.maxy * 0.5, 1), z_level)
+		for(var/turf/consumed_turf as anything in GLOB.station_turfs)
+			if(consumed_turf.z != z_level)
+				continue
+			var/dist = get_dist(center_turf, consumed_turf)
+			if(dist < 0)
+				continue
+			if(dist > greatest_dist)
+				greatest_dist = dist
+			if(!rings_to_consume["[dist]"])
+				rings_to_consume["[dist]"] = list()
+			rings_to_consume["[dist]"] += consumed_turf
+			var/area/turf_area = get_area(consumed_turf)
+			if(turf_area && !initial(turf_area.outdoors))
+				safe_areas |= turf_area.type
 
 ///calculate how long inbetween each consume to get the desired game length
 /datum/royale_storm_controller/proc/calculate_advance_time()

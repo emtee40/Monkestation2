@@ -84,6 +84,7 @@ GLOBAL_LIST_EMPTY(custom_battle_royale_data) //might be able to convert this to 
 			to_chat(user, span_warning("A game has already started!"))
 		return
 
+	active = TRUE //some external things check for this so we want this even while we are not actually active
 	build_data_datums(fast, custom)
 	if(storm_controller.start_consuming_delay == -1) //have to use an exact value check as admins can set the delay to 0
 		storm_controller.start_consuming_delay = (fast ? 2 MINUTES : 5 MINUTES)
