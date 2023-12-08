@@ -132,8 +132,8 @@ GLOBAL_LIST_INIT(royale_utility_loot, list(
 		/obj/item/mod/module/stealth/ninja = 1,
 		/obj/item/sharpener = 1,
 		/obj/item/slimecross/regenerative/rainbow = 1,
-		list(/obj/item/slimepotion/speed = 2) = 2,
-		list(/obj/item/slimepotion/spaceproof = 2) = 3,
+		/obj/item/slimepotion/speed = 2,
+		/obj/item/slimepotion/spaceproof = 3,
 		/obj/item/storage/backpack/holding = 1,
 		/obj/item/storage/backpack/duffelbag/syndie/surgery = 1,
 		/obj/item/storage/backpack/duffelbag/syndie/sabotage = 1,
@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(royale_rare_loot, list(
 		/obj/item/storage/box/stabilized = 1, //might be too much
 		/obj/item/storage/box/syndicate/bundle_a = 3,
 		/obj/item/storage/box/syndicate/bundle_b = 3,
-		/obj/item/teleportation_scroll = 1, //might not be viable depending on the way the map barriers work
+		/obj/item/teleportation_scroll = 1,
 		/obj/item/warp_whistle = 1,
 		/obj/item/clothing/suit/space/hardsuit/security = 3,
 ))
@@ -218,10 +218,10 @@ GLOBAL_LIST_INIT(royale_super_rare_loot, list(
 		/obj/item/chainsaw/doomslayer = 1, //very strong melee that blocks all ranged attacks
 		/obj/item/antag_spawner/contract = 1, //gives you your own wizard apprentice
 		/obj/item/energy_katana = 1, //gamer katana
-		/obj/item/gun/energy/meteorgun = 1, //might be a bit too strong
+		/obj/item/melee/baseball_bat/homerun = 1, //nearly 1 shots if charged
 		/obj/item/gun/energy/pulse = 1,
 		/obj/item/gun/energy/marksman_revolver = 1,
-		list(/obj/item/minigunpack = 1, /obj/item/slimepotion/spaceproof = 3) = 1, //laser minigun and spaceproofing so you can use it safely
+		list(/obj/item/minigunpack = 1, /obj/item/slimepotion/spaceproof = 2) = 1, //laser minigun and spaceproofing so you can use it safely
 		/obj/item/mod/control/pre_equipped/enchanted = 1, //wizard MODsuit
 		list(/obj/item/pneumatic_cannon/pie/selfcharge = 1, /obj/item/syndie_glue = 1) = 1,
 		/obj/item/storage/belt/wands/full = 1,
@@ -261,7 +261,6 @@ GLOBAL_LIST_INIT(royale_misc_loot, list(
 		/obj/item/grenade/monkey_barrel = 1,
 		/obj/item/lava_staff = 1,
 		/obj/item/megaphone/clown = 1, //comms still work so annoy everyone
-		/obj/item/melee/baseball_bat/homerun = 1,
 		/obj/item/melee/beesword = 1,
 		/obj/item/melee/powerfist = 1,
 		/obj/item/reagent_containers/borghypo/syndicate = 1, //usable by non-borgs, it just wont recharge

@@ -17,6 +17,9 @@
 	var/datum/battle_royale_controller/royale_controller
 	///list of areas its safe to be in, we have to do this ourselves as station areas is based on Z level
 	var/list/safe_areas = list()
+	///what ring are we currently consuming
+	var/current_ring = 0
+
 
 /datum/royale_storm_controller/Destroy(force, ...)
 	royale_controller = null
@@ -40,7 +43,6 @@
 ///Build our storm rings
 /datum/royale_storm_controller/proc/build_rings()
 	safe_areas = list()
-	var/greatest_dist = 0
 	for(var/z_level as anything in SSmapping.levels_by_trait(ZTRAIT_STATION))
 		var/turf/center_turf = locate(round(world.maxx * 0.5, 1), round(world.maxy * 0.5, 1), z_level)
 		for(var/turf/consumed_turf as anything in GLOB.station_turfs)
@@ -49,8 +51,8 @@
 			var/dist = get_dist(center_turf, consumed_turf)
 			if(dist < 0)
 				continue
-			if(dist > greatest_dist)
-				greatest_dist = dist
+			if(dist > current_ring)
+				current_ring = dist
 			if(!rings_to_consume["[dist]"])
 				rings_to_consume["[dist]"] = list()
 			rings_to_consume["[dist]"] += consumed_turf
@@ -68,16 +70,18 @@
 
 ///consume an area with a storm
 /datum/royale_storm_controller/proc/consume_ring()
-	var/current_ring = length(rings_to_consume) //might want to add more messages
+	if(current_ring && !rings_to_consume["[current_ring]"])
+		while(current_ring && !rings_to_consume["[current_ring]"])
+			current_ring--
+
 	if(!current_ring)
 		return
 
-	current_ring = "[current_ring]"
-	for(var/to_consume as anything in rings_to_consume[current_ring])
+	for(var/to_consume as anything in rings_to_consume["[current_ring]"])
 		var/obj/effect/royale_storm_effect/storm_effect = new(to_consume)
 		storms[to_consume] = storm_effect
 
-	rings_to_consume -= current_ring
+	rings_to_consume -= "[current_ring]"
 	timerid = addtimer(CALLBACK(src, PROC_REF(consume_ring)), ring_advance_delay, TIMER_STOPPABLE)
 
 ///stops the storm.
