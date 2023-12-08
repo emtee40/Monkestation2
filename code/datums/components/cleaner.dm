@@ -130,9 +130,10 @@
 			if(length(item.viruses))
 				for(var/datum/disease/advanced/D as anything in item.viruses)
 					item.remove_disease(D)
-				
+
 		on_cleaned_callback?.Invoke(source, target, user)
 
+	on_cleaned_callback?.Invoke(source, target, user, clean_succeeded)
 	//remove the cleaning overlay
 	target.cut_overlay(low_bubble)
 	target.cut_overlay(high_bubble)
