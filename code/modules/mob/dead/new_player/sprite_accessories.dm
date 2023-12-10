@@ -608,6 +608,10 @@
 	name = "Ponytail 7"
 	icon_state = "hair_ponytail7"
 
+/datum/sprite_accessory/hair/ponytailalchemist
+	name = "Ponytail (Alchemist)"
+	icon_state = "hair_alchemist"
+
 /datum/sprite_accessory/hair/highponytail
 	name = "Ponytail (High)"
 	icon_state = "hair_highponytail"
@@ -1045,6 +1049,10 @@
 /datum/sprite_accessory/facial_hair/hogan
 	name = "Moustache (Hulk Hogan)"
 	icon_state = "facial_hogan" //-Neek
+
+/datum/sprite_accessory/facial_hair/robotnik
+	name = "Moustache (Robotnik)"
+	icon_state = "facial_robotnik"
 
 /datum/sprite_accessory/facial_hair/selleck
 	name = "Moustache (Selleck)"
