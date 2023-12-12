@@ -537,8 +537,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 		return
 
 	if(istype(item_to_drop, /obj/item/storage))
-		var/obj/item/storage/storage_to_drop = item_to_drop
-		storage_to_drop.emptyStorage()
+		item_to_drop.contents = list()
 		return
 
 	if(!istype(item_to_drop, /obj/item/gun/energy))
@@ -792,11 +791,12 @@ GLOBAL_LIST_INIT(command_strings, list(
 	initial_access = access_card.access.Copy()
 
 
-/mob/living/basic/bot/proc/summon_bot(atom/caller, user_access = list(), grant_all_access = FALSE)
+/mob/living/basic/bot/proc/summon_bot(atom/caller, turf/turf_destination, user_access = list(), grant_all_access = FALSE)
 	if(isAI(caller) && !set_ai_caller(caller))
 		return FALSE
 	bot_reset(bypass_ai_reset = isAI(caller))
-	ai_controller?.set_blackboard_key(BB_BOT_SUMMON_TARGET, get_turf(caller))
+	var/turf/destination = turf_destination ? turf_destination : get_turf(caller)
+	ai_controller?.set_blackboard_key(BB_BOT_SUMMON_TARGET, destination)
 	var/list/access_to_grant = grant_all_access ? REGION_ACCESS_ALL_STATION : user_access + initial_access
 	access_card.set_access(access_to_grant)
 	speak("Responding.", radio_channel)
@@ -815,3 +815,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	update_appearance()
 	if(update_hud)
 		diag_hud_set_botmode()
+
+/mob/living/basic/bot/proc/after_attacked(datum/source, atom/attacker, attack_flags)
+	if(attack_flags & ATTACKER_DAMAGING_ATTACK)
+		do_sparks(number = 5, cardinal_only = TRUE, source = src)
