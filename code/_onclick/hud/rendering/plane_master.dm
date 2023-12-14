@@ -669,6 +669,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	start_hidden = TRUE
+	allows_offsetting = FALSE
 
 /atom/movable/screen/plane_master/shadowcasting/show_to(mob/mymob)
 	. = ..()
