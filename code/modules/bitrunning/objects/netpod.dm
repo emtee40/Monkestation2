@@ -35,12 +35,10 @@
 	disconnect_damage = BASE_DISCONNECT_DAMAGE
 	find_server()
 
-//	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine)) MONKEYSTATION EDIT CHANGE OLD
-	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine)) // MONKEYSTATION EDIT CHANGE NEW - we didnt have PR #75914 :c
+	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(src, COMSIG_ATOM_TAKE_DAMAGE, PROC_REF(on_damage_taken))
 	RegisterSignal(src, COMSIG_MACHINERY_POWER_LOST, PROC_REF(on_power_loss))
-//	RegisterSignals(src, list(COMSIG_QDELETING,	COMSIG_MACHINERY_BROKEN),PROC_REF(on_broken)) MONKEYSTATION EDIT CHANGE OLD
-	RegisterSignals(src, list(COMSIG_PARENT_QDELETING,	COMSIG_MACHINERY_BROKEN),PROC_REF(on_broken))// MONKEYSTATION EDIT CHANGE NEW - we didnt have PR #75914... again
+	RegisterSignals(src, list(COMSIG_QDELETING,	COMSIG_MACHINERY_BROKEN),PROC_REF(on_broken))
 
 	register_context()
 	update_appearance()
