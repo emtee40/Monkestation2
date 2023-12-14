@@ -2,7 +2,6 @@
 	///Should the mob use the shadowcasting component when a client is logged to it?
 	var/shadow_caster = FALSE
 
-//TODO: add prefs
 /mob/proc/update_shadowcasting()
 	if(!shadow_caster || !client)
 		return
