@@ -509,7 +509,7 @@
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
 	summoned.alpha = 0
-	summoned.notransform = TRUE
+	ADD_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
 	animate(summoned, 10 SECONDS, alpha = 155)
 
@@ -524,7 +524,7 @@
 	var/mob/dead/observer/picked_candidate = pick(candidates)
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
-	summoned.notransform = FALSE
+	REMOVE_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
@@ -634,6 +634,7 @@
 	to_chat(user, span_hypnophrase(span_big("[drain_message]")))
 	desc += " (Completed!)"
 	log_heretic_knowledge("[key_name(user)] completed a [name] at [worldtime2text()].")
+	add_event_to_buffer(user, data = "completed a [name] at [worldtime2text()].", log_key = "HERETIC")
 	user.add_mob_memory(/datum/memory/heretic_knowlege_ritual)
 	return TRUE
 
@@ -658,6 +659,10 @@
 	log_heretic_knowledge("[key_name(user)] gained knowledge of their final ritual at [worldtime2text()]. \
 		They have [length(our_heretic.researched_knowledge)] knowledge nodes researched, totalling [total_points] points \
 		and have sacrificed [our_heretic.total_sacrifices] people ([our_heretic.high_value_sacrifices] of which were high value)")
+
+	add_event_to_buffer(user, data = "gained knowledge of their final ritual at [worldtime2text()]. \
+		They have [length(our_heretic.researched_knowledge)] knowledge nodes researched, totalling [total_points] points \
+		and have sacrificed [our_heretic.total_sacrifices] people ([our_heretic.high_value_sacrifices] of which were high value)", log_key = "HERETIC")
 
 /datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker)
 	if(invoker.ascended)
@@ -703,6 +708,7 @@
 
 	SSblackbox.record_feedback("tally", "heretic_ascended", 1, route)
 	log_heretic_knowledge("[key_name(user)] completed their final ritual at [worldtime2text()].")
+	add_event_to_buffer(user, data = "completed their final ritual at [worldtime2text()].", log_key = "HERETIC")
 	return TRUE
 
 /datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)

@@ -187,6 +187,14 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	name = "Tragic Mime Headpiece"
 	item_path = /obj/item/clothing/head/tragic
 
+/datum/loadout_item/head/pharaoh
+	name = "Pharaoh's Hat"
+	item_path = /obj/item/clothing/head/costume/pharaoh
+
+/datum/loadout_item/head/nemes
+	name = "Headdress of Nemes"
+	item_path = /obj/item/clothing/head/costume/nemes
+
 /*
 *	CHRISTMAS
 */
@@ -370,7 +378,7 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 
 /datum/loadout_item/head/donator/carbon_rose
 	name = "Carbon Rose Flower"
-	item_path = /obj/item/grown/carbon_rose
+	item_path = /obj/item/food/grown/carbon_rose
 
 /datum/loadout_item/head/donator/sunflower
 	name = "Sunflower"

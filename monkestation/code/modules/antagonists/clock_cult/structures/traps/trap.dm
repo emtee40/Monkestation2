@@ -109,7 +109,7 @@
 
 	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECEIVED, PROC_REF(trigger))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 
 
 /// Adds an input device to our own `outputs` list, to be sent when it triggers
@@ -117,7 +117,7 @@
 	outputs |= input.parent
 
 
-/// Adds this as an output to the targetted component's `outputs` list
+/// Adds this as an output to the targeted component's `outputs` list
 /datum/component/clockwork_trap/proc/add_output(datum/component/clockwork_trap/output)
 	output.outputs |= parent
 

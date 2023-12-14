@@ -230,9 +230,10 @@
 
 	if(weapon)
 		weapon.force = initial(weapon.force)
-	if(user)
-		to_chat(user, span_danger("[src] buzzes and beeps."))
+	balloon_alert(user, "safeties disabled")
+	audible_message(span_danger("[src] buzzes oddly!"))
 	get_targets() //recalibrate target list
+	return TRUE
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(atom/scan_target)
 	if(iscarbon(scan_target))
@@ -294,7 +295,7 @@
 				return
 
 		if(target && path.len == 0 && (get_dist(src,target) > 1))
-			path = get_path_to(src, target, max_distance=30, mintargetdist=1, id=access_card)
+			path = get_path_to(src, target, max_distance=30, mintargetdist=1, access=access_card.GetAccess())
 			mode = BOT_MOVING
 			if(length(path) == 0)
 				add_to_ignore(target)

@@ -95,13 +95,14 @@
 	if(!msg)
 		return
 
+	add_event_to_buffer(user, data = msg, log_key = "EMOTE", voluntary = intentional)
 	user.log_message(msg, LOG_EMOTE)
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, type))
 		TIMER_COOLDOWN_START(user, type, audio_cooldown)
-		playsound(user, tmp_sound, 50, vary)
+		playsound(user, tmp_sound, 50, vary, mixer_channel = CHANNEL_MOB_SOUNDS)
 
 	var/user_turf = get_turf(user)
 	if (user.client)

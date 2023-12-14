@@ -13,7 +13,6 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
 	siemens_coefficient = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet)
-	supports_variations_flags = NONE
 
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
@@ -231,7 +230,7 @@
 		return
 	active_hardsuit = loc
 	RegisterSignal(active_hardsuit, COMSIG_MOVABLE_MOVED, PROC_REF(on_hardsuit_moved))
-	RegisterSignal(active_user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_del))
+	RegisterSignal(active_user, COMSIG_QDELETING, PROC_REF(on_user_del))
 
 	START_PROCESSING(SSobj, src)
 
@@ -242,7 +241,7 @@
 		UnregisterSignal(active_hardsuit, COMSIG_MOVABLE_MOVED)
 		active_hardsuit = null
 	if(active_user)
-		UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(user, COMSIG_QDELETING)
 		active_user = null
 	tank = null
 	air_contents = tempair_contents

@@ -64,15 +64,15 @@
 		data["cyborgs"] += list(cyborg_data)
 
 	data["drones"] = list()
-	for(var/mob/living/simple_animal/drone/D in GLOB.drones_list)
-		if(D.hacked)
+	for(var/mob/living/basic/drone/drone in GLOB.drones_list)
+		if(drone.hacked)
 			continue
-		if(!is_valid_z_level(current_turf, get_turf(D)))
+		if(!is_valid_z_level(current_turf, get_turf(drone)))
 			continue
 		var/list/drone_data = list(
-			name = D.name,
-			status = D.stat,
-			ref = REF(D)
+			name = drone.name,
+			status = drone.stat,
+			ref = REF(drone)
 		)
 		data["drones"] += list(drone_data)
 
@@ -94,6 +94,7 @@
 							R.ai_lockdown = TRUE
 						message_admins(span_notice("[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!"))
 						log_silicon("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
+						add_event_to_buffer(usr, R, "[!R.lockcharge ? "locked down" : "released"] [key_name(R)]!", "SILICON")
 						log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] cyborg")
 						R.SetLockdown(!R.lockcharge)
 						to_chat(R, !R.lockcharge ? span_notice("Your lockdown has been lifted!") : span_alert("You have been locked down!"))
@@ -123,19 +124,21 @@
 				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
 				if(istype(R) && !R.emagged && (R.connected_ai == usr || isAdminGhostAI(usr)) && !R.scrambledcodes && can_control(usr, R))
 					log_silicon("[key_name(usr)] emagged [key_name(R)] using robotic console!")
+					add_event_to_buffer(usr, R, "emagged [key_name(R)] using robotic console!", "SILICON")
 					message_admins("[ADMIN_LOOKUPFLW(usr)] emagged cyborg [key_name_admin(R)] using robotic console!")
 					R.SetEmagged(TRUE)
 					R.logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
 
 		if("killdrone")
 			if(allowed(usr))
-				var/mob/living/simple_animal/drone/drone = locate(params["ref"]) in GLOB.mob_list
+				var/mob/living/basic/drone/drone = locate(params["ref"]) in GLOB.mob_list
 				if(drone.hacked)
 					to_chat(usr, span_danger("ERROR: [drone] is not responding to external commands."))
 				else
 					var/turf/T = get_turf(drone)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(drone)] at [ADMIN_VERBOSEJMP(T)]!")
 					log_silicon("[key_name(usr)] detonated [key_name(drone)]!")
+					add_event_to_buffer(usr, drone, "detonated [key_name(drone)]", "SILICON")
 					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(3, TRUE, drone)
 					s.start()

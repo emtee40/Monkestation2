@@ -70,12 +70,17 @@
 		return FALSE
 	return TRUE
 
-/datum/uplink_handler/proc/can_purchase_item(mob/user, datum/uplink_item/to_purchase)
+/datum/uplink_handler/proc/can_purchase_item(mob/user, datum/uplink_item/to_purchase, ignore_locked = FALSE) //monkestation edit: adds ignore_locked
 	if(debug_mode)
 		return TRUE
 
 	if(shop_locked)
 		return FALSE
+
+//monkestation edit start
+	if(!(ignore_locked) && (to_purchase.type in locked_entries))
+		return FALSE
+//monkestation edit end
 
 	if(to_purchase.lock_other_purchases)
 		// Can't purchase an uplink item that locks other purchases if you've already purchased something
@@ -93,7 +98,7 @@
 	return TRUE
 
 /datum/uplink_handler/proc/purchase_item(mob/user, datum/uplink_item/to_purchase, atom/movable/source)
-	if(!can_purchase_item(user, to_purchase))
+	if(!can_purchase_item(user, to_purchase) || !to_purchase.unique_checks(user, src, source)) //monkestation edit: adds the unique_checks() check
 		return
 
 	if(to_purchase.limited_stock != -1 && !(to_purchase.stock_key in item_stock))
@@ -156,6 +161,8 @@
 		return
 	objective.forced = force
 	log_traitor("[key_name(owner)] has received a potential objective: [objective.to_debug_string()] | Forced: [force]")
+	add_event_to_buffer(owner, data = "has received a potential objective: [objective.to_debug_string()] | Forced: [force]", log_key = "TRAITOR")
+
 	objective.original_progression = objective.progression_reward
 	objective.update_progression_reward()
 	potential_objectives += objective

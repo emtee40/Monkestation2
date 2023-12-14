@@ -54,7 +54,7 @@
 /datum/component/basic_mob_attack_telegraph/proc/delayed_attack(mob/living/basic/source, atom/target)
 	current_target = target
 	target.add_overlay(target_overlay)
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(forget_target))
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(forget_target))
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(target_moved))
 
 	on_began_forecast?.Invoke(target)
@@ -66,7 +66,7 @@
 		return
 	ADD_TRAIT(source, TRAIT_BASIC_ATTACK_FORECAST, REF(src))
 	forget_target(target)
-	source.melee_attack(target)
+	source.melee_attack(target, ignore_cooldown = TRUE) // We already started the cooldown when we triggered the forecast
 
 /// The guy we're trying to attack moved, is he still in range?
 /datum/component/basic_mob_attack_telegraph/proc/target_moved(atom/target)
@@ -80,4 +80,4 @@
 	SIGNAL_HANDLER
 	current_target = null
 	target.cut_overlay(target_overlay)
-	UnregisterSignal(target, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MOVABLE_MOVED))
