@@ -14,7 +14,9 @@
 /// frequency, in 1/10ths of a second, of the lighting process
 #define LIGHTING_INTERVAL 5
 
-#define MINIMUM_USEFUL_LIGHT_RANGE 1.4
+#define MINIMUM_USEFUL_LIGHT_RANGE 1
+/// Maximum light range we allow for static sources - Please note that as of now, light icons only exist up to range 10.
+#define MAXIMUM_LIGHT_RANGE 7
 
 /// height off the ground of light sources on the pseudo-z-axis, you should probably leave this alone
 #define LIGHTING_HEIGHT 1
@@ -22,7 +24,7 @@
 #define LIGHTING_ROUND_VALUE (1 / 128)
 
 /// icon used for lighting shading effects
-#define LIGHTING_ICON 'icons/effects/lighting_object.dmi'
+#define LIGHTING_ICON 'icons/effects/lighting/lighting_object.dmi'
 
 /// If the max of the lighting lumcounts of each spectrum drops below this, disable luminosity on the lighting objects.
 /// Set to zero to disable soft lighting. Luminosity changes then work if it's lit at all.
@@ -45,6 +47,9 @@
 /// The amount of lumcount on a tile for it to be considered dark (used to determine reading and nyctophobia)
 #define LIGHTING_TILE_IS_DARK 0.2
 
+/// Blur size for shadows on lighting, don't go ham on this it'll look pretty shit
+#define SHADOW_BLUR_SIZE 2
+
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0
 #define LIGHTING_VIS_UPDATE 1
@@ -53,7 +58,7 @@
 
 #define FLASH_LIGHT_DURATION 2
 #define FLASH_LIGHT_POWER 3
-#define FLASH_LIGHT_RANGE 3.8
+#define FLASH_LIGHT_RANGE 4
 
 // Emissive blocking.
 /// Uses vis_overlays to leverage caching so that very few new items need to be made for the overlay. For anything that doesn't change outline or opaque area much or at all.
@@ -78,6 +83,7 @@ GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
 #define EM_MASK_MATRIX list(0,0,0,1/3, 0,0,0,1/3, 0,0,0,1/3, 0,0,0,0, 1,1,1,0)
 /// A globaly cached version of [EM_MASK_MATRIX] for quick access.
 GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
+
 
 /// Returns the red part of a #RRGGBB hex sequence as number
 #define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))

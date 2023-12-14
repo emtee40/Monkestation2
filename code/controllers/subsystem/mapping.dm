@@ -953,9 +953,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 	// And finally, misc global generation
 
-	// We'll have to update this if offsets change, because we load lowest z to highest z
-	generate_lighting_appearance_by_z(z_value)
-
 /datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
 	// If we know this is filled with default tiles, we can use the default area
 	// Faster
@@ -989,10 +986,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/datum/space_level/level_to_update in levels_checked)
 		z_level_to_lowest_plane_offset[level_to_update.z_value] = plane_offset
 
-	// This can be affected by offsets, so we need to update it
-	// PAIN
-	for(var/i in 1 to length(z_list))
-		generate_lighting_appearance_by_z(i)
 
 	var/old_max = max_plane_offset
 	max_plane_offset = max(max_plane_offset, plane_offset)
@@ -1075,8 +1068,3 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 /// Returns true if the map we're playing on is on a planet
 /datum/controller/subsystem/mapping/proc/is_planetary()
 	return config.planetary
-
-/proc/generate_lighting_appearance_by_z(z_level)
-	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
-		GLOB.default_lighting_underlays_by_z.len = z_level
-	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent", z_level * 0.01, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))

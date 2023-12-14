@@ -169,8 +169,6 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/station/en
 
 	newA.reg_in_areas_in_z()
 
-	if(!isarea(area_choice) && newA.static_lighting)
-		newA.create_area_lighting_objects()
 
 	//convert map to list
 	var/list/area/area_list = list()

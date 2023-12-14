@@ -296,30 +296,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 
 // Updates overlays and vis_contents for outdoor effects
 /datum/controller/subsystem/outdoor_effects/proc/update_outdoor_effect_overlays(atom/movable/outdoor_effect/OE)
-	var/turf/source = get_turf(OE)
-	var/mutable_appearance/MA
-	if (OE.state != SKY_BLOCKED)
-		MA = get_sunlight_overlay(1,1,1,1, GET_TURF_PLANE_OFFSET(source)) /* fully lit */
-	else //Indoor - do proper corner checks
-		/* check if we are globally affected or not */
-		var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
-
-		var/datum/lighting_corner/cr = OE.source_turf.lighting_corner_SW || dummy_lighting_corner
-		var/datum/lighting_corner/cg = OE.source_turf.lighting_corner_SE || dummy_lighting_corner
-		var/datum/lighting_corner/cb = OE.source_turf.lighting_corner_NW || dummy_lighting_corner
-		var/datum/lighting_corner/ca = OE.source_turf.lighting_corner_NE || dummy_lighting_corner
-
-		var/fr = cr.sun_falloff
-		var/fg = cg.sun_falloff
-		var/fb = cb.sun_falloff
-		var/fa = ca.sun_falloff
-
-		MA = get_sunlight_overlay(fr, fg, fb, fa, GET_TURF_PLANE_OFFSET(source))
-
-	OE.sunlight_overlay = MA
-	//Get weather overlay if not weatherproof
-	OE.overlays = OE.weatherproof ? list(OE.sunlight_overlay) : list(OE.sunlight_overlay, get_weather_overlay())
-	OE.luminosity = MA.luminosity
+	return
 
 //Retrieve an overlay from the list - create if necessary
 /datum/controller/subsystem/outdoor_effects/proc/get_sunlight_overlay(fr, fg, fb, fa, offset)

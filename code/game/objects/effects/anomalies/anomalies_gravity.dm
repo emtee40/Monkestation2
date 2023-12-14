@@ -2,7 +2,7 @@
 /atom/movable/warp_effect
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
-	icon = 'icons/effects/light_overlays/light_352.dmi'
+	icon = 'icons/effects/lighting/light_overlays/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176
 	pixel_y = -176

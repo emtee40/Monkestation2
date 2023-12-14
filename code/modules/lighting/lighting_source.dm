@@ -1,39 +1,42 @@
 // This is where the fun begins.
 // These are the main datums that emit light.
 
-/datum/light_source
-	///The atom we're emitting light from (for example a mob if we're from a flashlight that's being held).
+// These are the main atoms that emit light.
+
+/atom/movable/light
+	appearance_flags = KEEP_TOGETHER
+	plane = LIGHTING_PLANE
+	layer = LIGHTING_LAYER
+	invisibility = INVISIBILITY_LIGHTING
+	blend_mode = BLEND_ADD
+	anchored = TRUE
+
+	/// The overlay we are currently using for the shadows
+	var/mutable_appearance/current_shadow_overlay
+
+
+	/// The atom we're emitting light from (for example a mob if we're from a flashlight that's being held).
+
 	var/atom/top_atom
 	///The atom that we belong to.
 	var/atom/source_atom
 
-	///The turf under the source atom.
-	var/turf/source_turf
-	///The turf the top_atom appears to over.
-	var/turf/pixel_turf
-	///Intensity of the emitter light.
-	var/light_power
-	/// The range of the emitted light.
-	var/light_inner_range
-	/// Range where light begins to taper into darkness in tiles.
-	var/light_outer_range
-	/// Adjusts curve for falloff gradient
-	var/light_falloff_curve = LIGHTING_DEFAULT_FALLOFF_CURVE
-	/// The colour of the light, string, decomposed by parse_light_color()
-	var/light_color
+	/// Lumcount we give to turfs on get_lumcount()
+	var/lum_power = null
+	light_power = null
+	light_outer_range = null
+	light_inner_range = null
+	light_color = null
 
 	// Variables for keeping track of the colour.
 	var/lum_r
 	var/lum_g
 	var/lum_b
 
-	// The lumcount values used to apply the light.
-	var/tmp/applied_lum_r
-	var/tmp/applied_lum_g
-	var/tmp/applied_lum_b
 
-	/// List used to store how much we're affecting corners.
-	var/list/datum/lighting_corner/effect_str
+	/// Lazy list to track the turfs being affected by our light, thus having lumcount increased
+	var/list/turf/affected_turfs
+
 
 	/// Whether we have applied our light yet or not.
 	var/applied = FALSE
@@ -41,29 +44,17 @@
 	var/needs_update = LIGHTING_NO_UPDATE
 
 
-/datum/light_source/New(atom/owner, atom/top)
-	source_atom = owner // Set our new owner.
+/atom/movable/light/Initialize(mapload, atom/owner, atom/top)
+	. = ..()
+	// Set new owner
+	source_atom = owner
+
 	add_to_light_sources(source_atom)
-	top_atom = top
-	if (top_atom != source_atom)
-		add_to_light_sources(top_atom)
+	// Set top atom and slate for update, no need to update turfs until then
+	update(top, FALSE)
 
-	source_turf = top_atom
-	pixel_turf = get_turf_pixel(top_atom) || source_turf
-
-	light_power = source_atom.light_power
-	light_inner_range = source_atom.light_inner_range
-	light_outer_range = source_atom.light_outer_range
-	light_falloff_curve = source_atom.light_falloff_curve
-	light_color = source_atom.light_color
-
-	PARSE_LIGHT_COLOR(src)
-
-	update()
-
-/datum/light_source/Destroy(force)
-	remove_lum()
-	if (source_atom)
+/atom/movable/light/Destroy(force)
+	if(source_atom)
 		remove_from_light_sources(source_atom)
 
 	if (top_atom)
@@ -74,34 +65,65 @@
 
 	top_atom = null
 	source_atom = null
-	source_turf = null
-	pixel_turf = null
 
 	return ..()
 
+
+/atom/movable/light/update_light()
+	return FALSE
+
+/atom/movable/light/set_light(l_outer_range, l_inner_range, l_power, l_falloff_curve, l_color, l_on)
+	return FALSE
+
+/atom/movable/light/set_light_range(new_inner_range, new_outer_range)
+	return FALSE
+
+/atom/movable/light/set_light_power(new_power)
+	return FALSE
+
+/atom/movable/light/set_light_color(new_color)
+	return FALSE
+
+/atom/movable/light/set_light_on(new_value)
+	return FALSE
+
+/atom/movable/light/set_light_flags(new_value)
+	return FALSE
+
+/atom/movable/light/set_light_range_power_color(range, power, color)
+	return FALSE
+
+/atom/movable/light/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
+	return FALSE
+
+
 ///add this light source to new_atom_host's light_sources list. updating movement registrations as needed
-/datum/light_source/proc/add_to_light_sources(atom/new_atom_host)
+/atom/movable/light/proc/add_to_light_sources(atom/new_atom_host)
 	if(QDELETED(new_atom_host))
 		return FALSE
 
 	LAZYADD(new_atom_host.light_sources, src)
 	//yes, we register the signal to the top atom too, this is intentional and ensures contained lighting updates properly
 	if(ismovable(new_atom_host) && new_atom_host == source_atom)
-		RegisterSignal(new_atom_host, COMSIG_MOVABLE_MOVED, PROC_REF(update_host_lights))
+		var/atom/movable/movable_host = new_atom_host
+		RegisterSignal(movable_host, COMSIG_MOVABLE_MOVED, PROC_REF(update_host_lights))
+		src.animate_movement = movable_host.animate_movement
+
 	return TRUE
 
 ///remove this light source from old_atom_host's light_sources list, unsetting movement registrations
-/datum/light_source/proc/remove_from_light_sources(atom/old_atom_host)
+/atom/movable/light/proc/remove_from_light_sources(atom/old_atom_host)
 	if(QDELETED(old_atom_host))
 		return FALSE
 
 	LAZYREMOVE(old_atom_host.light_sources, src)
 	if(ismovable(old_atom_host) && old_atom_host == source_atom)
 		UnregisterSignal(old_atom_host, COMSIG_MOVABLE_MOVED)
+		src.animate_movement = initial(animate_movement)
 	return TRUE
 
 ///signal handler for when our host atom moves and we need to update our effects
-/datum/light_source/proc/update_host_lights(atom/movable/host)
+/atom/movable/light/proc/update_host_lights(atom/movable/host)
 	SIGNAL_HANDLER
 
 	if(QDELETED(host))
@@ -122,29 +144,243 @@
 
 
 /// This proc will cause the light source to update the top atom, and add itself to the update queue.
-/datum/light_source/proc/update(atom/new_top_atom)
+/atom/movable/light/proc/update(atom/new_top_atom, update_turfs = TRUE)
+
 	// This top atom is different.
-	if (new_top_atom && new_top_atom != top_atom)
-		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
+	if(new_top_atom != top_atom)
+		if(top_atom && (top_atom != source_atom && top_atom.light_sources)) // Remove ourselves from the light sources of that top atom.
 			remove_from_light_sources(top_atom)
 
 		top_atom = new_top_atom
 
 		if (top_atom != source_atom)
 			add_to_light_sources(top_atom)
+	// Update plane
+	SET_PLANE_EXPLICIT(src, LIGHTING_PLANE, top_atom)
+	// Clean old turfs
+	if(update_turfs)
+		clean_turfs()
+	// forceMove to appropriate loc, update pixel_x and pixel_y
+	if(top_atom)
+		if(ismovable(top_atom))
+			if(top_atom.loc)
+				loc = top_atom.loc
+			else
+				moveToNullspace()
+		else
+			loc = null
+	else
+		loc = null
+	// Get new turfs
+	if(update_turfs)
+		get_new_turfs()
 
+	// Update if necessary
+	EFFECT_UPDATE(LIGHTING_CHECK_UPDATE)
+
+// Will try to update, with proper checks
+/atom/movable/light/proc/check_update()
 	EFFECT_UPDATE(LIGHTING_CHECK_UPDATE)
 
 // Will force an update without checking if it's actually needed.
-/datum/light_source/proc/force_update()
+/atom/movable/light/proc/force_update()
 	EFFECT_UPDATE(LIGHTING_FORCE_UPDATE)
 
-// Will cause the light source to recalculate turfs that were removed or added to visibility only.
-/datum/light_source/proc/vis_update()
-	EFFECT_UPDATE(LIGHTING_VIS_UPDATE)
+
+/atom/movable/light/proc/clean_turfs()
+	for(var/turf/lit_turf as anything in affected_turfs)
+		lit_turf.static_lumcount -= affected_turfs[lit_turf]
+	affected_turfs = null
+
+/atom/movable/light/proc/get_new_turfs()
+	if(!loc)
+		return
+	. = list()
+	var/affecting_lumpower
+	for(var/turf/lit_turf in view(light_outer_range, src))
+		affecting_lumpower = round(lum_power * min(1, get_dist(src, lit_turf)/10 + 0.2), 0.1)
+		lit_turf.static_lumcount += affecting_lumpower
+		.[lit_turf] = affecting_lumpower
+
+	if(length(.))
+		affected_turfs = .
+
+#define CHECK_OCCLUSION(turf) (turf.directional_opacity || turf.opacity)
+
+
+/atom/movable/light/proc/update_visuals()
+	if(QDELETED(source_atom))
+		qdel(src)
+		return
+#ifdef LIGHTING_TESTING
+	var/turf/top_atom_turf = get_turf(top_atom)
+	if(top_atom_turf)
+		top_atom_turf.add_atom_colour(COLOR_BLUE_LIGHT, ADMIN_COLOUR_PRIORITY)
+		animate(top_atom_turf, 10, color = null)
+		addtimer(CALLBACK(top_atom_turf, /atom/proc/remove_atom_colour, ADMIN_COLOUR_PRIORITY, COLOR_BLUE_LIGHT), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
+#endif
+	cast_light()
+	cast_shadow()
+
+/atom/movable/light/proc/cast_light()
+	var/update = FALSE
+	var/update_turfs = FALSE
+
+	if(light_power != source_atom.light_power)
+		light_power = source_atom.light_power
+		update = TRUE
+		update_turfs = TRUE
+
+	if(light_outer_range != source_atom.light_outer_range)
+		light_outer_range = source_atom.light_outer_range
+		update = TRUE
+		update_turfs = TRUE
+
+	if(!top_atom)
+		top_atom = source_atom
+		update = TRUE
+		update_turfs = TRUE
+
+	if(!light_outer_range || !light_power)
+		qdel(src)
+		return
+
+	if(light_color != source_atom.light_color)
+		light_color = source_atom.light_color
+		PARSE_LIGHT_COLOR(src)
+		update_turfs = TRUE
+
+	if(!applied)
+		update = TRUE
+
+	if(update)
+		applied = TRUE
+
+	else if(needs_update == LIGHTING_CHECK_UPDATE)
+		return //nothing's changed
+
+	luminosity = 2 * light_outer_range
+	var/new_lum_power = light_power * GLOB.light_power_multiplier
+	if(new_lum_power != lum_power)
+		set_lum_power(new_lum_power)
+	var/new_r = round(clamp(lum_r * lum_power * 255, 0, 255))
+	var/new_g = round(clamp(lum_g * lum_power * 255, 0, 255))
+	var/new_b = round(clamp(lum_b * lum_power * 255, 0, 255))
+
+	color = rgb(new_r, new_g, new_b)
+	alpha = GLOB.light_alpha
+
+	// An explicit call to file() is easily 1000 times as expensive than this construct, so... yeah.
+	// Setting icon explicitly allows us to use byond rsc instead of fetching the file everytime.
+	// The downside is, of course, that you need to cover all the cases in your switch.
+	switch(light_outer_range)
+		if(1)
+			icon = 'icons/effects/lighting/light_range_1.dmi'
+		if(2)
+			icon = 'icons/effects/lighting/light_range_2.dmi'
+		if(3)
+			icon = 'icons/effects/lighting/light_range_3.dmi'
+		if(4)
+			icon = 'icons/effects/lighting/light_range_4.dmi'
+		if(5)
+			icon = 'icons/effects/lighting/light_range_5.dmi'
+		if(6)
+			icon = 'icons/effects/lighting/light_range_6.dmi'
+		if(7)
+			icon = 'icons/effects/lighting/light_range_7.dmi'
+		if(8)
+			icon = 'icons/effects/lighting/light_range_8.dmi'
+		if(9)
+			icon = 'icons/effects/lighting/light_range_9.dmi'
+		if(10)
+			icon = 'icons/effects/lighting/light_range_10.dmi'
+
+		else
+			icon = 'icons/effects/lighting/light_range_10.dmi'
+			stack_trace("Invalid light_outer_range = [light_outer_range] for /atom/movable/light! source_atom: [source_atom] [REF(source_atom)]")
+	icon_state = "light"
+	pixel_x = -(world.icon_size * light_outer_range)
+	pixel_y = -(world.icon_size * light_outer_range)
+
+
+
+/atom/movable/light/proc/set_lum_power(new_lum_power)
+	. = lum_power
+	lum_power = new_lum_power
+	var/affecting_lumpower
+	for(var/turf/lit_turf as anything in affected_turfs)
+		lit_turf.dynamic_lumcount -= affected_turfs[lit_turf]
+		//ok look this is a completely rarted, arbitrary calculation
+		affecting_lumpower = round(lum_power * min(1, get_dist(src, lit_turf)/10), 0.1)
+		lit_turf.dynamic_lumcount += affecting_lumpower
+		affected_turfs[lit_turf] = affecting_lumpower
+
+
+
+/atom/movable/light/proc/cast_shadow()
+	overlays -= current_shadow_overlay
+	//no shadows on insignificant lights
+	if(light_outer_range < 2)
+		current_shadow_overlay = null
+		return
+	// Caching this is in fact barely useful due to the blur filter
+	if(!GLOB.lighting_appearances["base_shadow"])
+		var/mutable_appearance/final_appearance  = mutable_appearance()
+		final_appearance.appearance_flags = KEEP_TOGETHER
+		final_appearance.layer = SHADOW_LAYER
+		final_appearance.animate_movement = NO_STEPS
+		final_appearance.filters += filter(type = "blur", size = SHADOW_BLUR_SIZE)
+		GLOB.lighting_appearances["base_shadow"] = final_appearance
+	current_shadow_overlay = new(GLOB.lighting_appearances["base_shadow"])
+	current_shadow_overlay.pixel_x = -pixel_x
+	current_shadow_overlay.pixel_y = -pixel_y
+	if(!LAZYLEN(affected_turfs))
+		overlays += current_shadow_overlay
+		return current_shadow_overlay
+
+
+	var/mutable_appearance/turf_shadow_overlay
+	for(var/turf/neighbor as anything in (affected_turfs-get_turf(src)))
+		if(!CHECK_LIGHT_OCCLUSION(neighbor))
+			continue
+		turf_shadow_overlay = prepare_turf_shadow(neighbor)
+		if(!turf_shadow_overlay)
+			continue
+		// Add it as an overlay, to the main appearance
+		current_shadow_overlay.overlays += turf_shadow_overlay
+		// This is all so fucking gay, but essentially we're getting an offset for the alpha mask filter
+		// That gets rid of the portion of the mask being occupied by the turf.
+		// We cannot apply the filter to turf_shadow_overlay because the filter gets affected by the
+		// pixel_x and pixel_y of that, therefore the calculation gets all fucked up.
+		// None of this bullshit can be automated with plane masters. Trust me, I tried.
+		var/x_offset = neighbor.x - x
+		var/y_offset = neighbor.y - y
+		if(!neighbor.render_target)
+			neighbor.render_target = "[REF(neighbor)]"
+		var/filter_x = pixel_x + (world.icon_size * light_outer_range) + (x_offset * world.icon_size)
+		var/filter_y = pixel_y + (world.icon_size * light_outer_range) + (y_offset * world.icon_size)
+		current_shadow_overlay.filters += filter(type = "alpha", render_source = neighbor.render_target, x = filter_x, y = filter_y, flags = MASK_INVERSE)
+	overlays += current_shadow_overlay
+	return current_shadow_overlay
+
+/atom/movable/light/proc/prepare_turf_shadow(turf/occluder)
+	var/x_offset = occluder.x - x
+	var/y_offset = occluder.y - y
+
+	var/shadow_appearance_key = "turf_shadow_[x_offset]_[y_offset]_[light_outer_range]"
+	// We've not done this before!
+	if(!GLOB.lighting_appearances[shadow_appearance_key])
+		var/mutable_appearance/shadow_appearance = mutable_appearance()
+		shadow_appearance.overlays += get_shadows(x_offset, y_offset, light_outer_range)
+
+		GLOB.lighting_appearances[shadow_appearance_key] = shadow_appearance
+	return GLOB.lighting_appearances[shadow_appearance_key]
+
+#undef CHECK_OCCLUSION
+
 
 // Read out of our sources light sheet, a map of offsets -> the luminosity to use
-//#define LUM_FALLOFF(C, T) (1 - CLAMP01(sqrt((C.x - T.x) ** 2 + (C.y - T.y) ** 2 + LIGHTING_HEIGHT) / max(1, light_range)))
+//#define LUM_FALLOFF(C, T) (1 - CLAMP01(sqrt((C.x - T.x) ** 2 + (C.y - T.y) ** 2 + LIGHTING_HEIGHT) / max(1, light_outer_range)))
 
 // This is the define used to calculate falloff.
 // Assuming a brightness of 1 at range 1, formula should be (brightness = 1 / distance^2)
@@ -178,212 +414,10 @@
 		. * applied_lum_b                        \
 	);
 
-/// This is the define used to calculate falloff.
-/datum/light_source/proc/remove_lum()
-	applied = FALSE
-	for (var/datum/lighting_corner/corner as anything in effect_str)
-		REMOVE_CORNER(corner)
-		LAZYREMOVE(corner.affecting, src)
-
-	effect_str = null
-
-/datum/light_source/proc/recalc_corner(datum/lighting_corner/corner)
-	LAZYINITLIST(effect_str)
-	if (effect_str[corner]) // Already have one.
-		REMOVE_CORNER(corner)
-		effect_str[corner] = 0
-
-	APPLY_CORNER(corner)
-	effect_str[corner] = .
 
 
 
-#define INSERT_CORNERS(insert_into, draw_from)             \
-	if (!draw_from.lighting_corners_initialised) {         \
-		GENERATE_MISSING_CORNERS(draw_from);               \
-	}                                                      \
-	insert_into[draw_from.lighting_corner_NE] = 0;         \
-	insert_into[draw_from.lighting_corner_SE] = 0;         \
-	insert_into[draw_from.lighting_corner_SW] = 0;         \
-	insert_into[draw_from.lighting_corner_NW] = 0;
-
-/// Refreshes our lighting source to match its parent atom
-/// Returns TRUE if an update is needed, FALSE otherwise
-/datum/light_source/proc/update_corners()
-	var/update = FALSE
-	var/atom/source_atom = src.source_atom
-
-	if (QDELETED(source_atom))
-		qdel(src)
-		return
-
-	if (source_atom.light_power != light_power)
-		light_power = source_atom.light_power
-		update = TRUE
-
-	if (source_atom.light_inner_range != light_inner_range)
-		light_inner_range = source_atom.light_inner_range
-		update = TRUE
-
-	if (source_atom.light_outer_range != light_outer_range)
-		light_outer_range = source_atom.light_outer_range
-		update = TRUE
-
-	if (!top_atom)
-		top_atom = source_atom
-		update = TRUE
-
-	if (!light_outer_range || !light_power)
-		qdel(src)
-		return
-
-	if (isturf(top_atom))
-		if (source_turf != top_atom)
-			source_turf = top_atom
-			pixel_turf = source_turf
-			update = TRUE
-	else if (top_atom.loc != source_turf)
-		source_turf = top_atom.loc
-		pixel_turf = get_turf_pixel(top_atom)
-		update = TRUE
-	else
-		var/pixel_loc = get_turf_pixel(top_atom)
-		if (pixel_loc != pixel_turf)
-			pixel_turf = pixel_loc
-			update = TRUE
-
-	if (!isturf(source_turf))
-		if (applied)
-			remove_lum()
-		return
-
-	if (source_atom.light_falloff_curve != light_falloff_curve)
-		light_falloff_curve = source_atom.light_falloff_curve
-		update = TRUE
-
-	if (light_outer_range && light_power && !applied)
-		update = TRUE
-
-	if (source_atom.light_color != light_color)
-		light_color = source_atom.light_color
-		PARSE_LIGHT_COLOR(src)
-		update = TRUE
-
-	else if (applied_lum_r != lum_r || applied_lum_g != lum_g || applied_lum_b != lum_b)
-		update = TRUE
-
-	// If we need to update, well, update
-	if (update)
-		needs_update = LIGHTING_CHECK_UPDATE
-		applied = TRUE
-	else if (needs_update == LIGHTING_CHECK_UPDATE)
-		return //nothing's changed
-
-	var/list/datum/lighting_corner/corners = list()
-	var/list/turf/turfs = list()
-
-	if (source_turf)
-		var/uses_multiz = !!GET_LOWEST_STACK_OFFSET(source_turf.z)
-		var/oldlum = source_turf.luminosity
-		source_turf.luminosity = CEILING(light_outer_range, 1)
-		if(!uses_multiz) // Yes I know this could be acomplished with an if in the for loop, but it's fukin lighting code man
-			for(var/turf/T in view(CEILING(light_outer_range, 1), source_turf))
-				if(IS_OPAQUE_TURF(T))
-					continue
-				if (!T.lighting_corners_initialised)
-					T.generate_missing_corners()
-				corners[T.lighting_corner_NE] = 0
-				corners[T.lighting_corner_SE] = 0
-				corners[T.lighting_corner_SW] = 0
-				corners[T.lighting_corner_NW] = 0
-				turfs += T
-		else
-			for(var/turf/T in view(CEILING(light_outer_range, 1), source_turf))
-				if(IS_OPAQUE_TURF(T))
-					continue
-				if (!T.lighting_corners_initialised)
-					T.generate_missing_corners()
-				corners[T.lighting_corner_NE] = 0
-				corners[T.lighting_corner_SE] = 0
-				corners[T.lighting_corner_SW] = 0
-				corners[T.lighting_corner_NW] = 0
-				turfs += T
-
-				var/turf/below = GET_TURF_BELOW(T)
-				var/turf/previous = T
-				while(below)
-					// If we find a non transparent previous, end
-					if(!istransparentturf(previous))
-						break
-					if(IS_OPAQUE_TURF(below))
-						// If we're opaque but the tile above us is transparent, then we should be counted as part of the potential "space"
-						// Of this corner
-						break
-					// Now we do lighting things to it
-					if (!below.lighting_corners_initialised)
-						below.generate_missing_corners()
-					corners[below.lighting_corner_NE] = 0
-					corners[below.lighting_corner_SE] = 0
-					corners[below.lighting_corner_SW] = 0
-					corners[below.lighting_corner_NW] = 0
-					turfs += below
-					// ANNND then we add the one below it
-					previous = below
-					below = GET_TURF_BELOW(below)
-
-				var/turf/above = GET_TURF_ABOVE(T)
-				while(above)
-					// If we find a non transparent turf, end
-					if(!istransparentturf(above) || IS_OPAQUE_TURF(above))
-						break
-					if (!above.lighting_corners_initialised)
-						above.generate_missing_corners()
-					corners[above.lighting_corner_NE] = 0
-					corners[above.lighting_corner_SE] = 0
-					corners[above.lighting_corner_SW] = 0
-					corners[above.lighting_corner_NW] = 0
-					turfs += above
-					above = GET_TURF_ABOVE(above)
-
-		source_turf.luminosity = oldlum
-
-	var/list/datum/lighting_corner/new_corners = (corners - effect_str)
-	LAZYINITLIST(effect_str)
-
-	if (needs_update == LIGHTING_VIS_UPDATE)
-		for (var/datum/lighting_corner/corner as anything in new_corners)
-			APPLY_CORNER(corner)
-			if (. != 0)
-				LAZYADD(corner.affecting, src)
-				effect_str[corner] = .
-	else
-		for (var/datum/lighting_corner/corner as anything in new_corners)
-			APPLY_CORNER(corner)
-			if (. != 0)
-				LAZYADD(corner.affecting, src)
-				effect_str[corner] = .
-
-		for (var/datum/lighting_corner/corner as anything in corners - new_corners) // Existing corners
-			APPLY_CORNER(corner)
-			if (. != 0)
-				effect_str[corner] = .
-			else
-				LAZYREMOVE(corner.affecting, src)
-				effect_str -= corner
-
-	var/list/datum/lighting_corner/gone_corners = effect_str - corners
-	for (var/datum/lighting_corner/corner as anything in gone_corners)
-		REMOVE_CORNER(corner)
-		LAZYREMOVE(corner.affecting, src)
-	effect_str -= gone_corners
-
-	applied_lum_r = lum_r
-	applied_lum_g = lum_g
-	applied_lum_b = lum_b
-
-	UNSETEMPTY(effect_str)
 
 #undef APPLY_CORNER
 #undef EFFECT_UPDATE
-#undef INSERT_CORNERS
 #undef LUM_FALLOFF

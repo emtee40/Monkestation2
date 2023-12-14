@@ -53,19 +53,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
 	var/dynamic_lumcount = 0
 
+	///Stored lumcount of light sources currently affecting us
+	var/static_lumcount = 0
+
 	///Bool, whether this turf will always be illuminated no matter what area it is in
 	///Makes it look blue, be warned
 	var/space_lit = FALSE
-
-	var/tmp/lighting_corners_initialised = FALSE
-
-	///Our lighting object.
-	var/tmp/datum/lighting_object/lighting_object
-	///Lighting Corner datums.
-	var/tmp/datum/lighting_corner/lighting_corner_NE
-	var/tmp/datum/lighting_corner/lighting_corner_SE
-	var/tmp/datum/lighting_corner/lighting_corner_SW
-	var/tmp/datum/lighting_corner/lighting_corner_NW
 
 	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
 	var/directional_opacity = NONE
@@ -157,10 +150,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		add_overlay(overlay)
 
+	if(!space_lit)
+		luminosity = 0
+
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
 
-	if (light_power && light_outer_range)
+	if (light_system != STATIC_LIGHT)
+		CRASH("gave [src] a non-turf light system! ([light_system])")
+	else if (light_power && light_outer_range)
 		update_light()
 
 	if (opacity)

@@ -1,70 +1,14 @@
-// Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
-/turf/proc/reconsider_lights()
-	lighting_corner_NE?.vis_update()
-	lighting_corner_SE?.vis_update()
-	lighting_corner_SW?.vis_update()
-	lighting_corner_NW?.vis_update()
 
-/turf/proc/lighting_clear_overlay()
-	if (lighting_object)
-		qdel(lighting_object, force=TRUE)
-
-// Builds a lighting object for us, but only if our area is dynamic.
-/turf/proc/lighting_build_overlay()
-	if (lighting_object)
-		qdel(lighting_object, force=TRUE) //Shitty fix for lighting objects persisting after death
-
-	new /datum/lighting_object(src)
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
-	if (!lighting_object)
-		return 1
-
-	var/totallums = 0
-	var/datum/lighting_corner/L
-	var/total_sun_falloff //monkestation addition
-	L = lighting_corner_NE
-	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-		total_sun_falloff += L.sun_falloff // monkestation addition
-	L = lighting_corner_SE
-	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-		total_sun_falloff += L.sun_falloff // monkestation addition
-	L = lighting_corner_SW
-	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-		total_sun_falloff += L.sun_falloff // monkestation addition
-	L = lighting_corner_NW
-	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-		total_sun_falloff += L.sun_falloff // monkestation addition
-
-	//monkestation addition start
-	/* if we are outside, full sunlight */
-	if(outdoor_effect && outdoor_effect.state) /* SKY_BLOCKED is 0 */
-		total_sun_falloff = 4
-	/* sunlight / 4 corners */
-	totallums += total_sun_falloff / 4
-	//monkestation addition end
-
-	totallums /= 12 // 4 corners, each with 3 channels, get the average.
-
-	totallums = (totallums - minlum) / (maxlum - minlum)
-
-	totallums += dynamic_lumcount
-
-	return CLAMP01(totallums)
+	return CLAMP01(static_lumcount + dynamic_lumcount)
 
 // Returns a boolean whether the turf is on soft lighting.
 // Soft lighting being the threshold at which point the overlay considers
 // itself as too dark to allow sight and see_in_dark becomes useful.
 // So basically if this returns true the tile is unlit black.
 /turf/proc/is_softly_lit()
-	if (!lighting_object)
-		return FALSE
-
 	return !(luminosity || dynamic_lumcount)
 
 
@@ -73,7 +17,11 @@
 	LAZYADD(opacity_sources, new_source)
 	if(opacity)
 		return
+	var/old_directional_opacity = directional_opacity
 	recalculate_directional_opacity()
+	if(directional_opacity != old_directional_opacity)
+		recalculate_lights()
+
 
 
 ///Proc to remove movable sources of opacity on the turf and let it handle lighting code.
@@ -81,7 +29,12 @@
 	LAZYREMOVE(opacity_sources, old_source)
 	if(opacity) //Still opaque, no need to worry on updating.
 		return
+	var/old_directional_opacity = directional_opacity
 	recalculate_directional_opacity()
+
+	if(directional_opacity != old_directional_opacity)
+		recalculate_lights()
+
 
 
 ///Calculate on which directions this turfs block view.
@@ -90,7 +43,6 @@
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
 		if(. != directional_opacity)
-			reconsider_lights()
 			reconsider_sunlight() //monkestation addition
 		return
 	directional_opacity = NONE
@@ -102,18 +54,11 @@
 				directional_opacity = ALL_CARDINALS
 				break
 	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
-		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
 		reconsider_sunlight() //monkestation addition
 
 
 ///Transfer the lighting of one area to another
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)
-	if(SSlighting.initialized && !space_lit)
-		if (new_area.static_lighting != old_area.static_lighting)
-			if (new_area.static_lighting)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
 
 	// We will only run this logic on turfs off the prime z layer
 	// Since on the prime z layer, we use an overlay on the area instead, to save time
@@ -138,17 +83,28 @@
 
 
 
-/turf/proc/generate_missing_corners()
-	if (!lighting_corner_NE)
-		lighting_corner_NE = new/datum/lighting_corner(src, NORTH|EAST)
 
-	if (!lighting_corner_SE)
-		lighting_corner_SE = new/datum/lighting_corner(src, SOUTH|EAST)
 
-	if (!lighting_corner_SW)
-		lighting_corner_SW = new/datum/lighting_corner(src, SOUTH|WEST)
+/turf/proc/recalculate_lights()
+	if(!SSlighting.initialized)
+		return FALSE
 
-	if (!lighting_corner_NW)
-		lighting_corner_NW = new/datum/lighting_corner(src, NORTH|WEST)
+#ifdef LIGHTING_TESTING
+	add_atom_colour(COLOR_RED_LIGHT, ADMIN_COLOUR_PRIORITY)
+	animate(src, 10, color = null)
+	addtimer(CALLBACK(src, /atom/proc/remove_atom_colour, ADMIN_COLOUR_PRIORITY, COLOR_RED_LIGHT), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
+#endif
 
-	lighting_corners_initialised = TRUE
+	//This is very expensive...
+	//Todo: Consider reworking this to use the spatial grid system, if that is viable
+	var/atom/movable/light/light
+	var/turf/turf
+	for(var/atom/atom_in_range as anything in range(MAXIMUM_LIGHT_RANGE, src))
+		if(isturf(atom_in_range))
+			turf = atom_in_range
+			turf.check_shadowcasting_update()
+		else if(islight(atom_in_range))
+			light = atom_in_range
+			light.check_update()
+
+	return TRUE

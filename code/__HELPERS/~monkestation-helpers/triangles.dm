@@ -10,6 +10,16 @@ GLOBAL_LIST_EMPTY(triangle_appearances)
 /// A list that caches base appearances of lighting for later access.
 GLOBAL_LIST_EMPTY(lighting_appearances)
 
+/// Alpha of ALL lighting objects. Kept around for debug purposes.
+GLOBAL_VAR_INIT(light_alpha, 255)
+/// How much light power is multiplied by, to get the final color of a lighting object.
+GLOBAL_VAR_INIT(light_power_multiplier, 0.75)
+/**
+ * List of plane offset + 1 -> mutable appearance to use.
+ * Fills with offsets as they are generated.
+ */
+GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_fullbright_overlay(0)))
+
 /mutable_appearance/triangle
 	icon = TRIANGLE_ICON
 	icon_state = "triangle"
@@ -43,3 +53,41 @@ GLOBAL_LIST_EMPTY(lighting_appearances)
 	var/e = -(y2*i)+(y3*i)
 	var/f = (y1*0.5)+(y3*0.5)
 	return matrix(a,b,c,e,d,f)
+
+/**
+ * Initially, these were used to make complex broken glass effects.
+ * That was a gigantic flop. So this is now unused.
+ */
+/atom/movable/triangle
+	name = "triangle"
+	appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	icon = TRIANGLE_ICON
+	icon_state = "triangle"
+	color = COLOR_BLACK
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/x1 = 0
+	var/y1 = TRIANGLE_ICON_SIZE
+	var/x2 = 0
+	var/y2 = 0
+	var/x3 = TRIANGLE_ICON_SIZE
+	var/y3 = 0
+
+/atom/movable/triangle/Initialize(mapload, x1, y1, x2, y2, x3, y3)
+	. = ..()
+	//literally pointless
+	if(!x1 && !y1 && !x2 && !y2 && !x3 && !x3)
+		return
+	src.x1 = x1
+	src.y1 = y1
+	src.x2 = x2
+	src.y2 = y2
+	src.x3 = x3
+	src.y3 = y3
+	transform = transform_triangle(src.x1,src.y1, src.x2,src.y2, src.x3,src.y3, TRIANGLE_ICON_SIZE)
+
+/atom/movable/triangle/proc/update_transform()
+	transform = transform_triangle(src.x1,src.y1, src.x2,src.y2, src.x3,src.y3, TRIANGLE_ICON_SIZE)
+
+/atom/movable/triangle/square
+	name = "square"
+	icon_state = "square"

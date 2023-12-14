@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/atom/movable/shadowcasting_holder, /mob/dead, /obj/effect/landmark, /obj/docking_port))
+	var/static/list/ignored_atoms = typecacheof(list(/atom/movable/shadowcasting_holder, /mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/light))
 	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -72,16 +72,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
 
-	var/old_lighting_object = lighting_object
 	var/old_outdoor_effect = outdoor_effect //monkestation addition
-	var/old_lighting_corner_NE = lighting_corner_NE
-	var/old_lighting_corner_SE = lighting_corner_SE
-	var/old_lighting_corner_SW = lighting_corner_SW
-	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_rcd_memory = rcd_memory
 	var/old_explosion_throw_details = explosion_throw_details
+	var/old_static_lumcount = static_lumcount
 	var/old_opacity = opacity
 	// I'm so sorry brother
 	// This is used for a starlight optimization
@@ -132,12 +128,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	new_turf.explosion_throw_details = old_explosion_throw_details
 	new_turf.explosive_resistance += old_explosive_resistance
 
-	lighting_corner_NE = old_lighting_corner_NE
-	lighting_corner_SE = old_lighting_corner_SE
-	lighting_corner_SW = old_lighting_corner_SW
-	lighting_corner_NW = old_lighting_corner_NW
+	new_turf.dynamic_lumcount = old_dynamic_lumcount
+	new_turf.static_lumcount = old_static_lumcount
 
-	dynamic_lumcount = old_dynamic_lumcount
 
 	lattice_underneath = old_lattice_underneath
 
@@ -148,18 +141,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			outdoor_effect = old_outdoor_effect
 			get_sky_and_weather_states()
 
-		//monkestation addition end
-		if(!space_lit)
-			// Should have a lighting object if we never had one
-			lighting_object = old_lighting_object || new /datum/lighting_object(src)
-		else if (old_lighting_object)
-			qdel(old_lighting_object, force = TRUE)
-
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
-		if(lighting_object && !lighting_object.needs_update)
-			lighting_object.update()
+		if(opacity != old_opacity)
+			recalculate_lights()
+
 
 	// If we're space, then we're either lit, or not, and impacting our neighbors, or not
 	if(isspaceturf(src))

@@ -270,6 +270,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
+
+#define islight(O) (istype(O, /atom/movable/light))
+
 #define iseffect(O) (istype(O, /obj/effect))
 
 #define isholoeffect(O) (istype(O, /obj/effect/holodeck_effect))

@@ -251,6 +251,18 @@
 #define LIGHTING_ABOVE_ALL 20
 
 
+/// Overlay layers, don't have any meaning at all otherwise
+#define LIGHT_LAYER -4
+#define SHADOW_LAYER -3
+#define O_LIGHT_LAYER -2
+#define O_LIGHT_CONE_LAYER -1
+
+/// Actual world layers
+#define LIGHTING_LAYER 15
+#define OVERLAY_LIGHTING_LAYER 16
+#define AREA_LIGHTING_LAYER 17
+
+
 //---------- EMISSIVES -------------
 //Layering order of these is not particularly meaningful.
 //Important part is the seperation of the planes for control via plane_master

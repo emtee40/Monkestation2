@@ -513,6 +513,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		<br>We draw to the game plane, and mask out space for ourselves on the lighting plane so any color we have has the chance to display."
 	plane = O_LIGHTING_VISUAL_PLANE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_relay_planes = list(RENDER_PLANE_LIGHTING)
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY

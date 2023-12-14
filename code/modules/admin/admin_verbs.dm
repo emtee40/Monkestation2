@@ -198,6 +198,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/cmd_admin_toggle_fov,
+	/client/proc/cmd_admin_change_light_multiplier,
+	/client/proc/cmd_admin_change_light_alpha,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_force_del_all,
 	/client/proc/cmd_debug_hard_del_all,

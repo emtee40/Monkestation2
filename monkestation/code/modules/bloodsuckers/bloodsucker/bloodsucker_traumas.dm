@@ -135,7 +135,7 @@
 		return FALSE
 	if(!isturf(target_turf))
 		return FALSE
-	if(!target_turf.lighting_object || !target_turf.get_lumcount() >= 0.1)
+	if(!target_turf.get_lumcount() >= 0.1)
 		return FALSE
 	for(var/mob/living/nearby_viewers in viewers(target_turf))
 		if(nearby_viewers == subject)

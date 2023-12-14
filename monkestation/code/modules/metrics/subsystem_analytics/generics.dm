@@ -25,8 +25,6 @@
 	. = ..()
 	var/list/cust = list()
 	cust["sources_queue"] = length(sources_queue)
-	cust["corners_queue"] = length(corners_queue)
-	cust["objects_queue"] = length(objects_queue)
 	.["custom"] = cust
 
 /datum/controller/subsystem/machines/get_metrics()

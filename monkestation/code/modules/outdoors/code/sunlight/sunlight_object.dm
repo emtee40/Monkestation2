@@ -55,17 +55,6 @@ Sunlight System
 
 /atom/movable/outdoor_effect/proc/disable_sunlight()
 	var/turf/T = list()
-	for(var/datum/lighting_corner/C in affecting_corners)
-		LAZYREMOVE(C.globAffect, src)
-		C.get_sunlight_falloff()
-		if( C.master_NE)
-			T |= C.master_NE
-		if (C.master_SE)
-			T |= C.master_SE
-		if (C.master_SW)
-			T |= C.master_SW
-		if (C.master_NW)
-			T |= C.master_NW
 	T |= source_turf /* get our calculated indoor lighting */
 	GLOB.SUNLIGHT_QUEUE_CORNER += T
 
@@ -92,10 +81,8 @@ Sunlight System
 /atom/movable/outdoor_effect/proc/calc_sunlight_spread()
 
 	var/list/turf/turfs                    = list()
-	var/datum/lighting_corner/C
 	var/turf/T
 	var/list/tempMasterList = list() /* to mimimize double ups */
-	var/list/corners  = list() /* corners we are currently affecting */
 
 	//Set lum so we can see things
 	var/oldLum = luminosity
@@ -104,48 +91,10 @@ Sunlight System
 	for(T in view(CEILING(GLOB.GLOBAL_LIGHT_RANGE, 1), source_turf))
 		if(IS_OPAQUE_TURF(T)) /* get_corners used to do opacity checks for arse */
 			continue
-		if (!T.lighting_corners_initialised)
-			T.generate_missing_corners()
-		corners |= T.lighting_corner_NE
-		corners |= T.lighting_corner_SE
-		corners |= T.lighting_corner_SW
-		corners |= T.lighting_corner_NW
 		turfs += T
 
 	//restore lum
 	luminosity = oldLum
-
-	/* fix up the lists */
-	/* add ourselves and our distance to the corner */
-	LAZYINITLIST(affecting_corners)
-	var/list/L = corners - affecting_corners
-	affecting_corners += L
-	for (C in L)
-		LAZYSET(C.globAffect, src, SUN_FALLOFF(C,source_turf))
-		if(C.globAffect[src] > C.sun_falloff) /* if are closer than current dist, update the corner */
-			C.sun_falloff = C.globAffect[src]
-			if (C.master_NE)
-				tempMasterList |= C.master_NE
-			if (C.master_SE)
-				tempMasterList |= C.master_SE
-			if (C.master_SW)
-				tempMasterList |= C.master_SW
-			if (C.master_NW)
-				tempMasterList |= C.master_NW
-
-	L = affecting_corners - corners // Now-gone corners, remove us from the affecting.
-	affecting_corners -= L
-	for (C in L)
-		LAZYREMOVE(C.globAffect, src)
-		C.get_sunlight_falloff()
-		if (C.master_NE)
-			tempMasterList |= C.master_NE
-		if (C.master_SE)
-			tempMasterList |= C.master_SE
-		if (C.master_SW)
-			tempMasterList |= C.master_SW
-		if (C.master_NW)
-			tempMasterList |= C.master_NW
 
 	GLOB.SUNLIGHT_QUEUE_CORNER += tempMasterList /* update the boys */
 
@@ -248,89 +197,6 @@ Sunlight System
 	SunlightUpdates += src
 
 	//AHHHHGGGGGHHHHHHHHHHHHHHH
-	if(lighting_corner_NE)
-		if (lighting_corner_NE.master_NE)
-			SunlightUpdates |= lighting_corner_NE.master_NE
-		for(S in lighting_corner_NE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NE.master_SE)
-			SunlightUpdates |= lighting_corner_NE.master_SE
-		for(S in lighting_corner_NE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NE.master_SW)
-			SunlightUpdates |= lighting_corner_NE.master_SW
-		for(S in lighting_corner_NE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NE.master_NW)
-			SunlightUpdates |= lighting_corner_NE.master_NW
-		for(S in lighting_corner_NE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-	if(lighting_corner_SE)
-		if (lighting_corner_SE.master_NE)
-			SunlightUpdates |= lighting_corner_SE.master_NE
-		for(S in lighting_corner_SE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SE.master_SE)
-			SunlightUpdates |= lighting_corner_SE.master_SE
-		for(S in lighting_corner_SE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SE.master_SW)
-			SunlightUpdates |= lighting_corner_SE.master_SW
-		for(S in lighting_corner_SE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SE.master_NW)
-			SunlightUpdates |= lighting_corner_SE.master_NW
-		for(S in lighting_corner_SE.globAffect)
-			SunlightUpdates |= S.source_turf
-
-	if(lighting_corner_SW)
-		if (lighting_corner_SW.master_NE)
-			SunlightUpdates |= lighting_corner_SW.master_NE
-		for(S in lighting_corner_SW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SW.master_SE)
-			SunlightUpdates |= lighting_corner_SW.master_SE
-		for(S in lighting_corner_SW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SW.master_SW)
-			SunlightUpdates |= lighting_corner_SW.master_SW
-		for(S in lighting_corner_SW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_SW.master_NW)
-			SunlightUpdates |= lighting_corner_SW.master_NW
-		for(S in lighting_corner_SW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-	if(lighting_corner_NW)
-		if (lighting_corner_NW.master_NE)
-			SunlightUpdates |= lighting_corner_NW.master_NE
-		for(S in lighting_corner_NW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NW.master_SE)
-			SunlightUpdates |= lighting_corner_NW.master_SE
-		for(S in lighting_corner_NW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NW.master_SW)
-			SunlightUpdates |= lighting_corner_NW.master_SW
-		for(S in lighting_corner_NW.globAffect)
-			SunlightUpdates |= S.source_turf
-
-		if (lighting_corner_NW.master_NW)
-			SunlightUpdates |= lighting_corner_NW.master_NW
-		for(S in lighting_corner_NW.globAffect)
-			SunlightUpdates |= S.source_turf
 
 	GLOB.SUNLIGHT_QUEUE_WORK += SunlightUpdates
 

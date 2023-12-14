@@ -37,21 +37,24 @@
 
 	///Cache of the possible light overlays, according to size.
 	var/static/list/light_overlays = list(
-		"32" = 'icons/effects/light_overlays/light_32.dmi',
-		"64" = 'icons/effects/light_overlays/light_64.dmi',
-		"96" = 'icons/effects/light_overlays/light_96.dmi',
-		"128" = 'icons/effects/light_overlays/light_128.dmi',
-		"160" = 'icons/effects/light_overlays/light_160.dmi',
-		"192" = 'icons/effects/light_overlays/light_192.dmi',
-		"224" = 'icons/effects/light_overlays/light_224.dmi',
-		"256" = 'icons/effects/light_overlays/light_256.dmi',
-		"288" = 'icons/effects/light_overlays/light_288.dmi',
-		"320" = 'icons/effects/light_overlays/light_320.dmi',
-		"352" = 'icons/effects/light_overlays/light_352.dmi',
+		"32" = 'icons/effects/lighting/light_overlays/light_32.dmi',
+		"64" = 'icons/effects/lighting/light_overlays/light_64.dmi',
+		"96" = 'icons/effects/lighting/light_overlays/light_96.dmi',
+		"128" = 'icons/effects/lighting/light_overlays/light_128.dmi',
+		"160" = 'icons/effects/lighting/light_overlays/light_160.dmi',
+		"192" = 'icons/effects/lighting/light_overlays/light_192.dmi',
+		"224" = 'icons/effects/lighting/light_overlays/light_224.dmi',
+		"256" = 'icons/effects/lighting/light_overlays/light_256.dmi',
+		"288" = 'icons/effects/lighting/light_overlays/light_288.dmi',
+		"320" = 'icons/effects/lighting/light_overlays/light_320.dmi',
+		"352" = 'icons/effects/lighting/light_overlays/light_352.dmi',
+
 		)
 
 	///Overlay effect to cut into the darkness and provide light.
-	var/image/visible_mask
+	var/mutable_appearance/visible_mask
+	///A cone overlay for directional light, it's alpha and color are dependant on the light
+	var/mutable_appearance/cone
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.
@@ -60,8 +63,6 @@
 	var/atom/movable/parent_attached_to
 	///Whether we're a directional light
 	var/directional = FALSE
-	///A cone overlay for directional light, it's alpha and color are dependant on the light
-	var/image/cone
 	///Current tracked direction for the directional cast behaviour
 	var/current_direction
 	///Tracks current directional x offset so we dont update unecessarily
@@ -82,17 +83,21 @@
 
 	. = ..()
 
-	visible_mask = image('icons/effects/light_overlays/light_32.dmi', icon_state = "light")
+	visible_mask = image('icons/effects/lighting/light_overlays/light_32.dmi', icon_state = "light")
 	SET_PLANE_EXPLICIT(visible_mask, O_LIGHTING_VISUAL_PLANE, movable_parent)
-	visible_mask.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	visible_mask.layer = O_LIGHT_LAYER
+	visible_mask.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	visible_mask.alpha = 0
 	if(is_directional)
 		directional = TRUE
-		cone = image('icons/effects/light_overlays/light_cone.dmi', icon_state = "light")
+		cone = image('icons/effects/lighting/light_overlays/small_cone.dmi', "light")
 		SET_PLANE_EXPLICIT(cone, O_LIGHTING_VISUAL_PLANE, movable_parent)
-		cone.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
-		cone.alpha = 110
-		cone.transform = cone.transform.Translate(-32, -32)
+		cone.layer = O_LIGHT_CONE_LAYER
+		cone.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+		cone.blend_mode = BLEND_ADD
+		cone.alpha = 0
+		cone.transform = cone.transform.Translate(-64, -64)
+
 		set_direction(movable_parent.dir)
 	if(!isnull(_range))
 		movable_parent.set_light_range(_range, _range)
@@ -165,7 +170,7 @@
 ///Clears the affected_turfs lazylist, removing from its contents the effects of being near the light.
 /datum/component/overlay_lighting/proc/clean_old_turfs()
 	for(var/turf/lit_turf as anything in affected_turfs)
-		lit_turf.dynamic_lumcount -= lum_power
+		lit_turf.dynamic_lumcount -= affected_turfs[lit_turf]
 	affected_turfs = null
 
 
@@ -174,9 +179,12 @@
 	if(!current_holder)
 		return
 	. = list()
+	var/affecting_lumpower
 	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
-		lit_turf.dynamic_lumcount += lum_power
-		. += lit_turf
+		affecting_lumpower = round(lum_power * min(1, get_dist(src, lit_turf)/10), 0.1)
+		lit_turf.dynamic_lumcount += affecting_lumpower
+		.[lit_turf] = affecting_lumpower
+
 	if(length(.))
 		affected_turfs = .
 
@@ -340,17 +348,21 @@
 ///Changes the range which the light reaches. 0 means no light, 6 is the maximum value.
 /datum/component/overlay_lighting/proc/set_range(atom/source, old_inner_range, old_outer_range)
 	SIGNAL_HANDLER
-	var/new_range = source.light_outer_range
+	var/new_range = clamp(CEILING(source.light_outer_range, 0.5), 1, min(light_overlays.len, MAXIMUM_LIGHT_RANGE))
 	if(range == new_range)
 		return
 	if(range == 0)
 		turn_off()
-	range = clamp(CEILING(new_range, 0.5), 1, 6)
+	range = new_range
 	var/pixel_bounds = ((range - 1) * 64) + 32
 	lumcount_range = CEILING(range, 1)
-	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
+	if(current_holder)
 		current_holder.underlays -= visible_mask
-	visible_mask.icon = light_overlays["[pixel_bounds]"]
+	if(light_overlays["[pixel_bounds]"])
+		visible_mask.icon = light_overlays["[pixel_bounds]"]
+	else
+		visible_mask.icon = light_overlays[light_overlays[light_overlays.len]]
+
 	if(pixel_bounds == 32)
 		visible_mask.transform = null
 		return
@@ -370,8 +382,9 @@
 /datum/component/overlay_lighting/proc/set_power(atom/source, old_power)
 	SIGNAL_HANDLER
 	var/new_power = source.light_power
-	set_lum_power(new_power >= 0 ? 0.5 : -0.5)
-	set_alpha = min(230, (abs(new_power) * 120) + 30)
+	set_lum_power(new_power)
+	set_alpha = clamp(round(abs(new_power) * 120) + 30, 0, 230)
+
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays -= visible_mask
 	visible_mask.alpha = set_alpha
@@ -381,7 +394,7 @@
 		return
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays -= cone
-	cone.alpha = min(200, (abs(new_power) * 90)+20)
+	cone.alpha = clamp(round(abs(new_power) * 90) + 20, 0, 255)
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += cone
 
@@ -463,9 +476,14 @@
 		return
 	. = lum_power
 	lum_power = new_lum_power
-	var/difference = . - lum_power
+	var/affecting_lumpower
 	for(var/turf/lit_turf as anything in affected_turfs)
-		lit_turf.dynamic_lumcount -= difference
+		lit_turf.dynamic_lumcount -= affected_turfs[lit_turf]
+		//ok look this is a completely rarted, arbitrary calculation
+		affecting_lumpower = round(lum_power * min(1, get_dist(src, lit_turf)/10), 0.1)
+		lit_turf.dynamic_lumcount += affecting_lumpower
+		affected_turfs[lit_turf] = affecting_lumpower
+
 
 ///Here we append the behavior associated to changing lum_power.
 /datum/component/overlay_lighting/proc/cast_directional_light()
@@ -483,17 +501,17 @@
 
 	current_holder.underlays -= visible_mask
 
-	var/translate_x = -((range - 1) * 32)
+	var/translate_x = -((range - 1) * world.icon_size)
 	var/translate_y = translate_x
 	switch(current_direction)
 		if(NORTH)
-			translate_y += 32 * final_distance
+			translate_y += world.icon_size * final_distance
 		if(SOUTH)
-			translate_y += -32 * final_distance
+			translate_y += -world.icon_size * final_distance
 		if(EAST)
-			translate_x += 32 * final_distance
+			translate_x += world.icon_size * final_distance
 		if(WEST)
-			translate_x += -32 * final_distance
+			translate_x += -world.icon_size * final_distance
 	if((directional_offset_x != translate_x) || (directional_offset_y != translate_y))
 		directional_offset_x = translate_x
 		directional_offset_y = translate_y

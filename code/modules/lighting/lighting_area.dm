@@ -9,6 +9,9 @@
 	var/base_lighting_alpha = 0
 	///The colour of the light acting on this area
 	var/base_lighting_color = COLOR_WHITE
+	///Whether this area allows static lighting and thus loads lighting objects
+	var/static_lighting = TRUE
+
 
 /area/proc/set_base_lighting(new_base_lighting_color = -1, new_alpha = -1)
 	if(base_lighting_alpha == new_alpha && base_lighting_color == new_base_lighting_color)
@@ -28,11 +31,6 @@
 		if(NAMEOF(src, base_lighting_alpha))
 			set_base_lighting(new_alpha = var_value)
 			return TRUE
-		if(NAMEOF(src, static_lighting))
-			if(!static_lighting)
-				create_area_lighting_objects()
-			else
-				remove_area_lighting_objects()
 
 	return ..()
 
@@ -61,7 +59,7 @@
 	for(var/offset in 0 to SSmapping.max_plane_offset)
 		var/mutable_appearance/lighting_effect = mutable_appearance('icons/effects/alphacolors.dmi', "white")
 		SET_PLANE_W_SCALAR(lighting_effect, LIGHTING_PLANE, offset)
-		lighting_effect.layer = LIGHTING_PRIMARY_LAYER
+		lighting_effect.layer = AREA_LIGHTING_LAYER
 		lighting_effect.blend_mode = BLEND_ADD
 		lighting_effect.alpha = base_lighting_alpha
 		lighting_effect.color = base_lighting_color
@@ -78,3 +76,11 @@
 			T.add_overlay(lighting_effects[z_offsets[T.z] + 1])
 
 	area_has_base_lighting = TRUE
+
+/// Helper proc that creates full brightness overlay for areas.
+/proc/create_fullbright_overlay(offset)
+	var/mutable_appearance/lighting_effect = mutable_appearance('icons/effects/alphacolors.dmi', "white")
+	SET_PLANE_W_SCALAR(lighting_effect, LIGHTING_PLANE, offset)
+	lighting_effect.layer = AREA_LIGHTING_LAYER
+	lighting_effect.blend_mode = BLEND_ADD
+	return lighting_effect
