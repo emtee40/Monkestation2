@@ -673,8 +673,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 
 /atom/movable/screen/plane_master/shadowcasting/show_to(mob/mymob)
 	. = ..()
-	alpha = 96
+	alpha = (mymob.client?.prefs.read_preference(/datum/preference/numeric/shadowcasting_darkness) || 96)
 	add_filter("wall_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(WALL_RENDER_TARGET, offset), flags = MASK_INVERSE))
-	var/blurriness = 3
+	var/blurriness = (mymob.client?.prefs.read_preference(/datum/preference/numeric/shadowcasting_darkness) || 3)
 	add_filter("blur", 2, gauss_blur_filter(size = blurriness))
 
