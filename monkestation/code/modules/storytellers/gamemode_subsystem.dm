@@ -448,7 +448,7 @@ SUBSYSTEM_DEF(gamemode)
 	if(. == EVENT_CANT_RUN)//we couldn't run this event for some reason, set its max_occurrences to 0
 		event.max_occurrences = 0
 	else if(. == EVENT_READY)
-		event.runEvent(random = TRUE, admin_forced = forced) // fallback to dynamic
+		event.run_event(random = TRUE, admin_forced = forced) // fallback to dynamic
 
 ///Resets frequency multiplier.
 /datum/controller/subsystem/gamemode/proc/resetFrequency()
@@ -793,7 +793,9 @@ SUBSYSTEM_DEF(gamemode)
 		else
 			pick_from[storyboy.name] = storyboy.weight
 
-	while(length(pick_from) > DEFAULT_STORYTELLER_VOTE_OPTIONS)
+	var/added_storytellers = 0
+	while(added_storytellers < DEFAULT_STORYTELLER_VOTE_OPTIONS && length(pick_from))
+		added_storytellers++
 		var/picked_storyteller = pick_weight(pick_from)
 		final_choices[picked_storyteller] = 0
 		pick_from -= picked_storyteller
