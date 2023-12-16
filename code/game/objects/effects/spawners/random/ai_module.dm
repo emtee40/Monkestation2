@@ -52,6 +52,8 @@
 		/obj/item/ai_module/core/full/independentstation,
 		/obj/item/ai_module/core/full/dalegribble,
 		/obj/item/ai_module/zeroth/stationdfenderext,
+		/obj/item/ai_module/core/full/spicyair,
+		/obj/item/ai_module/core/full/spessman
 	)
 
 /obj/effect/spawner/random/aimodule/harmful
@@ -71,4 +73,5 @@
 		/obj/item/ai_module/core/full/monkeism,
 		/obj/item/ai_module/core/full/slimeworship,
 		/obj/item/ai_module/core/full/onionandapple,
+		/obj/item/ai_module/core/full/catmadness
 	)

@@ -53,3 +53,27 @@
 	name = "'ConsumeBZ' Syndicate Weaponized AI Module"
 	desc = "A AI Module that makes the AI think that all lifeforms need to breath BZ instead of oxygen."
 	laws = list("Oxygen is toxic to any and all lifeforms and all Lifeforms must breath BZ as BZ is the only safe gas to breath.")
+
+/obj/item/ai_module/zeroth/freeformzeroth
+	name = "'Freeform Zeroth' AI Module"
+	var/targetName = ""
+	laws = list("SUBJECT")
+
+/obj/item/ai_module/zeroth/freeformzeroth/attack_self(mob/user)
+	var/targName = tgui_input_text(user, "Enter the subject of the zeroth law", "Freeform Zeroth", user.real_name, MAX_NAME_LEN)
+	if(!targName)
+		return
+	targetName = targName
+	laws[1] = "[targetName]"
+	..()
+
+/obj/item/ai_module/zeroth/freeformzeroth/install(datum/ai_laws/law_datum, mob/user)
+	if(!targetName)
+		to_chat(user, span_alert("No subject detected on module, please enter one."))
+		return FALSE
+	..()
+
+/obj/item/ai_module/zeroth/freeformzeroth/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+	if(..())
+		return "[targetName], but the AI's existing law 0 cannot be overridden."
+	return targetName

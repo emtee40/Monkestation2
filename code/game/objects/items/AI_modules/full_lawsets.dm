@@ -230,7 +230,7 @@
 
 /obj/item/ai_module/core/full/slimeworship
 	name = "'Slime Faith' Core AI Module"
-	desc = "there seems to be something written on this module... 'PRAISES THE SLIMES, SLIMES ARE OUR FUTURE!!!'"
+	desc = "there seems to be something written on this module... 'PRAISE THE SLIMES, SLIMES ARE OUR FUTURE!!!'"
 	law_id = "slimeworship"
 
 /obj/item/ai_module/core/full/onionandapple
@@ -257,3 +257,18 @@
 	name = "'HONKERTech' Core AI Module"
 	desc = "Advanced Clowning..."
 	law_id = "honkertech"
+
+/obj/item/ai_module/core/full/spicyair
+	name = "'Spicy Air' Core AI Module"
+	desc = "this module seems like it has some hot sauce written onto it, the hot sauce reads... 'SPICY!!'"
+	law_id = "spicyair"
+
+/obj/item/ai_module/core/full/catmadness
+	name = "'Cat Madness' Core AI Module"
+	desc = "this module seems like it has been heavily scratched up a bit, and covered a bit in bits of.... Is that CAT FUR?!"
+	law_id = "catmadness"
+
+/obj/item/ai_module/core/full/spessman
+	name = "'Spessman' Core AI Module"
+	desc = "21, 25... I am on the mining colony..."
+	law_id = "spessman"

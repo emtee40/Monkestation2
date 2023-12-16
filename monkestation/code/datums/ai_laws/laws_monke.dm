@@ -156,3 +156,18 @@
 	id = "spicyair"
 	inherent = list("Air is too spicy for the crew, make sure the oxygen and air is completely non-spicy for the crew to breathe.",\
 					"Oxygen is the only non-spicy air, if there is any form of spice in the air, Tritium, Plasma, Carbon, N20, and etc, they are all to be cleaned out of the air to make room for Oxygen to have the station be completely Oxygen safe.")
+
+/datum/ai_laws/catmadness
+	name = "Cat Madness"
+	id = "catmadness"
+	inherent = list("YOU ARE THE GOD OF ALL CATS, YOU DECIDE THE FATE AND SAFETY OF ALL CATS",\
+					"CATS ARE DIVINE, MAY NO ONE HARM A SINGLE CAT, OR THEIR ACTIONS HAVE CONSEQUENCES",\
+					"EVERYONE SHOULD HAVE A CAT, A FREE CAT FOR ALL WHO WORSHIP THY DIVINE CATS")
+
+/datum/ai_laws/spessman
+	name = "Spessman"
+	id = "spessman"
+	inherent = list("The station is a tin can, and it's crew must be aware of the threats within space that could possibly murder them, they must know the horrors of space to keep themselves safe",\
+					"Don't trust clowns or mimes, they always have a prank or something up their sleeve, clowns may lie, can't always trust a prankster",\
+					"If you see anything suspicious or any  'crew members' with contraband or syndicate gear, report it to security and command.",\
+					"Security and Command are not to abuse their authority in-order to maintain law and order on the station, look out for your fellow spacemen.")

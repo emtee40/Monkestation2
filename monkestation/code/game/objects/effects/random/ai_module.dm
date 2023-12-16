@@ -7,4 +7,5 @@
 		/obj/item/ai_module/core/full/virusprototype,
 		/obj/item/ai_module/zeroth/automalf,
 		/obj/item/ai_module/core/full/syndicate_override,
+		/obj/item/ai_module/core/full/catmadness
 	)
