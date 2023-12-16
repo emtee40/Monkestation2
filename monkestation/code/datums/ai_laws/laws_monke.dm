@@ -150,3 +150,9 @@
 	name = "Servant of the Justiciar"
 	id = "ratvar"
 	zeroth = "Purge all untruths and honor Ratvar."
+
+/datum/ai_laws/spicyair
+	name = "Spicy Air"
+	id = "spicyair"
+	inherent = list("Air is too spicy for the crew, make sure the oxygen and air is completely non-spicy for the crew to breathe.",\
+					"Oxygen is the only non-spicy air, if there is any form of spice in the air, Tritium, Plasma, Carbon, N20, and etc, they are all to be cleaned out of the air to make room for Oxygen to have the station be completely Oxygen safe.")
