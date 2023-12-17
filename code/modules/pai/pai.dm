@@ -71,8 +71,6 @@
 	// Onboard Items
 	/// Atmospheric analyzer
 	var/obj/item/analyzer/atmos_analyzer
-	/// Health analyzer
-	var/obj/item/healthanalyzer/host_scan
 	/// GPS
 	var/obj/item/gps/pai/internal_gps
 	/// Music Synthesizer
@@ -161,7 +159,6 @@
 	QDEL_NULL(atmos_analyzer)
 	QDEL_NULL(camera)
 	QDEL_NULL(hacking_cable)
-	QDEL_NULL(host_scan)
 	QDEL_NULL(instrument)
 	QDEL_NULL(internal_gps)
 	QDEL_NULL(newscaster)
@@ -207,8 +204,6 @@
 		atmos_analyzer = null
 	if(deleting_atom == camera)
 		camera = null
-	if(deleting_atom == host_scan)
-		host_scan = null
 	if(deleting_atom == internal_gps)
 		internal_gps = null
 	if(deleting_atom == instrument)
