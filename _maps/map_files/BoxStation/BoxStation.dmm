@@ -3750,10 +3750,13 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage)
 "buL" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "buQ" = (
@@ -4202,15 +4205,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "bDF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/structure/cable/layer1,
 /turf/open/floor/iron,
-/area/station/engineering/main)
+/area/station/engineering/engine_smes)
 "bDM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -8529,7 +8529,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
 /obj/structure/cable/layer1,
 /turf/open/floor/iron,
 /area/station/engineering/main)
@@ -27185,6 +27184,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
+/obj/item/ai_module/toy_ai,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "koJ" = (
@@ -32612,12 +32612,11 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/office)
 "mpa" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
-/obj/structure/cable/layer1,
-/turf/open/floor/iron,
-/area/station/engineering/engine_smes)
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/robotics_cyborgs,
+/turf/open/floor/iron/dark,
+/area/station/ai_monitored/turret_protected/ai_upload)
 "mpj" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 4
@@ -39235,7 +39234,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/spawner/random/aimodule/neutral,
+/obj/effect/spawner/random/aimodule/harmless,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "oTx" = (
@@ -41640,9 +41639,6 @@
 "pLa" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
 /turf/open/floor/iron/large,
 /area/station/engineering/main)
 "pLh" = (
@@ -43238,7 +43234,14 @@
 	name = "High-Risk Modules";
 	req_access = list("captain")
 	},
-/obj/item/ai_module/supplied/protect_station,
+/obj/item/ai_module/supplied/freeform{
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/ai_module/supplied/protect_station{
+	pixel_y = 3;
+	pixel_x = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "qqg" = (
@@ -49239,12 +49242,10 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
+/obj/item/ai_module/reset,
 /obj/item/ai_module/reset/purge{
-	pixel_y = 4
-	},
-/obj/effect/spawner/random/aimodule/harmful{
-	pixel_x = -2;
-	pixel_y = -4
+	pixel_y = 4;
+	pixel_x = -5
 	},
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
@@ -60814,14 +60815,12 @@
 	name = "Core Modules";
 	req_access = list("captain")
 	},
-/obj/item/ai_module/supplied/freeform{
-	pixel_x = -1;
-	pixel_y = -1
+/obj/item/ai_module/core/full/crewsimov{
+	pixel_y = 7;
+	pixel_x = 1
 	},
-/obj/item/ai_module/core/full/asimov{
-	pixel_x = 1;
-	pixel_y = 7
-	},
+/obj/item/ai_module/core/full/crewsimovpp,
+/obj/effect/spawner/round_default_module,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "xbV" = (
@@ -83833,7 +83832,7 @@ hfW
 wUY
 dzx
 dIF
-mpa
+bDF
 pue
 lzn
 ldZ
@@ -84090,7 +84089,7 @@ xae
 jHR
 nfP
 kdN
-mpa
+bDF
 nEx
 siR
 ozC
@@ -84347,7 +84346,7 @@ hfW
 wUY
 dzx
 wJL
-mpa
+bDF
 wKN
 lzn
 vTh
@@ -86831,7 +86830,7 @@ xNp
 xNp
 xNp
 drj
-pxC
+mpa
 gCD
 kow
 fDv
@@ -88457,7 +88456,7 @@ uOV
 uOV
 ckN
 cSD
-bDF
+buL
 aTl
 rko
 rko
@@ -88714,7 +88713,7 @@ mXg
 bQN
 ckN
 neQ
-bDF
+buL
 ktY
 xNp
 xNp
@@ -88971,7 +88970,7 @@ jYD
 jYD
 ery
 tMr
-bDF
+buL
 dhg
 xNp
 xNp
@@ -93081,10 +93080,10 @@ nHP
 bYG
 dHm
 mUf
-kmH
+tZc
 pLa
-kmH
-buL
+tZc
+ktY
 xNp
 xNp
 xNp
