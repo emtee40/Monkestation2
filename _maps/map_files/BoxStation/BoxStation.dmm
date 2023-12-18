@@ -577,6 +577,10 @@
 	name = "Robotics Desk";
 	req_access = list("robotics")
 	},
+/obj/structure/desk_bell{
+	pixel_y = 6;
+	pixel_x = 6
+	},
 /obj/item/folder/white,
 /obj/item/pen,
 /turf/open/floor/iron/dark,
@@ -1166,10 +1170,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/structure/cable/layer1,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/engineering/main)
 "axV" = (
@@ -3990,17 +3994,17 @@
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1449;
-	id_tag = "virology_airlock_exterior";
-	name = "Virology Exterior Airlock"
+	id_tag = "pathology_airlock_exterior";
+	name = "Pathology Exterior Airlock"
 	},
 /obj/machinery/door_buttons/access_button{
 	dir = 1;
-	idDoor = "virology_airlock_exterior";
-	idSelf = "virology_airlock_control";
-	name = "Virology Access Button";
+	idDoor = "pathology_airlock_exterior";
+	idSelf = "pathology_airlock_control";
+	name = "Pathology Access Button";
 	pixel_x = 24;
 	pixel_y = -2;
-	req_access = list("virology")
+	req_access = list("pathology")
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -4483,7 +4487,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/engineering/main)
@@ -4716,6 +4720,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Coffin Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/chapel/funeral)
 "bND" = (
@@ -4966,7 +4971,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 6
 	},
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "bTv" = (
@@ -5391,7 +5396,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/virology/glass{
-	name = "Virology Lab"
+	name = "Pathology Lab"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/open/floor/iron/white/textured,
@@ -5742,6 +5747,9 @@
 	id = "apothecary_shutters";
 	name = "Apothecary Shutters";
 	dir = 4
+	},
+/obj/structure/desk_bell{
+	pixel_x = 6
 	},
 /obj/item/folder/white,
 /turf/open/floor/iron/white,
@@ -14308,7 +14316,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/north{
-	c_tag = "Medical - Virology Lab";
+	c_tag = "Medbay - Pathology Lab";
 	name = "medical camera";
 	network = list("ss13","medbay")
 	},
@@ -14888,7 +14896,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 4
 	},
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "fEW" = (
@@ -17525,6 +17533,10 @@
 	name = "Medbay Front Desk Shutters";
 	dir = 4
 	},
+/obj/structure/desk_bell{
+	pixel_y = 10;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "gEP" = (
@@ -19108,16 +19120,16 @@
 	pixel_x = -4
 	},
 /obj/machinery/door_buttons/airlock_controller{
-	idExterior = "virology_airlock_exterior";
-	idInterior = "virology_airlock_interior";
-	idSelf = "virology_airlock_control";
-	name = "Virology Access Console";
+	idExterior = "pathology_airlock_exterior";
+	idInterior = "pathology_airlock_interior";
+	idSelf = "pathology_airlock_control";
+	name = "Pathology Access Console";
 	pixel_y = 24;
-	req_access = list("virology");
+	req_access = list("pathology");
 	pixel_x = 6
 	},
 /obj/machinery/camera/directional/north{
-	c_tag = "Medical - Virology";
+	c_tag = "Medbay - Pathology";
 	name = "medical camera";
 	network = list("ss13","medbay")
 	},
@@ -19834,6 +19846,7 @@
 	c_tag = "Engineering - External Particle Accelerator";
 	name = "engineering camera"
 	},
+/obj/structure/cable/layer1,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "hyw" = (
@@ -19850,6 +19863,7 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Crematorium"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/crematorium,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/chapel/office)
 "hyN" = (
@@ -20133,6 +20147,10 @@
 /obj/machinery/door/window/right/directional/south{
 	name = "Research & Development Desk";
 	req_access = list("science")
+	},
+/obj/structure/desk_bell{
+	pixel_y = 8;
+	pixel_x = 8
 	},
 /turf/open/floor/iron/white,
 /area/station/science/lab)
@@ -25643,6 +25661,10 @@
 	id = "brig_gate";
 	name = "Security Shutters"
 	},
+/obj/structure/desk_bell{
+	pixel_y = 4;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "jHR" = (
@@ -30541,6 +30563,7 @@
 	name = "Virology Requests Console";
 	receive_ore_updates = 1
 	},
+/obj/item/clothing/glasses/science,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "lwD" = (
@@ -31669,6 +31692,9 @@
 	id = "engi_lobby_shutters";
 	name = "Engineering Lobby Shutters";
 	dir = 4
+	},
+/obj/structure/desk_bell{
+	pixel_y = 8
 	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
@@ -34855,6 +34881,7 @@
 /obj/item/healthanalyzer,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/radio/intercom/directional/west,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "neM" = (
@@ -35091,15 +35118,15 @@
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1449;
-	id_tag = "virology_airlock_interior";
-	name = "Virology Interior Airlock"
+	id_tag = "pathology_airlock_interior";
+	name = "Pathology Interior Airlock"
 	},
 /obj/machinery/door_buttons/access_button{
-	idDoor = "virology_airlock_interior";
-	idSelf = "virology_airlock_control";
-	name = "Virology Access Button";
+	idDoor = "pathology_airlock_interior";
+	idSelf = "pathology_airlock_control";
+	name = "Pathology Access Button";
 	pixel_y = 6;
-	req_access = list("virology");
+	req_access = list("pathology");
 	pixel_x = -24
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
@@ -35901,7 +35928,7 @@
 	dir = 5
 	},
 /obj/machinery/camera/directional/north{
-	c_tag = "Medical - Virology Access";
+	c_tag = "Medbay - Pathology Access";
 	name = "medical camera";
 	network = list("ss13","medbay")
 	},
@@ -36761,6 +36788,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/effect/landmark/start/chaplain,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/office)
 "nTZ" = (
@@ -40770,6 +40798,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel Office"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/chapel/office)
 "prU" = (
@@ -41117,7 +41146,7 @@
 "pyx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/on/layer4,
-/obj/structure/cable,
+/obj/structure/cable/layer1,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/engineering/main)
 "pyy" = (
@@ -42705,6 +42734,19 @@
 /obj/effect/landmark/start/atmospheric_technician,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage_shared)
+"qbE" = (
+/obj/structure/table/wood,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "library_desk_shutters";
+	name = "Library Desk Shutters"
+	},
+/obj/structure/desk_bell{
+	pixel_y = 2;
+	pixel_x = -6
+	},
+/turf/open/floor/iron/dark,
+/area/station/service/library/printer)
 "qbJ" = (
 /obj/effect/turf_decal/trimline/dark_blue/line{
 	dir = 6
@@ -44481,9 +44523,9 @@
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "qKK" = (
-/obj/machinery/camera{
-	c_tag = "Virology Pen";
-	dir = 9;
+/obj/machinery/camera/directional/north{
+	c_tag = "Medbay - Pathology Pen";
+	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
 /obj/effect/landmark/blobstart,
@@ -46390,6 +46432,9 @@
 	id = "apothecary_shutters";
 	name = "Apothecary Shutters";
 	dir = 8
+	},
+/obj/structure/desk_bell{
+	pixel_x = -6
 	},
 /obj/item/folder/white,
 /turf/open/floor/iron,
@@ -48356,6 +48401,10 @@
 	id = "hydroponics_shutters";
 	name = "Hydroponics Shutters"
 	},
+/obj/structure/desk_bell{
+	pixel_y = 2;
+	pixel_x = 6
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "slJ" = (
@@ -48803,10 +48852,12 @@
 /turf/open/floor/iron,
 /area/station/commons/vacant_room/commissary)
 "ssw" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/cable_coil/cut,
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/effect/landmark/start/chaplain,
+/turf/open/floor/iron/dark,
+/area/station/service/chapel/office)
 "ssx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/wood,
@@ -50657,10 +50708,18 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "tcF" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchen_shutters";
+	name = "Kitchen Shutter"
+	},
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_y = 2;
+	pixel_x = -6
+	},
+/turf/open/floor/iron/kitchen,
+/area/station/service/kitchen)
 "tcQ" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
@@ -52849,6 +52908,9 @@
 	id = "genetics_shutters";
 	name = "Genetics Shutters";
 	dir = 8
+	},
+/obj/structure/desk_bell{
+	pixel_x = -6
 	},
 /turf/open/floor/iron/white,
 /area/station/science/genetics)
@@ -55892,6 +55954,10 @@
 	dir = 8;
 	name = "Reception Window"
 	},
+/obj/structure/desk_bell{
+	pixel_y = 10;
+	pixel_x = -4
+	},
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hop)
 "vcu" = (
@@ -56129,6 +56195,14 @@
 /obj/item/storage/box/vials{
 	pixel_y = 4;
 	pixel_x = -2
+	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
@@ -58418,6 +58492,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel Office"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
 /turf/open/floor/iron/dark/textured,
 /area/station/service/chapel/office)
 "wbc" = (
@@ -85943,7 +86018,7 @@ fYa
 oYc
 var
 var
-nRC
+qDs
 uYZ
 uYZ
 uYZ
@@ -86200,7 +86275,7 @@ fYa
 nRC
 var
 var
-nRC
+qDs
 xNp
 xNp
 xNp
@@ -86455,9 +86530,9 @@ xNp
 xNp
 fYa
 hyj
-nRC
-nRC
-nRC
+qDs
+qDs
+qDs
 var
 var
 uYZ
@@ -86711,7 +86786,7 @@ xNp
 xNp
 xNp
 xNp
-nRC
+qDs
 gYP
 uMG
 roi
@@ -86965,10 +87040,10 @@ xNp
 xNp
 xNp
 xNp
-tcF
-ssw
-tcF
-nRC
+kQT
+kQT
+kQT
+qDs
 rLp
 qCF
 hhd
@@ -87222,10 +87297,10 @@ xNp
 xNp
 xNp
 xNp
-tcF
+kQT
 xNp
 xNp
-nRC
+qDs
 fSP
 yhM
 iVu
@@ -87479,13 +87554,13 @@ xNp
 xNp
 xNp
 xNp
-tcF
+kQT
 xNp
 fYa
-nRC
-nRC
-nRC
-nRC
+qDs
+qDs
+qDs
+qDs
 var
 var
 uYZ
@@ -87736,13 +87811,13 @@ xNp
 xNp
 xNp
 xNp
-tcF
+kQT
 xNp
 fYa
 nRC
 var
 var
-nRC
+qDs
 xNp
 xNp
 xNp
@@ -87993,13 +88068,13 @@ xNp
 xNp
 xNp
 xNp
-tcF
+kQT
 xNp
 fYa
 oYc
 var
 var
-nRC
+qDs
 uYZ
 uYZ
 uYZ
@@ -88250,7 +88325,7 @@ xNp
 xNp
 xNp
 xNp
-tcF
+kQT
 xNp
 fYa
 lhg
@@ -88487,27 +88562,27 @@ bTu
 bKa
 pyx
 axF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
-tcF
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
+kQT
 xNp
 fYa
 fYa
@@ -102813,7 +102888,7 @@ kDJ
 uwS
 psa
 lkj
-wkg
+tcF
 vOH
 vRQ
 sBN
@@ -111544,7 +111619,7 @@ aAv
 hvD
 riX
 jdr
-mZa
+qbE
 slQ
 slQ
 qJg
@@ -112557,7 +112632,7 @@ uOK
 uOK
 hpo
 pQK
-xcE
+ssw
 xcE
 prO
 xcE
