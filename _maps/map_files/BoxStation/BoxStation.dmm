@@ -4785,7 +4785,6 @@
 /area/station/hallway/primary/starboard)
 "bPj" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
@@ -7934,6 +7933,7 @@
 /area/station/medical/break_room)
 "cWc" = (
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "cWf" = (
@@ -10254,6 +10254,10 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/checker,
 /area/station/commons/storage/emergency/port)
+"dOB" = (
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
 "dOJ" = (
 /turf/closed/wall/r_wall,
 /area/station/maintenance/department/eva)
@@ -10384,6 +10388,10 @@
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/closet/firecloset,
+/obj/machinery/camera/directional/south{
+	c_tag = "Central Hallway Southeast";
+	name = "hallway camera"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "dRX" = (
@@ -14230,14 +14238,13 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
 "frS" = (
-/obj/structure/lattice,
 /obj/machinery/camera/directional/east{
 	c_tag = "MiniSat - External NorthWest";
 	network = list("minisat");
 	start_active = 1
 	},
-/turf/open/space,
-/area/space/nearstation)
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
 "fsa" = (
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /obj/effect/spawner/random/vending/snackvend,
@@ -16794,7 +16801,6 @@
 /obj/structure/alien/weeds,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/four,
-/obj/effect/mob_spawn/corpse/facehugger,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "gpN" = (
@@ -20446,9 +20452,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/blue/filled/line,
-/obj/machinery/camera/directional/south{
-	c_tag = "Central Hallway South"
-	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "hJM" = (
@@ -24247,6 +24251,7 @@
 	dir = 8
 	},
 /obj/machinery/ticket_machine/directional/east,
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "jhg" = (
@@ -26049,6 +26054,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/port)
+"jPs" = (
+/obj/machinery/light/small/directional/east,
+/obj/machinery/space_heater,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
 "jPz" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/structure/window,
@@ -28924,9 +28934,12 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "kSK" = (
-/obj/machinery/light/directional/west,
-/turf/open/floor/iron/dark,
-/area/station/command/bridge)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/effect/mapping_helpers/broken_floor,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
 "kTb" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
@@ -37829,7 +37842,6 @@
 /area/station/science/lab)
 "omL" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "omP" = (
@@ -39812,6 +39824,7 @@
 	name = "Medbay"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/effect/landmark/navigate_destination/med,
 /turf/open/floor/iron/white/textured,
@@ -39846,6 +39859,7 @@
 /area/station/service/kitchen)
 "oZv" = (
 /obj/structure/fireaxecabinet/directional/south,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "oZF" = (
@@ -40035,6 +40049,10 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/camera/directional/south{
+	c_tag = "Central Hallway South";
+	name = "hallway camera"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "pck" = (
@@ -45272,8 +45290,8 @@
 	},
 /area/station/service/hydroponics)
 "qZw" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
+/obj/effect/mapping_helpers/broken_floor,
+/obj/effect/spawner/random/structure/girder,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "qZx" = (
@@ -48070,6 +48088,7 @@
 	name = "Medbay"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
 /obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/iron/white/textured,
 /area/station/medical/medbay/lobby)
@@ -48811,7 +48830,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/port)
 "srU" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "ssc" = (
@@ -50499,7 +50518,6 @@
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 8
 	},
-/obj/machinery/light/directional/east,
 /obj/structure/sign/departments/maint/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
@@ -53107,6 +53125,10 @@
 "tVs" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/bluespace_vendor/directional/north,
+/obj/machinery/camera/directional/north{
+	c_tag = "Central Hallway West - HoP Line";
+	name = "hallway camera"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "tVt" = (
@@ -56023,18 +56045,11 @@
 /turf/open/floor/iron,
 /area/station/science/robotics/mechbay)
 "vcz" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "Central Hallway South-West"
-	},
-/turf/open/floor/iron/dark/textured,
-/area/station/hallway/primary/central)
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
 "vcC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57210,14 +57225,13 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "vAO" = (
-/obj/structure/lattice,
 /obj/machinery/camera/directional/west{
 	c_tag = "MiniSat - External NorthEast";
 	network = list("minisat");
 	start_active = 1
 	},
-/turf/open/space,
-/area/space/nearstation)
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
 "vAR" = (
 /obj/structure/table,
 /turf/open/floor/iron/dark,
@@ -58987,9 +59001,6 @@
 /area/station/security/prison/workout)
 "wjr" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/camera/directional/west{
-	c_tag = "Central Hallway South-West - HoP's Office"
-	},
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
 	},
@@ -60093,7 +60104,6 @@
 /obj/structure/alien/weeds,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/two,
-/obj/effect/mob_spawn/corpse/facehugger,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "wGU" = (
@@ -61512,13 +61522,9 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "xib" = (
-/obj/machinery/light/directional/south,
-/obj/effect/turf_decal/trimline/blue/filled/line,
-/obj/effect/turf_decal/trimline/blue/line{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/station/hallway/primary/central)
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
 "xif" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -62601,7 +62607,10 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/directional/east{
+	c_tag = "Central Hallway East - Teleporter Access";
+	name = "hallway camera"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "xCk" = (
@@ -63868,6 +63877,10 @@
 	dir = 1
 	},
 /obj/structure/sign/departments/maint/directional/south,
+/obj/machinery/camera/directional/south{
+	c_tag = "Central Hallway Southwest";
+	name = "hallway camera"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
 "xZv" = (
@@ -81371,10 +81384,10 @@ vxG
 fMW
 fMW
 uOV
-fMW
-fMW
+vcz
+srU
 dDP
-fMW
+wyE
 uOV
 xNp
 uYZ
@@ -81519,11 +81532,11 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+oNc
+oNc
+oNc
+oNc
+oNc
 xNp
 xNp
 xNp
@@ -81622,16 +81635,16 @@ jPT
 dDP
 fMW
 uOV
-bmj
+fMW
 fMW
 fMW
 fMW
 fMW
 uOV
-srU
+hzY
 fMW
-dDP
-fMW
+kSK
+xib
 uOV
 xNp
 uYZ
@@ -81776,11 +81789,11 @@ xNp
 xNp
 xNp
 xNp
+wlq
 xNp
+wlq
 xNp
-xNp
-xNp
-xNp
+wlq
 xNp
 xNp
 xNp
@@ -81888,7 +81901,7 @@ jDI
 dDP
 dDP
 dDP
-fMW
+tWr
 uOV
 xNp
 uYZ
@@ -82142,10 +82155,10 @@ fMW
 fMW
 fMW
 uOV
+qZw
+dOB
 fMW
 fMW
-fMW
-dUC
 uOV
 xNp
 uYZ
@@ -82399,10 +82412,10 @@ fMW
 gNI
 iGz
 uOV
+bmj
 fMW
 fMW
-fMW
-fMW
+jPs
 uOV
 xNp
 uYZ
@@ -83559,8 +83572,8 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
+oNc
+wlq
 kcj
 kcj
 yjQ
@@ -83816,7 +83829,7 @@ xNp
 xNp
 xNp
 xNp
-wlq
+oNc
 xNp
 kcj
 nso
@@ -84073,8 +84086,8 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
+oNc
+wlq
 kcj
 cRn
 cRn
@@ -84330,7 +84343,7 @@ xNp
 xNp
 xNp
 xNp
-xNp
+oNc
 xNp
 kcj
 nso
@@ -84587,8 +84600,8 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
+oNc
+wlq
 kcj
 kcj
 yjQ
@@ -86256,7 +86269,7 @@ uOV
 dcN
 kle
 uOV
-qZw
+mKD
 loC
 jbt
 uOV
@@ -86508,7 +86521,7 @@ fMW
 uOV
 fMW
 uOV
-qZw
+mKD
 uOV
 loC
 kle
@@ -87541,7 +87554,7 @@ mKD
 loC
 loC
 loC
-qZw
+mKD
 uOV
 eSR
 uOV
@@ -88052,7 +88065,7 @@ fMW
 dYS
 uOV
 mKD
-qZw
+mKD
 fAh
 loC
 wGM
@@ -89043,12 +89056,12 @@ jqh
 jsI
 wVZ
 wHp
-wHp
+pDj
 wHp
 fYI
 mNg
 fcM
-pDj
+wHp
 wHp
 eaO
 oTx
@@ -91114,7 +91127,7 @@ psZ
 dzI
 gcm
 oIP
-vcz
+gcm
 ePG
 osb
 aTw
@@ -92135,7 +92148,7 @@ tWf
 aCi
 enW
 ivG
-kSK
+enW
 lbj
 yiJ
 iXZ
@@ -94198,7 +94211,7 @@ awK
 lbj
 ntc
 gkY
-xib
+eco
 nIR
 hAj
 feN
@@ -101226,8 +101239,8 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
+saA
+mdr
 xNp
 xNp
 xNp
@@ -101479,13 +101492,13 @@ xNp
 xNp
 xNp
 xNp
+mdr
+mdr
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+saA
+mdr
+mdr
 xNp
 xNp
 xNp
@@ -101734,15 +101747,15 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+saA
+saA
+mdr
 xNp
 xNp
 xNp
@@ -101989,17 +102002,17 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+saA
+saA
+saA
+mdr
 xNp
 xNp
 xNp
@@ -102244,21 +102257,21 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
+mdr
 mdr
 mdr
 saA
 saA
-mdr
+saA
+saA
+lnA
 mdr
 saA
 saA
-xNp
-xNp
-xNp
-xNp
+saA
+mdr
+mdr
+mdr
 xNp
 xNp
 xNp
@@ -102498,27 +102511,27 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
+mdr
+mdr
 mdr
 mdr
 saA
 saA
+saA
+saA
+saA
+saA
+saA
 mdr
 saA
 saA
 saA
 saA
+saA
 mdr
-saA
-saA
-saA
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
 xNp
 xNp
 xNp
@@ -102744,18 +102757,18 @@ xNp
 xNp
 xNp
 xNp
+mdr
+mdr
+mdr
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
 saA
 saA
 saA
@@ -102770,12 +102783,12 @@ xbE
 hSx
 saA
 saA
+saA
+saA
 mdr
-xNp
-xNp
-xNp
-xNp
-xNp
+saA
+saA
+mdr
 xNp
 xNp
 xNp
@@ -103000,18 +103013,18 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+lZU
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+saA
 saA
 saA
 saA
@@ -103026,13 +103039,13 @@ saA
 fQM
 saA
 saA
+saA
+saA
+saA
+saA
+saA
+saA
 mdr
-mdr
-xNp
-xNp
-xNp
-xNp
-xNp
 xNp
 xNp
 xNp
@@ -103262,15 +103275,15 @@ eFw
 eFw
 eFw
 eFw
-wlq
-xNp
-wlq
+saA
+mdr
+mdr
 frS
-wlq
-xNp
-xNp
 mdr
-mdr
+saA
+saA
+saA
+saA
 saA
 saA
 saA
@@ -103284,14 +103297,14 @@ awL
 saA
 saA
 saA
+saA
+saA
+saA
+saA
 mdr
 mdr
-lZU
 mdr
-xNp
-xNp
-xNp
-xNp
+mdr
 xNp
 xNp
 xNp
@@ -103523,10 +103536,10 @@ rzB
 rzB
 rzB
 rzB
-wlq
-wlq
-wlq
-wlq
+saA
+saA
+saA
+saA
 rzB
 rzB
 rzB
@@ -103542,14 +103555,14 @@ aOM
 aOM
 aOM
 aOM
+saA
+saA
+saA
 saA
 saA
 saA
 mdr
-xNp
-xNp
-xNp
-xNp
+mdr
 xNp
 xNp
 xNp
@@ -103804,9 +103817,9 @@ saA
 saA
 saA
 saA
-xNp
-xNp
-xNp
+saA
+saA
+saA
 xNp
 xNp
 xNp
@@ -104063,9 +104076,9 @@ saA
 saA
 saA
 saA
-xNp
-xNp
-xNp
+saA
+saA
+saA
 xNp
 xNp
 xNp
@@ -104321,9 +104334,9 @@ saA
 saA
 saA
 saA
-xNp
-xNp
-xNp
+saA
+saA
+saA
 xNp
 xNp
 xNp
@@ -104578,7 +104591,7 @@ saA
 saA
 mdr
 mdr
-xNp
+mdr
 xNp
 xNp
 xNp
@@ -106607,10 +106620,10 @@ rzB
 rzB
 rzB
 rzB
-wlq
-wlq
-wlq
-wlq
+saA
+saA
+saA
+saA
 rzB
 rzB
 rzB
@@ -106860,15 +106873,15 @@ fWP
 fWP
 fWP
 fWP
-wlq
-xNp
-wlq
-vAO
-wlq
-xNp
-xNp
-wlq
+saA
 mdr
+mdr
+vAO
+mdr
+mdr
+saA
+saA
+saA
 saA
 saA
 saA
@@ -107112,21 +107125,21 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
+saA
+saA
+lnA
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+saA
+saA
 saA
 saA
 saA
@@ -107371,21 +107384,21 @@ xNp
 xNp
 xNp
 xNp
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
+mdr
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
+mdr
+mdr
 saA
 lnA
 lZU
@@ -107642,9 +107655,9 @@ xNp
 xNp
 xNp
 xNp
-xNp
-xNp
-xNp
+mdr
+mdr
+mdr
 mdr
 mdr
 mdr
