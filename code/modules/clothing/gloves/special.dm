@@ -1,7 +1,10 @@
 
 /obj/item/clothing/gloves/cargo_gauntlet
 	name = "\improper H.A.U.L. gauntlets"
-	desc = "These clunky gauntlets allow you to drag things with more confidence on them not getting nabbed from you."
+	//MONKESTATION EDIT START
+	//desc = "These clunky gauntlets allow you to drag things with more confidence on them not getting nabbed from you." //MONKESTATION EDIT ORIGINAL
+	desc = "These clunky gauntlets allow you to drag things with more confidence on them not getting nabbed from you. However, they make your fingers too chunky to use most firearms, stun batons, and some computers flexibly."
+	//MONKESTATION EDIT END
 	icon_state = "haul_gauntlet"
 	greyscale_colors = "#2f2e31"
 	equip_delay_self = 3 SECONDS
