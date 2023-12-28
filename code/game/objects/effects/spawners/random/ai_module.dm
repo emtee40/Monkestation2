@@ -73,6 +73,5 @@
 		/obj/item/ai_module/core/full/cargoniaup,
 		/obj/item/ai_module/core/full/monkeism,
 		/obj/item/ai_module/core/full/slimeworship,
-		/obj/item/ai_module/core/full/onionandapple,
-		/obj/item/ai_module/core/full/catmadness
+		/obj/item/ai_module/core/full/onionandapple
 	)
