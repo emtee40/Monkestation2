@@ -17337,6 +17337,9 @@
 "gCE" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5
+	},
 /turf/open/floor/iron/kitchen,
 /area/station/service/kitchen)
 "gCF" = (
@@ -21222,7 +21225,7 @@
 	name = "Medbay"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
+/obj/effect/mapping_helpers/airlock/access/any/science/genetics,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/effect/landmark/navigate_destination/med,
 /turf/open/floor/iron/white/textured,
@@ -32212,10 +32215,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/maintenance/port)
 "lQn" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker{
-	pixel_x = 5
-	},
+/obj/machinery/stove,
 /turf/open/floor/iron/kitchen,
 /area/station/service/kitchen)
 "lQB" = (
@@ -36769,7 +36769,9 @@
 /area/station/maintenance/department/eva)
 "nBr" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/binary/tank_compressor,
+/obj/machinery/atmospherics/components/binary/tank_compressor{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance)
 "nBE" = (
@@ -44052,7 +44054,7 @@
 	name = "Medbay"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
+/obj/effect/mapping_helpers/airlock/access/any/science/genetics,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
 	cycle_id = "sci-med-passthrough"
 	},
@@ -54693,7 +54695,7 @@
 	name = "Cloning Lab"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
+/obj/effect/mapping_helpers/airlock/access/any/science/genetics,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
@@ -58358,7 +58360,7 @@
 	name = "Medbay"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/effect/mapping_helpers/airlock/access/all/science/genetics,
+/obj/effect/mapping_helpers/airlock/access/any/science/genetics,
 /obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/iron/white/textured,
 /area/station/medical/medbay/lobby)
@@ -63971,6 +63973,17 @@
 /obj/item/holosign_creator/atmos{
 	pixel_x = 4;
 	pixel_y = 4
+	},
+/obj/item/computer_disk{
+	pixel_x = -8;
+	pixel_y = -3
+	},
+/obj/item/computer_disk{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/computer_disk/ordnance{
+	pixel_x = 1
 	},
 /turf/open/floor/iron,
 /area/station/science/ordnance)
