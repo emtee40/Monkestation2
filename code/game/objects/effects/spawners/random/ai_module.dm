@@ -54,7 +54,7 @@
 		/obj/item/ai_module/zeroth/stationdfenderext,
 		/obj/item/ai_module/core/full/spicyair,
 		/obj/item/ai_module/core/full/spessman,
-		/obj/item/ai_module/zeroth/freeformzeroth
+		/obj/item/ai_module/zeroth/freeformzeroth,
 	)
 
 /obj/effect/spawner/random/aimodule/harmful
@@ -73,5 +73,5 @@
 		/obj/item/ai_module/core/full/cargoniaup,
 		/obj/item/ai_module/core/full/monkeism,
 		/obj/item/ai_module/core/full/slimeworship,
-		/obj/item/ai_module/core/full/onionandapple
+		/obj/item/ai_module/core/full/onionandapple,
 	)
