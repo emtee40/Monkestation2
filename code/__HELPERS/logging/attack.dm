@@ -76,6 +76,10 @@
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
 
 	if(user)
+		//MONKESTATION ADDITION START - Mark if the bomber was a pacifist
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			bomb_message = "(while pacifist) [bomb_message]"
+		//MONKESTATION ADDITION END
 		user.log_message(bomb_message, LOG_ATTACK) //let it go to individual logs as well as the game log
 		bomb_message = "[key_name(user)] at [AREACOORD(user)] [bomb_message]."
 	else
@@ -85,4 +89,9 @@
 
 	add_event_to_buffer(user, data = bomb_message, log_key = "BOMB")
 	if(message_admins)
+		//MONKESTATION EDIT START - Mark if the bomber was a pacifist
+		/*
 		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
+		*/ //MONKESTATION EDIT ORIGINAL
+		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)][HAS_TRAIT(user, TRAIT_PACIFISM) ? " (pacifist)" : ""] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
+		//MONKESTATION EDIT END
