@@ -75,8 +75,15 @@
 	var/datum/target = blackboard[key]
 	if(QDELETED(target))
 		return FALSE
-	if(!can_reach_target(target, distance))
+	var/datum/last_attempt = blackboard[BB_LAST_ATTEMPTED_PATHING]
+	if(last_attempt != target)
+		current_pathing_attempts = 0
+		set_blackboard_key(BB_LAST_ATTEMPTED_PATHING, target)
+	else
+		current_pathing_attempts++
+	if(current_pathing_attempts >= max_pathing_attempts || !can_reach_target(target, distance))
 		clear_blackboard_key(key)
+		clear_blackboard_key(BB_LAST_ATTEMPTED_PATHING)
 		set_blackboard_key_assoc_lazylist(BB_TEMPORARY_IGNORE_LIST, target, TRUE)
 		return FALSE
 	return TRUE
@@ -89,7 +96,7 @@
 
 /datum/ai_behavior/manage_unreachable_list
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
-	action_cooldown = 15 SECONDS
+	action_cooldown = 45 SECONDS
 
 /datum/ai_behavior/manage_unreachable_list/perform(seconds_per_tick, datum/ai_controller/controller, list_key)
 	. = ..()
