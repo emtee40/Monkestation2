@@ -122,7 +122,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)] with [det_time] second fuse")
 		user.log_message("planted [name] on [target.name] with a [det_time] second fuse.", LOG_ATTACK)
 		*/ //MONKESTATION EDIT ORIGINAL
-		log_bomber(user, "planted", src, "on [target] at [ADMIN_VERBOSEJMP(target)] with [det_time] second fuse")
+		log_bomber(user, "planted", src, "on [target] with [det_time] second fuse")
 		//MONKESTATION EDIT END
 		notify_ghosts("[user] has planted \a [src] on [target] with a [det_time] second fuse!", source = bomb_target, action = (isturf(target) ? NOTIFY_JUMP : NOTIFY_ORBIT), flashwindow = FALSE, header = "Explosive Planted")
 
