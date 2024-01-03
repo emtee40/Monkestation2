@@ -328,6 +328,16 @@
 		/obj/item/stack/ore/plasma,
 		/obj/item/storage/bag/ore,
 		/obj/item/gun/energy/recharge/kinetic_accelerator,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/glock, //MONKE EDIT STARTS
+		/obj/item/gun/energy/recharge/kinetic_accelerator/repeater,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/shockwave,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/m79,
+		/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,
+		/obj/item/gun/ballistic/automatic/proto/pksmg,
+		/obj/item/kinetic_crusher/claw,
+		/obj/item/kinetic_crusher/hammer,
+		/obj/item/kinetic_crusher/machete,
+		/obj/item/kinetic_crusher/spear, //MONKE EDIT ENDS
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
 	skins = list(
