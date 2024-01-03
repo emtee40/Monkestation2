@@ -418,6 +418,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/wormhole_jaunter,
+		/obj/item/storage/box/kinetic, //monke edit
+		/obj/item/ammo_box/magazine/pksmgmag, //monke edit
 	))
 
 

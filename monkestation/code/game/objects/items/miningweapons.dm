@@ -236,25 +236,29 @@
 	knife_y_offset = 12
 	max_mod_capacity = 60
 
-/obj/item/gun/energy/recharge/kinetic_accelerator/shotgun
-	name = "proto-kinetic shotgun"
-	desc = "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
-	other research members with one blast. The MR&D Director immedietly thought of a genuis idea, creating the proto-kinetic shotgun moments later, which he \
-	immedietly used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
-	of firing three shots at once with reduce range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker."
+/obj/item/gun/ballistic/automatic/proto/pksmg //replaced shotgun due to shotgun never being bought, and being WAY too similar to the repeater, and doing its job shittier.
+	name = "proto-kinetic smg"
+	desc = "After the failure of the proto-kinetic shotgun, mining RND whipped up this as an apology to miners and the officials of nanotrasen. \
+	Now, at the cost of no mods, and limited ammo, you can enjoy the proto-kinetic experience in glorious full auto."
 	icon = 'monkestation/icons/obj/guns/guns.dmi'
-	icon_state = "kineticshotgun"
-	base_icon_state = "kineticshotgun"
-	inhand_icon_state = "kineticgun"
-	recharge_time = 2 SECONDS
-	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
-	item_flags = NONE
-	obj_flags = UNIQUE_RENAME
-	weapon_weight = WEAPON_LIGHT
-	can_bayonet = TRUE
-	knife_x_offset = 20
-	knife_y_offset = 12
-	max_mod_capacity = 60
+	icon_state = "pksmg"
+	burst_size = 1
+	actions_types = list()
+	mag_display = TRUE
+	empty_indicator = TRUE
+	mag_type = /obj/item/ammo_box/magazine/pksmgmag
+	pin = /obj/item/firing_pin/wastes
+	bolt_type = BOLT_TYPE_LOCKING
+	show_bolt_icon = FALSE
+	fire_sound = 'sound/weapons/kenetic_accel.ogg'
+
+//FLASHLIGHTTTTTT
+/obj/item/gun/ballistic/automatic/proto/pksmg/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/weapons/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 16)
 
 /obj/item/gun/energy/recharge/kinetic_accelerator/glock
 	name = "proto-kinetic pistol"
@@ -310,6 +314,36 @@
 	max_mod_capacity = 0
 	disablemodification = TRUE
 
+//Magazine for SMG and the box the mags come in
+/obj/item/ammo_box/magazine/pksmgmag
+	name = "proto-kinetic magazine"
+	desc = "A single magazine loaded with proto-kinetic projectiles, made for the proto-kinetic SMG."
+	icon = 'monkestation/icons/obj/guns/ammo.dmi'
+	icon_state = "pksmgmag"
+	base_icon_state = "pksmgmag"
+	ammo_type = /obj/item/ammo_casing/energy/kinetic/smg
+	caliber = ENERGY
+	max_ammo = 45
+
+/obj/item/storage/box/kinetic
+	name = "Box of Kinetic Projectiles"
+	desc = "A box full of kinetic projectile magazines, specifically for the proto-kinetic SMG\
+	It is specially designed to only hold proto-kinetic magazines, and also fit inside of explorer webbing."
+	icon_state = "rubbershot_box"
+
+/obj/item/storage/box/kinetic/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 7
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 20
+	atom_storage.set_holdable(list(
+		/obj/item/ammo_box/magazine/pksmgmag,
+	))
+
+/obj/item/storage/box/kinetic/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_box/magazine/pksmgmag(src)
+
 //Accelerator Casing
 /obj/item/ammo_casing/energy/kinetic/railgun
 	projectile_type = /obj/projectile/kinetic/railgun
@@ -323,12 +357,10 @@
 	e_cost = 150 //about three shots
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
-/obj/item/ammo_casing/energy/kinetic/shotgun
-	projectile_type = /obj/projectile/kinetic/shotgun
+/obj/item/ammo_casing/energy/kinetic/smg
+	projectile_type = /obj/projectile/kinetic/smg
 	select_name = "kinetic"
-	e_cost = 500
-	pellets = 3
-	variance = 50
+	e_cost = 0
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/glock
@@ -373,19 +405,19 @@
 	range = 4
 	log_override = TRUE
 
-/obj/projectile/kinetic/shotgun
-	name = "split kinetic force"
+/obj/projectile/kinetic/smg
+	name = "kinetic projectile"
 	icon_state = null
 	damage = 20
 	damage_type = BRUTE
 	armor_flag = BOMB
-	range = 3
+	range = 5
 	log_override = TRUE
 
 /obj/projectile/kinetic/glock
 	name = "light kinetic force"
 	icon_state = null
-	damage = 10
+	damage = 15
 	damage_type = BRUTE
 	armor_flag = BOMB
 	range = 3
