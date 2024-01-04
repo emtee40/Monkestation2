@@ -38,3 +38,15 @@
 		/obj/item/ammo_box/c35/rubber = 1,
 		)
 	crate_name = ".35 Ammo crate"
+
+/datum/supply_pack/security/blueshift
+	name = "Blue Shift Uniform Crate"
+	desc = "Contains alternative outfits for the station's private security force. Has enough outfits for five security officers. Originally produced for a now defunct research station."
+	cost = CARGO_CRATE_VALUE * 3
+	access_view = ACCESS_SECURITY
+	contains = list(
+		/obj/item/clothing/head/helmet/blueshirt = 5,
+		/obj/item/clothing/suit/armor/vest/blueshirt = 5,
+		/obj/item/clothing/under/rank/security/officer/blueshirt = 5,
+	)
+	crate_name = "\improper Blue Shift uniform crate"
