@@ -8,10 +8,6 @@
 	hijack_speed = 0.5
 	suicide_cry = "CONSUME!! CLAIM!! THERE WILL BE ANOTHER!!"
 
-	// The amount of biomass our bloodling has
-	var/biomass = 0
-	// The maximum amount of biomass a bloodling can gain
-	var/biomass_max = 500
 	// If this bloodling is ascended or not
 	var/is_ascended = FALSE
 	// Possible names for our bloodling

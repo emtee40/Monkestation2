@@ -20,7 +20,7 @@
 	pass_flags = PASSTABLE
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
-	attack_sound = 'sound/weapons/bite.ogg'
+	attack_sound = 'sound/effects/attackblob.ogg'
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	lighting_cutoff_red = 22
 	lighting_cutoff_green = 5
@@ -33,6 +33,10 @@
 	var/static/list/abilities = list(
 		/datum/action/cooldown/bloodling/hide,
 	)
+	// The amount of biomass our bloodling has
+	var/biomass = 0
+	// The maximum amount of biomass a bloodling can gain
+	var/biomass_max = 500
 
 /mob/living/basic/bloodling/Initialize(mapload)
 	. = ..()

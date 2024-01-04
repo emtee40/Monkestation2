@@ -11,7 +11,7 @@
 	var/datum/antagonist/bloodling/bloodling = IS_BLOODLING(owner)
 	if(!bloodling)
 		return FALSE
-	if(bloodling.biomass < biomass_cost)
+	if(owner.biomass < biomass_cost)
 		return FALSE
 	return TRUE
 
@@ -26,9 +26,8 @@
 	if(QDELETED(src) || QDELETED(owner))
 		return TRUE
 
-	var/datum/antagonist/bloodling/bloodling = IS_BLOODLING(owner)
-	bloodling.biomass -= biomass_cost
-	if(click_to_activate && bloodling.biomass < biomass_cost)
+	owner.biomass -= biomass_cost
+	if(click_to_activate && owner.biomass < biomass_cost)
 		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	return TRUE
