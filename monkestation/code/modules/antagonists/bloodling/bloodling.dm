@@ -1,7 +1,7 @@
 /datum/antagonist/bloodling
 	name = "\improper Bloodling"
-	roundend_category = "changelings"
-	antagpanel_category = "Bloodling"
+	roundend_category = "Bloodlings"
+	antagpanel_category = ANTAG_GROUP_BLOODLING
 	job_rank = ROLE_BLOODLING
 	antag_moodlet = /datum/mood_event/focused
 	antag_hud_name = "changeling"
@@ -24,7 +24,7 @@
 		"carrion",
 	)
 	var/static/list/bloodling_starting_abilities = list(
-		/datum/action/cooldown/alien/hide,
+		/datum/action/cooldown/bloodling/hide,
 	)
 
 /datum/antagonist/bloodling/on_gain()
@@ -48,6 +48,8 @@
 
 /datum/antagonist/bloodling/proc/create_innate_actions()
 	var/mob/living/our_mob = owner.current
-	for var/datum/action/cooldown/spell/created_action in bloodling_starting_abilities:
-		created_action new
+	// loops through our actions and adds them
+	for var/datum/action/cooldown/created_action in bloodling_starting_abilities:
+		if (!created_action)
+		new created_action ()
 		created_action.Grant(our_mob)
