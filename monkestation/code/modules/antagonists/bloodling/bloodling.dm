@@ -37,7 +37,7 @@
 
 /datum/antagonist/bloodling/proc/generate_name()
 	var/name = "bloodling"
-	if(!lenght(bloodling_names))
+	if(!length(bloodling_names))
 		return
 	name = "[pick_n_take(bloodling_names)] [rand(1,999)]"
 
@@ -47,5 +47,7 @@
 	objectives += ascend_objective
 
 /datum/antagonist/bloodling/proc/create_innate_actions()
+	var/mob/living/our_mob = owner.current
 	for var/datum/action/cooldown/spell/created_action in bloodling_starting_abilities:
-		created_action.Grant(user)
+		created_action new
+		created_action.Grant(our_mob)
