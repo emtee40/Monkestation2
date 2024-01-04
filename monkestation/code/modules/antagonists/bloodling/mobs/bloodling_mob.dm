@@ -13,6 +13,7 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1.25, TOX = 1, STAMINA = 1, OXY = 1)
 	basic_mob_flags = FLAMMABLE_MOB
 	status_flags = NONE
+	sight = SEE_SELF|SEE_MOBS
 	unsuitable_cold_damage = 1
 	unsuitable_heat_damage = 1
 	faction = list(FACTION_BLOODLING)
@@ -31,7 +32,6 @@
 	/// The abilities the bloodling start with
 	var/static/list/abilities = list(
 		/datum/action/cooldown/bloodling/hide,
-		/datum/action/cooldown/bloodling/enhanced_vision,
 	)
 
 /mob/living/basic/bloodling/Initialize(mapload)
