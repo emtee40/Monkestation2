@@ -23,13 +23,9 @@
 		"malign blood",
 		"carrion",
 	)
-	var/static/list/bloodling_starting_abilities = list(
-		/datum/action/cooldown/bloodling/hide,
-	)
 
 /datum/antagonist/bloodling/on_gain()
 	generate_name()
-	create_innate_actions()
 	forge_objectives()
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE) //Grants omnitongue. We are a horrific blob of flesh who can manifest a million tongues.
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_alert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -39,17 +35,10 @@
 	var/name = "bloodling"
 	if(!length(bloodling_names))
 		return
-	name = "[pick_n_take(bloodling_names)] [rand(1,999)]"
+	name = "[pick(bloodling_names)] [rand(1,999)]"
+	owner.current.name = name
 
 /datum/antagonist/bloodling/forge_objectives()
 	var/datum/objective/bloodling_ascend/ascend_objective = new
 	ascend_objective.owner = owner
 	objectives += ascend_objective
-
-/datum/antagonist/bloodling/proc/create_innate_actions()
-	var/mob/living/our_mob = owner.current
-	// loops through our actions and adds them
-	for var/datum/action/cooldown/created_action in bloodling_starting_abilities:
-		if (!created_action)
-		new created_action ()
-		created_action.Grant(our_mob)

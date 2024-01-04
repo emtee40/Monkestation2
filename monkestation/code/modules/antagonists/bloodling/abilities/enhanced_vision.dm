@@ -4,7 +4,7 @@
 	button_icon_state = "augmented_eyesight"
 
 /datum/action/cooldown/bloodling/enhanced_vision/Activate(atom/target)
-	if(owner.sight = SEE_MOBS)
+	if(owner.sight == SEE_MOBS)
 		owner.sight -= SEE_MOBS
 		to_chat(owner, span_notice("We adjust our sight back to normal."))
 		return TRUE
