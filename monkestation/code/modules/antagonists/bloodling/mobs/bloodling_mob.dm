@@ -1,7 +1,9 @@
 /mob/living/basic/bloodling
 	name = "bloodling"
 	desc = "A disgusting mass of bone and flesh. It reaches out around it with fleshy tendrils."
-	icon = 'icons/mob/simple/arachnoid.dmi'
+	icon_state = "headslug"
+	icon_living = "headslug"
+	icon_dead = "headslug_dead"
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
 	butcher_results = list(/obj/item/food/meat/slab = 2)
@@ -22,12 +24,9 @@
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/effects/attackblob.ogg'
 	attack_vis_effect = ATTACK_EFFECT_BITE
-	lighting_cutoff_red = 22
-	lighting_cutoff_green = 5
-	lighting_cutoff_blue = 5
 	health = 100
 	maxHealth = 100
-	speed = 5
+
 
 	/// The abilities the bloodling start with
 	var/static/list/abilities = list(
@@ -42,5 +41,16 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	for (var/datum/action/cooldown/created_action in abilities)
-		new created_action ()
+		new created_action()
 		created_action.Grant(src)
+
+/mob/living/basic/bloodling/proc/add_biomass(amount)
+	if(biomass > biomass_max)
+		src.biomass = biomass_max
+		balloon_alert(src, "already maximum biomass")
+		return
+	src.biomass += amount
+	src.maxHealth = biomass
+	src.health = biomass
+
+

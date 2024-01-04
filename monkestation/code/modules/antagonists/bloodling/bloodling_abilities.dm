@@ -8,14 +8,16 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/datum/antagonist/bloodling/bloodling = IS_BLOODLING(owner)
-	if(!bloodling)
+	// Basically we only want bloodlings to have this
+	if(!istype(owner, /mob/living/basic/bloodling))
 		return FALSE
-	if(owner.biomass < biomass_cost)
+	var/mob/living/basic/bloodling/our_mob = owner
+	if(our_mob.biomass < biomass_cost)
 		return FALSE
 	return TRUE
 
 /datum/action/cooldown/bloodling/PreActivate(atom/target)
+	var/mob/living/basic/bloodling/our_mob = owner
 	// Parent calls Activate(), so if parent returns TRUE,
 	// it means the activation happened successfuly by this point
 	. = ..()
@@ -26,8 +28,8 @@
 	if(QDELETED(src) || QDELETED(owner))
 		return TRUE
 
-	owner.biomass -= biomass_cost
-	if(click_to_activate && owner.biomass < biomass_cost)
+	our_mob.add_biomass(biomass_cost)
+	if(click_to_activate && our_mob.biomass < biomass_cost)
 		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	return TRUE
