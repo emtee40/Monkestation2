@@ -27,8 +27,7 @@
 	health = 100
 	maxHealth = 100
 
-
-	/// The abilities the bloodling start with
+	/// The abilities the bloodling has to start with
 	var/static/list/abilities = list(
 		/datum/action/cooldown/bloodling/hide,
 	)
@@ -39,18 +38,37 @@
 
 /mob/living/basic/bloodling/Initialize(mapload)
 	. = ..()
+	create_abilities()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
-	for (var/datum/action/cooldown/created_action in abilities)
-		new created_action()
-		created_action.Grant(src)
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 
-/mob/living/basic/bloodling/proc/add_biomass(amount)
+/// Checks for damage to update the bloodlings biomass accordingly
+/mob/living/basic/bloodling/proc/on_damaged(datum/source, damage, damagetype)
+	SIGNAL_HANDLER
+
+	// Stamina damage is fucky, so we ignore it
+	if(damagetype == STAMINA)
+		return
+
+	src.add_biomass(-damage, TRUE)
+
+/// Used for adding biomass to the bloodling since health needs updating accordingly
+/// ARGUEMENTS:
+/// amount-The amount of biomass to be added or subtracted
+/// damage-If the biomass addition is caused by damage, used so stuff doesnt get fucky
+/mob/living/basic/bloodling/proc/add_biomass(amount, damage = FALSE)
 	if(biomass > biomass_max)
 		src.biomass = biomass_max
 		balloon_alert(src, "already maximum biomass")
 		return
 	src.biomass += amount
 	src.maxHealth = biomass
-	src.health = biomass
+	if(damage)
+		src.health = biomass
 
+/// Creates the bloodlings abilities
+/mob/living/basic/bloodling/proc/create_abilities()
+	for (var/datum/action/cooldown/bloodling/created_action in abilities)
+		created_action = created_action new(src)
+		created_action.Grant(src)
 

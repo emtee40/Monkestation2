@@ -3,29 +3,6 @@
 	desc = "Allows you to hide beneath tables and certain objects."
 	button_icon_state = "alien_hide"
 
-/datum/action/cooldown/bloodling/absorb/Activate(atom/target)
-	var/mob/living/basic/bloodling/our_mob = owner
-	for(var/atom/atom in view(owner, 1))
-		if(istype(atom, /obj/item/food/deadmouse))
-			if(!do_after(owner, 5 SECONDS))
-				break
-			our_mob.add_biomass(10)
-			qdel(atom)
-			break
-		var/mob/living/dead_mob = atom
-		if(!dead_mob.stat == DEAD)
-			continue
-		if(!do_after(owner, 10 SECONDS))
-			break
-		dead_mob.gib()
-		our_mob.add_biomass(dead_mob.getMaxHealth() * 0.5)
-		break
-
-/datum/action/cooldown/bloodling/absorb
-	name = "Absorb Biomass"
-	desc = "Allows you to hide beneath tables and certain objects."
-	button_icon_state = "alien_hide"
-
 /datum/action/cooldown/bloodling/absorb/set_click_ability(mob/on_who)
 	. = ..()
 	if(!.)
@@ -46,16 +23,28 @@
 	if(!ismob(target) || istype(target, /obj/item/food/deadmouse)) // We love deadmouse being food
 		owner.balloon_alert(owner, "doesn't work on non-mobs!")
 		return FALSE
-
+	var/mob/living/mob_to_absorb = target
+	if(!mob_to_absorb.stat == DEAD)
+		owner.balloon_alert(owner, "only works on dead mobs!")
+		return FALSE
 	return ..()
 
 /datum/action/cooldown/bloodling/absorb/Activate(atom/target)
-	if(!target.acid_act(200, 1000))
-		to_chat(owner, span_noticealien("You cannot dissolve this object."))
-		return FALSE
+	var/mob/living/basic/bloodling/our_mob = owner
+	if(istype(atom, /obj/item/food/deadmouse))
+		if(!do_after(owner, 5 SECONDS))
+			return FALSE
+		our_mob.add_biomass(10)
+		qdel(atom)
+		return TRUE
+	var/mob/living/mob_to_absorb = target
+	if(!do_after(owner, 10 SECONDS))
+			break
+	dead_mob.gib()
+	our_mob.add_biomass(dead_mob.getMaxHealth() * 0.5)
 
 	owner.visible_message(
-		span_alertalien("[owner] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"),
-		span_noticealien("You vomit globs of acid over [target]. It begins to sizzle and melt."),
+		span_alertalien("[owner] wraps its tendrils around [target]. It absorbs it!"),
+		span_noticealien("You wrap your tendrils around [target] and absorb it!"),
 	)
 	return TRUE
