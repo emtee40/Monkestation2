@@ -22,7 +22,6 @@ GLOBAL_VAR(dj_booth)
 	var/obj/item/device/cassette_tape/inserted_tape
 	var/time_left = 0
 	var/current_song_duration = 0
-	var/list/people_with_signals = list()
 	var/list/active_listeners = list()
 	var/waiting_for_yield = FALSE
 
@@ -158,14 +157,6 @@ GLOBAL_VAR(dj_booth)
 		GLOB.youtube_exempt["dj-station"] -= anything
 	active_listeners = list()
 
-	if(!soft)
-		for(var/mob/living/carbon/anything as anything in people_with_signals)
-			if(!istype(anything))
-				continue
-			UnregisterSignal(anything, COMSIG_CARBON_UNEQUIP_EARS)
-			UnregisterSignal(anything, COMSIG_CARBON_EQUIP_EARS)
-			UnregisterSignal(anything, COMSIG_MOVABLE_Z_CHANGED)
-		people_with_signals = list()
 	add_event_to_buffer(src,  data = "has stopped broadcasting [inserted_tape].", log_key = "MUSIC")
 
 /obj/machinery/cassette/dj_station/proc/start_broadcast()
@@ -178,33 +169,16 @@ GLOBAL_VAR(dj_booth)
 	GLOB.dj_broadcast = TRUE
 	pl_index = list_index
 
-	var/list/viable_z = SSmapping.levels_by_any_trait(list(ZTRAIT_STATION, ZTRAIT_MINING, ZTRAIT_CENTCOM))
-	for(var/mob/living/carbon/anything as anything in GLOB.player_list)
-		if(!(anything in people_with_signals))
-			if(!istype(anything))
-				continue
-
-			RegisterSignal(anything, COMSIG_CARBON_UNEQUIP_EARS, PROC_REF(stop_solo_broadcast))
-			RegisterSignal(anything, COMSIG_CARBON_EQUIP_EARS, PROC_REF(check_solo_broadcast))
-			RegisterSignal(anything, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_solo_broadcast))
-			people_with_signals |= anything
+	for(var/mob/anything as anything in GLOB.player_list)
+		if(!istype(anything))
+			// .client, which we need below, only exists on /mob
+			continue
 
 		if(!(anything.client in active_listeners))
-			if(!(anything.z in viable_z))
-				continue
-
 			if(!anything.client)
 				continue
 
 			if(anything.client in GLOB.youtube_exempt["walkman"])
-				continue
-
-			var/obj/item/ear_slot = anything.get_item_by_slot(ITEM_SLOT_EARS)
-			if(istype(ear_slot, /obj/item/clothing/ears))
-				var/obj/item/clothing/ears/worn
-				if(!worn || !worn?.radio_compat)
-					continue
-			else if(!istype(ear_slot, /obj/item/radio/headset))
 				continue
 
 			if(!anything.client.prefs?.read_preference(/datum/preference/toggle/hear_music))
@@ -223,17 +197,6 @@ GLOBAL_VAR(dj_booth)
 	SIGNAL_HANDLER
 
 	if(!istype(source))
-		return
-
-	if(istype(ear_item, /obj/item/clothing/ears))
-		var/obj/item/clothing/ears/worn
-		if(!worn || !worn?.radio_compat)
-			return
-	else if(!istype(ear_item, /obj/item/radio/headset))
-		return
-
-	var/list/viable_z = SSmapping.levels_by_any_trait(list(ZTRAIT_STATION, ZTRAIT_MINING, ZTRAIT_CENTCOM))
-	if(!(source.z in viable_z) || !source.client)
 		return
 
 	if(!source.client.prefs?.read_preference(/datum/preference/toggle/hear_music))
@@ -331,24 +294,7 @@ GLOBAL_VAR(dj_booth)
 	waiting_for_yield = FALSE
 
 /obj/machinery/cassette/dj_station/proc/add_new_player(mob/living/carbon/new_player)
-	if(!(new_player in people_with_signals))
-		RegisterSignal(new_player, COMSIG_CARBON_UNEQUIP_EARS, PROC_REF(stop_solo_broadcast))
-		RegisterSignal(new_player, COMSIG_CARBON_EQUIP_EARS, PROC_REF(check_solo_broadcast))
-		RegisterSignal(new_player, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_solo_broadcast))
-		people_with_signals |= new_player
-
 	if(!broadcasting)
-		return
-
-	var/obj/item/ear_slot = new_player.get_item_by_slot(ITEM_SLOT_EARS)
-	if(istype(ear_slot, /obj/item/clothing/ears))
-		var/obj/item/clothing/ears/worn
-		if(!worn || !worn?.radio_compat)
-			return
-	else if(!istype(ear_slot, /obj/item/radio/headset))
-		return
-	var/list/viable_z = SSmapping.levels_by_any_trait(list(ZTRAIT_STATION, ZTRAIT_MINING, ZTRAIT_CENTCOM))
-	if(!(new_player.z in viable_z))
 		return
 
 	if(!(new_player.client in active_listeners))
