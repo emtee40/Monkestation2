@@ -31,17 +31,17 @@
 
 /datum/action/cooldown/bloodling/absorb/Activate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
-	if(istype(atom, /obj/item/food/deadmouse))
+	if(istype(target, /obj/item/food/deadmouse))
 		if(!do_after(owner, 5 SECONDS))
 			return FALSE
 		our_mob.add_biomass(10)
-		qdel(atom)
+		qdel(target)
 		return TRUE
 	var/mob/living/mob_to_absorb = target
 	if(!do_after(owner, 10 SECONDS))
-			break
-	dead_mob.gib()
-	our_mob.add_biomass(dead_mob.getMaxHealth() * 0.5)
+		return FALSE
+	mob_to_absorb.gib()
+	our_mob.add_biomass(mob_to_absorb.getMaxHealth() * 0.5)
 
 	owner.visible_message(
 		span_alertalien("[owner] wraps its tendrils around [target]. It absorbs it!"),
