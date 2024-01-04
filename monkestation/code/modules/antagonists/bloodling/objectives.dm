@@ -5,6 +5,7 @@
 	explanation_text = "Ascend as the ultimate being"
 
 /datum/objective/maroon/check_completion()
-	if (!owner.antag_datums.bloodling.)
+	var/datum/antagonist/bloodling/bloodling = owner.mind.has_antag_datum(/datum/antagonist/bloodling,TRUE)
+	if (!bloodling.is_ascended)
 		return FALSE
 	return TRUE
