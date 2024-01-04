@@ -16,6 +16,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	faction = list(FACTION_CREATURE)
 	obj_damage = 0
+	speed = 7
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
