@@ -113,7 +113,7 @@
 
 // Start of Monkestation edit
 /datum/saymode/bloodling
-	key = "l"
+	key = "f"
 	mode = MODE_BLOODLING
 
 /datum/saymode/changeling/handle_message(mob/living/user, message, datum/language/language)
@@ -132,7 +132,6 @@
 		if(!reciever.owner)
 			continue
 		var/mob/living/ling_mob = reciever.owner.current
-		//removes types that override the presence of being changeling (for example, borged lings still can't hivemind chat)
 		to_chat(ling_mob, msg)
 
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)

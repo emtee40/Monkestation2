@@ -16,7 +16,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	faction = list(FACTION_CREATURE)
 	obj_damage = 0
-	speed = 7
+	speed = 2.8
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
@@ -46,7 +46,7 @@
 	if(damagetype == STAMINA)
 		return
 
-	src.add_biomass(-damage, TRUE)
+	src.add_biomass(-damage)
 
 /// Used for adding biomass to the bloodling since health needs updating accordingly
 /// ARGUEMENTS:
