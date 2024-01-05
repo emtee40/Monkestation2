@@ -1828,9 +1828,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "aNs" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/light_switch/directional/north,
+/obj/structure/rack,
+/obj/item/storage/briefcase,
 /turf/open/floor/iron/dark,
 /area/station/security/detectives_office)
 "aNv" = (
@@ -8778,7 +8779,16 @@
 /area/station/science/ordnance)
 "dor" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/random,
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/sunglasses/big,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "dos" = (
@@ -10926,8 +10936,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/open/floor/plating,
-/area/station/maintenance/port/fore)
+/turf/open/floor/wood,
+/area/station/service/lawoffice)
 "ecX" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 5
@@ -12753,6 +12763,9 @@
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/rack,
+/obj/item/storage/briefcase,
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "ePR" = (
@@ -15715,9 +15728,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical)
 "fUX" = (
-/obj/structure/rack,
-/obj/item/storage/briefcase,
 /obj/machinery/newscaster/directional/north,
+/obj/structure/table/wood,
+/obj/machinery/fax{
+	fax_name = "Detective's Office";
+	name = "Detective's Fax Machine"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/detectives_office)
 "fVc" = (
@@ -20745,9 +20761,9 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+/obj/machinery/fax{
+	fax_name = "Security Office";
+	name = "Security Office Fax Machine"
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/office)
@@ -22711,7 +22727,6 @@
 "iua" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/airalarm/directional/south,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "ium" = (
@@ -26945,17 +26960,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "jUt" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small/directional/south,
 /obj/machinery/camera/autoname/directional/south,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = -2;
-	pixel_y = 7
-	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching Prison Wing holding areas.";
 	name = "Prison Monitor";
@@ -26963,7 +26968,9 @@
 	pixel_y = -30;
 	dir = 1
 	},
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/machinery/computer/warrant{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "jUD" = (
@@ -31371,8 +31378,11 @@
 "lAg" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster/directional/south,
-/obj/item/taperecorder,
-/obj/item/tape/random,
+/obj/machinery/fax{
+	fax_name = "Law Office";
+	name = "Law Office Fax Machine"
+	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "lAF" = (
@@ -34769,9 +34779,8 @@
 /turf/open/floor/iron/textured,
 /area/station/service/kitchen/coldroom)
 "mMY" = (
-/obj/structure/rack,
 /obj/item/radio/intercom/directional/north,
-/obj/item/storage/briefcase,
+/obj/machinery/photocopier,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "mNq" = (
@@ -35226,10 +35235,9 @@
 /area/station/hallway/secondary/entry)
 "mWa" = (
 /obj/structure/table/glass,
-/obj/item/clipboard,
-/obj/item/coin/silver{
-	pixel_x = 7;
-	pixel_y = 7
+/obj/machinery/fax{
+	fax_name = "Quartermaster's Office";
+	name = "Quartermaster's Fax Machine"
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/qm)
@@ -35392,20 +35400,12 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
 "mXY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/machinery/door/airlock/maintenance{
-	name = "Law Office Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/service/lawyer,
-/turf/open/floor/plating,
-/area/station/maintenance/port/fore)
+/turf/open/floor/wood,
+/area/station/service/lawoffice)
 "mYy" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -38437,6 +38437,7 @@
 /area/station/engineering/break_room)
 "oga" = (
 /obj/structure/table,
+/obj/item/paper_bin,
 /obj/item/folder/red,
 /obj/item/pen,
 /turf/open/floor/iron/dark,
@@ -45382,14 +45383,19 @@
 /area/station/medical/medbay/lobby)
 "qIH" = (
 /obj/structure/table/glass,
+/obj/item/clipboard,
 /obj/item/folder/yellow{
 	pixel_x = 6;
 	pixel_y = -1
 	},
-/obj/item/pen/red,
 /obj/item/pen{
 	pixel_x = 4;
 	pixel_y = 4
+	},
+/obj/item/pen/red,
+/obj/item/coin/silver{
+	pixel_x = 7;
+	pixel_y = 7
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/qm)
@@ -49972,9 +49978,24 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/command/bridge)
 "suX" = (
-/obj/machinery/photocopier,
-/turf/open/floor/wood,
-/area/station/service/lawoffice)
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/door/airlock/maintenance{
+	name = "Law Office Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/service/lawyer,
+/turf/open/floor/plating,
+/area/station/maintenance/port/fore)
 "svb" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
@@ -50526,8 +50547,12 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/miningoffice)
 "sFH" = (
-/obj/machinery/computer/warrant{
-	dir = 4
+/obj/machinery/airalarm/directional/south,
+/obj/structure/bed/dogbed,
+/mob/living/basic/pet/dog/bullterrier{
+	name = "Walter";
+	real_name = "Walter";
+	desc = "It's Walter!"
 	},
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
@@ -56863,7 +56888,6 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "uYJ" = (
-/obj/machinery/light/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /obj/machinery/requests_console/directional/west{
@@ -57547,12 +57571,9 @@
 /area/station/service/hydroponics)
 "vof" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed,
-/mob/living/basic/pet/dog/bullterrier{
-	name = "Walter";
-	real_name = "Walter";
-	desc = "It's Walter!"
-	},
+/obj/structure/table/wood,
+/obj/item/taperecorder,
+/obj/item/tape/random,
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "von" = (
@@ -90267,7 +90288,7 @@ fPN
 fPN
 fPN
 fPN
-dwJ
+suX
 fPN
 fPN
 fPN
@@ -90780,8 +90801,8 @@ jfI
 mUw
 nlU
 iua
-fPN
-fPN
+mUw
+sFH
 fPN
 qxJ
 pSW
@@ -91035,9 +91056,9 @@ mUT
 xxI
 dIW
 mMY
-suX
+mUw
 xhv
-sFH
+mUw
 lAg
 fPN
 lrB
