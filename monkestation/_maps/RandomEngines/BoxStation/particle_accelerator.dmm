@@ -3,6 +3,12 @@
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/station/engineering/main)
+"aD" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable/layer1,
+/turf/open/floor/iron/dark,
+/area/station/engineering/main)
 "aW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -96,15 +102,16 @@
 "gV" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/cable,
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "hl" = (
+/obj/structure/cable/layer1,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "hq" = (
@@ -377,9 +384,6 @@
 /area/station/engineering/main)
 "ug" = (
 /obj/machinery/light/directional/north,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
@@ -409,7 +413,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Emitter SMES Room"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/layer1,
 /turf/open/floor/iron/dark/textured,
@@ -922,7 +928,7 @@
 "Zm" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/cable,
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -982,7 +988,7 @@ GW
 "}
 (2,1,1) = {"
 wD
-Hi
+aD
 Hi
 hq
 rU
@@ -1010,8 +1016,8 @@ GW
 "}
 (3,1,1) = {"
 PG
+oN
 hl
-Df
 oN
 ge
 aW
@@ -1038,8 +1044,8 @@ GW
 "}
 (4,1,1) = {"
 PG
+oN
 hl
-Df
 hE
 vQ
 PG
@@ -1067,9 +1073,9 @@ GW
 (5,1,1) = {"
 PG
 ug
+hl
 Df
 xu
-hq
 aW
 GW
 wX
@@ -1094,7 +1100,7 @@ GW
 "}
 (6,1,1) = {"
 PG
-hl
+oN
 GK
 CY
 jL
