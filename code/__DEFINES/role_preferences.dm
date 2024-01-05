@@ -40,6 +40,7 @@
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
 #define ROLE_DRIFTING_CONTRACTOR "Drifting Contractor" //monkestation edit
+#define ROLE_HOLOPARASITE "Holoparasite" //monkestation edit
 
 // Latejoin roles
 #define ROLE_HERETIC_SMUGGLER "Heretic Smuggler"
@@ -153,6 +154,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DRIFTING_CONTRACTOR = 0,
 	ROLE_VAMPIRICACCIDENT = 0,
 	ROLE_MONSTERHUNTER = 0,
+	ROLE_HOLOPARASITE = 7,
 //monkestation edit end
 
 	// Latejoin

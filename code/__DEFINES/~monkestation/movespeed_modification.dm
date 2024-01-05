@@ -1,0 +1,1 @@
+#define MOVESPEED_ID_HOLOPARA_FRENZY "holoparasite_frenzy"

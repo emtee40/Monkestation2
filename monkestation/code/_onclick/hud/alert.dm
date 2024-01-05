@@ -38,3 +38,8 @@
 		desc += "Additional Anchoring Crystals can be summoned in [english_list(area_list)].<br>"
 	else
 		desc += "We must summon and protect an Anchoring crystal before the ark may open.<br>"
+
+/atom/movable/screen/alert/holoparasite/anchored
+	name = "Anchored"
+	desc = "You are anchored to your summoner, and will remain behind them until you manually move!"
+	icon_state = "anchored"

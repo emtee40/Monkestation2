@@ -36,6 +36,7 @@ export { NumberInput } from './NumberInput';
 export { ProgressBar } from './ProgressBar';
 export { Pointer } from './Pointer';
 export { Popper } from './Popper';
+export { RadarChart } from './RadarChart';
 export { RestrictedInput } from './RestrictedInput';
 export { RoundGauge } from './RoundGauge';
 export { Section } from './Section';
