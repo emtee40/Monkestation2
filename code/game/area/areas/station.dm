@@ -1470,6 +1470,10 @@
 	name = "\improper Research Division"
 	icon_state = "science"
 
+/area/station/science/artifactlab
+	name = "\improper Artifact Lab"
+	icon_state = "science"
+
 /area/station/science/research/abandoned
 	name = "\improper Abandoned Research Lab"
 	icon_state = "abandoned_sci"
