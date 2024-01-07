@@ -82,8 +82,6 @@
 /// Creates the bloodlings abilities
 /mob/living/basic/bloodling/proc/create_abilities()
 	for(var/datum/action/cooldown/bloodling/path as anything in initial_powers)
-		if(path in src.actions)
-			continue
 		var/datum/action/cooldown/bloodling/bloodling_action = new path()
 		bloodling_action.Grant(src)
 

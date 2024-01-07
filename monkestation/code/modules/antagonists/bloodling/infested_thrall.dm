@@ -1,5 +1,5 @@
 /datum/antagonist/changeling/bloodling_thrall
-	name = "\improper Changeling"
+	name = "\improper Changeling Thrall"
 	roundend_category = "bloodling thralls"
 	antagpanel_category = ANTAG_GROUP_BLOODLING
 	job_rank = ROLE_BLOODLING_THRALL
@@ -9,6 +9,9 @@
 	suicide_cry = "FOR THE MASTER!!"
 	genetic_points = 5
 	total_genetic_points = 5
+
+	// This thralls master
+	var/master = null
 
 /datum/antagonist/changeling/bloodling_thrall/purchase_power(datum/action/changeling/sting_path)
 	if(istype(sting_path, /datum/action/changeling/fakedeath))
@@ -25,3 +28,42 @@
 			continue
 		innate_powers += innate_ability
 		innate_ability.on_purchase(owner.current, TRUE)
+
+/datum/antagonist/changeling/bloodling_thrall/proc/set_master(mob/living/basic/bloodling/master)
+	to_chat(owner, spawn_notice("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
+	src.master = master
+
+/datum/antagonist/changeling/bloodling_thrall/forge_objectives()
+	var/datum/objective/bloodling_thrall/serve_objective = new
+	serve_objective.owner = owner
+	objectives += serve_objective
+
+/datum/antagonist/infested_thrall
+	name = "\improper Infested Thrall"
+	roundend_category = "bloodling thralls"
+	antagpanel_category = ANTAG_GROUP_BLOODLING
+	job_rank = ROLE_BLOODLING_THRALL
+	antag_moodlet = /datum/mood_event/focused
+	antag_hud_name = "changeling"
+	hijack_speed = 0
+	suicide_cry = "FOR THE MASTER!!"
+
+	// This thralls master
+	var/master = null
+
+/datum/antagonist/infested_thrall/on_gain()
+	forge_objectives()
+	owner.current.grant_all_languages(FALSE, FALSE, TRUE) //Grants omnitongue. We are a horrific blob of flesh who can manifest a million tongues.
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_alert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	return ..()
+
+/datum/antagonist/infested_thrall/forge_objectives()
+	var/datum/objective/bloodling_thrall/serve_objective = new
+	serve_objective.owner = owner
+	objectives += serve_objective
+	if(master)
+		serve_objective.update_explanation_text()
+
+/datum/antagonist/infested_thrall/proc/set_master(mob/living/basic/bloodling/master)
+	to_chat(owner, spawn_notice("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
+	src.master = master
