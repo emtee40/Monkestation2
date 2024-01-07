@@ -32,6 +32,11 @@
 	var/biomass_max = 500
 	/// The evolution level our bloodling is on
 	var/evolution_level = 1
+	/// The abilities this bloodling starts with
+	var/list/initial_powers = list(
+		/datum/action/cooldown/bloodling/absorb,
+		/datum/action/cooldown/bloodling/hide,
+	)
 
 /mob/living/basic/bloodling/Initialize(mapload)
 	. = ..()
@@ -47,9 +52,8 @@
 	if(damagetype == STAMINA)
 		return
 
+	// Bloodlings take damage through their biomass, not regular damage
 	add_biomass(-damage)
-	// Heals up their damage
-	heal_and_revive(0)
 
 /// Used for adding biomass to the bloodling since health needs updating accordingly
 /// ARGUEMENTS:
@@ -62,7 +66,11 @@
 		balloon_alert(src, "already maximum biomass")
 		return
 	biomass += amount
+	// Heals up their damage
+	heal_and_revive(0)
 	maxHealth = biomass
+	// Health needs to be updated to our biomass levels, this does NOT heal up damage
+	health = biomass
 	obj_damage = biomass * 0.2
 	// less than 5 damage would be very bad
 	if(biomass > 50)
@@ -70,16 +78,15 @@
 		melee_damage_upper = biomass * 0.1
 	update_health_hud()
 	check_evolution()
-	// Health needs to be updated to our biomass levels, this does NOT heal up damage
-	health = biomass
 
 /// Creates the bloodlings abilities
 /mob/living/basic/bloodling/proc/create_abilities()
-	var/datum/action/cooldown/bloodling/hide/hide = new(src)
-	hide.Grant(src)
-	var/datum/action/cooldown/bloodling/absorb/absorb = new(src)
-	absorb.Grant(src)
-	return
+	for(var/datum/action/cooldown/bloodling/path as anything in initial_powers)
+		if(path in src.actions)
+			continue
+		var/datum/action/cooldown/bloodling/bloodling_action = new path()
+		bloodling_action.Grant(src)
+
 
 /// Checks if we should evolve
 /mob/living/basic/bloodling/proc/check_evolution()
@@ -108,11 +115,11 @@
 		if(2)
 			new_bloodling = new /mob/living/basic/bloodling/tier2(src.loc)
 		if(3)
-			new_bloodling = new /mob/living/basic/bloodling/tier2(src.loc)
+			new_bloodling = new /mob/living/basic/bloodling/tier3(src.loc)
 		if(4)
-			new_bloodling = new /mob/living/basic/bloodling/tier2(src.loc)
+			new_bloodling = new /mob/living/basic/bloodling/tier4(src.loc)
 		if(5)
-			new_bloodling = new /mob/living/basic/bloodling/tier2(src.loc)
+			new_bloodling = new /mob/living/basic/bloodling/tier5(src.loc)
 	evolution_mind_change(new_bloodling)
 
 
@@ -137,6 +144,22 @@
 	icon_state = "guard"
 	icon_living = "guard"
 	evolution_level = 2
+	initial_powers = list()
 
-/mob/living/basic/bloodling/tier2/create_abilities()
-	..()
+/mob/living/basic/bloodling/tier3
+	icon_state = "scout"
+	icon_living = "scout"
+	evolution_level = 3
+	initial_powers = list()
+
+/mob/living/basic/bloodling/tier4
+	icon_state = "ambush"
+	icon_living = "ambush"
+	evolution_level = 4
+	initial_powers = list()
+
+/mob/living/basic/bloodling/tier5
+	icon_state = "hunter"
+	icon_living = "hunter"
+	evolution_level = 5
+	initial_powers = list()

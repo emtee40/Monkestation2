@@ -69,7 +69,8 @@
 #define ROLE_LAVALAND "Lavaland"
 #define ROLE_LAZARUS_BAD "Slaved Revived Mob"
 #define ROLE_LAZARUS_GOOD "Friendly Revived Mob"
-#define ROLE_SLASHER "Slasher"
+#define ROLE_SLASHER "Slasher" // monkestation edit
+#define ROLE_BLOODLING_THRALL "Bloodling Thrall" // monkestation edit
 
 #define ROLE_CLOWN_OPERATIVE "Clown Operative"
 #define ROLE_FREE_GOLEM "Free Golem"
