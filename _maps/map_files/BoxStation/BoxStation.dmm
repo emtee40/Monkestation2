@@ -10038,6 +10038,14 @@
 	},
 /obj/machinery/airalarm/directional/north,
 /obj/structure/table/glass,
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/storage/medkit/regular{
+	pixel_y = 3
+	},
+/obj/item/storage/medkit/regular{
+	pixel_x = 3;
+	pixel_y = 7
+	},
 /obj/item/clothing/gloves/latex,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/spray/cleaner,
@@ -11908,6 +11916,12 @@
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
+"euf" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/turf/open/floor/iron/white,
+/area/station/security/medical)
 "euj" = (
 /obj/machinery/modular_computer/console/preset/id{
 	dir = 8
@@ -12198,6 +12212,10 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "ezd" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 4
+	},
+/obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/station/security/medical)
 "ezf" = (
@@ -21204,7 +21222,7 @@
 	pixel_y = -2
 	},
 /obj/machinery/flasher/directional/west{
-	id = "visit_observ_pris_flash"
+	id = "visitation_prisoner_flash"
 	},
 /turf/open/floor/iron,
 /area/station/security/prison/visit)
@@ -30935,13 +30953,17 @@
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/table/glass,
-/obj/item/storage/medkit/regular{
-	pixel_x = 3;
-	pixel_y = 7
+/obj/item/paper_bin{
+	pixel_y = 6
 	},
-/obj/item/storage/medkit/regular{
-	pixel_y = 3
+/obj/item/folder/red{
+	pixel_x = 3
 	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/pen,
 /turf/open/floor/iron/white,
 /area/station/security/medical)
 "lfg" = (
@@ -34080,9 +34102,17 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "mlt" = (
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/turf/open/floor/iron/white,
-/area/station/security/medical)
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "mlw" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -43789,12 +43819,15 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
 "pLV" = (
+/obj/effect/turf_decal/trimline/blue/filled/warning{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
 /obj/machinery/door/window/right/directional/east{
 	name = "Brig Infirmary";
 	req_access = list("security")
-	},
-/obj/effect/turf_decal/trimline/blue/filled/warning{
-	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/security/medical)
@@ -45251,7 +45284,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/light/directional/west,
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
@@ -45262,6 +45294,7 @@
 /obj/item/reagent_containers/cup/bottle/multiver,
 /obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/item/clothing/neck/stethoscope,
+/obj/machinery/defibrillator_mount/directional/west,
 /turf/open/floor/iron/white,
 /area/station/security/medical)
 "qpi" = (
@@ -47702,6 +47735,10 @@
 /obj/structure/closet/emcloset/anchored,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/engineering/main)
+"rkb" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
+/turf/open/floor/iron/white,
+/area/station/security/medical)
 "rkf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -57043,7 +57080,7 @@
 	dir = 1
 	},
 /obj/machinery/flasher/directional/west{
-	id = "visit_observ_visit_flash"
+	id = "visitation_visitor_flash"
 	},
 /turf/open/floor/iron,
 /area/station/security/prison/visit)
@@ -59637,7 +59674,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical)
 "vCs" = (
-/obj/structure/cable,
 /obj/machinery/door/window/left/directional/east{
 	name = "Brig Infirmary";
 	req_access = list("security")
@@ -93628,7 +93664,7 @@ qQg
 jTa
 ait
 lfd
-mlt
+pbF
 ezd
 mFi
 ait
@@ -93885,8 +93921,8 @@ qQg
 jTa
 ait
 xqZ
-pbF
-ezd
+rkb
+euf
 msS
 ait
 nUT
@@ -94400,7 +94436,7 @@ qXW
 iXP
 jUm
 hYj
-hYj
+mlt
 jUm
 aIK
 kYJ
