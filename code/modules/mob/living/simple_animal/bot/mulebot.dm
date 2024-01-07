@@ -29,6 +29,11 @@
 	radio_key = /obj/item/encryptionkey/headset_cargo
 	radio_channel = RADIO_CHANNEL_SUPPLY
 	bot_type = MULE_BOT
+	//MONKESTATION ADDITION START - By request of admins, disable roundstart MULEbots by redefining
+	//their starting flags to not include BOT_MODE_GHOST_CONTROLLABLE. Reason: They end up griefing
+	//more than they end up doing their job.
+	bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED
+	//MONKESTATION ADDITION END
 	path_image_color = "#7F5200"
 	possessed_message = "You are a MULEbot! Do your best to make sure that packages get to their destination!"
 
