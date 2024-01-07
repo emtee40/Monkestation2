@@ -60,6 +60,8 @@
 				/obj/item/clothing/under/costume/gi = 1,
 				/obj/item/clothing/neck/worldchampioncape = 1,
 				/obj/item/clothing/under/costume/worldchampiongi = 1,
+				/obj/item/clothing/head/milkmanhat = 2,
+				/obj/item/clothing/under/costume/milkman = 2,
 			),
 		),
 		list(
@@ -207,6 +209,10 @@
 				/obj/item/clothing/mask/gas/prop = 4,
 				/obj/item/clothing/mask/gas/atmosprop = 3,
 				/obj/item/clothing/mask/animal/small/tribal = 1,
+				/obj/item/clothing/head/shipwreckedhelmet = 2,
+				/obj/item/clothing/suit/shipwreckedsuit = 2,
+				/obj/item/clothing/head/kingofbugshelmet = 2,
+				/obj/item/clothing/suit/kingofbugssuit = 2,
 			),
 		),
 	)
