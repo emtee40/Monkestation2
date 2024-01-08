@@ -236,6 +236,13 @@ Sunlight System
 		.["SKYVISIBLE"]   =  FALSE
 		.["WEATHERPROOF"] =  TRUE
 
+/turf/proc/apply_weather_effect(datum/source, datum/weather_effect/effect)
+	SIGNAL_HANDLER
+	if(!weather_affectable || !prob(effect.probability))
+		return
+
+	effect.effect_affect(src)
+
 /* moved this out of reconsider lights so we can call it in multiz refresh  */
 /turf/proc/reconsider_sunlight()
 	if(!SSlighting.initialized)
