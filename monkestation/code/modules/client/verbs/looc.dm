@@ -1,5 +1,8 @@
 GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable looc
 
+#define MESSAGE_TYPE_LOOC "looc"
+
+
 /client/verb/looc(msg as text)
 	set name = "LOOC"
 	set desc = "Local OOC, seen only by those in view."
@@ -24,6 +27,8 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 		to_chat(src, span_danger("You cannot use LOOC as a dead mob!"))
 		return
 
+	if(msg=="")
+		return
 	msg = trim(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 	log_ooc("(LOCAL) [mob.name]/[key] : [msg]")
 	mob.log_message("(LOCAL): [msg]", INDIVIDUAL_OOC_LOG)
@@ -33,17 +38,23 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(C.prefs.toggles & CHAT_OOC)
-			to_chat(C, "<span class='oocplain'><B><font color='#6699CC'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></font></span></span>")
+		if(C.prefs.toggles & CHAT_LOOC)
+			to_chat(C,
+				type = MESSAGE_TYPE_LOOC,
+				html = "<span class='looc'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></span></span>")
+			if(M.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
+				src.mob.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
 
 	for(var/client/A in GLOB.admins)
-		if(A.prefs.toggles & CHAT_OOC)
-			to_chat(A, "<span class='oocplain'><B>[ADMIN_LOOKUPFLW(src.mob)]<font color='#6699CC'> LOOC: <span class='message linkify'>''[msg]''<B></font></span></span>")
+		if(A.prefs.toggles & CHAT_LOOC)
+			to_chat(A,
+				type = MESSAGE_TYPE_LOOC,
+				html = "<span class='looc'>[ADMIN_LOOKUPFLW(src.mob)] LOOC : <span class='message linkify'>''[msg]''<B></span></span>")
 
 //keybinding
 #define COMSIG_KB_CLIENT_LOOC_DOWN "keybinding_client_looc_down"
 /datum/keybinding/client/communication/looc
-	hotkey_keys = list("")
+	hotkey_keys = list("L")
 	category = CATEGORY_COMMUNICATION
 	name = "looc"
 	full_name = "Local Out Of Character Say (LOOC)"
@@ -53,7 +64,8 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 	. = ..()
 	if(.)
 		return
-	user.looc()
+	var/keybind_msg = input(user,"LOOC","Local OOC, seen only by those in view.")
+	user.looc(keybind_msg)
 	return TRUE
 
 //admin tool
