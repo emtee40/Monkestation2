@@ -77,6 +77,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/toxic_food = TOXIC
 	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
 	var/no_equip_flags
+	///Affects the species' screams, for example: "Motharula buzzes!"
+	var/scream_verb = "screams"
 	///What languages this species can understand and say. Use a [language holder datum][/datum/language_holder] in this var.
 	var/species_language_holder = /datum/language_holder
 	/**
@@ -698,7 +700,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			add_pixel_y += height_offset
 
 			if(!eye_organ)
-				no_eyeslay = mutable_appearance('icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER)
+				no_eyeslay = mutable_appearance(eyes_icon || 'icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER)
 				no_eyeslay.pixel_x += add_pixel_x
 				no_eyeslay.pixel_y += add_pixel_y
 				standing += no_eyeslay
@@ -815,7 +817,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/bodypart/head/noggin = source.get_bodypart(BODY_ZONE_HEAD)
 
-
 	if(mutant_bodyparts["ears"])
 		if(!source.dna.features["ears"] || source.dna.features["ears"] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin || !IS_ORGANIC_LIMB(noggin))
 			bodyparts_to_add -= "ears"
@@ -873,6 +874,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 								accessory_overlay.color = fixed_mut_color
 							else
 								accessory_overlay.color = source.dna.features["mcolor_secondary"]
+						if(MUTCOLORS_TERTIARY)
+							if(fixed_mut_color)
+								accessory_overlay.color = fixed_mut_color
+							else
+								accessory_overlay.color = source.dna.features["mcolor_tertiary"]
 						if(HAIR)
 							if(hair_color == "mutcolor")
 								accessory_overlay.color = source.dna.features["mcolor"]

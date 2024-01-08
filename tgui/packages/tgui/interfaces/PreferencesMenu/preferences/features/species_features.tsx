@@ -264,6 +264,36 @@ export const feature_mcolor_secondary: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const feature_mcolor_tertiary: Feature<string> = {
+  name: 'Mutant Tertiary color',
+  component: FeatureColorInput,
+};
+
+export const feature_vox_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureDropdownInput,
+};
+
+export const feature_vox_hair: FeatureChoiced = {
+  name: 'Hairstyle',
+  component: FeatureDropdownInput,
+};
+
+export const feature_vox_facial_hair: FeatureChoiced = {
+  name: 'Facial hair',
+  component: FeatureDropdownInput,
+};
+
+export const feature_vox_spines: FeatureChoiced = {
+  name: 'Spines',
+  component: FeatureDropdownInput,
+};
+
+export const feature_vox_snout: FeatureChoiced = {
+  name: 'Snout',
+  component: FeatureDropdownInput,
+};
+
 export const underwear_color: Feature<string> = {
   name: 'Underwear color',
   component: FeatureColorInput,

@@ -374,6 +374,33 @@
 	desc = "This juicy piece of meat has a clearly underdeveloped frontal lobe."
 	organ_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No literacy
 
+/obj/item/organ/internal/brain/vox
+	name = "cortical stack"
+	desc = "A peculiarly advanced bio-electronic device that seems to hold the memories and identity of a Vox."
+	icon_state = "cortical-stack"
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/internal/brain/vox/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(owner.stat == DEAD)
+		return
+	switch(severity)
+		if(1)
+			to_chat(owner, span_boldwarning("You feel [pick("like your brain is being fried", "a sharp pain in your head")]!"))
+			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 150)
+			owner.adjust_timed_status_effect(60 SECONDS, /datum/status_effect/jitter)
+			owner.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
+			owner.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/confusion)
+		if(2)
+			to_chat(owner, span_warning("You feel [pick("disoriented", "confused", "dizzy")]."))
+			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 150)
+			owner.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
+			owner.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
+			owner.adjust_timed_status_effect(3 SECONDS, /datum/status_effect/confusion)
+
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
 /obj/item/organ/internal/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)

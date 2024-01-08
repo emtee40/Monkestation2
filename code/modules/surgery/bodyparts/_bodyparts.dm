@@ -51,6 +51,8 @@
 	var/limb_gender = "m"
 	///Is there a sprite difference between male and female?
 	var/is_dimorphic = FALSE
+	///Which mutcolor to use, if mutcolors are used
+	var/mutcolor_used = MUTCOLORS
 	///The actual color a limb is drawn as, set by /proc/update_limb()
 	var/draw_color //NEVER. EVER. EDIT THIS VALUE OUTSIDE OF UPDATE_LIMB. I WILL FIND YOU. It ruins the limb icon pipeline.
 
@@ -892,7 +894,13 @@
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else
-			species_color = human_owner.dna.features["mcolor"]
+			switch(mutcolor_used)
+				if(MUTCOLORS)
+					species_color = human_owner.dna.features["mcolor"]
+				if(MUTCOLORS_SECONDARY)
+					species_color = human_owner.dna.features["mcolor_secondary"]
+				if(MUTCOLORS_TERTIARY)
+					species_color = human_owner.dna.features["mcolor_tertiary"]
 	else
 		species_color = null
 

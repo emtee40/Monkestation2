@@ -254,6 +254,11 @@
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_SYNTHETIC_EMP //Starts organ faliure - gonna need replacing soon.
 
+/obj/item/organ/internal/liver/vox
+	name = "vox liver"
+	icon_state = "vox-liver"
+	alcohol_tolerance = 0.008 // 60% more toxic
+
 #undef HAS_SILENT_TOXIN
 #undef HAS_NO_TOXIN
 #undef HAS_PAINFUL_TOXIN

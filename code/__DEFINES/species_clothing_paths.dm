@@ -10,6 +10,20 @@
 ///The dmi for monkey uniforms
 #define MONKEY_UNIFORM_FILE 'icons/mob/species/monkey/uniform.dmi'
 
+//VOX PATHS
+#define VOX_MASK_FILE 'icons/mob/clothing/species/vox/mask.dmi'
+#define VOX_HEAD_FILE 'icons/mob/clothing/species/vox/head.dmi'
+#define VOX_BACK_FILE 'icons/mob/clothing/species/vox/back.dmi'
+#define VOX_BELT_FILE 'icons/mob/clothing/species/vox/belt.dmi'
+#define VOX_EARS_FILE 'icons/mob/clothing/species/vox/ears.dmi'
+#define VOX_EYES_FILE 'icons/mob/clothing/species/vox/eyes.dmi'
+#define VOX_SHOES_FILE 'icons/mob/clothing/species/vox/feet.dmi'
+#define VOX_GLOVES_FILE 'icons/mob/clothing/species/vox/hands.dmi'
+#define VOX_HELMET_FILE 'icons/mob/clothing/species/vox/helmet.dmi'
+#define VOX_SUIT_FILE 'icons/mob/clothing/species/vox/suit.dmi'
+#define VOX_UNIFORM_FILE 'icons/mob/clothing/species/vox/uniform.dmi'
+#define VOX_GAGS_FILE 'icons/mob/clothing/species/vox/color_gags_vox.dmi'
+
 //DIGITIGRADE PATHS
 ///The dmi containing digitigrade uniforms
 #define DIGITIGRADE_UNIFORM_FILE 'monkestation/icons/mob/species/misc/uniform_digi.dmi'

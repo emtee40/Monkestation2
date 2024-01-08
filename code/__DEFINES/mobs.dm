@@ -91,6 +91,12 @@
 #define BODYTYPE_ALIEN (1<<7)
 ///The limb fits a modular custom shape
 #define BODYTYPE_CUSTOM (1<<8)
+///The limb is voxed
+#define BODYTYPE_VOX_BEAK (1<<9)
+///The limb is in the shape of a vox leg.
+#define BODYTYPE_VOX_LEGS (1<<10)
+///Vox limb that isnt a head or legs.
+#define BODYTYPE_VOX_OTHER (1<<11)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -128,6 +134,7 @@
 #define SPECIES_ZOMBIE_KROKODIL "krokodil_zombie"
 #define SPECIES_OOZELING "oozeling"
 #define SPECIES_IPC "ipc"
+#define SPECIES_VOX "vox"
 #define SPECIES_SIMIAN "simian" //Monkestation Addition
 #define SPECIES_GOBLIN "goblin" //Monkestation Addition
 #define SPECIES_FLORAN "floran" //Monkestation Addition

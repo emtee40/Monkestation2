@@ -139,6 +139,8 @@
 #define CLOTHING_MONKEY_VARIATION (1<<3)
 ///Has a sprite for snouted heads specifically.
 #define CLOTHING_SNOUTED_VARIATION (1<<4)
+///Has a sprite for voxes specifically.
+#define CLOTHING_VOX_VARIATION (1<<5)
 
 //flags for covering body parts
 #define GLASSESCOVERSEYES (1<<0)

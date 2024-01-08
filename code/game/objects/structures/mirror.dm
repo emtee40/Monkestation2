@@ -203,7 +203,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 					amazed_human.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			if(MUTCOLORS in amazed_human.dna.species.species_traits)
-				var/new_mutantcolor = input(user, "Choose your skin color:", "Race change", amazed_human.dna.features["mcolor"]) as color|null
+				var/new_mutantcolor = input(user, "Choose your primary color:", "Race change", amazed_human.dna.features["mcolor"]) as color|null
 				if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 					return TRUE
 				if(new_mutantcolor)
@@ -212,6 +212,34 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
 						amazed_human.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
 						amazed_human.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
+
+					else
+						to_chat(amazed_human, span_notice("Invalid color. Your color is not bright enough."))
+						return TRUE
+			if(MUTCOLORS_SECONDARY in amazed_human.dna.species.species_traits)
+				var/new_mutantcolor = input(user, "Choose your secondary color:", "Race change", amazed_human.dna.features["mcolor_secondary"]) as color|null
+				if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
+					return TRUE
+				if(new_mutantcolor)
+					var/temp_hsv = RGBtoHSV(new_mutantcolor)
+
+					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
+						amazed_human.dna.features["mcolor_secondary"] = sanitize_hexcolor(new_mutantcolor)
+						amazed_human.dna.update_uf_block(DNA_MUTANT_COLOR_SECONDARY)
+
+					else
+						to_chat(amazed_human, span_notice("Invalid color. Your color is not bright enough."))
+						return TRUE
+			if(MUTCOLORS_TERTIARY in amazed_human.dna.species.species_traits)
+				var/new_mutantcolor = input(user, "Choose your tertiary color:", "Race change", amazed_human.dna.features["mcolor_tertiary"]) as color|null
+				if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
+					return TRUE
+				if(new_mutantcolor)
+					var/temp_hsv = RGBtoHSV(new_mutantcolor)
+
+					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
+						amazed_human.dna.features["mcolor_tertiary"] = sanitize_hexcolor(new_mutantcolor)
+						amazed_human.dna.update_uf_block(DNA_MUTANT_COLOR_TERTIARY)
 
 					else
 						to_chat(amazed_human, span_notice("Invalid color. Your color is not bright enough."))

@@ -110,6 +110,9 @@ There are several things that need to be remembered:
 				var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_UNIFORM, uniform)
 				if(species_icon_file)
 					icon_file = species_icon_file
+		else if(dna.species.bodytype & BODYTYPE_VOX_LEGS)
+			if(uniform.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = uniform.worn_icon_vox || VOX_UNIFORM_FILE
 		//Female sprites have lower priority than digitigrade sprites
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_UNIFORM, w_uniform)
@@ -194,8 +197,11 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/hands.dmi'
-
 		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_VOX_OTHER)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_GLOVES_FILE
+				mutant_override = TRUE
 		if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_GLOVES, gloves)
 			if(species_icon_file)
@@ -228,8 +234,11 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/eyes.dmi'
-
 		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_VOX_OTHER)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_EYES_FILE
+				mutant_override = TRUE
 		if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_GLASSES, glasses)
 			if(species_icon_file)
@@ -262,8 +271,11 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/ears.dmi'
-
 		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_VOX_OTHER)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_EARS_FILE
+				mutant_override = TRUE
 		if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_EARS, ears)
 			if(species_icon_file)
@@ -326,7 +338,6 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = DEFAULT_SHOES_FILE
-
 		var/mutant_override = FALSE
 		if((dna.species.bodytype & BODYTYPE_DIGITIGRADE) && (worn_item.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
 			var/obj/item/bodypart/leg/leg = src.get_bodypart(BODY_ZONE_L_LEG)
@@ -337,6 +348,12 @@ There are several things that need to be remembered:
 					if(species_icon_file)
 						icon_file = species_icon_file
 				mutant_override = TRUE
+		else if(dna.species.bodytype & BODYTYPE_VOX_LEGS)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				var/obj/item/bodypart/leg = get_bodypart(BODY_ZONE_L_LEG)
+				if(leg.limb_id == "vox_digitigrade")//Snowflakey and bad. But it makes it look consistent.
+					icon_file = worn_item.worn_icon_vox || VOX_SHOES_FILE
+					mutant_override = TRUE
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SHOES, shoes)
 			if(species_icon_file)
@@ -395,7 +412,6 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/head/default.dmi'
-
 		var/mutant_override = FALSE
 
 		if(dna.species.bodytype & BODYTYPE_SNOUTED)
@@ -403,6 +419,11 @@ There are several things that need to be remembered:
 				if((icon_exists(head.worn_icon_snouted || SNOUTED_HEAD_FILE, RESOLVE_ICON_STATE(worn_item)))) //make sure the icon we're about to switch to exists
 					icon_file = head.worn_icon_snouted || SNOUTED_HEAD_FILE
 					mutant_override = TRUE
+
+		else if(dna.species.bodytype & BODYTYPE_VOX_BEAK)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_HEAD_FILE
+				mutant_override = TRUE
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_HEAD, head)
 			if(species_icon_file)
@@ -437,8 +458,11 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/belt.dmi'
-
 		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_VOX_OTHER)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_BELT_FILE
+				mutant_override = TRUE
 		if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_BELT, belt)
 			if(species_icon_file)
@@ -464,11 +488,14 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = wear_suit
 		update_hud_wear_suit(worn_item)
 		var/icon_file = DEFAULT_SUIT_FILE
-
 		var/mutant_override = FALSE
 		if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (wear_suit.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
 			icon_file = wear_suit.worn_icon_digitigrade || DIGITIGRADE_SUIT_FILE
 			mutant_override = TRUE
+		else if(dna.species.bodytype & BODYTYPE_VOX_LEGS)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_SUIT_FILE
+				mutant_override = TRUE
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SUIT, wear_suit)
 			if(species_icon_file)
@@ -531,11 +558,14 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = 'icons/mob/clothing/mask.dmi'
-
 		var/mutant_override = FALSE
 		if(dna.species.bodytype & BODYTYPE_SNOUTED)
 			if(worn_item.supports_variations_flags & CLOTHING_SNOUTED_VARIATION)
 				icon_file = wear_mask.worn_icon_snouted || SNOUTED_MASK_FILE
+				mutant_override = TRUE
+		if(dna.species.bodytype & BODYTYPE_VOX_BEAK)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_MASK_FILE
 				mutant_override = TRUE
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_MASK, wear_mask)
@@ -568,8 +598,11 @@ There are several things that need to be remembered:
 		var/mutable_appearance/back_overlay
 		update_hud_back(worn_item)
 		var/icon_file = 'icons/mob/clothing/back.dmi'
-
 		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_VOX_OTHER)
+			if(worn_item.supports_variations_flags & CLOTHING_VOX_VARIATION)
+				icon_file = worn_item.worn_icon_vox || VOX_BACK_FILE
+				mutant_override = TRUE
 		if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_MISC, back)
 			if(species_icon_file)
@@ -895,7 +928,7 @@ generate/load female uniform sprites matching all previously decided variables
 			if(parent_eyes)
 				add_overlay(parent_eyes.generate_body_overlay(src))
 			else
-				var/mutable_appearance/missing_eyes = mutable_appearance('icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER)
+				var/mutable_appearance/missing_eyes = mutable_appearance(dna.species.eyes_icon || 'icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER)
 				if(OFFSET_FACE in dna.species.offset_features)
 					missing_eyes.pixel_x += dna.species.offset_features[OFFSET_FACE][1]
 					missing_eyes.pixel_y += dna.species.offset_features[OFFSET_FACE][2]

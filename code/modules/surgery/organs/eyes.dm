@@ -561,6 +561,9 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	overlay_ignore_lighting = TRUE
 
+/obj/item/organ/internal/eyes/vox
+	name = "vox eyeballs"
+	icon_state = "vox-eyeballs"
 
 /obj/item/organ/internal/eyes/lizard
 	name = "lizard eyes"

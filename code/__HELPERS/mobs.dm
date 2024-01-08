@@ -112,12 +112,23 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list)
 	if(!GLOB.floran_leaves_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/floran_leaves, GLOB.floran_leaves_list)
+	if(!GLOB.vox_hair_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_hair, GLOB.vox_hair_list)
+	if(!GLOB.spines_list_vox.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_spines, GLOB.spines_list_vox)
+	if(!GLOB.vox_facial_hair_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_vox_hair, GLOB.vox_facial_hair_list)
+	if(!GLOB.tails_list_vox.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/vox, GLOB.tails_list_vox)
+	if(!GLOB.vox_snouts_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_snouts, GLOB.vox_snouts_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
 	return(list(
 		"mcolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]",
 		"mcolor_secondary" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]",
+		"mcolor_tertiary" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]",
 		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
 		"tail_cat" = "None",
 		"tail_lizard" = "Smooth",
@@ -146,6 +157,11 @@
 		"animecolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]", //Monkestation Addition
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
+		"vox_snout" = pick(GLOB.vox_snouts_list),
+		"spines_vox" = pick(GLOB.spines_list_vox),
+		"tail_vox" = pick(GLOB.tails_list_vox),
+		"vox_hair" = pick(GLOB.vox_hair_list),
+		"vox_facial_hair" = pick(GLOB.vox_facial_hair_list),
 	))
 
 /proc/random_hairstyle(gender)
@@ -190,6 +206,13 @@
 /proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(plasmaman_name())
+
+		if(!findname(.))
+			break
+
+/proc/random_unique_vox_name(attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(vox_name())
 
 		if(!findname(.))
 			break

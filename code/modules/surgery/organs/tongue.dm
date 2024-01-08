@@ -72,6 +72,7 @@
 		/datum/language/shadowtongue,
 		/datum/language/terrum,
 		/datum/language/nekomimetic,
+		/datum/language/vox,
 		/datum/language/ratvar, //Monkestation Edit
 		/datum/language/goblin, //Monkestation Addition
 	)
@@ -490,3 +491,7 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "mycelium-angel"
+
+/obj/item/organ/internal/tongue/vox
+	name = "vox tongue"
+	say_mod = "skrees"

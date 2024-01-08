@@ -200,7 +200,10 @@
 					. += facial_overlay
 
 			if(!eyes)
-				. += image('icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER, SOUTH)
+				var/mob/living/carbon/human/missing_eyes_guy
+				if(ishuman(owner))
+					missing_eyes_guy = owner
+				. += image(missing_eyes_guy?.dna?.species?.eyes_icon || 'icons/mob/species/human/human_face.dmi', "eyes_missing", -FACE_LAYER, SOUTH)
 
 			//Applies the debrained overlay if there is no brain
 			if(!brain)
@@ -232,8 +235,8 @@
 
 		// eyes
 		if(eyes) // This is a bit of copy/paste code from eyes.dm:generate_body_overlay
-			var/image/eye_left = image('icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]_l", -FACE_LAYER, SOUTH)
-			var/image/eye_right = image('icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]_r", -FACE_LAYER, SOUTH)
+			var/image/eye_left = image(owner?.dna?.species?.eyes_icon || 'icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]_l", -FACE_LAYER, SOUTH)
+			var/image/eye_right = image(owner?.dna?.species?.eyes_icon || 'icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]_r", -FACE_LAYER, SOUTH)
 			if(eyes.eye_color_left)
 				eye_left.color = eyes.eye_color_left
 			if(eyes.eye_color_right)

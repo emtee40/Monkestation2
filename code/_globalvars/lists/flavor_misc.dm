@@ -28,6 +28,13 @@ GLOBAL_LIST_EMPTY(spines_list)
 GLOBAL_LIST_EMPTY(legs_list)
 GLOBAL_LIST_EMPTY(animated_spines_list)
 
+//Vox bits (e)
+GLOBAL_LIST_EMPTY(tails_list_vox)
+GLOBAL_LIST_EMPTY(vox_snouts_list)
+GLOBAL_LIST_EMPTY(spines_list_vox)
+GLOBAL_LIST_EMPTY(vox_hair_list)
+GLOBAL_LIST_EMPTY(vox_facial_hair_list)
+
 	//Mutant Human bits
 GLOBAL_LIST_EMPTY(tails_list)
 GLOBAL_LIST_EMPTY(tails_list_human) //Only exists for preference choices. Use "tails_list" otherwise.

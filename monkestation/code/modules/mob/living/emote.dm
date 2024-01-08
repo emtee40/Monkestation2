@@ -94,6 +94,15 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = FALSE
 
+/datum/emote/living/scream/select_message_type(mob/user, message, intentional)
+	. = ..()
+	var/mob/living/carbon/human/human = user
+	if(human.dna.species.scream_verb)
+		if(HAS_TRAIT(human, TRAIT_MIMING))
+			return "[human.dna.species.scream_verb] silently!"
+		else
+			return "[human.dna.species.scream_verb]!"
+
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(issilicon(user))
 		return pick(

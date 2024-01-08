@@ -22,6 +22,17 @@
 /proc/moth_name()
 	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
 
+/proc/vox_name()
+	var/sounds = rand(2, 8)
+	var/i = 0
+	var/newname = ""
+
+	while(i <= sounds)
+		i++
+		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah","ri","ra"))
+	newname = capitalize(newname)
+	return newname
+
 GLOBAL_VAR(command_name)
 /proc/command_name()
 	if (GLOB.command_name)

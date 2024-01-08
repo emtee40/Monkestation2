@@ -13,14 +13,15 @@
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/spines
-
+	var/paired_tail_type = /obj/item/organ/external/tail/lizard
 	///A two-way reference between the tail and the spines because of wagging sprites. Bruh.
 	var/obj/item/organ/external/tail/lizard/paired_tail
 
 /obj/item/organ/external/spines/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 	if(.)
-		paired_tail = locate(/obj/item/organ/external/tail/lizard) in receiver.organs //We want specifically a lizard tail, so we don't use the slot.
+		paired_tail = locate(paired_tail_type) in receiver.organs
+		paired_tail?.paired_spines = src
 
 /obj/item/organ/external/spines/Remove(mob/living/carbon/organ_owner, special, moving)
 	. = ..()
@@ -39,10 +40,25 @@
 	return GLOB.spines_list
 
 /datum/bodypart_overlay/mutant/spines/get_base_icon_state()
-	return (wagging ? "wagging" : "") + sprite_datum.icon_state //add the wagging tag if we be wagging
+	return (wagging ? "wagging_" : "") + sprite_datum.icon_state //add the wagging tag if we be wagging
 
 /datum/bodypart_overlay/mutant/spines/can_draw_on_bodypart(mob/living/carbon/human/human)
 	. = ..()
 	if(human.wear_suit && (human.wear_suit.flags_inv & HIDEJUMPSUIT))
 		return FALSE
 
+///A lizards spines (those things on their back), but also including tail spines (gasp)
+/obj/item/organ/external/spines/vox
+	name = "vox spines"
+	preference = "feature_vox_spines"
+	dna_block = DNA_VOX_SPINES_BLOCK
+	bodypart_overlay = /datum/bodypart_overlay/mutant/spines/vox
+	paired_tail_type = /obj/item/organ/external/tail/lizard/vox
+
+///Bodypart overlay for spines (wagging gets updated by tail)
+/datum/bodypart_overlay/mutant/spines/vox
+	feature_key = "spines_vox"
+	color_source = ORGAN_COLOR_MUTSECONDARY
+
+/datum/bodypart_overlay/mutant/spines/vox/get_global_feature_list()
+	return GLOB.spines_list_vox

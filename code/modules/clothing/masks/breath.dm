@@ -12,7 +12,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
-	supports_variations_flags = CLOTHING_SNOUTED_VARIATION
+	supports_variations_flags = CLOTHING_SNOUTED_VARIATION | CLOTHING_VOX_VARIATION
 
 /datum/armor/mask_breath
 	bio = 50
@@ -43,3 +43,9 @@
 
 /datum/armor/breath_medical
 	bio = 90
+
+/obj/item/clothing/mask/breath/vox
+	desc = "A close-fitting mask that can be connected to an air supply. This one's got an easily accessible feeding port to be more suitable for the Vox crewmembers."
+	name = "vox breath mask"
+	actions_types = list()
+	flags_cover = NONE

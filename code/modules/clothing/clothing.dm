@@ -1,5 +1,9 @@
 #define MOTH_EATING_CLOTHING_DAMAGE 15
 
+/obj/item
+	var/greyscale_config_worn_vox
+	var/icon/worn_icon_vox
+
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
