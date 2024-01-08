@@ -38,18 +38,16 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(C.prefs.toggles & CHAT_LOOC)
-			to_chat(C,
-				type = MESSAGE_TYPE_LOOC,
-				html = "<span class='looc'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></span></span>")
-			if(M.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
-				src.mob.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
+		to_chat(C,
+			type = MESSAGE_TYPE_LOOC,
+			html = "<span class='looc'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></span></span>")
+		if(M.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
+			src.mob.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
 
 	for(var/client/A in GLOB.admins)
-		if(A.prefs.toggles & CHAT_LOOC)
-			to_chat(A,
-				type = MESSAGE_TYPE_LOOC,
-				html = "<span class='looc'>[ADMIN_LOOKUPFLW(src.mob)] LOOC : <span class='message linkify'>''[msg]''<B></span></span>")
+		to_chat(A,
+			type = MESSAGE_TYPE_LOOC,
+			html = "<span class='looc'>[ADMIN_LOOKUPFLW(src.mob)] LOOC : <span class='message linkify'>''[msg]''<B></span></span>")
 
 //keybinding
 #define COMSIG_KB_CLIENT_LOOC_DOWN "keybinding_client_looc_down"
