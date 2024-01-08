@@ -146,13 +146,18 @@
 		/datum/action/cooldown/bloodling/absorb,
 		/datum/action/cooldown/bloodling/hide,
 		/datum/action/cooldown/bloodling/infest,
+		/datum/action/cooldown/bloodling/build,
 	)
 
 /mob/living/basic/bloodling/tier3
 	icon_state = "scout"
 	icon_living = "scout"
 	evolution_level = 3
-	initial_powers = list()
+	initial_powers = list(
+		/datum/action/cooldown/bloodling/absorb,
+		/datum/action/cooldown/bloodling/infest,
+		/datum/action/cooldown/bloodling/build,
+	)
 
 /mob/living/basic/bloodling/tier4
 	icon_state = "ambush"
