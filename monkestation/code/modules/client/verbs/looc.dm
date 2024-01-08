@@ -33,7 +33,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 	log_ooc("(LOCAL) [mob.name]/[key] : [msg]")
 	mob.log_message("(LOCAL): [msg]", INDIVIDUAL_OOC_LOG)
 
-	var/list/heard = get_hearers_in_view(7, (src.mob))
+	var/list/heard = get_hearers_in_view(9, (src.mob))
 	for(var/mob/M in heard)
 		if(!M.client)
 			continue
@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 			type = MESSAGE_TYPE_LOOC,
 			html = "<span class='looc'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></span></span>")
 		if(M.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
-			src.mob.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
+			M.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
 
 	for(var/client/A in GLOB.admins)
 		to_chat(A,
