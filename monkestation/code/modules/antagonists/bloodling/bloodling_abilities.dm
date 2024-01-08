@@ -12,7 +12,7 @@
 	if(!istype(owner, /mob/living/basic/bloodling))
 		return FALSE
 	var/mob/living/basic/bloodling/our_mob = owner
-	if(our_mob.biomass < biomass_cost)
+	if(our_mob.biomass =< biomass_cost)
 		return FALSE
 	return TRUE
 

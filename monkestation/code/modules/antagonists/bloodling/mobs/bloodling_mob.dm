@@ -142,7 +142,11 @@
 	icon_state = "guard"
 	icon_living = "guard"
 	evolution_level = 2
-	initial_powers = list()
+	initial_powers = list(
+		/datum/action/cooldown/bloodling/absorb,
+		/datum/action/cooldown/bloodling/hide,
+		/datum/action/cooldown/bloodling/infest,
+	)
 
 /mob/living/basic/bloodling/tier3
 	icon_state = "scout"
