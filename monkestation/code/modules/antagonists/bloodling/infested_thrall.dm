@@ -30,7 +30,7 @@
 		innate_ability.on_purchase(owner.current, TRUE)
 
 /datum/antagonist/changeling/bloodling_thrall/proc/set_master(mob/living/basic/bloodling/master)
-	to_chat(owner, spawn_notice("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
+	to_chat(owner, span_info("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
 	src.master = master
 
 /datum/antagonist/changeling/bloodling_thrall/forge_objectives()
@@ -65,5 +65,5 @@
 		serve_objective.update_explanation_text()
 
 /datum/antagonist/infested_thrall/proc/set_master(mob/living/basic/bloodling/master)
-	to_chat(owner, spawn_notice("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
+	to_chat(owner, span_info("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
 	src.master = master

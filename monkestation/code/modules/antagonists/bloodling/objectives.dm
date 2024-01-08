@@ -19,7 +19,7 @@
 /datum/objective/bloodling_thrall/update_explanation_text()
 	..()
 	var/datum/antagonist/infested_thrall/our_owner = owner
-	if(owner.master)
-		explanation_text = "Serve your master [owner.master]!"
+	if(our_owner.master)
+		explanation_text = "Serve your master [our_owner.master]!"
 	else
 		explanation_text = "Serve your master!"

@@ -5,11 +5,14 @@
 
 /datum/action/cooldown/bloodling/absorb/set_click_ability(mob/on_who)
 	. = ..()
-
+	if(!.)
+		return
 	to_chat(on_who, span_noticealien("You prepare to claim a creatures biomass. <b>Click a target to begin absorbing it!</b>"))
 
 /datum/action/cooldown/bloodling/absorb/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
+	if(!.)
+		return
 
 	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to claim biomass..."))
 
