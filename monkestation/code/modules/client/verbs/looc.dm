@@ -2,7 +2,6 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 
 #define MESSAGE_TYPE_LOOC "looc"
 
-
 /client/verb/looc(msg as text)
 	set name = "LOOC"
 	set desc = "Local OOC, seen only by those in view."
@@ -26,6 +25,9 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 	if(mob.stat == DEAD)
 		to_chat(src, span_danger("You cannot use LOOC as a dead mob!"))
 		return
+	if(mob.stat != CONSCIOUS)
+		to_chat(src, span_danger("You cannot salt!")) //   :v)
+		return
 
 	if(msg=="")
 		return
@@ -41,9 +43,10 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 		to_chat(C,
 			type = MESSAGE_TYPE_LOOC,
 			html = "<span class='looc'>LOOC: [src.mob.name] : <span class='message linkify'>''[msg]''<B></span></span>")
+		/* OOK requested that this not be so. (i'll add a pref later to turn this on or off)
 		if(M.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
-			M.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B><font color='#8191ee'>LOOC : [msg]</B></font></span>")
-
+			M.create_chat_message(src.mob, /datum/language/common, "<span class='looc'><B>LOOC : [msg]</B></span>")
+		*/
 	for(var/client/A in GLOB.admins)
 		to_chat(A,
 			type = MESSAGE_TYPE_LOOC,
@@ -62,7 +65,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE) //used with admin verbs to disable/enable lo
 	. = ..()
 	if(.)
 		return
-	var/keybind_msg = input(user,"LOOC","Local OOC, seen only by those in view.")
+	var/keybind_msg = input(user,"Local OOC, seen only by those in view.","LOOC")
 	user.looc(keybind_msg)
 	return TRUE
 
