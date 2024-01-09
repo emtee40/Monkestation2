@@ -28,7 +28,7 @@
 	// However, we can make an effort to patch these holes, and where we haven't, still provide as
 	// much data as we can. Hence, I'll put a stack trace here to track down any such instances.
 	if(!user || !action || !target || !wire)
-		stack_trace("A wirehack event failed to specify a required parameter. This should not prevent logging, but is considered an error regardless. Parameters values: (user: [user]) (action: [action]) (target: [target]) (wire: [wire])")
+		stack_trace("A wirehack event failed to specify a required parameter. This should not prevent logging, but is considered an error regardless.")
 
 	var/event_text = "[action] the [wire] wire of [target ? "[target.name] at [AREACOORD(target)]" : "an unknown target (please report this)"][(additional != "") ? " [additional]" : ""]"
 
