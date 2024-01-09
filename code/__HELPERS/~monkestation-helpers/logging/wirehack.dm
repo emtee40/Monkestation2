@@ -48,7 +48,7 @@
 		source = user,
 		target = target,
 		data = event_text,
-		log_key = "WIRE",
+		log_key = "WIREHACK",
 	)
 
 	// Allow notifying the admins, for example if we consider this wire to be a particularly
