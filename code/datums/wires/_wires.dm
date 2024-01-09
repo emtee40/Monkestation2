@@ -147,19 +147,15 @@
 /datum/wires/proc/is_dud_color(color)
 	return is_dud(get_wire(color))
 
+/* //MONKESTATION EDIT START - Moved to `monkestation/code/datums/wires/_wires.dm`
 /datum/wires/proc/cut(wire)
 	if(is_cut(wire))
-		//MONKESTATION ADDITION START - Wirehack logging
-		log_wirehack(usr, "mended", holder, wire)
-		//MONKESTATION ADDITION END
 		cut_wires -= wire
 		on_cut(wire, mend = TRUE)
 	else
-		//MONKESTATION ADDITION START - Wirehack logging
-		log_wirehack(usr, "cut", holder, wire)
-		//MONKESTATION ADDITION END
 		cut_wires += wire
 		on_cut(wire, mend = FALSE)
+*/ //MONKESTATION REMOVAL END
 
 /datum/wires/proc/cut_color(color)
 	cut(get_wire(color))

@@ -24,7 +24,10 @@
 
 /obj/item/radio/intercom/prison/Initialize(mapload, ndir, building)
 	. = ..()
-	wires?.cut(WIRE_TX)
+	//MONKESTATION EDIT START - Use set_wire_state to avoid generating a log
+	//wires?.cut(WIRE_TX) //MONKESTATION EDIT ORIGINAL
+	wires?.set_wire_state(WIRE_TX, FALSE)
+	//MONKESTATION EDIT END
 
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()

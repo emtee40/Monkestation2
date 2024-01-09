@@ -156,7 +156,10 @@
 			if(24 to 30)
 				airlock.set_panel_open(TRUE)
 	if(airlock.cutAiWire)
-		airlock.wires.cut(WIRE_AI)
+		//MONKESTATION EDIT START - Use set_wire_state to avoid generating a log
+		//airlock.wires.cut(WIRE_AI) //MONKESTATION EDIT ORIGINAL
+		airlock.wires.set_wire_state(WIRE_AI, FALSE)
+		//MONKESTATION EDIT END
 	if(airlock.autoname)
 		airlock.name = get_area_name(src, TRUE)
 	airlock.update_appearance()
@@ -274,7 +277,10 @@
 		qdel(src)
 		return
 	if(target.cut_AI_wire)
-		target.wires.cut(WIRE_AI)
+		//MONKESTATION EDIT START - Use set_wire_state to avoid generating a log
+		//target.wires.cut(WIRE_AI) //MONKESTATION EDIT ORIGINAL
+		target.wires.set_wire_state(WIRE_AI, FALSE)
+		//MONKESTATION EDIT END
 	if(target.cell_5k)
 		target.install_cell_5k()
 	if(target.cell_10k)

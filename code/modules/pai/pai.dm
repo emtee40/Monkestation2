@@ -408,7 +408,10 @@
 		can_transmit = !can_transmit
 	else //receiving
 		can_receive = !can_receive
-	radio.wires.cut(transmit_holder)//wires.cut toggles cut and uncut states
+	//MONKESTATION EDIT START - Use set_wire_state to avoid generating a log
+	//radio.wires.cut(transmit_holder)//wires.cut toggles cut and uncut states //MONKESTATION EDIT ORIGINAL
+	radio.wires.set_wire_state(transmit_holder, radio.wires.is_cut(transmit_holder))
+	//MONKESTATION EDIT END
 	transmit_holder = (transmitting ? can_transmit : can_receive) //recycling can be fun!
 	balloon_alert(src, "[transmitting ? "outgoing" : "incoming"] radio [transmit_holder ? "enabled" : "disabled"]")
 	return TRUE
