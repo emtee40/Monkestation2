@@ -149,9 +149,15 @@
 
 /datum/wires/proc/cut(wire)
 	if(is_cut(wire))
+		//MONKESTATION ADDITION START - Wirehack logging
+		log_wirehack(usr, "mended", holder, wire)
+		//MONKESTATION ADDITION END
 		cut_wires -= wire
 		on_cut(wire, mend = TRUE)
 	else
+		//MONKESTATION ADDITION START - Wirehack logging
+		log_wirehack(usr, "cut", holder, wire)
+		//MONKESTATION ADDITION END
 		cut_wires += wire
 		on_cut(wire, mend = FALSE)
 
@@ -168,6 +174,9 @@
 /datum/wires/proc/pulse(wire, user, force=FALSE)
 	if(!force && is_cut(wire))
 		return
+	//MONKESTATION ADDITION START - Wirehack logging
+	log_wirehack(user, "[force ? "force-" : ""]pulsed", holder, wire)
+	//MONKESTATION ADDITION END
 	on_pulse(wire, user)
 
 /datum/wires/proc/pulse_color(color, mob/living/user, force=FALSE)
@@ -176,11 +185,17 @@
 /datum/wires/proc/pulse_assembly(obj/item/assembly/S)
 	for(var/color in assemblies)
 		if(S == assemblies[color])
+			//MONKESTATION ADDITION START - Wirehack logging
+			log_wirehack_with_assembly(usr, "used an assembly to attempt to pulse", holder, color, S)
+			//MONKESTATION ADDITION END
 			pulse_color(color, force=TRUE)
 			return TRUE
 
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
 	if(S && istype(S) && S.attachable && !is_attached(color))
+		//MONKESTATION ADDITION START - Wirehack logging
+		log_wirehack_with_assembly(usr, "attached an assembly to", holder, color, S)
+		//MONKESTATION ADDITION END
 		assemblies[color] = S
 		S.forceMove(holder)
 		S.connected = src
@@ -190,6 +205,9 @@
 /datum/wires/proc/detach_assembly(color)
 	var/obj/item/assembly/S = get_attached(color)
 	if(S && istype(S))
+		//MONKESTATION ADDITION START - Wirehack logging
+		log_wirehack_with_assembly(usr, "detached an assembly from", holder, color, S)
+		//MONKESTATION ADDITION END
 		assemblies -= color
 		S.on_detach()		// Notify the assembly.  This should remove the reference to our holder
 		S.forceMove(holder.drop_location())
