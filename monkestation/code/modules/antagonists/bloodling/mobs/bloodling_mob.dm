@@ -44,6 +44,24 @@
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 
+/mob/living/basic/bloodling/get_status_tab_items()
+	. = ..()
+	. += "Current Biomass: [biomass >= biomass_max ? biomass : "[biomass] / [biomass_max]"] E"
+
+/mob/living/basic/bloodling/adjust_health(amount, updating_health = TRUE, forced = FALSE)
+	if(!forced)
+		return 0
+
+	. = amount
+
+	biomass = max(0, biomass - amount)
+	if(updating_health)
+		update_health_hud()
+	if(biomass == 0)
+		gib()
+
+	return .
+
 /// Checks for damage to update the bloodlings biomass accordingly
 /mob/living/basic/bloodling/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
