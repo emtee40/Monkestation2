@@ -26,10 +26,10 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	start_process()
 
 /datum/weather_event/Destroy(force, ...)
-	. = ..()
 	if(initiator_ref)
 		initiator_ref.weather_additional_ongoing_events -= src
 		initiator_ref = null
+	return ..()
 
 /datum/weather_event/proc/start_process()
 	return
@@ -188,6 +188,8 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	var/fire_smothering_strength = 0
 
 	var/last_message = ""
+	///Our weather traits
+	var/weather_traits
 
 /datum/particle_weather/proc/severity_mod()
 	return severity / max_severity
@@ -287,7 +289,7 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	var/turf/mob_turf = get_turf(mob_to_check)
 	var/atom/loc_to_check = mob_to_check.loc
 	while(loc_to_check != mob_turf)
-		if((immunity_type && HAS_TRAIT(loc_to_check, immunity_type)) || HAS_TRAIT(loc_to_check, TRAIT_WEATHER_IMMUNE))
+		if(((immunity_type && HAS_TRAIT(loc_to_check, immunity_type)) || HAS_TRAIT(loc_to_check, TRAIT_WEATHER_IMMUNE) || !(mob_turf.turf_flags & TURF_WEATHER)) && !(weather_traits & WEATHERTRAIT_NO_IMMUNITIES))
 			return
 		loc_to_check = loc_to_check.loc
 

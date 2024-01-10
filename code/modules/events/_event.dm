@@ -112,6 +112,8 @@
 			return FALSE
 	if(!check_enemies())
 		return FALSE
+	if(GLOB.battle_royale_controller?.active)
+		return FALSE
 	if(allowed_storytellers && ((islist(allowed_storytellers) && !is_type_in_list(SSgamemode.storyteller, allowed_storytellers)) || SSgamemode.storyteller.type != allowed_storytellers))
 		return FALSE
 	//monkestation edit end - STORYTELLERS
