@@ -2319,7 +2319,7 @@
 		var/salt = chems.get_reagent_amount(src.type)
 		mytray.adjust_plant_health(round(salt * 0.18))
 		if(myseed)
-			myseed.adjust_production(-round(salt * 0.1)-prob(salt%10))
+			myseed.adjust_production(round(salt * 0.1)+prob(salt%10)) // Monke edit: Inverted since Monke's use of production speed is inverted
 			myseed.adjust_potency(round(salt*0.2))
 
 /datum/reagent/lye
