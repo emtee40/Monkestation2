@@ -48,6 +48,53 @@
 		/obj/item/seeds/cucumber,
 	)
 
+// Template inspired by icebox, void raptor, and blue shift to give prisoners more to do
+// Meant to be used in tandem with the basic seed spawner, as this list removes duplicates but
+// the basic seed spawner has some pretty important ones.
+/obj/effect/spawner/random/food_or_drink/seed_prison
+	name = "prison seed spawner"
+	icon_state = "seed"
+	loot = list(
+		/obj/item/seeds/tower,
+		/obj/item/seeds/onion,
+		/obj/item/seeds/garlic,
+		/obj/item/seeds/grass,
+		/obj/item/seeds/pumpkin,
+		/obj/item/seeds/ambrosia,
+		/obj/item/seeds/banana, // Inspiration from Void Raptor and Blueshift (primary crate) from here. Not including seeds from secondary crate (those are maybe a bit OP).
+		/obj/item/seeds/carrot/parsnip,
+		/obj/item/seeds/chili,
+		/obj/item/seeds/lemon,
+		/obj/item/seeds/lime,
+		/obj/item/seeds/orange,
+		/obj/item/seeds/watermelon,
+		/obj/item/seeds/wheat/oat,
+		/obj/item/seeds/eggplant,
+		/obj/item/seeds/cherry/blue,
+		/obj/item/seeds/cherry,
+		/obj/item/seeds/grape,
+		/obj/item/seeds/grape/green,
+	)
+
+// This might not be strictly the best place but there doesn't really seem to be a random tools spawner.
+// Excludes wirecutters from the inspiration source.
+/obj/effect/spawner/random/food_or_drink/seed_tools_prison
+	name = "prison botany tools spawner"
+	icon_state = "seed"
+	loot = list( 
+		/obj/item/secateurs,
+		/obj/item/secateurs,
+		/obj/item/cultivator,
+		/obj/item/cultivator,
+		/obj/item/plant_analyzer,
+		/obj/item/plant_analyzer,
+		/obj/item/storage/bag/plants,
+		/obj/item/storage/bag/plants,
+		/obj/item/reagent_containers/cup/bucket,
+		/obj/item/reagent_containers/cup/bucket,
+	)
+
+
 /obj/effect/spawner/random/food_or_drink/seed_rare
 	spawn_loot_count = 5
 	icon_state = "seed"
