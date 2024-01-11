@@ -266,8 +266,8 @@
 	thermal_overload()
 
 /obj/item/clothing/glasses/hud/spacecop
-	name = "police aviators"
-	desc = "For thinking you look cool while brutalizing protestors and minorities."
+	name = "aviators" // MONKESTATION EDIT
+	desc = "When you want to look like an action hero." //MONKESTATION EDIT
 	icon_state = "bigsunglasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
