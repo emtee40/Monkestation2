@@ -6,8 +6,8 @@
 	icon_living = "maint_spider"
 	icon_dead = "maint_spider_dead"
 	gender = NEUTER
-	health = 1
-	maxHealth = 1
+	health = INFINITY //Bloodlings don't use health, they use biomass instead
+	maxHealth = INFINITY
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	attack_verb_continuous = "chomps"
@@ -27,7 +27,7 @@
 	attack_sound = 'sound/effects/attackblob.ogg'
 
 	/// The amount of biomass our bloodling has
-	var/biomass = 1
+	var/biomass = 50
 	/// The maximum amount of biomass a bloodling can gain
 	var/biomass_max = 500
 	/// The evolution level our bloodling is on
@@ -42,6 +42,8 @@
 	. = ..()
 	create_abilities()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
+	RegisterSignal(src, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 
 /mob/living/basic/bloodling/get_status_tab_items()
@@ -54,13 +56,25 @@
 
 	. = amount
 
-	biomass = max(0, biomass - amount)
+	add_biomass(amount)
 	if(updating_health)
 		update_health_hud()
-	if(biomass == 0)
-		gib()
 
 	return .
+
+/// On_life proc that checks their amount of biomass
+/mob/living/basic/bloodling/proc/on_life(seconds_per_tick = SSMOBS_DT, times_fired)
+	SIGNAL_HANDLER
+
+	if(biomass <= 0)
+		gib()
+
+/// Our health hud is based on biomass, since our health is infinite
+/mob/living/basic/bloodling/update_health_hud()
+	if(isnull(hud_used))
+		return
+
+	hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='red'>[biomass]E</font></div>")
 
 /// Checks for damage to update the bloodlings biomass accordingly
 /mob/living/basic/bloodling/proc/on_damaged(datum/source, damage, damagetype)
@@ -77,18 +91,14 @@
 /// ARGUEMENTS:
 /// amount-The amount of biomass to be added or subtracted
 /mob/living/basic/bloodling/proc/add_biomass(amount)
-	if(biomass + amount <= 0)
-		gib()
 	if(biomass + amount >= biomass_max)
 		biomass = biomass_max
 		balloon_alert(src, "already maximum biomass")
 		return
+
 	biomass += amount
-	// Heals up their damage
-	heal_and_revive(0)
-	maxHealth = biomass
-	// Health needs to be updated to our biomass levels, this does NOT heal up damage
-	health = biomass
+
+	// Damage is based on biomass, and handled here
 	obj_damage = biomass * 0.2
 	// less than 5 damage would be very bad
 	if(biomass > 50)
