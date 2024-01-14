@@ -41,15 +41,24 @@
 	savefile_key = "feature_vox_snout"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Snout"
 	should_generate_icons = TRUE
-	relevant_external_organ = /obj/item/organ/external/snout/vox
+	main_feature_name = "Snout"
 
 /datum/preference/choiced/vox_snout/init_possible_values()
 	return generate_vox_side_shots(GLOB.vox_snouts_list, "snout", FALSE, VOX_SNOUT_COLOR)
 
 /datum/preference/choiced/vox_snout/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["vox_snout"] = value
+	return
+
+/datum/preference/choiced/vox_snout/is_accessible(datum/preferences/preferences)
+	if (!..(preferences))
+		return FALSE
+
+	return FALSE
+
+/datum/preference/choiced/vox_snout/create_default_value()
+	var/datum/sprite_accessory/vox_snouts/voxsnout = /datum/sprite_accessory/vox_snouts/vox
+	return initial(voxsnout.name)
 
 /datum/preference/choiced/vox_spines
 	savefile_key = "feature_vox_spines"
@@ -62,23 +71,6 @@
 
 /datum/preference/choiced/vox_spines/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["spines_vox"] = value
-
-/datum/preference/choiced/tail_vox
-	savefile_key = "feature_vox_tail"
-	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	can_randomize = FALSE
-	relevant_external_organ = /obj/item/organ/external/tail/lizard/vox
-
-/datum/preference/choiced/tail_vox/init_possible_values()
-	return assoc_to_keys(GLOB.tails_list_vox)
-
-/datum/preference/choiced/tail_vox/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["tail_vox"] = value
-
-/datum/preference/choiced/tail_vox/create_default_value()
-	var/datum/sprite_accessory/tails/vox/tail = /datum/sprite_accessory/tails/vox/default
-	return initial(tail.name)
 
 /datum/preference/choiced/vox_hair
 	savefile_key = "feature_vox_hair"

@@ -154,9 +154,10 @@
 /obj/item/organ/external/tail/lizard/vox
 	name = "vox tail"
 	desc = "A severed vox tail."
-	preference = "feature_vox_tail"
-	dna_block = DNA_VOX_TAIL_BLOCK
+	preference = null
+	dna_block = null
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/vox
+	sprite_accessory_override = /datum/sprite_accessory/tails/vox/default
 
 /datum/bodypart_overlay/mutant/tail/vox
 	color_source = ORGAN_COLOR_MUTTERTIARY

@@ -269,11 +269,6 @@ export const feature_mcolor_tertiary: Feature<string> = {
   component: FeatureColorInput,
 };
 
-export const feature_vox_tail: FeatureChoiced = {
-  name: 'Tail',
-  component: FeatureDropdownInput,
-};
-
 export const feature_vox_hair: FeatureChoiced = {
   name: 'Hairstyle',
   component: FeatureDropdownInput,

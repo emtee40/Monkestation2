@@ -247,10 +247,10 @@
 /obj/item/organ/external/snout/vox
 	name = "beak"
 	feature_key = "vox_snout"
-	preference = "feature_vox_snout"
-	dna_block = DNA_VOX_SNOUT_BLOCK
+	preference = null
 	external_bodytypes = BODYTYPE_VOX_BEAK
 	bodypart_overlay = /datum/bodypart_overlay/mutant/snout/vox
+	sprite_accessory_override = /datum/sprite_accessory/vox_snouts/vox
 
 /datum/bodypart_overlay/mutant/snout/vox
 	feature_key = "vox_snout"
