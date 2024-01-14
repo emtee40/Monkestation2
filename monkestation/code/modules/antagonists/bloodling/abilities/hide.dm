@@ -3,7 +3,7 @@
 	desc = "Allows you to hide beneath tables and certain objects."
 	button_icon_state = "alien_hide"
 	/// The layer we are on while hiding
-	var/hide_layer = ABOVE_NORMAL_TURF_LAYER
+	var/hide_layer = BULLET_HOLE_LAYER
 
 /datum/action/cooldown/bloodling/hide/Activate(atom/target)
 	if(owner.layer == hide_layer)

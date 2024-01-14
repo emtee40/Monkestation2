@@ -34,7 +34,7 @@
 	var/evolution_level = 1
 	/// The abilities this bloodling starts with
 	var/list/initial_powers = list(
-		/datum/action/cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/bloodling/hide,
 	)
 
@@ -68,6 +68,7 @@
 
 	if(biomass <= 0)
 		gib()
+		return
 
 /// Our health hud is based on biomass, since our health is infinite
 /mob/living/basic/bloodling/update_health_hud()
@@ -109,8 +110,8 @@
 
 /// Creates the bloodlings abilities
 /mob/living/basic/bloodling/proc/create_abilities()
-	for(var/datum/action/cooldown/bloodling/path as anything in initial_powers)
-		var/datum/action/cooldown/bloodling/bloodling_action = new path()
+	for(var/datum/action/cooldown/mob_cooldown/bloodling/path as anything in initial_powers)
+		var/datum/action/cooldown/mob_cooldown/bloodling/bloodling_action = new path()
 		bloodling_action.Grant(src)
 
 
@@ -119,13 +120,13 @@
 	if(75 > biomass && evolution_level != 1)
 		evolution(1)
 		return
-	if(125 > biomass >= 75 && evolution_level != 2)
+	if(125 > biomass && biomass >= 75 && evolution_level != 2)
 		evolution(2)
 		return
-	if(175 > biomass >= 125 && evolution_level != 3)
+	if(175 > biomass && biomass >= 125 && evolution_level != 3)
 		evolution(3)
 		return
-	if(225 > biomass >= 175 && evolution_level != 4)
+	if(225 > biomass && biomass >= 175 && evolution_level != 4)
 		evolution(4)
 		return
 	if(biomass >= 225 && evolution_level != 5)
@@ -171,9 +172,9 @@
 	icon_living = "guard"
 	evolution_level = 2
 	initial_powers = list(
-		/datum/action/cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/bloodling/hide,
-		/datum/action/cooldown/bloodling/infest,
+		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 	)
 
@@ -182,8 +183,8 @@
 	icon_living = "scout"
 	evolution_level = 3
 	initial_powers = list(
-		/datum/action/cooldown/bloodling/absorb,
-		/datum/action/cooldown/bloodling/infest,
+		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 	)
 
@@ -191,10 +192,18 @@
 	icon_state = "ambush"
 	icon_living = "ambush"
 	evolution_level = 4
-	initial_powers = list()
+	initial_powers = list(
+		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/infest,
+		/datum/action/cooldown/bloodling/build,
+	)
 
 /mob/living/basic/bloodling/tier5
 	icon_state = "hunter"
 	icon_living = "hunter"
 	evolution_level = 5
-	initial_powers = list()
+	initial_powers = list(
+		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/infest,
+		/datum/action/cooldown/bloodling/build,
+	)
