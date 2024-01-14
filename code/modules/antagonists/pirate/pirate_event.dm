@@ -6,23 +6,30 @@
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
 	weight = 10
-	max_occurrences = 1
+	max_occurrences = 3 //monkestation edit: from 1 to 3 because pirates fighting over the station sounds funny
 	min_players = 20
 	//dynamic_should_hijack = TRUE
 	category = EVENT_CATEGORY_INVASION
 	description = "The crew will either pay up, or face a pirate assault."
 	admin_setup = list(/datum/event_admin_setup/listed_options/pirates)
 	map_flags = EVENT_SPACE_ONLY
+//monkestation edit start
 	track = EVENT_TRACK_MAJOR
 	tags = list(TAG_COMBAT, TAG_COMMUNAL)
 	checks_antag_cap = TRUE
+//monkestation edit end
+
+/datum/round_event_control/pirates/preRunEvent()
+	if (SSmapping.is_planetary())
+		return EVENT_CANT_RUN
+	return ..()
 
 /datum/round_event/pirates
 	///admin chosen pirate team
 	var/list/datum/pirate_gang/gang_list = list(
 		/datum/pirate_gang/psykers,
 		/datum/pirate_gang/skeletons,
-		/datum/pirate_gang/rogues
+		/datum/pirate_gang/rogues,
 	)
 
 /datum/round_event/pirates/start()
