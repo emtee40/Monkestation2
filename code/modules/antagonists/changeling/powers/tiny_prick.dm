@@ -63,6 +63,7 @@
 	return 1
 
 
+/* MONKE EDIT: remove transformation sting. do not re-add this. it is never going to be used properly. it is solely used for soft-grief.
 /datum/action/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 50 chemicals."
@@ -105,7 +106,7 @@
 		C.real_name = NewDNA.real_name
 		NewDNA.transfer_identity(C)
 		C.updateappearance(mutcolor_update=1)
-
+*/
 
 /datum/action/changeling/sting/false_armblade
 	name = "False Armblade Sting"
