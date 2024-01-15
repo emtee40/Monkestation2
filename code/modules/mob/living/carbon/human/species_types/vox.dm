@@ -50,8 +50,8 @@
 	human.dna.features["mcolor2"] = "#F0F064"
 	human.hair_color = "#FF9966"
 	human.facial_hair_color = "#FF9966"
-	human.eye_color_right = COLOR_TEAL
-	human.eye_color_left = COLOR_TEAL
+	human.eye_color_right = COLOR_CYAN
+	human.eye_color_left = COLOR_CYAN
 	human.update_body(TRUE)
 
 /datum/species/vox/pre_equip_species_outfit(datum/outfit/O, mob/living/carbon/human/equipping, visuals_only)

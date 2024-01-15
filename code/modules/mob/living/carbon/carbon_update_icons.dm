@@ -563,6 +563,8 @@
 		. += "[limb_gender]-"
 	. += "[limb_id]"
 	. += "-[body_zone]"
+	if(has_icon_variants)
+		. += "-[limb_icon_variant]"
 	if(should_draw_greyscale && draw_color)
 		. += "-[draw_color]"
 	if(is_invisible)

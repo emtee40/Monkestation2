@@ -248,6 +248,7 @@
 	name = "beak"
 	feature_key = "vox_snout"
 	preference = null
+	dna_block = null
 	external_bodytypes = BODYTYPE_VOX_BEAK
 	bodypart_overlay = /datum/bodypart_overlay/mutant/snout/vox
 	sprite_accessory_override = /datum/sprite_accessory/vox_snouts/vox
@@ -258,8 +259,8 @@
 /datum/bodypart_overlay/mutant/snout/vox/get_global_feature_list()
 	return GLOB.vox_snouts_list
 
-/datum/bodypart_overlay/mutant/snout/vox/color_image(image/overlay, layer, obj/item/bodypart/limb)
-	overlay.color = "#d7c67e"
+/datum/bodypart_overlay/mutant/snout/vox/inherit_color(obj/item/bodypart/ownerlimb, force)
+	return
 
 ///A moth's antennae
 /obj/item/organ/external/antennae

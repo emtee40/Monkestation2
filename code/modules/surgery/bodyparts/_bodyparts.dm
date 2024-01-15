@@ -51,11 +51,16 @@
 	var/limb_gender = "m"
 	///Is there a sprite difference between male and female?
 	var/is_dimorphic = FALSE
+	///Does the completely formed sprite have an unchanging part for building limb icon
+	var/has_static_sprite_part = FALSE
 	///Which mutcolor to use, if mutcolors are used
 	var/mutcolor_used = MUTCOLORS
 	///The actual color a limb is drawn as, set by /proc/update_limb()
 	var/draw_color //NEVER. EVER. EDIT THIS VALUE OUTSIDE OF UPDATE_LIMB. I WILL FIND YOU. It ruins the limb icon pipeline.
-
+	///Icon variants, used for icon-based skintones
+	var/has_icon_variants = FALSE
+	///Icon variant for getting icon state, used with var/has_icon_variants
+	var/limb_icon_variant
 	/// BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/body_zone
 	/// The body zone of this part in english ("chest", "left arm", etc) without the species attached to it
@@ -972,12 +977,19 @@
 
 		if(is_dimorphic) //Does this type of limb have sexual dimorphism?
 			limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+			if(has_icon_variants)
+				limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]_[limb_icon_variant]"
+		else if(has_icon_variants)
+			limb.icon_state = "[limb_id]_[body_zone]_[limb_icon_variant]"
 		else
 			limb.icon_state = "[limb_id]_[body_zone]"
 
 		icon_exists(limb.icon, limb.icon_state, TRUE) //Prints a stack trace on the first failure of a given iconstate.
 
 		. += limb
+
+		if(has_static_sprite_part)
+			. += image(limb.icon, "[limb_id]_[body_zone]_static", limb.layer, limb.dir)
 
 		if(aux_zone) //Hand shit
 			aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
@@ -1228,7 +1240,7 @@
 		overlay.inherit_color(src, force = TRUE)
 
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
-/obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
+/obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic, icon_variant)
 	var/icon_holder
 	if(greyscale)
 		icon_greyscale = icon
@@ -1238,6 +1250,13 @@
 		icon_static = icon
 		icon_holder = icon
 		should_draw_greyscale = FALSE
+
+	if(icon_variant)
+		has_icon_variants = TRUE
+		limb_icon_variant = icon_variant
+	else
+		has_icon_variants = initial(has_icon_variants)
+		limb_icon_variant = initial(limb_icon_variant)
 
 	if(id) //limb_id should never be falsey
 		limb_id = id
@@ -1251,15 +1270,17 @@
 		update_icon_dropped()
 
 	//This foot gun needs a safety
-	if(!icon_exists(icon_holder, "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"))
+	if(!icon_exists(icon_holder, "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""][has_icon_variants ? "_[limb_icon_variant]" : ""]"))
 		reset_appearance()
-		stack_trace("change_appearance([icon], [id], [greyscale], [dimorphic]) generated null icon")
+		stack_trace("change_appearance([icon], [id], [greyscale], [dimorphic], [icon_variant]) generated null icon")
 
 ///Resets the base appearance of a limb to it's default values.
 /obj/item/bodypart/proc/reset_appearance()
 	icon_static = initial(icon_static)
 	icon_greyscale = initial(icon_greyscale)
 	limb_id = initial(limb_id)
+	has_icon_variants = initial(has_icon_variants)
+	limb_icon_variant = initial(limb_icon_variant)
 	is_dimorphic = initial(is_dimorphic)
 	should_draw_greyscale = initial(should_draw_greyscale)
 
