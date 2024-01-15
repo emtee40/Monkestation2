@@ -259,7 +259,7 @@
 	return GLOB.vox_snouts_list
 
 /datum/bodypart_overlay/mutant/snout/vox/color_image(image/overlay, layer, obj/item/bodypart/limb)
-	overlay.color = "#E5C04B"
+	overlay.color = "#d7c67e"
 
 ///A moth's antennae
 /obj/item/organ/external/antennae

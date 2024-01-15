@@ -36,7 +36,7 @@
 	var/list/color_cutoffs = null
 	/// Are these eyes immune to pepperspray?
 	var/pepperspray_protect = FALSE
-
+	var/eyes_icon
 	var/eye_color_left = "" //set to a hex code to override a mob's left eye color
 	var/eye_color_right = "" //set to a hex code to override a mob's right eye color
 	var/eye_icon_state = "eyes"
@@ -128,7 +128,11 @@
 	if(EYECOLOR in parent.dna?.species.species_traits)
 		eye_right.color = eye_color_right
 		eye_left.color = eye_color_left
-
+	if(type == /obj/item/organ/internal/eyes/vox)
+		var/obj/item/organ/internal/eyes/vox/voxeyes = src
+		var/image/voxbluepart = image(eyes_icon, "eyes_l_non_grey", -FACE_LAYER, SOUTH)
+		voxbluepart.appearance_flags |= RESET_COLOR
+		eye_left.overlays += voxbluepart
 	var/obscured = parent.check_obscured_slots(TRUE)
 	if(overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
 		overlays += emissive_appearance_copy(eye_left, src, NONE)
@@ -564,6 +568,7 @@
 /obj/item/organ/internal/eyes/vox
 	name = "vox eyeballs"
 	icon_state = "vox-eyeballs"
+	eyes_icon = 'icons/mob/species/vox/eyes.dmi'
 
 /obj/item/organ/internal/eyes/lizard
 	name = "lizard eyes"

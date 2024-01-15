@@ -239,6 +239,11 @@
 			var/image/eye_right = image(owner?.dna?.species?.eyes_icon || 'icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]_r", -FACE_LAYER, SOUTH)
 			if(eyes.eye_color_left)
 				eye_left.color = eyes.eye_color_left
+			if(eyes.type == /obj/item/organ/internal/eyes/vox)
+				var/obj/item/organ/internal/eyes/vox/voxeyes = eyes
+				var/image/voxbluepart = image(voxeyes.eyes_icon, "eyes_l_non_grey", -FACE_LAYER, SOUTH)
+				voxbluepart.appearance_flags |= RESET_COLOR
+				eye_left.overlays += voxbluepart
 			if(eyes.eye_color_right)
 				eye_right.color = eyes.eye_color_right
 			if(eyes.overlay_ignore_lighting)
