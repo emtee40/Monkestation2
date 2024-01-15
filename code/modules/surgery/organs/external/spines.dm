@@ -52,8 +52,9 @@
 	name = "vox spines"
 	preference = "feature_vox_spines"
 	dna_block = DNA_VOX_SPINES_BLOCK
+	organ_flags = ORGAN_UNREMOVABLE|ORGAN_FROZEN
 	bodypart_overlay = /datum/bodypart_overlay/mutant/spines/vox
-	paired_tail_type = /obj/item/organ/external/tail/lizard/vox
+	paired_tail_type = /obj/item/organ/external/tail/vox
 
 ///Bodypart overlay for spines (wagging gets updated by tail)
 /datum/bodypart_overlay/mutant/spines/vox

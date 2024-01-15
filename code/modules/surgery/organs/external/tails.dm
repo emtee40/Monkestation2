@@ -151,13 +151,14 @@
 	name = "fabricated lizard tail"
 	desc = "A fabricated severed lizard tail. This one's made of synthflesh. Probably not usable for lizard wine."
 
-/obj/item/organ/external/tail/lizard/vox
+/obj/item/organ/external/tail/vox
 	name = "vox tail"
 	desc = "A severed vox tail."
 	preference = null
 	dna_block = null
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/vox
 	sprite_accessory_override = /datum/sprite_accessory/tails/vox/default
+	var/obj/item/organ/external/spines/vox/paired_spines
 
 /datum/bodypart_overlay/mutant/tail/vox
 	color_source = ORGAN_COLOR_MUTTERTIARY
@@ -165,3 +166,27 @@
 
 /datum/bodypart_overlay/mutant/tail/vox/get_global_feature_list()
 	return GLOB.tails_list_vox
+
+/obj/item/organ/external/tail/vox/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+	. = ..()
+	if(.)
+		paired_spines = ownerlimb.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES)
+		paired_spines?.paired_tail = src
+
+/obj/item/organ/external/tail/vox/Remove(mob/living/carbon/organ_owner, special, moving)
+	. = ..()
+	if(paired_spines)
+		paired_spines.paired_tail = null
+		paired_spines = null
+
+/obj/item/organ/external/tail/vox/start_wag()
+	if(paired_spines)
+		var/datum/bodypart_overlay/mutant/spines/accessory = paired_spines.bodypart_overlay
+		accessory.wagging = TRUE
+	return ..()
+
+/obj/item/organ/external/tail/vox/stop_wag()
+	if(paired_spines)
+		var/datum/bodypart_overlay/mutant/spines/accessory = paired_spines.bodypart_overlay
+		accessory.wagging = FALSE
+	return ..()
