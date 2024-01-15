@@ -1749,6 +1749,30 @@
 	icon_state = "lbelly"
 	gender_specific = 1
 */
+/datum/sprite_accessory/vox_body_markings
+	icon = 'icons/mob/species/vox/body_markings.dmi'
+
+/datum/sprite_accessory/vox_body_markings/heart
+	name = "Heart"
+	icon_state = "heart"
+	body_slots = list(BODY_ZONE_R_ARM)
+
+/datum/sprite_accessory/vox_body_markings/hive
+	name = "Hive"
+	icon_state = "hive"
+	body_slots = list(BODY_ZONE_CHEST)
+
+/datum/sprite_accessory/vox_body_markings/nightling
+	name = "Nightling"
+	icon_state = "nightling"
+	body_slots = list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+
+/datum/sprite_accessory/vox_body_markings/tiger_body
+	name = "Tiger-stripe"
+	icon_state = "tiger"
+	body_slots = list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+
+
 /datum/sprite_accessory/tails
 	em_block = TRUE
 
@@ -1926,12 +1950,12 @@
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 	em_block = TRUE
 
-/datum/sprite_accessory/vox_snouts
-	icon = 'icons/mob/species/vox/vox_snouts.dmi'
+/datum/sprite_accessory/beaks
+	icon = 'icons/mob/species/vox/beaks.dmi'
 	em_block = TRUE
 
-/datum/sprite_accessory/vox_snouts/vox
-	name = "Vox Snout"
+/datum/sprite_accessory/beaks/vox
+	name = "Vox Beak"
 	icon_state = "vox"
 
 /datum/sprite_accessory/snouts/sharp
@@ -2210,20 +2234,16 @@
 	color_src = MUTCOLORS_SECONDARY
 
 /datum/sprite_accessory/vox_spines/vox_bands
-	name = "Vox Bands"
+	name = "Bands"
 	icon_state = "bands"
 
 /datum/sprite_accessory/vox_spines/vox_tip
-	name = "Vox Tip"
+	name = "Tip"
 	icon_state = "tip"
 
 /datum/sprite_accessory/vox_spines/vox_stripe
-	name = "vox stripe"
+	name = "Stripe"
 	icon_state = "stripe"
-
-/datum/sprite_accessory/vox_spines/none
-	name = "None"
-	icon_state = "none"
 
 /datum/sprite_accessory/legs //legs are a special case, they aren't actually sprite_accessories but are updated with them.
 	icon = null //These datums exist for selecting legs on preference, and little else

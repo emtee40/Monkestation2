@@ -836,6 +836,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					accessory = GLOB.ears_list[source.dna.features["ears"]]
 				if("body_markings")
 					accessory = GLOB.body_markings_list[source.dna.features["body_markings"]]
+				if("vox_body_markings")
+					accessory = GLOB.vox_body_markings_list[source.dna.features["vox_body_markings"]]
 				if("legs")
 					accessory = GLOB.legs_list[source.dna.features["legs"]]
 				if("caps")

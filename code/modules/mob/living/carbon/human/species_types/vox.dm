@@ -10,6 +10,7 @@
 		EYECOLOR,
 		HAIRCOLOR,
 		FACEHAIRCOLOR,
+		NO_UNDERWEAR,
 	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
@@ -18,15 +19,16 @@
 		TRAIT_CAN_USE_FLIGHT_POTION,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	mutantlungs = /obj/item/organ/internal/lungs/vox
+	//mutantlungs = /obj/item/organ/internal/lungs/vox
 	mutantbrain = /obj/item/organ/internal/brain/vox
 	mutantheart = /obj/item/organ/internal/heart/vox
 	mutanteyes = /obj/item/organ/internal/eyes/vox
 	mutantliver = /obj/item/organ/internal/liver/vox
-	breathid = "n2"
+	//breathid = "n2"
 	scream_verb = "shrieks"
+	mutant_bodyparts = list("vox_body_markings" = "None")
 	external_organs = list(
-		/obj/item/organ/external/snout/vox = "Vox Snout",
+		/obj/item/organ/external/beak = "Vox Beak",
 		/obj/item/organ/external/vox_hair = "None",
 		/obj/item/organ/external/vox_facial_hair = "None",
 		/obj/item/organ/external/tail/vox = "Vox Tail",
@@ -44,6 +46,10 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/vox,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/vox,
 	)
+
+/datum/species/vox/randomize_features(mob/living/carbon/human/human_mob)
+	human_mob.dna.features["vox_body_markings"] = pick(GLOB.vox_body_markings_list)
+	randomize_external_organs(human_mob)
 
 /datum/species/vox/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.dna.features["mcolor"] = "#99FF99"

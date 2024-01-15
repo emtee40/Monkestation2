@@ -244,22 +244,32 @@
 	return GLOB.snouts_list
 
 ///Guess what part of the vox is this?
-/obj/item/organ/external/snout/vox
+/obj/item/organ/external/beak
 	name = "beak"
-	feature_key = "vox_snout"
-	preference = null
-	dna_block = null
+	feature_key = "beak"
+	visual = TRUE
+	cosmetic_only = TRUE
+	organ_flags = ORGAN_UNREMOVABLE | ORGAN_EDIBLE
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_BEAK
 	external_bodytypes = BODYTYPE_VOX_BEAK
-	bodypart_overlay = /datum/bodypart_overlay/mutant/snout/vox
-	sprite_accessory_override = /datum/sprite_accessory/vox_snouts/vox
+	layers = list(BODY_ADJ_LAYER)
+	bodypart_overlay = /datum/bodypart_overlay/mutant/beak
+	sprite_accessory_override = /datum/sprite_accessory/beaks/vox
 
-/datum/bodypart_overlay/mutant/snout/vox
-	feature_key = "vox_snout"
+/datum/bodypart_overlay/mutant/beak
+	layers = EXTERNAL_ADJACENT
+	feature_key = "beak"
 
-/datum/bodypart_overlay/mutant/snout/vox/get_global_feature_list()
-	return GLOB.vox_snouts_list
+/datum/bodypart_overlay/mutant/beak/can_draw_on_bodypart(mob/living/carbon/human/human)
+	if(!(human.wear_mask?.flags_inv & HIDESNOUT) && !(human.head?.flags_inv & HIDESNOUT))
+		return TRUE
+	return FALSE
 
-/datum/bodypart_overlay/mutant/snout/vox/inherit_color(obj/item/bodypart/ownerlimb, force)
+/datum/bodypart_overlay/mutant/beak/get_global_feature_list()
+	return GLOB.beaks_list
+
+/datum/bodypart_overlay/mutant/beak/inherit_color(obj/item/bodypart/ownerlimb, force)
 	return
 
 ///A moth's antennae

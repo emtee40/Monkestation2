@@ -120,8 +120,10 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_vox_hair, GLOB.vox_facial_hair_list)
 	if(!GLOB.tails_list_vox.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/vox, GLOB.tails_list_vox)
-	if(!GLOB.vox_snouts_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_snouts, GLOB.vox_snouts_list)
+	if(!GLOB.beaks_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/beaks, GLOB.beaks_list)
+	if(!GLOB.vox_body_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_body_markings, GLOB.vox_body_markings_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
@@ -157,11 +159,12 @@
 		"animecolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]", //Monkestation Addition
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
-		"vox_snout" = pick(GLOB.vox_snouts_list),
+		"beak" = pick(GLOB.beaks_list),
 		"spines_vox" = pick(GLOB.spines_list_vox),
 		"tail_vox" = pick(GLOB.tails_list_vox),
 		"vox_hair" = pick(GLOB.vox_hair_list),
 		"vox_facial_hair" = pick(GLOB.vox_facial_hair_list),
+		"vox_body_markings" = pick(GLOB.vox_body_markings_list),
 	))
 
 /proc/random_hairstyle(gender)

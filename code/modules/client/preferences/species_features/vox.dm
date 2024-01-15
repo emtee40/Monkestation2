@@ -13,10 +13,10 @@
 	eyes.Blend(eyes_r, ICON_OVERLAY)
 	vox_head.Blend(eyes, ICON_OVERLAY)
 
-	var/icon/snout = icon('icons/mob/species/vox/vox_snouts.dmi', "m_snout_vox_ADJ")
-	vox_head.Blend(snout, ICON_OVERLAY)
+	var/icon/beak = icon('icons/mob/species/vox/beaks.dmi', "m_beak_vox_ADJ")
+	vox_head.Blend(beak, ICON_OVERLAY)
 
-	for (var/name in sprite_accessories)
+	for(var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
 		var/icon/final_icon = icon(vox_head)
@@ -43,6 +43,19 @@
 
 /datum/preference/choiced/vox_spines/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["spines_vox"] = value
+
+/datum/preference/choiced/vox_body_markings
+	savefile_key = "feature_vox_body_markings"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	relevant_mutant_bodypart = "vox_body_markings"
+	main_feature_name = "Body markings"
+
+/datum/preference/choiced/vox_body_markings/init_possible_values()
+	return assoc_to_keys(GLOB.vox_body_markings_list)
+
+/datum/preference/choiced/vox_body_markings/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["vox_body_markings"] = value
 
 /datum/preference/choiced/vox_hair
 	savefile_key = "feature_vox_hair"
