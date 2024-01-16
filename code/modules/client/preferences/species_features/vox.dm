@@ -32,6 +32,19 @@
 
 	return values
 
+/datum/preference/choiced/vox_skin_tone
+	savefile_key = "feature_vox_skin_tone"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	relevant_bodyparts = list(/obj/item/bodypart/head/vox, /obj/item/bodypart/chest/vox, /obj/item/bodypart/arm/left/vox, \
+							/obj/item/bodypart/arm/right/vox, /obj/item/bodypart/leg/left/vox, /obj/item/bodypart/leg/right/vox)
+
+/datum/preference/choiced/vox_skin_tone/init_possible_values()
+	return GLOB.vox_skin_tones
+
+/datum/preference/choiced/vox_skin_tone/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["vox_skin_tone"] = value
+
 /datum/preference/choiced/vox_spines
 	savefile_key = "feature_vox_spines"
 	savefile_identifier = PREFERENCE_CHARACTER

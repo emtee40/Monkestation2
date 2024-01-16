@@ -252,6 +252,11 @@ GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"african2"
 	)))
 
+GLOBAL_LIST_INIT(vox_skin_tones, sort_list(list(
+	"green",
+	"crimson"
+	)))
+
 GLOBAL_LIST_INIT(skin_tone_names, list(
 	"african1" = "Medium brown",
 	"african2" = "Dark brown",

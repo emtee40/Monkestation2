@@ -49,11 +49,13 @@
 
 /datum/species/vox/randomize_features(mob/living/carbon/human/human_mob)
 	human_mob.dna.features["vox_body_markings"] = pick(GLOB.vox_body_markings_list)
+	human_mob.dna.features["vox_skin_tone"] = pick(GLOB.vox_skin_tones)
 	randomize_external_organs(human_mob)
 
 /datum/species/vox/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.dna.features["mcolor"] = "#99FF99"
 	human.dna.features["mcolor2"] = "#F0F064"
+	human.dna.features["vox_skin_tone"] = "green"
 	human.hair_color = "#FF9966"
 	human.facial_hair_color = "#FF9966"
 	human.eye_color_right = COLOR_CYAN

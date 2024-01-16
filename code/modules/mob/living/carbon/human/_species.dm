@@ -1885,11 +1885,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
+		var/required_bodyparts_found = FALSE
+		if(length(preference.relevant_bodyparts))
+			for(var/species_bodypart in bodypart_overrides)
+				if(bodypart_overrides[species_bodypart] in preference.relevant_bodyparts)
+					required_bodyparts_found = TRUE
+					break
+				else
+					continue
 
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_species_trait in species_traits) \
-			|| (preference.relevant_external_organ in external_organs)
+			|| (preference.relevant_external_organ in external_organs) \
+			|| required_bodyparts_found
 		)
 			features += preference.savefile_key
 

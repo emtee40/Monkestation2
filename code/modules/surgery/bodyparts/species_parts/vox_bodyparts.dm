@@ -6,7 +6,6 @@
 	limb_id = SPECIES_VOX
 	is_dimorphic = FALSE
 	has_icon_variants = TRUE
-	has_static_sprite_part = TRUE
 	limb_icon_variant = "green"
 	should_draw_greyscale = FALSE
 
@@ -19,8 +18,6 @@
 	has_icon_variants = TRUE
 	limb_icon_variant = "green"
 	should_draw_greyscale = FALSE
-	has_static_sprite_part = TRUE
-
 /obj/item/bodypart/arm/left/vox
 	icon = 'icons/mob/species/vox/bodyparts.dmi'
 	icon_static = 'icons/mob/species/vox/bodyparts.dmi'

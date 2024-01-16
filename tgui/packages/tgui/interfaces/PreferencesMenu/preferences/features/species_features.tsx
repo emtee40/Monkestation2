@@ -289,6 +289,11 @@ export const feature_vox_body_markings: FeatureChoiced = {
   component: FeatureDropdownInput,
 };
 
+export const feature_vox_skin_tone: FeatureChoiced = {
+  name: 'Skin tone',
+  component: FeatureDropdownInput,
+};
+
 export const underwear_color: Feature<string> = {
   name: 'Underwear color',
   component: FeatureColorInput,
