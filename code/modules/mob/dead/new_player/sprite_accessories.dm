@@ -1753,6 +1753,7 @@
 */
 /datum/sprite_accessory/vox_body_markings
 	icon = 'icons/mob/species/vox/body_markings.dmi'
+	color_blend_mode = "add"
 
 /datum/sprite_accessory/vox_body_markings/heart
 	name = "Heart"
@@ -2235,6 +2236,7 @@
 	icon = 'icons/mob/species/vox/tail_markings.dmi'
 	em_block = TRUE
 	color_src = MUTCOLORS_SECONDARY
+	color_blend_mode = "add"
 
 /datum/sprite_accessory/vox_spines/vox_bands
 	name = "Bands"

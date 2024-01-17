@@ -410,6 +410,7 @@
 	color_source = ORGAN_COLOR_HAIR
 	override_layer = HAIR_LAYER
 	delayed_rendering = TRUE
+	color_blend_mode = "add"
 
 /datum/bodypart_overlay/mutant/vox_hair/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
@@ -432,6 +433,7 @@
 	feature_key = "vox_facial_hair"
 	color_source = ORGAN_COLOR_FACIAL_HAIR
 	override_layer = HAIR_LAYER
+	color_blend_mode = "add"
 
 /datum/bodypart_overlay/mutant/vox_facial_hair/can_draw_on_bodypart(mob/living/carbon/human/human)
 	if(!(human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
