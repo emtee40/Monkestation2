@@ -88,8 +88,11 @@
 	return appearance
 
 /datum/bodypart_overlay/mutant/color_image(image/overlay, layer, obj/item/bodypart/limb)
-
-	overlay.color = sprite_datum.color_src ? draw_color : null
+	switch(color_blend_mode)
+		if("multiply")
+			overlay.color = sprite_datum.color_src ? draw_color : null
+		if("add")
+			overlay.color = list(null, null, null, null, sprite_datum.color_src ? draw_color : null)
 
 /datum/bodypart_overlay/mutant/added_to_limb(obj/item/bodypart/limb)
 	inherit_color(limb)

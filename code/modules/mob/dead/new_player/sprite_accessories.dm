@@ -68,6 +68,7 @@
 	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
 	 */
 	var/color_src = MUTCOLORS
+	var/color_blend_mode = "multiply"
 	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/hasinner = FALSE
 	/// Is this part locked from roundstart selection? Used for parts that apply effects.
@@ -1088,7 +1089,7 @@
 	gender = NEUTER
 
 /datum/sprite_accessory/facial_vox_hair
-	icon = 'icons/mob/vox_facial_hair.dmi'
+	icon = 'icons/mob/species/vox/facial_hair.dmi'
 	color_src = FACEHAIRCOLOR
 
 /datum/sprite_accessory/facial_vox_hair/vox_beard
@@ -1807,7 +1808,7 @@
 	color_src = FALSE
 
 /datum/sprite_accessory/tails/vox
-	icon = 'icons/mob/species/vox/vox_tails.dmi'
+	icon = 'icons/mob/species/vox/tails.dmi'
 	em_block = TRUE
 
 /datum/sprite_accessory/tails/vox/default
@@ -1859,7 +1860,7 @@
 	icon_state = "hibiscus"
 
 /datum/sprite_accessory/vox_hair
-	icon = 'icons/mob/vox_hair.dmi'
+	icon = 'icons/mob/species/vox/hair.dmi'
 	color_src = HAIRCOLOR
 
 /datum/sprite_accessory/vox_hair/vox_afro
@@ -2229,7 +2230,7 @@
 	icon_state = "aqua"
 
 /datum/sprite_accessory/vox_spines
-	icon = 'icons/mob/vox_spines.dmi'
+	icon = 'icons/mob/species/vox/tail_markings.dmi'
 	em_block = TRUE
 	color_src = MUTCOLORS_SECONDARY
 

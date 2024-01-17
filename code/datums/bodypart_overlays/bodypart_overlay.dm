@@ -7,6 +7,7 @@
 	var/static/list/all_layers = list(EXTERNAL_FRONT, EXTERNAL_ADJACENT, EXTERNAL_BEHIND)
 	var/override_layer
 	var/delayed_rendering = FALSE
+	var/color_blend_mode = "multiply"
 	///Key of the icon states of all the sprite_datums for easy caching
 	var/cache_key = ""
 

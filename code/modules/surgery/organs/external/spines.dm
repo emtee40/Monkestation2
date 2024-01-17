@@ -61,6 +61,7 @@
 	feature_key = "spines_vox"
 	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
 	color_source = ORGAN_COLOR_MUTSECONDARY
+	color_blend_mode = "add"
 
 /datum/bodypart_overlay/mutant/spines/vox/get_global_feature_list()
 	return GLOB.spines_list_vox

@@ -896,6 +896,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 							accessory_overlay.color = source.dna.features["animecolor"]
 				else
 					accessory_overlay.color = forced_colour
+			if(accessory.color_blend_mode == "add")
+				accessory_overlay.color = list(null, null, null, null, accessory_overlay.color)
 			standing += accessory_overlay
 			if(accessory.is_emissive)
 				standing += emissive_appearance_copy(accessory_overlay, source)
