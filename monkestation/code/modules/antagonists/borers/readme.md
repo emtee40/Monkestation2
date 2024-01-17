@@ -1,4 +1,4 @@
-https://github.com/Monkestation/Monkestation2.0/pull/insert da pull PR when i PR it here :3
+https://github.com/Monkestation/Monkestation2.0/pull/976
 
 ## Cortical Borers
 
@@ -23,6 +23,9 @@ code\__DEFINES\~monkestation\actionspeed_modification.dm
 code\__DEFINES\~monkestation\antagonists.dm
 code\__DEFINES\~monkestation\is_helpers.dm
 code\__DEFINES\~monkestation\role_preferences.dm
+
+tgui\packages\tgui\interfaces\BorerChem.jsx
+tgui\packages\tgui\interfaces\BorerEvolution.tsx
 
 ### Credits:
 
