@@ -117,7 +117,7 @@
 	if(!GLOB.spines_list_vox.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_spines, GLOB.spines_list_vox)
 	if(!GLOB.vox_facial_hair_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_vox_hair, GLOB.vox_facial_hair_list)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/vox_facial_hair, GLOB.vox_facial_hair_list)
 	if(!GLOB.tails_list_vox.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/vox, GLOB.tails_list_vox)
 	if(!GLOB.beaks_list.len)
