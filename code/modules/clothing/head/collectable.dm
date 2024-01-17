@@ -153,6 +153,7 @@
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "hopcap"
 	dog_fashion = /datum/dog_fashion/head/hop
+	supports_variations_flags = CLOTHING_VOX_VARIATION
 
 /obj/item/clothing/head/collectable/thunderdome
 	name = "collectable Thunderdome helmet"

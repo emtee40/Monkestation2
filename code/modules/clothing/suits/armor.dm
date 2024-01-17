@@ -580,6 +580,7 @@
 	inhand_icon_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	dog_fashion = null
+	supports_variations_flags = CLOTHING_VOX_VARIATION|CLOTHING_DIGITIGRADE_VARIATION
 
 /obj/item/clothing/suit/armor/militia
 	name = "station defender's coat"

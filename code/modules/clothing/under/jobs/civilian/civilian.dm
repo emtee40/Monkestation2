@@ -65,6 +65,7 @@
 	name = "head of personnel's uniform"
 	icon_state = "hop"
 	inhand_icon_state = "b_suit"
+	supports_variations_flags = CLOTHING_VOX_VARIATION|CLOTHING_DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt
 	name = "head of personnel's skirt"
@@ -74,7 +75,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON|CLOTHING_VOX_VARIATION
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/suit
 	name = "head of personnel's suit"

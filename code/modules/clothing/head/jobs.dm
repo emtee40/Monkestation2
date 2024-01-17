@@ -86,6 +86,7 @@
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor_type = /datum/armor/hats_hopcap
 	dog_fashion = /datum/dog_fashion/head/hop
+	supports_variations_flags = CLOTHING_VOX_VARIATION
 
 //Chaplain
 /datum/armor/hats_hopcap
