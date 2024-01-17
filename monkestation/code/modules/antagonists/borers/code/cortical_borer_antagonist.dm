@@ -98,19 +98,21 @@
 	min_players = 999
 	max_occurrences = 1 //should only ever happen once
 	dynamic_should_hijack = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "A cortical borer has appeared on station. It will also attempt to produce eggs, and will attempt to gather willing hosts and learn chemicals through the blood."
 
 /datum/round_event/ghost_role/cortical_borer
-	announceWhen = 400
+	announce_when = 400
 
 /datum/round_event/ghost_role/cortical_borer/setup()
-	announceWhen = rand(announceWhen, announceWhen + 50)
+	announce_when = rand(announce_when, announce_when + 50)
 
 /datum/round_event/ghost_role/cortical_borer/announce(fake)
 	priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", ANNOUNCER_ALIENS)
 
 /datum/round_event/ghost_role/cortical_borer/start()
 	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
@@ -139,10 +141,10 @@
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		to_chat(dead_mob, span_notice("The cortical borers have been selected, you are able to orbit them! Remember, they can reproduce!"))
 
-/*
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer
 	name = "Cortical Borer Infestation"
 	antag_datum = /datum/antagonist/cortical_borer
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_flag = ROLE_BORER
 	enemy_roles = list(
 		JOB_CAPTAIN,
@@ -154,13 +156,13 @@
 	required_candidates = 1
 	weight = 3
 	cost = 15
-	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	minimum_players = 20
 	repeatable = TRUE
 	/// List of on-station vents
 	var/list/vents = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer/execute()
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
 		if(QDELETED(temp_vent))
 			continue
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
@@ -173,7 +175,7 @@
 				vents += temp_vent
 	if(!length(vents))
 		return FALSE
-	return ..()
+	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer/generate_ruleset_body(mob/applicant)
 	var/obj/vent = pick_n_take(vents)
@@ -183,6 +185,5 @@
 	message_admins("[ADMIN_LOOKUPFLW(new_borer)] has been made into a borer by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(new_borer)] was spawned as a borer by the midround ruleset.")
 	return new_borer
-*/
 
 #undef POP_PER_BORER

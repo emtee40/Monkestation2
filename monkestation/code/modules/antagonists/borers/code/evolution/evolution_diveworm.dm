@@ -44,7 +44,6 @@
 		/datum/reagent/toxin/mutetoxin,
 		/datum/reagent/toxin/mutagen,
 		/datum/reagent/toxin/cyanide,
-		/datum/reagent/drug/opium,
 		/datum/reagent/drug/mushroomhallucinogen,
 		/datum/reagent/inverse/oculine,
 	)
@@ -107,5 +106,5 @@
 
 /datum/borer_evolution/diveworm/empowered_offspring/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
 	. = ..()
-	var/datum/action/cooldown/borer/empowered_offspring/attack_action = new()
+	var/datum/action/cooldown/borer/empowered_offspring/attack_action = new(cortical_owner)
 	attack_action.Grant(cortical_owner)

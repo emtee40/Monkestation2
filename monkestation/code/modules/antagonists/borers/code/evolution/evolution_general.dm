@@ -50,11 +50,9 @@
 	tier = 6
 	evo_cost = 6
 	var/static/list/added_chemicals = list(
-		/datum/reagent/consumable/ethanol/synthanol,
 		/datum/reagent/medicine/system_cleaner,
-		/datum/reagent/medicine/nanite_slurry,
 		/datum/reagent/medicine/liquid_solder,
-		/datum/reagent/oil,
+		/datum/reagent/fuel/oil,
 		/datum/reagent/fuel,
 	)
 

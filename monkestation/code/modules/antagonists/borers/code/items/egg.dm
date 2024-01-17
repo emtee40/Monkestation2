@@ -41,7 +41,14 @@
 	forceMove(host_egg)
 	var/area/src_area = get_area(src)
 	if(src_area)
-		notify_ghosts("A cortical borer egg has been laid in \the [src_area.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_DRONE, notify_suiciders = FALSE)
+		notify_ghosts(
+			"A cortical borer egg has been laid in \the [src_area.name].",
+			source = src,
+			action = NOTIFY_PLAY,
+			flashwindow = FALSE,
+			ignore_key = POLL_IGNORE_DRONE,
+			notify_suiciders = FALSE,
+		)
 
 /obj/item/borer_egg
 	name = "borer egg"
@@ -82,15 +89,3 @@
 	desc = "An egg of a creature that came crawling out of someone instead of into them."
 	mob_type = /mob/living/basic/cortical_borer/empowered
 	host_egg = /obj/item/borer_egg/empowered
-
-/*
-/datum/uplink_item/dangerous/cortical_borer
-	name = "Cortical Borer Egg"
-	desc = "The egg of a cortical borer. The cortical borer is a parasite that can produce chemicals upon command, as well as \
-			learn new chemicals through the blood if old enough. Be careful as there is no way to get the borer to pledge allegiance \
-			to yourself. The egg is extremely fragile, do not crush it in your hand nor throw it. \
-			The egg is required to sit out in the open in order to hatch. (Cannot be hidden in closets, etc.)"
-	progression_minimum = 20 MINUTES
-	item = /obj/item/borer_egg
-	cost = 20
-*/

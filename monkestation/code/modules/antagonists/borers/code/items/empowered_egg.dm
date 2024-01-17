@@ -21,11 +21,11 @@
 
 /obj/item/organ/internal/empowered_borer_egg/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	..()
-	addtimer(CALLBACK(src, .proc/try_burst), burst_time)
+	addtimer(CALLBACK(src, PROC_REF(try_burst)), burst_time)
 
 /obj/item/organ/internal/empowered_borer_egg/Remove(mob/living/carbon/M, special = FALSE)
 	. = ..()
-	visible_message(span_warning(span_italics("As [src] is cut out of [M], it quickly vibrates and shatters, leaving nothing but some goop!")))
+	visible_message(span_warning("<span class='italics'>As [src] is cut out of [M], it quickly vibrates and shatters, leaving nothing but some goop!</span>"))
 	new/obj/effect/decal/cleanable/food/egg_smudge(get_turf(src))
 	qdel(src)
 
@@ -36,7 +36,7 @@
 	if(owner.stat != DEAD)
 		qdel(src)
 		return
-	var/list/candidates = poll_ghost_candidates("Do you want to spawn as an empowered Cortical Borer bursting from [owner]?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
+	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to spawn as a cortical borer?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
 	if(!length(candidates))
 		var/obj/effect/mob_spawn/ghost_role/borer_egg/empowered/borer_egg = new(get_turf(owner))
 		borer_egg.generation = generation

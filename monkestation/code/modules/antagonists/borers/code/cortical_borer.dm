@@ -1,12 +1,9 @@
 GLOBAL_VAR_INIT(objective_egg_borer_number, 2)
 GLOBAL_VAR_INIT(objective_egg_egg_number, 5)
 GLOBAL_VAR_INIT(objective_willing_hosts, 2)
-GLOBAL_VAR_INIT(objective_blood_chem, 3)
-GLOBAL_VAR_INIT(objective_blood_borer, 3)
 
 GLOBAL_VAR_INIT(successful_egg_number, 0)
 GLOBAL_LIST_EMPTY(willing_hosts)
-GLOBAL_VAR_INIT(successful_blood_chem, 0)
 
 GLOBAL_LIST_EMPTY(cortical_borers)
 
@@ -64,7 +61,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	. = ..()
 	for(var/datum/borer_focus/body_focus as anything in borer.body_focuses)
 		body_focus.on_add()
-	carbon_target.hal_screwyhud = SCREWYHUD_HEALTHY
+	carbon_target.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 //on removal, force the borer out
 /obj/item/organ/internal/borer_body/Remove(mob/living/carbon/carbon_target, special)
@@ -74,7 +71,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		body_focus.on_remove()
 	if(cb_inside)
 		cb_inside.leave_host()
-	carbon_target.hal_screwyhud = SCREWYHUD_NONE
+	carbon_target.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 	qdel(src)
 
 /obj/item/reagent_containers/borer
@@ -102,29 +99,30 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	///what chemicals borers know, starting with none
 	var/list/known_chemicals = list()
 	///what chemicals the borer can learn
-	var/list/potential_chemicals = list(/datum/reagent/medicine/spaceacillin,
-										/datum/reagent/medicine/potass_iodide,
-										/datum/reagent/medicine/diphenhydramine,
-										/datum/reagent/medicine/epinephrine,
-										/datum/reagent/medicine/haloperidol,
-										/datum/reagent/toxin/formaldehyde,
-										/datum/reagent/impurity/libitoil,
-										/datum/reagent/impurity/mannitol,
-										/datum/reagent/medicine/c2/libital,
-										/datum/reagent/medicine/c2/lenturi,
-										/datum/reagent/medicine/c2/convermol,
-										/datum/reagent/medicine/c2/seiver,
-										/datum/reagent/medicine/c2/multiver,
-										/datum/reagent/lithium,
-										/datum/reagent/medicine/salglu_solution,
-										/datum/reagent/medicine/mutadone,
-										/datum/reagent/toxin/heparin,
-										/datum/reagent/drug/methamphetamine/borer_version,
-										/datum/reagent/medicine/morphine,
-										/datum/reagent/medicine/inacusiate,
-										/datum/reagent/medicine/oculine,
-										/datum/reagent/toxin/mindbreaker,
-										/datum/reagent/medicine/mannitol,
+	var/list/potential_chemicals = list(
+		/datum/reagent/medicine/antipathogenic/spaceacillin,
+		/datum/reagent/medicine/potass_iodide,
+		/datum/reagent/medicine/diphenhydramine,
+		/datum/reagent/medicine/epinephrine,
+		/datum/reagent/medicine/haloperidol,
+		/datum/reagent/toxin/formaldehyde,
+		/datum/reagent/impurity/libitoil,
+		/datum/reagent/impurity/mannitol,
+		/datum/reagent/medicine/c2/libital,
+		/datum/reagent/medicine/c2/lenturi,
+		/datum/reagent/medicine/c2/convermol,
+		/datum/reagent/medicine/c2/seiver,
+		/datum/reagent/medicine/c2/multiver,
+		/datum/reagent/lithium,
+		/datum/reagent/medicine/salglu_solution,
+		/datum/reagent/medicine/mutadone,
+		/datum/reagent/toxin/heparin,
+		/datum/reagent/drug/methamphetamine/borer_version,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/medicine/inacusiate,
+		/datum/reagent/medicine/oculine,
+		/datum/reagent/toxin/mindbreaker,
+		/datum/reagent/medicine/mannitol,
 	)
 	//blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
 	var/list/blacklisted_chemicals = list() //currently may be empty, but leaving the mechanism just in case
@@ -151,16 +149,17 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// How many times you've levelled up over all
 	var/level = 0
 	///the list of actions that the borer has
-	var/list/known_abilities = list(/datum/action/cooldown/borer/toggle_hiding,
-									/datum/action/cooldown/borer/choosing_host,
-									/datum/action/cooldown/borer/evolution_tree,
-									/datum/action/cooldown/borer/inject_chemical,
-									/datum/action/cooldown/borer/upgrade_chemical,
-									/datum/action/cooldown/borer/learn_focus,
-									/datum/action/cooldown/borer/upgrade_stat,
-									/datum/action/cooldown/borer/force_speak,
-									/datum/action/cooldown/borer/fear_human,
-									/datum/action/cooldown/borer/check_blood,
+	var/list/known_abilities = list(
+		/datum/action/cooldown/borer/toggle_hiding,
+		/datum/action/cooldown/borer/choosing_host,
+		/datum/action/cooldown/borer/evolution_tree,
+		/datum/action/cooldown/borer/inject_chemical,
+		/datum/action/cooldown/borer/upgrade_chemical,
+		/datum/action/cooldown/borer/learn_focus,
+		/datum/action/cooldown/borer/upgrade_stat,
+		/datum/action/cooldown/borer/force_speak,
+		/datum/action/cooldown/borer/fear_human,
+		/datum/action/cooldown/borer/check_blood,
 	)
 	///the host
 	var/mob/living/carbon/human/human_host
@@ -232,8 +231,9 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 
 	GLOB.cortical_borers += src
 	reagent_holder = new /obj/item/reagent_containers/borer(src)
+
 	for(var/action_type in known_abilities)
-		var/datum/action/attack_action = new action_type()
+		var/datum/action/attack_action = new action_type(src)
 		attack_action.Grant(src)
 
 	if(mind)
@@ -279,7 +279,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	. += "2) [GLOB.objective_willing_hosts] willing hosts: [length(GLOB.willing_hosts)]/[GLOB.objective_willing_hosts]"
 	. += "3) [GLOB.objective_blood_borer] borers learning [GLOB.objective_blood_chem] chemicals from the blood: [GLOB.successful_blood_chem]/[GLOB.objective_blood_borer]"
 
-/mob/living/basic/cortical_borer/Life(delta_time, times_fired)
+/mob/living/basic/cortical_borer/Life(seconds_per_tick, times_fired)
 	. = ..()
 	//can only do stuff when we are inside a LIVING human
 	if(!inside_human() || human_host?.stat == DEAD)
@@ -289,8 +289,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	if(prob(5 * host_harm_multiplier * ((upgrade_flags & BORER_STEALTH_MODE) ? 0.1 : 1)) && human_host.getToxLoss() <= (80 * host_harm_multiplier))
 		human_host.adjustToxLoss(5 * host_harm_multiplier, TRUE, TRUE)
 
-	if(human_host.hal_screwyhud != SCREWYHUD_HEALTHY)
-		human_host.hal_screwyhud = SCREWYHUD_HEALTHY
+	human_host.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 	//cant do anything if the host has sugar
 	if(host_sugar())
@@ -346,8 +345,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		return TRUE
 	return FALSE
 
-// Base mob environment handler for body temperature, overriden to take into consideration being inside a host
-/mob/living/basic/cortical_borer/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
+/// Base mob environment handler for body temperature, overridden to take into consideration being inside a host
+/mob/living/basic/cortical_borer/handle_environment(datum/gas_mixture/environment, seconds_per_tick, times_fired)
 	var/loc_temp
 	if(human_host)
 		loc_temp = human_host.coretemperature // set the local temp to that of the host's core temp
@@ -361,9 +360,9 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 
 	if(temp_delta < 0) // it is cold here
 		if(!on_fire) // do not reduce body temp when on fire
-			adjust_bodytemperature(max(max(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_COOLING_MAX) * delta_time, temp_delta))
+			adjust_bodytemperature(max(max(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_COOLING_MAX) * seconds_per_tick, temp_delta))
 	else // this is a hot place
-		adjust_bodytemperature(min(min(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX) * delta_time, temp_delta))
+		adjust_bodytemperature(min(min(temp_delta / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX) * seconds_per_tick, temp_delta))
 
 //leave the host, forced or not
 /mob/living/basic/cortical_borer/proc/leave_host()
@@ -392,6 +391,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		message = scramble_message_replace_chars(message, 10)
 	message = sanitize(message)
 	var/list/split_message = splittext(message, "")
+
+	//this is so they can talk in hivemind
 	if(split_message[1] == ";")
 		message = copytext(message, 2)
 		for(var/borer in GLOB.cortical_borers)
@@ -416,7 +417,6 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 /mob/living/basic/cortical_borer/start_pulling(atom/movable/AM, state, force, supress_message)
 	to_chat(src, span_warning("You cannot pull things!"))
 	return
-
 
 /// Called on Life() for the borer to age a bit
 /mob/living/basic/cortical_borer/proc/mature()
