@@ -5,7 +5,8 @@
 	var/layers
 	///List of all possible layers. Used for looping through in drawing
 	var/static/list/all_layers = list(EXTERNAL_FRONT, EXTERNAL_ADJACENT, EXTERNAL_BEHIND)
-
+	var/override_layer
+	var/delayed_rendering = FALSE
 	///Key of the icon states of all the sprite_datums for easy caching
 	var/cache_key = ""
 
@@ -14,6 +15,9 @@
 	layer = bitflag_to_layer(layer)
 	. = get_image(layer, limb)
 	color_image(., layer, limb)
+	if(delayed_rendering)
+		limb?.delayed_renders += .
+		return
 
 ///Wrapper for getting the proper image, colored and everything
 /datum/bodypart_overlay/proc/get_secondary_overlay(layer, obj/item/bodypart/limb)

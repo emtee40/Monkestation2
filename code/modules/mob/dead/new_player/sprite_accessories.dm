@@ -1770,7 +1770,7 @@
 /datum/sprite_accessory/vox_body_markings/tiger_body
 	name = "Tiger-stripe"
 	icon_state = "tiger"
-	body_slots = list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	body_slots = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 
 /datum/sprite_accessory/tails
@@ -1916,7 +1916,7 @@
 
 /datum/sprite_accessory/vox_hair/vox_yasu
 	name = "Vox Yasu"
-	icon_state = "hair_vox_yasu"
+	icon_state = "yasu"
 
 /datum/sprite_accessory/vox_hair/surf
 	name = "Vox Surf"

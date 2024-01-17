@@ -166,6 +166,7 @@
 	var/list/obj/item/organ/external/external_organs = list()
 	///A list of all bodypart overlays to draw
 	var/list/bodypart_overlays = list()
+	var/list/delayed_renders = list()
 
 	/// Type of an attack from this limb does. Arms will do punches, Legs for kicks, and head for bites. (TO ADD: tactical chestbumps)
 	var/attack_type = BRUTE
@@ -1041,9 +1042,14 @@
 			//Some externals have multiple layers for background, foreground and between
 			for(var/external_layer in overlay.all_layers)
 				if(overlay.layers & external_layer)
-					. += overlay.get_overlay(external_layer, src)
+					var/returned_overlay = overlay.get_overlay(external_layer, src)
+					if(returned_overlay)
+						. += returned_overlay
 					if(overlay.get_secondary_overlay(external_layer, src))
 						. += overlay.get_secondary_overlay(external_layer, src)
+		for(var/delayed_render as anything in delayed_renders)
+			. += delayed_renders
+			delayed_renders -= delayed_render
 
 	return .
 
