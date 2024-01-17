@@ -153,6 +153,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DRIFTING_CONTRACTOR = 0,
 	ROLE_VAMPIRICACCIDENT = 0,
 	ROLE_MONSTERHUNTER = 0,
+	ROLE_BORER = 0,  // Module ID: CORTICAL_BORERS
 //monkestation edit end
 
 	// Latejoin

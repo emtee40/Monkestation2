@@ -1,5 +1,6 @@
 //Each lists stores ckeys for "Never for this round" option category
 
+#define POLL_IGNORE_CORTICAL_BORER "cortical_borer" // MONKESTATION ADDITION -- CORTICAL_BORERS
 #define POLL_IGNORE_ACADEMY_WIZARD "academy_wizard"
 #define POLL_IGNORE_ALIEN_LARVA "alien_larva"
 #define POLL_IGNORE_ASH_SPIRIT "ash_spirit"
@@ -38,6 +39,7 @@
 
 
 GLOBAL_LIST_INIT(poll_ignore_desc, list(
+	POLL_IGNORE_CORTICAL_BORER = "Cortical Borer", // MONKESTATION ADDITION -- CORTICAL_BORERS
 	POLL_IGNORE_ACADEMY_WIZARD = "Academy Wizard Defender",
 	POLL_IGNORE_ALIEN_LARVA = "Xenomorph larva",
 	POLL_IGNORE_ASH_SPIRIT = "Ash Spirit",

@@ -369,6 +369,7 @@
 				ROLE_TRAITOR,
 				ROLE_VAMPIRICACCIDENT,
 				ROLE_WIZARD,
+				ROLE_BORER, // MONKESTATION ADDITION -- CORTICAL_BORERS
 			),
 		)
 		for(var/department in long_job_lists)
