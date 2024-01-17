@@ -100,6 +100,7 @@ GLOBAL_LIST_INIT(turfs_openspace, typecacheof(list(
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isgoblin(A) (is_species(A, /datum/species/goblin)) //Monkestation Addition
 #define isfloran(A) (is_species(A, /datum/species/floran)) //Monkestation Addition
+#define issatyr(A) (is_species(A, /datum/species/satyr)) //Monkestation Addition
 
 
 //More carbon mobs
