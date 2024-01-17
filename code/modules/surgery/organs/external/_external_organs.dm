@@ -68,8 +68,10 @@
 		return
 
 	if(bodypart_overlay.imprint_on_next_insertion) //We only want this set *once*
-
-		bodypart_overlay.set_appearance_from_name(receiver.dna.features[bodypart_overlay.feature_key])
+		if(bodypart_overlay.feature_different_dna)
+			bodypart_overlay.set_appearance_from_name(receiver.dna.features[bodypart_overlay.feature_different_dna])
+		else
+			bodypart_overlay.set_appearance_from_name(receiver.dna.features[bodypart_overlay.feature_key])
 		bodypart_overlay.imprint_on_next_insertion = FALSE
 
 	ownerlimb = limb

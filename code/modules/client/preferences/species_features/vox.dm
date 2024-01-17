@@ -22,7 +22,7 @@
 		var/icon/final_icon = icon(vox_head)
 
 		var/icon/accessory_icon = icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ")
-		accessory_icon.Blend(accessory_color, ICON_MULTIPLY)
+		accessory_icon.Blend(accessory_color, sprite_accessory.color_blend_mode == "add" ? ICON_ADD : ICON_MULTIPLY)
 		final_icon.Blend(accessory_icon, ICON_OVERLAY)
 
 		final_icon.Crop(10, 19, 22, 31)
@@ -35,21 +35,43 @@
 /datum/preference/choiced/vox_skin_tone
 	savefile_key = "feature_vox_skin_tone"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_FEATURES
 	relevant_bodyparts = list(/obj/item/bodypart/head/vox, /obj/item/bodypart/chest/vox, /obj/item/bodypart/arm/left/vox, \
 							/obj/item/bodypart/arm/right/vox, /obj/item/bodypart/leg/left/vox, /obj/item/bodypart/leg/right/vox)
-
-/datum/preference/choiced/vox_skin_tone/init_possible_values()
-	return GLOB.vox_skin_tones
+	relevant_external_organ = /obj/item/organ/external/tail/vox
+	should_generate_icons = TRUE
+	main_feature_name = "Skin tone"
 
 /datum/preference/choiced/vox_skin_tone/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["vox_skin_tone"] = value
+
+/datum/preference/choiced/vox_skin_tone/init_possible_values()
+	var/list/values = list()
+	var/icon/eyes = icon('icons/mob/species/vox/eyes.dmi', "eyes_l", EAST)
+	var/icon/eyes_r = icon('icons/mob/species/vox/eyes.dmi', "eyes_r", EAST)
+	eyes.Blend(COLOR_CYAN, ICON_MULTIPLY)
+	eyes_r.Blend(COLOR_CYAN, ICON_MULTIPLY)
+	eyes.Blend(eyes_r, ICON_OVERLAY)
+	var/icon/beak = icon('icons/mob/species/vox/beaks.dmi', "m_beak_vox_ADJ", EAST)
+	for(var/skin_tone in GLOB.vox_skin_tones)
+		var/icon/vox_head_icon = icon('icons/mob/species/vox/bodyparts.dmi', "vox_head_[skin_tone]", EAST)
+		vox_head_icon.Blend(eyes, ICON_OVERLAY)
+		vox_head_icon.Blend(beak, ICON_OVERLAY)
+		vox_head_icon.Crop(14, 21, 27, 30)
+		vox_head_icon.Scale(32, 32)
+		//vox_head_icon.Blend(icon('icons/mob/species/vox/bodyparts.dmi', "vox_head_[skin_tone]", EAST), ICON_OVERLAY)
+		values[skin_tone] = vox_head_icon
+	return values
+
+/datum/preference/choiced/vox_skin_tone/create_default_value()
+	return pick(GLOB.vox_skin_tones)
 
 /datum/preference/choiced/vox_spines
 	savefile_key = "feature_vox_spines"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_external_organ = /obj/item/organ/external/spines/vox
+	main_feature_name = "Tail markings"
 
 /datum/preference/choiced/vox_spines/init_possible_values()
 	return assoc_to_keys(GLOB.spines_list_vox)

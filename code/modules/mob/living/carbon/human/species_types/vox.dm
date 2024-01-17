@@ -31,7 +31,7 @@
 		/obj/item/organ/external/beak = "Vox Beak",
 		/obj/item/organ/external/vox_hair = "None",
 		/obj/item/organ/external/vox_facial_hair = "None",
-		/obj/item/organ/external/tail/vox = "Vox Tail",
+		/obj/item/organ/external/tail/vox = "Green",
 		/obj/item/organ/external/spines/vox = "None")
 	liked_food = MEAT | FRIED
 	payday_modifier = 0.75

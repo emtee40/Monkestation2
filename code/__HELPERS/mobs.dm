@@ -161,7 +161,7 @@
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
 		"beak" = pick(GLOB.beaks_list),
 		"spines_vox" = pick(GLOB.spines_list_vox),
-		"tail_vox" = pick(GLOB.tails_list_vox),
+		"vox_skin_tone" = pick(GLOB.vox_skin_tones),
 		"vox_hair" = pick(GLOB.vox_hair_list),
 		"vox_facial_hair" = pick(GLOB.vox_facial_hair_list),
 		"vox_body_markings" = pick(GLOB.vox_body_markings_list),

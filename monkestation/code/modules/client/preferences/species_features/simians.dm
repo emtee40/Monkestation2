@@ -2,7 +2,7 @@
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "fur"
-	relevant_species_trait = SPECIES_FUR
+	relevant_species_traits = list(SPECIES_FUR)
 
 /datum/preference/color/fur_color/apply_to_human(mob/living/carbon/human/target, value)
 	var/mob/user = usr

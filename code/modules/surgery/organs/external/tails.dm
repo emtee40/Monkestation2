@@ -154,18 +154,21 @@
 /obj/item/organ/external/tail/vox
 	name = "vox tail"
 	desc = "A severed vox tail."
-	preference = null
-	dna_block = null
+	preference = "feature_vox_skin_tone"
+	dna_block = DNA_VOX_SKIN_TONE_BLOCK
+	wag_flags = WAG_ABLE
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/vox
-	sprite_accessory_override = /datum/sprite_accessory/tails/vox/default
 	var/obj/item/organ/external/spines/vox/paired_spines
 
 /datum/bodypart_overlay/mutant/tail/vox
-	color_source = ORGAN_COLOR_MUTTERTIARY
 	feature_key = "tail_vox"
+	feature_different_dna = "vox_skin_tone"
 
 /datum/bodypart_overlay/mutant/tail/vox/get_global_feature_list()
 	return GLOB.tails_list_vox
+
+/datum/bodypart_overlay/mutant/tail/vox/inherit_color(obj/item/bodypart/ownerlimb, force)
+	return
 
 /obj/item/organ/external/tail/vox/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()

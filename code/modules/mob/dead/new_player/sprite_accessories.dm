@@ -1817,6 +1817,14 @@
 	name = "Vox Tail"
 	icon_state = "default"
 
+/datum/sprite_accessory/tails/vox/green
+	name = "green"
+	icon_state = "green"
+
+/datum/sprite_accessory/tails/vox/crimson
+	name = "crimson"
+	icon_state = "crimson"
+
 /datum/sprite_accessory/pod_hair
 	icon = 'icons/mob/species/podperson_hair.dmi'
 	em_block = TRUE

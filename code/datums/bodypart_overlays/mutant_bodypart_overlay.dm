@@ -5,7 +5,7 @@
 
 	///Defines what kind of 'organ' we're looking at. Sprites have names like 'm_mothwings_firemoth_ADJ'. 'mothwings' would then be feature_key
 	var/feature_key = ""
-
+	var/feature_different_dna
 	///The color this organ draws with. Updated by bodypart/inherit_color()
 	var/draw_color
 	///Where does this organ inherit it's color from?
