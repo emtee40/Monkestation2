@@ -14,7 +14,7 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	external_organs = list(
-
+		/obj/item/organ/external/satyr_fluff = "normal"
 	)
 	meat = /obj/item/food/meat/steak
 	liked_food = GROSS | VEGETABLES | FRUIT
