@@ -91,6 +91,8 @@
 		parts += span_redtext("Borers were unable to learn enough chemicals through the blood!")
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
+/* For now... lets not, I need to find a good place to fit these guys in
+
 /datum/round_event_control/cortical_borer
 	name = "Cortical Borer Infestation"
 	typepath = /datum/round_event/ghost_role/cortical_borer
@@ -187,3 +189,5 @@
 	return new_borer
 
 #undef POP_PER_BORER
+
+*/
