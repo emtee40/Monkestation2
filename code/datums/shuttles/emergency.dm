@@ -230,9 +230,10 @@
 	admin_notes = "An abomination with no functional medbay, sections missing, and some very fragile windows. Surprisingly airtight. When bought, gives a good influx of money, but can only be bought if the budget is literally 0 credits."
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
 	occupancy_limit = "30"
-
-/datum/map_template/shuttle/emergency/scrapheap/prerequisites_met()
-	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_SCRAPHEAP]
+//monkestation removal start: we dont have this currently
+/*/datum/map_template/shuttle/emergency/scrapheap/prerequisites_met()
+	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_SCRAPHEAP]*/
+//monkestation edit end
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
@@ -326,9 +327,9 @@
 	admin_notes = "If the crew can solve the puzzle, they will wake the wabbajack statue. It will likely not end well. There's a reason it's boarded up. Maybe they should have just left it alone."
 	credit_cost = CARGO_CRATE_VALUE * 30
 	occupancy_limit = "30"
-
-/datum/map_template/shuttle/emergency/wabbajack/prerequisites_met()
-	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_WABBAJACK]
+//monkestation temp removal
+/*/datum/map_template/shuttle/emergency/wabbajack/prerequisites_met()
+	return SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_WABBAJACK]*/
 
 /datum/map_template/shuttle/emergency/omega
 	suffix = "omega"

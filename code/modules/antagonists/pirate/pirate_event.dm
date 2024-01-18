@@ -24,13 +24,30 @@
 		return EVENT_CANT_RUN
 	return ..()
 
+//monkestation edit note: this list was out dated due to TG not using it so I put all the pirate types in it
 /datum/round_event/pirates
 	///admin chosen pirate team
 	var/list/datum/pirate_gang/gang_list = list(
-		/datum/pirate_gang/psykers,
-		/datum/pirate_gang/skeletons,
+		/datum/pirate_gang/grey,
+		/datum/pirate_gang/interdyne,
+		/datum/pirate_gang/irs,
+		/datum/pirate_gang/lustrous,
 		/datum/pirate_gang/rogues,
+		/datum/pirate_gang/silverscales,
+		/datum/pirate_gang/skeletons,
 	)
+
+//monkestation edit start
+/datum/round_event/pirates/setup()
+	. = ..()
+	if(!.)
+		return
+
+	for(var/gang in gang_list)
+		gang_list += new gang
+		gang -= gang
+	setup = TRUE
+//monkestation edit end
 
 /datum/round_event/pirates/start()
 	send_pirate_threat(gang_list)
