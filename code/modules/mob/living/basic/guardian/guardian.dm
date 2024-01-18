@@ -12,6 +12,7 @@
 	icon_dead = "magicbase"
 	gender = NEUTER
 	basic_mob_flags = DEL_ON_DEATH
+	mob_biotypes = MOB_SPECIAL
 	sentience_type = SENTIENCE_HUMANOID
 	hud_type = /datum/hud/guardian
 	faction = list()
