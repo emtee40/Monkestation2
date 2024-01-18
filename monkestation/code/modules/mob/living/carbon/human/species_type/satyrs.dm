@@ -16,6 +16,7 @@
 	external_organs = list(
 		/obj/item/organ/external/satyr_fluff = "normal",
 		/obj/item/organ/external/satyr_tail = "short",
+		/obj/item/organ/external/satyr_horns = "back",
 	)
 	meat = /obj/item/food/meat/steak
 	liked_food = GROSS | VEGETABLES | FRUIT

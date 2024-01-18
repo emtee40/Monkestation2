@@ -116,6 +116,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_fluff, GLOB.satyr_fluff_list)
 	if(!GLOB.satyr_tail_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_tail, GLOB.satyr_tail_list)
+	if(!GLOB.satyr_horns_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/satyr_horns, GLOB.satyr_horns_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
@@ -152,6 +154,7 @@
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
 		"satyr_fluff" = pick(GLOB.satyr_fluff_list), //Monkestation Addition
 		"satyr_tail" = pick(GLOB.satyr_tail_list), //Monkestation Addition
+		"satyr_horns" = pick(GLOB.satyr_horns_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
