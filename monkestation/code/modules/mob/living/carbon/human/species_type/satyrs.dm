@@ -72,7 +72,9 @@
 /obj/item/bodypart/leg/left/satyr
 	icon_greyscale = 'monkestation/icons/mob/species/satyr/bodyparts.dmi'
 	limb_id = SPECIES_SATYR
+	bodytype = BODYTYPE_DIGITIGRADE
 
 /obj/item/bodypart/leg/right/satyr
 	icon_greyscale = 'monkestation/icons/mob/species/satyr/bodyparts.dmi'
 	limb_id = SPECIES_SATYR
+	bodytype = BODYTYPE_DIGITIGRADE

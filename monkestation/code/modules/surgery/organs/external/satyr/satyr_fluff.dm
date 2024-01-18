@@ -12,7 +12,7 @@
 	bodypart_overlay = /datum/bodypart_overlay/mutant/satyr_fluff
 
 /datum/bodypart_overlay/mutant/satyr_fluff
-	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+	layers = EXTERNAL_ADJACENT //| EXTERNAL_FRONT
 	feature_key = "satyr_fluff"
 	color_source = ORGAN_COLOR_HAIR
 
