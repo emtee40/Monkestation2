@@ -29,7 +29,7 @@
 		return ..()
 	var/mob/living/carbon/carbon_to_absorb = target
 	if(!carbon_to_absorb.stat == DEAD)
-		owner.balloon_alert(owner, "only works on dead mobs!")
+		owner.balloon_alert(owner, "only works on dead carbons!")
 		return FALSE
 	return ..()
 

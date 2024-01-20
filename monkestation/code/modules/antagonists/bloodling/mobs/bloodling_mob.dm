@@ -186,6 +186,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
+		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 	)
 
 /mob/living/basic/bloodling/tier4
@@ -196,6 +197,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
+		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 	)
 
 /mob/living/basic/bloodling/tier5
@@ -206,4 +208,5 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
+		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 	)
