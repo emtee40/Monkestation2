@@ -4,13 +4,13 @@
 	icon_state = "syndicate"
 	inhand_icon_state = "bl_suit"
 	has_sensor = NO_SENSORS
-	armor_type = /datum/armor/clothing_under/syndicate
+	armor_type = /datum/armor/under_syndicate // Monkestation edit
 	alt_covers_chest = TRUE
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	supports_variations_flags = CLOTHING_MONKEY_VARIATION
 
-/datum/armor/clothing_under/syndicate
+/datum/armor/under_syndicate
 	melee = 10
 	fire = 50
 	acid = 40
@@ -39,12 +39,12 @@
 	desc = "It still counts as stealth if there are no witnesses."
 	icon_state = "bloodred_pajamas"
 	inhand_icon_state = "bl_suit"
-	armor_type = /datum/armor/clothing_under/syndicate_bloodred
+	armor_type = /datum/armor/syndicate_bloodred
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	can_adjust = FALSE
 	supports_variations_flags = NONE
 
-/datum/armor/clothing_under/syndicate_bloodred
+/datum/armor/syndicate_bloodred
 	melee = 10
 	bullet = 10
 	laser = 10
@@ -58,9 +58,9 @@
 	desc = "Do operatives dream of nuclear sheep?"
 	icon_state = "bloodred_pajamas"
 	inhand_icon_state = "bl_suit"
-	armor_type = /datum/armor/clothing_under/bloodred_sleepytime
+	armor_type = /datum/armor/bloodred_sleepytime
 
-/datum/armor/clothing_under/bloodred_sleepytime
+/datum/armor/bloodred_sleepytime
 	fire = 50
 	acid = 40
 
@@ -70,10 +70,10 @@
 	icon_state = "tactifool"
 	inhand_icon_state = "bl_suit"
 	has_sensor = HAS_SENSORS
-	armor_type = /datum/armor/clothing_under/syndicate_tacticool
+	armor_type = /datum/armor/syndicate_tacticool
 	stubborn_stains = TRUE
 
-/datum/armor/clothing_under/syndicate_tacticool
+/datum/armor/syndicate_tacticool
 	fire = 50
 	acid = 40
 
@@ -100,9 +100,15 @@
 	desc = "Just looking at it makes you want to buy an SKS, go into the woods, and -operate-."
 	icon_state = "tactifool_skirt"
 	inhand_icon_state = "bl_suit"
+	armor_type = /datum/armor/tacticool_skirt
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+
+/datum/armor/tacticool_skirt
+	bio = 10
+	fire = 50
+	acid = 40
 
 /obj/item/clothing/under/syndicate/sniper
 	name = "tactical turtleneck suit"
@@ -126,10 +132,10 @@
 	icon_state = "trackpants"
 	can_adjust = FALSE
 	supports_variations_flags = NONE
-	armor_type = /datum/armor/clothing_under/syndicate_soviet
+	armor_type = /datum/armor/syndicate_soviet
 	resistance_flags = NONE
 
-/datum/armor/clothing_under/syndicate_soviet
+/datum/armor/syndicate_soviet
 	melee = 10
 
 /obj/item/clothing/under/syndicate/combat
@@ -145,10 +151,10 @@
 	icon_state = "rus_under"
 	can_adjust = FALSE
 	supports_variations_flags = NONE
-	armor_type = /datum/armor/clothing_under/syndicate_rus_army
+	armor_type = /datum/armor/syndicate_rus_army
 	resistance_flags = NONE
 
-/datum/armor/clothing_under/syndicate_rus_army
+/datum/armor/syndicate_rus_army
 	melee = 5
 
 /obj/item/clothing/under/syndicate/scrubs
