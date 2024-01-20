@@ -1,3 +1,12 @@
+/obj/item/borer_egg
+	name = "borer egg"
+	desc = "An egg of a creature that is known to crawl inside of you, be careful."
+	icon = 'monkestation/code/modules/antagonists/borers/icons/animal.dmi'
+	icon_state = "brainegg"
+	layer = BELOW_MOB_LAYER
+	///the spawner that is attached to this item
+	var/obj/effect/mob_spawn/ghost_role/borer_egg/host_spawner
+
 /obj/effect/mob_spawn/ghost_role/borer_egg
 	name = "borer egg"
 	desc = "An egg of a creature that is known to crawl inside of you, be careful."
@@ -9,7 +18,7 @@
 	///Type of mob that will be spawned
 	mob_type = /mob/living/basic/cortical_borer
 	role_ban = ROLE_ALIEN
-	show_flavor = FALSE
+	show_flavor = TRUE
 	prompt_name = "cortical borer"
 	you_are_text = "You are a Cortical Borer."
 	flavour_text = "You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! \
@@ -20,7 +29,7 @@
 					You can talk to other borers using ; and your host by just speaking normally. \
 					You are unable to speak outside of a host, but are able to emote."
 	///what the generation of the borer egg is
-	var/generation = 1
+	var/generation = 0
 	///the egg that is attached to this mob spawn
 	var/obj/item/borer_egg/host_egg = /obj/item/borer_egg
 
@@ -31,7 +40,12 @@
 /obj/effect/mob_spawn/ghost_role/borer_egg/special(mob/living/spawned_mob, mob/mob_possessor)
 	. = ..()
 	spawned_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer)
-	spawned_mob.name = "cortical borer ([generation]-[rand(100,999)])"
+	if(generation == 0)
+		//The first ever borer gets a special name
+		spawned_mob.name = "The hivequeen [initial(name)]"
+	else
+		//so their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
+		spawned_mob.name = "[initial(name)] ([generation]-[rand(100,999)])"
 	QDEL_NULL(host_egg)
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/Initialize(mapload, datum/team/cortical_borers/borer_team)
@@ -49,15 +63,6 @@
 			ignore_key = POLL_IGNORE_DRONE,
 			notify_suiciders = FALSE,
 		)
-
-/obj/item/borer_egg
-	name = "borer egg"
-	desc = "An egg of a creature that is known to crawl inside of you, be careful."
-	icon = 'monkestation/code/modules/antagonists/borers/icons/animal.dmi'
-	icon_state = "brainegg"
-	layer = BELOW_MOB_LAYER
-	///the spawner that is attached to this item
-	var/obj/effect/mob_spawn/ghost_role/borer_egg/host_spawner
 
 /obj/item/borer_egg/attack_ghost(mob/user)
 	if(host_spawner)
@@ -79,13 +84,3 @@
 	new /obj/effect/decal/cleanable/food/egg_smudge(hit_turf)
 	QDEL_NULL(host_spawner)
 	qdel(src)
-
-/obj/item/borer_egg/empowered
-	name = "empowered borer egg"
-	icon_state = "empowered_brainegg"
-
-/obj/effect/mob_spawn/ghost_role/borer_egg/empowered
-	name = "empowered borer egg"
-	desc = "An egg of a creature that came crawling out of someone instead of into them."
-	mob_type = /mob/living/basic/cortical_borer/empowered
-	host_egg = /obj/item/borer_egg/empowered

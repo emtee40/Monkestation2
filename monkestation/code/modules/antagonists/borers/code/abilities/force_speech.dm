@@ -2,18 +2,14 @@
 	name = "Force Host Speak"
 	cooldown_time = 30 SECONDS
 	button_icon_state = "speak"
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/force_speak/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "must be in a host")
-		return
 	var/borer_message = input(cortical_owner, "What would you like to force your host to say?", "Force Speak") as message|null
 	if(!borer_message)
 		owner.balloon_alert(owner, "no message given")

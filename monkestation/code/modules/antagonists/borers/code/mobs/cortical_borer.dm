@@ -125,29 +125,37 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/reagent/medicine/mannitol,
 	)
 	//blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
-	var/list/blacklisted_chemicals = list() //currently may be empty, but leaving the mechanism just in case
+	var/list/blacklisted_chemicals = list()
+
 	///how old the borer is, starting from zero. Goes up only when inside a host
 	var/maturity_age = 0
+	//just a little "timer" to compare to world.time
+	var/timed_maturity = 0
+	/// How many times you've levelled up over all
+	var/level = 0
+
 	///the amount of "evolution" points a borer has for chemicals. Start with one
 	var/chemical_evolution = 1
 	///the amount of "evolution" points a borer has for stats
 	var/stat_evolution = 0
+
 	///how many chemical points the borer can have. Can be upgraded
 	var/max_chemical_storage = 50
 	///how many chemical points the borer has
 	var/chemical_storage = 50
 	///how fast chemicals are gained. Goes up only when inside a host
 	var/chemical_regen = 1
+
 	/// How much health you gain per level
 	var/health_per_level = 2.5
 	/// How much health regen you gain per level
 	var/health_regen_per_level = 0.02
+
 	/// How much more chemical storage you gain per level
 	var/chem_storage_per_level = 20
 	/// Chemical regen you gain per level
 	var/chem_regen_per_level = 1
-	/// How many times you've levelled up over all
-	var/level = 0
+
 	///the list of actions that the borer has
 	var/list/known_abilities = list(
 		/datum/action/cooldown/borer/toggle_hiding,
@@ -161,12 +169,12 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/action/cooldown/borer/fear_human,
 		/datum/action/cooldown/borer/check_blood,
 	)
+
 	///the host
 	var/mob/living/carbon/human/human_host
 	//what the host gains or loses with the borer
 	var/list/hosts_abilities = list()
-	//just a little "timer" to compare to world.time
-	var/timed_maturity = 0
+
 	///multiplies the current health up to the max health
 	var/health_regen = 1.02
 	//holds the chems right before injection
@@ -213,6 +221,11 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// Multiplier for a borer's negative effects to their host
 	var/host_harm_multiplier = 1
 
+	/// Controls if the borer can reproduce or not, TRUE means it wont be able to spawn eggs
+	var/neutered = FALSE
+	/// Used to give the borer the antagonist datum
+	var/antagonist_datum = /datum/antagonist/cortical_borer
+
 /mob/living/basic/cortical_borer/Initialize(mapload)
 	. = ..()
 	AddComponent( \
@@ -227,7 +240,12 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	borer_matrix.Scale(0.5, 0.5)
 	transform = borer_matrix
 
-	name = "[initial(name)] ([generation]-[rand(100,999)])" //so their gen and a random. ex 1-288 is first gen named 288, 4-483 if fourth gen named 483
+	if(generation == 0)
+		//The first ever borer gets a special name
+		name = "The hivequeen [initial(name)]"
+	else
+		//so their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
+		name = "[initial(name)] ([generation]-[rand(100,999)])"
 
 	GLOB.cortical_borers += src
 	reagent_holder = new /obj/item/reagent_containers/borer(src)
@@ -237,8 +255,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		attack_action.Grant(src)
 
 	if(mind)
-		if(!mind.has_antag_datum(/datum/antagonist/cortical_borer))
-			mind.add_antag_datum(/datum/antagonist/cortical_borer)
+		if(!mind.has_antag_datum(antagonist_datum))
+			mind.add_antag_datum(antagonist_datum)
 
 	for(var/focus_path in subtypesof(/datum/borer_focus))
 		possible_focuses += new focus_path
@@ -329,7 +347,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	to_chat(user, span_warning("You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! You only grow/heal/talk when inside a host!"))
 	ckey = user.ckey
 	if(mind)
-		mind.add_antag_datum(/datum/antagonist/cortical_borer)
+		mind.add_antag_datum(antagonist_datum)
+
 
 //check if we are inside a human
 /mob/living/basic/cortical_borer/proc/inside_human()
@@ -457,18 +476,5 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	max_chemical_storage = initial(max_chemical_storage) + (level * chem_storage_per_level)
 	chemical_regen = initial(chemical_regen) + (level * chem_regen_per_level)
 	health = clamp(old_health, 1, maxHealth)
-
-// Only able to spawn from an egg burst from a corpse, starts off stronger
-/mob/living/basic/cortical_borer/empowered
-	maxHealth = 150
-	health = 150
-	health_per_level = 15
-	health_regen_per_level = 0.04
-	stat_evolution = 8
-	chemical_evolution = 8
-	max_chemical_storage = 250
-	chemical_storage = 250
-	chem_regen_per_level = 1.5
-	chem_storage_per_level = 25
 
 #undef BODYTEMP_DIVISOR

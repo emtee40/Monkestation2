@@ -4,18 +4,14 @@
 	cooldown_time = 2 MINUTES
 	button_icon_state = "revive"
 	chemical_cost = 200
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/revive_host/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "host required")
-		return
 	cortical_owner.chemical_storage -= chemical_cost
 	if(cortical_owner.human_host.getBruteLoss())
 		cortical_owner.human_host.adjustBruteLoss(-(cortical_owner.human_host.getBruteLoss()*0.5))

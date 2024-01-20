@@ -2,15 +2,13 @@
 	name = "Incite Fear"
 	cooldown_time = 12 SECONDS
 	button_icon_state = "fear"
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/fear_human/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
 	if(cortical_owner.human_host)
 		incite_internal_fear()
 		StartCooldown()

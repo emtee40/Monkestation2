@@ -17,18 +17,14 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	name = "Learn New Chemical"
 	button_icon_state = "bloodlevel"
 	chemical_evo_points = 1
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/upgrade_chemical/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "host required")
-		return
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
 	if(!length(cortical_owner.potential_chemicals))
 		owner.balloon_alert(owner, "all chemicals learned")
 		return
@@ -55,18 +51,14 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	name = "Learn Chemical from Blood"
 	button_icon_state = "bloodchem"
 	chemical_evo_points = 5
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/learn_bloodchemical/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "host required")
-		return
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
 	if(length(cortical_owner.human_host.reagents.reagent_list) <= 0)
 		owner.balloon_alert(owner, "no reagents in host")
 		return

@@ -12,8 +12,14 @@
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
+	if(cortical_owner.neutered == TRUE)
+		owner.balloon_alert(owner, "You cannot reproduce!")
+		return
 	if(!(cortical_owner.upgrade_flags & BORER_ALONE_PRODUCTION) && !cortical_owner.inside_human())
 		owner.balloon_alert(owner, "host required")
+		return
+	if(cortical_owner.human_host.stat == DEAD)
+		owner.balloon_alert(owner, "host dead")
 		return
 	cortical_owner.chemical_storage -= chemical_cost
 	if((cortical_owner.upgrade_flags & BORER_ALONE_PRODUCTION) && !cortical_owner.inside_human())
@@ -71,14 +77,15 @@
 	cooldown_time = 1 MINUTES
 	button_icon_state = "reproduce"
 	chemical_cost = 150
+	requires_host = TRUE
 
 /datum/action/cooldown/borer/empowered_offspring/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "host required")
+	if(cortical_owner.neutered == TRUE)
+		owner.balloon_alert(owner, "You cannot reproduce!")
 		return
 	if(cortical_owner.human_host.stat != DEAD)
 		owner.balloon_alert(owner, "host not dead")

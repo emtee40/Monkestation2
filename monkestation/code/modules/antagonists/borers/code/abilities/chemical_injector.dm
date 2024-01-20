@@ -9,18 +9,13 @@
 /datum/action/cooldown/borer/inject_chemical
 	name = "Open Chemical Injector"
 	button_icon_state = "chemical"
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/inject_chemical/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
-	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(!cortical_owner.human_host)
-		owner.balloon_alert(owner, "host required")
-		return
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
 	ui_interact(owner)
 
 /datum/action/cooldown/borer/inject_chemical/ui_interact(mob/user, datum/tgui/ui)

@@ -1,3 +1,13 @@
+/obj/item/borer_egg/empowered
+	name = "empowered borer egg"
+	icon_state = "empowered_brainegg"
+
+/obj/effect/mob_spawn/ghost_role/borer_egg/empowered
+	name = "empowered borer egg"
+	desc = "An egg of a creature that came crawling out of someone instead of into them."
+	mob_type = /mob/living/basic/cortical_borer/empowered
+	host_egg = /obj/item/borer_egg/empowered
+
 /obj/item/organ/internal/empowered_borer_egg
 	name = "strange egg"
 	desc = "All slimy and yuck."

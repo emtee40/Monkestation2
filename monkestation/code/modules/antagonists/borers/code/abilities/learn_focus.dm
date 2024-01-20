@@ -1,18 +1,14 @@
 /datum/action/cooldown/borer/learn_focus
 	name = "Learn Focus"
 	button_icon_state = "getfocus"
+	requires_host = TRUE
+	sugar_restricted = TRUE
 
 /datum/action/cooldown/borer/learn_focus/Trigger(trigger_flags, atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(!cortical_owner.inside_human())
-		owner.balloon_alert(owner, "host required")
-		return
-	if(cortical_owner.host_sugar())
-		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
 	if(!length(cortical_owner.possible_focuses))
 		owner.balloon_alert(owner, "all focuses already learned")
 		return

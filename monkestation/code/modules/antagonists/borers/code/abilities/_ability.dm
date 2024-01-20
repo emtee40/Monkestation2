@@ -8,6 +8,10 @@
 	var/chemical_evo_points = 0
 	/// How many stat evo points are needed to use this ability
 	var/stat_evo_points = 0
+	/// Does this ability need a human host to be triggered?
+	var/requires_host = FALSE
+	/// Does this ability stop working when the host has sugar?
+	var/sugar_restricted = FALSE
 
 /datum/action/cooldown/borer/New(Target, original)
 	. = ..()
@@ -28,6 +32,14 @@
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
 	if(owner.stat == DEAD)
 		return FALSE
+
+	if(requires_host == TRUE && !cortical_owner.inside_human())
+		owner.balloon_alert(owner, "host required")
+		return
+	if(sugar_restricted == TRUE && cortical_owner.host_sugar())
+		owner.balloon_alert(owner, "cannot function with sugar in host")
+		return
+
 	if(cortical_owner.chemical_storage < chemical_cost)
 		cortical_owner.balloon_alert(cortical_owner, "need [chemical_cost] chemicals")
 		return FALSE
