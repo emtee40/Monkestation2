@@ -13,6 +13,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
 	force = 0
+	/// Starts open if true
+	var/start_extended = FALSE
 
 /obj/item/boxcutter/Initialize(mapload)
 	. = ..()
@@ -24,6 +26,7 @@
 
 	AddComponent( \
 		/datum/component/transforming, \
+		start_transformed = start_extended, \
 		force_on = 10, \
 		throwforce_on = 4, \
 		throw_speed_on = throw_speed, \
@@ -43,3 +46,5 @@
 	tool_behaviour = (active ? TOOL_KNIFE : NONE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
+/obj/item/boxcutter/extended
+	start_extended = TRUE
