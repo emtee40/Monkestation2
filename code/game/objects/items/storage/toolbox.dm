@@ -331,7 +331,7 @@
 
 /obj/item/storage/toolbox/guncase/monkeycase/Initialize(mapload)
 	. = ..()
-	atom_storage.locked = TRUE
+	atom_storage.locked = TRUE // Monkestation edit
 
 /obj/item/storage/toolbox/guncase/monkeycase/attack_self(mob/user, modifiers)
 	if(!monkey_check(user))
@@ -348,11 +348,11 @@
 	return ..()
 
 /obj/item/storage/toolbox/guncase/monkeycase/proc/monkey_check(mob/user)
-	if(atom_storage.locked == TRUE)
+	if(atom_storage.locked == FALSE) // Monkestation edit
 		return TRUE
 
 	if(is_simian(user))
-		atom_storage.locked = FALSE
+		atom_storage.locked = FALSE // Monkestation edit
 		to_chat(user, span_notice("You place your paw on the paw scanner, and hear a soft click as [src] unlocks!"))
 		playsound(src, 'sound/items/click.ogg', 25, TRUE)
 		return TRUE

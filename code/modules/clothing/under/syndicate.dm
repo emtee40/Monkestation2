@@ -21,9 +21,18 @@
 	desc = "A non-descript and slightly suspicious looking skirtleneck."
 	icon_state = "syndicate_skirt"
 	inhand_icon_state = "bl_suit"
+	has_sensor = NO_SENSORS
+	armor_type = /datum/armor/syndicate_skirt
+	alt_covers_chest = TRUE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+
+/datum/armor/syndicate_skirt
+	melee = 10
+	bio = 10
+	fire = 50
+	acid = 40
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"
