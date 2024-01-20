@@ -354,10 +354,10 @@
 	if(is_simian(user))
 		atom_storage.locked = FALSE // Monkestation edit
 		to_chat(user, span_notice("You place your paw on the paw scanner, and hear a soft click as [src] unlocks!"))
-		playsound(src, 'sound/items/click.ogg', 25, TRUE)
+		playsound(src, 'sound/items/click.ogg', 25, TRUE, mixer_channel = CHANNEL_SOUND_EFFECTS)
 		return TRUE
 	to_chat(user, span_warning("You put your hand on the hand scanner, and it rejects it with an angry chimpanzee screech!"))
-	playsound(src, "sound/creatures/monkey/monkey_screech_[rand(1,7)].ogg", 75, TRUE)
+	playsound(src, "sound/creatures/monkey/monkey_screech_[rand(1,7)].ogg", 75, TRUE, mixer_channel = CHANNEL_SOUND_EFFECTS)
 	return FALSE
 
 /obj/item/storage/toolbox/guncase/monkeycase/PopulateContents()
