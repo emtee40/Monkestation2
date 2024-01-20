@@ -331,7 +331,7 @@
 
 /obj/item/storage/toolbox/guncase/monkeycase/Initialize(mapload)
 	. = ..()
-	atom_storage.locked = STORAGE_SOFT_LOCKED
+	atom_storage.locked = TRUE
 
 /obj/item/storage/toolbox/guncase/monkeycase/attack_self(mob/user, modifiers)
 	if(!monkey_check(user))
@@ -348,11 +348,11 @@
 	return ..()
 
 /obj/item/storage/toolbox/guncase/monkeycase/proc/monkey_check(mob/user)
-	if(atom_storage.locked == STORAGE_NOT_LOCKED)
+	if(atom_storage.locked == TRUE)
 		return TRUE
 
 	if(is_simian(user))
-		atom_storage.locked = STORAGE_NOT_LOCKED
+		atom_storage.locked = FALSE
 		to_chat(user, span_notice("You place your paw on the paw scanner, and hear a soft click as [src] unlocks!"))
 		playsound(src, 'sound/items/click.ogg', 25, TRUE)
 		return TRUE
@@ -385,4 +385,4 @@
 	// Banana bomb! Basically a tiny flashbang for monkeys.
 	new /obj/item/food/grown/banana/bunch/monkeybomb(src)
 	// Somewhere to store it all.
-	new /obj/item/storage/backpack/messenger(src)
+	new /obj/item/storage/backpack(src)

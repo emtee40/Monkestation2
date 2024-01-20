@@ -64,7 +64,6 @@
 	name = "\improper CH1M911"
 	desc = "For the monkey mafioso on-the-go. Uses .45 rounds and has the distinct smell of bananas."
 	projectile_damage_multiplier = 0.5
-	projectile_wound_bonus = -12
 	pin = /obj/item/firing_pin/monkey
 
 

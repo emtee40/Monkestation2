@@ -190,14 +190,6 @@
 	banana_smudge.color = "#ffe02f"
 	qdel(src)
 
-/obj/item/food/grown/banana/bunch/proc/explosive_ripening()
-	honkerblast(src, light_range = 3, medium_range = 1)
-	for(var/mob/shook_boi in range(6, loc))
-		shake_camera(shook_boi, 3, 5)
-	var/obj/effect/decal/cleanable/food/plant_smudge/banana_smudge = new(loc)
-	banana_smudge.color = "#ffe02f"
-	qdel(src)
-
 /obj/item/food/grown/banana/bunch/monkeybomb
 	desc = "Am exquisite bunch of bananas. Their otherwordly plumpness seems to be hiding something."
 
