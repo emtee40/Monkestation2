@@ -246,7 +246,7 @@
 	fire_delay = 2
 	rof = 0.2 SECONDS
 	projectile_damage_multiplier = 0.4
-	projectile_wound_bonus = -25
+	// Monkestation edit, removal of projectile_wound_bonus
 	pin = /obj/item/firing_pin/monkey
 
 /obj/item/gun/ballistic/automatic/ar
