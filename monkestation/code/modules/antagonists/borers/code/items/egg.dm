@@ -23,10 +23,10 @@
 	you_are_text = "You are a Cortical Borer."
 	flavour_text = "You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! \
 					You only grow/heal/talk when inside a host!"
-	important_text = "As a borer, you have the option to be friendly or not. \
-					Note that how you act will determine how a host responds. \
-					Do not wordlessly resort to mechanics within a host. \
-					You can talk to other borers using ; and your host by just speaking normally. \
+	important_text = "As a borer, you have the option to be friendly or not. \n\
+					Note that how you act will determine how a host responds. \n\
+					Do not wordlessly resort to mechanics within a host. \n\
+					You can talk to other borers using ; and your host by just speaking normally. \n\
 					You are unable to speak outside of a host, but are able to emote."
 	///what the generation of the borer egg is
 	var/generation = 0
@@ -42,10 +42,10 @@
 	spawned_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer)
 	if(generation == 0)
 		//The first ever borer gets a special name
-		spawned_mob.name = "The hivequeen [initial(name)]"
+		spawned_mob.name = "The hivequeen cortical borer"
 	else
 		//so their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
-		spawned_mob.name = "[initial(name)] ([generation]-[rand(100,999)])"
+		spawned_mob.name = "cortical borer ([generation]-[rand(100,999)])"
 	QDEL_NULL(host_egg)
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/Initialize(mapload, datum/team/cortical_borers/borer_team)

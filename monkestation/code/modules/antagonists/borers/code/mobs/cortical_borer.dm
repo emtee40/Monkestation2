@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	//holds the chems right before injection
 	var/obj/item/reagent_containers/reagent_holder
 	//just a flavor kind of thing
-	var/generation = 1
+	var/generation = 0
 	/// List of focus datums
 	var/list/possible_focuses = list()
 	/// What focuses the borer has unlocked
