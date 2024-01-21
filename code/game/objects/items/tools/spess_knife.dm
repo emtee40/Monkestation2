@@ -16,7 +16,7 @@
 	resistance_flags = FIRE_PROOF
 	tool_behaviour = null
 	toolspeed = 1.25 // 25% worse than default tools
-	custom_materials = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT)
+//	custom_materials = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT) //VERY TEMP MONKESTATION REMOVAL, RE-ADD ONCE PORT GETS MERGED
 	hitsound = SFX_SWING_HIT
 	///Radial menu tool options
 	var/list/options = list()
