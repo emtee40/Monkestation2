@@ -93,7 +93,6 @@
 		"recorder",
 		"rglass",
 		"roll",
-		"rollerbed",
 		"sec_38",
 		"sec_beanbag_slug",
 		"sec_dart",
@@ -280,7 +279,7 @@
 		"dropper",
 		"hemostat",
 		"large_beaker",
-		"medicalbed",
+//		"medicalbed", //MONKESTATION VERY TEMP REMOVAL
 		"mmi_m",
 		"operating",
 		"petri_dish",
@@ -735,7 +734,7 @@
 	design_ids = list(
 		"bluespace_matter_bin",
 		"bluespacebodybag",
-		"medicalbed_emergency",
+//		"medicalbed_emergency", //MONKESTATION VERY TEMP REMOVAL
 		"femto_mani",
 		"quantum_keycard",
 		"swapper",
