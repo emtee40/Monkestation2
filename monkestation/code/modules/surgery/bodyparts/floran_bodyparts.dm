@@ -12,8 +12,13 @@
 	icon_greyscale = 'monkestation/icons/mob/species/floran/bodyparts.dmi'
 	limb_id = SPECIES_FLORAN
 	unarmed_attack_verb = "slash"
+<<<<<<< Updated upstream
 	unarmed_damage_high = 15
 	unarmed_damage_low = 5
+=======
+	unarmed_damage_high = 10
+	unarmed_damage_low = 4
+>>>>>>> Stashed changes
 	unarmed_attack_effect = ATTACK_EFFECT_CLAW
 	unarmed_attack_sound = 'sound/weapons/slice.ogg'
 	unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -22,8 +27,13 @@
 	icon_greyscale = 'monkestation/icons/mob/species/floran/bodyparts.dmi'
 	limb_id = SPECIES_FLORAN
 	unarmed_attack_verb = "slash"
+<<<<<<< Updated upstream
 	unarmed_damage_high = 15
 	unarmed_damage_low = 5
+=======
+	unarmed_damage_high = 10
+	unarmed_damage_low = 4
+>>>>>>> Stashed changes
 	unarmed_attack_effect = ATTACK_EFFECT_CLAW
 	unarmed_attack_sound = 'sound/weapons/slice.ogg'
 	unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
