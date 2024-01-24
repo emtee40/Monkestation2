@@ -187,7 +187,6 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
-		/datum/action/cooldown/bloodling/dissonant_shriek,
 	)
 
 /mob/living/basic/bloodling/tier4
