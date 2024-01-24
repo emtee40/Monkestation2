@@ -120,13 +120,13 @@
 	if(75 > biomass && evolution_level != 1)
 		evolution(1)
 		return
-	if(125 > biomass && biomass >= 75 && evolution_level != 2)
+	if(125 > biomass >= 75 && evolution_level != 2)
 		evolution(2)
 		return
-	if(175 > biomass && biomass >= 125 && evolution_level != 3)
+	if(175 > biomass >= 125 && evolution_level != 3)
 		evolution(3)
 		return
-	if(225 > biomass && biomass >= 175 && evolution_level != 4)
+	if(225 > biomass >= 175 && evolution_level != 4)
 		evolution(4)
 		return
 	if(biomass >= 225 && evolution_level != 5)
@@ -187,6 +187,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
+		/datum/action/cooldown/bloodling/dissonant_shriek,
 	)
 
 /mob/living/basic/bloodling/tier4
@@ -198,6 +199,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
+		/datum/action/cooldown/bloodling/dissonant_shriek,
 	)
 
 /mob/living/basic/bloodling/tier5
@@ -209,4 +211,5 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
+		/datum/action/cooldown/bloodling/dissonant_shriek,
 	)

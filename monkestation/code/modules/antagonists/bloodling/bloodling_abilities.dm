@@ -1,7 +1,7 @@
 /datum/action/cooldown/mob_cooldown/bloodling
 	name = "debug"
 	desc = "Yell at coders if you see this"
-	// The biomass cost of the ability
+	/// The biomass cost of the ability
 	var/biomass_cost = 0
 
 /datum/action/cooldown/mob_cooldown/bloodling/IsAvailable(feedback = FALSE)
