@@ -3,11 +3,13 @@
 	plural_form = "Satyrs"
 	id = SPECIES_SATYR
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
+	no_equip_flags = ITEM_SLOT_FEET
 	sexes = TRUE
 	species_traits = list(
 		EYECOLOR,
 		HAIR,
-		FACEHAIR
+		FACEHAIR,
+		NO_UNDERWEAR,
 	)
 	inherent_traits = list(
 		TRAIT_ALCOHOL_TOLERANCE,
