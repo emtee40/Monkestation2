@@ -42,7 +42,7 @@
 /datum/supply_pack/security/blueshift
 	name = "Blue Shift Uniform Crate"
 	desc = "Contains alternative outfits for the station's private security force. Has enough outfits for five security officers. Originally produced for a now defunct research station."
-	cost = CARGO_CRATE_VALUE * 3
+	cost = CARGO_CRATE_VALUE * 5
 	access_view = ACCESS_SECURITY
 	contains = list(
 		/obj/item/clothing/head/helmet/blueshirt = 5,
