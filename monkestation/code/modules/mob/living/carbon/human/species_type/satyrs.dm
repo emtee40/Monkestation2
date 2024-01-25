@@ -10,7 +10,8 @@
 		FACEHAIR
 	)
 	inherent_traits = list(
-		TRAIT_ALCOHOL_TOLERANCE
+		TRAIT_ALCOHOL_TOLERANCE,
+		TRAIT_HARD_SOLES
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	external_organs = list(
@@ -44,8 +45,8 @@
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "",
-			SPECIES_PERK_NAME = "",
-			SPECIES_PERK_DESC = "",
+			SPECIES_PERK_NAME = "Hooves",
+			SPECIES_PERK_DESC = "Cloven feet prevent wearing of shoes, but also protect as a shoe would.",
 		)
 	)
 
