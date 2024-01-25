@@ -12,6 +12,7 @@ Cortical worms are antagonists whose sole purpose is to reproduce infintelly
 ### TG Proc/File Changes:
 
 code\__DEFINES\role_preferences.dm
+code\__DEFINES\research\anomalies.dm
 code\_globalvars\lists\poll_ignore.dm
 code\datums\mutations\_mutations.dm
 code\modules\admin\sql_ban_system.dm
