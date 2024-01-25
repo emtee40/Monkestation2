@@ -173,8 +173,8 @@
 
 /obj/effect/spawner/random_bar/box
 	name = "Box Bar Spawner"
-	room_width = 15
-	room_height = 13
+	room_width = 11
+	room_height = 17
 
 /obj/effect/spawner/random_bar/icebox
 	name = "Icebox bar spawner"

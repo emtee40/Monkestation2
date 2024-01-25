@@ -1,11 +1,11 @@
-//should most likely make these all be a subtype of /random_bar/icebox/ or something, would need use subtypesof() though
+//should most likely make these all be a subtype of /random_bar/box/ or something, would need use subtypesof() though
 /datum/map_template/random_room/random_bar/box_base
 	name = "Box Default Bar"
 	room_id = "box_default_bar"
 	mappath = "monkestation/_maps/RandomBars/Box/default_bar.dmm"
 	centerspawner = FALSE
-	template_height = 13
-	template_width = 15
+	template_height = 17
+	template_width = 11
 	weight = 6
 	station_name = "Box Station"
 
@@ -13,13 +13,13 @@
 	name = "Clockwork Bar"
 	room_id = "box_clockwork"
 	mappath = "monkestation/_maps/RandomBars/Box/clockwork_icebox.dmm"
-	weight = 1
+	weight = 2
 
 /datum/map_template/random_room/random_bar/box_base/cult
 	name = "Cult Bar"
 	room_id = "box_cult"
 	mappath = "monkestation/_maps/RandomBars/Box/bloody_bar.dmm"
-	weight = 1
+	weight = 2
 
 /datum/map_template/random_room/random_bar/box_base/vietmoth
 	name = "Jungle Bar"

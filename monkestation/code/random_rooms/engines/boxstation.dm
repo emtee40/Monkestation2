@@ -6,7 +6,7 @@
 	centerspawner = FALSE
 	template_height = 26
 	template_width = 29
-	weight = 8
+	weight = 10
 	station_name = "Box Station"
 
 /datum/map_template/random_room/random_engines/box_particle_accelerator
@@ -16,7 +16,7 @@
 	centerspawner = FALSE
 	template_height = 26
 	template_width = 29
-	weight = 8
+	weight = 10
 	station_name = "Box Station"
 
 /datum/map_template/random_room/random_engines/box_teg
