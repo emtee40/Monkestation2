@@ -12,6 +12,7 @@
 		TRAIT_PLANT_SAFE,
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_LIMBATTACHMENT,
+		TRAIT_PLANT_SAFE,
 	)
 	external_organs = list(
 		/obj/item/organ/external/pod_hair = "None",
