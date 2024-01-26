@@ -10,7 +10,7 @@
 	return possible_values_for_sprite_accessory_list_for_body_part(
 		GLOB.satyr_fluff_list,
 		"satyr_fluff",
-		list("ADJ", "FRONT"),
+		list("ADJ"),
 	)
 
 /datum/preference/choiced/satyr_fluff/apply_to_human(mob/living/carbon/human/target, value)
