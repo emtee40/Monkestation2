@@ -110,8 +110,8 @@
 
 /// Creates the bloodlings abilities
 /mob/living/basic/bloodling/proc/create_abilities()
-	for(var/datum/action/cooldown/mob_cooldown/bloodling/path as anything in initial_powers)
-		var/datum/action/cooldown/mob_cooldown/bloodling/bloodling_action = new path()
+	for(var/datum/action/path as anything in initial_powers)
+		var/datum/action/bloodling_action = new path()
 		bloodling_action.Grant(src)
 
 
@@ -199,6 +199,7 @@
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 		/datum/action/cooldown/bloodling/dissonant_shriek,
+		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 	)
 
 /mob/living/basic/bloodling/tier5
@@ -211,4 +212,5 @@
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 		/datum/action/cooldown/bloodling/dissonant_shriek,
+		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 	)

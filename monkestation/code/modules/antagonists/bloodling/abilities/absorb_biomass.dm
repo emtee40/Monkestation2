@@ -17,6 +17,8 @@
 	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to claim biomass..."))
 
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/PreActivate(atom/target)
+	if(owner == target)
+		return FALSE
 	if(get_dist(owner, target) > 1)
 		return FALSE
 	if(istype(target, /obj/item/food/deadmouse))
@@ -46,6 +48,7 @@
 		span_noticealien("You wrap your tendrils around [target] and absorb it!"),
 		)
 		return TRUE
+
 	var/mob/living/mob_to_absorb = target
 	if(!iscarbon(mob_to_absorb))
 		if(!do_after(our_mob, 10 SECONDS))

@@ -2,8 +2,7 @@
 	name = "Dissonant Shriek"
 	desc = "We release a sound that disrupts nearby electronics. Costs 20 biomass."
 	button_icon_state = "dissonant_shriek"
-	biomass_cost = 20
-	cooldowns = 20 SECONDS
+	biomass_cost = 30
 
 /datum/action/cooldown/bloodling/dissonant_shriek/Activate(atom/target)
 	..()
