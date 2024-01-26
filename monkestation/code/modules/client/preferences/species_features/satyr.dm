@@ -34,7 +34,7 @@
 /datum/preference/choiced/satyr_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["satyr_tail"] = value
 
-//Satyr Fluff
+//Satyr Horns
 /datum/preference/choiced/satyr_horns
 	savefile_key = "feature_satyr_horns"
 	savefile_identifier = PREFERENCE_CHARACTER
