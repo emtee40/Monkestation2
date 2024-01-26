@@ -3,5 +3,4 @@
 	desc = "A complex, multi-valved hydraulic pump, which fits perfectly where a heart normally would."
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "heart-clock"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC

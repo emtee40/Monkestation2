@@ -420,10 +420,10 @@
 			if(vomit_flags & MOB_VOMIT_HARM)
 				need_mob_update += adjustBruteLoss(3, updating_health = FALSE)
 		else
-			if(T)
-				T.add_vomit_floor(src, vomit_type, purge_ratio) //toxic barf looks different || call purge when doing detoxicfication to pump more chems out of the stomach.
-		T = get_step(T, starting_dir)
-		if (T?.is_blocked_turf())
+			if(location)
+				location.add_vomit_floor(src, vomit_type, purge_ratio) //toxic barf looks different || call purge when doing detoxicfication to pump more chems out of the stomach.
+		location = get_step(location, starting_dir)
+		if (location?.is_blocked_turf())
 			break
 	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times
 		updatehealth()

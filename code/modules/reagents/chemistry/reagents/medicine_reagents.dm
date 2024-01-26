@@ -398,7 +398,7 @@
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/affected_mob)
 	. = ..()
-	metabolizer.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
+	affected_mob.remove_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 /datum/reagent/medicine/mine_salve/on_burn_wound_processing(datum/wound/burn/flesh/burn_wound)
 	burn_wound.sanitization += 0.3
@@ -1315,19 +1315,6 @@
 			mytray.increase_sustaining(round(chems.get_reagent_amount(type)))
 		else
 			mytray.lastcycle += 2.5 SECONDS /// makes trays roughly 25% faster
-
-/// Returns a hippie-esque string for the person affected by the reagent to say.
-/datum/reagent/medicine/earthsblood/proc/return_hippie_line()
-	var/static/list/earthsblood_lines = list(
-		"Am I glad he's frozen in there and that we're out here, and that he's the sheriff and that we're frozen out here, and that we're in there, and I just remembered, we're out here. What I wanna know is: Where's the caveman?",
-		"Do you believe in magic in a young girl's heart?",
-		"It ain't me, it ain't me...",
-		"Make love, not war!",
-		"Stop, hey, what's that sound? Everybody look what's going down...",
-		"Yeah, well, you know, that's just, like, uh, your opinion, man.",
-	)
-
-	return pick(earthsblood_lines)
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()

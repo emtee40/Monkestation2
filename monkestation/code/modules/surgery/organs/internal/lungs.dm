@@ -3,5 +3,4 @@
 	desc = "A utilitarian bellows which serves to pump oxygen into an automaton's body."
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	icon_state = "lungs-clock"
-	organ_flags = ORGAN_SYNTHETIC
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC

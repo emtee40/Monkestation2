@@ -61,5 +61,5 @@
 	else
 		staminaloss = max(0, min(BASIC_MOB_MAX_STAMINALOSS, staminaloss + (amount * damage_coeff[STAMINA])))
 	if(updating_stamina)
-		update_stamina()
+		on_stamina_update()	//Monkestation Edit: Its called on_stamina_update() rather than update_stamina()
 	. -= staminaloss

@@ -351,7 +351,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 6) //2.6 per 2 seconds
 
-/datum/reagent/drug/pumpup/on_mob_metabolize(mob/living/L)
+/datum/reagent/drug/pumpup/on_mob_metabolize(mob/living/affected_mob)
 	..()
 	ADD_TRAIT(affected_mob, TRAIT_BATON_RESISTANCE, type)
 	var/obj/item/organ/internal/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)

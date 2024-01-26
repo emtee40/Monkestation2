@@ -4,7 +4,7 @@
 	desc = "A machine component, installed in the chest. This grants the Machine the ability to process chemicals that enter its systems."
 	alcohol_tolerance = 0
 	toxTolerance = -1
-	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_ROBOTIC
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 
 /obj/item/organ/internal/liver/cybernetic/upgraded/ipc/emp_act(severity)
@@ -26,8 +26,7 @@
 	icon_state = "microcell"
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 
 /obj/item/organ/internal/stomach/ethereal/battery/ipc/emp_act(severity)
@@ -44,11 +43,10 @@
 	name = "ipc positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
-	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'monkestation/icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/internal/brain/positron/Insert(mob/living/carbon/C, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE)
 	..()
@@ -75,8 +73,7 @@
 	zone = "head"
 	slot = "ears"
 	gender = PLURAL
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 
 /obj/item/organ/internal/ears/robot/emp_act(severity)
@@ -106,7 +103,7 @@
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
-	organ_flags = ORGAN_SYNTHETIC //the power of freedom prevents heart attacks
+	organ_flags = ORGAN_ROBOTIC //the power of freedom prevents heart attacks
 	var/min_next_adrenaline = 0
 
 /obj/item/organ/heart/freedom/on_life()

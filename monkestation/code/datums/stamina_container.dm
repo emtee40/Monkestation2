@@ -76,7 +76,7 @@
 	if((!amt || !COOLDOWN_FINISHED(src, stamina_grace_period)) && !forced)
 		return
 	///Our parent might want to fuck with these numbers
-	var/modify = parent.pre_stamina_change(amt, forced)
+	var/modify = parent.adjustStaminaLoss(-amt, forced)
 	current = round(clamp(current + modify, 0, maximum), DAMAGE_PRECISION)
 	update()
 	if((amt < 0) && is_regenerating)
