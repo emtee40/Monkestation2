@@ -270,6 +270,13 @@
 /mob/living/proc/getBruteLoss()
 	return bruteloss
 
+/mob/living/proc/can_adjust_brute_loss(amount, forced, required_bodytype)
+	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BRUTE_DAMAGE, BRUTE, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+	return TRUE
+
 /mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype = ALL)
 	var/area/target_area = get_area(src)
 	if(target_area)
@@ -302,6 +309,22 @@
 
 /mob/living/proc/getOxyLoss()
 	return oxyloss
+
+/mob/living/proc/can_adjust_oxy_loss(amount, forced, required_biotype, required_respiration_type)
+	if(!forced)
+		if(status_flags & GODMODE)
+			return FALSE
+		if (required_respiration_type)
+			var/obj/item/organ/internal/lungs/affected_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+			if(isnull(affected_lungs))
+				if(!(mob_respiration_type & required_respiration_type))  // if the mob has no lungs, use mob_respiration_type
+					return FALSE
+			else
+				if(!(affected_lungs.respiration_type & required_respiration_type)) // otherwise use the lungs' respiration_type
+					return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_OXY_DAMAGE, OXY, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+	return TRUE
 
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL, required_respiration_type = ALL)
 	var/area/target_area = get_area(src)
@@ -352,6 +375,13 @@
 /mob/living/proc/getToxLoss()
 	return toxloss
 
+/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype = ALL)
+	if(!forced && ((status_flags & GODMODE) || !(mob_biotypes & required_biotype)))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_TOX_DAMAGE, TOX, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+	return TRUE
+
 /mob/living/proc/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = ALL)
 	var/area/target_area = get_area(src)
 	if(target_area)
@@ -386,6 +416,13 @@
 
 /mob/living/proc/getFireLoss()
 	return fireloss
+
+/mob/living/proc/can_adjust_fire_loss(amount, forced, required_bodytype)
+	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BURN_DAMAGE, BURN, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+	return TRUE
 
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype = ALL)
 	var/area/target_area = get_area(src)
