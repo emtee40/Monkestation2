@@ -17,6 +17,7 @@
 	var/recharge_timerid
 	/// Do we recharge slower with more of our type?
 	var/unique_frequency = FALSE
+	var/override_dualweild = FALSE //monkeedit
 
 /obj/item/gun/energy/recharge/apply_fantasy_bonuses(bonus)
 	. = ..()
@@ -47,7 +48,7 @@
 		// calls dropped().
 		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 0.1 SECONDS)
 
-/obj/item/gun/energy/recharge/handle_chamber()
+/obj/item/gun/energy/recharge/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	. = ..()
 	attempt_reload()
 
@@ -69,7 +70,7 @@
 	if(!set_recharge_time)
 		set_recharge_time = recharge_time
 	var/carried = 0
-	if(!unique_frequency)
+	if(!unique_frequency && !override_dualweild) //Monke edit
 		for(var/obj/item/gun/energy/recharge/recharging_gun in loc.get_all_contents())
 			if(recharging_gun.type != type || recharging_gun.unique_frequency)
 				continue

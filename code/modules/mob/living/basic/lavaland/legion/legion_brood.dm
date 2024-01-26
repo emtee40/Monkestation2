@@ -34,13 +34,14 @@
 
 /mob/living/basic/legion_brood/Initialize(mapload)
 	. = ..()
-	add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), INNATE_TRAIT)
+	add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE, TRAIT_PERMANENTLY_MORTAL), INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 	AddComponent(/datum/component/swarming)
 	AddComponent(/datum/component/clickbox, icon_state = "sphere", max_scale = 2)
 	addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
 /mob/living/basic/legion_brood/death(gibbed)
+	created_by = null
 	if (!gibbed)
 		new /obj/effect/temp_visual/hive_spawn_wither(get_turf(src), /* copy_from = */ src)
 	return ..()
@@ -80,7 +81,7 @@
 		faction |= REF(creator)
 	created_by = creator
 	ai_controller?.set_blackboard_key(BB_LEGION_BROOD_CREATOR, creator)
-	RegisterSignal(creator, COMSIG_PARENT_QDELETING, PROC_REF(creator_destroyed))
+	RegisterSignal(creator, COMSIG_QDELETING, PROC_REF(creator_destroyed))
 
 /// Reference handling
 /mob/living/basic/legion_brood/proc/creator_destroyed()

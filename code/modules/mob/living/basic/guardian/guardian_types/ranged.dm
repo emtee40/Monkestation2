@@ -71,6 +71,7 @@
 	RegisterSignal(owner, COMSIG_GUARDIAN_MANIFESTED, PROC_REF(on_manifest))
 	RegisterSignal(owner, COMSIG_GUARDIAN_RECALLED, PROC_REF(on_recall))
 	RegisterSignal(owner, COMSIG_MOB_CLICKON, PROC_REF(on_click))
+	RegisterSignal(owner, COMSIG_BASICMOB_PRE_ATTACK_RANGED, PROC_REF(on_ranged_attack))
 
 	var/mob/living/basic/guardian/guardian_mob = owner
 	guardian_mob.unleash()
@@ -79,7 +80,12 @@
 
 /datum/status_effect/guardian_scout_mode/on_remove()
 	animate(owner, alpha = initial(owner.alpha), time = 0.5 SECONDS)
-	UnregisterSignal(owner, list(COMSIG_GUARDIAN_MANIFESTED, COMSIG_GUARDIAN_RECALLED, COMSIG_MOB_CLICKON))
+	UnregisterSignal(owner, list(
+		COMSIG_BASICMOB_PRE_ATTACK_RANGED,
+		COMSIG_GUARDIAN_MANIFESTED,
+		COMSIG_GUARDIAN_RECALLED,
+		COMSIG_MOB_CLICKON,
+	))
 	to_chat(owner, span_bolddanger("You return to your normal mode."))
 	var/mob/living/basic/guardian/guardian_mob = owner
 	guardian_mob.leash_to(owner, guardian_mob.summoner)
@@ -99,6 +105,11 @@
 	SIGNAL_HANDLER
 	return COMSIG_MOB_CANCEL_CLICKON
 
+/// We can't do any ranged attacks while in scout mode.
+/datum/status_effect/guardian_scout_mode/proc/on_ranged_attack()
+	SIGNAL_HANDLER
+	owner.balloon_alert(owner, "need to be in ranged mode!")
+	return COMPONENT_CANCEL_RANGED_ATTACK
 
 /// Place an invisible trap which alerts the guardian when it is crossed
 /datum/action/cooldown/mob_cooldown/guardian_alarm_snare
@@ -132,7 +143,7 @@
 	var/turf/snare_loc = get_turf(owner)
 	var/obj/effect/abstract/surveillance_snare/new_snare = new(snare_loc, owner)
 	new_snare.assign_owner(owner)
-	RegisterSignal(new_snare, COMSIG_PARENT_QDELETING, PROC_REF(on_snare_deleted))
+	RegisterSignal(new_snare, COMSIG_QDELETING, PROC_REF(on_snare_deleted))
 	placed_snares += new_snare
 
 	StartCooldown()
@@ -164,7 +175,7 @@
 		qdel(src)
 		return
 	owner = new_owner
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_destroyed))
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(owner_destroyed))
 
 /// When crossed notify our owner
 /obj/effect/abstract/surveillance_snare/proc/on_entered(atom/source, crossed_object)

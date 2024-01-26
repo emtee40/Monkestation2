@@ -237,9 +237,9 @@
 		patient.cure_husk(BURN)
 		patient.visible_message(span_nicegreen("[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance."))
 
-/datum/reagent/medicine/spaceacillin
+/datum/reagent/medicine/antipathogenic/spaceacillin
 	name = "Spaceacillin"
-	description = "Spaceacillin will provide limited resistance against disease and parasites. Also reduces infection in serious burns."
+	description = "A generic antipathogenic agent."
 	color = "#E1F2E6"
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	ph = 8.1
@@ -573,14 +573,13 @@
 			affected_mob.set_jitter_if_lower(20 SECONDS)
 
 	affected_mob.AdjustAllImmobility(-20 * REM * seconds_per_tick * normalise_creation_purity())
-	affected_mob.stamina.adjust(1 * REM * seconds_per_tick * normalise_creation_purity(), FALSE)
+	affected_mob.stamina.adjust(1 * REM * seconds_per_tick * normalise_creation_purity(), TRUE)
 	..()
 	return TRUE
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	if(SPT_PROB(1 * (1 + (1-normalise_creation_purity())), seconds_per_tick) && iscarbon(affected_mob))
-		var/datum/disease/D = new /datum/disease/heart_failure
-		affected_mob.ForceContractDisease(D)
+		affected_mob.infect_disease_predefined(DISEASE_HEART, TRUE)
 		to_chat(affected_mob, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
 		affected_mob.playsound_local(affected_mob, 'sound/effects/singlebeat.ogg', 100, 0)
 
@@ -840,7 +839,7 @@
 			affected_mob.losebreath -= 2 * REM * seconds_per_tick
 	if(affected_mob.losebreath < 0)
 		affected_mob.losebreath = 0
-	affected_mob.stamina.adjust(0.5 * REM * seconds_per_tick, 0)
+	affected_mob.stamina.adjust(0.5 * REM * seconds_per_tick, TRUE)
 	if(SPT_PROB(10, seconds_per_tick))
 		affected_mob.AdjustAllImmobility(-20)
 	..()
@@ -1114,7 +1113,7 @@
 		affected_mob.adjustBruteLoss(-1 * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype)
 		affected_mob.adjustFireLoss(-1 * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype)
 	affected_mob.AdjustAllImmobility(-60  * REM * seconds_per_tick)
-	affected_mob.stamina.adjust(5 * REM * seconds_per_tick, FALSE)
+	affected_mob.stamina.adjust(5 * REM * seconds_per_tick, TRUE)
 	..()
 	. = TRUE
 
@@ -1248,7 +1247,7 @@
 		affected_mob.adjustOxyLoss(-0.5 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype, required_respiration_type = affected_respiration_type)
 		affected_mob.adjustToxLoss(-0.5 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
 		affected_mob.adjustCloneLoss(-0.1 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
-		affected_mob.stamina.adjust(0.5 * REM * seconds_per_tick, FALSE)
+		affected_mob.stamina.adjust(0.5 * REM * seconds_per_tick, TRUE)
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * seconds_per_tick, 150, affected_organtype) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	else
 		affected_mob.adjustBruteLoss(-5 * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype) //slow to start, but very quick healing once it gets going
@@ -1256,7 +1255,7 @@
 		affected_mob.adjustOxyLoss(-3 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype, required_respiration_type = affected_respiration_type)
 		affected_mob.adjustToxLoss(-3 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
 		affected_mob.adjustCloneLoss(-1 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
-		affected_mob.stamina.adjust(3 * REM * seconds_per_tick, FALSE)
+		affected_mob.stamina.adjust(3 * REM * seconds_per_tick, TRUE)
 		affected_mob.adjust_jitter_up_to(6 SECONDS * REM * seconds_per_tick, 1 MINUTES)
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * seconds_per_tick, 150, affected_organtype)
 		if(SPT_PROB(5, seconds_per_tick))
@@ -1324,7 +1323,7 @@
 	..()
 	metabolizer.exit_stamina_stun()
 	metabolizer.AdjustAllImmobility(-20 * REM * seconds_per_tick)
-	metabolizer.stamina.adjust(10 * REM * seconds_per_tick, 0)
+	metabolizer.stamina.adjust(10 * REM * seconds_per_tick, TRUE)
 	metabolizer.set_jitter_if_lower(20 SECONDS * REM * seconds_per_tick)
 	metabolizer.set_dizzy_if_lower(20 SECONDS * REM * seconds_per_tick)
 	return TRUE

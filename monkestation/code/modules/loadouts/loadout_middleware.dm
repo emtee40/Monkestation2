@@ -155,6 +155,11 @@
 				formatted_list.len--
 				continue
 
+		if(item.admin_only) //These checks are also performed in the backend.
+			if(!is_admin(preferences.parent))
+				formatted_list.len--
+				continue
+
 		if(item.required_season && !check_holidays(item.required_season))
 			formatted_list.len--
 			continue
@@ -273,7 +278,7 @@
 		starting_config = initial(colored_item.greyscale_config),
 		starting_colors = slot_starting_colors,
 	)
-	RegisterSignal(menu, COMSIG_PARENT_PREQDELETED, TYPE_PROC_REF(/datum/preference_middleware/loadout, cleanup_greyscale_menu))
+	RegisterSignal(menu, COMSIG_PREQDELETED, TYPE_PROC_REF(/datum/preference_middleware/loadout, cleanup_greyscale_menu))
 	menu.ui_interact(usr)
 
 /// A proc to make sure our menu gets null'd properly when it's deleted.

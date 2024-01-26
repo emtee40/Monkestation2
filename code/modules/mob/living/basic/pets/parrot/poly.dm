@@ -116,7 +116,7 @@
 	else
 		var/json_file = file("data/npc_saves/Poly.json")
 		if(!fexists(json_file))
-			return
+			return list()
 		var/list/json = json_decode(file2text(json_file))
 		returnable_list = json["phrases"]
 		rounds_survived = json["roundssurvived"]
@@ -228,10 +228,6 @@
 	if(filter)
 		animate(filter, alpha = 200, time = 2 SECONDS, loop = -1)
 		animate(alpha = 60, time = 2 SECONDS)
-
-	var/datum/disease/parrot_possession/on_possession = new /datum/disease/parrot_possession
-	on_possession.set_parrot(src)
-	possessed_human.ForceContractDisease(on_possession, make_copy = FALSE, del_on_fail = TRUE)
 
 #undef POLY_DEFAULT
 #undef POLY_LONGEST_SURVIVAL

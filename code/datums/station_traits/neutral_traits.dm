@@ -110,7 +110,7 @@
 	weight = 1
 	show_in_report = TRUE
 	report_message = "Please be nice to him."
-	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/birthday, /datum/station_trait/announcement_duke)
+	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/birthday, /datum/station_trait/announcement_duke, /datum/station_trait/announcement_dagoth)
 
 /datum/station_trait/announcement_intern/New()
 	. = ..()
@@ -122,7 +122,7 @@
 	weight = 1
 	show_in_report = TRUE
 	report_message = "Our announcement system is under scheduled maintanance at the moment. Thankfully, we have a backup."
-	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/birthday, /datum/station_trait/announcement_duke)
+	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/birthday, /datum/station_trait/announcement_duke, /datum/station_trait/announcement_dagoth)
 
 /datum/station_trait/announcement_medbot/New()
 	. = ..()
@@ -202,7 +202,7 @@
 	show_in_report = TRUE
 	report_message = "We here at Nanotrasen would all like to wish Employee Name a very happy birthday"
 	trait_to_give = STATION_TRAIT_BIRTHDAY
-	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_medbot, /datum/station_trait/announcement_duke) //Overiding the annoucer hides the birthday person in the annoucement message.
+	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_medbot, /datum/station_trait/announcement_duke, /datum/station_trait/announcement_dagoth) //Overiding the annoucer hides the birthday person in the annoucement message.
 	///Variable that stores a reference to the person selected to have their birthday celebrated.
 	var/mob/living/carbon/human/birthday_person
 	///Variable that holds the real name of the birthday person once selected, just incase the birthday person's real_name changes.
@@ -325,3 +325,27 @@
 	icon_state = "xmashat_grey"
 	greyscale_config = /datum/greyscale_config/festive_hat
 	greyscale_config_worn = /datum/greyscale_config/festive_hat_worn
+
+/datum/station_trait/triple_ai
+	name = "AI Triumvirate"
+	trait_type = STATION_TRAIT_NEUTRAL
+	show_in_report = TRUE
+	weight = 1
+	report_message = "Your station has been instated with three Nanotrasen Artificial Intelligence models."
+
+/datum/station_trait/triple_ai/New()
+	. = ..()
+	RegisterSignal(SSjob, COMSIG_OCCUPATIONS_DIVIDED, PROC_REF(on_occupations_divided))
+
+/datum/station_trait/triple_ai/revert()
+	UnregisterSignal(SSjob, COMSIG_OCCUPATIONS_DIVIDED)
+	return ..()
+
+/datum/station_trait/triple_ai/proc/on_occupations_divided(datum/source, pure, allow_all)
+	SIGNAL_HANDLER
+
+	for(var/datum/job/ai/ai_datum in SSjob.joinable_occupations)
+		ai_datum.spawn_positions = 3
+	if(!pure)
+		for(var/obj/effect/landmark/start/ai/secondary/secondary_ai_spawn in GLOB.start_landmarks_list)
+			secondary_ai_spawn.latejoin_active = TRUE

@@ -42,6 +42,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/toggleguests, /*toggles whether guests can join the current game*/
 	/datum/admins/proc/toggleooc, /*toggles ooc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead, /*toggles ooc on/off for everyone who is dead*/
+	/datum/admins/proc/togglelooc, /*MONKESTATION EDIT; toggles looc on/off for everyone*/
 	/datum/admins/proc/trophy_manager,
 	/datum/admins/proc/view_all_circuits,
 	/datum/admins/proc/open_artifactpanel,
@@ -95,6 +96,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/cmd_admin_law_panel,
 	/client/proc/spawn_pollution,
 	/client/proc/view_player_camera,
+	/client/proc/log_viewer_new,
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -106,8 +108,9 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 // Client procs
 	/client/proc/admin_away,
 	/client/proc/add_mob_ability,
-	/client/proc/adjust_players_antag_tokens,
-	/client/proc/adjust_players_metacoins,
+	/client/proc/adjust_players_antag_tokens, //monkestation edit
+	/client/proc/adjust_players_event_tokens, //monkestation edit
+	/client/proc/adjust_players_metacoins, //monkestation edit
 	/client/proc/admin_change_sec_level,
 	/client/proc/change_ocean, //monkestation addition
 	/client/proc/cinematic,
@@ -115,6 +118,8 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/cmd_select_equipment,
 	/client/proc/command_report_footnote,
+	/client/proc/diseases_panel,
+	/client/proc/disease_view,
 	/client/proc/delay_command_report,
 	/client/proc/drop_bomb,
 	/client/proc/drop_dynex_bomb,
@@ -388,7 +393,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_bombers()
 	set name = "List Bombers"
-	set category = "Admin.Game"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_bombers()
@@ -396,7 +401,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_signalers()
 	set name = "List Signalers"
-	set category = "Admin.Game"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_signalers()
@@ -404,7 +409,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_law_changes()
 	set name = "List Law Changes"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_law_changes()
@@ -420,7 +425,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_dna()
 	set name = "List DNA"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_dna()
@@ -428,7 +433,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_fingerprints()
 	set name = "List Fingerprints"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_fingerprints()
@@ -777,13 +782,9 @@ GLOBAL_PROTECT(admin_verbs_poll)
 	if(!istype(T))
 		to_chat(src, span_notice("You can only give a disease to a mob of type /mob/living."), confidential = TRUE)
 		return
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in sort_list(SSdisease.diseases, GLOBAL_PROC_REF(cmp_typepaths_asc))
-	if(!D)
-		return
-	T.ForceContractDisease(new D, FALSE, TRUE)
+	//T.ForceContractDisease(new D, FALSE, TRUE)
+	make_custom_virus(src, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins(span_adminnotice("[key_name_admin(usr)] gave [key_name_admin(T)] the disease [D]."))
 
 /client/proc/object_say(obj/O in world)
 	set category = "Admin.Events"
@@ -986,8 +987,6 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)
 			real_reqs += "Castable as brain"
-		if(reqs & SPELL_CASTABLE_WHILE_PHASED)
-			real_reqs += "Castable phased"
 		if(reqs & SPELL_REQUIRES_HUMAN)
 			real_reqs += "Must be human"
 		if(reqs & SPELL_REQUIRES_MIME_VOW)
@@ -1082,6 +1081,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		if (QDELETED(segment)) // ffs mobs which replace themselves with other mobs
 			i--
 			continue
+		ADD_TRAIT(segment, TRAIT_PERMANENTLY_MORTAL, INNATE_TRAIT)
 		QDEL_NULL(segment.ai_controller)
 		segment.AddComponent(/datum/component/mob_chain, front = previous)
 		previous = segment

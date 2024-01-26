@@ -671,7 +671,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			fail_invoke()
 			return
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult.ogg')
+	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult/bloodcult_gain.ogg')
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -911,7 +911,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 		new_human.apply_status_effect(/datum/status_effect/cultghost) //ghosts can't summon more ghosts
 		new_human.set_invis_see(SEE_INVISIBLE_OBSERVER)
-		ADD_TRAIT(new_human, TRAIT_NOBREATH, INNATE_TRAIT)
+		new_human.add_traits(list(TRAIT_NOBREATH, TRAIT_PERMANENTLY_MORTAL), INNATE_TRAIT) // permanently mortal can be removed once this is a bespoke kind of mob
 		ghosts++
 		playsound(src, 'sound/magic/exit_blood.ogg', 50, TRUE)
 		visible_message(span_warning("A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo":""]man."))
@@ -1043,7 +1043,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, NONE)
 			addtimer(CALLBACK(M, TYPE_PROC_REF(/atom/, remove_alt_appearance),"human_apoc",TRUE), duration)
 			images += A
-			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult.ogg'),sound('sound/voice/ghost_whisper.ogg'),sound('sound/misc/ghosty_wind.ogg')))
+			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult/bloodcult_gain.ogg'),sound('sound/voice/ghost_whisper.ogg'),sound('sound/misc/ghosty_wind.ogg')))
 		else
 			var/construct = pick("floater","artificer","behemoth")
 			var/image/B = image('icons/mob/simple/mob.dmi',M,construct, ABOVE_MOB_LAYER)
@@ -1065,52 +1065,37 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/outcome = rand(1,100)
 		switch(outcome)
 			if(1 to 10)
-				var/datum/round_event_control/disease_outbreak/covid_2562_event = locate() in SSevents.control
-				INVOKE_ASYNC(covid_2562_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-				var/datum/round_event_control/mice_migration/stuart_big_event = locate() in SSevents.control
-				INVOKE_ASYNC(stuart_big_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-
+				force_event_async(/datum/round_event_control/disease_outbreak, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/mice_migration, "an apocalypse rune")
 			if(11 to 20)
-				var/datum/round_event_control/radiation_storm/my_skin_feels_funny_event = locate() in SSevents.control
-				INVOKE_ASYNC(my_skin_feels_funny_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/radiation_storm, "an apocalypse rune")
 
 			if(21 to 30)
-				var/datum/round_event_control/brand_intelligence/product_placement_gone_rogue_event = locate() in SSevents.control
-				INVOKE_ASYNC(product_placement_gone_rogue_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/brand_intelligence, "an apocalypse rune")
 
 			if(31 to 40)
-				var/datum/round_event_control/immovable_rod/huge_rod_event = locate() in SSevents.control //you've
-				INVOKE_ASYNC(huge_rod_event, TYPE_PROC_REF(/datum/round_event_control, runEvent)) //got
-				INVOKE_ASYNC(huge_rod_event, TYPE_PROC_REF(/datum/round_event_control, runEvent)) //a
-				INVOKE_ASYNC(huge_rod_event, TYPE_PROC_REF(/datum/round_event_control, runEvent)) //huge...
+				force_event_async(/datum/round_event_control/immovable_rod, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/immovable_rod, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/immovable_rod, "an apocalypse rune")
 
 			if(41 to 50)
-				var/datum/round_event_control/meteor_wave/dinosaur_purge_event = locate() in SSevents.control
-				INVOKE_ASYNC(dinosaur_purge_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/meteor_wave, "an apocalypse rune")
 
 			if(51 to 60)
-				var/datum/round_event_control/spider_infestation/creepy_crawly_event = locate() in SSevents.control
-				INVOKE_ASYNC(creepy_crawly_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/spider_infestation, "an apocalypse rune")
 
 			if(61 to 70)
-				var/datum/round_event_control/anomaly/anomaly_flux/flux_event = locate() in SSevents.control
-				INVOKE_ASYNC(flux_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-				var/datum/round_event_control/anomaly/anomaly_grav/grav_event = locate() in SSevents.control
-				INVOKE_ASYNC(grav_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-				var/datum/round_event_control/anomaly/anomaly_pyro/pyro_event = locate() in SSevents.control
-				INVOKE_ASYNC(pyro_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-				var/datum/round_event_control/anomaly/anomaly_vortex/vortex_event = locate() in SSevents.control
-				INVOKE_ASYNC(vortex_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/anomaly/anomaly_flux, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/anomaly/anomaly_grav, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/anomaly/anomaly_pyro, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/anomaly/anomaly_vortex, "an apocalypse rune")
 
 			if(71 to 80)
-				var/datum/round_event_control/spacevine/ivy_event = locate() in SSevents.control
-				INVOKE_ASYNC(ivy_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
-				var/datum/round_event_control/grey_tide/grey_tide_nation_wide = locate() in SSevents.control
-				INVOKE_ASYNC(grey_tide_nation_wide, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/spacevine, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/grey_tide, "an apocalypse rune")
 
 			if(81 to 100)
-				var/datum/round_event_control/portal_storm_narsie/total_not_a_xen_storm_event = locate() in SSevents.control
-				INVOKE_ASYNC(total_not_a_xen_storm_event, TYPE_PROC_REF(/datum/round_event_control, runEvent))
+				force_event_async(/datum/round_event_control/portal_storm_narsie, "an apocalypse rune")
 
 	qdel(src)
 
