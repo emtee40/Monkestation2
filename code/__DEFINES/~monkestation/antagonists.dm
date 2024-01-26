@@ -18,6 +18,9 @@
 /// is something an eminence
 #define iseminence(checked) (istype(checked, /mob/living/eminence))
 
+/// is something a worm
+#define iscorticalborer(A) (istype(A, /mob/living/basic/cortical_borer))
+
 // Borer evolution defines
 // The three primary paths that eventually diverge
 #define BORER_EVOLUTION_SYMBIOTE "Symbiote"
