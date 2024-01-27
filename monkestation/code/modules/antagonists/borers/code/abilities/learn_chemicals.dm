@@ -25,22 +25,41 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
+
 	if(!length(cortical_owner.potential_chemicals))
 		owner.balloon_alert(owner, "all chemicals learned")
 		return
-	var/datum/reagent/reagent_choice = tgui_input_list(cortical_owner, "Choose a chemical to learn.", "Chemical Selection", cortical_owner.potential_chemicals)
+
+	var/named_chemicals = list()
+	for(var/datum/reagent/thing as anything in cortical_owner.potential_chemicals)
+		named_chemicals += initial(thing.name)
+
+	var/reagent_choice = tgui_input_list(
+		cortical_owner,
+		"Choose a chemical to learn.",
+		"Chemical Selection",
+		named_chemicals,
+	)
 	if(!reagent_choice)
 		owner.balloon_alert(owner, "no chemical chosen")
 		return
+
+	var/datum/reagent/learned_reagent
+	for(var/datum/reagent/thing as anything in cortical_owner.potential_chemicals)
+		if(initial(thing.name) == reagent_choice)
+			learned_reagent = reagent_choice
+
+	cortical_owner.known_chemicals += learned_reagent
 	cortical_owner.chemical_evolution -= chemical_evo_points
-	cortical_owner.known_chemicals += reagent_choice
 	cortical_owner.potential_chemicals -= reagent_choice
+	owner.balloon_alert(owner, "[initial(learned_reagent.name)] learned")
+	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
+		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))
+
 	var/obj/item/organ/internal/brain/victim_brain = cortical_owner.human_host.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(victim_brain)
 		cortical_owner.human_host.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5 * cortical_owner.host_harm_multiplier)
-	owner.balloon_alert(owner, "[initial(reagent_choice.name)] learned")
-	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
-		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(reagent_choice.taste_description)]!"))
+
 	StartCooldown()
 
 /**
