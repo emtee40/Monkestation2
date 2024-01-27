@@ -32,4 +32,5 @@ tgui\packages\tgui\interfaces\BorerEvolution.tsx
 
 Jake Park - Original borer Code
 /vg/station - Partial Icons
+Zonespace - Lots of TGUI work, and gave borers the evolution tree
 Gboster - Porting the code to monkestation

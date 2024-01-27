@@ -108,11 +108,13 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/reagent/lithium,
 
 		/datum/reagent/medicine/antipathogenic/spaceacillin,
+
 		/datum/reagent/medicine/c2/convermol,
 		/datum/reagent/medicine/c2/lenturi,
 		/datum/reagent/medicine/c2/libital,
 		/datum/reagent/medicine/c2/multiver,
 		/datum/reagent/medicine/c2/seiver,
+
 		/datum/reagent/medicine/diphenhydramine,
 		/datum/reagent/medicine/epinephrine,
 		/datum/reagent/medicine/haloperidol,

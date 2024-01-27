@@ -11,14 +11,14 @@
 	name = "Neutered borer egg"
 	desc = "A borer egg specifically bred to aid operatives. \
 			It will obey every command and protect whatever operative they first see when hatched. \
-			Unfortunatelly due to extreme radiation exposure, they cannot reproduce."
+			Unfortunately due to extreme radiation exposure, they cannot reproduce."
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/effect/mob_spawn/ghost_role/borer_egg/neutered
 	cost = 20
 
 /datum/uplink_item/device_tools/borer_egg
 	name = "Hive queen borer egg"
-	desc = "A borer egg of a queen we captured and safelly stored away. \
+	desc = "A borer egg of a queen we captured and safely stored away. \
 			Be warned, the borer queen is not necessarily allied to you."
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/effect/mob_spawn/ghost_role/borer_egg
