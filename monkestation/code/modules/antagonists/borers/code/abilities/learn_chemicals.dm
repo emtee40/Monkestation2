@@ -30,9 +30,10 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 		owner.balloon_alert(owner, "all chemicals learned")
 		return
 
+	// Give the chemicals we can learn all proper names instead of datum/chemical/whatever, and show that to the user
 	var/named_chemicals = list()
-	for(var/datum/reagent/thing as anything in cortical_owner.potential_chemicals)
-		named_chemicals += initial(thing.name)
+	for(var/datum/reagent/learnable_chemical as anything in cortical_owner.potential_chemicals)
+		named_chemicals += initial(learnable_chemical.name)
 
 	var/reagent_choice = tgui_input_list(
 		cortical_owner,
@@ -44,6 +45,7 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 		owner.balloon_alert(owner, "no chemical chosen")
 		return
 
+	// We only know the chosen chemicals name at this point, so we gotta check what chemical do we actually give them
 	var/datum/reagent/learned_reagent
 	for(var/datum/reagent/chemical as anything in cortical_owner.potential_chemicals)
 		if(initial(chemical.name) == reagent_choice)
@@ -52,7 +54,8 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	cortical_owner.known_chemicals += learned_reagent
 	cortical_owner.chemical_evolution -= chemical_evo_points
 	cortical_owner.potential_chemicals -= learned_reagent
-	owner.balloon_alert(owner, "[initial(learned_reagent.name)] learned")
+
+	owner.balloon_alert(owner, "[initial(reagent_choice)] learned")
 	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
 		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))
 
@@ -78,33 +81,57 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
+
 	if(length(cortical_owner.human_host.reagents.reagent_list) <= 0)
 		owner.balloon_alert(owner, "no reagents in host")
 		return
-	var/datum/reagent/reagent_choice = tgui_input_list(cortical_owner, "Choose a chemical to learn.", "Chemical Selection", cortical_owner.human_host.reagents.reagent_list)
+
+	// Give the chemicals we can learn all proper names instead of datum/chemical/whatever, and show that to the user
+	var/named_chemicals = list()
+	for(var/datum/reagent/learnable_chemical as anything in cortical_owner.human_host.reagents.reagent_list)
+		named_chemicals += initial(learnable_chemical.name)
+
+	var/reagent_choice = tgui_input_list(
+		cortical_owner,
+		"Choose a chemical to learn.",
+		"Chemical Selection",
+		named_chemicals,
+	)
 	if(!reagent_choice)
-		owner.balloon_alert(owner, "chemical not chosen")
+		owner.balloon_alert(owner, "no chemical chosen")
 		return
-	if(locate(reagent_choice) in cortical_owner.known_chemicals)
+
+	// We only know the chosen chemicals name at this point, so we gotta check what chemical do we actually give them
+	var/datum/reagent/learned_reagent
+	for(var/datum/reagent/chemical as anything in cortical_owner.human_host.reagents.reagent_list)
+		if(initial(chemical.name) == reagent_choice)
+			learned_reagent = chemical
+
+	if(locate(learned_reagent) in cortical_owner.known_chemicals)
 		owner.balloon_alert(owner, "chemical already known")
 		return
-	if(locate(reagent_choice) in cortical_owner.blacklisted_chemicals)
+	if(locate(learned_reagent) in cortical_owner.blacklisted_chemicals)
 		owner.balloon_alert(owner, "chemical blacklisted")
 		return
-	if(!(reagent_choice.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED))
-		owner.balloon_alert(owner, "cannot learn [initial(reagent_choice.name)]")
+	if(!(learned_reagent.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED))
+		owner.balloon_alert(owner, "cannot learn [initial(reagent_choice)]")
 		return
+
 	cortical_owner.chemical_evolution -= chemical_evo_points
-	cortical_owner.known_chemicals += reagent_choice.type
+	cortical_owner.known_chemicals += learned_reagent.type
 	cortical_owner.blood_chems_learned++
+
 	var/obj/item/organ/internal/brain/victim_brain = cortical_owner.human_host.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(victim_brain)
 		cortical_owner.human_host.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5 * cortical_owner.host_harm_multiplier)
+
 	if(cortical_owner.blood_chems_learned == BLOOD_CHEM_OBJECTIVE)
 		GLOB.successful_blood_chem += 1
-	owner.balloon_alert(owner, "[initial(reagent_choice.name)] learned")
+
+	owner.balloon_alert(owner, "[initial(reagent_choice)] learned")
 	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
-		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(reagent_choice.taste_description)]!"))
+		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))
+
 	StartCooldown()
 
 #undef BLOOD_CHEM_OBJECTIVE
