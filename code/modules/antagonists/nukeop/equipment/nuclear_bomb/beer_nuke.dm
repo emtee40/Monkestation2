@@ -20,6 +20,7 @@
 //monkestation edit start
 	overflow_control = null
 	QDEL_NULL(keg)
+//monkestation edit end
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
 	. = ..()
 
