@@ -24,7 +24,7 @@
 	overflow_control = null
 	QDEL_NULL(keg)
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
-	. = ..()
+	return ..()
 
 /obj/machinery/nuclearbomb/bee/examine(mob/user)
 	. = ..()
