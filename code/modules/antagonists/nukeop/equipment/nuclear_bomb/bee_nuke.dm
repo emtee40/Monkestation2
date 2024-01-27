@@ -10,7 +10,7 @@
         /datum/reagent/consumable/honey,
         /datum/reagent/medicine/strange_reagent,
         /datum/reagent/uranium/radium,
-    )
+	)
 	/// Round event control we might as well keep track of instead of locating every time
 	var/datum/round_event_control/scrubber_overflow/every_vent/overflow_control
 
