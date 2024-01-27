@@ -45,13 +45,13 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 		return
 
 	var/datum/reagent/learned_reagent
-	for(var/datum/reagent/thing as anything in cortical_owner.potential_chemicals)
-		if(initial(thing.name) == reagent_choice)
-			learned_reagent = reagent_choice
+	for(var/datum/reagent/chemical as anything in cortical_owner.potential_chemicals)
+		if(initial(chemical.name) == reagent_choice)
+			learned_reagent = chemical
 
 	cortical_owner.known_chemicals += learned_reagent
 	cortical_owner.chemical_evolution -= chemical_evo_points
-	cortical_owner.potential_chemicals -= reagent_choice
+	cortical_owner.potential_chemicals -= learned_reagent
 	owner.balloon_alert(owner, "[initial(learned_reagent.name)] learned")
 	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
 		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))

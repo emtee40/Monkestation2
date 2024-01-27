@@ -100,29 +100,33 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	var/list/known_chemicals = list()
 	///what chemicals the borer can learn
 	var/list/potential_chemicals = list(
+		/datum/reagent/drug/methamphetamine/borer_version,
+
+		/datum/reagent/impurity/libitoil,
+		/datum/reagent/impurity/mannitol,
+
+		/datum/reagent/lithium,
+
 		/datum/reagent/medicine/antipathogenic/spaceacillin,
-		/datum/reagent/medicine/potass_iodide,
+		/datum/reagent/medicine/c2/convermol,
+		/datum/reagent/medicine/c2/lenturi,
+		/datum/reagent/medicine/c2/libital,
+		/datum/reagent/medicine/c2/multiver,
+		/datum/reagent/medicine/c2/seiver,
 		/datum/reagent/medicine/diphenhydramine,
 		/datum/reagent/medicine/epinephrine,
 		/datum/reagent/medicine/haloperidol,
-		/datum/reagent/toxin/formaldehyde,
-		/datum/reagent/impurity/libitoil,
-		/datum/reagent/impurity/mannitol,
-		/datum/reagent/medicine/c2/libital,
-		/datum/reagent/medicine/c2/lenturi,
-		/datum/reagent/medicine/c2/convermol,
-		/datum/reagent/medicine/c2/seiver,
-		/datum/reagent/medicine/c2/multiver,
-		/datum/reagent/lithium,
-		/datum/reagent/medicine/salglu_solution,
-		/datum/reagent/medicine/mutadone,
-		/datum/reagent/toxin/heparin,
-		/datum/reagent/drug/methamphetamine/borer_version,
-		/datum/reagent/medicine/morphine,
 		/datum/reagent/medicine/inacusiate,
-		/datum/reagent/medicine/oculine,
-		/datum/reagent/toxin/mindbreaker,
 		/datum/reagent/medicine/mannitol,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/medicine/mutadone,
+		/datum/reagent/medicine/oculine,
+		/datum/reagent/medicine/potass_iodide,
+		/datum/reagent/medicine/salglu_solution,
+
+		/datum/reagent/toxin/formaldehyde,
+		/datum/reagent/toxin/heparin,
+		/datum/reagent/toxin/mindbreaker,
 	)
 	//blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
 	var/list/blacklisted_chemicals = list()
