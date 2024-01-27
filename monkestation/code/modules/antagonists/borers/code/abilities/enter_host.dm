@@ -36,23 +36,29 @@
 	for(var/mob/living/carbon/human/listed_human in range(1, cortical_owner))
 		// no non-human hosts
 		if(!ishuman(listed_human) || ismonkey(listed_human))
+			to_chat(cortical_owner, span_warning("[listed_human] is not a human!"))
 			continue
 		// cannot have multiple borers (for now)
 		if(listed_human.has_borer())
+			to_chat(cortical_owner, span_warning("[listed_human] already has our sister within them!"))
 			continue
 		// hosts need to be organic
 		if(!(listed_human.dna.species.inherent_biotypes & MOB_ORGANIC) && cortical_owner.organic_restricted)
+			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			continue
 		// hosts need to be organic
 		if(!(listed_human.mob_biotypes & MOB_ORGANIC) && cortical_owner.organic_restricted)
+			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			continue
-		// hosts cannot be changelings
+		// hosts cannot be changelings unless we specify otherwise
 		if(listed_human.mind)
+			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			var/datum/antagonist/changeling/changeling = listed_human.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling && cortical_owner.changeling_restricted)
 				continue
 		// hosts cannot have bio protected headgear on
 		if(check_for_bio_protection(listed_human) == TRUE)
+			to_chat(cortical_owner, span_warning("[listed_human] has too hard of a helmet to crawl inside of their ear!"))
 			continue
 		usable_hosts += listed_human
 
