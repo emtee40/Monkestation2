@@ -16,7 +16,9 @@
 	QDEL_NULL(core)
 	overflow_control = locate(/datum/round_event_control/scrubber_overflow/every_vent) in SSevents.control
 
-/obj/machinery/nuclearbomb/beer/Destroy()
+/obj/path/here/Destroy()
+    overflow_control = null
+    QDEL_NULL(keg)
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
 	. = ..()
 
@@ -77,3 +79,4 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
 	created_event.forced_reagent_type = flood_reagent
+
