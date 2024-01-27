@@ -22,7 +22,7 @@
 
 /obj/machinery/nuclearbomb/bee/Destroy()
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
-	. = ..()
+	return ..()
 
 /obj/machinery/nuclearbomb/bee/examine(mob/user)
 	. = ..()
@@ -61,7 +61,7 @@
 	return ..()
 
 /obj/machinery/nuclearbomb/bee/proc/local_foam()
-	var/datum/reagents/tmp_holder = new/datum/reagents(1000)
+	var/datum/reagents/tmp_holder = new(1000)
 	tmp_holder.my_atom = src
 	tmp_holder.add_reagent(flood_reagent, 100)
 
