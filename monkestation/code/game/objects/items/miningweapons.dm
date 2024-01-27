@@ -238,8 +238,8 @@
 
 /obj/item/gun/ballistic/automatic/proto/pksmg //replaced shotgun due to shotgun never being bought, and being WAY too similar to the repeater, and doing its job shittier.
 	name = "proto-kinetic smg"
-	desc = "After the failure of the proto-kinetic shotgun, mining RND whipped up this as an apology to miners and the officials of nanotrasen. \
-	Now, at the cost of no mods, and limited ammo, you can enjoy the proto-kinetic experience in glorious full auto."
+	desc = "After the failure of the proto-kinetic shotgun, mining R&D whipped up this as an apology to miners and the officials of Nanotrasen. \
+	Now, at the cost of no mods and limited ammo, you can enjoy the proto-kinetic experience in glorious full auto."
 	icon = 'monkestation/icons/obj/guns/guns.dmi'
 	icon_state = "pksmg"
 	burst_size = 1
@@ -326,8 +326,8 @@
 	max_ammo = 45
 
 /obj/item/storage/box/kinetic
-	name = "Box of Kinetic Projectiles"
-	desc = "A box full of kinetic projectile magazines, specifically for the proto-kinetic SMG\
+	name = "box of kinetic projectiles"
+	desc = "A box full of kinetic projectile magazines, specifically for the proto-kinetic SMG.\
 	It is specially designed to only hold proto-kinetic magazines, and also fit inside of explorer webbing."
 	icon_state = "rubbershot_box"
 
