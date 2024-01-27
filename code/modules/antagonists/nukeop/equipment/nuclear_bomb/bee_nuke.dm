@@ -1,7 +1,7 @@
 /// A fake nuke that actually contains beer.
 /obj/machinery/nuclearbomb/bee
-	name = "rayne corp brand nuclear fission explosive"
-	desc = "One of the more successful achievements of the Rayne Corporation Biological Warfare Division, their nuclear fission explosives are renowned for being affordable to produce and devastatingly effective. Signs explain that though this particular device has been (hopefully) decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a picture of a lizard on the back."
+	name = "/improper Rayne Corp brand nuclear fission explosive"
+	desc = "One of the more successful achievements of the Rayne Corporation Biological Warfare Division, their nuclear fission explosives are renowned for being affordable to produce and devastatingly effective. Signs explain that though this particular device has been (hopefully) decommissioned, you should probably be careful around it considering it's a bomb. - at least, the sign says that's what it is. There seems to be a picture of a bee on the back."
 	proper_bomb = FALSE
 	/// The keg located within the beer nuke.
 	var/obj/structure/reagent_dispensers/beerkeg/keg
