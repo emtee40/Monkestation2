@@ -1,4 +1,4 @@
- //monkestation edit: replaced /obj/item/clothing/under/misc/syndicate_souvenir(src) with new /obj/machinery/nuclearbomb/bee
+
 /obj/structure/closet/crate/necropolis/surplus
 	name = "busted necropolis chest"
 	desc = "The lock seems to have been busted open somehow and there is a big orange sticker that reads <b> Quality Not Guranteed <b/>"
@@ -185,7 +185,7 @@
 			new /obj/item/toy/plush/ratplush(src)
 			new /obj/item/toy/plush/narplush(src)
 		if(94)
-			new /obj/machinery/nuclearbomb/bee
+			new /obj/machinery/nuclearbomb/bee	 //monkestation edit: replaced /obj/item/clothing/under/misc/syndicate_souvenir(src) with new /obj/machinery/nuclearbomb/bee
 		if(96)
 			new /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child(src)
 		if(95)
