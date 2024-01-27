@@ -17,8 +17,10 @@
 	overflow_control = locate(/datum/round_event_control/scrubber_overflow/every_vent) in SSevents.control
 
 /obj/machinery/nuclearbomb/beer/Destroy()
+//monkestation edit start
 	overflow_control = null
 	QDEL_NULL(keg)
+//monkestation edit end
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
 	. = ..()
 
