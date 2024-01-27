@@ -7,9 +7,9 @@
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 	/// Reagent that is produced once the nuke detonates.
 	var/list/flood_reagents = list(
-        /datum/reagent/consumable/honey,
-        /datum/reagent/medicine/strange_reagent,
-        /datum/reagent/uranium/radium,
+		/datum/reagent/consumable/honey,
+		/datum/reagent/medicine/strange_reagent,
+		/datum/reagent/uranium/radium,
 	)
 	/// Round event control we might as well keep track of instead of locating every time
 	var/datum/round_event_control/scrubber_overflow/every_vent/overflow_control
@@ -21,8 +21,8 @@
 	overflow_control = locate(/datum/round_event_control/scrubber_overflow/every_vent) in SSevents.control
 
 /obj/machinery/nuclearbomb/bee/Destroy()
-    overflow_control = null
-    QDEL_NULL(keg)
+	overflow_control = null
+	QDEL_NULL(keg)
 	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
 	. = ..()
 
