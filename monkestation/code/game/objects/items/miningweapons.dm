@@ -242,7 +242,7 @@
 	Now, at the cost of no mods and limited ammo, you can enjoy the proto-kinetic experience in glorious full auto."
 	icon = 'monkestation/icons/obj/guns/guns.dmi'
 	icon_state = "pksmg"
-	burst_size = 1
+	burst_size = 2
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE
@@ -408,11 +408,12 @@
 /obj/projectile/kinetic/smg
 	name = "kinetic projectile"
 	icon_state = null
-	damage = 20
+	damage = 10
 	damage_type = BRUTE
 	armor_flag = BOMB
 	range = 5
 	log_override = TRUE
+	Skillbasedweapon = FALSE
 
 /obj/projectile/kinetic/glock
 	name = "light kinetic force"
