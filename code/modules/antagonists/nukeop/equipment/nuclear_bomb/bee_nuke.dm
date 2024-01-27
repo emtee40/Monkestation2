@@ -6,7 +6,11 @@
 	/// The keg located within the beer nuke.
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 	/// Reagent that is produced once the nuke detonates.
-	var/flood_reagents = /datum/reagent/consumable/honey, /datum/reagent/medicine/strange_reagent, /datum/reagent/uranium/radium
+	var/list/flood_reagents = list(
+        /datum/reagent/consumable/honey,
+        /datum/reagent/medicine/strange_reagent,
+        /datum/reagent/uranium/radium,
+    )
 	/// Round event control we might as well keep track of instead of locating every time
 	var/datum/round_event_control/scrubber_overflow/every_vent/overflow_control
 
