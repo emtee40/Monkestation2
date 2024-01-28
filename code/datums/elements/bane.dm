@@ -50,11 +50,42 @@
 		return FALSE
 	var/mob/living/living_target = target
 	if(bane_applier)
-		if(requires_combat_mode && !bane_applier.combat_mode)
+		if(requires_combat_mode && !(bane_applier.istate & ISTATE_HARM))
 			return FALSE
 	var/is_correct_biotype = living_target.mob_biotypes & mob_biotypes
 	if(mob_biotypes && !(is_correct_biotype))
 		return FALSE
+	if(ispath(target_type, /mob/living))
+		return istype(living_target, target_type)
+	else //species type
+		return is_species(living_target, target_type)
+
+/datum/element/bane/proc/do_bane(datum/element_owner, mob/living/bane_applier, mob/living/baned_target, hit_zone)
+	var/force_boosted
+	var/applied_dam_type
+
+	if(isitem(element_owner))
+		var/obj/item/item_owner = element_owner
+		force_boosted = item_owner.force
+		applied_dam_type = item_owner.damtype
+	else if(isprojectile(element_owner))
+		var/obj/projectile/projectile_owner = element_owner
+		force_boosted = projectile_owner.damage
+		applied_dam_type = projectile_owner.damage_type
+	else if (isliving(element_owner))
+		var/mob/living/living_owner = element_owner
+		force_boosted = (living_owner.melee_damage_lower + living_owner.melee_damage_upper) / 2
+		//commence crying. yes, these really are the same check. FUCK.
+		if(isbasicmob(living_owner))
+			var/mob/living/basic/basic_owner = living_owner
+			applied_dam_type = basic_owner.melee_damage_type
+		else if(isanimal(living_owner))
+			var/mob/living/simple_animal/simple_owner = living_owner
+			applied_dam_type = simple_owner.melee_damage_type
+		else
+			return
+	else
+		return
 
 	var/extra_damage = max(0, (force_boosted * damage_multiplier) + added_damage)
 	baned_target.apply_damage(extra_damage, applied_dam_type, hit_zone)
