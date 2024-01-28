@@ -9,9 +9,9 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_SECURITY_OFFICER,
 	)
-	required_enemies = 1
+	required_enemies = 2
 	weight = 5 // as rare as a natural blob
-	min_players = 10
+	min_players = 20
 	max_occurrences = 1 //should only ever happen once
 	dynamic_should_hijack = TRUE
 	category = EVENT_CATEGORY_ENTITIES
