@@ -6,6 +6,7 @@
 	chemical_cost = 200
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	needs_dead_host = TRUE
 
 /datum/action/cooldown/borer/revive_host/Trigger(trigger_flags, atom/target)
 	. = ..()

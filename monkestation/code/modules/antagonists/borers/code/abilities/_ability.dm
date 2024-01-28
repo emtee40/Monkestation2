@@ -2,14 +2,20 @@
 /datum/action/cooldown/borer
 	button_icon = 'monkestation/code/modules/antagonists/borers/icons/actions.dmi'
 	cooldown_time = 0
+
 	/// How many chemicals this costs
 	var/chemical_cost = 0
 	/// How many chem evo points are needed to use this ability
 	var/chemical_evo_points = 0
 	/// How many stat evo points are needed to use this ability
 	var/stat_evo_points = 0
+
 	/// Does this ability need a human host to be triggered?
 	var/requires_host = FALSE
+	/// Can this ability function within a living host?
+	var/needs_living_host = FALSE
+	/// Can this ability function within a dead host?
+	var/needs_dead_host = FALSE
 	/// Does this ability stop working when the host has sugar?
 	var/sugar_restricted = FALSE
 
@@ -26,20 +32,28 @@
 
 /datum/action/cooldown/borer/Trigger(trigger_flags, atom/target)
 	. = ..()
+
+	// Safety checks
 	if(!iscorticalborer(owner))
 		to_chat(owner, span_warning("You must be a cortical borer to use this action!"))
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	if(owner.stat == DEAD)
-		return FALSE
 
+	// Status Requirements
 	if(requires_host == TRUE && !cortical_owner.inside_human())
 		owner.balloon_alert(owner, "host required")
-		return
+		return FALSE
+	if(needs_living_host == TRUE && owner.stat == DEAD)
+		owner.balloon_alert(owner, "Alive host required")
+		return FALSE
+	if(needs_dead_host == TRUE && !owner.stat == DEAD)
+		owner.balloon_alert(owner, "Dead host required")
+		return FALSE
 	if(sugar_restricted == TRUE && cortical_owner.host_sugar())
 		owner.balloon_alert(owner, "cannot function with sugar in host")
-		return
+		return FALSE
 
+	// Resource costs
 	if(cortical_owner.chemical_storage < chemical_cost)
 		cortical_owner.balloon_alert(cortical_owner, "need [chemical_cost] chemicals")
 		return FALSE

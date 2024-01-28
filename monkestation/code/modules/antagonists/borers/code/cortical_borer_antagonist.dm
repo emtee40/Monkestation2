@@ -32,7 +32,6 @@
 /datum/antagonist/cortical_borer
 	name = "Cortical Borer"
 	job_rank = ROLE_BORER
-	show_in_antagpanel = TRUE
 	roundend_category = "cortical borers"
 	antagpanel_category = "Cortical Borers"
 	prevent_roundtype_conversion = FALSE

@@ -1,3 +1,4 @@
+// Double the OD treshold, no brain damage
 /datum/reagent/drug/methamphetamine/borer_version
 	name = "Unknown Methamphetamine Isomer"
 	overdose_threshold = 40
