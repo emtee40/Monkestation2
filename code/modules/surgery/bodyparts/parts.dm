@@ -95,11 +95,6 @@
 	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/arm/Destroy()
-	QDEL_NULL(worn_glove_offset)
-	QDEL_NULL(held_hand_offset)
-	return ..()
-
-/obj/item/bodypart/arm/Destroy()
 	return ..()
 
 /obj/item/bodypart/arm/left
