@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///A bitfield of "bodytypes", updated by /datum/obj/item/bodypart/proc/synchronize_bodytypes()
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	///Clothing offsets. If a species has a different body than other species, you can offset clothing so they look less weird.
-	/* Monkestation Removal: Test to see if this is needed
+
 	var/list/offset_features = list(
 		OFFSET_UNIFORM = list(0,0),
 		OFFSET_ID = list(0,0),
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	)
 	///If this species needs special 'fallback' sprites, what is the path to the file that contains them?
 	var/fallback_clothing_path
-	*/
+
 	///The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
 	///This allows races to have specific hair colors. If null, it uses the H's hair/facial hair colors. If "mutcolor", it uses the H's mutant_color. If "fixedmutcolor", it uses fixedmutcolor

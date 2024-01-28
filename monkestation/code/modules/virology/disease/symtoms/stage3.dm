@@ -459,7 +459,7 @@ GLOBAL_LIST_INIT(disease_hivemind_users, list())
 	while(not_passed && fail_counter <= 10)
 		var/organ_type = pick(typesof(/obj/item/organ/internal))
 		spawned_organ = new organ_type(get_turf(mob))
-		if(spawned_organ.status != ORGAN_ORGANIC)
+		if(spawned_organ.organ_flags != ORGAN_ORGANIC)
 			qdel(spawned_organ)
 			fail_counter++
 			continue

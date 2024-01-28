@@ -31,8 +31,6 @@
 	species_language_holder = /datum/language_holder/oozeling
 	ass_image = 'icons/ass/assslime.png'
 	//swimming_component = /datum/component/swimming/dissolve
-	toxic_food = NONE
-	disliked_food = NONE
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/oozeling,

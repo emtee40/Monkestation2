@@ -50,6 +50,10 @@
 			if(isitem(the_real_food) && !is_reagent_container(the_real_food))
 				exposed_mob.add_mob_memory(/datum/memory/good_food, food = the_real_food)
 
+/// Gets just how much nutrition this reagent is worth for the passed mob
+/datum/reagent/consumable/proc/get_nutriment_factor(mob/living/carbon/eater)
+	return nutriment_factor * REAGENTS_METABOLISM * purity * 2
+
 /datum/reagent/consumable/nutriment
 	name = "Nutriment"
 	description = "All the vitamins, minerals, and carbohydrates the body needs in pure form."
