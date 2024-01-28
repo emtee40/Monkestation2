@@ -123,6 +123,7 @@
 /datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	qdel(C.GetComponent(/datum/component/mutant_hands))
+	qdel(C.GetComponent(/datum/component/regenerator))
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE
@@ -130,10 +131,10 @@
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, spread_damage = FALSE, forced = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE, attack_direction = null, attacking_item)
+/* /datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, spread_damage = FALSE, forced = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE, attack_direction = null, attacking_item)
 	. = ..()
 	if(.)
-		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY)
+		COOLDOWN_START(src, regen_cooldown, REGENERATION_DELAY) */
 
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/carbon_mob, seconds_per_tick, times_fired)
 	. = ..()
@@ -167,7 +168,6 @@
 
 /datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-
 	// Deal with the source of this zombie corruption
 	// Infection organ needs to be handled separately from mutant_organs
 	// because it persists through species transitions
@@ -176,6 +176,16 @@
 	if(!infection)
 		infection = new()
 		infection.Insert(C)
+
+	C.AddComponent( \
+		/datum/component/regenerator, \
+		regeneration_delay = 6 SECONDS, \
+		brute_per_second = 0.5, \
+		burn_per_second = 0.5, \
+		tox_per_second = 0.5, \
+		oxy_per_second = 0.25, \
+		heals_wounds = TRUE, \
+	)
 
 // Your skin falls off
 /datum/species/human/krokodil_addict
