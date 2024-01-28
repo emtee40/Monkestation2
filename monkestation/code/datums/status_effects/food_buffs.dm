@@ -21,7 +21,6 @@
 /atom/movable/screen/alert/status_effect/food/stamina_increase_t1
 	name = "Tiny Stamina Increase"
 	desc = "Increases your stamina by a tiny amount"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t1"
 
 /datum/status_effect/food/stamina_increase/t2
@@ -32,7 +31,6 @@
 /atom/movable/screen/alert/status_effect/food/stamina_increase_t2
 	name = "Medium Stamina Increase"
 	desc = "Increases your stamina by a moderate amount"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t2"
 
 /datum/status_effect/food/stamina_increase/t3
@@ -43,7 +41,6 @@
 /atom/movable/screen/alert/status_effect/food/stamina_increase_t3
 	name = "Large Stamina Increase"
 	desc = "Increases your stamina greatly"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t3"
 
 /datum/status_effect/food/stamina_increase/on_apply()
@@ -64,7 +61,6 @@
 /atom/movable/screen/alert/status_effect/food/resistance
 	name = "Damage resistance"
 	desc = "Slightly decreases physical damage taken"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "resistance"
 
 /datum/status_effect/food/resistance/on_apply()
@@ -93,7 +89,6 @@
 /atom/movable/screen/alert/status_effect/food/fire_burps
 	name = "Firey Burps"
 	desc = "Lets you burp out a line of fire"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "fire_burp"
 
 /datum/status_effect/food/fire_burps/on_apply()
@@ -265,7 +260,6 @@
 /atom/movable/screen/alert/status_effect/food/stam_regen_t1
 	name = "Small Stamina Regeneration Increase"
 	desc = "You feel slightly more energetic"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t1"
 
 /datum/status_effect/food/stam_regen/t2
@@ -276,7 +270,6 @@
 /atom/movable/screen/alert/status_effect/food/stam_regen_t2
 	name = "Moderate Stamina Regeneration Increase"
 	desc = "You feel more energetic"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t2"
 
 /datum/status_effect/food/stam_regen/t3
@@ -287,7 +280,6 @@
 /atom/movable/screen/alert/status_effect/food/stam_regen_t3
 	name = "Large Stamina Regeneration Increase"
 	desc = "You feel full of energy"
-	icon = 'monkestation/icons/hud/screen_alert.dmi'
 	icon_state = "stam_t3"
 
 /datum/status_effect/food/stam_regen/on_apply()
