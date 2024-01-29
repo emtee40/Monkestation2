@@ -183,7 +183,7 @@
 	mob_size = MOB_SIZE_SMALL
 	chat_color = "#FFDC9B"
 
-	egg_type = /obj/item/food/egg/organic	//Can they lay organic eggs? remove /organic if it causes issues
+	egg_type = /obj/item/food/egg
 	mutation_list = list(/datum/mutation/ranching/chicken/spicy, /datum/mutation/ranching/chicken/brown)
 
 /mob/living/basic/chicken/Initialize(mapload)
