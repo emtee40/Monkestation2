@@ -18,15 +18,61 @@
 	///prefix for the product name
 	var/product_name = "factory"
 	///the icon_state number for the pill.
-	var/pill_number = RANDOM_PILL_STYLE
+	// var/pill_number = RANDOM_PILL_STYLE
 	///list of id's and icons for the pill selection of the ui
 	var/list/pill_styles
 	/// Currently selected patch style
 	var/patch_style = DEFAULT_PATCH_STYLE
 	/// List of available patch styles for UI
 	var/list/patch_styles
+	/// All packaging types wrapped up in 1 big list
+	var/static/list/packaging_types = null
+	///The type of packaging to use
+	var/packaging_type
+	///Category of packaging
+	var/packaging_category
 
-/obj/structure/chemical_tank/factory/proc/load_styles()
+/obj/structure/chemical_tank/factory/Initialize(mapload, bolt, layer)
+	. = ..()
+
+	if(!packaging_types)
+		var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/chemmaster)
+
+		var/list/types = list(
+			CAT_PILLS = GLOB.reagent_containers[CAT_PILLS],
+			CAT_PATCHES = GLOB.reagent_containers[CAT_PATCHES],
+			"Bottles" = list(/obj/item/reagent_containers/cup/bottle),
+		)
+
+		packaging_types = list()
+		for(var/category in types)
+			var/list/packages = types[category]
+
+			var/list/category_item = list("cat_name" = category)
+			for(var/obj/item/reagent_containers/container as anything in packages)
+				var/list/package_item = list(
+					"class_name" = assets.icon_class_name(sanitize_css_class_name("[container]")),
+					"ref" = REF(container)
+				)
+				category_item["products"] += list(package_item)
+
+			packaging_types += list(category_item)
+
+	packaging_type = REF(GLOB.reagent_containers[CAT_PILLS][1])
+	decode_category()
+
+/// decode product category from it's type path and returns the decoded typepath
+/obj/structure/chemical_tank/factory/proc/decode_category()
+	var/obj/item/reagent_containers/container = locate(packaging_type)
+	if(ispath(container, /obj/item/reagent_containers/pill/patch))
+		packaging_category = CAT_PATCHES
+	else if(ispath(container, /obj/item/reagent_containers/pill))
+		packaging_category = CAT_PILLS
+	else
+		packaging_category = "Bottles"
+	return container
+
+/* /obj/structure/chemical_tank/factory/proc/load_styles()
 	//expertly copypasted from chemmasters
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
 	pill_styles = list()
@@ -42,7 +88,7 @@
 		var/list/patch_style = list()
 		patch_style["style"] = raw_patch_style
 		patch_style["class_name"] = patches_assets.icon_class_name(raw_patch_style)
-		patch_styles += list(patch_style)
+		patch_styles += list(patch_style) */
 
 /obj/structure/chemical_tank/factory/proc/generate_product(mob/user)
 	if(reagents.total_volume < current_volume)

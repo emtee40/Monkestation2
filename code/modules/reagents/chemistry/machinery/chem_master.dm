@@ -75,8 +75,8 @@
 	for(var/obj/item/reagent_containers/cup/beaker/beaker in component_parts)
 		reagents.maximum_volume += beaker.reagents.maximum_volume
 	printing_amount = 0
-	for(var/datum/stock_part/servo/servo in component_parts)
-		printing_amount += servo.tier
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)	// MONKEYSTATION EDIT We have manipulators instead of servo's
+		printing_amount += manipulator.tier
 
 /obj/machinery/chem_master/update_appearance(updates=ALL)
 	. = ..()
