@@ -1,12 +1,12 @@
 /datum/saymode/bloodling
-	key = "f"
+	key = "q"
 	mode = MODE_BLOODLING
 
 /datum/saymode/changeling/handle_message(mob/living/user, message, datum/language/language)
 	//we can send the message
 	if(!user.mind)
 		return FALSE
-	var/datum/antagonist/bloodling/bloodling_sender = user.mind.has_antag_datum(/datum/antagonist/bloodling)
+	var/datum/antagonist/bloodling_sender = IS_BLOODLING_OR_THRALL(user)
 	if(!bloodling_sender)
 		return FALSE
 
@@ -14,8 +14,10 @@
 	var/msg = span_changeling("<b>[user]:</b> [message]")
 
 	//the recipients can recieve the message
-	for(var/datum/antagonist/bloodling/reciever in GLOB.antagonists)
+	for(var/datum/antagonist/reciever in GLOB.antagonists)
 		if(!reciever.owner)
+			continue
+		if(!IS_BLOODLING_OR_THRALL(reciever.owner))
 			continue
 		var/mob/living/ling_mob = reciever.owner.current
 		to_chat(ling_mob, msg)

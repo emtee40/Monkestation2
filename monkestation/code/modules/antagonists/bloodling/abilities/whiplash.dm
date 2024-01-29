@@ -17,7 +17,6 @@
 
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 
-
 	/// Since this isn't a bloodling subtype ability we need to recode the cost here
 	var/biomass_cost = 25
 

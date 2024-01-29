@@ -20,7 +20,7 @@
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
 	basic_mob_flags = FLAMMABLE_MOB
-	sight = SEE_SELF
+	sight = SEE_SELF|SEE_MOBS
 	faction = list(FACTION_BLOODLING)
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/effects/attackblob.ogg'
@@ -40,7 +40,7 @@
 
 /mob/living/basic/bloodling/get_status_tab_items()
 	. = ..()
-	. += "Current Biomass: [biomass >= biomass_max ? biomass : "[biomass] / [biomass_max]"] E"
+	. += "Current Biomass: [biomass >= biomass_max ? biomass : "[biomass] / [biomass_max]"] B"
 
 /// Used for adding biomass to every bloodling type
 /// ARGUEMENTS:
@@ -60,11 +60,10 @@
 		bloodling_action.Grant(src)
 
 
-// The actual bloodling mob
+//////////////////// The actual bloodling mob ////////////////////
 /mob/living/basic/bloodling/proper
 	maxHealth = INFINITE // Bloodlings have unlimited health, instead biomass acts as their health
 	health = INFINITE
-	sight = SEE_SELF|SEE_MOBS
 
 	biomass = 50
 	biomass_max = 500
@@ -226,6 +225,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 		/datum/action/cooldown/bloodling/dissonant_shriek,
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
+		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 	)
 	speed = 2
 
@@ -240,5 +240,6 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 		/datum/action/cooldown/bloodling/dissonant_shriek,
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
+		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 	)
 	speed = 2.5

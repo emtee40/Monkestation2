@@ -2,6 +2,7 @@
 	name = "Devour Limb"
 	desc = "Allows you to consume a creatures limb."
 	button_icon_state = "alien_hide"
+
 	cooldown_time = 20 SECONDS
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/set_click_ability(mob/on_who)
@@ -30,6 +31,8 @@
 	var/mob/living/carbon/carbon_target = target
 
 	for(var/obj/item/bodypart/bodypart in carbon_target.bodyparts)
+		if(bodypart.body_zone == BODY_ZONE_HEAD)
+			continue
 		if(bodypart.body_zone == BODY_ZONE_CHEST)
 			continue
 		if(bodypart.bodypart_flags & BODYPART_UNREMOVABLE)
@@ -53,3 +56,4 @@
 		span_alertalien("[our_mob] snaps its maw over [target]s [target_part] and swiftly devours it!"),
 		span_noticealien("You devour [target]s [target_part]!"),
 	)
+	StartCooldown()

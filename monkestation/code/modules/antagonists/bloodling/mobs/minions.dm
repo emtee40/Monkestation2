@@ -1,18 +1,39 @@
-/mob/living/basic/bloodling/harvester
-	name = "harvester"
-	desc = "A mass of flesh in a vague shape, it has two large talons for harvesting."
-	health = 100
-	maxHealth = 100
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	speed = 0.5
+/mob/living/basic/bloodling/minion
+	name = "minion"
+	desc = "A mass of code in a vague sprite. Report if you see this."
 
 	biomass = 0
 	biomass_max = 200
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
+		/datum/action/cooldown/mob_cooldown/bloodling/devour,
+		/datum/action/cooldown/spell/aoe/repulse/bloodling,
+		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 	)
 
-/mob/living/basic/bloodling/Initialize(mapload)
+/mob/living/basic/bloodling/minion/harvester
+	name = "harvester"
+	desc = "A vague mass of flesh with two large scything talons."
+
+	health = 100
+	maxHealth = 100
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	speed = 0.5
+	wound_bonus = -40
+	bare_wound_bonus = 5
+	sharpness = SHARP_EDGED
+
+/mob/living/basic/bloodling/minion/harvester/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
+/mob/living/basic/bloodling/minion/wall
+	name = "wall of flesh"
+	desc = "A blobby mass of flesh of large size."
+
+	health = 200
+	maxHealth = 200
+	melee_damage_lower = 10
+	melee_damage_upper = 10
+	speed = 2.5
