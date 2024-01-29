@@ -178,6 +178,12 @@
 	// Bloodlings take damage through their biomass, not regular damage
 	add_biomass(-damage)
 
+/mob/living/basic/bloodling/proper/Destroy()
+	UnregisterSignal(src, COMSIG_LIVING_LIFE)
+	UnregisterSignal(src, COMSIG_MOB_APPLY_DAMAGE)
+
+	. = ..()
+
 /mob/living/basic/bloodling/proper/tier1
 	evolution_level = 1
 	initial_powers = list(
