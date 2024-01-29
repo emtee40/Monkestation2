@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 	/// Particle holder for fire particles, if any
 	var/obj/effect/abstract/particle_holder/particle_effect
 
-/datum/component/burning/Initialize(fire_overlay, fire_particles)
+/datum/component/burning/Initialize(fire_overlay = GLOB.fire_overlay, fire_particles = /particles/smoke/burning)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/atom/atom_parent = parent
@@ -29,7 +29,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 		particle_effect = new(atom_parent, fire_particles, isitem(atom_parent) ? NONE : PARTICLE_ATTACH_MOB)
 	START_PROCESSING(SSburning, src)
 
-/datum/component/burning/Destroy(force, silent)
+/datum/component/burning/Destroy(force)
 	STOP_PROCESSING(SSburning, src)
 	fire_overlay = null
 	if(particle_effect)
