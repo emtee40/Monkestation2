@@ -17,7 +17,7 @@
 	for(var/datum/antagonist/reciever in GLOB.antagonists)
 		if(!reciever.owner)
 			continue
-		if(!IS_BLOODLING_OR_THRALL(reciever.owner))
+		if(!IS_BLOODLING_OR_THRALL(reciever.owner.current))
 			continue
 		var/mob/living/ling_mob = reciever.owner.current
 		to_chat(ling_mob, msg)
