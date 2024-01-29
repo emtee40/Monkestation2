@@ -64,6 +64,6 @@
 
 /obj/effect/temp_visual/teleport_golem
 	name = "bluespace silhouette"
-	icon = 'icons/obj/antags/abductor.dmi'
+	icon = 'icons/obj/abductor.dmi'
 	icon_state = "teleport"
 	duration = 6 SECONDS
