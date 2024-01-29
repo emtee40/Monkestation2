@@ -172,10 +172,6 @@
 /// Generates the ID we use for [unique_id], which is also set as our actionspeed mod's ID
 /datum/wound/proc/generate_unique_id()
 	return REF(src) // unique, cannot change, a perfect id
-// Applied into wounds when they're scanned with the wound analyzer, halves time to treat them manually.
-#define TRAIT_WOUND_SCANNED "wound_scanned"
-// I dunno lol
-#define ANALYZER_TRAIT "analyzer_trait"
 
 /**
  * apply_wound() is used once a wound type is instantiated to assign it to a bodypart, and actually come into play.

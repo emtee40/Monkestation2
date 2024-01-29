@@ -911,7 +911,7 @@
 	drug_flavour_text = "Make sure you get your favorite type of drink when you run out."
 	mail_goodies = list(
 		/obj/effect/spawner/random/food_or_drink/booze,
-		/obj/item/book/bible/booze,
+		/obj/item/storage/book/bible/booze,
 	)
 	/// Cached typepath of the owner's favorite alcohol reagent
 	var/datum/reagent/consumable/ethanol/favorite_alcohol
@@ -964,7 +964,8 @@
 	else
 		quirk_holder.add_mood_event("wrong_alcohol", /datum/mood_event/wrong_brandy)
 
-/datum/quirk/item_quirk/chronic_illness
+/*	Monkestation Edit: We dont use this virus here
+	/datum/quirk/item_quirk/chronic_illness
 	name = "Chronic Illness"
 	desc = "You have a chronic illness that requires constant medication to keep under control."
 	icon = FA_ICON_DISEASE
@@ -980,7 +981,7 @@
 	quirk_holder.ForceContractDisease(hms)
 	give_item_to_holder(/obj/item/storage/pill_bottle/sansufentanyl, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK),flavour_text = "You've been provided with medication to help manage your condition. Take it regularly to avoid complications.")
 	give_item_to_holder(/obj/item/healthanalyzer/simple/disease, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK))
-
+ */
 /datum/quirk/unstable
 	name = "Unstable"
 	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"

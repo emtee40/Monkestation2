@@ -118,6 +118,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/internal/stomach/mutantstomach = /obj/item/organ/internal/stomach
 	///Replaces default appendix with a different organ.
 	var/obj/item/organ/internal/appendix/mutantappendix = /obj/item/organ/internal/appendix
+	///Replaces default butt with a different organ
+	var/obj/item/organ/internal/butt/mutantbutt = /obj/item/organ/internal/butt
+	///Replaces default bladder with a different organ
+	var/obj/item/organ/internal/bladder/mutantbladder = /obj/item/organ/internal/bladder
 
 	///Multiplier for the race's speed. Positive numbers make it move slower, negative numbers make it move faster.
 	var/speedmod = 0
@@ -168,36 +172,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Are we allowed to have numbers in the name
 	var/allow_numbers_in_name = FALSE
 
-	//Do NOT remove by setting to null. use OR make an ASSOCIATED TRAIT.
-	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
-
-	// Prefer anything other than setting these to null, such as TRAITS
-	// why?
-	// because traits also disable the downsides of not having an organ, removing organs but not having the trait or logic will make your species die
-
-	///Replaces default brain with a different organ
-	var/obj/item/organ/internal/brain/mutantbrain = /obj/item/organ/internal/brain
-	///Replaces default heart with a different organ
-	var/obj/item/organ/internal/heart/mutantheart = /obj/item/organ/internal/heart
-	///Replaces default lungs with a different organ
-	var/obj/item/organ/internal/lungs/mutantlungs = /obj/item/organ/internal/lungs
-	///Replaces default eyes with a different organ
-	var/obj/item/organ/internal/eyes/mutanteyes = /obj/item/organ/internal/eyes
-	///Replaces default ears with a different organ
-	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
-	///Replaces default tongue with a different organ
-	var/obj/item/organ/internal/tongue/mutanttongue = /obj/item/organ/internal/tongue
-	///Replaces default liver with a different organ
-	var/obj/item/organ/internal/liver/mutantliver = /obj/item/organ/internal/liver
-	///Replaces default stomach with a different organ
-	var/obj/item/organ/internal/stomach/mutantstomach = /obj/item/organ/internal/stomach
-	///Replaces default appendix with a different organ.
-	var/obj/item/organ/internal/appendix/mutantappendix = /obj/item/organ/internal/appendix
-	///Replaces default butt with a different organ
-	var/obj/item/organ/internal/butt/mutantbutt = /obj/item/organ/internal/butt
-
-	///Replaces default bladder with a different organ
-	var/obj/item/organ/internal/bladder/mutantbladder = /obj/item/organ/internal/bladder
 	/// Flat modifier on all damage taken via [apply_damage][/mob/living/proc/apply_damage] (so being punched, shot, etc.)
 	/// IE: 10 = 10% less damage taken.
 	var/damage_modifier = 0

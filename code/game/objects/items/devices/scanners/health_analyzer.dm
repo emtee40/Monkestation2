@@ -494,9 +494,6 @@
 					advised = TRUE
 		render_list += "</span>"
 
-	var/obj/item/healthanalyzer/simple/simple_scanner
-	if(istype(scanner, /obj/item/healthanalyzer/simple))
-		simple_scanner = scanner
 	if(render_list == "")
 		if(simple_scan)
 			var/obj/item/healthanalyzer/simple/simple_scanner = scanner

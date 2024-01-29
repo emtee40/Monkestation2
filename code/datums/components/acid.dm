@@ -15,10 +15,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	var/acid_volume
 	/// The maximum volume of acid on the parent [/atom].
 	var/max_volume = INFINITY
-	/// Acid overlay appearance we apply
-	var/acid_overlay
-	/// The ambiant sound of acid eating away at the parent [/atom].
-	var/datum/looping_sound/acid/sizzle
 	/// Used exclusively for melting turfs. TODO: Move integrity to the atom level so that this can be dealt with there.
 	var/parent_integrity = 30
 	/// How far the acid melting of turfs has progressed
