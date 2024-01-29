@@ -52,11 +52,11 @@
 			continue
 		// hosts cannot be changelings unless we specify otherwise
 		if(listed_human.mind)
-			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			var/datum/antagonist/changeling/changeling = listed_human.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling && cortical_owner.changeling_restricted)
+				to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 				continue
-		// hosts cannot have bio protected headgear on
+		// hosts cannot have bio protected headgear
 		if(check_for_bio_protection(listed_human) == TRUE)
 			to_chat(cortical_owner, span_warning("[listed_human] has too hard of a helmet to crawl inside of their ear!"))
 			continue
