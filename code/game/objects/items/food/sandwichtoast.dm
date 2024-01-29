@@ -66,9 +66,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	venue_value = FOOD_PRICE_NORMAL
 
-/obj/item/food/cheese_sandwich/make_grillable()
-	AddComponent(/datum/component/grillable, /obj/item/food/grilled_cheese_sandwich, rand(30 SECONDS, 60 SECONDS), TRUE)
-
 /obj/item/food/jellysandwich
 	name = "jelly sandwich"
 	desc = "You wish you had some peanut butter to go with this..."

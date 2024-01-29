@@ -258,16 +258,12 @@
 	brute_heal = 0
 	burn_heal = 0
 
-/datum/reagent/consumable/nutriment/mineral/on_mob_life(mob/living/carbon/eater, delta_time, times_fired)
-	current_cycle++
-	if (HAS_TRAIT(eater, TRAIT_ROCK_EATER) && !HAS_TRAIT(eater, TRAIT_NOHUNGER) && ishuman(eater))
-		var/mob/living/carbon/human/golem_eater = eater
-		golem_eater.adjust_nutrition(get_nutriment_factor() * REM * delta_time)
-	if(length(reagent_removal_skip_list))
-		return
+/datum/reagent/consumable/nutriment/mineral/get_nutriment_factor(mob/living/carbon/eater)
+	if(HAS_TRAIT(eater, TRAIT_ROCK_EATER))
+		return ..()
 
-	var/mob/living/carbon/carbon_mob = affected_mob
-	carbon_mob.adjust_nutrition(-delayed_satiety_drain)
+	// You cannot eat rocks, it gives no nutrition
+	return 0
 
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
