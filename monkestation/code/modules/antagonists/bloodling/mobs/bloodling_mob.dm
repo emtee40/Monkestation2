@@ -182,7 +182,7 @@
 	UnregisterSignal(src, COMSIG_LIVING_LIFE)
 	UnregisterSignal(src, COMSIG_MOB_APPLY_DAMAGE)
 
-	. = ..()
+	return ..()
 
 /mob/living/basic/bloodling/proper/tier1
 	evolution_level = 1
