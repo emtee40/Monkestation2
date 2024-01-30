@@ -53,6 +53,6 @@
 
 /datum/antagonist/cortical_borer/neutered/forge_objectives()
 	var/datum/objective/custom/borer_objective_protect_target = new
-	borer_objective_protect_target.explanation_text = "Protect whomever was nearest to the egg when you hatched"
+	borer_objective_protect_target.explanation_text = "Protect whomever was nearest to the egg when you hatched, and listen to their every command"
 
 	objectives += borer_objective_protect_target
