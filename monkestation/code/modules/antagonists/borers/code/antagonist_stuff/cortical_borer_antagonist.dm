@@ -1,5 +1,3 @@
-#define POP_PER_BORER 30
-
 /proc/printborer(datum/mind/borer)
 	var/list/text = list()
 	var/mob/living/basic/cortical_borer/player_borer = borer.current
@@ -38,6 +36,25 @@
 	show_to_ghosts = TRUE
 	/// The team of borers
 	var/datum/team/cortical_borers/borers
+
+/datum/antagonist/cortical_borer/on_gain()
+	forge_objectives()
+	return ..()
+
+/datum/antagonist/cortical_borer/forge_objectives()
+	var/datum/objective/custom/borer_objective_produce_eggs = new
+	borer_objective_produce_eggs.explanation_text = "we need to produce [GLOB.objective_egg_egg_number] eggs, \
+													we require [GLOB.objective_egg_borer_number] different borers to produce [GLOB.objective_egg_egg_number] eggs"
+
+	var/datum/objective/custom/borer_objective_willing_hosts = new
+	borer_objective_willing_hosts.explanation_text = "any amount of the borers need to gain [GLOB.objective_willing_hosts] willing hosts"
+
+	var/datum/objective/custom/borer_objective_learn_chemicals = new
+	borer_objective_learn_chemicals.explanation_text = "any amount of the borers need to learn [GLOB.objective_blood_borer] chemicals from blood"
+
+	objectives += borer_objective_produce_eggs
+	objectives += borer_objective_willing_hosts
+	objectives += borer_objective_learn_chemicals
 
 /datum/antagonist/cortical_borer/get_preview_icon()
 	return finish_preview_icon(icon('monkestation/code/modules/antagonists/borers/icons/animal.dmi', "brainslug"))

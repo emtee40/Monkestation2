@@ -1,3 +1,5 @@
+#define POP_PER_BORER 30
+
 /datum/round_event_control/antagonist/solo/from_ghosts/cortical_borer
 	name = "Cortical Borer Infestation"
 	tags = list(TAG_TEAM_ANTAG, TAG_EXTERNAL, TAG_ALIEN)

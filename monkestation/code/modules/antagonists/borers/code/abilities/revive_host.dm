@@ -13,7 +13,9 @@
 	if(!.)
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
+
 	cortical_owner.chemical_storage -= chemical_cost
+
 	if(cortical_owner.human_host.getBruteLoss())
 		cortical_owner.human_host.adjustBruteLoss(-(cortical_owner.human_host.getBruteLoss()*0.5))
 	if(cortical_owner.human_host.getToxLoss())
@@ -22,10 +24,13 @@
 		cortical_owner.human_host.adjustFireLoss(-(cortical_owner.human_host.getFireLoss()*0.5))
 	if(cortical_owner.human_host.getOxyLoss())
 		cortical_owner.human_host.adjustOxyLoss(-(cortical_owner.human_host.getOxyLoss()*0.5))
+
 	if(cortical_owner.human_host.blood_volume < BLOOD_VOLUME_BAD)
 		cortical_owner.human_host.blood_volume = BLOOD_VOLUME_BAD
+
 	for(var/obj/item/organ/internal/internal_target in cortical_owner.human_host.organs)
 		internal_target.apply_organ_damage(-internal_target.damage * 0.5)
+
 	cortical_owner.human_host.revive()
 	to_chat(cortical_owner.human_host, span_boldwarning("Your heart jumpstarts!"))
 	owner.balloon_alert(owner, "host revived")
