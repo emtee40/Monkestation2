@@ -59,6 +59,9 @@
 		var/datum/action/bloodling_action = new path()
 		bloodling_action.Grant(src)
 
+/mob/living/basic/bloodling/death()
+	gib()
+	return ..()
 
 //////////////////// The actual bloodling mob ////////////////////
 /mob/living/basic/bloodling/proper
