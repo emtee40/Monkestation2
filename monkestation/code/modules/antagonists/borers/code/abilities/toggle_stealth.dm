@@ -1,8 +1,3 @@
-/**
- * Allows you to hide under tables or bodies
- * Without this, borers are really weak due to NEEDING players being blind or consenting
- */
-
 /datum/action/cooldown/borer/toggle_hiding
 	name = "Toggle Hiding"
 	button_icon_state = "hide"

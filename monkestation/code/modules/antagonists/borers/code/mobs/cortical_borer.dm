@@ -103,7 +103,6 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/reagent/drug/methamphetamine/borer_version,
 
 		/datum/reagent/impurity/libitoil,
-		/datum/reagent/impurity/mannitol,
 
 		/datum/reagent/lithium,
 

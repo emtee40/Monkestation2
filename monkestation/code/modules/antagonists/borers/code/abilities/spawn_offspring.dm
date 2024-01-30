@@ -1,3 +1,4 @@
+/// How much health do we take from the borer if its producing eggs without a host?
 #define OUT_OF_HOST_EGG_COST 50
 
 //we need a way to produce offspring
