@@ -11,7 +11,8 @@
 	name = "Neutered borer egg"
 	desc = "A borer egg specifically bred to aid operatives. \
 			It will obey every command and protect whatever operative they first see when hatched. \
-			Unfortunately due to extreme radiation exposure, they cannot reproduce."
+			Unfortunately due to extreme radiation exposure, they cannot reproduce. \
+			It was put into a cage for easy tranportation"
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	item = /obj/effect/mob_spawn/ghost_role/borer_egg/neutered
+	item = /obj/item/neutered_borer_spawner
 	cost = 20
