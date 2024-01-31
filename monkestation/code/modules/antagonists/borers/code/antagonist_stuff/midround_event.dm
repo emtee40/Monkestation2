@@ -60,9 +60,8 @@
 		var/mob/living/basic/cortical_borer/spawned_cb = new /mob/living/basic/cortical_borer(vent_turf)
 		spawned_cb.ckey = new_borer.ckey
 		spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer)
+		announce_to_ghosts(spawned_cb)
 		to_chat(spawned_cb, span_warning("You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! You only grow/heal/talk when inside a host!"))
-	for(var/mob/dead_mob in GLOB.dead_mob_list)
-		to_chat(dead_mob, span_notice("The cortical borers have been selected, you are able to orbit them! Remember, they can reproduce!"))
 
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer
 	name = "Cortical Borer Infestation"
@@ -78,7 +77,7 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
-	cost = 30
+	cost = 20
 	minimum_players = 10
 	/// List of on-station vents
 	var/list/vents = list()
