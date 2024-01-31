@@ -17,7 +17,6 @@
 	species_language_holder = /datum/language_holder/fly
 	mutanttongue = /obj/item/organ/internal/tongue/arachnid
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/arachnid
-	speedmod = -0.1
 	inherent_factions = list(FACTION_SPIDER)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/arachnid,

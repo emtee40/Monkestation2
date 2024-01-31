@@ -23,9 +23,8 @@
 	mutantheart = null
 	mutantlungs = null
 	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
-	damage_modifier = 10 //golem is stronk
+	damage_modifier = 55 //golem is stronk Monkestation Edit: had 55 armor so...
 	payday_modifier = 0.75
-	armor = 55
 	siemens_coeff = 0
 	no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -211,7 +210,7 @@
 	name = "Diamond Golem"
 	id = SPECIES_GOLEM_DIAMOND
 	fixed_mut_color = "#00ffff"
-	armor = 70 //up from 55
+	damage_modifier = 70 //golem is stronk Monkestation Edit: had 70 armor so...
 	meat = /obj/item/stack/ore/diamond
 	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -223,13 +222,17 @@
 	name = "Gold Golem"
 	id = SPECIES_GOLEM_GOLD
 	fixed_mut_color = "#cccc00"
-	speedmod = 1
-	armor = 25 //down from 55
+	damage_modifier = 25 //golem is stronk Monkestation Edit: had 25 armor so...
 	meat = /obj/item/stack/ore/gold
 	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
 	prefix = "Golden"
 	special_names = list("Boy")
 	examine_limb_id = SPECIES_GOLEM
+
+/datum/species/golem/gold/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.get_bodypart(BODY_ZONE_R_LEG).speed_modifier = 0.5
+	C.get_bodypart(BODY_ZONE_L_LEG).speed_modifier = 0.5
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
@@ -256,7 +259,6 @@
 	id = SPECIES_GOLEM_PLASTEEL
 	fixed_mut_color = "#bbbbbb"
 	stunmod = 0.4
-	speedmod = 4 //pretty fucking slow
 	meat = /obj/item/stack/ore/iron
 	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching. You also magnetically attach to surfaces and so don't float without gravity and cannot have positions swapped with other beings."
 	prefix = "Plasteel"
@@ -289,7 +291,6 @@
 	fixed_mut_color = "#ffffff"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Titanium Golem</span>, you are immune to ash storms, and slightly more resistant to burn damage."
-	burnmod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 	examine_limb_id = SPECIES_GOLEM
@@ -297,6 +298,8 @@
 /datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	ADD_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.burn_modifier = 0.9
 
 /datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -309,7 +312,6 @@
 	fixed_mut_color = "#888888"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are immune to both ash storms and lava, and slightly more resistant to burn damage."
-	burnmod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
 	examine_limb_id = SPECIES_GOLEM
@@ -317,6 +319,8 @@
 /datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	C.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.burn_modifier = 0.8
 
 /datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -329,11 +333,15 @@
 	fixed_mut_color = "#333333"
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/internal/tongue/abductor
-	speedmod = 1 //faster
 	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
 	examine_limb_id = SPECIES_GOLEM
+
+/datum/species/golem/alloy/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.get_bodypart(BODY_ZONE_R_LEG).speed_modifier = 0.5
+	C.get_bodypart(BODY_ZONE_L_LEG).speed_modifier = 0.5
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
@@ -362,8 +370,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
-	armor = 30
-	burnmod = 1.25
+	damage_modifier = 30 //golem is stronk Monkestation Edit: had 30 armor so...
 	heatmod = 1.5
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
@@ -392,6 +399,9 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.burn_modifier = 0.9
+
 /datum/species/golem/wood/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3 * REM * seconds_per_tick)
@@ -408,8 +418,7 @@
 	info_text = "As an <span class='danger'>Uranium Golem</span>, your very touch burns and irradiates organic lifeforms. You don't hit as hard as most golems, but you are far more durable against blunt force trauma."
 	var/last_event = 0
 	var/active = null
-	armor = 40
-	brutemod = 0.5
+	damage_modifier = 40 //golem is stronk Monkestation Edit: had 40 armor so...
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
 	COOLDOWN_DECLARE(radiation_emission_cooldown)
@@ -422,6 +431,11 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
+
+/datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+	. = ..()
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.brute_modifier = 0.5
 
 /datum/species/golem/uranium/proc/radiation_emission(mob/living/carbon/human/H)
 	if(!COOLDOWN_FINISHED(src, radiation_emission_cooldown))
@@ -446,13 +460,17 @@
 	id = SPECIES_GOLEM_SAND
 	fixed_mut_color = "#ffdc8f"
 	meat = /obj/item/stack/ore/glass //this is sand
-	armor = 0
-	burnmod = 3 //melts easily
-	brutemod = 0.25
+	damage_modifier = 0 //golem is stronk Monkestation Edit: had 0 armor so...
 	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
 	examine_limb_id = SPECIES_GOLEM
+
+/datum/species/golem/sand/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+	. = ..()
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.burn_modifier = 3	//Melts easily
+		golem_bodypart.brute_modifier = 0.25
 
 /datum/species/golem/sand/spec_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message(span_danger("[H] turns into a pile of sand!"))
@@ -479,13 +497,17 @@
 	id = SPECIES_GOLEM_GLASS
 	fixed_mut_color = "#5a96b4aa" //transparent body
 	meat = /obj/item/shard
-	armor = 0
-	brutemod = 3 //very fragile
-	burnmod = 0.25
+	damage_modifier = 0 //golem is stronk Monkestation Edit: had 0 armor so...
 	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
 	examine_limb_id = SPECIES_GOLEM
+
+/datum/species/golem/glass/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+	. = ..()
+	for (var/obj/item/bodypart/golem_bodypart in bodypart_overrides)
+		golem_bodypart.burn_modifier = 0.25
+		golem_bodypart.brute_modifier = 3	//very fragile
 
 /datum/species/golem/glass/spec_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, SFX_SHATTER, 70, TRUE)
@@ -796,9 +818,7 @@
 		TRAIT_NOBLOOD,
 	)
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
-	armor = 15 //feels no pain, but not too resistant
-	burnmod = 2 // don't get burned
-	speedmod = 1 // not as heavy as stone
+	damage_modifier = 15 //feels no pain, but not too resistant Monkestation Edit: had 15 armor so...
 	prefix = "Cloth"
 	special_names = null
 	bodypart_overrides = list(
@@ -1065,10 +1085,8 @@
 	)
 	mutanttongue = null
 	fixed_mut_color = null
-	armor = 25
-	burnmod = 1.25
+	damage_modifier = 25 //golem is stronk Monkestation Edit: had 25 armor so...
 	heatmod = 2
-	speedmod = 1.5
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/cardboard,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/cardboard,
@@ -1292,8 +1310,7 @@
 	name = "Snow Golem"
 	id = SPECIES_GOLEM_SNOW
 	fixed_mut_color = null //custom sprites
-	armor = 45 //down from 55
-	burnmod = 3 //melts easily
+	damage_modifier = 45 //golem is stronk Monkestation Edit: had 45 armor so...
 	info_text = "As a <span class='danger'>Snow Golem</span>, you are extremely vulnerable to burn damage, but you can generate snowballs and shoot cryokinetic beams. You will also turn to snow when dying, preventing any form of recovery."
 	prefix = "Snow"
 	special_names = list("Flake", "Blizzard", "Storm")
@@ -1357,7 +1374,7 @@
 	name = "Metallic Hydrogen Golem"
 	id = SPECIES_GOLEM_HYDROGEN
 	fixed_mut_color = "#535469"
-	armor = 70 //equal to a diamond golem
+	damage_modifier = 70 //golem is stronk Monkestation Edit: had 70 armor so... equal to a diamond golem
 	info_text = "As a <span class='danger'>Metallic Hydrogen Golem</span>, you were forged in the highest pressures and the highest heats. Your unique material makeup makes you immune to magic and most environmental damage, while helping you resist most other attacks."
 	prefix = "Metallic Hydrogen"
 	special_names = list("Pressure","Crush")
@@ -1387,10 +1404,5 @@
 	ADD_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
 
 /datum/species/golem/mhydrogen/on_species_loss(mob/living/carbon/C)
+	. = ..()
 	REMOVE_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
-/// Remove nutrient value from non-mineral food, wish this was on an organ and not species but such is life
-/datum/species/golem/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
-	if(istype(chem, /datum/reagent/consumable) && !istype(chem, /datum/reagent/consumable/nutriment/mineral))
-		var/datum/reagent/consumable/yummy_chem = chem
-		yummy_chem.nutriment_factor = 0
-	return ..()

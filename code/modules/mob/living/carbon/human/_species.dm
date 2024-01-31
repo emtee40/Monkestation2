@@ -121,10 +121,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Replaces default bladder with a different organ
 	var/obj/item/organ/internal/bladder/mutantbladder = /obj/item/organ/internal/bladder
 
-	/**
-	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
-	 * THIS MODIFIES ALL DAMAGE TYPES.
-	 **/
+	/// Flat modifier on all damage taken via [apply_damage][/mob/living/proc/apply_damage] (so being punched, shot, etc.)
+	/// IE: 10 = 10% less damage taken.
 	var/damage_modifier = 0
 	///multiplier for damage from cold temperature
 	var/coldmod = 1
@@ -133,11 +131,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///multiplier for stun durations
 	var/stunmod = 1
 	///multiplier for money paid at payday
-	var/payday_modifier = 1
+	var/payday_modifier = 1.0
 	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
 	var/siemens_coeff = 1
 	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
 	var/fixed_mut_color = ""
+	///A fixed hair color that's independent of the mcolor feature in DNA.
+	var/fixed_hair_color = ""
 	///Special mutation that can be found in the genepool exclusively in this species. Dont leave empty or changing species will be a headache
 	var/inert_mutation = /datum/mutation/human/dwarfism
 	///Used to set the mob's death_sound upon species change
@@ -148,6 +148,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/grab_sound
 	/// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/outfit/outfit_important_for_life
+	//Monkestation Addition: Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
+	var/reagent_tag = PROCESS_ORGANIC
 
 	//Dictates which wing icons are allowed for a given species. If count is >1 a radial menu is used to choose between all icons in list
 	var/list/wing_types = list(/obj/item/organ/external/wings/functional/angel)
@@ -186,34 +188,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/species_gibs = GIB_TYPE_HUMAN
 	///Are we allowed to have numbers in the name
 	var/allow_numbers_in_name = FALSE
-
-	/// Flat modifier on all damage taken via [apply_damage][/mob/living/proc/apply_damage] (so being punched, shot, etc.)
-	/// IE: 10 = 10% less damage taken.
-	var/damage_modifier = 0
-	///multiplier for damage from cold temperature
-	var/coldmod = 1
-	///multiplier for damage from hot temperature
-	var/heatmod = 1
-	///multiplier for stun durations
-	var/stunmod = 1
-	///multiplier for money paid at payday
-	var/payday_modifier = 1.0
-	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
-	var/siemens_coeff = 1
-	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
-	var/fixed_mut_color = ""
-	///A fixed hair color that's independent of the mcolor feature in DNA.
-	var/fixed_hair_color = ""
-	///Special mutation that can be found in the genepool exclusively in this species. Dont leave empty or changing species will be a headache
-	var/inert_mutation = /datum/mutation/human/dwarfism
-	///Used to set the mob's death_sound upon species change
-	var/death_sound
-	///Sounds to override barefeet walking
-	var/list/special_step_sounds
-	///Special sound for grabbing
-	var/grab_sound
-	/// A path to an outfit that is important for species life e.g. plasmaman outfit
-	var/datum/outfit/outfit_important_for_life
 
 	///Bitflag that controls what in game ways something can select this species as a spawnable source, such as magic mirrors. See [mob defines][code/__DEFINES/mobs.dm] for possible sources.
 	var/changesource_flags = NONE
@@ -1144,6 +1118,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		affected.reagents.del_reagent(chem.type)
 		return COMSIG_MOB_STOP_REAGENT_CHECK
+	//Monkestation Addition: This handles dumping unprocessable reagents. (Shouldnt it already be processed?)
+	// var/dump_reagent = TRUE
+	// if((chem.affected_biotype & H.dna.species.inherent_biotypes ))
+	// 	dump_reagent = FALSE
+	// if(dump_reagent)
+	// 	chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+	// 	return TRUE
+	// End Monkestation Addition
 	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
 		chem.overdosed = TRUE
 		chem.overdose_start(affected)
@@ -2266,10 +2248,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
+	var/is_digitigrade = FALSE	// MonkeStation Edit: Digitrade limbs
 	var/list/final_bodypart_overrides = new_species.bodypart_overrides.Copy()
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == DIGITIGRADE_LEGS) || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
+		is_digitigrade = TRUE	/* Monkestation Edit: Digitrade Limbs
 		final_bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
-		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
+		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade */
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if((old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (old_part.bodypart_flags & BODYPART_IMPLANTED))

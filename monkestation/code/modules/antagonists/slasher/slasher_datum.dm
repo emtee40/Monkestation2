@@ -29,8 +29,6 @@
 	var/soul_digestion = 5 MINUTES
 	///our current soul punishment state
 	var/soul_punishment = 0
-	///our cached brute_mod
-	var/cached_brute_mod = 0
 	///processes to heartbeat
 	var/heartbeat_processes = 0
 	///processes until wail if above punishment threshold
@@ -75,7 +73,6 @@
 	var/mob/living/carbon/human/human = current_mob
 	if(istype(human))
 		human.equipOutfit(/datum/outfit/slasher)
-	cached_brute_mod = human.dna.species.brutemod
 
 
 /datum/antagonist/slasher/on_removal()

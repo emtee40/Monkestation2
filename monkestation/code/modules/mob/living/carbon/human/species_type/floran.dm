@@ -18,10 +18,8 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
-	burnmod = 1.8
 	heatmod = 0.67 //Same as lizard people
 	coldmod = 1.5 //Same as lizard people
-	speedmod = -0.1 //Same as arachnids
 	payday_modifier = 0.75
 	meat = /obj/item/food/meat/slab/human/mutant/plant
 	exotic_blood = /datum/reagent/water

@@ -24,7 +24,6 @@
 	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
-	burnmod = 0.6 // = 3/5x generic burn damage
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	inherent_factions = list(FACTION_SLIME) //an oozeling wont be eaten by their brethren

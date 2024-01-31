@@ -3,7 +3,7 @@
 	description = "Repairs brain damage in synthetics."
 	color = "#727272"
 	taste_description = "metallic"
-	process_flags = SYNTHETIC
+	affected_biotype = MOB_ROBOTIC
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (-3*REM))

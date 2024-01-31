@@ -443,6 +443,8 @@
 	unarmed_damage_low = 7
 	unarmed_damage_high = 21
 	unarmed_stun_threshold = 11
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 1
 
 /obj/item/bodypart/leg/right/golem
 	biological_state = (BIO_BONE|BIO_JOINTED)
@@ -452,6 +454,8 @@
 	unarmed_damage_low = 7
 	unarmed_damage_high = 21
 	unarmed_stun_threshold = 11
+	// Monkestation Edit: golems are slow
+	speed_modifier = 1
 
 ///CULT GOLEM
 /obj/item/bodypart/head/golem/cult
@@ -485,11 +489,13 @@
 	limb_id = SPECIES_GOLEM_CLOTH
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	burn_modifier = 2
 
 /obj/item/bodypart/chest/golem/cloth
 	limb_id = SPECIES_GOLEM_CLOTH
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	burn_modifier = 2
 
 /obj/item/bodypart/arm/left/golem/cloth
 	limb_id = SPECIES_GOLEM_CLOTH
@@ -497,6 +503,7 @@
 	unarmed_damage_low = 4
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 8
+	burn_modifier = 2
 
 /obj/item/bodypart/arm/right/golem/cloth
 	limb_id = SPECIES_GOLEM_CLOTH
@@ -504,6 +511,7 @@
 	unarmed_damage_low = 4
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 8
+	burn_modifier = 2
 
 /obj/item/bodypart/leg/left/golem/cloth
 	limb_id = SPECIES_GOLEM_CLOTH
@@ -511,6 +519,9 @@
 	unarmed_damage_low = 6
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 12
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 0.5
+	burn_modifier = 2
 
 /obj/item/bodypart/leg/right/golem/cloth
 	limb_id = SPECIES_GOLEM_CLOTH
@@ -518,17 +529,22 @@
 	unarmed_damage_low = 6
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 12
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 0.5
+	burn_modifier = 2
 
 ///CARDBOARD GOLEM
 /obj/item/bodypart/head/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
 
 /obj/item/bodypart/chest/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
+	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/left/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
@@ -539,6 +555,7 @@
 	unarmed_damage_low = 4
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 8
+	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
@@ -549,6 +566,7 @@
 	unarmed_damage_low = 4
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 8
+	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
@@ -558,6 +576,9 @@
 	unarmed_damage_low = 6
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 12
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 0.75
+	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/right/golem/cardboard
 	limb_id = SPECIES_GOLEM_CARDBOARD
@@ -567,6 +588,9 @@
 	unarmed_damage_low = 6
 	unarmed_stun_threshold = 7
 	unarmed_damage_high = 12
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 0.75
+	burn_modifier = 1.25
 
 ///DURATHREAD GOLEM
 /obj/item/bodypart/head/golem/durathread
@@ -633,27 +657,33 @@
 	limb_id = SPECIES_GOLEM_SNOW
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 /obj/item/bodypart/chest/golem/snow
 	limb_id = SPECIES_GOLEM_SNOW
 	is_dimorphic = TRUE //WHO MADE SNOW BREASTS?
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 /obj/item/bodypart/arm/left/golem/snow
 	limb_id = SPECIES_GOLEM_SNOW
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 /obj/item/bodypart/arm/right/golem/snow
 	limb_id = SPECIES_GOLEM_SNOW
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 /obj/item/bodypart/leg/left/golem/snow
 	limb_id = SPECIES_GOLEM_SNOW
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 /obj/item/bodypart/leg/right/golem/snow
 	limb_id = SPECIES_GOLEM_SNOW
 	should_draw_greyscale = FALSE
+	burn_modifier = 3
 
 ///URANIUM GOLEM
 /obj/item/bodypart/arm/left/golem/uranium
@@ -710,6 +740,8 @@
 	unarmed_damage_low = 18
 	unarmed_damage_high = 32
 	unarmed_stun_threshold = 18
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 2
 
 /obj/item/bodypart/leg/right/golem/plasteel
 	unarmed_attack_effect = ATTACK_EFFECT_SMASH
@@ -717,6 +749,8 @@
 	unarmed_damage_low = 18
 	unarmed_damage_high = 32
 	unarmed_stun_threshold = 18
+	// Monkestation Edit: Golems are slow
+	speed_modifier = 2
 
 ///BANANIUM GOLEM
 /obj/item/bodypart/arm/left/golem/bananium

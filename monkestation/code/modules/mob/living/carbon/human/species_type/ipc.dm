@@ -52,9 +52,7 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 	exotic_blood = /datum/reagent/fuel/oil
-	burnmod = 1.5	//Default was 2 //Monkestation Edit
 	heatmod = 1.5
-	brutemod = 1
 	stunmod = 0.8
 	siemens_coeff = 1.5
 	species_gibs = GIB_TYPE_ROBOTIC

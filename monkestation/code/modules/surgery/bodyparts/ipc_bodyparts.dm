@@ -21,6 +21,8 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2
+
 /obj/item/bodypart/chest/ipc
 	icon = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
 	icon_greyscale = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
@@ -44,6 +46,7 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2
 
 /obj/item/bodypart/arm/left/ipc
 	icon = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
@@ -67,6 +70,7 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2
 
 /obj/item/bodypart/arm/right/ipc
 	icon = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
@@ -90,6 +94,7 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2
 
 /obj/item/bodypart/leg/left/ipc
 	icon = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
@@ -113,6 +118,7 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2
 
 /obj/item/bodypart/leg/right/ipc
 	icon = 'monkestation/icons/mob/species/ipc/bodyparts.dmi'
@@ -136,3 +142,4 @@
 	heavy_burn_msg = "seared"
 
 	dmg_overlay_type = "synth"
+	burn_modifier = 1.5 // Default was 2

@@ -4,7 +4,6 @@
 	reagent_state = LIQUID
 	color = "#F1C40F"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	process_flags = SYNTHETIC
 	affected_biotype = MOB_ROBOTIC
 
 /datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/M)

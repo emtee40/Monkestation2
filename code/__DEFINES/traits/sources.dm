@@ -132,6 +132,7 @@
 #define LOCKED_HELMET_TRAIT "locked-helmet"
 #define NINJA_SUIT_TRAIT "ninja-suit"
 #define SLEEPING_CARP_TRAIT "sleeping_carp"
+#define MADE_UNCLONEABLE "made-uncloneable"	//Monkestation Addition: We Re-added cloning
 #define TIMESTOP_TRAIT "timestop"
 #define LIFECANDLE_TRAIT "lifecandle"
 #define VENTCRAWLING_TRAIT "ventcrawling"
