@@ -231,6 +231,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// Used to give the borer the antagonist datum
 	var/antagonist_datum = /datum/antagonist/cortical_borer
 
+	var/skip_status_tab = FALSE
+
 /mob/living/basic/cortical_borer/Initialize(mapload)
 	. = ..()
 	AddComponent( \
@@ -290,6 +292,8 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 //so we can add some stuff to status, making it easier to read... maybe some hud some day
 /mob/living/basic/cortical_borer/get_status_tab_items()
 	. = ..()
+	if(skip_status_tab)
+		return
 	. += "Chemical Storage: [chemical_storage]/[max_chemical_storage]"
 	. += "Chemical Evolution Points: [chemical_evolution]"
 	. += "Stat Evolution Points: [stat_evolution]"

@@ -25,7 +25,7 @@
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
 		"Do you want to play as a neutered cortical borer?",
 		ROLE_BORER,
-		poll_time = 5 SECONDS
+		poll_time = 10 SECONDS
 	)
 	if(!LAZYLEN(candidates))
 		opened = FALSE
