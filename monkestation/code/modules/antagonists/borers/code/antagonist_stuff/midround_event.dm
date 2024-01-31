@@ -25,6 +25,7 @@
 
 /datum/round_event/ghost_role/cortical_borer/setup()
 	announce_when = rand(announce_when, announce_when + 50)
+	setup = TRUE
 
 /datum/round_event/ghost_role/cortical_borer/announce(fake)
 	priority_announce(
@@ -46,13 +47,19 @@
 			// See: Security, Virology
 			if(length(temp_vent_parent.other_atmos_machines) > 20)
 				vents += temp_vent
+
 	if(!length(vents))
+		message_admins("An event attempted to spawn a borer but no suitable vents were found. Shutting down.")
 		return MAP_ERROR
+
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to spawn as a cortical borer?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
+
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
+
 	var/living_number = max(length(GLOB.player_list) / POP_PER_BORER, 1)
 	var/choosing_number = min(length(candidates), living_number)
+
 	for(var/repeating_code in 1 to choosing_number)
 		var/mob/dead/observer/new_borer = pick(candidates)
 		candidates -= new_borer
@@ -61,6 +68,7 @@
 		spawned_cb.ckey = new_borer.ckey
 		spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer)
 		announce_to_ghosts(spawned_cb)
+		message_admins("[ADMIN_LOOKUPFLW(spawned_cb)] has been made into a borer by an event.")
 		to_chat(spawned_cb, span_warning("You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! You only grow/heal/talk when inside a host!"))
 
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer
