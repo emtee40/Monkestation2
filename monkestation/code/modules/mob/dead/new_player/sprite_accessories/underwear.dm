@@ -1,66 +1,69 @@
 //UNDERWEAR GOES HERE
+/datum/sprite_accessory/socks
+	use_static = TRUE
+
+/datum/sprite_accessory/socks/white_knee
+	name = "Knee-high"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "white_knee"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/thin_knee
+	name = "Knee-high (Thin)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "thin_knee"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/white_norm
+	name = "Normal"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "white_norm"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/thin_norm
+	name = "Normal (Thin)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "thin_norm"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/white_pantyhose
+	name = "Pantyhose (Opaque)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "white_pantyhose"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/pantyhose
+	name = "Pantyhose (Thin)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "pantyhose"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/white_short
+	name = "Short"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "white_short"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/thin_short
+	name = "Short (Thin)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "thin_short"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/white_thigh
+	name = "Thigh-high"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "white_thigh"
+	use_static = FALSE
+
+/datum/sprite_accessory/socks/thin_thigh
+	name = "Thigh-high (Thin)"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	icon_state = "thin_thigh"
+	use_static = FALSE
 
 /datum/sprite_accessory/socks/fishnets
 	name = "Fishnets"
+	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
 	icon_state = "fishnets"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-
-/datum/sprite_accessory/socks/custom_knee
-	name = "Knee-high (Custom)"
-	icon_state = "custom_knee"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_knee_thin
-	name = "Knee-high (Custom)"
-	icon_state = "custom_knee_thin"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_norm
-	name = "Normal (Custom)"
-	icon_state = "custom_norm"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_norm_thin
-	name = "Normal (Custom Thin)"
-	icon_state = "custom_norm_thin"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_pantyhose
-	name = "Pantyhose (Custom)"
-	icon_state = "custom_pantyhose"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_pantyhose_thin
-	name = "Pantyhose (Custom Thin)"
-	icon_state = "custom_pantyhose_thin"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_short
-	name = "Short (Custom)"
-	icon_state = "custom_short"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_short_thin
-	name = "Short (Custom Thin)"
-	icon_state = "custom_short_thin"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_thin_thin
-	name = "Thigh-high (Custom)"
-	icon_state = "custom_thigh"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	use_static = FALSE
-
-/datum/sprite_accessory/socks/custom_thigh_thin
-	name = "Thigh-high (Custom)"
-	icon_state = "custom_thigh"
-	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
 	use_static = FALSE
