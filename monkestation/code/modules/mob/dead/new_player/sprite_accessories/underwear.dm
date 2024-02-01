@@ -64,3 +64,4 @@
 
 /datum/sprite_accessory/socks/thocks
 	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
+	use_static = FALSE
