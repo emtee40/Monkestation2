@@ -32,12 +32,28 @@
 		to_chat(user, "... After waiting the borer does not seem to come out, maybe try again a bit later?")
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
 
-	var/mob/dead/observer/spawned_borer = pick(candidates)
-	var/mob/living/basic/cortical_borer/neutered/new_mob = new /mob/living/basic/cortical_borer/neutered(get_turf(src))
-	spawned_borer.mind.transfer_to(new_mob, TRUE)
-	if(!new_mob.mind.has_antag_datum(/datum/antagonist/cortical_borer/neutered))
-		var/datum/antagonist/cortical_borer/neutered/borer_antagonist_datum = new
-		new_mob.mind.add_antag_datum(borer_antagonist_datum)
+	var/mob/dead/observer/picked_candidate = pick(candidates)
+	spawn_borer(user, picked_candidate)
+	visible_message("A borer wriggles out of the [src]!")
+
+/obj/item/neutered_borer_spawner/proc/spawn_borer(mob/living/user, mob/dead/candidate)
+	var/mob/living/basic/cortical_borer/neutered/new_mob = new(get_turf(src))
+	candidate.mind.transfer_to(new_mob, TRUE)
+
+	var/datum/antagonist/cortical_borer/borer_antagonist_datum = new
+
+	var/datum/objective/protect/protect_objective = new
+	var/datum/objective/custom/listen_objective = new
+
+	protect_objective.target = user.mind
+	protect_objective.update_explanation_text()
+
+	listen_objective.explanation_text = "Listen to any commands given by [user.real_Name]"
+
+	borer_antagonist_datum.objectives += protect_objective
+	borer_antagonist_datum.objectives += listen_objective
+
+	new_mob.mind.add_antag_datum(borer_antagonist_datum)
 
 	new /obj/item/cortical_cage(get_turf(src))
 	QDEL_NULL(src)

@@ -17,6 +17,3 @@
 	if(host_sugar())
 		. += "Sugar detected! Unable to generate resources!"
 		. += ""
-	. += "OBJECTIVES:"
-	. += "1) Protect whomever human you see first"
-	. += "2) Listen to every command of whatever human you saw first"

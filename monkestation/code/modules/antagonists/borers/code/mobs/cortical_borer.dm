@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// Controls if the borer can reproduce or not, TRUE means it wont be able to spawn eggs
 	var/neutered = FALSE
 	/// Used to give the borer the antagonist datum
-	var/antagonist_datum = /datum/antagonist/cortical_borer
+	var/antagonist_datum = /datum/antagonist/cortical_borer/default
 
 	var/skip_status_tab = FALSE
 
