@@ -62,8 +62,5 @@
 	icon_state = "thin_thigh"
 	use_static = FALSE
 
-/datum/sprite_accessory/socks/fishnets
-	name = "Fishnets"
+/datum/sprite_accessory/socks/thocks
 	icon = 'monkestation/icons/mob/sprite_accessories/underwear.dmi'
-	icon_state = "fishnets"
-	use_static = FALSE
