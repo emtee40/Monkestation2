@@ -4,7 +4,7 @@
 
 /mob/living/basic/cortical_borer/neutered
 	neutered = TRUE
-	antagonist_datum = /datum/antagonist/cortical_borer/neutered
+	antagonist_datum = /datum/antagonist/cortical_borer
 	generation = 1
 	skip_status_tab = TRUE
 
