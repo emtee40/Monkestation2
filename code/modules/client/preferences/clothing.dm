@@ -12,7 +12,7 @@
 		if (accessory_name != "Nude")
 			var/datum/sprite_accessory/accessory = accessory_list[accessory_name]
 
-			var/icon/accessory_icon = icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
+			var/icon/accessory_icon = icon(accessory.icon, accessory.icon_state) //MONKESTATION EDIT
 			if (color && !accessory.use_static)
 				accessory_icon.Blend(color, ICON_MULTIPLY)
 			icon_with_socks.Blend(accessory_icon, ICON_OVERLAY)
