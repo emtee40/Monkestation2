@@ -37,7 +37,7 @@
 
 /datum/antagonist/cortical_borer/default/forge_objectives()
 	var/datum/objective/custom/borer_objective_produce_eggs = new
-	borer_objective_produce_eggs.explanation_text = "we require [GLOB.objective_egg_borer_number] different borers to produce [GLOB.objective_egg_egg_number] eggs to make sure our hive can spread widelly to reduce the chances of survival"
+	borer_objective_produce_eggs.explanation_text = "we require [GLOB.objective_egg_borer_number] different borers to produce [GLOB.objective_egg_egg_number] eggs to make sure our hive can spread widelly for increasing our chances of survival"
 
 	var/datum/objective/custom/borer_objective_willing_hosts = new
 	borer_objective_willing_hosts.explanation_text = "we require any amount of the borers to get [GLOB.objective_willing_hosts] willing host's trust to ensure our survival"
