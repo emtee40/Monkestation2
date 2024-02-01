@@ -6,24 +6,19 @@
 	/// The keg located within the beer nuke.
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 	/// Reagent that is produced once the nuke detonates.
-	var/list/flood_reagents = list(
-		/datum/reagent/consumable/honey,
-		/datum/reagent/medicine/strange_reagent,
-		/datum/reagent/uranium/radium,
-)
 	/// Round event control we might as well keep track of instead of locating every time
-	var/datum/round_event_control/scrubber_overflow/every_vent/overflow_control
+	var/datum/round_event_control/scrubber_clog/flood/clog_control
 
 /obj/machinery/nuclearbomb/bee/Initialize(mapload)
 	. = ..()
 	keg = new(src)
 	QDEL_NULL(core)
-	overflow_control = locate(/datum/round_event_control/scrubber_overflow/every_vent) in SSevents.control
+	clog_control = locate(/datum/round_event_control/scrubber_clog/flood) in SSevents.control
 
 /obj/machinery/nuclearbomb/bee/Destroy()
-	overflow_control = null
+	clog_control = null
 	QDEL_NULL(keg)
-	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
+	UnregisterSignal(clog_control, COMSIG_CREATED_ROUND_EVENT)
 	return ..()
 
 /obj/machinery/nuclearbomb/bee/examine(mob/user)
@@ -55,31 +50,24 @@
 		addtimer(CALLBACK(src, PROC_REF(really_actually_explode)), 11 SECONDS)
 	else
 		visible_message(span_notice("[src] fizzes ominously."))
-		addtimer(CALLBACK(src, PROC_REF(local_foam)), 11 SECONDS)
+
 
 /obj/machinery/nuclearbomb/bee/disarm_nuke(mob/disarmer)
 	exploding = FALSE
 	exploded = TRUE
 	return ..()
 
-/obj/machinery/nuclearbomb/bee/proc/local_foam()
-	var/datum/reagents/tmp_holder = new(1000)
-	tmp_holder.my_atom = src
-	tmp_holder.add_reagent(flood_reagents, 100)
 
-	var/datum/effect_system/fluid_spread/foam/foam = new
-	foam.set_up(200, holder = src, location = get_turf(src), carry = tmp_holder)
-	foam.start()
-	disarm_nuke()
+
 
 /obj/machinery/nuclearbomb/bee/really_actually_explode(detonation_status)
 	//if it's always hooked in it'll override admin choices
-	RegisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT, PROC_REF(on_created_round_event))
+	RegisterSignal(clog_control, COMSIG_CREATED_ROUND_EVENT, PROC_REF(on_created_round_event))
 	disarm_nuke()
-	overflow_control.run_event(event_cause = "a bee nuke")
+	clog_control.run_event(event_cause = "a bee nuke")
 
 /// signal sent from overflow control when it fires an event
-/obj/machinery/nuclearbomb/bee/proc/on_created_round_event(datum/round_event_control/source_event_control, datum/round_event/scrubber_overflow/every_vent/created_event)
+/obj/machinery/nuclearbomb/bee/proc/on_created_round_event(datum/round_event_control/source_event_control, datum/round_event/scrubber_clog/flood/created_event)
 	SIGNAL_HANDLER
-	UnregisterSignal(overflow_control, COMSIG_CREATED_ROUND_EVENT)
-	created_event.forced_reagent_type = flood_reagents
+	UnregisterSignal(clog_control, COMSIG_CREATED_ROUND_EVENT)
+

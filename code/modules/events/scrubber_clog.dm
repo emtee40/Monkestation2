@@ -199,7 +199,7 @@
 	max_wizard_trigger_potency = 7
 
 /datum/round_event/scrubber_clog/strange
-	maximum_spawns = 3
+	maximum_spawns = 30
 
 /datum/round_event/scrubber_clog/strange/setup()
 	. = ..()
@@ -218,3 +218,55 @@
 		/mob/living/simple_animal/pet/gondola,
 	)
 	return pick(mob_list)
+
+/datum/round_event_control/scrubber_clog/flood
+    name = "Scrubber Clog: Flood"
+    typepath = /datum/round_event/scrubber_clog/flood
+    weight = 0
+    max_occurrences = 1
+    description = "Bees absolutely flood out of a scrubber, used by the Rayne corp bee nuke."
+    min_wizard_trigger_potency = 0
+    max_wizard_trigger_potency = 6
+
+/datum/round_event/scrubber_clog/flood
+	maximum_spawns = 400
+
+/datum/round_event/scrubber_clog/flood/setup()
+	. = ..()
+	end_when = rand(2000, 4000)
+	spawn_delay = rand(1, 2) //IT MUST FLOOD
+
+/datum/round_event/scrubber_clog/flood/announce()
+	priority_announce("Unusual lifesign readings detected in the entire ventilation network.", "Lifesign Alert", ANNOUNCER_ALIENS)
+
+/datum/round_event/scrubber_clog/flood/get_mob()
+	var/static/list/mob_list = list(
+		/mob/living/basic/bee,
+		/mob/living/basic/bee/toxin,
+	)
+	return pick(mob_list)
+
+///datum/round_event/scrubber_clog/flood/get_scrubber()
+	//var/list/scrubber_list = list()
+	//for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber in GLOB.machines)
+		//var/turf/scrubber_turf = get_turf(scrubber)
+		//if(scrubber_turf && is_station_level(scrubber_turf.z) && !scrubber.welded && !scrubber.clogged)
+			//scrubber_list += scrubber
+
+//datum/round_event/scrubber_clog/flood/setup()
+	//var/list/scrubber_list = get_scrubber()
+	//for(var/scrubber in scrubber_list)
+	//.if(!scrubber)
+		//kill()
+		//CRASH("Unable to find suitable scrubber.")
+
+		//RegisterSignal(scrubber, COMSIG_QDELETING, PROC_REF(scrubber_move))
+
+	//spawned_mob = get_mob()
+	//end_when = rand(300, 600)
+	//maximum_spawns = rand(3, 5)
+	//spawn_delay = rand(10, 15)
+	//setup = TRUE //MONKESTATION ADDITION
+
+	//return scrubber_list
+
