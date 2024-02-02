@@ -33,12 +33,10 @@
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
 
 	var/mob/dead/observer/picked_candidate = pick(candidates)
-	spawn_borer(user, picked_candidate)
 	visible_message("A borer wriggles out of the [src]!")
 
-/obj/item/neutered_borer_spawner/proc/spawn_borer(mob/living/user, mob/dead/candidate)
 	var/mob/living/basic/cortical_borer/neutered/new_mob = new(get_turf(src))
-	candidate.mind.transfer_to(new_mob, TRUE)
+	picked_candidate.mind.transfer_to(new_mob, TRUE)
 
 	var/datum/antagonist/cortical_borer/borer_antagonist_datum = new
 
