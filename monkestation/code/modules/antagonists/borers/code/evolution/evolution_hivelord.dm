@@ -7,11 +7,13 @@
 	desc = "Produce an egg, which your host will vomit up."
 	gain_text = "The way that a Cortical Borer produces an egg is a strange one. So far, we have not seen how it produces one, or it doing so outside a host."
 	tier = 1
-	unlocked_evolutions = list(/datum/borer_evolution/hivelord/blood_chemical)
 	evo_cost = 1
+	unlocked_evolutions = list(/datum/borer_evolution/hivelord/blood_chemical)
 
 /datum/borer_evolution/hivelord/produce_offspring/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
 	. = ..()
+	if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
+		return
 	var/datum/action/cooldown/borer/produce_offspring/attack_action = new(cortical_owner)
 	attack_action.Grant(cortical_owner)
 
@@ -70,4 +72,6 @@
 
 /datum/borer_evolution/hivelord/produce_offspring_alone/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
 	. = ..()
+	if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
+		return
 	cortical_owner.upgrade_flags |= BORER_ALONE_PRODUCTION

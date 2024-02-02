@@ -106,5 +106,7 @@
 
 /datum/borer_evolution/diveworm/empowered_offspring/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
 	. = ..()
+	if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
+		return
 	var/datum/action/cooldown/borer/empowered_offspring/attack_action = new(cortical_owner)
 	attack_action.Grant(cortical_owner)
