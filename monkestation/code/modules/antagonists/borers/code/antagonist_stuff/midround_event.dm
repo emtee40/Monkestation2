@@ -6,6 +6,7 @@
 	tags = list(TAG_TEAM_ANTAG, TAG_EXTERNAL, TAG_ALIEN)
 	typepath = /datum/round_event/ghost_role/cortical_borer
 	antag_flag = ROLE_BORER
+	track = EVENT_TRACK_MAJOR
 	enemy_roles = list(
 		JOB_CAPTAIN,
 		JOB_DETECTIVE,
