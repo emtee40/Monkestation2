@@ -65,6 +65,8 @@
 
 //////////////////// The actual bloodling mob ////////////////////
 /mob/living/basic/bloodling/proper
+	name = "mass of flesh"
+	desc = "An abomination of some spawn. A mess of tendrils, mouths and chitin, whatever created it was not merciful."
 	maxHealth = INFINITE // Bloodlings have unlimited health, instead biomass acts as their health
 	health = INFINITE
 
@@ -235,6 +237,7 @@
 		/datum/action/cooldown/bloodling/dissonant_shriek,
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
+		/datum/action/cooldown/mob_cooldown/bloodling/heal,
 	)
 	speed = 2
 
@@ -250,5 +253,6 @@
 		/datum/action/cooldown/bloodling/dissonant_shriek,
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
+		/datum/action/cooldown/mob_cooldown/bloodling/heal,
 	)
 	speed = 2.5

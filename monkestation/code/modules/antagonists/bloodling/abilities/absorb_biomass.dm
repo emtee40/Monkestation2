@@ -37,11 +37,11 @@
 
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/Activate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
+	var/absorb_time = 5 SECONDS
+	var/biomass_gain = 10
 
 	if(istype(target, /obj/item/food/deadmouse))
-		if(!do_after(our_mob, 5 SECONDS))
-			return FALSE
-		our_mob.add_biomass(10)
+		our_mob.add_biomass(biomass_gain)
 		qdel(target)
 		our_mob.visible_message(
 		span_alertalien("[our_mob] wraps its tendrils around [target]. It absorbs it!"),
@@ -51,23 +51,19 @@
 
 	var/mob/living/mob_to_absorb = target
 	if(!iscarbon(mob_to_absorb))
-		if(!do_after(our_mob, 10 SECONDS))
-			return FALSE
-		our_mob.add_biomass(mob_to_absorb.getMaxHealth() * 0.5)
-		mob_to_absorb.gib()
+		biomass_gain = mob_to_absorb.getMaxHealth() * 0.5
 	else
 		var/mob/living/carbon/carbon_to_absorb = target
-		if(istype(carbon_to_absorb, /mob/living/carbon/human/species/monkey))
-			if(!do_after(carbon_to_absorb, 5 SECONDS))
-				return FALSE
-			// Monkeys give less biomass
-			our_mob.add_biomass(50)
+		if(issimian(carbon_to_absorb))
+			biomass_gain = 50
 		else
-			if(!do_after(carbon_to_absorb, 10 SECONDS))
-				return FALSE
-			our_mob.add_biomass(100)
-		carbon_to_absorb.gib()
+			biomass_gain = 100
+			absorb_time = 10 SECONDS
 
+	mob_to_absorb.AddComponent(/datum/component/leash, our_mob, 1)
+	if(!do_after(mob_to_absorb, absorb_time))
+		return FALSE
+	mob_to_absorb.gib()
 	our_mob.visible_message(
 		span_alertalien("[our_mob] wraps its tendrils around [target]. It absorbs it!"),
 		span_noticealien("You wrap your tendrils around [target] and absorb it!"),

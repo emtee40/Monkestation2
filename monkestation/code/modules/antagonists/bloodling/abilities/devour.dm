@@ -2,7 +2,6 @@
 	name = "Devour Limb"
 	desc = "Allows you to consume a creatures limb."
 	button_icon_state = "alien_hide"
-
 	cooldown_time = 20 SECONDS
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/set_click_ability(mob/on_who)
@@ -40,13 +39,13 @@
 		candidate_for_removal += bodypart.body_zone
 
 	if(!length(candidate_for_removal))
-		return
+		return FALSE
 
 	var/limb_to_remove = pick(candidate_for_removal)
 	var/obj/item/bodypart/target_part = carbon_target.get_bodypart(limb_to_remove)
 
 	if(isnull(target_part))
-		return
+		return FALSE
 
 	target_part.dismember()
 	qdel(target_part)
@@ -57,3 +56,4 @@
 		span_noticealien("You devour [target]s [target_part]!"),
 	)
 	StartCooldown()
+	return TRUE

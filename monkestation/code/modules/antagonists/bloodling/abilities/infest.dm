@@ -26,6 +26,8 @@
 	if(isnull(alive_mob.mind))
 		owner.balloon_alert(owner, "doesn't work on mindless mobs!")
 		return FALSE
+	if(IS_BLOODLING_OR_THRALL(alive_mob))
+		return FALSE
 	if(alive_mob.stat == DEAD)
 		owner.balloon_alert(owner, "doesn't work on dead mobs!")
 		return FALSE
