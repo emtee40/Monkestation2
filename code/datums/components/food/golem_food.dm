@@ -92,7 +92,7 @@
 	src.consume_food = consume_food
 	src.food_buff = food_buff
 	src.owner = owner
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_destroyed))
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(on_parent_destroyed))
 
 /// Clean ourselves up if our parent dies
 /obj/item/food/golem_food/proc/on_parent_destroyed(datum/destroyed_thing)
