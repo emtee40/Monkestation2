@@ -48,15 +48,6 @@
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_ROBOTIC
 
-/obj/item/organ/internal/brain/positron/Insert(mob/living/carbon/C, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE)
-	..()
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(H.dna?.species)
-			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0)
-					H.revive(0)
-
 /obj/item/organ/internal/brain/positron/emp_act(severity)
 	switch(severity)
 		if(1)
