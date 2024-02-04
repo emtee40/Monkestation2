@@ -11,6 +11,42 @@
 	/// Our linked borer, used for the antagonist panel TGUI
 	var/mob/living/basic/cortical_borer/cortical_owner
 
+/datum/antagonist/cortical_borer/antag_token(datum/mind/hosts_mind, mob/spender)
+	var/list/vents = list()
+	if(isliving(spender))
+		hosts_mind.current.unequip_everything()
+		new /obj/effect/holy(hosts_mind.current.loc)
+		QDEL_IN(hosts_mind.current, 20)
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
+		if(QDELETED(temp_vent))
+			continue
+		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
+			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			if(!temp_vent_parent)
+				continue // No parent vent
+			// Stops Cortical Borers getting stuck in small networks.
+			// See: Security, Virology
+			if(length(temp_vent_parent.other_atmos_machines) > 20)
+				vents += temp_vent
+
+	if(!length(vents))
+		message_admins("Spawning in as a borer failed!")
+		return MAP_ERROR
+
+	var/mob/dead/observer/new_borer = spender
+	var/turf/vent_turf = get_turf(pick(vents))
+	var/mob/living/basic/cortical_borer/spawned_cb = new(vent_turf)
+	spawned_cb.ckey = new_borer.ckey
+	spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/default)
+	notify_ghosts(
+		"Someone has become a borer due to spending an antag token ([spawned_cb])!",
+		source = spawned_cb,
+		action = NOTIFY_ORBIT,
+		header = "Something's Interesting!",
+	)
+	message_admins("[ADMIN_LOOKUPFLW(spawned_cb)] has been made into a borer by using an antag token.")
+	to_chat(spawned_cb, span_warning("You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! You only grow/heal/talk when inside a host!"))
+
 /datum/antagonist/cortical_borer/on_gain()
 	cortical_owner = owner.current
 	forge_objectives()
