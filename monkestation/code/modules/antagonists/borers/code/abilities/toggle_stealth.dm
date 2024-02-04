@@ -2,6 +2,11 @@
 	name = "Toggle Hiding"
 	button_icon_state = "hide"
 	var/hide_layer = ABOVE_NORMAL_TURF_LAYER
+	ability_explanation = "\
+	Turns your hiding abilities on/off\n\
+	Whilst on, you will hide under most objects, like tables.\n\
+	If you are a diveworm, you will bore into hosts twice as fast whilst not hidden\n\
+	"
 
 /datum/action/cooldown/borer/toggle_hiding/Trigger(trigger_flags, atom/target)
 	. = ..()

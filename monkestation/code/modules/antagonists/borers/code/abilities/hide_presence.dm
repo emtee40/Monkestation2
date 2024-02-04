@@ -4,6 +4,11 @@
 	button_icon_state = "hiding"
 	chemical_cost = 100
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Very effectivelly hides your presence\n\
+	While in stealth, you will crawl onto people without any noticable signs nor warning\n\
+	Additionally you will not have any negative effects onto your host, but wont generate internal chemicals\n\
+	"
 
 /datum/action/cooldown/borer/stealth_mode/Trigger(trigger_flags, atom/target)
 	var/mob/living/basic/cortical_borer/cortical_owner = owner

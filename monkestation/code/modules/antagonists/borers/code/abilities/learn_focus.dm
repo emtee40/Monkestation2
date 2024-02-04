@@ -3,6 +3,10 @@
 	button_icon_state = "getfocus"
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Lets you evolve strong passive modifiers into the hosts you inhabit\n\
+	Your focuses will follow you when you leave your host\n\
+	"
 
 /datum/action/cooldown/borer/learn_focus/Trigger(trigger_flags, atom/target)
 	. = ..()

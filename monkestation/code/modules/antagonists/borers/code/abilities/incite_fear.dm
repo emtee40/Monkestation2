@@ -3,6 +3,10 @@
 	cooldown_time = 12 SECONDS
 	button_icon_state = "fear"
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Causes an extreme fear reaction in a person near you whilst outside of a host\n\
+	While inside of a host, it is much more effective and is used on the host itself\n\
+	"
 
 /datum/action/cooldown/borer/fear_human/Trigger(trigger_flags, atom/target)
 	. = ..()

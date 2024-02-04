@@ -19,6 +19,10 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	chemical_evo_points = 1
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Allows you to learn various unlocked chemicals\n\
+	To expand the chemical choice you need to use the evolution ability\n\
+	"
 
 /datum/action/cooldown/borer/upgrade_chemical/Trigger(trigger_flags, atom/target)
 	. = ..()
@@ -75,6 +79,10 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	chemical_evo_points = 5
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Allows you to learn chemicals from blood at a much steeper price\n\
+	Does not work on certain chemicals whose mollecular complexity is too high\n\
+	"
 
 /datum/action/cooldown/borer/learn_bloodchemical/Trigger(trigger_flags, atom/target)
 	. = ..()

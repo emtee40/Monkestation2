@@ -11,6 +11,11 @@
 	button_icon_state = "chemical"
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "chemical"
+	ability_explanation = "\
+	This ability allows us to inject chemicals into our host.\n\
+	Our internal chemicals can be converted to human-compatible chemicals at a ratio of 2:1\n\
+	"
 
 /datum/action/cooldown/borer/inject_chemical/Trigger(trigger_flags, atom/target)
 	. = ..()

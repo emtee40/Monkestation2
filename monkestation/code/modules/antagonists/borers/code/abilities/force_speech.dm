@@ -4,6 +4,9 @@
 	button_icon_state = "speak"
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Forces your host to speak any words you desire.\
+	"
 
 /datum/action/cooldown/borer/force_speak/Trigger(trigger_flags, atom/target)
 	. = ..()

@@ -4,6 +4,10 @@
 	button_icon_state = "blood"
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Allows you to check your host's health\n\
+	Additionally you will be able to taste the host's chemicals and measure them acuratelly\n\
+	"
 
 /datum/action/cooldown/borer/check_blood/Trigger(trigger_flags, atom/target)
 	. = ..()

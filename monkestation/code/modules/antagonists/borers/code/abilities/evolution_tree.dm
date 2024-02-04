@@ -1,6 +1,13 @@
 /datum/action/cooldown/borer/evolution_tree
 	name = "Open Evolution Tree"
 	button_icon_state = "newability"
+	ability_explanation = "\
+	Allows you to evolve essential to survive abilities.\n\
+	Beware, as evolving a tier 3 path will lock you out of all other tier 3 paths.\n\
+	- The Diveworm path focuses on killing hosts, and making eggs in their corpses.\n\
+	- The Hivelord path focuses on making lots of eggs.\n\
+	- The Symbiote path focuses on helping their host, for mutual benefit.\n\
+	"
 
 /datum/action/cooldown/borer/evolution_tree/Trigger(trigger_flags, atom/target)
 	. = ..()

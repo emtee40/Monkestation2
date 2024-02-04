@@ -4,6 +4,10 @@
 	stat_evo_points = 1
 	requires_host = TRUE
 	sugar_restricted = TRUE
+	ability_explanation = "\
+	Lets you become stronger in exchange for an evolution point\n\
+	Your maximum health, regeneration, chemical storage and chemical regeneration will all be faster\n\
+	"
 
 /datum/action/cooldown/borer/upgrade_stat/Trigger(trigger_flags, atom/target)
 	. = ..()

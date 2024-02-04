@@ -8,6 +8,10 @@
 	button_icon_state = "reproduce"
 	chemical_cost = 100
 	needs_living_host = TRUE
+	ability_explanation = "\
+	Forces your host to produce a borer egg inside of their stomach, then vomit it up\n\
+	Be carefull as the egg is fragile and can be broken very easily by any human, along with being extremelly noticable\n\
+	"
 
 /datum/action/cooldown/borer/produce_offspring/Trigger(trigger_flags, atom/target)
 	. = ..()
@@ -78,6 +82,10 @@
 	chemical_cost = 150
 	requires_host = TRUE
 	needs_dead_host = TRUE
+	ability_explanation = "\
+	Implants an egg onto a dead host, the egg will take 3 minutes to hatch and will die if the host gets revived\n\
+	If the egg hatches, a massivelly stronger than normal borer will be created. Surpassing all others.\n\
+	"
 
 /datum/action/cooldown/borer/empowered_offspring/Trigger(trigger_flags, atom/target)
 	. = ..()

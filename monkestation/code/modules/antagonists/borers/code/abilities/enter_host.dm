@@ -3,6 +3,15 @@
 	name = "Inhabit/Uninhabit Host"
 	cooldown_time = 10 SECONDS
 	button_icon_state = "host"
+	ability_explanation = "\
+	Using this ability we can eighter enter or exit a host.\n\
+	Whilst leaving a host, they cannot have sugar within them and we require to be carefull in order to not immediatelly get squished.\n\
+	Going inside of a host will usually take 6 seconds if we are not a hivelord, we must take causion for the host to not move.\n\
+	Whilst going inside of a host we require the following:\n\
+	- they must not have one of us within them\n\
+	- they must be of compatible species\n\
+	- and they must not have helmets designed against us\n\
+	"
 
 /datum/action/cooldown/borer/choosing_host/Trigger(trigger_flags, atom/target)
 	. = ..()

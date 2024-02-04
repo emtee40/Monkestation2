@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	var/chem_regen_per_level = 1
 
 	///the list of actions that the borer has
-	var/list/known_abilities = list(
+	var/list/datum/action/cooldown/borer/known_abilities = list(
 		/datum/action/cooldown/borer/toggle_hiding,
 		/datum/action/cooldown/borer/choosing_host,
 		/datum/action/cooldown/borer/evolution_tree,

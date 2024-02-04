@@ -7,6 +7,10 @@
 	requires_host = TRUE
 	sugar_restricted = TRUE
 	needs_dead_host = TRUE
+	ability_explanation = "\
+	Halfs all the damage, including organ damage that your host has. Then defiblirates their heart\n\
+	You may need to use this ability multiple times depending on how badly your host is damaged\n\
+	"
 
 /datum/action/cooldown/borer/revive_host/Trigger(trigger_flags, atom/target)
 	. = ..()

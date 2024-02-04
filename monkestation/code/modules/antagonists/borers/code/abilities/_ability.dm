@@ -2,6 +2,8 @@
 /datum/action/cooldown/borer
 	button_icon = 'monkestation/code/modules/antagonists/borers/icons/actions.dmi'
 	cooldown_time = 0
+	/// Text used to explain the ability more closelly in the antagonist TGUI panel
+	var/ability_explanation = ""
 
 	/// How many chemicals this costs
 	var/chemical_cost = 0
@@ -24,10 +26,10 @@
 	var/compiled_string = ""
 	if(chemical_cost)
 		compiled_string += "([chemical_cost] chemical[chemical_cost == 1 ? "" : "s"])"
-	if(chemical_evo_points)
-		compiled_string += " ([chemical_evo_points] chemical point[chemical_evo_points == 1 ? "" : "s"])"
 	if(stat_evo_points)
 		compiled_string += " ([stat_evo_points] stat point[stat_evo_points == 1 ? "" : "s"])"
+	if(chemical_evo_points)
+		compiled_string += " ([chemical_evo_points] chemical point[chemical_evo_points == 1 ? "" : "s"])"
 	name = "[initial(name)][compiled_string]"
 
 /datum/action/cooldown/borer/Trigger(trigger_flags, atom/target)
@@ -65,3 +67,13 @@
 		return FALSE
 
 	return . == FALSE ? FALSE : TRUE //. can be null, true, or false. There's a difference between null and false here
+
+/datum/asset/simple/borer_icons
+
+/datum/asset/simple/borer_icons/register()
+	for(var/datum/action/cooldown/borer/ability as anything in subtypesof(/datum/action/cooldown/borer))
+		add_borer_icon(initial(ability.button_icon), initial(ability.button_icon_state))
+	return ..()
+
+/datum/asset/simple/borer_icons/proc/add_borer_icon(borer_icon, borer_icon_state)
+	assets[SANITIZE_FILENAME("borer.[borer_icon_state].png")] = icon(borer_icon, borer_icon_state)
