@@ -18,7 +18,7 @@
 	ambient_buzz_vol = 20
 
 //Maintenance - Departmental
-//a
+
 /area/station/maintenance/department/chapel
 	name = "Chapel Maintenance"
 	icon_state = "maint_chapel"
