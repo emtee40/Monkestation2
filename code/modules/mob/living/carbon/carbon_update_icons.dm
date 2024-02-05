@@ -64,7 +64,7 @@
 			update_worn_oversuit()
 		if(OFFSET_NECK)
 			update_worn_neck()
-		if(OFFSET_HANDS)
+		if(OFFSET_HELD)
 			update_held_items()
 
 //IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.

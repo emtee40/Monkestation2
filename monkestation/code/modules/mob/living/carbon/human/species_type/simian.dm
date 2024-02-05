@@ -5,16 +5,11 @@
 
 	bodytype = BODYTYPE_CUSTOM
 
-	species_traits = list(
-		EYECOLOR,
-		LIPS,
-		NO_UNDERWEAR,
-		SPECIES_FUR,
-		)
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_VAULTING,
 		TRAIT_KLEPTOMANIAC,
-		TRAIT_MONKEYFRIEND
+		TRAIT_MONKEYFRIEND,
 		)
 
 	use_skintones = FALSE
@@ -41,9 +36,6 @@
 		LOADOUT_ITEM_BELT = SIMIAN_BELT_ICON,
 		LOADOUT_ITEM_MISC = SIMIAN_BACK_ICON,
 	)
-	offset_features = list(
-		OFFSET_HANDS = list(0,3),
-		)
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/simian,
