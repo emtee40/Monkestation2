@@ -67,9 +67,10 @@
 		var/turf/vent_turf = get_turf(pick(vents))
 		var/mob/living/basic/cortical_borer/spawned_cb = new /mob/living/basic/cortical_borer(vent_turf)
 		spawned_cb.ckey = new_borer.ckey
-		spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/default)
+		spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)
 		announce_to_ghosts(spawned_cb)
 		message_admins("[ADMIN_LOOKUPFLW(spawned_cb)] has been made into a borer by an event.")
+		log_game("STORYTELLER: [key_name(new_borer)] was spawned as a borer by the storyteller.")
 		to_chat(spawned_cb, span_warning("You are a cortical borer! You can fear someone to make them stop moving, but make sure to inhabit them! You only grow/heal/talk when inside a host!"))
 
 /datum/dynamic_ruleset/midround/from_ghosts/cortical_borer

@@ -4,7 +4,12 @@
 			as this one contains a borer trained to assist anyone who it first sees in completing their goals."
 	icon = 'monkestation/code/modules/antagonists/borers/icons/items.dmi'
 	icon_state = "cage"
-	var/opened = FALSE // used purelly for sprite manipulation
+	/// Used to animate the cage opening when you use the borer spawner, and closing if it fails to spawn a borer. Also midly against spam
+	var/opened = FALSE
+	/// Toggles if the borer spawner should be delayed or not, if this gets a value if will use that value to delay (for example: 5 SECONDS)
+	var/delayed = FALSE
+	/// Dictates the poll time
+	var/polling_time = 10 SECONDS
 
 /obj/item/neutered_borer_spawner/Initialize(mapload)
 	. = ..()
@@ -18,22 +23,38 @@
 	else
 		. += "doors_closed"
 
+/obj/item/neutered_borer_spawner/proc/do_wriggler_messages()
+	if(!opened) // there were no candidates at all somehow, probably tests on local. Lets not give messages after the fail message comes up
+		return
+	sleep(polling_time * 0.2)
+	visible_message(span_notice("The borer seems to have woken up"))
+	sleep(polling_time * 0.2)
+	visible_message(span_notice("The borer has perked up their head, finally noticing the opened cage..."))
+	sleep(polling_time * 0.2)
+	visible_message(span_notice("The borer seems to slither cautiously to the cage entrance..."))
+	sleep(polling_time * 0.1)
+	visible_message(span_notice("The borer's head peeks outside of the cage..."))
+
 /obj/item/neutered_borer_spawner/attack_self(mob/living/user)
+	if(opened)
+		return
 	user.visible_message("[user] opens [src].", "You have opened the [src], awaiting for the borer to come out.", "You hear a metallic thunk.")
 	opened = TRUE
 	playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
+	if(delayed)
+		sleep(delayed)
+	INVOKE_ASYNC(src, PROC_REF(do_wriggler_messages)) // give them something to look at whilst we poll the ghosts
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
 		"Do you want to play as a neutered cortical borer?",
 		ROLE_BORER,
-		poll_time = 10 SECONDS
+		poll_time = polling_time
 	)
 	if(!LAZYLEN(candidates))
 		opened = FALSE
-		to_chat(user, "... After waiting the borer does not seem to come out, maybe try again a bit later?")
+		to_chat(user, "Yet the borer after looking at you quickly retreats back into their cage, visibly scared. Perhaps try later?")
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
 
 	var/mob/dead/observer/picked_candidate = pick(candidates)
-	visible_message("A borer wriggles out of the [src]!")
 
 	var/mob/living/basic/cortical_borer/neutered/new_mob = new(get_turf(src))
 	picked_candidate.mind.transfer_to(new_mob, TRUE)
@@ -52,6 +73,16 @@
 	borer_antagonist_datum.objectives += listen_objective
 
 	new_mob.mind.add_antag_datum(borer_antagonist_datum)
+
+	notify_ghosts(
+		"[new_mob] has been chosen from the ghost pool!",
+		source = new_mob,
+		action = NOTIFY_ORBIT,
+		header = "Someone just got a new friend!"
+	)
+	message_admins("[ADMIN_LOOKUPFLW(new_mob)] has been made into a borer via a traitor item used by [user]")
+	log_game("[key_name(new_borer)] was spawned as a borer by [key_name(user)]")
+	visible_message("A borer wriggles out of the [src]!")
 
 	new /obj/item/cortical_cage(get_turf(src))
 	QDEL_NULL(src)

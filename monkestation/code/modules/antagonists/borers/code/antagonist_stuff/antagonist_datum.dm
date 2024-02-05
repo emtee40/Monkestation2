@@ -1,13 +1,11 @@
 /datum/antagonist/cortical_borer
 	name = "Cortical Borer"
 	job_rank = ROLE_BORER
-	roundend_category = "cortical borers"
+	roundend_category = "enslaved cortical borers" // may look a bit confusing, but these borers are not a part of a hivemind. So they are probably enslaved
 	antagpanel_category = "Cortical Borers"
 	ui_name = "AntagInfoBorer"
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
-	/// The team of borers
-	var/datum/team/cortical_borers/borers
 	/// Our linked borer, used for the antagonist panel TGUI
 	var/mob/living/basic/cortical_borer/cortical_owner
 
@@ -37,7 +35,7 @@
 	var/turf/vent_turf = get_turf(pick(vents))
 	var/mob/living/basic/cortical_borer/spawned_cb = new(vent_turf)
 	spawned_cb.ckey = new_borer.ckey
-	spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/default)
+	spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)
 	notify_ghosts(
 		"Someone has become a borer due to spending an antag token ([spawned_cb])!",
 		source = spawned_cb,
@@ -55,27 +53,12 @@
 /datum/antagonist/cortical_borer/get_preview_icon()
 	return finish_preview_icon(icon('monkestation/code/modules/antagonists/borers/icons/animal.dmi', "brainslug"))
 
-/datum/antagonist/cortical_borer/get_team()
-	return borers
+/datum/antagonist/cortical_borer/hivemind
+	roundend_category = "cortical borers"
+	/// The team of borers
+	var/datum/team/cortical_borers/borers
 
-/datum/antagonist/cortical_borer/create_team(datum/team/cortical_borers/new_team)
-	if(!new_team)
-		for(var/datum/antagonist/cortical_borer/borer in GLOB.antagonists)
-			if(!borer.owner)
-				stack_trace("Antagonist datum without owner in GLOB.antagonists: [borer]")
-				continue
-			if(borer.borers)
-				borers = borer.borers
-				return
-		borers = new /datum/team/cortical_borers
-		return
-	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
-	borers = new_team
-
-/datum/antagonist/cortical_borer/default
-
-/datum/antagonist/cortical_borer/default/forge_objectives()
+/datum/antagonist/cortical_borer/hivemind/forge_objectives()
 	var/datum/objective/custom/borer_objective_produce_eggs = new
 	borer_objective_produce_eggs.explanation_text = "we require [GLOB.objective_egg_borer_number] different borers to produce [GLOB.objective_egg_egg_number] eggs to make sure our hive can spread widelly for increasing our chances of survival"
 
@@ -88,6 +71,24 @@
 	objectives += borer_objective_produce_eggs
 	objectives += borer_objective_willing_hosts
 	objectives += borer_objective_learn_chemicals
+
+/datum/antagonist/cortical_borer/hivemind/create_team(datum/team/cortical_borers/new_team)
+	if(!new_team)
+		for(var/datum/antagonist/cortical_borer/hivemind/borer in GLOB.antagonists)
+			if(!borer.owner)
+				stack_trace("Antagonist datum without owner in GLOB.antagonists: [borer]")
+				continue
+			if(borer.borers)
+				borers = borer.borers
+				return
+		borers = new /datum/team/cortical_borers
+		return
+	if(!istype(new_team))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	borers = new_team
+
+/datum/antagonist/cortical_borer/hivemind/get_team()
+	return borers
 
 /datum/antagonist/cortical_borer/ui_static_data(mob/user)
 	var/list/data = list()

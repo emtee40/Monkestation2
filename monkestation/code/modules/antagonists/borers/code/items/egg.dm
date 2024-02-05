@@ -39,7 +39,7 @@
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/special(mob/living/spawned_mob, mob/mob_possessor)
 	. = ..()
-	spawned_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer/default)
+	spawned_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)
 	if(generation == 0)
 		//The first ever borer gets a special name
 		spawned_mob.name = "The hivequeen cortical borer"
