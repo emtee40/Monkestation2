@@ -81,7 +81,7 @@
 		header = "Someone just got a new friend!"
 	)
 	message_admins("[ADMIN_LOOKUPFLW(new_mob)] has been made into a borer via a traitor item used by [user]")
-	log_game("[key_name(new_borer)] was spawned as a borer by [key_name(user)]")
+	log_game("[key_name(new_mob)] was spawned as a borer by [key_name(user)]")
 	visible_message("A borer wriggles out of the [src]!")
 
 	new /obj/item/cortical_cage(get_turf(src))
