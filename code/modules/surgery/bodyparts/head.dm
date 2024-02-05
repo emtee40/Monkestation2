@@ -78,6 +78,11 @@
 	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
 	var/stored_lipstick_trait
 
+	/// Draw this head as "debrained"
+	VAR_PROTECTED/show_debrained = FALSE
+	/// Draw this head as missing eyes
+	VAR_PROTECTED/show_eyeless = FALSE
+
 	/// Offset to apply to equipment worn on the ears
 	var/datum/worn_feature_offset/worn_ears_offset
 	/// Offset to apply to equipment worn on the eyes
