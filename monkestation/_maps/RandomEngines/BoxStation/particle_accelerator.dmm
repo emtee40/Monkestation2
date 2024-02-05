@@ -1,9 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"am" = (
-/obj/machinery/light/small/directional/north,
-/obj/machinery/power/energy_accumulator/grounding_rod,
-/turf/open/floor/plating/airless,
-/area/station/engineering/main)
 "aD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -24,17 +19,20 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "cp" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Engineering - Station Particle Accelerator, Northwest";
-	name = "engineering camera"
+/obj/machinery/camera/emp_proof/directional/north{
+	c_tag = "Engineering - Station Particle Accelerator, Northeast";
+	name = "engineering camera";
+	dir = 9
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cA" = (
-/obj/machinery/light/small/directional/south,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/machinery/camera/emp_proof/directional/south{
+	name = "engineering camera";
+	c_tag = "Engineering - Station Particle Accelerator, Southeast"
+	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/main)
+/area/space/nearstation)
 "dc" = (
 /obj/effect/turf_decal/bot_white,
 /obj/structure/cable/multilayer/connected,
@@ -50,19 +48,15 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "fX" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 10
 	},
-/obj/machinery/door/airlock/external{
-	name = "Engine Access Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+/obj/machinery/button/door/directional/west{
+	id = "engine_storage";
+	name = "Engine Storage Control";
+	req_access = list("engineering")
 	},
 /obj/structure/cable/layer1,
-/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "ge" = (
@@ -90,6 +84,12 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "gV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/door/poddoor{
 	id = "engine_storage";
 	name = "Engine Storage"
@@ -108,12 +108,13 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "hr" = (
-/obj/machinery/light/small/directional/south,
-/obj/machinery/power/rad_collector,
+/obj/machinery/camera/emp_proof/directional/west{
+	c_tag = "Engineering - Station Particle Accelerator, West";
+	name = "engineering camera"
+	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/main)
+/area/space/nearstation)
 "hA" = (
-/obj/machinery/light/directional/west,
 /obj/structure/sign/warning/directional/west,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -123,11 +124,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
-"hJ" = (
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "iV" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -162,7 +158,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "ks" = (
-/obj/machinery/light/directional/south,
 /obj/structure/sign/warning/directional/south,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -171,11 +166,6 @@
 /obj/structure/cable/layer1,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"kI" = (
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "kV" = (
 /obj/item/stack/cable_coil,
 /turf/open/floor/plating,
@@ -205,11 +195,6 @@
 /obj/structure/particle_accelerator/power_box,
 /turf/open/floor/plating,
 /area/station/engineering/main)
-"mS" = (
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "na" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -226,10 +211,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
-"nd" = (
-/obj/structure/cable/multilayer/connected,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "nl" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating/airless,
@@ -252,12 +233,11 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "pQ" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/sign/warning/vacuum/external/directional/south,
-/obj/machinery/light/floor/has_bulb,
+/obj/machinery/light/directional/north,
+/obj/structure/sign/warning/vacuum/external/directional/north,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "pW" = (
@@ -303,25 +283,10 @@
 	},
 /turf/open/floor/plating/airless,
 /area/station/engineering/main)
-"ti" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "tq" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 6
 	},
-/obj/machinery/door/airlock/external{
-	name = "Engine Access Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "tJ" = (
@@ -404,12 +369,6 @@
 /obj/structure/cable/multilayer/connected,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
-"xL" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "xR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -468,23 +427,26 @@
 "AW" = (
 /turf/open/floor/plating/airless,
 /area/station/engineering/main)
-"Cd" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "Cq" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "Cs" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	name = "Engine Access Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /obj/structure/cable/layer1,
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/station/engineering/main)
 "CY" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -517,10 +479,17 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "El" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/structure/closet/emcloset/anchored,
+/obj/machinery/door/airlock/external{
+	name = "Engine Access Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "Fj" = (
@@ -569,14 +538,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"Hs" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/light/directional/north,
-/obj/structure/sign/warning/electric_shock/directional/north,
-/obj/structure/cable,
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "HB" = (
 /obj/structure/table,
 /turf/open/floor/iron/dark,
@@ -619,13 +580,8 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "Lo" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/button/door/directional/west{
-	id = "engine_storage";
-	name = "Engine Storage Control";
-	req_access = list("engineering")
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /obj/structure/cable/layer1,
 /turf/open/floor/plating,
@@ -636,13 +592,6 @@
 /obj/item/crowbar/red,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"Mz" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Engineering - Station Particle Accelerator, Northeast";
-	name = "engineering camera"
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "MB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -672,7 +621,7 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "NU" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/plating/airless,
 /area/station/engineering/main)
 "NW" = (
@@ -703,12 +652,6 @@
 "PG" = (
 /turf/closed/wall/r_wall,
 /area/station/engineering/main)
-"QL" = (
-/obj/structure/cable/layer1,
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "QT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -723,15 +666,8 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "RH" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering - Station Particle Accelerator, Southeast";
-	name = "engineering camera"
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
-"RP" = (
-/obj/machinery/camera/directional/south{
-	c_tag = "Engineering - Station Particle Accelerator, Southwest";
+/obj/machinery/camera/emp_proof/directional/east{
+	c_tag = "Engineering - Station Particle Accelerator, East";
 	name = "engineering camera"
 	},
 /turf/open/floor/plating/airless,
@@ -773,13 +709,6 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/plating,
 /area/station/engineering/main)
-"WZ" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/structure/closet/emcloset/anchored,
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "Xr" = (
 /obj/machinery/particle_accelerator/control_box,
 /obj/structure/cable,
@@ -790,7 +719,6 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "Zm" = (
-/obj/machinery/light/directional/east,
 /obj/structure/sign/warning/directional/east,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -800,11 +728,6 @@
 "Zx" = (
 /turf/closed/wall/r_wall,
 /area/station/maintenance/department/engine)
-"ZA" = (
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "ZH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -812,9 +735,13 @@
 /turf/open/floor/plating,
 /area/station/engineering/main)
 "ZW" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/camera/emp_proof/directional/south{
+	name = "engineering camera";
+	c_tag = "Engineering - Station Particle Accelerator, Southeast";
+	dir = 5
+	},
 /turf/open/floor/plating/airless,
-/area/station/engineering/main)
+/area/space/nearstation)
 
 (1,1,1) = {"
 PG
@@ -890,8 +817,8 @@ PG
 vZ
 vZ
 AW
-HF
-HF
+NU
+NU
 PG
 GW
 GW
@@ -915,11 +842,11 @@ wX
 wX
 wX
 PG
-am
+vZ
 vZ
 AW
-HF
-hr
+NU
+NU
 PG
 GW
 GW
@@ -946,8 +873,8 @@ PG
 nl
 nl
 AW
-HF
-HF
+NU
+NU
 PG
 GW
 GW
@@ -974,8 +901,8 @@ PG
 sX
 sX
 AW
-NU
-NU
+HF
+HF
 PG
 GW
 GW
@@ -999,11 +926,11 @@ wX
 GW
 GW
 PG
-ZW
 AW
 AW
-NU
-cA
+AW
+HF
+HF
 PG
 GW
 GW
@@ -1030,8 +957,8 @@ PG
 AW
 AW
 AW
-NU
-NU
+HF
+HF
 PG
 GW
 GW
@@ -1075,8 +1002,8 @@ zF
 Cq
 PG
 FH
+FH
 PG
-Zp
 Zp
 Zp
 Zp
@@ -1085,7 +1012,7 @@ Zp
 hA
 Zp
 Zp
-Zp
+hr
 Zp
 Zp
 hA
@@ -1104,7 +1031,7 @@ bj
 PG
 PG
 PG
-Zp
+PG
 Zp
 Zp
 Zp
@@ -1132,7 +1059,7 @@ kH
 tQ
 Lo
 fX
-di
+Cs
 di
 di
 HP
@@ -1159,9 +1086,9 @@ kr
 rD
 PG
 pQ
+pW
 PG
 cp
-Zp
 Zp
 HP
 Zp
@@ -1177,7 +1104,7 @@ Zp
 Zp
 HP
 Zp
-RP
+Zp
 PG
 "}
 (14,1,1) = {"
@@ -1186,26 +1113,26 @@ Hj
 kr
 Px
 PG
-WZ
+Nd
+tq
 PG
-Hs
-nd
-di
-HP
-Zp
-Zp
-zZ
-Zp
-mS
-xL
-mS
-Zp
-zZ
 Zp
 Zp
 HP
 Zp
 Zp
+zZ
+Zp
+VS
+HP
+VS
+Zp
+zZ
+Zp
+Zp
+HP
+Zp
+ZW
 PG
 "}
 (15,1,1) = {"
@@ -1277,7 +1204,7 @@ Zp
 Zp
 HP
 Zp
-hJ
+VS
 sM
 Zp
 wX
@@ -1285,7 +1212,7 @@ wX
 wX
 Zp
 YE
-kI
+VS
 Zp
 HP
 Zp
@@ -1305,7 +1232,7 @@ VS
 VS
 HP
 di
-Cs
+HP
 dc
 wX
 wX
@@ -1313,7 +1240,7 @@ Ds
 wX
 wX
 dc
-QL
+HP
 di
 HP
 Zp
@@ -1333,7 +1260,7 @@ Zp
 Zp
 HP
 Zp
-hJ
+VS
 YE
 Zp
 wX
@@ -1341,7 +1268,7 @@ wX
 wX
 Zp
 sM
-kI
+VS
 Zp
 HP
 Zp
@@ -1410,26 +1337,26 @@ Rw
 qo
 Px
 PG
-El
+Fj
+xj
 PG
-Hs
-nd
-di
-HP
-Zp
-Zp
-yD
-Zp
-ZA
-Cd
-ZA
-Zp
-yD
 Zp
 Zp
 HP
 Zp
 Zp
+yD
+Zp
+VS
+HP
+VS
+Zp
+yD
+Zp
+Zp
+HP
+Zp
+cA
 PG
 "}
 (23,1,1) = {"
@@ -1439,8 +1366,8 @@ qo
 rD
 PG
 pQ
+pW
 PG
-Mz
 Zp
 Zp
 HP
@@ -1457,7 +1384,7 @@ Zp
 Zp
 HP
 Zp
-RH
+Zp
 PG
 "}
 (24,1,1) = {"
@@ -1466,9 +1393,9 @@ Fz
 TF
 Fz
 DP
-ti
+Nd
 tq
-Zp
+El
 Zp
 Zp
 HP
@@ -1496,7 +1423,7 @@ SB
 PG
 PG
 PG
-Zp
+PG
 Zp
 Zp
 Zp
@@ -1523,8 +1450,8 @@ zk
 nN
 Zx
 FH
+FH
 PG
-Zp
 Zp
 Zp
 Zp
@@ -1533,7 +1460,7 @@ Zp
 Zm
 Zp
 Zp
-Zp
+RH
 Zp
 Zp
 Zm
