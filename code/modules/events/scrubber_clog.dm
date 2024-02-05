@@ -242,7 +242,6 @@
 /datum/round_event/scrubber_clog/flood/get_mob()
 	var/static/list/mob_list = list(
 		/mob/living/basic/bee,
-		/mob/living/basic/bee/toxin,
 	)
 	return pick(mob_list)
 
