@@ -7,3 +7,5 @@
 #define FACIAL_HAIR_COLOR "facial_hair_color"
 /// Color of the sprite accessory will match the owner's (left) eye color
 #define EYE_COLOR "eye_color"
+/// Monkestation Addition: Color of the sprite accessory will match the owner's secondary mutant color, which is granted by certain species
+#define MUTANT_COLOR_SECONDARY "mutant_color_secondary"

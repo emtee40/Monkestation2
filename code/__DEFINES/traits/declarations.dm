@@ -143,8 +143,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOOD_CLANS "blood_clans"
 /// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
 #define TRAIT_HAS_MARKINGS "has_markings"
+/// Monkestation Addition: Species with this trait use fur colors for coloration
+#define TRAIT_FUR_COLORS "fur_colors"
 /// Species with this trait have mutant colors
 #define TRAIT_MUTANT_COLORS "mutcolors"
+/// Species with this trait have a secondary mutant color
+#define TRAIT_MUTANT_COLORS_SECONDARY "secondary_mutcolors"
 /// Species with this trait have mutant colors that cannot be chosen by the player
 #define TRAIT_FIXED_MUTANT_COLORS "fixed_mutcolors"
 /// Humans with this trait won't get bloody hands, nor bloody feet

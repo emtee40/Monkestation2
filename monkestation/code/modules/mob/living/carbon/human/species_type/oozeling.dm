@@ -4,12 +4,8 @@
 	id = SPECIES_OOZELING
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,FACEHAIR,
-		)
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_TOXINLOVER,
 		TRAIT_NOFIRE,
 		//TRAIT_ALWAYS_CLEAN,
@@ -17,7 +13,7 @@
 		TRAIT_NOBLOOD,
 		)
 
-	hair_color = "mutcolor"
+	hair_color = MUTANT_COLOR
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/internal/lungs/oozeling
 	mutanttongue = /obj/item/organ/internal/tongue/oozeling

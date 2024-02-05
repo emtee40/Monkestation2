@@ -3,14 +3,12 @@
 	plural_form = "Florans"
 	id = SPECIES_FLORAN
 	sexes = FALSE
-	species_traits = list(
-		MUTCOLORS,
-		MUTCOLORS_SECONDARY,
-		NO_UNDERWEAR,
-	)
 	inherent_traits = list(
 		TRAIT_PLANT_SAFE,
 		TRAIT_NO_JUMPSUIT,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_MUTANT_COLORS_SECONDARY,
+		TRAIT_NO_UNDERWEAR,
 	)
 	external_organs = list(
 		/obj/item/organ/external/pod_hair = "None",

@@ -4,19 +4,14 @@
 	id = SPECIES_GOBLIN
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	sexes = TRUE
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR
-	)
 	inherent_traits = list(
 		TRAIT_DWARF,
 		TRAIT_QUICK_BUILD,
 		TRAIT_EASILY_WOUNDED,
 		TRAIT_NIGHT_VISION,
-		TRAIT_FREERUNNING
+		TRAIT_FREERUNNING,
 		// TRAIT_pickpocketing?
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	external_organs = list(

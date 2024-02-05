@@ -834,7 +834,7 @@
 
 /obj/item/flashlight/eyelight/glow
 	light_system = MOVABLE_LIGHT_BEAM
-	light_range = 4
+	light_outer_range = 4
 	light_power = 2
 
 #undef FAILURE

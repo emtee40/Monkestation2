@@ -65,7 +65,7 @@
 	var/use_static
 	/**
 	 * Currently only used by mutantparts so don't worry about hair and stuff.
-	 * This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	 * This is the source that this accessory will get its color from. Default is MUTANT_COLOR, but can also be HAIR, FACEHAIR, EYECOLOR, MUTANT_COLOR_SECONDARY and 0 if none.
 	 */
 	var/color_src = MUTANT_COLOR
 	/// Decides if this sprite has an "inner" part, such as the fleshy parts on ears.

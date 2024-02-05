@@ -1,6 +1,6 @@
 /datum/sprite_accessory/ipc_antennas
 	icon = 'monkestation/icons/mob/species/ipc/ipc_antennas.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTANT_COLOR
 
 /datum/sprite_accessory/ipc_antennas/none
 	name = "None"

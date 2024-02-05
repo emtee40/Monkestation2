@@ -1,7 +1,5 @@
 
 // The proc you should always use to set the light of this atom.
-// Nonesensical value for l_color default, so we can detect if it gets set to null.
-#define NONSENSICAL_VALUE -99999
 /atom/proc/set_light(l_outer_range, l_inner_range, l_power, l_falloff_curve = LIGHTING_DEFAULT_FALLOFF_CURVE, l_color = NONSENSICAL_VALUE, l_on)
 	if(!isnum(l_power) && !isnull(l_power))
 		return

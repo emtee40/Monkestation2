@@ -4,16 +4,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	sexes = FALSE
 
-	species_traits = list(
-		NO_DNA_COPY,
-		EYECOLOR,
-		LIPS,
-		HAIR,
-		NOEYESPRITES,
-		NOTRANSSTING,
-		NOHUSK
-	)
-
 	inherent_traits = list(
 		TRAIT_ROBOT_CAN_BLEED,
 		TRAIT_CAN_STRIP,
@@ -29,6 +19,9 @@
 		TRAIT_GENELESS,
 		TRAIT_LITERATE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_UNHUSKABLE,
 	)
 
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
@@ -276,5 +269,5 @@
 		BP.limb_id = chassis_of_choice.icon_state
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
 		BP.update_limb()
-		if(chassis_of_choice.color_src == MUTCOLORS)
+		if(chassis_of_choice.color_src == MUTANT_COLOR)
 			BP.should_draw_greyscale = TRUE

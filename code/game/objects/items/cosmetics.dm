@@ -170,7 +170,7 @@
 		to_chat(user, span_warning("[human_target] doesn't have a head!"))
 		return
 	if(location == BODY_ZONE_PRECISE_MOUTH)
-		if(!user.istate & ISTATE_HARM)
+		if(!(user.istate & ISTATE_HARM))
 			if(human_target.gender == MALE)
 				if(human_target == user)
 					to_chat(user, span_warning("You need a mirror to properly style your own facial hair!"))
@@ -224,7 +224,7 @@
 					shave(human_target, location)
 				return
 	else if(location == BODY_ZONE_HEAD)
-		if(!user.istate & ISTATE_HARM)
+		if(!(user.istate & ISTATE_HARM))
 			if(human_target == user)
 				to_chat(user, span_warning("You need a mirror to properly style your own hair!"))
 				return

@@ -473,7 +473,7 @@
 		right = current_right_color_string,
 	)
 	data["lightColor"] = current_color_string
-	data["range"] = eye.light_range
+	data["range"] = eye.light_outer_range
 
 	return data
 
@@ -524,7 +524,7 @@
  */
 /obj/item/organ/internal/eyes/robotic/glow/proc/activate()
 	eye.on = TRUE
-	if(eye.light_range) // at range 0 we are just going to make the eyes glow emissively, no light overlay
+	if(eye.light_outer_range) // at range 0 we are just going to make the eyes glow emissively, no light overlay
 		eye.set_light_on(TRUE)
 	update_mob_eyes_overlay()
 
@@ -565,7 +565,7 @@
  * * new_range - the new range to set
  */
 /obj/item/organ/internal/eyes/robotic/glow/proc/set_beam_range(new_range)
-	var/old_light_range = eye.light_range
+	var/old_light_range = eye.light_outer_range
 	if(old_light_range == 0 && new_range > 0 && eye.on) // turn bring back the light overlay if we were previously at 0 (aka emissive eyes only)
 		eye.light_on = FALSE // this is stupid, but this has to be FALSE for set_light_on() to work.
 		eye.set_light_on(TRUE)
