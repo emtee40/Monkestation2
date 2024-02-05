@@ -30,9 +30,12 @@
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.exit_stamina_stun()
 	human_owner.AdjustAllImmobility(-20 * seconds_per_tick)
-	human_owner.stamina.adjust(20)
+	human_owner.stamina.adjust(20, TRUE)
 	human_owner.adjustBruteLoss(-35)
 	human_owner.adjustFireLoss(-20, FALSE)
 	human_owner.adjustOxyLoss(-20)
 	human_owner.adjustToxLoss(-20)
 	human_owner.blood_volume = BLOOD_VOLUME_NORMAL
+	for(var/i in human_owner.all_wounds)
+		var/datum/wound/iter_wound = i
+		iter_wound.on_xadone(4 * REM * seconds_per_tick) // plasmamen use plasma to reform their bones or whatever
