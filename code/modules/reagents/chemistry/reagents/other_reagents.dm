@@ -338,49 +338,6 @@
 	to_chat(victim, span_notice("The salt water splashes over [lowertext(src)], soaking up the... miscellaneous fluids. It feels somewhat better afterwards."))
 	return
 
-/datum/reagent/water/salt
-	name = "Saltwater"
-	description = "Water, but salty. Smells like... the station infirmary?"
-	color = "#aaaaaa9d" // rgb: 170, 170, 170, 77 (alpha)
-	taste_description = "the sea"
-	cooling_temperature = 3
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_CLEANS
-	default_container = /obj/item/reagent_containers/cup/glass/waterbottle
-
-/datum/glass_style/shot_glass/water/salt
-	required_drink_type = /datum/reagent/water/salt
-	icon_state = "shotglassclear"
-
-/datum/glass_style/drinking_glass/water/salt
-	required_drink_type = /datum/reagent/water/salt
-	name = "glass of saltwater"
-	desc = "If you have a sore throat, gargle some saltwater and watch the pain go away. Can be used as a very improvised topical medicine against wounds."
-	icon_state = "glass_clear"
-
-/datum/reagent/water/salt/expose_mob(mob/living/exposed_mob, methods, reac_volume)
-	. = ..()
-	var/mob/living/carbon/carbies = exposed_mob
-	if(!(methods & (PATCH|TOUCH|VAPOR)))
-		return
-	for(var/datum/wound/iter_wound as anything in carbies.all_wounds)
-		iter_wound.on_saltwater(reac_volume, carbies)
-
-/datum/wound/pierce/bleed/on_saltwater(reac_volume, mob/living/carbon/carbies)
-	adjust_blood_flow(-0.06 * reac_volume, initial_flow * 0.6)
-	to_chat(carbies, span_notice("The salt water splashes over [lowertext(src)], soaking up the blood."))
-
-/datum/wound/slash/flesh/on_saltwater(reac_volume, mob/living/carbon/carbies)
-	adjust_blood_flow(-0.1 * reac_volume, initial_flow * 0.5)
-	to_chat(carbies, span_notice("The salt water splashes over [lowertext(src)], soaking up the blood."))
-
-/datum/wound/burn/flesh/on_saltwater(reac_volume)
-	// Similar but better stats from normal salt.
-	sanitization += VALUE_PER(0.6, 30) * reac_volume
-	infestation -= max(VALUE_PER(0.5, 30) * reac_volume, 0)
-	infestation_rate += VALUE_PER(0.07, 30) * reac_volume
-	to_chat(victim, span_notice("The salt water splashes over [lowertext(src)], soaking up the... miscellaneous fluids. It feels somewhat better afterwards."))
-	return
-
 /datum/reagent/water/holywater
 	name = "Holy Water"
 	description = "Water blessed by some deity."
@@ -1415,6 +1372,7 @@
 	var/clean_types = CLEAN_WASH
 	ph = 5.5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_CLEANS|REAGENT_AFFECTS_WOUNDS
+	turf_exposure = TRUE
 
 /datum/reagent/space_cleaner/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()

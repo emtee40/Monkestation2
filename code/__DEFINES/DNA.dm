@@ -41,7 +41,7 @@
 #define DNA_ANIME_BLOCK 4 // monke - anime block
 
 /// This number needs to equal the total number of DNA blocks
-#define DNA_FEATURE_BLOCKS 18 // monke - height block
+#define DNA_FEATURE_BLOCKS 16
 
 #define DNA_MUTANT_COLOR_BLOCK 1
 #define DNA_ETHEREAL_COLOR_BLOCK 2
@@ -59,7 +59,6 @@
 #define DNA_MUSHROOM_CAPS_BLOCK 14
 #define DNA_POD_HAIR_BLOCK 15
 #define DNA_MUTANT_COLOR_SECONDARY 16
-#define DNA_BODY_HEIGHT_BLOCK 17 // monke - height block
 
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8

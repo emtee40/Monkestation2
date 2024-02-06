@@ -509,6 +509,7 @@
 			simple_scanner.show_emotion(AID_EMOTION_WARN)
 			playsound(simple_scanner, 'sound/machines/twobeep.ogg', 50, FALSE)
 
+
 /obj/item/healthanalyzer/simple
 	name = "wound analyzer"
 	icon_state = "first_aid"
