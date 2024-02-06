@@ -1,4 +1,4 @@
-	/obj/item/organ/internal/stomach/golem
+/obj/item/organ/internal/stomach/golem
 	name = "silicate grinder"
 	icon_state = "stomach-p"
 	desc = "A rocklike organ which grinds and processes nutrition from minerals."

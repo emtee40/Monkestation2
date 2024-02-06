@@ -4,9 +4,10 @@
 	id = SPECIES_GOLEM_CLOCKWORK
 	meat = /obj/item/stack/sheet/bronze
 	fixed_mut_color = rgb(190, 135, 0)
-	info_text = "As a <span class='bigbrass'>Clockwork Golem</span>, most sriptures will take less time for you to invoke. You are also faster then most golems."
+	//I dont want to figure out if this is needed right now
+	/* info_text = "As a <span class='bigbrass'>Clockwork Golem</span>, most sriptures will take less time for you to invoke. You are also faster then most golems."
 	prefix = "Clockwork"
-	special_names = null
+	special_names = null */
 	examine_limb_id = SPECIES_GOLEM
 	damage_modifier = 70
 	///ref to our turf_healing component, used for deletion on_species_loss()

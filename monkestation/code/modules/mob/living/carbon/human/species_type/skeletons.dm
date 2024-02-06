@@ -11,7 +11,6 @@
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
 	inherent_traits = list(
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_EASYDISMEMBER,
 		TRAIT_FAKEDEATH,
 		TRAIT_GENELESS,
