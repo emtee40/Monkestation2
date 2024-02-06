@@ -773,8 +773,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 							accessory_overlay.color = source.facial_hair_color
 						if(EYE_COLOR)
 							accessory_overlay.color = source.eye_color_left
-						if(TRAIT_ANIME)
+						if(ANIME)
 							accessory_overlay.color = source.dna.features["animecolor"]
+						if(SKINTONE)
+							accessory_overlay.color = source.skin_tone
 				else
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay

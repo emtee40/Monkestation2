@@ -85,7 +85,7 @@
 
 	human_target.soul_sucked = TRUE
 
-	if(human_target.dna.species.use_skintones) // make them deathly white, afterall they dont have a soul anymore
+	if(HAS_TRAIT(human_target, TRAIT_USES_SKINTONES)) // make them deathly white, afterall they dont have a soul anymore
 		human_target.skin_tone = "albino"
 		human_target.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 	else // we dont discriminate, even skeletons can be white... (arent they already white?)
