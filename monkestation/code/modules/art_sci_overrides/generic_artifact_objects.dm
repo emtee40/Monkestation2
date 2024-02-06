@@ -53,9 +53,6 @@ ARTIFACT_SETUP(/obj/structure/artifact, SSobj)
 /obj/structure/artifact/vomit
 	assoc_comp = /datum/component/artifact/vomit
 
-/obj/structure/artifact/borger
-	assoc_comp = /datum/component/artifact/borger
-
 /obj/structure/artifact/emotegen
 	assoc_comp = /datum/component/artifact/emotegen
 

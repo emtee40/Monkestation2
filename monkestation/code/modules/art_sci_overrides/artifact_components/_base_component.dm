@@ -72,7 +72,7 @@
 	var/datum/artifact_fault/chosen_fault
 	///the amount of freebies we get
 	var/freebies = 3
-	///if we have a special examine IE borgers
+	///if we have a special examine
 	var/explict_examine
 
 /datum/component/artifact/Initialize(forced_origin = null)
