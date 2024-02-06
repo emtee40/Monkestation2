@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/reagent/toxin/heparin,
 		/datum/reagent/toxin/mindbreaker,
 	)
-	//blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
+	///blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
 	var/list/blacklisted_chemicals = list()
 
 	///how old the borer is, starting from zero. Goes up only when inside a host
