@@ -2196,6 +2196,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_fresh_body(mob/living/carbon/target)
 	target.create_bodyparts(bodypart_overrides)
 
+// Monkestation Addition: for species specific revivals
+/datum/species/proc/spec_revival(mob/living/carbon/human/H)
+	return
+// End Monkestation Addition
+
 /**
  * Checks if the species has a head with these head flags, by default.
  * Admittedly, this is a very weird and seemingly redundant proc, but it

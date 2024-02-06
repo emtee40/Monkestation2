@@ -188,10 +188,6 @@
 /datum/reagent/proc/on_burn_wound_processing(datum/wound/burn/flesh/burn_wound)
 	return
 
-/// Called in burns.dm *if* the reagent has the REAGENT_AFFECTS_WOUNDS process flag
-/datum/reagent/proc/on_burn_wound_processing(datum/wound/burn/flesh/burn_wound)
-	return
-
 /*
 Used to run functions before a reagent is transfered. Returning TRUE will block the transfer attempt.
 Primarily used in reagents/reaction_agents

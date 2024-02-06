@@ -473,11 +473,6 @@
 	infestation_rate = max(infestation_rate - 0.005, 0)
 	return TRUE
 
-// Different handling, different name.
-// Returns FALSE by default so broken bones and 'loss' wounds don't give a false message
-/datum/wound/proc/tea_life_process()
-	return FALSE
-
 // Slowly increase (gauzed) clot rate
 /datum/wound/pierce/bleed/tea_life_process()
 	gauzed_clot_rate += 0.1
@@ -494,11 +489,6 @@
 	flesh_healing = (flesh_healing > 0.1) ? flesh_healing : flesh_healing + 0.02
 	infestation_rate = max(infestation_rate - 0.005, 0)
 	return TRUE
-
-// Different handling, different name.
-// Returns FALSE by default so broken bones and 'loss' wounds don't give a false message
-/datum/wound/proc/tea_life_process()
-	return FALSE
 
 // Slowly increase (gauzed) clot rate
 /datum/wound/pierce/bleed/tea_life_process()
