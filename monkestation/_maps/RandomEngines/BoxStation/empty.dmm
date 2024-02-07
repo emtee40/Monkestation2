@@ -12,6 +12,11 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/main)
+"e" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/engineering/main)
 "f" = (
 /turf/template_noop,
 /area/template_noop)
@@ -27,20 +32,24 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engine Room"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/open/floor/iron/dark/textured,
 /area/station/engineering/main)
 "l" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Supermatter Engine Room"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Engineering Maintenance"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/textured,
+/turf/open/floor/plating,
 /area/station/engineering/main)
 "m" = (
 /obj/structure/lattice/catwalk,
@@ -80,8 +89,21 @@
 "B" = (
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
+"C" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Engineering Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/open/floor/plating,
+/area/station/engineering/main)
 "D" = (
 /obj/machinery/light/directional/north,
+/obj/machinery/airalarm/directional/north,
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "E" = (
@@ -90,7 +112,7 @@
 /area/station/engineering/main)
 "F" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Supermatter Engine Room"
+	name = "Engine Room"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/firedoor,
@@ -100,7 +122,9 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "J" = (
-/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engine Room"
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
@@ -113,6 +137,10 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured,
+/area/station/engineering/main)
+"K" = (
+/obj/structure/table,
+/turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "L" = (
 /obj/structure/grille,
@@ -127,6 +155,10 @@
 "N" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron,
+/area/station/engineering/main)
+"Q" = (
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "R" = (
 /turf/closed/wall/r_wall,
@@ -171,7 +203,7 @@ L
 L
 f
 f
-f
+m
 f
 f
 "}
@@ -199,13 +231,13 @@ h
 L
 f
 f
-f
+m
 f
 f
 "}
 (3,1,1) = {"
 R
-B
+Q
 M
 W
 R
@@ -227,13 +259,13 @@ h
 L
 f
 f
-f
+m
 f
 f
 "}
 (4,1,1) = {"
 R
-B
+K
 M
 B
 E
@@ -255,8 +287,8 @@ h
 L
 f
 f
-f
-f
+m
+m
 f
 "}
 (5,1,1) = {"
@@ -284,12 +316,12 @@ L
 f
 f
 f
-f
+m
 f
 "}
 (6,1,1) = {"
 R
-B
+K
 M
 B
 E
@@ -312,7 +344,7 @@ L
 f
 f
 f
-f
+m
 f
 "}
 (7,1,1) = {"
@@ -340,8 +372,8 @@ L
 f
 L
 L
-f
-f
+m
+m
 "}
 (8,1,1) = {"
 f
@@ -401,7 +433,7 @@ f
 "}
 (10,1,1) = {"
 f
-Y
+R
 J
 Z
 R
@@ -428,8 +460,8 @@ f
 f
 "}
 (11,1,1) = {"
-Y
-Y
+R
+R
 c
 a
 a
@@ -598,7 +630,7 @@ f
 (17,1,1) = {"
 F
 a
-c
+e
 a
 a
 a
@@ -626,7 +658,7 @@ A
 (18,1,1) = {"
 Y
 a
-c
+e
 a
 a
 a
@@ -654,7 +686,7 @@ f
 (19,1,1) = {"
 F
 a
-c
+e
 a
 a
 a
@@ -682,7 +714,7 @@ A
 (20,1,1) = {"
 R
 N
-c
+e
 a
 a
 a
@@ -710,7 +742,7 @@ f
 (21,1,1) = {"
 R
 a
-c
+a
 a
 a
 a
@@ -738,7 +770,7 @@ f
 (22,1,1) = {"
 Y
 a
-c
+a
 a
 a
 a
@@ -766,7 +798,7 @@ A
 (23,1,1) = {"
 Y
 a
-c
+a
 a
 a
 a
@@ -794,7 +826,7 @@ f
 (24,1,1) = {"
 R
 a
-c
+a
 a
 a
 a
@@ -820,9 +852,9 @@ L
 f
 "}
 (25,1,1) = {"
-Y
-Y
-c
+R
+R
+a
 t
 a
 a
@@ -849,7 +881,7 @@ A
 "}
 (26,1,1) = {"
 f
-Y
+R
 l
 z
 R
@@ -881,7 +913,7 @@ f
 f
 f
 f
-Y
+R
 a
 a
 a
@@ -909,7 +941,7 @@ f
 f
 f
 f
-F
+C
 a
 a
 a
