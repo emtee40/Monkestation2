@@ -21,7 +21,6 @@
 		TRAIT_NOFIRE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_RADIMMUNE,
-		TRAIT_NO_TRANSFORMATION_STING,
 		TRAIT_SNOWSTORM_IMMUNE, // Shared with plasma river... but I guess if you can survive a plasma river a blizzard isn't a big deal
 		TRAIT_UNHUSKABLE,
 	)

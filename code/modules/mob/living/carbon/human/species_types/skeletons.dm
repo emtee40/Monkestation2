@@ -23,7 +23,6 @@
 		TRAIT_XENO_IMMUNE,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutanttongue = /obj/item/organ/internal/tongue/bone
