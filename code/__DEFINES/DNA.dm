@@ -38,7 +38,6 @@
 #define DNA_HAIRSTYLE_BLOCK 7
 #define DNA_SKIN_TONE_BLOCK 3
 #define DNA_UNI_IDENTITY_BLOCKS 7
-#define DNA_ANIME_BLOCK 4 // monke - anime block
 
 /// This number needs to equal the total number of DNA blocks
 #define DNA_FEATURE_BLOCKS 16
