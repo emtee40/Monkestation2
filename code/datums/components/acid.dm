@@ -23,10 +23,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	var/parent_integrity = 30
 	/// How far the acid melting of turfs has progressed
 	var/stage = 0
-	/// Acid overlay appearance we apply
-	var/acid_overlay
-	/// The ambient sound of acid eating away at the parent [/atom].
-	var/datum/looping_sound/acid/sizzle
 	/// Particle holder for acid particles (sick)
 	var/obj/effect/abstract/particle_holder/particle_effect
 	/// The proc used to handle the parent [/atom] when processing. TODO: Unify damage and resistance flags so that this doesn't need to exist!
