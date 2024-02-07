@@ -15,6 +15,10 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	var/acid_volume
 	/// The maximum volume of acid on the parent [/atom].
 	var/max_volume = INFINITY
+	/// Acid overlay appearance we apply
+	var/acid_overlay
+	/// The ambiant sound of acid eating away at the parent [/atom].
+	var/datum/looping_sound/acid/sizzle
 	/// Used exclusively for melting turfs. TODO: Move integrity to the atom level so that this can be dealt with there.
 	var/parent_integrity = 30
 	/// How far the acid melting of turfs has progressed
@@ -28,32 +32,32 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	/// The proc used to handle the parent [/atom] when processing. TODO: Unify damage and resistance flags so that this doesn't need to exist!
 	var/datum/callback/process_effect
 
-/datum/component/acid/Initialize(acid_power = ACID_POWER_MELT_TURF, acid_volume = 50, acid_overlay = GLOB.acid_overlay, acid_particles = /particles/acid)
+/datum/component/acid/Initialize(acid_power = ACID_POWER_MELT_TURF, acid_volume = 50, acid_overlay = GLOB.acid_overlay)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-
-	// The parent object cannot have acid. Not incompatible, but should not really happen.
+	//not incompatible, but pointless
 	var/atom/atom_parent = parent
-	if(atom_parent.resistance_flags & UNACIDABLE)
+	if((acid_power) <= 0 || (acid_volume <= 0))
+		stack_trace("Acid component added to an atom ([atom_parent.type]) with insufficient acid power ([acid_power]) or acid volume ([acid_volume]).")
 		qdel(src)
 		return
 
-	//Not incompatible, but pointless
-	if((acid_power <= 0) || (acid_volume <= 0))
-		qdel(src)
-		stack_trace("Tried to add /datum/component/acid to an atom ([atom_parent.type]) with insufficient acid power ([acid_power]) or acid volume ([acid_volume]).")
-		return
 
 	if(isliving(parent))
-		src.max_volume = MOB_ACID_VOLUME_MAX
-		src.process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
+		max_volume = MOB_ACID_VOLUME_MAX
+		process_effect = CALLBACK(src, PROC_REF(process_mob), parent)
 	else if(isturf(parent))
-		src.max_volume = TURF_ACID_VOLUME_MAX
-		src.process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
+		max_volume = TURF_ACID_VOLUME_MAX
+		process_effect = CALLBACK(src, PROC_REF(process_turf), parent)
 	//if we failed all other checks, we must be an /atom/movable that uses integrity
 	else if(atom_parent.uses_integrity)
-		src.max_volume = MOVABLE_ACID_VOLUME_MAX
-		src.process_effect = CALLBACK(src, PROC_REF(process_movable), parent)
+		// The parent object cannot have acid. Not incompatible, but should not really happen.
+		if(atom_parent.resistance_flags & UNACIDABLE)
+			qdel(src)
+			return
+
+		max_volume = MOVABLE_ACID_VOLUME_MAX
+		process_effect = CALLBACK(src, PROC_REF(process_movable), parent)
 	//or not...
 	else
 		stack_trace("Tried to add /datum/component/acid to an atom ([atom_parent.type]) which does not use atom_integrity!")
