@@ -647,7 +647,8 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 /obj/item/rpd_upgrade
 	name = "RPD advanced design disk"
 	desc = "It seems to be empty."
-	icon = 'icons/obj/module.dmi'
+//	icon = 'icons/obj/assemblies/module.dmi' // MONKESTATION EDIT CHANGE OLD // REQUIRES PR #76788
+	icon = 'icons/obj/module.dmi' // MONKESTATION EDIT CHANGE NEW
 	icon_state = "datadisk3"
 	/// Bitflags for upgrades
 	var/upgrade_flags
