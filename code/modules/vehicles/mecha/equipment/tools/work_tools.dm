@@ -62,7 +62,7 @@
 		if(istype(clamptarget, /obj/machinery/door/airlock/))
 			var/obj/machinery/door/airlock/targetairlock = clamptarget
 			playsound(chassis, clampsound, 50, FALSE, -6)
-			targetairlock.try_to_crowbar(src, source)
+			targetairlock.try_to_crowbar(src, source, TRUE)
 			return
 		if(clamptarget.anchored)
 			to_chat(source, "[icon2html(src, source)][span_warning("[target] is firmly secured!")]")
@@ -207,7 +207,7 @@
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_EXTINGUISHER,
 		"reagents" = reagents.total_volume,
 		"total_reagents" = reagents.maximum_volume,
-		"minimum_requ" = required_amount,
+		"reagents_required" = required_amount,
 	)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/ui_act(action, list/params)
@@ -249,8 +249,8 @@
 /obj/item/mecha_parts/mecha_equipment/rcd/get_snowflake_data()
 	return list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
-		"name" = "RCD control",
 		"mode" = get_mode_name(),
+		"mode_label" = "RCD control",
 	)
 
 /// fetches the mode name to display in the UI
@@ -352,8 +352,8 @@
 	if(LAZYLEN(mecha.cargo))
 		to_chat(user, span_warning("[mecha]'s cargo hold must be empty before this conversion kit can be applied."))
 		return FALSE
-	if(!(mecha.mecha_flags & ADDING_MAINT_ACCESS_POSSIBLE)) //non-removable upgrade, so lets make sure the pilot or owner has their say.
-		to_chat(user, span_warning("[mecha] must have maintenance protocols active in order to allow this conversion kit."))
+	if(!(mecha.mecha_flags & PANEL_OPEN)) //non-removable upgrade, so lets make sure the pilot or owner has their say.
+		to_chat(user, span_warning("[mecha] panel must be open in order to allow this conversion kit."))
 		return FALSE
 	if(LAZYLEN(mecha.occupants)) //We're actualy making a new mech and swapping things over, it might get weird if players are involved
 		to_chat(user, span_warning("[mecha] must be unoccupied before this conversion kit can be applied."))
@@ -389,7 +389,8 @@
 		var/righthandgun = markone.equip_by_category[MECHA_R_ARM] == equipment
 		equipment.detach(marktwo)
 		equipment.attach(marktwo, righthandgun)
-	marktwo.dna_lock = markone.dna_lock
+	marktwo.mecha_flags |= markone.mecha_flags & ~initial(markone.mecha_flags) // transfer any non-inherent flags like PANEL_OPEN and LIGHTS_ON
+	marktwo.set_light_on(marktwo.mecha_flags & LIGHTS_ON) // in case the lights were on
 	marktwo.mecha_flags = markone.mecha_flags
 	marktwo.strafe = markone.strafe
 	//Integ set to the same percentage integ as the old mecha, rounded to be whole number
