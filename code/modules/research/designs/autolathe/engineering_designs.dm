@@ -14,7 +14,8 @@
 	name = "Sparker WallFrame"
 	id = "sparker"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE
-	materials = list(/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT, /datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT)
+//	materials = list(/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT, /datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT) // MONKESTATION EDIT CHANGE OLD // REQUIRES PR #75052
+	materials = list(/datum/material/iron = (MINERAL_MATERIAL_AMOUNT * 0.5), /datum/material/glass = (MINERAL_MATERIAL_AMOUNT * 0.5)) // MONKESTATION EDIT CHANGE NEW
 	build_path = /obj/item/wallframe/sparker
 	category = list(
 		RND_CATEGORY_INITIAL,
@@ -50,7 +51,8 @@
 	name = "Ignition Switch Controller"
 	id = "ignition"
 	build_type = PROTOLATHE | AWAY_LATHE | AUTOLATHE
-	materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 0.5)
+//	materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 0.5) // MONKESTATION EDIT CHANGE OLD // REQUIRES PR #75052
+	materials = list(/datum/material/iron = (MINERAL_MATERIAL_AMOUNT * 0.05), /datum/material/glass = (MINERAL_MATERIAL_AMOUNT * 0.025)) // MONKESTATION EDIT CHANGE NEW
 	build_path = /obj/item/assembly/control/igniter
 	category = list(
 		RND_CATEGORY_INITIAL,
