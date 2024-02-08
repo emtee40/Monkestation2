@@ -46,6 +46,11 @@
 #define MECHA_SNOWFLAKE_ID_MODE "mode_snowflake"
 #define MECHA_SNOWFLAKE_ID_EXTINGUISHER "extinguisher_snowflake"
 #define MECHA_SNOWFLAKE_ID_EJECTOR "ejector_snowflake"
+#define MECHA_SNOWFLAKE_ID_OREBOX_MANAGER "orebox_manager_snowflake"
+#define MECHA_SNOWFLAKE_ID_RADIO "radio_snowflake"
+#define MECHA_SNOWFLAKE_ID_AIR_TANK "air_tank_snowflake"
+#define MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC "ballistic_weapon_snowflake"
+#define MECHA_SNOWFLAKE_ID_GENERATOR "generator_snowflake"
 
 #define MECHA_AMMO_INCENDIARY "Incendiary bullet"
 #define MECHA_AMMO_BUCKSHOT "Buckshot shell"

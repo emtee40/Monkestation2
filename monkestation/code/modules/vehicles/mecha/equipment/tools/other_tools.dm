@@ -19,8 +19,8 @@
 			log_message("Deactivated.", LOG_MECHA)
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/light_amplification/attach(obj/vehicle/sealed/mecha/M, attach_right = FALSE)
-	M.initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/light_amplification)
+/obj/item/mecha_parts/mecha_equipment/light_amplification/attach(obj/vehicle/sealed/mecha/new_mecha, attach_right = FALSE)
+	new_mecha.initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/light_amplification)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/light_amplification/detach()
