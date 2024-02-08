@@ -176,12 +176,17 @@
 /mob/living/basic/bloodling/proper/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
 
+	var/damage_amount = damage
 	// Stamina damage is fucky, so we ignore it
 	if(damagetype == STAMINA)
 		return
 
+	if(damagetype == BURN)
+	// Bloodlings take additional burning damage
+		damage_amount *= 1.5
+
 	// Bloodlings take damage through their biomass, not regular damage
-	add_biomass(-damage)
+	add_biomass(-damage_amount)
 
 /mob/living/basic/bloodling/proper/Destroy()
 	UnregisterSignal(src, COMSIG_LIVING_LIFE)
@@ -193,7 +198,7 @@
 	evolution_level = 1
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
-		/datum/action/cooldown/bloodling/hide,
+		/datum/action/cooldown/sneak/bloodling,
 	)
 	speed = 0.5
 
@@ -207,7 +212,7 @@
 	evolution_level = 2
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
-		/datum/action/cooldown/bloodling/hide,
+		/datum/action/cooldown/sneak/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 	)

@@ -52,4 +52,6 @@
 		return
 	COOLDOWN_START(src, rattime, rand(minimum_rattime, maximum_rattime))
 
-	new /mob/living/basic/mouse(src.loc)
+	var/turf/our_turf = src.loc
+	new /mob/living/basic/mouse(our_turf)
+	our_turf.add_liquid_list(list(/datum/reagent/toxin/mutagen = 10), TRUE)

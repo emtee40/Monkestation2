@@ -14,7 +14,8 @@
 	var/mob/living/basic/bloodling/our_mob = owner
 	if(our_mob.biomass <= biomass_cost)
 		return FALSE
-	return TRUE
+	// Hardcoded for the bloodling biomass system. So it will not function on non-bloodlings
+	return istype(owner, /mob/living/basic/bloodling)
 
 /datum/action/cooldown/mob_cooldown/bloodling/PreActivate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
@@ -27,6 +28,9 @@
 	// so we can just return true here
 	if(QDELETED(src) || QDELETED(owner))
 		return TRUE
+
+	if(click_to_activate && our_mob.biomass < biomass_cost)
+		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	our_mob.add_biomass(-biomass_cost)
 
@@ -49,12 +53,11 @@
 	var/mob/living/basic/bloodling/our_mob = owner
 	if(our_mob.biomass <= biomass_cost)
 		return FALSE
-	return TRUE
+	// Hardcoded for the bloodling biomass system. So it will not function on non-bloodlings
+	return istype(owner, /mob/living/basic/bloodling)
 
 /datum/action/cooldown/bloodling/PreActivate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
-	// Parent calls Activate(), so if parent returns TRUE,
-	// it means the activation happened successfuly by this point
 	. = ..()
 	if(!.)
 		return FALSE
