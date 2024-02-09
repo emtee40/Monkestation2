@@ -64,7 +64,7 @@
 	seconds_active += (seconds_between_ticks * 0.1)
 
 	var/mob/living/carbon/the_spacer = owner
-	the_spacer.adjust_disgust(disgust_per_tick, max = max_disgust + 5)
+	the_spacer.adjust_disgust(/* disgust_per_tick, max = Monkestation Removal: we havent ported disgust changes I guess? */max_disgust + 5)
 
 	if(nerfed_effects_because_planetary)
 		return
