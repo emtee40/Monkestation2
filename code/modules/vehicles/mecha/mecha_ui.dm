@@ -42,6 +42,7 @@
 	data["cabin_temp_hazard_max"]  = BODYTEMP_HEAT_WARNING_1 - T0C
 	data["one_atmosphere"]  = ONE_ATMOSPHERE
 
+	data["maximum_weight"] = maximum_weight // maximum weight is static
 	data["sheet_material_amount"] = MINERAL_MATERIAL_AMOUNT
 	//map of relevant flags to check tgui side, not every flag needs to be here
 	data["mechflag_keys"] = list(
@@ -102,6 +103,7 @@
 	data["mech_view"] = ui_view.assigned_map
 
 	data["modules"] = get_module_ui_data()
+	data["total_equip_weight"] = get_total_equipment_weight()
 	data["selected_module_index"] = ui_selected_module_index
 	return data
 
@@ -134,6 +136,7 @@
 					"active_label" = module.active_label,
 					"equip_cooldown" = module.equip_cooldown && DisplayTimeText(module.equip_cooldown),
 					"energy_per_use" = module.energy_drain,
+					"equip_weight" = module.equip_weight,
 					"snowflake" = module.get_snowflake_data(),
 					"ref" = REF(module),
 				))

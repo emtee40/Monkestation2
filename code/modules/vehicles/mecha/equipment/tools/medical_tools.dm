@@ -2,7 +2,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical
 	mech_flags = EXOSUIT_MODULE_MEDICAL
-	movedelay = 0.2
+	equip_weight = 20
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach(obj/vehicle/sealed/mecha/new_mecha)
 	. = ..()

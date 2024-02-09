@@ -37,7 +37,8 @@
 
 	///what equipment flags does this have
 	var/equipment_flags
-	var/movedelay = 0
+	/// The weight of this equipment. Adds 1 movement delay per 100 kg above the limit.
+	var/equip_weight = 0
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
@@ -244,7 +245,3 @@
 /// AI mech pilot: returns TRUE if the Ai should try to reload the mecha
 /obj/item/mecha_parts/mecha_equipment/proc/needs_rearm()
 	return FALSE
-
-/// Equipment returns its slowdown or speedboost.
-/obj/item/mecha_parts/mecha_equipment/proc/get_movedelay()
-	return movedelay

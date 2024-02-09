@@ -139,8 +139,8 @@
 
 	///Cooldown duration between melee punches
 	var/melee_cooldown = 10
-	/// How many points of slowdown are negated from equipment? Added to the mech's base movedelay.
-	var/encumbrance_gap = 1
+	/// Maximum weight of equipment this mech can handle without being slowed down.
+	var/maximum_weight = 100
 
 	///Time taken to leave the mech
 	var/exit_delay = 2 SECONDS

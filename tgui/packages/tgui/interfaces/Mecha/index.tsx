@@ -54,10 +54,10 @@ export const Content = (props, context) => {
               <Stack fill vertical>
                 <Stack.Item>
                   <ByondUi
-                    height="170px"
+                    height="144px"
                     params={{
                       id: mech_view,
-                      zoom: 5,
+                      zoom: 4,
                       type: 'map',
                     }}
                   />
@@ -66,6 +66,7 @@ export const Content = (props, context) => {
                   <LabeledList>
                     <IntegrityBar />
                     <PowerBar />
+                    <WeightBar />
                     <LightsBar />
                     <CabinSeal />
                     <DNALock />
@@ -184,6 +185,33 @@ const IntegrityBar = (props, context) => {
           'text-shadow': '1px 1px 0 black',
         }}>
         {!scanmod_rating ? 'Unknown' : `${integrity} of ${integrity_max}`}
+      </ProgressBar>
+    </LabeledList.Item>
+  );
+};
+
+const WeightBar = (props, context) => {
+  const { act, data } = useBackend<MainData>(context);
+  const { total_equip_weight, maximum_weight, scanmod_rating } = data;
+  return (
+    <LabeledList.Item label="Weight">
+      <ProgressBar
+        value={scanmod_rating ? total_equip_weight / maximum_weight : 0}
+        ranges={{
+          good: [-Infinity, 0.8],
+          average: [0.8, 1],
+          bad: [1, Infinity],
+        }}
+        style={{
+          'text-shadow': '1px 1px 0 black',
+        }}>
+        {!scanmod_rating
+          ? 'Unknown'
+          : `${formatSiUnit(
+            total_equip_weight * 1000,
+            1,
+            'g'
+          )} of ${formatSiUnit(maximum_weight * 1000, 1, 'g')}`}
       </ProgressBar>
     </LabeledList.Item>
   );

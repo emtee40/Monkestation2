@@ -193,21 +193,23 @@
 	updating = FALSE
 #undef MECH_CAMERA_BUFFER
 
-/obj/vehicle/sealed/mecha/proc/get_movedelay()
-	var/tally = 0
+/obj/vehicle/sealed/mecha/proc/get_total_equipment_weight()
+	var/total_weight = 0
 
 	if(LAZYLEN(flat_equipment))
-		for(var/obj/item/mecha_parts/mecha_equipment/ME in flat_equipment)
-			if(ME.get_movedelay())
-				tally += ME.get_movedelay()
+		for(var/obj/item/mecha_parts/mecha_equipment/equip in flat_equipment)
+			total_weight += equip.equip_weight
 
-		if(tally <= encumbrance_gap)	// If the total is less than our encumbrance gap, ignore equipment weight.
-			tally = 0
-		else	// Otherwise, start the tally after cutting that gap out.
-			tally -= encumbrance_gap
+	return total_weight
 
+/obj/vehicle/sealed/mecha/proc/get_movedelay()
+	var/total_weight = get_total_equipment_weight()
+	if(total_weight < maximum_weight)
+		return movedelay
+
+	total_weight -= maximum_weight
 	if(overclock_mode)	// At the end, because this would normally just make the mech *slower* since tally wasn't starting at 0.
-		tally = min(1, round(tally/2))
+		total_weight = min(1, round(total_weight / 2))
 
-//	return max(1, round(tally, 0.1))	// Round the total to the nearest 10th. Can't go lower than 1 tick. Even humans have a delay longer than that.
-	return movedelay + round(tally, 0.1)
+	// Round the total to the nearest 10th. 100kg -> 1 delay
+	return movedelay + round(total_weight / 100, 0.1)

@@ -9,6 +9,8 @@ export type MainData = {
   name: string;
   integrity: number;
   integrity_max: number;
+  total_equip_weight: number;
+  maximum_weight: number;
   power_level: number;
   power_max: number;
   mecha_flags: number;

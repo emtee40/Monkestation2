@@ -10,7 +10,7 @@
 	force = 30
 	destruction_sleep_duration = 40
 	exit_delay = 40
-	encumbrance_gap = 2
+	maximum_weight = 200
 	internal_damage_threshold = 25
 	wreckage = /obj/structure/mecha_wreckage/reticence
 	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | QUIET_STEPS | QUIET_TURNS | MMI_COMPATIBLE

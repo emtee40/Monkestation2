@@ -10,7 +10,7 @@
 	force = 40
 	destruction_sleep_duration = 40
 	exit_delay = 40
-	encumbrance_gap = 2
+	maximum_weight = 200
 	wreckage = /obj/structure/mecha_wreckage/durand
 	mech_type = EXOSUIT_MODULE_DURAND
 	max_equip_by_category = list(

@@ -9,7 +9,7 @@
 	max_temperature = 60000
 	destruction_sleep_duration = 40
 	exit_delay = 40
-	encumbrance_gap = 3
+	maximum_weight = 300
 	internal_damage_threshold = 25
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	accesses = list(ACCESS_CENT_SPECOPS)
@@ -94,7 +94,7 @@
 	accesses = list(ACCESS_CENT_SPECOPS)
 	movedelay = 3
 	max_integrity = 550
-	encumbrance_gap = 4
+	maximum_weight = 400
 	wreckage = /obj/structure/mecha_wreckage/seraph
 	force = 55
 	max_equip_by_category = list(

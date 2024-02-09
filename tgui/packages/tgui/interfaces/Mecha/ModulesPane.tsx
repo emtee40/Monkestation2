@@ -3,7 +3,7 @@ import { Icon, NumberInput, ProgressBar, Box, Button, Section, Stack, LabeledLis
 import { MainData, MechModule } from './data';
 import { classes } from 'common/react';
 import { toFixed } from 'common/math';
-import { formatPower } from '../../format';
+import { formatPower, formatSiUnit } from '../../format';
 import { GasmixParser } from 'tgui/interfaces/common/GasmixParser';
 
 const moduleSlotIcon = (param) => {
@@ -203,6 +203,7 @@ const ModuleDetailsBasic = (props, context) => {
     active_label,
     equip_cooldown,
     energy_per_use,
+    equip_weight,
   } = props.module;
   return (
     <>
@@ -245,6 +246,11 @@ const ModuleDetailsBasic = (props, context) => {
       )}
       {!!equip_cooldown && (
         <LabeledList.Item label="Cooldown">{equip_cooldown}</LabeledList.Item>
+      )}
+      {!!equip_weight && (
+        <LabeledList.Item label="Weight">
+          {formatSiUnit(equip_weight * 1000, 1, 'g')}
+        </LabeledList.Item>
       )}
       {!!can_be_toggled && (
         <LabeledList.Item label={active_label}>

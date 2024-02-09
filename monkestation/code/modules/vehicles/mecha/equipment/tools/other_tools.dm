@@ -5,7 +5,7 @@
 	icon_state = "mecha_lightamplification"
 	equipment_slot = MECHA_UTILITY
 	can_be_toggled = TRUE
-	movedelay = 0.2
+	equip_weight = 20
 
 /obj/item/mecha_parts/mecha_equipment/light_amplification/set_active(active)
 	. = ..()
