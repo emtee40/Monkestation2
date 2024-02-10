@@ -199,7 +199,7 @@
 	max_wizard_trigger_potency = 7
 
 /datum/round_event/scrubber_clog/strange
-	maximum_spawns = 30
+	maximum_spawns = 3
 
 /datum/round_event/scrubber_clog/strange/setup()
 	. = ..()
