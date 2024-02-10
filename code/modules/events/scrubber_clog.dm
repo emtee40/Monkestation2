@@ -245,19 +245,6 @@
 	)
 	return pick(mob_list)
 
-///datum/round_event/scrubber_clog/flood/get_scrubber()
-	//var/list/scrubber_list = list()
-	//for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber in GLOB.machines)
-		//var/turf/scrubber_turf = get_turf(scrubber)
-		//if(scrubber_turf && is_station_level(scrubber_turf.z) && !scrubber.welded && !scrubber.clogged)
-			//scrubber_list += scrubber
-
-//datum/round_event/scrubber_clog/flood/setup()
-	//var/list/scrubber_list = get_scrubber()
-	//for(var/scrubber in scrubber_list)
-	//.if(!scrubber)
-		//kill()
-		//CRASH("Unable to find suitable scrubber.")
 
 		//RegisterSignal(scrubber, COMSIG_QDELETING, PROC_REF(scrubber_move))
 
