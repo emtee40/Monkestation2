@@ -864,9 +864,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Similar trait given to temporary bodies inhabited by players
 #define TRAIT_TEMPORARY_BODY "temporary_body"
 
-/// Trait given to mechs that can have orebox functionality on movement
-#define TRAIT_OREBOX_FUNCTIONAL "orebox_functional"
-
 ///fish traits
 #define TRAIT_RESIST_EMULSIFY "resist_emulsify"
 #define TRAIT_FISH_SELF_REPRODUCE "fish_self_reproduce"
