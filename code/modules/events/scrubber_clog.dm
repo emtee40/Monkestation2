@@ -229,7 +229,7 @@
     max_wizard_trigger_potency = 6
 
 /datum/round_event/scrubber_clog/flood
-	maximum_spawns = 400
+	maximum_spawns = 250
 
 /datum/round_event/scrubber_clog/flood/setup()
 	. = ..()
