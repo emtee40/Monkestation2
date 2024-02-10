@@ -219,7 +219,7 @@
 	)
 	return pick(mob_list)
 
-/datum/round_event_control/scrubber_clog/flood
+/datum/round_event_control/scrubber_clog/flood ///I have it here cause of the extra silly spaghetti code all of the scrubbers depend on being in here
     name = "Scrubber Clog: Flood"
     typepath = /datum/round_event/scrubber_clog/flood
     weight = 0
