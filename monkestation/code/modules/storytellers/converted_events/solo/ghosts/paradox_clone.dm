@@ -50,7 +50,7 @@
 		if(!candidates.len)
 			break
 
-		var/client/mob_client = pick_n_take(weighted_candidates)
+		var/client/mob_client = SSgamemode.pick_n_take(weighted_candidates)
 		var/mob/candidate = mob_client.mob
 
 		if(candidate.client) //I hate this
@@ -60,7 +60,7 @@
 			candidate.mind = new /datum/mind(candidate.key)
 
 		clone_victim = find_original()
-		new_human = duplicate_object(clone_victim, pick(possible_spawns))
+		new_human = duplicate_object(clone_victim, SSgamemode.rng.pick_from(possible_spawns))
 		new_human.key = candidate.key
 		new_human.mind.special_role = antag_flag
 		new_human.mind.restricted_roles = restricted_roles
@@ -93,6 +93,6 @@
 			continue
 		possible_targets += player
 
-	if(possible_targets.len)
-		return pick(possible_targets)
+	if(length(possible_targets))
+		return SSgamemode.rng.pick_from(possible_targets)
 	return FALSE

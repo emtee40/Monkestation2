@@ -218,12 +218,12 @@
 
 	while(length(possible_candidates) && length(candidates) < antag_count) //both of these pick_n_take from possible_candidates so this should be fine
 		if(prompted_picking)
-			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/client/picked_client = SSgamemode.pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
 			if(picked_mob)
 				candidates |= poll_candidates("Would you like to be a [cast_control.name]", antag_flag, antag_flag, 20 SECONDS, FALSE, FALSE, list(picked_mob))
 		else
-			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/client/picked_client = SSgamemode.pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
 			candidates |= picked_mob
 
