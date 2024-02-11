@@ -231,12 +231,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/item/mecha_parts/mecha_equipment/repair_droid/set_active(active)
 	. = ..()
-	if(.)
-		return
-	if(action != "toggle")
-		return
 	chassis.cut_overlay(droid_overlay)
 	if(active)
 		START_PROCESSING(SSobj, src)
@@ -247,7 +243,6 @@
 		droid_overlay = new(src.icon, icon_state = "repair_droid")
 		log_message("Deactivated.", LOG_MECHA)
 	chassis.add_overlay(droid_overlay)
-
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process(seconds_per_tick)
 	if(!chassis)
@@ -268,13 +263,10 @@
 		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
-			active = FALSE
+			set_active(FALSE)
 			return PROCESS_KILL
 	else //no repair needed, we turn off
-		chassis.cut_overlay(droid_overlay)
-		droid_overlay = new(src.icon, icon_state = "repair_droid")
-		chassis.add_overlay(droid_overlay)
-		active = FALSE
+		set_active(FALSE)
 		return PROCESS_KILL
 
 
@@ -296,8 +288,8 @@
 	var/fuelrate_idle = 12.5
 	/// Fuel used per second while actively generating
 	var/fuelrate_active = 100
-	///Maximum fuel capacity of the generator, in units
-	var/max_fuel = 150000
+	///Maximum fuel capacity of the generator, in units (cm^3)
+	var/max_fuel = 50000
 	///Energy recharged per second
 	var/rechargerate = 100
 
@@ -320,18 +312,17 @@
 		"fuel" = fuel.amount,
 	)
 
-/obj/item/mecha_parts/mecha_equipment/generator/ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/generator/set_active(active)
 	. = ..()
-	if(action == "toggle")
-		if(active)
-			to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation enabled.")]")
-			START_PROCESSING(SSobj, src)
-			log_message("Activated.", LOG_MECHA)
-		else
-			to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation disabled.")]")
-			STOP_PROCESSING(SSobj, src)
-			log_message("Deactivated.", LOG_MECHA)
-		return TRUE
+	if(active)
+		to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation enabled.")]")
+		START_PROCESSING(SSobj, src)
+		log_message("Activated.", LOG_MECHA)
+	else
+		to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation disabled.")]")
+		STOP_PROCESSING(SSobj, src)
+		log_message("Deactivated.", LOG_MECHA)
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/weapon, mob/user, params)
 	. = ..()
@@ -341,18 +332,16 @@
 
 /obj/item/mecha_parts/mecha_equipment/generator/process(seconds_per_tick)
 	if(!chassis)
-		active = FALSE
+		set_active(FALSE)
 		return PROCESS_KILL
 	if(fuel.amount <= 0)
-		active = FALSE
-		log_message("Deactivated - no fuel.", LOG_MECHA)
+		set_active(FALSE)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Fuel reserves depleted.")]")
 		return PROCESS_KILL
 	var/current_charge = chassis.get_charge()
 	if(isnull(current_charge))
-		active = FALSE
+		set_active(FALSE)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("No power cell detected.")]")
-		log_message("Deactivated.", LOG_MECHA)
 		return PROCESS_KILL
 	//how much fuel are we using per tick
 	var/fuel_usage_rate = fuelrate_idle
