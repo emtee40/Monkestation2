@@ -242,7 +242,11 @@
 		var/list/beaker_contents = list()
 		if(beaker)
 			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
-				beaker_contents.Add(list(list("name" = reagent.name, "ref" = REF(reagent), "volume" = round(reagent.volume, 0.01))))
+				// Monkestation Edit: Piss
+				var/chem_name = reagent.name
+				if(istype(reagent, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+					chem_name = "Ammonia?"
+				beaker_contents.Add(list(list("name" = chem_name, "ref" = REF(reagent), "volume" = round(reagent.volume, 0.01))))
 		data["beakerContents"] = beaker_contents
 
 		var/list/buffer_contents = list()
