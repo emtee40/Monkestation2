@@ -3,7 +3,7 @@
 /obj/item/food/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
-	icon = 'icons/obj/service/hydroponics/harvest.dmi'
+	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "watermelonslice"
 	food_reagents = list(
 		/datum/reagent/water = 1,
