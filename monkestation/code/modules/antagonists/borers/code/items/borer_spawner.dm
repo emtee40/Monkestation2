@@ -44,6 +44,7 @@
 	if(delayed)
 		sleep(delayed)
 	INVOKE_ASYNC(src, PROC_REF(do_wriggler_messages)) // give them something to look at whilst we poll the ghosts
+	update_appearance()
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
 		"Do you want to play as a neutered cortical borer?",
 		ROLE_BORER,
@@ -53,6 +54,7 @@
 		opened = FALSE
 		to_chat(user, "Yet the borer after looking at you quickly retreats back into their cage, visibly scared. Perhaps try later?")
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
+		update_appearance()
 
 	var/mob/dead/observer/picked_candidate = pick(candidates)
 
