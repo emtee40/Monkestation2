@@ -281,7 +281,7 @@ const DisadvantageInfo = () => {
               <span>
                 3. Whilst inside of a host most of our actions will deal brain
                 damage including generating evolution and chemical evolution
-                points, due to eighter sensetivelly manipulating the host&apos;s
+                points, due to either sensetivelly manipulating the host&apos;s
                 neurons or needing to &quot;aquire&quot; more space for growth
               </span>
               <br />

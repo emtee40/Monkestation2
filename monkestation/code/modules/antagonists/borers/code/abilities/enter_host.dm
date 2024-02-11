@@ -24,19 +24,24 @@
 		if(cortical_owner.host_sugar())
 			owner.balloon_alert(owner, "cannot function with sugar in host")
 			return
+
 		owner.balloon_alert(owner, "detached from host")
 		if(!(cortical_owner.upgrade_flags & BORER_STEALTH_MODE))
 			to_chat(cortical_owner.human_host, span_notice("Something carefully tickles your inner ear..."))
-		var/obj/item/organ/internal/borer_body/borer_organ = locate() in cortical_owner.human_host.organs
+
 		//log the interaction
 		var/turf/human_turfone = get_turf(cortical_owner.human_host)
 		var/logging_text = "[key_name(cortical_owner)] left [key_name(cortical_owner.human_host)] at [loc_name(human_turfone)]"
 		cortical_owner.log_message(logging_text, LOG_GAME)
 		cortical_owner.human_host.log_message(logging_text, LOG_GAME)
+
+		var/obj/item/organ/internal/borer_body/borer_organ = locate() in cortical_owner.human_host.organs
 		if(borer_organ)
 			borer_organ.Remove(cortical_owner.human_host)
+
 		cortical_owner.forceMove(human_turfone)
 		cortical_owner.human_host = null
+
 		StartCooldown()
 		return
 
@@ -55,7 +60,7 @@
 		if(!(listed_human.dna.species.inherent_biotypes & MOB_ORGANIC) && cortical_owner.organic_restricted)
 			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			continue
-		// hosts need to be organic
+		// hosts NEED to be organic
 		if(!(listed_human.mob_biotypes & MOB_ORGANIC) && cortical_owner.organic_restricted)
 			to_chat(cortical_owner, span_warning("[listed_human] has incompatible biology with us!"))
 			continue
