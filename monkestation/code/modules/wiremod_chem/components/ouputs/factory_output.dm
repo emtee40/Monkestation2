@@ -20,11 +20,9 @@
 	///the icon_state number for the pill.
 	// var/pill_number = RANDOM_PILL_STYLE
 	///list of id's and icons for the pill selection of the ui
-	var/list/pill_styles
+	var/pill_style = "pill0"
 	/// Currently selected patch style
 	var/patch_style = DEFAULT_PATCH_STYLE
-	/// List of available patch styles for UI
-	var/list/patch_styles
 	/// All packaging types wrapped up in 1 big list
 	var/static/list/packaging_types = null
 	///The type of packaging to use
@@ -98,7 +96,7 @@
 		reagents.trans_to(P, current_volume)
 		P.name = trim("[product_name] pill")
 		user.put_in_hands(P)
-		P.icon_state = "pill[rand(1,21)]"
+		P.icon_state = pill_style
 		if(P.icon_state == "pill4") //mirrored from chem masters
 			P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 	else if (product == "patch")
@@ -118,6 +116,13 @@
 	var/choice_product = tgui_input_list(user, "Pick Product", "[name]", list("pill", "patch", "bottle"))
 	if(choice_product)
 		product = choice_product
+		switch(choice_product)
+			if("pill")
+				var/obj/item/reagent_containers/pill/style/P = pick(GLOB.reagent_containers[CAT_PILLS])
+				pill_style = P.icon_state
+			if("patch")
+				var/obj/item/reagent_containers/pill/patch/style/P = pick(GLOB.reagent_containers[CAT_PATCHES])
+				patch_style = P.icon_state
 
 	var/choice_name = tgui_input_text(user, "Pick Product Name", "[name]")
 	if(choice_name)
