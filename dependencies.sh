@@ -10,6 +10,11 @@ export BYOND_MINOR=1633
 #rust_g git tag
 export RUST_G_VERSION=3.1.0
 
+#aneri git repo
+export ANERI_REPO=Absolucy/aneri
+#aneri git tag
+export ANERI_VERSION=e7470893091ee60da9383a932f4c582768936f9a
+
 #node version
 export NODE_VERSION=14
 export NODE_VERSION_PRECISE=14.16.1

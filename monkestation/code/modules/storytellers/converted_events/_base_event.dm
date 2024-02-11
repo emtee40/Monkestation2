@@ -221,7 +221,7 @@
 
 	while(length(possible_candidates) && length(candidates) < antag_count) //both of these pick_n_take from possible_candidates so this should be fine
 		if(prompted_picking)
-			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/client/picked_client = SSgamemode.pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
 			if(picked_mob)
 				candidates |= SSpolling.poll_candidates(
@@ -234,7 +234,7 @@
 					role_name_text = lowertext(cast_control.name),
 				)
 		else
-			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/client/picked_client = SSgamemode.pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
 			candidates |= picked_mob
 
