@@ -9,7 +9,7 @@
 				damage_amount *= 0.5
 			if(BURN)
 				damage_amount *= 3
-	. = ..()
+	return ..()
 
 /obj/structure/bloodling/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
