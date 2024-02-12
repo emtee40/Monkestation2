@@ -8,7 +8,7 @@
 	should_draw_greyscale = FALSE
 	biological_state = BIO_INORGANIC
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
-	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_HAIR|HEAD_EYECOLOR
+	head_flags = HEAD_LIPS|HEAD_HAIR|HEAD_EYECOLOR
 
 	body_damage_coeff = 1.1	//IPC's Head can dismember	//Monkestation Edit
 	max_damage = 40	//Keep in mind that this value is used in the //Monkestation Edit
