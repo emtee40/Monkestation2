@@ -3,6 +3,7 @@
 	limb_id = SPECIES_FLORAN
 	is_dimorphic = FALSE
 	burn_modifier = 1.8
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_EYECOLOR
 
 /obj/item/bodypart/chest/floran
 	icon_greyscale = 'monkestation/icons/mob/species/floran/bodyparts.dmi'

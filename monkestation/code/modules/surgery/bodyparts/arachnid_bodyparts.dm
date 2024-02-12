@@ -2,6 +2,7 @@
 	icon_greyscale = 'monkestation/icons/mob/species/arachnid/bodyparts.dmi'
 	limb_id = SPECIES_ARACHNIDS
 	is_dimorphic = FALSE
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_EYECOLOR
 
 /obj/item/bodypart/chest/arachnid
 	icon_greyscale = 'monkestation/icons/mob/species/arachnid/bodyparts.dmi'

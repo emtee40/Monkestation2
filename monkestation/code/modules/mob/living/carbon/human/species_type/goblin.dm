@@ -124,6 +124,7 @@
 	icon_greyscale = 'monkestation/icons/mob/species/goblin/bodyparts.dmi'
 	limb_id = SPECIES_GOBLIN
 	is_dimorphic = FALSE
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_EYECOLOR
 
 /obj/item/bodypart/chest/goblin
 	icon_greyscale = 'monkestation/icons/mob/species/goblin/bodyparts.dmi'
