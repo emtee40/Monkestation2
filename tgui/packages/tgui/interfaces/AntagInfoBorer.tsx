@@ -318,6 +318,44 @@ const BasicChemistry = () => {
               </span>
               <br />
               <br />
+              <span>Libital</span>
+              <br />
+              <span>
+                Quickly restores our hosts
+                <span className={'color-red'}> Brute </span>damage at the cost
+                of causing slight liver damage.
+              </span>
+              <br />
+              <br />
+              <span>Lenturi</span>
+              <br />
+              <span>
+                Quickly restores our hosts
+                <span className={'color-yellow'}> Burn </span>damage at the cost
+                of causing slight stomach damage and slowing down our host as
+                long as its in their system
+              </span>
+              <br />
+              <br />
+              <span>Seiver</span>
+              <br />
+              <span>
+                Heals<span className={'color-green'}> Toxin </span>damage at the
+                slight cost of heart damage
+              </span>
+              <br />
+              <br />
+              <span>Convermol</span>
+              <br />
+              <span>
+                Quickly restores our hosts
+                <span className={'color-blue'}> Oxygen </span>damage at the cost
+                of causing 1:5th the toxin damage to our host
+              </span>
+              <br />
+              <span>Overdose: 35 units</span>
+              <br />
+              <br />
               <span>Unknown Methamphetamine Isomer</span>
               <br />
               <span>
@@ -342,36 +380,6 @@ const BasicChemistry = () => {
               </span>
               <br />
               <br />
-              <span>Convermol</span>
-              <br />
-              <span>
-                Quickly restores our hosts
-                <span className={'color-blue'}> Oxygen </span>damage at the cost
-                of causing 1:5th the toxin damage to our host
-              </span>
-              <br />
-              <span>Overdose: 35 units</span>
-              <br />
-              <br />
-              <span>Lenturi</span>
-              <br />
-              <span>
-                Quickly restores our hosts
-                <span className={'color-yellow'}> Burn </span>damage at the cost
-                of causing slight stomach damage and slowing down our host as
-                long as its in their system
-              </span>
-              <br />
-              <br />
-              <span>Libital</span>
-              <br />
-              <span>
-                Quickly restores our hosts
-                <span className={'color-red'}> Brute </span>damage at the cost
-                of causing slight liver damage.
-              </span>
-              <br />
-              <br />
               <span>multiver</span>
               <br />
               <span>
@@ -386,14 +394,6 @@ const BasicChemistry = () => {
               </span>
               <br />
               <span>At 2 unique medicines it no longer purges medicines</span>
-              <br />
-              <br />
-              <span>Seiver</span>
-              <br />
-              <span>
-                Heals<span className={'color-green'}> Toxin </span>damage at the
-                slight cost of heart damage
-              </span>
             </Stack.Item>
           </Stack>
         </Section>
