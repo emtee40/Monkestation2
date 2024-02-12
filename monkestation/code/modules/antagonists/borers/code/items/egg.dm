@@ -39,18 +39,20 @@
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/special(mob/living/spawned_mob, mob/mob_possessor)
 	. = ..()
-	spawned_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)
+	var/mob/living/basic/cortical_borer/cortical_mob = spawned_mob
+	cortical_mob.generation = generation
+	cortical_mob.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)
 	if(generation == 0)
 		//The first ever borer gets a special name
-		spawned_mob.name = "The hivequeen cortical borer"
+		cortical_mob.name = "The hivequeen cortical borer"
 	else
 		//so their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
-		spawned_mob.name = "cortical borer ([generation]-[rand(100,999)])"
+		cortical_mob.name = "cortical borer ([generation]-[rand(100,999)])"
 	QDEL_NULL(host_egg)
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/Initialize(mapload, datum/team/cortical_borers/borer_team)
 	. = ..()
-	host_egg = new host_egg(get_turf(src))
+	host_egg = new(get_turf(src))
 	host_egg.host_spawner = src
 	forceMove(host_egg)
 	var/area/src_area = get_area(src)

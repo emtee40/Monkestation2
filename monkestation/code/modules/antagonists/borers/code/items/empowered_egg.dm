@@ -18,7 +18,7 @@
 	/// How long it takes to burst from a corpse
 	var/burst_time = 3 MINUTES
 	/// What generation the egg will be
-	var/generation = 1
+	var/generation = 0
 
 /obj/item/organ/internal/empowered_borer_egg/on_find(mob/living/finder)
 	..()
@@ -61,4 +61,4 @@
 	owner.visible_message(span_danger("[spawned_cb] explodes out of [owner]'s chest, sending gore flying everywhere!"), span_danger("[spawned_cb] explodes out of your chest, giblets flying everywhere!"))
 	spawned_cb.generation = generation
 	spawned_cb.ckey = new_borer.ckey
-	spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer)
+	spawned_cb.mind.add_antag_datum(/datum/antagonist/cortical_borer/hivemind)

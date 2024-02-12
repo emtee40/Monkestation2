@@ -263,6 +263,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 
 	if(mind)
 		if(!mind.has_antag_datum(antagonist_datum))
+			mind.name = name
 			mind.add_antag_datum(antagonist_datum)
 
 	for(var/focus_path in subtypesof(/datum/borer_focus))
