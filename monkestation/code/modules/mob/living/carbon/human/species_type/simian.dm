@@ -49,7 +49,7 @@
 	external_organs = list(
 		/obj/item/organ/external/tail/simian = "Chimp"
 	)
-	eyes_icon = "monkestation/icons/mob/species/simian/bodyparts.dmi"
+	//eyes_icon = "monkestation/icons/mob/species/simian/bodyparts.dmi"
 
 /datum/species/simian/get_scream_sound(mob/living/carbon/human/human)
 	return pick(

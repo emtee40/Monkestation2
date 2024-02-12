@@ -24,7 +24,7 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/arachnid,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/arachnid,
 	)
-	eyes_icon = "monkestation/icons/mob/species/arachnid/bodyparts.dmi"
+	//eyes_icon = "monkestation/icons/mob/species/arachnid/bodyparts.dmi"
 
 /datum/species/arachnid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
