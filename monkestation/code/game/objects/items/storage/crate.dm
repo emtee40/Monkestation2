@@ -184,7 +184,7 @@
 			new /obj/item/toy/plush/ratplush(src)
 			new /obj/item/toy/plush/narplush(src)
 		if(94)
-			new /obj/machinery/nuclearbomb/bee(src) ///Monkestation addition, replaces /obj/item/clothing/under/misc/syndicate_souvenir(src) with /obj/machinery/nuclearbomb/bee(src)
+			new /obj/machinery/nuclearbomb/bee(src) //just replaces the syndicate tshirt with the bomb
 		if(96)
 			new /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child(src)
 		if(95)
