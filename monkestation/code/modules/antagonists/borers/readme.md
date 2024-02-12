@@ -25,7 +25,9 @@ code/modules/antagonists/changeling/powers/panacea.dm -- If you are a changeling
 code/__DEFINES/~monkestation/actionspeed_modification.dm -- Added the actionspeed modifier ID for the borers here... maybe should move it
 code/__DEFINES/~monkestation/antagonists.dm -- Bunch of bitflags, iscorticalborer() check and evolution defines
 code/__DEFINES/~monkestation/role_preferences.dm -- Role preference for borers
+
 monkestation/code/modules/uplink/uplink_items/misc.dm -- Uplink entry for spawning neutered borers in
+monkestation/code/modules/cargo/crates/security.dm -- Contains the cargo crate for getting borer cages out of
 
 tgui/packages/tgui/interfaces/AntagInfoBorer.tsx -- TGUI window explaining what the borers objectives are, and how to use abilities
 tgui/packages/tgui/interfaces/BorerChem.js -- Allows the borers to inject chemicals, very sensitive
