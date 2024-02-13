@@ -125,8 +125,7 @@
 	desc = "A device designed to detect gases and their concentration in an area."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
-//	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT) // MONKESTATION EDIT CHANGE OLD // REQUIRES PR #75052
-	custom_materials = list(/datum/material/iron = (MINERAL_MATERIAL_AMOUNT * 0.05), /datum/material/glass = (MINERAL_MATERIAL_AMOUNT * 0.05)) // MONKESTATION EDIT CHANGE NEW
+	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT) // MONKESTATION EDIT CHANGE OLD // REQUIRES PR #75052
 
 	/// The injector linked with this sensor
 	var/input_id
