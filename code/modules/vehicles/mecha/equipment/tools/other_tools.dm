@@ -348,7 +348,7 @@
 	if(current_charge < chassis.cell.maxcharge)
 		fuel_usage_rate = fuelrate_active
 		chassis.give_power(rechargerate * seconds_per_tick)
-	fuel.amount -= min(seconds_per_tick * fuel_usage_rate / MINERAL_MATERIAL_AMOUNT, fuel.amount)
+	fuel.amount -= min(seconds_per_tick * fuel_usage_rate / SHEET_MATERIAL_AMOUNT, fuel.amount)
 
 ///Try to insert more fuel into the generator
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/stack/sheet/inserted_fuel, mob/user)
@@ -356,12 +356,12 @@
 		to_chat(user, "[icon2html(src, user)][span_warning("[fuel] traces in target minimal! [inserted_fuel] cannot be used as fuel.")]")
 		return
 	//how much fuel is needed to fill the generator to its max capacity, in units
-	var/units_to_load = max(max_fuel - fuel.amount * MINERAL_MATERIAL_AMOUNT, 0)
+	var/units_to_load = max(max_fuel - fuel.amount * SHEET_MATERIAL_AMOUNT, 0)
 	if(!units_to_load)
 		to_chat(user, "[icon2html(src, user)][span_notice("Unit is full.")]")
 		return
 	//how much new fuel are we inserting, in sheets
-	var/fuel_to_load = min(max(round(units_to_load / MINERAL_MATERIAL_AMOUNT), 1), inserted_fuel.amount)
+	var/fuel_to_load = min(max(round(units_to_load / SHEET_MATERIAL_AMOUNT), 1), inserted_fuel.amount)
 	fuel.amount += fuel_to_load
 	inserted_fuel.use(fuel_to_load)
 	to_chat(user, "[icon2html(src, user)][span_notice("[fuel_to_load] unit\s of [fuel] successfully loaded.")]")

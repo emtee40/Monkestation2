@@ -43,7 +43,7 @@
 	data["one_atmosphere"]  = ONE_ATMOSPHERE
 
 	data["maximum_weight"] = maximum_weight // maximum weight is static
-	data["sheet_material_amount"] = MINERAL_MATERIAL_AMOUNT
+	data["sheet_material_amount"] = SHEET_MATERIAL_AMOUNT
 	//map of relevant flags to check tgui side, not every flag needs to be here
 	data["mechflag_keys"] = list(
 		"ID_LOCK_ON" = ID_LOCK_ON,
