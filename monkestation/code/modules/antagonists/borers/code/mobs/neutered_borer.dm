@@ -3,10 +3,10 @@
  */
 
 /mob/living/basic/cortical_borer/neutered
-	neutered = TRUE
 	antagonist_datum = /datum/antagonist/cortical_borer
-	generation = 1
+	neutered = TRUE
 	skip_status_tab = TRUE
+	generation = 1
 
 /mob/living/basic/cortical_borer/neutered/get_status_tab_items()
 	. = ..()
@@ -16,4 +16,3 @@
 	. += ""
 	if(host_sugar())
 		. += "Sugar detected! Unable to generate resources!"
-		. += ""

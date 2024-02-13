@@ -7,6 +7,9 @@ GLOBAL_LIST_EMPTY(willing_hosts)
 
 GLOBAL_LIST_EMPTY(cortical_borers)
 
+GLOBAL_LIST_INIT(borer_first_name, world.file2list("monkestation/code/modules/antagonists/borers/code/first_borer_names.txt"))
+GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/antagonists/borers/code/second_borer_names.txt"))
+
 /// This divisor controls how fast body temperature changes to match the environment
 #define BODYTEMP_DIVISOR 16
 
@@ -86,19 +89,19 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	icon_dead = "brainslug_dead"
 	maxHealth = 25
 	health = 25
-	//they need to be able to pass tables and mobs
+	// They need to be able to pass tables and mobs
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	//they are below mobs, or below tables
+	// They are below mobs, or below tables
 	layer = BELOW_MOB_LAYER
-	//corticals are tiny
+	// Corticals are tiny
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC|MOB_BUG
-	//because they are small, why can't they be held?
+	// Because they are small, why can't they be held?
 	can_be_held = TRUE
-	///what chemicals borers know, starting with none
+	/// What chemicals borers know, starting with none
 	var/list/known_chemicals = list()
-	///what chemicals the borer can learn
+	/// What chemicals the borer can learn
 	var/list/potential_chemicals = list(
 		/datum/reagent/drug/methamphetamine/borer_version,
 
@@ -129,26 +132,28 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/reagent/toxin/heparin,
 		/datum/reagent/toxin/mindbreaker,
 	)
-	///blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
+	/// Blacklisted chemicals - separate from chemicals that cannot be synthesized, borers specifically cannot learn these
 	var/list/blacklisted_chemicals = list()
 
-	///how old the borer is, starting from zero. Goes up only when inside a host
+
+	/// How old the borer is, starting from zero. Goes up only when inside a host
 	var/maturity_age = 0
-	//just a little "timer" to compare to world.time
+	/// Just a little "timer" to compare to world.time
 	var/timed_maturity = 0
+
 	/// How many times you've levelled up over all
 	var/level = 0
 
-	///the amount of "evolution" points a borer has for chemicals. Start with one
+	/// The amount of "evolution" points a borer has for chemicals. Start with one
 	var/chemical_evolution = 1
-	///the amount of "evolution" points a borer has for stats
+	/// The amount of "evolution" points a borer has for stats
 	var/stat_evolution = 0
 
-	///how many chemical points the borer can have. Can be upgraded
+	/// How many chemical points the borer can have. Can be upgraded
 	var/max_chemical_storage = 50
-	///how many chemical points the borer has
+	/// How many chemical points the borer has
 	var/chemical_storage = 50
-	///how fast chemicals are gained. Goes up only when inside a host
+	/// How fast chemicals are gained. Goes up only when inside a host
 	var/chemical_regen = 1
 
 	/// How much health you gain per level
@@ -161,7 +166,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// Chemical regen you gain per level
 	var/chem_regen_per_level = 1
 
-	///the list of actions that the borer has
+	/// The list of actions that the borer has
 	var/list/datum/action/cooldown/borer/known_abilities = list(
 		/datum/action/cooldown/borer/toggle_hiding,
 		/datum/action/cooldown/borer/choosing_host,
@@ -175,32 +180,32 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 		/datum/action/cooldown/borer/check_blood,
 	)
 
-	///the host
+	/// The host
 	var/mob/living/carbon/human/human_host
-	//what the host gains or loses with the borer
+	/// What the host gains or loses with the borer
 	var/list/hosts_abilities = list()
 
-	///multiplies the current health up to the max health
+	/// Multiplies the current health up to the max health
 	var/health_regen = 1.02
-	//holds the chems right before injection
+	/// Holds the chems right before injection
 	var/obj/item/reagent_containers/reagent_holder
-	//just a flavor kind of thing
+	/// Lust a flavor kind of thing
 	var/generation = 0
 	/// List of focus datums
 	var/list/possible_focuses = list()
 	/// What focuses the borer has unlocked
 	var/list/body_focuses = list()
-	///how many children the borer has produced
+	/// How many children the borer has produced
 	var/children_produced = 0
-	///how many blood chems have been learned through the blood
+	/// How many blood chems have been learned through the blood
 	var/blood_chems_learned = 0
-	///we dont want to spam the chat
+	/// We dont want to spam the chat
 	var/deathgasp_once = FALSE
-	//the limit to the chemical and stat evolution
+	// The limit to the chemical and stat evolution
 	var/limited_borer = 10
-	///borers can only enter biologicals if true
+	/// Borers can only enter biologicals if true
 	var/organic_restricted = TRUE
-	///borers are unable to enter changelings if true
+	/// Borers are unable to enter changelings if true
 	var/changeling_restricted = TRUE
 	/// Assoc list of chemical injection rates that the borer can have
 	var/static/list/injection_rates = list(
@@ -231,6 +236,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	/// Used to give the borer the antagonist datum
 	var/antagonist_datum = /datum/antagonist/cortical_borer/hivemind
 
+	/// Skips unique borer status tab text, used for unique borer subtypes with their own status tabs
 	var/skip_status_tab = FALSE
 
 /mob/living/basic/cortical_borer/Initialize(mapload)
@@ -247,12 +253,7 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	borer_matrix.Scale(0.5, 0.5)
 	transform = borer_matrix
 
-	if(generation == 0)
-		//The first ever borer gets a special name
-		name = "The hivequeen [initial(name)]"
-	else
-		//so their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
-		name = "[initial(name)] ([generation]-[rand(100,999)])"
+	create_name()
 
 	GLOB.cortical_borers += src
 	reagent_holder = new /obj/item/reagent_containers/borer(src)
@@ -263,7 +264,6 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 
 	if(mind)
 		if(!mind.has_antag_datum(antagonist_datum))
-			mind.name = name
 			mind.add_antag_datum(antagonist_datum)
 
 	for(var/focus_path in subtypesof(/datum/borer_focus))
@@ -359,6 +359,19 @@ GLOBAL_LIST_EMPTY(cortical_borers)
 	if(mind)
 		mind.add_antag_datum(antagonist_datum)
 
+/mob/living/basic/cortical_borer/proc/create_name()
+	var/picked_first_name = pick(GLOB.borer_first_name)
+	var/picked_second_name = pick(GLOB.borer_second_name)
+	// So their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
+	// Additionally we add in a random title,
+	// mainly so people can ahelp borers quicker and admins dont have to look through the logs of the 5 borers that were inside you
+	name = "[initial(name)] ([picked_first_name]: [picked_second_name]) ([generation]-[rand(100,999)])"
+
+	if(istype(/mob/living/basic/cortical_borer/empowered, src)) // lets also distinguish empowered borers from normal ones
+		name = "larger [name]"
+
+	if(generation == 0) //The first ever borer gets a special name
+		name = "The hivequeen [initial(name)]"
 
 //check if we are inside a human
 /mob/living/basic/cortical_borer/proc/inside_human()
