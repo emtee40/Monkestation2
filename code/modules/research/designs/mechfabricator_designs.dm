@@ -918,7 +918,7 @@
 	id = "mech_radio"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/radio
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT*2.5)
+	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*2.5)
 	construction_time = 100
 	category = list(
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING,
@@ -936,7 +936,7 @@
 	id = "mech_air_tank"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/air_tank
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT*5)
+	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*5)
 	construction_time = 100
 	category = list(
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING,
