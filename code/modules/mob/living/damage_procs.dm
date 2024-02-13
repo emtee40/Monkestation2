@@ -494,21 +494,8 @@
 /mob/living/proc/get_organ_loss(slot)
 	return
 
-/mob/living/proc/getStaminaLoss()
-	return staminaloss
-
-/mob/living/proc/adjustStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype = ALL)
-	if(!forced && (status_flags & GODMODE))
-		return FALSE
-	if(!forced && !(mob_biotypes & required_biotype))
-		return FALSE
-	. = staminaloss
-	staminaloss = clamp((staminaloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, max_stamina)
-	. -= staminaloss
-	if(!.) // no change, no need to update
-		return FALSE
-	if(updating_stamina)
-		updatehealth()
+/mob/living/proc/pre_stamina_change(diff as num, forced)
+	return diff
 
 /mob/living/proc/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype = ALL)
 	if(!forced && (status_flags & GODMODE))
@@ -547,7 +534,7 @@
 /mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
 	. = (adjustBruteLoss(-abs(brute), updating_health = FALSE, forced = forced) + \
 			adjustFireLoss(-abs(burn), updating_health = FALSE, forced = forced) + \
-			adjustStaminaLoss(-abs(stamina), updating_stamina = FALSE, forced = forced))
+			src.stamina.adjust(stamina, forced))
 	if(!.) // no change, no need to update
 		return FALSE
 	if(updating_health)
@@ -557,7 +544,7 @@
 /mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = (adjustBruteLoss(abs(brute), updating_health = FALSE, forced = forced) + \
 			adjustFireLoss(abs(burn), updating_health = FALSE, forced = forced) + \
-			adjustStaminaLoss(abs(stamina), updating_stamina = FALSE, forced = forced))
+			src.stamina.adjust(-stamina, forced))
 	if(!.) // no change, no need to update
 		return FALSE
 	if(updating_health)

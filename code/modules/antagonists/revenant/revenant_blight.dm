@@ -38,14 +38,14 @@
 		if(SPT_PROB(1.5 * stage, seconds_per_tick))
 			to_chat(affected_mob, span_revennotice("You suddenly feel [pick("sick and tired", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
 			affected_mob.adjust_confusion(8 SECONDS)
-			need_mob_update += affected_mob.adjustStaminaLoss(20, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-20, FALSE)
 			new /obj/effect/temp_visual/revenant(affected_mob.loc)
 		if(stagedamage < stage)
 			stagedamage++
 			need_mob_update += affected_mob.adjustToxLoss(1 * stage * seconds_per_tick, updating_health = FALSE) //should, normally, do about 30 toxin damage.
 			new /obj/effect/temp_visual/revenant(affected_mob.loc)
 		if(SPT_PROB(25, seconds_per_tick))
-			need_mob_update += affected_mob.adjustStaminaLoss(stage, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-stage, FALSE)
 		if(need_mob_update)
 			affected_mob.updatehealth()
 
@@ -63,7 +63,7 @@
 			if(!finalstage)
 				finalstage = TRUE
 				to_chat(affected_mob, span_revenbignotice("You feel like [pick("nothing's worth it anymore", "nobody ever needed your help", "nothing you did mattered", "everything you tried to do was worthless")]."))
-				affected_mob.adjustStaminaLoss(22.5 * seconds_per_tick, updating_stamina = FALSE)
+				affected_mob.stamina.adjust(-22.5 * seconds_per_tick, FALSE)
 				new /obj/effect/temp_visual/revenant(affected_mob.loc)
 				if(affected_mob.dna && affected_mob.dna.species)
 					affected_mob.dna.species.handle_mutant_bodyparts(affected_mob,"#1d2953")

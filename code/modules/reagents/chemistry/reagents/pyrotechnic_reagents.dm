@@ -340,8 +340,7 @@
 	if(isjellyperson(affected_mob))
 		shock_timer = 0 //immune to shocks
 		affected_mob.AdjustAllImmobility(-40  *REM * seconds_per_tick)
-		if(affected_mob.adjustStaminaLoss(-2 * REM * seconds_per_tick, updating_stamina = FALSE))
-			. = UPDATE_MOB_HEALTH
+		affected_mob.stamina.adjust(2 * REM * seconds_per_tick, FALSE)
 		if(is_species(affected_mob, /datum/species/jelly/luminescent))
 			var/mob/living/carbon/human/affected_human = affected_mob
 			var/datum/species/jelly/luminescent/slime_species = affected_human.dna.species

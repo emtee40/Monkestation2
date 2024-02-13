@@ -63,8 +63,8 @@
 		TEST_ASSERT_EQUAL(testing_mob.getOxyLoss(), amount, \
 			"[testing_mob] should have [amount] oxy damage, instead they have [testing_mob.getOxyLoss()]!")
 	if(included_types & STAMINALOSS)
-		TEST_ASSERT_EQUAL(testing_mob.getStaminaLoss(), amount, \
-			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.getStaminaLoss()]!")
+		TEST_ASSERT_EQUAL(testing_mob.stamina.loss, amount, \
+			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.stamina.loss]!")
 
 /**
  * Apply a specific amount of damage to the mob using adjustBruteLoss(), adjustToxLoss(), etc.
@@ -102,9 +102,9 @@
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"adjustOxyLoss() should have returned [expected], but returned [damage_returned] instead!")
 	if(included_types & STAMINALOSS)
-		damage_returned = testing_mob.adjustStaminaLoss(amount, updating_stamina = FALSE, forced = forced, required_biotype = biotypes)
+		damage_returned = testing_mob.stamina.adjust(amount, forced = forced)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
-			"adjustStaminaLoss() should have returned [expected], but returned [damage_returned] instead!")
+			"stamina.adjust() should have returned [expected], but returned [damage_returned] instead!")
 
 /**
  * Set a specific amount of damage for the mob using setBruteLoss(), setToxLoss(), etc.
@@ -437,8 +437,8 @@
 		TEST_ASSERT_EQUAL(testing_mob.getOxyLoss(), 0, \
 			"[testing_mob] should have [0] oxy damage, instead they have [testing_mob.getOxyLoss()]!")
 	if(included_types & STAMINALOSS)
-		TEST_ASSERT_EQUAL(testing_mob.getStaminaLoss(), amount, \
-			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.getStaminaLoss()]!")
+		TEST_ASSERT_EQUAL(testing_mob.stamina.loss, amount, \
+			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.stamina.loss]!")
 
 /datum/unit_test/mob_damage/basic/test_sanity_simple(mob/living/basic/mouse/gray/gusgus)
 	// check to see if basic mob damage works

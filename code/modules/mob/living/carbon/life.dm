@@ -37,8 +37,8 @@
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
 
-		if(getStaminaLoss() > 0 && stam_regen_start_time <= world.time)
-			adjustStaminaLoss(-INFINITY)
+		if(stamina.loss > 0 && stam_regen_start_time <= world.time)
+			src.stamina.adjust(-INFINITY, TRUE)
 
 	handle_bodyparts(seconds_per_tick, times_fired)
 

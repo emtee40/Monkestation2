@@ -281,19 +281,16 @@
 	. = ..()
 	if(HAS_TRAIT(affected_mob, TRAIT_FAKEDEATH) && HAS_TRAIT(affected_mob, TRAIT_DEATHCOMA))
 		return
-	var/need_mob_update
 	switch(current_cycle)
 		if(2 to 6)
 			affected_mob.adjust_confusion(1 SECONDS * REM * seconds_per_tick)
 			affected_mob.adjust_drowsiness(2 SECONDS * REM * seconds_per_tick)
 			affected_mob.adjust_slurring(6 SECONDS * REM * seconds_per_tick)
 		if(6 to 9)
-			need_mob_update = affected_mob.adjustStaminaLoss(40 * REM * seconds_per_tick, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-40 * REM * seconds_per_tick, 0)
 		if(10 to INFINITY)
 			if(affected_mob.stat != DEAD)
 				affected_mob.fakedeath(type)
-	if(need_mob_update)
-		return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/ghoulpowder
 	name = "Ghoul Powder"
@@ -607,8 +604,7 @@
 
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(affected_mob.adjustStaminaLoss(data * REM * seconds_per_tick, updating_stamina = FALSE))
-		. = UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-data * REM * seconds_per_tick, FALSE)
 	data = max(data - 1, 3)
 
 /datum/reagent/toxin/polonium
@@ -896,8 +892,7 @@
 	. = ..()
 	if(current_cycle > 10)
 		affected_mob.Sleeping(40 * REM * seconds_per_tick)
-	if(affected_mob.adjustStaminaLoss(10 * REM * seconds_per_tick, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-10 * REM * seconds_per_tick, FALSE)
 
 /datum/reagent/toxin/sulfonal
 	name = "Sulfonal"
@@ -1249,8 +1244,7 @@
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(affected_mob.adjustStaminaLoss(7.5 * REM * seconds_per_tick, updating_stamina = FALSE))
-		. = UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-7.5 * REM * seconds_per_tick, FALSE)
 	if(SPT_PROB(10, seconds_per_tick))
 		switch(rand(1, 3))
 			if(1)
@@ -1371,7 +1365,7 @@
 		if(13 to 21)
 			silent_toxin = FALSE
 			toxpwr = 0.5
-			need_mob_update = affected_mob.adjustStaminaLoss(2.5 * REM * seconds_per_tick, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-2.5 * REM * seconds_per_tick, FALSE)
 			if(SPT_PROB(20, seconds_per_tick))
 				affected_mob.losebreath += 1 * REM * seconds_per_tick
 				need_mob_update = TRUE
@@ -1379,7 +1373,7 @@
 				affected_mob.set_jitter_if_lower(rand(2 SECONDS, 3 SECONDS) * REM * seconds_per_tick)
 			affected_mob.adjust_disgust(3 * REM * seconds_per_tick)
 			affected_mob.set_slurring_if_lower(1 SECONDS * REM * seconds_per_tick)
-			affected_mob.adjustStaminaLoss(2 * REM * seconds_per_tick, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-2 * REM * seconds_per_tick, FALSE)
 			if(SPT_PROB(4, seconds_per_tick))
 				paralyze_limb(affected_mob)
 				need_mob_update = TRUE
@@ -1395,7 +1389,7 @@
 			affected_mob.set_slurring_if_lower(3 SECONDS * REM * seconds_per_tick)
 			if(SPT_PROB(5, seconds_per_tick))
 				to_chat(affected_mob, span_danger("you feel horribly weak."))
-			need_mob_update += affected_mob.adjustStaminaLoss(5 * REM * seconds_per_tick, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-5 * REM * seconds_per_tick, FALSE)
 			if(SPT_PROB(8, seconds_per_tick))
 				paralyze_limb(affected_mob)
 				need_mob_update = TRUE
@@ -1405,7 +1399,7 @@
 			toxpwr = 1.5
 			need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, BRAIN_DAMAGE_DEATH)
 			affected_mob.set_silence_if_lower(3 SECONDS * REM * seconds_per_tick)
-			need_mob_update += affected_mob.adjustStaminaLoss(5 * REM * seconds_per_tick, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-5 * REM * seconds_per_tick, 0)
 			affected_mob.adjust_disgust(2 * REM * seconds_per_tick)
 			if(SPT_PROB(15, seconds_per_tick))
 				paralyze_limb(affected_mob)
