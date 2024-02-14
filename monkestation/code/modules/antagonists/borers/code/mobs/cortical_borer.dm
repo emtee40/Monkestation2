@@ -360,12 +360,10 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 		mind.add_antag_datum(antagonist_datum)
 
 /mob/living/basic/cortical_borer/proc/create_name()
-	var/picked_first_name = pick(GLOB.borer_first_name)
-	var/picked_second_name = pick(GLOB.borer_second_name)
 	// So their gen and a random. ex 1-288 is first gen named 288, 4-483 is fourth gen named 483
 	// Additionally we add in a random title,
 	// mainly so people can ahelp borers quicker and admins dont have to look through the logs of the 5 borers that were inside you
-	name = "[initial(name)] ([picked_first_name]: [picked_second_name]) ([generation]-[rand(100,999)])"
+	name = "[initial(name)] ([pick(borer_first_names)]: [pick(borer_second_names)]) ([generation]-[rand(100,999)])"
 
 	if(istype(/mob/living/basic/cortical_borer/empowered, src)) // lets also distinguish empowered borers from normal ones
 		name = "larger [name]"
