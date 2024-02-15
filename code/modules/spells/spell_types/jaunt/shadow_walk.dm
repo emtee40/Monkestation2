@@ -39,7 +39,7 @@
 	playsound(get_turf(owner), 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
 	cast_on.visible_message(span_boldwarning("[cast_on] melts into the shadows!"))
 	cast_on.SetAllImmobility(0)
-	cast_on.stamina.current = cast_on.stamina.maximum
+	cast_on.stamina.adjust(INFINITY)
 	enter_jaunt(cast_on)
 
 /obj/effect/dummy/phased_mob/shadow

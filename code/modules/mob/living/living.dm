@@ -912,7 +912,7 @@
 	if(heal_flags & HEAL_BURN)
 		setFireLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_STAM)
-		stamina.current = stamina.maximum
+		stamina.adjust(INFINITY)
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)

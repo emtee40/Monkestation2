@@ -99,7 +99,7 @@
 	master.setCloneLoss(clone_loss)
 	master.setToxLoss(tox_loss)
 	master.setOxyLoss(oxy_loss)
-	master.stamina.current =stamina_loss
+	master.stamina.current = stamina_loss
 	master.setOrganLoss(ORGAN_SLOT_BRAIN, brain_loss)
 	rewind()
 
