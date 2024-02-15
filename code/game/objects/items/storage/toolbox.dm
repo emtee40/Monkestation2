@@ -13,7 +13,7 @@
 	throw_range = 7
 	demolition_mod = 1.25
 	w_class = WEIGHT_CLASS_BULKY
-	custom_materials = list(/datum/material/iron = 500)
+	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT*5)
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
@@ -297,7 +297,7 @@
 
 /obj/item/storage/toolbox/haunted
 	name = "old toolbox"
-	custom_materials = list(/datum/material/hauntium = 500) // MONKEYSTATION EDIT ORIGINAL - we use the other material system
+	custom_materials = list(/datum/material/hauntium = SMALL_MATERIAL_AMOUNT * 5)
 
 /obj/item/storage/toolbox/mosincase
 	name = "ancient gun case"

@@ -461,6 +461,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Mob has gotten an armor buff from adamantine extract
 #define TRAIT_ADAMANTINE_EXTRACT_ARMOR "adamantine_extract_armor"
 
+/// Mob is unable to feel pain
+#define TRAIT_ANALGESIA "analgesia"
+
 // METABOLISMS
 // Various jobs on the station have historically had better reactions
 // to various drinks and foodstuffs. Security liking donuts is a classic

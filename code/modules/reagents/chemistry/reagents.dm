@@ -109,6 +109,10 @@
 	var/restricted = FALSE
 	/// do we have a turf exposure (used to prevent liquids doing un-needed processes)
 	var/turf_exposure = FALSE
+	/// A list of traits to apply while the reagent is being metabolized.
+	var/list/metabolized_traits
+	/// A list of traits to apply while the reagent is in a mob.
+	var/list/added_traits
 
 /datum/reagent/New()
 	SHOULD_CALL_PARENT(TRUE)
@@ -201,21 +205,27 @@ Primarily used in reagents/reaction_agents
 
 /// Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/affected_mob, amount)
+	SHOULD_CALL_PARENT(TRUE)
 	overdose_threshold /= max(normalise_creation_purity(), 1) //Maybe??? Seems like it would help pure chems be even better but, if I normalised this to 1, then everything would take a 25% reduction
-	return
+	if(added_traits)
+		affected_mob.add_traits(added_traits, "added:[type]")
 
 /// Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/affected_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	REMOVE_TRAITS_IN(affected_mob, "added:[type]")
 	affected_mob.clear_mood_event("[type]_overdose")
-	return
 
 /// Called when this reagent first starts being metabolized by a liver
 /datum/reagent/proc/on_mob_metabolize(mob/living/affected_mob)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if(metabolized_traits)
+		affected_mob.add_traits(metabolized_traits, "metabolized:[type]")
 
 /// Called when this reagent stops being metabolized by a liver
 /datum/reagent/proc/on_mob_end_metabolize(mob/living/affected_mob)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	REMOVE_TRAITS_IN(affected_mob, "metabolized:[type]")
 
 /// Called when a reagent is inside of a mob when they are dead. Returning UPDATE_MOB_HEALTH will cause updatehealth() to be called on the holder mob by /datum/reagents/proc/metabolize.
 /datum/reagent/proc/on_mob_dead(mob/living/carbon/affected_mob, seconds_per_tick)

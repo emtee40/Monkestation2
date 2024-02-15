@@ -588,19 +588,12 @@
 	taste_description = "garlic"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/consumable/garlic/on_mob_add(mob/living/affected_mob, amount)
-	. = ..()
-	ADD_TRAIT(affected_mob, TRAIT_GARLIC_BREATH, type)
-
-/datum/reagent/consumable/garlic/on_mob_delete(mob/living/affected_mob)
-	. = ..()
-	REMOVE_TRAIT(affected_mob, TRAIT_GARLIC_BREATH, type)
+	added_traits = list(TRAIT_GARLIC_BREATH)
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
 	if(isvampire(affected_mob)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
-		if(SPT_PROB(min((current_cycle-1)/2, 12.5), seconds_per_tick))
+		if(SPT_PROB(min((current_cycle)/2, 12.5), seconds_per_tick))
 			to_chat(affected_mob, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			affected_mob.Paralyze(10)
 			affected_mob.set_jitter_if_lower(20 SECONDS)
@@ -989,6 +982,7 @@
 	add_reagent_light(exposed_mob)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
+	. = ..()
 	remove_reagent_light(M)
 
 /datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
