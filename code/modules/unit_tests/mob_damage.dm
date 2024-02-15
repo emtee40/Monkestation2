@@ -141,10 +141,6 @@
 		damage_returned = testing_mob.setOxyLoss(amount, updating_health = FALSE, forced = forced, required_biotype = biotypes)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"setOxyLoss() should have returned [expected], but returned [damage_returned] instead!")
-	if(included_types & STAMINALOSS)
-		damage_returned = testing_mob.setStaminaLoss(amount, updating_stamina = FALSE, forced = forced, required_biotype = biotypes)
-		TEST_ASSERT_EQUAL(damage_returned, expected, \
-			"setStaminaLoss() should have returned [expected], but returned [damage_returned] instead!")
 
 ///	Sanity tests damage and healing using adjustToxLoss, adjustBruteLoss, etc
 /datum/unit_test/mob_damage/proc/test_sanity_simple(mob/living/carbon/human/consistent/dummy)

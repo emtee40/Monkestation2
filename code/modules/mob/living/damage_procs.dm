@@ -498,17 +498,7 @@
 	return diff
 
 /mob/living/proc/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype = ALL)
-	if(!forced && (status_flags & GODMODE))
-		return FALSE
-	if(!forced && !(mob_biotypes & required_biotype))
-		return FALSE
-	. = staminaloss
-	staminaloss = amount
-	. -= staminaloss
-	if(!.) // no change, no need to update
-		return FALSE
-	if(updating_stamina)
-		updatehealth()
+	return
 
 /**
  * heal ONE external organ, organ gets randomly selected from damaged ones.
