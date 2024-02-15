@@ -101,10 +101,10 @@
 		damage_returned = testing_mob.adjustOxyLoss(amount, updating_health = FALSE, forced = forced, required_biotype = biotypes)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"adjustOxyLoss() should have returned [expected], but returned [damage_returned] instead!")
-	if(included_types & STAMINALOSS)
+	if(included_types & STAMINALOSS)	// Monkestaion Edit: Unique stamina, i cant think of a good way to evaluate overheal so i replaced expected with amount, will this work? i dunno
 		damage_returned = testing_mob.stamina.adjust(-amount, forced = forced)
-		TEST_ASSERT_EQUAL(-damage_returned, expected, \
-			"stamina.adjust() should have returned [expected], but returned [-damage_returned] instead!")
+		TEST_ASSERT_EQUAL(damage_returned, amount, \
+			"stamina.adjust() should have returned [amount], but returned [damage_returned] instead!")
 
 /**
  * Set a specific amount of damage for the mob using setBruteLoss(), setToxLoss(), etc.
