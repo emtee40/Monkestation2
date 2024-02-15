@@ -267,32 +267,32 @@
 	dummy.set_species(/datum/species/plasmaman)
 
 	// argumentless default: should default to required_biotype = ALL. The damage should be applied in that case.
-	apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
-	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS)
+	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS)
 
 	// If we specify MOB_ORGANIC, the damage should not get applied because plasmamen lack that biotype.
-	apply_damage(dummy, 1, expected = 0, included_types = TOXLOSS|CLONELOSS|STAMINALOSS, biotypes = MOB_ORGANIC)
-	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, 1, expected = 0, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_ORGANIC)
+	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS)
 
 	// Now if we specify MOB_MINERAL the damage should get applied.
-	apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS, biotypes = MOB_MINERAL)
-	verify_damage(dummy, 2, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL)
+	verify_damage(dummy, 2, included_types = TOXLOSS|CLONELOSS)
 
 	// Transform back to human
 	dummy.set_species(/datum/species/human)
 
 	// We have 2 damage presently.
 	// Try to heal it; let's specify MOB_MINERAL, which should no longer work because we have changed back to a human.
-	apply_damage(dummy, -2, expected = 0, included_types = TOXLOSS|CLONELOSS|STAMINALOSS, biotypes = MOB_MINERAL)
-	verify_damage(dummy, 2, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, -2, expected = 0, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL)
+	verify_damage(dummy, 2, included_types = TOXLOSS|CLONELOSS)
 
 	// Force heal some of the damage. When forced = TRUE the damage/healing gets applied no matter what.
-	apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS, biotypes = MOB_MINERAL, forced = TRUE)
-	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_MINERAL, forced = TRUE)
+	verify_damage(dummy, 1, included_types = TOXLOSS|CLONELOSS)
 
 	// Now heal the rest of it with the correct biotype. Make sure that this works. We should have 0 damage afterwards.
-	apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS|STAMINALOSS, biotypes = MOB_ORGANIC)
-	verify_damage(dummy, 0, included_types = TOXLOSS|CLONELOSS|STAMINALOSS)
+	apply_damage(dummy, -1, included_types = TOXLOSS|CLONELOSS, biotypes = MOB_ORGANIC)
+	verify_damage(dummy, 0, included_types = TOXLOSS|CLONELOSS)
 
 /// Testing oxyloss with the TRAIT_NOBREATH
 /datum/unit_test/mob_damage/proc/test_nobreath(mob/living/carbon/human/consistent/dummy)
