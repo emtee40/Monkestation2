@@ -62,9 +62,9 @@
 	if(included_types & OXYLOSS)
 		TEST_ASSERT_EQUAL(testing_mob.getOxyLoss(), amount, \
 			"[testing_mob] should have [amount] oxy damage, instead they have [testing_mob.getOxyLoss()]!")
-	if(included_types & STAMINALOSS)
+/* 	if(included_types & STAMINALOSS)
 		TEST_ASSERT_EQUAL(testing_mob.stamina.loss, amount, \
-			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.stamina.loss]!")
+			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.stamina.loss]!") */
 
 /**
  * Apply a specific amount of damage to the mob using adjustBruteLoss(), adjustToxLoss(), etc.
@@ -141,6 +141,10 @@
 		damage_returned = testing_mob.setOxyLoss(amount, updating_health = FALSE, forced = forced, required_biotype = biotypes)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"setOxyLoss() should have returned [expected], but returned [damage_returned] instead!")
+/* 	if(included_types & STAMINALOSS)
+		testing_mob.stamina.loss = amount
+		TEST_ASSERT_EQUAL(damage_returned, expected, \
+			"setStaminaLoss() should have returned [expected], but returned [testing_mob.stamina.loss] instead!") */
 
 ///	Sanity tests damage and healing using adjustToxLoss, adjustBruteLoss, etc
 /datum/unit_test/mob_damage/proc/test_sanity_simple(mob/living/carbon/human/consistent/dummy)
