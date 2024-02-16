@@ -13,29 +13,48 @@
 	icon_state = "pinpointer_syndicate"
 	worn_icon_state = "pinpointer_black"
 	special_examine = TRUE
-	var/area/examine_area
+	var/area/tracked_area
 	var/pinpointer_owner
 
 /obj/item/pinpointer/area_pinpointer/Destroy()
-	examine_area = null
-	return ..()
-
-/obj/item/pinpointer/area_pinpointer/get_direction_icon(here, there)
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(examine_area)
-
-	var/turf/target_turf = get_turf(src)
-	for(var/turf/possible_turf as anything in area_turfs) // im a bit scared of the effects this may have on performance, but it seems fine
-		if(get_dist_euclidian(target_turf, possible_turf) <= minimum_range)
-			return "pinon[alert ? "alert" : ""]direct[icon_suffix]"
-
+	tracked_area = null
 	return ..()
 
 // we need to get our own examine text, since it would be "tracking the floor" otherwise
 /obj/item/pinpointer/area_pinpointer/examine(mob/user)
 	. = ..()
 	if(target)
-		. += "It is currently tracking [examine_area]."
+		. += "It is currently tracking [tracked_area]."
+
+/obj/item/pinpointer/area_pinpointer/get_direction_icon(here, there)
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+
+	var/turf/pinpointer_turf = get_turf(src)
+	for(var/turf/possible_turf as anything in area_turfs) // im a bit scared of the effects this may have on performance, but it seems fine
+		if(get_dist_euclidian(pinpointer_turf, possible_turf) <= minimum_range)
+			return "pinon[alert ? "alert" : ""]direct[icon_suffix]"
+
+	return ..()
+
+/obj/item/pinpointer/area_pinpointer/scan_for_target() // may be extremelly expensive and removed
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+
+	var/turf/pinpointer_turf = get_turf(src)
+	/// The turf that has the lowest possible range towards us and the area
+	var/turf/closest_turf
+	/// Whats the range between us and the closest turf?
+	var/closest_turf_range = 255
+
+	for(var/turf/floor as anything in area_turfs) // Go over every turf, check every turfs
+		if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
+			if(floor.density) // wait, thats not a floor. Thats a wall, we got catfished!
+				continue
+			closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
+			closest_turf = floor
+
+	target = closest_turf
 
 /obj/item/pinpointer/area_pinpointer/attack_self(mob/living/user)
 	if(active)
@@ -72,12 +91,13 @@
 		return
 	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
 		return
-	examine_area = target_area
+
+	tracked_area = target_area
 
 	var/turf/target_turf = get_first_open_turf_in_area(target_area)
-
 	target = target_turf
 	toggle_on()
+
 	user.visible_message(span_notice("[user] activates [user.p_their()] pinpointer."), span_notice("You activate your pinpointer."))
 
 /obj/item/extraction_pack/contractor
