@@ -15,9 +15,13 @@
 	special_examine = TRUE
 	var/area/tracked_area
 	var/pinpointer_owner
+	/// We save our position every time we scan_for_target()
+	/// Its used to check if we moved so we may ignore calculations when being still, along with calculations between us and the target turfs.
+	var/turf/pinpointer_turf
 
 /obj/item/pinpointer/area_pinpointer/Destroy()
 	tracked_area = null
+	pinpointer_turf = null
 	return ..()
 
 // we need to get our own examine text, since it would be "tracking the floor" otherwise
@@ -37,11 +41,17 @@
 
 	return ..()
 
-/obj/item/pinpointer/area_pinpointer/scan_for_target() // may be extremelly expensive and removed
+/obj/item/pinpointer/area_pinpointer/scan_for_target()
+	var/current_turf = get_turf(src)
+
+	if(pinpointer_turf == current_turf) // if our position has not changed, we dont need to update our target.
+		return
+
+	pinpointer_turf = current_turf
+
 	var/list/area_turfs = list()
 	area_turfs = get_area_turfs(tracked_area)
 
-	var/turf/pinpointer_turf = get_turf(src)
 	/// The turf that has the lowest possible range towards us and the area
 	var/turf/closest_turf
 	/// Whats the range between us and the closest turf?
