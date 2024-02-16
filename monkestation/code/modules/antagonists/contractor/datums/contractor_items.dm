@@ -61,6 +61,15 @@
 	stock = 2
 	cost = 1
 
+/datum/contractor_item/area_pinpointer
+	name = "Area Pinpointer"
+	desc = "A hacked pinpointer that uses the crew sensor network and manages to hijack the area data instead of the crew monitor data. \
+			Whilst this allows you to track any area on the station it is highly illegal due to the extensive use of resources this process requires"
+	item = /obj/item/pinpointer/area_pinpointer
+	item_icon = "search-location"
+	stock = 2
+	cost = 1
+
 /datum/contractor_item/fulton_extraction_kit
 	name = "Fulton Extraction Kit"
 	desc = "For getting your target across the station to those difficult dropoffs. Place the beacon somewhere secure, and link the pack. \
