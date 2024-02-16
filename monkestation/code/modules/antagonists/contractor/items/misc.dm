@@ -46,11 +46,10 @@
 	var/turf/closest_turf
 	/// Whats the range between us and the closest turf?
 	var/closest_turf_range = 255
-
-	for(var/turf/floor as anything in area_turfs) // Go over every turf, check every turfs
+	for(var/turf/floor as anything in area_turfs) // Lets go over everything and check their distances for the closest tile, what can go wrong?
+		if(floor.density) // lets ignore all walls before getting every turfs distance, to save some performance
+			continue
 		if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
-			if(floor.density) // wait, thats not a floor. Thats a wall, we got catfished!
-				continue
 			closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
 			closest_turf = floor
 
