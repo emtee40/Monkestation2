@@ -21,8 +21,6 @@
 	var/process_scan = TRUE // some pinpointers change target every time they scan, which means we can't have it change very process but instead when it turns on.
 	var/icon_suffix = "" // for special pinpointer icons
 
-	var/special_examine = FALSE // MONKESTATION ADDITION -- CONTRACTORS
-
 /obj/item/pinpointer/Initialize(mapload)
 	. = ..()
 	GLOB.pinpointer_list += src

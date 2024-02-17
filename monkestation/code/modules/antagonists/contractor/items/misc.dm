@@ -7,6 +7,9 @@
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
 
+/obj/item/pinpointer
+	var/special_examine = FALSE
+
 /obj/item/pinpointer/area_pinpointer
 	name = "hacked pinpointer"
 	desc = "A handheld tracking device that locks onto certain signals. This one seems to have wires sticking out of it, and can point onto areas instead of humans."
