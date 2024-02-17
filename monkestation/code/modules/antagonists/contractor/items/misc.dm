@@ -23,17 +23,33 @@
 	var/area/tracked_area
 	/// The list of all open turfs within our tracked area, stored so we dont have to re-generate it every time we are tracking the area
 	var/list/turf/open/area_open_turfs = list()
+	/// The list of all turfs with doors on them, used for the door mode
+	var/list/turf/open/door_turfs = list()
+	/// a switch, if TRUE it will display all door turfs instead of all open turfs
+	var/door_mode = FALSE
 
 /obj/item/pinpointer/area_pinpointer/Destroy()
 	tracked_area = null
 	pinpointer_turf = null
+	area_open_turfs = null
+	door_turfs = null
 	return ..()
+
+/obj/item/pinpointer/area_pinpointer/AltClick(mob/living/carbon/user)
+	if(!istype(user) || !user.can_perform_action(src))
+		return
+	user.visible_message(span_notice("[user] quietly flips a switch in [user.p_their()] pinpointer."), span_notice("You quietly flip the switch your pinpointer."))
+	door_mode = !door_mode
 
 // we need to get our own examine text, since it would be "tracking the floor" otherwise
 /obj/item/pinpointer/area_pinpointer/examine(mob/user)
 	. = ..()
 	if(target)
-		. += "It is currently tracking [tracked_area]."
+		. += span_notice("It is currently tracking [tracked_area].")
+	if(door_mode)
+		. += span_notice("It is currently tracking the nearest door in the given area, alt+click to switch modes")
+	else
+		. += span_notice("It is currently tracking the nearest floor in the given area, alt+click to switch modes")
 
 /obj/item/pinpointer/area_pinpointer/get_direction_icon(here, there)
 	var/list/area_turfs = list()
@@ -58,10 +74,16 @@
 	var/turf/closest_turf
 	/// Whats the range between us and the closest turf?
 	var/closest_turf_range = 255
-	for(var/turf/open/floor as anything in area_open_turfs) // Lets go over everything and check their distances for the closest tile
-		if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
-			closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
-			closest_turf = floor
+	if(!door_mode)
+		for(var/turf/open/floor as anything in area_open_turfs) // Lets go over every turf and check their distances for the closest tile
+			if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
+				closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
+				closest_turf = floor
+	else // if door_mode is TRUE, we instead want to track the nearest airlock instead of all turfs
+		for(var/turf/open/floor as anything in door_turfs) // Lets go over every door and check their distances for the closest tile
+			if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
+				closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
+				closest_turf = floor
 
 	target = closest_turf
 
@@ -69,7 +91,8 @@
 	if(active)
 		toggle_on()
 		user.visible_message(span_notice("[user] deactivates [user.p_their()] pinpointer."), span_notice("You deactivate your pinpointer."))
-		area_open_turfs = list() // empty the list so we can fill it on the next activation with the new area's turfs
+		area_open_turfs = list() // empty the lists so we can fill it on the next activation with the new area's turfs
+		door_turfs = list() // if we wouldn't empty them, the pinpointer would get both confusing and very expensive to run
 		return
 
 	if(!user)
@@ -106,9 +129,10 @@
 		if(floor.density) // catch all the walls, we dont want them
 			continue
 		area_open_turfs += floor
+		if(locate(/obj/machinery/door/airlock) in floor)
+			door_turfs += floor
 
-	var/turf/target_turf = get_first_open_turf_in_area(target_area)
-	target = target_turf
+	target = get_first_open_turf_in_area(target_area)
 
 	toggle_on()
 
