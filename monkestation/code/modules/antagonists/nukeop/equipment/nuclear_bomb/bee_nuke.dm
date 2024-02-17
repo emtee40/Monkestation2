@@ -59,11 +59,8 @@
 
 /obj/machinery/nuclearbomb/bee/really_actually_explode(detonation_status)
 	//if it's always hooked in it'll override admin choices
-	RegisterSignal(clog_control, COMSIG_CREATED_ROUND_EVENT, PROC_REF(on_created_round_event))
 	disarm_nuke()
 	clog_control.run_event(event_cause = "a bee nuke")
 
 /// signal sent from overflow control when it fires an event
-/obj/machinery/nuclearbomb/bee/proc/on_created_round_event(datum/round_event_control/source_event_control, datum/round_event/scrubber_clog/flood/created_event)
-	SIGNAL_HANDLER
-	UnregisterSignal(clog_control, COMSIG_CREATED_ROUND_EVENT)
+
