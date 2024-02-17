@@ -7,7 +7,6 @@
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 	/// Reagent that is produced once the nuke detonates.
 	/// Round event control we might as well keep track of instead of locating every time
-	var/datum/round_event_control/scrubber_clog/flood/clog_control
 
 /obj/machinery/nuclearbomb/bee/Initialize(mapload)
 	. = ..()
