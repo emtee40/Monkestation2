@@ -4,7 +4,7 @@
 	weight = 0
 	max_occurrences = 1
 	description = "Bees absolutely flood out of a scrubber, used by the Rayne corp bee nuke."
-	min_wizard_trigger_potency = 0
+	min_wizard_trigger_potency = 3
 	max_wizard_trigger_potency = 6
 
 /datum/round_event/scrubber_clog/flood
