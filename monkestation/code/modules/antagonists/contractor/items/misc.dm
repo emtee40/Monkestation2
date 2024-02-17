@@ -16,10 +16,13 @@
 	icon_state = "pinpointer_syndicate"
 	worn_icon_state = "pinpointer_black"
 	special_examine = TRUE
-	var/area/tracked_area
 	/// We save our position every time we scan_for_target()
 	/// Its used to check if we moved so we may ignore calculations when being still, along with calculations between us and the target turfs.
 	var/turf/pinpointer_turf
+	/// The area we are currently tracking
+	var/area/tracked_area
+	/// The list of all open turfs within our tracked area, stored so we dont have to re-generate it every time we are tracking the area
+	var/list/turf/open/area_open_turfs = list()
 
 /obj/item/pinpointer/area_pinpointer/Destroy()
 	tracked_area = null
@@ -51,16 +54,11 @@
 
 	pinpointer_turf = current_turf
 
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
-
 	/// The turf that has the lowest possible range towards us and the area
 	var/turf/closest_turf
 	/// Whats the range between us and the closest turf?
 	var/closest_turf_range = 255
-	for(var/turf/floor as anything in area_turfs) // Lets go over everything and check their distances for the closest tile, what can go wrong?
-		if(floor.density) // lets ignore all walls before getting every turfs distance, to save some performance
-			continue
+	for(var/turf/open/floor as anything in area_open_turfs) // Lets go over everything and check their distances for the closest tile
 		if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
 			closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
 			closest_turf = floor
@@ -71,6 +69,7 @@
 	if(active)
 		toggle_on()
 		user.visible_message(span_notice("[user] deactivates [user.p_their()] pinpointer."), span_notice("You deactivate your pinpointer."))
+		area_open_turfs = list() // empty the list so we can fill it on the next activation with the new area's turfs
 		return
 
 	if(!user)
@@ -101,8 +100,16 @@
 
 	tracked_area = target_area
 
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
+		if(floor.density) // catch all the walls, we dont want them
+			continue
+		area_open_turfs += floor
+
 	var/turf/target_turf = get_first_open_turf_in_area(target_area)
 	target = target_turf
+
 	toggle_on()
 
 	user.visible_message(span_notice("[user] activates [user.p_their()] pinpointer."), span_notice("You activate your pinpointer."))
