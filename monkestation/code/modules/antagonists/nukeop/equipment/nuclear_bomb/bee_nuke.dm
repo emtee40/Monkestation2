@@ -4,7 +4,6 @@
 	desc = "One of the more successful achievements of the Rayne Corporation Biological Warfare Division, their nuclear fission explosives are renowned for being affordable to produce and devastatingly effective. Signs explain that though this particular device has been (hopefully) decommissioned, you should probably be careful around it considering it's a bomb. - at least, the sign says that's what it is. There seems to be a picture of a bee on the back."
 	proper_bomb = FALSE
 	/// The keg located within the beer nuke.
-	var/obj/structure/reagent_dispensers/beerkeg/keg
 	/// Reagent that is produced once the nuke detonates.
 	/// Round event control we might as well keep track of instead of locating every time
 
