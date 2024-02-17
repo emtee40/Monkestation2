@@ -2,7 +2,7 @@
 	name = "Scrubber Clog: Flood"
 	typepath = /datum/round_event/scrubber_clog/flood
 	weight = 0
-	max_occurrences = 1
+	max_occurrences = 0
 	description = "Bees absolutely flood out of a scrubber, used by the Rayne corp bee nuke."
 	min_wizard_trigger_potency = 3
 	max_wizard_trigger_potency = 6
