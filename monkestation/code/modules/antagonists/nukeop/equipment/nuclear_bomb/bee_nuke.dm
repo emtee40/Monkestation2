@@ -59,7 +59,7 @@
 /obj/machinery/nuclearbomb/bee/really_actually_explode(detonation_status)
 	//if it's always hooked in it'll override admin choices
 	disarm_nuke()
-	clog_control.run_event(event_cause = "a bee nuke")
+	force_event(/datum/round_event_control/scrubber_clog/flood/clog_control, "A bee nuke")
 
 /// signal sent from overflow control when it fires an event
 
