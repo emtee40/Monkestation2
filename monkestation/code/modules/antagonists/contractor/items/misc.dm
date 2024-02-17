@@ -17,7 +17,6 @@
 	worn_icon_state = "pinpointer_black"
 	special_examine = TRUE
 	var/area/tracked_area
-	var/pinpointer_owner
 	/// We save our position every time we scan_for_target()
 	/// Its used to check if we moved so we may ignore calculations when being still, along with calculations between us and the target turfs.
 	var/turf/pinpointer_turf
@@ -74,18 +73,14 @@
 		user.visible_message(span_notice("[user] deactivates [user.p_their()] pinpointer."), span_notice("You deactivate your pinpointer."))
 		return
 
-	if(!pinpointer_owner)
-		pinpointer_owner = user
-
-	if(pinpointer_owner != user)
-		to_chat(user, span_notice("The pinpointer doesn't respond. It seems to only recognise its owner."))
-		return
+	if(!user)
+		CRASH("[src] has had attack_self attempted by a non-existing user.")
 
 	// This list should ONLY include areas that are on our z-level and are actually recognizable, else we confuse the contractor
 	var/list/possible_areas = list()
 	for(var/area/area in GLOB.areas)
-		var/our_z = user?.z
-		var/area_z = area?.z
+		var/our_z = user.z
+		var/area_z = area.z
 		if(!our_z || !area_z)
 			// What the actual hell are you doing
 			CRASH("[src] has detected an area without a valid z-level. What")
@@ -101,7 +96,7 @@
 	var/target_area = tgui_input_list(user, "Area to track", "Pinpoint", sort_list(possible_areas))
 	if(isnull(target_area))
 		return
-	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
+	if(QDELETED(src) || QDELETED(user) || !user.is_holding(src) || user.incapacitated())
 		return
 
 	tracked_area = target_area
