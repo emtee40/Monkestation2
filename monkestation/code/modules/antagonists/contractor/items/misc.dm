@@ -7,6 +7,12 @@
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
 
+/obj/item/extraction_pack/contractor
+	name = "black fulton extraction pack"
+	desc = "A modified fulton pack that can be used indoors thanks to Bluespace technology. Favored by Syndicate Contractors."
+	icon = 'monkestation/icons/obj/items/fulton.dmi'
+	can_use_indoors = TRUE
+
 /obj/item/pinpointer
 	var/special_examine = FALSE
 
@@ -61,6 +67,16 @@
 			return "pinon[alert ? "alert" : ""]direct[icon_suffix]"
 
 	return ..()
+
+/obj/item/pinpointer/area_pinpointer/proc/regenerate_tracked_turfs()
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
+		if(floor.density) // catch all the walls, we dont want them
+			continue
+		area_open_turfs += floor
+		if(locate(/obj/machinery/door/airlock) in floor)
+			door_turfs += floor
 
 /obj/item/pinpointer/area_pinpointer/scan_for_target()
 	var/current_turf = get_turf(src)
@@ -123,14 +139,7 @@
 
 	tracked_area = target_area
 
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
-	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
-		if(floor.density) // catch all the walls, we dont want them
-			continue
-		area_open_turfs += floor
-		if(locate(/obj/machinery/door/airlock) in floor)
-			door_turfs += floor
+	regenerate_tracked_turfs()
 
 	target = get_first_open_turf_in_area(target_area)
 
@@ -138,8 +147,64 @@
 
 	user.visible_message(span_notice("[user] activates [user.p_their()] pinpointer."), span_notice("You activate your pinpointer."))
 
-/obj/item/extraction_pack/contractor
-	name = "black fulton extraction pack"
-	desc = "A modified fulton pack that can be used indoors thanks to Bluespace technology. Favored by Syndicate Contractors."
-	icon = 'monkestation/icons/obj/items/fulton.dmi'
-	can_use_indoors = TRUE
+/**
+ * Debug area pinpointer focuses on visualization over performance, admin-spawn only
+ * Red - This tile is ignored by tracking
+ * Yellow - This tile is not tracked, but is marked
+ * Green - This tile is tracked and potentially a target
+ * Blue - This is the tile we are currently tracking
+ */
+/obj/item/pinpointer/area_pinpointer/debug
+	name = "debug area pinpointer"
+	desc = "A debug version of the area pinpointer, this one visualizes all of the turfs that are being tracked and ignored."
+	var/list/obj/machinery/door/airlock/affected_airlock_list = list()
+
+/obj/item/pinpointer/area_pinpointer/debug/scan_for_target()
+	. = ..()
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
+		floor.maptext = initial(floor.maptext)
+		if(floor.density)
+			floor.color = rgb(255, 0, 0) // color the walls red, we dont track them
+			floor.maptext = MAPTEXT("X")
+			continue
+		if(!door_mode)
+			floor.color = rgb(0, 255, 0) // color the floors green, we track them
+		else
+			floor.color = rgb(255, 255, 0) // we are not necessarily tracking them, but still mark them since they are relevant
+		if(locate(/obj/machinery/door/airlock) in floor)
+			var/obj/machinery/door/airlock/affected_airlock = locate(/obj/machinery/door/airlock) in floor
+			affected_airlock_list += affected_airlock
+			affected_airlock.alpha = 50
+			if(door_mode)
+				floor.color = rgb(0, 255, 0) // color the doors green, we are tracking them
+			else
+				floor.color = rgb(255, 255, 0) // we aint tracking them, still mark them
+
+	target.color = rgb(0, 0, 255) // higher color priority than any other turfs
+	target.maptext = MAPTEXT("TARGET")
+
+/obj/item/pinpointer/area_pinpointer/debug/attack_self(mob/living/user)
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+	if(active)
+		for(var/turf/floor as anything in area_turfs) // we need to clear all the colors we created
+			floor.color = initial(floor.color)
+			floor.maptext = initial(floor.maptext)
+		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list) // we need to reset the alpha on the airlocks
+			affected_airlock.alpha = initial(affected_airlock.alpha)
+		affected_airlock_list = list() // empty da list when we are done cleaning
+	return ..()
+
+/obj/item/pinpointer/area_pinpointer/debug/Destroy()
+	var/list/area_turfs = list()
+	area_turfs = get_area_turfs(tracked_area)
+	if(active)
+		for(var/turf/floor as anything in area_turfs) // we need to clear all the colors we created
+			floor.color = initial(floor.color)
+			floor.maptext = initial(floor.maptext)
+		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list) // we need to reset the alpha on the airlocks
+			affected_airlock.alpha = initial(affected_airlock.alpha)
+	affected_airlock_list = null
+	return ..()
