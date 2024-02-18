@@ -16,6 +16,18 @@
 				)
 	crate_name = "cargo supplies crate"
 
+/datum/supply_pack/service/bitrun_crate
+	name = "Bitrunning supplies crate"
+	desc = "Seems like we need new machinery, the gamers broke it once more."
+	cost = CARGO_CRATE_VALUE * 2.25
+	acces = ACCESS_BIT_DEN
+	contains = list(/obj/item/circuitboard/machine/netpod = 3,
+				/obj/item/circuitboard/machine/quantum_server,
+				/obj/item/circuitboard/machine/byteforge,
+				/obj/item/circuitboard/computer/quantum_console
+			)
+	crate_name = "Bitrunning supplies crate"
+
 /datum/supply_pack/service/noslipfloor
 	name = "High-traction Floor Tiles"
 	desc = "Make slipping a thing of the past with thirty industrial-grade anti-slip floor tiles!"
