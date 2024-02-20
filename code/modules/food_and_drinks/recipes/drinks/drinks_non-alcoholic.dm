@@ -16,7 +16,7 @@
 
 /datum/chemical_reaction/drink/sunset_sarsaparilla
 	results = list(/datum/reagent/consumable/sunset_sarsaparilla = 5)
-	required_reagents =  = list(/datum/reagent/ash = 1, /datum/reagent/consumable/sodawater = 1, /datum/reagent/uranium = 1)
+	required_reagents =  list(/datum/reagent/ash = 1, /datum/reagent/consumable/sodawater = 1, /datum/reagent/uranium = 1)
 
 /datum/chemical_reaction/drink/doctor_delight
 	results = list(/datum/reagent/consumable/doctor_delight = 5)

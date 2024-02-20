@@ -649,11 +649,11 @@
 	name = "glass of Sunset Sarsparilla"
 	desc = "Locally sourced from your nearest nuclear wasteland."
 	icon = 'icons/obj/drinks/soda.dmi'
-	icon_state = "sunset_sarsparilla"
+	icon_state = "sunset_sarsaparilla"
 
 /datum/reagent/consumable/sunset_sarsaparilla/on_mob_life(mob/living/carbon/drinker)
 	. = ..()
-	drinker.heal_bodypart_damage(1)
+	drinker.heal_bodypart_damage(2.5)
 /datum/reagent/consumable/rootbeer
 	name = "root beer"
 	description = "A delightfully bubbly root beer, filled with so much sugar that it can actually speed up the user's trigger finger."
