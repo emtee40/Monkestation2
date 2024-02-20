@@ -637,6 +637,23 @@
 	..()
 	. = TRUE
 
+/datum/reagent/consumable/sunset_sarsparilla
+	name = "Sunset Sarsparilla"
+	description = "Build Mass with Sass!"
+	color = "#633504" // rgb: 99, 53, 4
+	quality = DRINK_VERYGOOD
+	taste_description = "the wild west"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/glass_style/drinking_glass/sunset_sarsparilla
+	name = "glass of Sunset Sarsparilla"
+	desc = "Locally sourced from your nearest nuclear wasteland."
+	icon = 'icons/obj/drinks/soda.dmi'
+	icon_state = "sunset_sarsparilla"
+
+/datum/reagent/consumable/sunset_sarsparilla/on_mob_life(mob/living/carbon/drinker)
+	. = ..()
+	drinker.heal_bodypart_damage(1)
 /datum/reagent/consumable/rootbeer
 	name = "root beer"
 	description = "A delightfully bubbly root beer, filled with so much sugar that it can actually speed up the user's trigger finger."
