@@ -101,6 +101,6 @@
 	name = "Nuka Cola"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
 
-/obj/item/reagent_containers/cup/glass/drinkingglass/filled/sunset_sarsparilla
-	name = "Sunset Sarsparilla"
-	list_reagents = list(/datum/reagnet/consumable/sunset_sarsparilla = 50)
+/obj/item/reagent_containers/cup/glass/drinkingglass/filled/sunset_sarsaparilla
+	name = "Sunset Sarsaparilla"
+	list_reagents = list(/datum/reagnet/consumable/sunset_sarsaparilla = 50)
