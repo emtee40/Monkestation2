@@ -16,3 +16,8 @@
 #define TRAIT_PERFECT_SURGEON "perfect_surgeon"
 /// Station trait for when the clown has bridge access *shudders*
 #define STATION_TRAIT_CLOWN_BRIDGE "clown_bridge"
+
+#define TRAIT_SENSOR_HUD "sensor_hud"
+#define TRAIT_SHOVE_RESIST	"shove_resist" //Used by implants
+#define TRAIT_FAST_CLIMBER 	"fast_climber" //Used by implants
+#define ANTI_DROP_IMPLANT_TRAIT "antidrop_implant"

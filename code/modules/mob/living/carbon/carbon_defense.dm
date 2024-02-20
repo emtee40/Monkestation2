@@ -179,7 +179,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. = TRUE
 
-	
+
 	if(length(diseases) && isliving(user))
 		var/mob/living/living = user
 		var/block = living.check_contact_sterility(BODY_ZONE_EVERYTHING)
@@ -196,7 +196,7 @@
 			if(length(contact) && !block)
 				for(var/datum/disease/advanced/V as anything in contact)
 					infect_disease(V, notes="(Skin Contact - (Bump), coming from [living])")
-					
+
 
 	for(var/datum/surgery/operations as anything in surgeries)
 		if((user.istate & ISTATE_HARM))
@@ -226,7 +226,7 @@
 		var/datum/disease/D = thing
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
-	*/ 
+	*/
 	if(!(user.istate & ISTATE_HARM))
 		help_shake_act(user)
 		return FALSE
@@ -299,7 +299,15 @@
 	var/shove_dir = get_dir(loc, target.loc)
 	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
 	var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+
 	var/turf/target_old_turf = target.loc
+	if(HAS_TRAIT(target,TRAIT_SHOVE_RESIST))
+		log_combat(src, target, "shoved")
+		target.stamina.adjust(-7)
+		target.visible_message("<span class='danger'>[name] tries to shove [target.name]</span>",
+							"<span class='userdanger'>You're nearly knocked down by [name]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, src)
+		return
+
 
 	//Are we hitting anything? or
 	if(SEND_SIGNAL(target_shove_turf, COMSIG_CARBON_DISARM_PRESHOVE) & COMSIG_CARBON_ACT_SOLID)

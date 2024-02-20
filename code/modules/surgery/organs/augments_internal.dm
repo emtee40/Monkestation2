@@ -1,4 +1,3 @@
-
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
