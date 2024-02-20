@@ -637,7 +637,7 @@
 	..()
 	. = TRUE
 
-/datum/reagent/consumable/sunset_sarsaparilla
+/datum/reagent/consumable/sunset_sarsaparilla // monkestation edit
 	name = "Sunset Sarsaparilla"
 	description = "Build Mass with Sass!"
 	color = "#633504" // rgb: 99, 53, 4
@@ -645,7 +645,7 @@
 	taste_description = "the wild west"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/glass_style/drinking_glass/sunset_sarsaparilla
+/datum/glass_style/drinking_glass/sunset_sarsaparilla //monke station edit
 	required required_drink_type = .datum/reagent/consumable/sunset_sarsaparilla
 	name = "glass of Sunset Sarsparilla"
 	desc = "Locally sourced from your nearest nuclear wasteland."

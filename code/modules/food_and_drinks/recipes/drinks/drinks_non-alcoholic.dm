@@ -14,7 +14,7 @@
 	results = list(/datum/reagent/consumable/nuka_cola = 6)
 	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/consumable/space_cola = 6)
 
-/datum/chemical_reaction/drink/sunset_sarsaparilla
+/datum/chemical_reaction/drink/sunset_sarsaparilla //monkestation edit
 	results = list(/datum/reagent/consumable/sunset_sarsaparilla = 5)
 	required_reagents =  list(/datum/reagent/ash = 1, /datum/reagent/consumable/sodawater = 1, /datum/reagent/uranium = 1)
 
