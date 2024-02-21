@@ -70,6 +70,7 @@
 	protect_objective.update_explanation_text()
 
 	listen_objective.explanation_text = "Listen to any commands given by [user.name]"
+	listen_objective.completed = TRUE // its just an objective for flavor less-so than for greentext
 
 	borer_antagonist_datum.objectives += protect_objective
 	borer_antagonist_datum.objectives += listen_objective

@@ -376,16 +376,16 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 /mob/living/basic/cortical_borer/proc/resolve_misc_issues()
 	sleep(5 SECONDS) // give everything some time to resolve itself, if it fails then we come in
 	if(name == initial(name))
-		message_admins("[src] had its name initialization fail, this should never happen! Automatically gave a backup name.")
+		message_admins("[ADMIN_LOOKUPFLW(src)] had its name initialization fail, this should never happen! Automatically gave a backup name.")
 		create_name()
 
 	if(mind) // can actually happen if admins turn someone into a borer in a weird enough way
 		if(!mind.has_antag_datum(antagonist_datum))
-			message_admins("[src] had its antag datum initialization fail, this should never happen! Automatically gave the mob antag datum [antagonist_datum]")
+			message_admins("[ADMIN_LOOKUPFLW(src)] had its antag datum initialization fail, this should never happen! Automatically gave the mob antag datum [antagonist_datum]")
 			mind.add_antag_datum(antagonist_datum)
 
 	else // apparently can happen with the neutered borer spawner, not a damn clue what causes it
-		message_admins("[src] spawned despite having no ghost, automatically informed ghosts!")
+		message_admins("[ADMIN_LOOKUPFLW(src)] spawned despite having no ghost, automatically informed ghosts!")
 		notify_ghosts(
 			"[src] needs to obtain a ghost, click on it to submit yourself!",
 			source = src,
