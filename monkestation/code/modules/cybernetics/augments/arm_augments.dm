@@ -226,7 +226,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/ammo_counter/proc/update_hud_elements()
 	SIGNAL_HANDLER
-	if(!owner || !owner?.stat || !owner?.hud_used)
+	if(!owner || !owner?.hud_used)
 		return
 
 	if(!check_compatibility())
@@ -256,7 +256,7 @@
 	var/display
 	if(istype(our_gun,/obj/item/gun/ballistic))
 		var/obj/item/gun/ballistic/balgun = our_gun
-		display = balgun.magazine.ammo_count()
+		display = balgun.magazine.ammo_count(FALSE)
 	else
 		var/obj/item/gun/energy/egun = our_gun
 		var/obj/item/ammo_casing/energy/shot = egun.ammo_type[egun.select]

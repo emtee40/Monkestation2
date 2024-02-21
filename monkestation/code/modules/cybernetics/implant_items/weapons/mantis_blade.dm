@@ -3,6 +3,7 @@
 	desc = "Powerful inbuilt blade, hidden just beneath the skin. Singular brain signals directly link to this bad boy, allowing it to spring into action in just seconds."
 	icon_state = "mantis"
 	inhand_icon_state = "mantis"
+	icon = 'monkestation/code/modules/cybernetics/icons/items_and_weapons.dmi'
 	lefthand_file = 'monkestation/code/modules/cybernetics/icons/swords_lefthand.dmi'
 	righthand_file = 'monkestation/code/modules/cybernetics/icons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
