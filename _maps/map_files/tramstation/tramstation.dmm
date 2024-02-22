@@ -1432,7 +1432,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "aef" = (
-/turf/closed/wall/rust,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/space/basic,
 /area/station/engineering/break_room)
 "aeg" = (
 /obj/machinery/door/airlock/research{
@@ -27557,6 +27558,10 @@
 /area/station/engineering/main)
 "hRj" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "nodeliver";
 	dir = 4
 	},
 /turf/open/floor/plastic,
@@ -78875,7 +78880,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor/left/directional/west{
-	name = "Atmospherics Delivery Chute"
+	name = "Atmospherics Delivery Chute";
+	req_access = list("construction")
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "nodeliver";
