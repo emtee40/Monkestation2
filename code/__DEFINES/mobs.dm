@@ -319,7 +319,7 @@
 #define SLIME_EVOLUTION_THRESHOLD 10
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
-#define SLIME_EXTRACT_CROSSING_REQUIRED 10
+#define SLIME_EXTRACT_CROSSING_REQUIRED 5 // monke edit: halve extracts required for crossbreeding
 
 //Slime commands defines
 #define SLIME_FRIENDSHIP_FOLLOW 3 //Min friendship to order it to follow
