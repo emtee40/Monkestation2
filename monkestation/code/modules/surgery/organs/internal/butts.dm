@@ -198,7 +198,7 @@
 			hit_target = TRUE
 			break
 	if(!hit_target)
-		user.audible_message("[pick(world.file2list("strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), ignored_mobs = ignored_mobs)
+		user.audible_message("[pick(world.file2list("strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
 
 	//SOUND HANDLING

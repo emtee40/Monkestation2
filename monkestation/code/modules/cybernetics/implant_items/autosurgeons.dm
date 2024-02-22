@@ -10,6 +10,8 @@
 /obj/item/autosurgeon/organ/syndicate/syndie_mantis/l
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/syndie_mantis/l
 
+/obj/item/autosurgeon/organ/syndicate/sandy
+	starting_organ = /obj/item/organ/internal/cyberimp/chest/sandevistan
 
 /obj/item/autosurgeon/skillchip
 	name = "skillchip autosurgeon"
