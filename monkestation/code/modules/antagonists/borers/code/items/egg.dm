@@ -17,7 +17,7 @@
 	mob_name = "cortical borer"
 	///Type of mob that will be spawned
 	mob_type = /mob/living/basic/cortical_borer
-	role_ban = ROLE_ALIEN
+	role_ban = ROLE_BORER
 	show_flavor = TRUE
 	prompt_name = "cortical borer"
 	you_are_text = "You are a Cortical Borer."
@@ -47,7 +47,7 @@
 
 /obj/effect/mob_spawn/ghost_role/borer_egg/Initialize(mapload, datum/team/cortical_borers/borer_team)
 	. = ..()
-	host_egg = new(get_turf(src))
+	host_egg = new(drop_location())
 	host_egg.host_spawner = src
 	forceMove(host_egg)
 	var/area/src_area = get_area(src)
@@ -68,7 +68,7 @@
 
 /obj/item/borer_egg/attack_self(mob/user, modifiers)
 	to_chat(user, span_notice("You crush [src] within your grasp."))
-	new /obj/effect/decal/cleanable/food/egg_smudge(get_turf(user))
+	new /obj/effect/decal/cleanable/food/egg_smudge(user.drop_location())
 	if(host_spawner)
 		QDEL_NULL(host_spawner)
 	qdel(src)

@@ -70,8 +70,7 @@
 
 /datum/action/cooldown/borer/produce_offspring/proc/produce_egg()
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	var/turf/borer_turf = get_turf(cortical_owner)
-	var/obj/effect/mob_spawn/ghost_role/borer_egg/spawned_egg = new(borer_turf)
+	var/obj/effect/mob_spawn/ghost_role/borer_egg/spawned_egg = new(cortical_owner.drop_location())
 	spawned_egg.generation = (cortical_owner.generation + 1)
 	cortical_owner.children_produced++
 	if(cortical_owner.children_produced == GLOB.objective_egg_egg_number)

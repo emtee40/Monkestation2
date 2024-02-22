@@ -36,26 +36,23 @@
 /obj/item/organ/internal/empowered_borer_egg/Remove(mob/living/carbon/M, special = FALSE)
 	. = ..()
 	visible_message(span_warning("<span class='italics'>As [src] is cut out of [M], it quickly vibrates and shatters, leaving nothing but some goop!</span>"))
-	new/obj/effect/decal/cleanable/food/egg_smudge(get_turf(src))
+	new /obj/effect/decal/cleanable/food/egg_smudge(drop_location())
 	qdel(src)
 
 /obj/item/organ/internal/empowered_borer_egg/proc/try_burst()
-	if(!owner)
-		qdel(src)
-		return
-	if(owner.stat != DEAD)
+	if(QDELETED(owner) || owner.stat != DEAD)
 		qdel(src)
 		return
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to spawn as a cortical borer?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
 	if(!length(candidates))
-		var/obj/effect/mob_spawn/ghost_role/borer_egg/empowered/borer_egg = new(get_turf(owner))
+		var/obj/effect/mob_spawn/ghost_role/borer_egg/empowered/borer_egg = new(owner.drop_location())
 		borer_egg.generation = generation
 		var/obj/item/bodypart/chest/chest = owner.get_bodypart(BODY_ZONE_CHEST)
 		chest.dismember()
 		owner.visible_message(span_danger("An egg explodes out of [owner]'s chest, sending gore flying everywhere!"), span_danger("An egg explodes out of your chest, giblets flying everywhere!"))
 		return
 	var/mob/dead/observer/new_borer = pick(candidates)
-	var/mob/living/basic/cortical_borer/empowered/spawned_cb = new(get_turf(owner))
+	var/mob/living/basic/cortical_borer/empowered/spawned_cb = new(owner.drop_location())
 	var/obj/item/bodypart/chest/chest = owner.get_bodypart(BODY_ZONE_CHEST)
 	chest.dismember()
 	owner.visible_message(span_danger("[spawned_cb] explodes out of [owner]'s chest, sending gore flying everywhere!"), span_danger("[spawned_cb] explodes out of your chest, giblets flying everywhere!"))

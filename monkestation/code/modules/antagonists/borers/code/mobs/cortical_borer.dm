@@ -434,7 +434,7 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	if(borer_organ)
 		borer_organ.Remove(human_host)
 	var/turf/human_turf = get_turf(human_host)
-	forceMove(human_turf)
+	forceMove(human_turf.drop_location())
 	human_host = null
 
 //borers shouldnt be able to whisper...

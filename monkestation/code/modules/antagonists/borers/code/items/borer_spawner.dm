@@ -55,6 +55,7 @@
 		to_chat(user, "Yet the borer after looking at you quickly retreats back into their cage, visibly scared. Perhaps try later?")
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
 		update_appearance()
+		return
 
 	var/mob/dead/observer/picked_candidate = pick(candidates)
 
@@ -87,5 +88,5 @@
 	log_game("[key_name(new_mob)] was spawned as a borer by [key_name(user)]")
 	visible_message("A borer wriggles out of the [src]!")
 
-	new /obj/item/cortical_cage(get_turf(src))
-	QDEL_NULL(src)
+	new /obj/item/cortical_cage(drop_location())
+	qdel(src)

@@ -51,7 +51,7 @@
 /obj/item/cortical_cage/crowbar_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(internal_radio)
-		internal_radio.forceMove(get_turf(src))
+		internal_radio.forceMove(drop_location())
 		user.visible_message("[internal_radio] pops off [src].", "You pop off [internal_radio] from [src].", "You hear a clicking sound then a loud metallic thunk.")
 		internal_radio = null
 		update_appearance()
@@ -74,14 +74,14 @@
 
 /obj/item/cortical_cage/relaymove(mob/living/user, direction)
 	if(!iscorticalborer(user))
-		user.forceMove(get_turf(src))
+		user.forceMove(drop_location())
 		update_appearance()
 		return
 	if(opened)
 		loc.visible_message(span_notice("[user] climbs out of [src]!"), \
 		span_warning("[user] jumps out of [src]!"))
 		opened = FALSE
-		trapped_borer.forceMove(get_turf(src))
+		trapped_borer.forceMove(drop_location())
 		trapped_borer = null
 		update_appearance()
 		return
@@ -95,9 +95,9 @@
 	to_chat(loc, span_warning("You see [user] begin trying to squeeze through the bars!"))
 	if(!do_after(user, rand(30 SECONDS, 40 SECONDS), target = user) || opened || !(user in contents))
 		return
-	loc.visible_message(span_warning("[user] squeezes through [src]'s handles!"), null, null, null, user)
+	loc.visible_message(span_warning("[user] squeezes through [src]'s handles!"), ignored_mobs = user)
 	to_chat(user, span_boldannounce("Bingo, you squeeze through!"))
 	opened = FALSE
-	trapped_borer.forceMove(get_turf(src))
+	trapped_borer.forceMove(drop_location())
 	trapped_borer = null
 	update_appearance()
