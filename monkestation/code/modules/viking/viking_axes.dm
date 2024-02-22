@@ -23,3 +23,11 @@
 	icon = ""
 	icon_state = ""
 	desc = "An axe meant to disarm the users opponent"
+
+
+/obj/item/melee/viking/skeggox/afterattack(target, mob/user, proximity_flag)
+	. = ..()
+	if(ishuman(target) && proximity_flag)
+		var/mob/living/carbon/human/human_target = target
+		human_target.drop_all_held_items()
+		human_target.visible_message(span_danger("[user] disarms [human_target]!"), span_userdanger("[user] disarmed you!"))
