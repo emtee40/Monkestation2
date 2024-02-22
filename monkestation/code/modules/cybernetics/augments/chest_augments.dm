@@ -75,17 +75,16 @@
 		return
 	COOLDOWN_START(src, in_the_zone, 45 SECONDS)
 
-	owner.AddComponent(/datum/component/after_image, 8, 0.5)
+	owner.AddComponent(/datum/component/after_image, 16, 0.5, TRUE)
 	owner.AddComponent(/datum/component/slowing_field, 0.1, 5, 2)
 	addtimer(CALLBACK(src, PROC_REF(exit_the_zone), owner), 15 SECONDS)
 
 
-/obj/item/organ/internal/cyberimp/chest/proc/exit_the_zone(mob/living/exiter)
+/obj/item/organ/internal/cyberimp/chest/sandevistan/proc/exit_the_zone(mob/living/exiter)
 	var/datum/component/after_image = exiter.GetComponent(/datum/component/after_image)
 	qdel(after_image)
 	var/datum/component/slowing_field = exiter.GetComponent(/datum/component/slowing_field)
 	qdel(slowing_field)
-
 
 /datum/bodypart_overlay/simple/sandy
 	icon = 'monkestation/code/modules/cybernetics/icons/implants.dmi'

@@ -26,10 +26,13 @@
 
 /datum/component/slowing_field/proc/on_entered_turf(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	arrived.add_atom_colour(GLOB.freon_color_matrix, TEMPORARY_COLOUR_PRIORITY)
-	affected |= arrived
+	if(istype(arrived, /obj/effect/temp_visual/decoy/fading))
+		return
 	if(arrived == parent)
 		return
+
+	arrived.add_atom_colour(GLOB.freon_color_matrix, TEMPORARY_COLOUR_PRIORITY)
+	affected |= arrived
 
 	if(isprojectile(arrived))
 		var/obj/projectile/arrived_proj = arrived
@@ -40,10 +43,12 @@
 
 /datum/component/slowing_field/proc/on_exited_turf(datum/source, atom/movable/gone, direction)
 	SIGNAL_HANDLER
-	gone.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
-	affected -= gone
+	if(istype(gone, /obj/effect/temp_visual/decoy/fading))
+		return
 	if(gone == parent)
 		return
+	gone.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+	affected -= gone
 
 	if(isprojectile(gone))
 		var/obj/projectile/arrived_proj = gone
