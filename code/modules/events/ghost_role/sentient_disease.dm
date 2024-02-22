@@ -2,16 +2,13 @@
 	name = "Spawn Sentient Disease"
 	typepath = /datum/round_event/ghost_role/sentient_disease
 	weight = 7
-	max_occurrences = 1
+	max_occurrences = 0 //monkestation edit: from 1 to 0
 	min_players = 25
 	earliest_start = 60 MINUTES //monke edit: 25 to 60
 	category = EVENT_CATEGORY_HEALTH
 	description = "Spawns a sentient disease, who wants to infect as many people as possible."
 	min_wizard_trigger_potency = 4
 	max_wizard_trigger_potency = 7
-	track = EVENT_TRACK_MAJOR
-	tags = list(TAG_COMBAT, TAG_DESTRUCTIVE)
-	checks_antag_cap = TRUE
 
 /datum/round_event/ghost_role/sentient_disease
 	role_name = "sentient disease"

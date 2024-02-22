@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(hailer_phrases, list(
 	tint = 0
 	has_fov = FALSE
 	COOLDOWN_DECLARE(hailer_cooldown)
+	supports_variations_flags = CLOTHING_SNOUTED_VARIATION
 	var/aggressiveness = AGGR_BAD_COP
 	var/overuse_cooldown = FALSE
 	var/recent_uses = 0
@@ -79,6 +80,7 @@ GLOBAL_LIST_INIT(hailer_phrases, list(
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES | PEPPERPROOF
 	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES | PEPPERPROOF
 	has_fov = TRUE
+	supports_variations_flags = CLOTHING_SNOUTED_VARIATION
 
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"
@@ -124,10 +126,13 @@ GLOBAL_LIST_INIT(hailer_phrases, list(
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()
-/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
+
+/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(safety)
 		safety = FALSE
-		to_chat(user, span_warning("You silently fry [src]'s vocal circuit."))
+		balloon_alert(user, "vocal circuit fried")
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/mask/gas/sechailer/verb/halt()
 	set category = "Object"
@@ -216,7 +221,7 @@ GLOBAL_LIST_INIT(hailer_phrases, list(
 	COOLDOWN_DECLARE(horn_cooldown)
 
 /obj/item/clothing/mask/party_horn/ui_action_click(mob/user, action)
-	if(!COOLDOWN_FINISHED(src, horn_cooldown))	
+	if(!COOLDOWN_FINISHED(src, horn_cooldown))
 		return
 	COOLDOWN_START(src, horn_cooldown, 10 SECONDS)
 	playsound(src, 'sound/items/party_horn.ogg', 75, FALSE)

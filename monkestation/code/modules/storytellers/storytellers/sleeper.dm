@@ -1,4 +1,3 @@
-
 /datum/storyteller/sleeper
 	name = "The Sleeper"
 	desc = "The Sleeper will create less impactful events, especially ones involving combat or destruction. The chill experience."
@@ -11,3 +10,6 @@
 		)
 	guarantees_roundstart_roleset = FALSE
 	tag_multipliers = list(TAG_COMBAT = 0.6, TAG_DESTRUCTIVE = 0.7)
+	always_votable = TRUE //good for low pop
+	welcome_text = "The day is going slowly."
+	weight = 1 //close to greenshift so its very low weight

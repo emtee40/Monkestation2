@@ -67,7 +67,7 @@
 	return GLOB.always_state
 
 /datum/ui_module/volume_mixer/proc/set_channel_volume(channel, vol, mob/user)
-	if(channel == CHANNEL_LOBBYMUSIC)
+	if((channel == CHANNEL_LOBBYMUSIC) || (channel == CHANNEL_MASTER_VOLUME))
 		if(isnewplayer(user))
 			user.client.media.update_volume(0.5 + (vol * 0.05))
 
@@ -77,6 +77,8 @@
 
 /proc/get_channel_name(channel)
 	switch(channel)
+		if(CHANNEL_MASTER_VOLUME)
+			return "Master Volume"
 		if(CHANNEL_LOBBYMUSIC)
 			return "Lobby Music"
 		if(CHANNEL_ADMIN)
@@ -109,3 +111,5 @@
 			return "Robot Instruments" //you caused this DONGLE
 		if(CHANNEL_MOB_SOUNDS)
 			return "Mob Sounds"
+		if(CHANNEL_PRUDE)
+			return "Prude Sounds"

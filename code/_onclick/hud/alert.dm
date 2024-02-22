@@ -381,7 +381,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give/highfive/setup(mob/living/carbon/taker, mob/living/carbon/offerer, obj/item/receiving)
 	. = ..()
-	RegisterSignal(offerer, COMSIG_PARENT_EXAMINE_MORE, PROC_REF(check_fake_out))
+	RegisterSignal(offerer, COMSIG_ATOM_EXAMINE_MORE, PROC_REF(check_fake_out))
 
 
 /atom/movable/screen/alert/give/highfive/handle_transfer()
@@ -462,7 +462,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/mob/living/living_owner = owner
 	var/last_whisper
 	if(!HAS_TRAIT(living_owner, TRAIT_SUCCUMB_OVERRIDE))
-		last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
+		last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE) // saycode already handles sanitization
 	if(isnull(last_whisper))
 		if(!HAS_TRAIT(living_owner, TRAIT_SUCCUMB_OVERRIDE))
 			return
@@ -510,7 +510,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	alerttooltipstyle = "cult"
 	var/static/image/narnar
 	var/angle = 0
-	var/mob/living/simple_animal/hostile/construct/Cviewer = null
+	var/mob/living/basic/construct/Cviewer
 
 /atom/movable/screen/alert/bloodsense/Initialize(mapload)
 	. = ..()
@@ -615,19 +615,13 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 //GUARDIANS
 
-/atom/movable/screen/alert/cancharge
-	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
-	icon_state = "guardian_charge"
-	alerttooltipstyle = "parasite"
-
 /atom/movable/screen/alert/canstealth
 	name = "Stealth Ready"
 	desc = "You are ready to enter stealth!"
 	icon_state = "guardian_canstealth"
 	alerttooltipstyle = "parasite"
 
-/atom/movable/screen/alert/instealth
+/atom/movable/screen/alert/status_effect/instealth
 	name = "In Stealth"
 	desc = "You are in stealth and your next attack will do bonus damage!"
 	icon_state = "guardian_instealth"
@@ -784,24 +778,26 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	dead_owner.reenter_corpse()
 
 /atom/movable/screen/alert/notify_action
-	name = "Body created"
-	desc = "A body was created. You can enter it."
+	name = "Something interesting is happening!"
+	desc = "This can be clicked on to perform an action."
 	icon_state = "template"
-	timeout = 300
-	var/atom/target = null
+	timeout = 30 SECONDS
+	/// The target to use the action on
+	var/atom/target
+	/// Which on click action to use
 	var/action = NOTIFY_JUMP
 
 /atom/movable/screen/alert/notify_action/Click()
 	. = ..()
-	if(!.)
+	if(isnull(target))
 		return
-	if(!target)
-		return
+
 	var/mob/dead/observer/ghost_owner = owner
 	if(!istype(ghost_owner))
 		return
+
 	switch(action)
-		if(NOTIFY_ATTACK)
+		if(NOTIFY_PLAY)
 			target.attack_ghost(ghost_owner)
 		if(NOTIFY_JUMP)
 			var/turf/target_turf = get_turf(target)

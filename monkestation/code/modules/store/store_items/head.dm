@@ -262,6 +262,21 @@ GLOBAL_LIST_INIT(store_head, generate_store_items(/datum/store_item/head))
 	item_path = /obj/item/clothing/head/tragic
 	item_cost = 1000
 
+/datum/store_item/head/pharaoh
+	name = "Pharaoh's Hat"
+	item_path = /obj/item/clothing/head/costume/pharaoh
+	item_cost = 2000
+
+/datum/store_item/head/nemes
+	name = "Headdress of Nemes"
+	item_path = /obj/item/clothing/head/costume/nemes
+	item_cost = 2000
+
+/datum/store_item/head/bunnyears
+	name = "Colorable Bunny Ears"
+	item_path = /obj/item/clothing/head/playbunnyears
+	item_cost = 5000
+
 /*
 *	JOB-LOCKED
 */

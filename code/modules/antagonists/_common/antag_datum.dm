@@ -50,7 +50,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/show_to_ghosts = FALSE
 	/// The typepath for the outfit to show in the preview for the preferences menu.
 	var/preview_outfit
-
+	/// Flags for antags to turn on or off and check!
+	var/antag_flags = NONE
 	//ANTAG UI
 
 	///name of the UI that will try to open, right now using a generic ui
@@ -516,7 +517,4 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /// Used to create objectives for the antagonist.
 /datum/antagonist/proc/forge_objectives()
-	return
-
-/datum/antagonist/proc/antag_token(datum/mind/hosts_mind, mob/spender)
 	return

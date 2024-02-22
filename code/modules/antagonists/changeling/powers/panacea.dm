@@ -13,7 +13,9 @@
 	..()
 	var/list/bad_organs = list(
 		user.get_organ_by_type(/obj/item/organ/internal/body_egg),
-		user.get_organ_by_type(/obj/item/organ/internal/zombie_infection))
+		user.get_organ_by_type(/obj/item/organ/internal/legion_tumour),
+		user.get_organ_by_type(/obj/item/organ/internal/zombie_infection),
+	)
 
 	for(var/o in bad_organs)
 		var/obj/item/organ/O = o
@@ -30,16 +32,18 @@
 	user.reagents.add_reagent(/datum/reagent/medicine/pen_acid, 20)
 	user.reagents.add_reagent(/datum/reagent/medicine/antihol, 10)
 	user.reagents.add_reagent(/datum/reagent/medicine/mannitol, 25)
+	user.reagents.add_reagent(/datum/reagent/medicine/antipathogenic/changeling, 5) //MONKESTATION ADDITION
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
 
-	if(isliving(user))
+	/*if(isliving(user)) //MONKESTATION REMOVAL: Virology rework
 		var/mob/living/L = user
 		for(var/thing in L.diseases)
 			var/datum/disease/D = thing
 			if(D.severity == DISEASE_SEVERITY_POSITIVE)
 				continue
 			D.cure()
+	*/
 	return TRUE

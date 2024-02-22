@@ -133,10 +133,13 @@ GLOBAL_LIST_INIT(loadout_exosuits, generate_loadout_items(/datum/loadout_item/su
 	name = "Recolorable Fancy Fur Coat"
 	item_path = /obj/item/clothing/suit/jacket/fancy
 
+/datum/loadout_item/suit/tailcoat
+	name = "Recolorable Tailcoat"
+	item_path = /obj/item/clothing/suit/jacket/tailcoat
+
 /datum/loadout_item/suit/ethereal_raincoat
 	name = "Ethereal Raincoat"
 	item_path = /obj/item/clothing/suit/hooded/ethereal_raincoat
-
 
 /*
 *	COSTUMES
@@ -275,6 +278,13 @@ GLOBAL_LIST_INIT(loadout_exosuits, generate_loadout_items(/datum/loadout_item/su
 	item_path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	restricted_roles = list(JOB_QUARTERMASTER, JOB_SHAFT_MINER) // Reserved for Miners and their boss, the Quartermaster
 
+// JACKETS
+
+/datum/loadout_item/suit/tailcoat_bartender
+	name = "Bartender's Tailcoat"
+	item_path = /obj/item/clothing/suit/jacket/tailcoat/bartender
+	restricted_roles = list(JOB_BARTENDER)
+
 /*
 *	FAMILIES
 */
@@ -330,6 +340,10 @@ GLOBAL_LIST_INIT(loadout_exosuits, generate_loadout_items(/datum/loadout_item/su
 /datum/loadout_item/suit/driscoll
 	name = "driscoll poncho"
 	item_path = /obj/item/clothing/suit/driscoll
+
+/datum/loadout_item/suit/dinojammies
+	name = "Dinosaur Pajamas"
+	item_path = /obj/item/clothing/suit/hooded/dinojammies
 
 /*
 *	DONATOR

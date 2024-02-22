@@ -14,12 +14,14 @@
 	if(!.)
 		return
 	target.add_traits(list(TRAIT_NOGUNS, TRAIT_HARDLY_WOUNDED, TRAIT_NODISMEMBER), SLEEPING_CARP_TRAIT)
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(target, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
 	target.faction |= FACTION_CARP //:D
 
 /datum/martial_art/the_sleeping_carp/on_remove(mob/living/target)
 	target.remove_traits(list(TRAIT_NOGUNS, TRAIT_HARDLY_WOUNDED, TRAIT_NODISMEMBER), SLEEPING_CARP_TRAIT)
-	UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(target, COMSIG_ATOM_ATTACKBY)
+	UnregisterSignal(target, COMSIG_ATOM_PRE_BULLET_ACT)
 	target.faction -= FACTION_CARP //:(
 	. = ..()
 
@@ -91,9 +93,32 @@
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/attacker, mob/living/defender)
+	if(attacker.grab_state == GRAB_KILL \
+		&& attacker.zone_selected == BODY_ZONE_HEAD \
+		&& attacker.pulling == defender \
+		&& defender.stat != DEAD \
+	)
+		var/obj/item/bodypart/head = defender.get_bodypart(BODY_ZONE_HEAD)
+		if(!isnull(head))
+			playsound(defender, 'sound/effects/wounds/crack1.ogg', 100)
+			defender.visible_message(
+				span_danger("[attacker] snaps the neck of [defender]!"),
+				span_userdanger("Your neck is snapped by [attacker]!"),
+				span_hear("You hear a sickening snap!"),
+				ignored_mobs = attacker
+			)
+			to_chat(attacker, span_danger("In a swift motion, you snap the neck of [defender]!"))
+			log_combat(attacker, defender, "snapped neck")
+			defender.apply_damage(100, BRUTE, BODY_ZONE_HEAD, wound_bonus=CANT_WOUND)
+			if(!HAS_TRAIT(defender, TRAIT_NODEATH))
+				defender.death()
+				defender.investigate_log("has had [defender.p_their()] neck snapped by [attacker].", INVESTIGATE_DEATHS)
+			return MARTIAL_ATTACK_SUCCESS
+
 	add_to_streak("H", defender)
 	if(check_streak(attacker, defender))
-		return TRUE
+		return MARTIAL_ATTACK_SUCCESS
+
 	var/obj/item/bodypart/affecting = defender.get_bodypart(defender.get_random_valid_zone(attacker.zone_selected))
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("kick", "chop", "hit", "slam")
@@ -103,7 +128,7 @@
 	defender.apply_damage(rand(10,15), BRUTE, affecting, wound_bonus = CANT_WOUND)
 	playsound(get_turf(defender), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	log_combat(attacker, defender, "punched (Sleeping Carp)")
-	return TRUE
+	return MARTIAL_ATTACK_SUCCESS
 
 /datum/martial_art/the_sleeping_carp/disarm_act(mob/living/attacker, mob/living/defender)
 	add_to_streak("D", defender)
@@ -113,6 +138,8 @@
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/proc/can_deflect(mob/living/carp_user)
+	if(!can_use(carp_user) || !carp_user.throw_mode)
+		return FALSE
 	if(carp_user.incapacitated(IGNORE_GRAB)) //NO STUN
 		return FALSE
 	if(!(carp_user.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
@@ -124,17 +151,20 @@
 		return FALSE
 	return TRUE
 
-/datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/carp_user, obj/projectile/P, def_zone)
-	. = ..()
+/datum/martial_art/the_sleeping_carp/proc/hit_by_projectile(mob/living/carp_user, obj/projectile/hitting_projectile, def_zone)
+	SIGNAL_HANDLER
+
 	if(!can_deflect(carp_user))
-		return BULLET_ACT_HIT
-	if(carp_user.throw_mode)
-		carp_user.visible_message(span_danger("[carp_user] effortlessly swats the projectile aside! They can block bullets with their bare hands!"), span_userdanger("You deflect the projectile!"))
-		playsound(get_turf(carp_user), pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-		P.firer = carp_user
-		P.set_angle(rand(0, 360))//SHING
-		return BULLET_ACT_FORCE_PIERCE
-	return BULLET_ACT_HIT
+		return NONE
+
+	carp_user.visible_message(
+		span_danger("[carp_user] effortlessly swats [hitting_projectile] aside! [carp_user.p_They()] can block bullets with [carp_user.p_their()] bare hands!"),
+		span_userdanger("You deflect [hitting_projectile]!"),
+	)
+	playsound(carp_user, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	hitting_projectile.firer = carp_user
+	hitting_projectile.set_angle(rand(0, 360))//SHING
+	return COMPONENT_BULLET_PIERCED
 
 ///Signal from getting attacked with an item, for a special interaction with touch spells
 /datum/martial_art/the_sleeping_carp/proc/on_attackby(mob/living/carp_user, obj/item/attack_weapon, mob/attacker, params)

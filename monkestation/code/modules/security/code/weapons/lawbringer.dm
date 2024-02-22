@@ -34,7 +34,7 @@
 	 /obj/item/ammo_casing/energy/lawbringer/tideshot, \
 	 /obj/item/ammo_casing/energy/lawbringer/ion )
 	pin = /obj/item/firing_pin/lawbringer
-	ammo_x_offset = 4
+	ammo_x_offset = 3
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	can_select = FALSE
@@ -380,7 +380,7 @@
 /obj/item/ammo_casing/energy/lawbringer/execute
 	projectile_type = /obj/projectile/lawbringer/execute
 	select_name = "execute"
-	fire_sound = 'sound/weapons/gun/pistol/shot_suppressed.ogg'
+	fire_sound = 'sound/weapons/gun/revolver/shot.ogg'
 	e_cost = 300 //10%, 10 shots
 	harmful = TRUE
 
@@ -412,7 +412,7 @@
 	damage = 5
 	damage_type = BURN
 
-/obj/projectile/lawbringer/hotshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/lawbringer/hotshot/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -437,7 +437,8 @@
 	damage_type = BRUTE
 	can_hit_turfs = TRUE
 
-/obj/projectile/lawbringer/smokeshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/lawbringer/smokeshot/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(3, holder = src, location = get_turf(target))
 	smoke.start()
@@ -466,7 +467,8 @@
 	wound_bonus = -5
 	var/anti_material_damage = 75
 
-/obj/projectile/lawbringer/bigshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/lawbringer/bigshot/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
 	if(ismecha(target))
 		var/obj/vehicle/sealed/mecha/M = target
 		M.take_damage(anti_material_damage)
@@ -506,7 +508,7 @@
 	icon_state = "banana"
 	weak_against_armour = TRUE
 
-/obj/projectile/lawbringer/clownshot/on_hit(mob/living/target, blocked = FALSE)
+/obj/projectile/lawbringer/clownshot/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -518,7 +520,7 @@
 				M.visible_message(span_warning("[M] is is sent rocketing off their shoes!"))
 			playsound(src, 'sound/items/airhorn.ogg', 100, TRUE, -1)
 			var/atom/throw_target = get_edge_target_turf(target, angle2dir(Angle))
-			target.throw_at(throw_target, 200, 8)
+			M.throw_at(throw_target, 200, 8)
 
 /**
  * lawbringer pulse mode:
@@ -538,11 +540,12 @@
 	damage_type = BRUTE
 	range = 5
 
-/obj/projectile/lawbringer/pulse/on_hit(mob/living/target, blocked = FALSE)
+/obj/projectile/lawbringer/pulse/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(isliving(target))
+		var/mob/living/new_target = target
 		var/atom/throw_target = get_edge_target_turf(target, angle2dir(Angle))
-		target.throw_at(throw_target, 4, 1)
+		new_target.throw_at(throw_target, 4, 1)
 
 /**
  * lawbringer tideshot mode:
@@ -572,10 +575,12 @@
 	light_power = 1
 	light_color = LIGHT_COLOR_HALOGEN
 
-/obj/projectile/lawbringer/tideshot/on_hit(mob/living/target, blocked = FALSE)
+/obj/projectile/lawbringer/tideshot/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
 	if(ishuman(target))
-		if(target.mind)
-			if(is_assistant_job(target.mind.assigned_role))
+		var/mob/living/carbon/human/new_target = target
+		if(new_target.mind)
+			if(is_assistant_job(new_target.mind.assigned_role))
 				var/mob/living/carbon/C = target
 				C.add_mood_event("tased", /datum/mood_event/tased)
 				to_chat(target, span_warning("As the beam hits you, body seems to crumple under its uselessness."))

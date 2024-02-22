@@ -39,7 +39,7 @@
 #define COMSIG_GLOB_PRE_RANDOM_EVENT "!pre_random_event"
 	/// Do not allow this random event to continue.
 	#define CANCEL_PRE_RANDOM_EVENT (1<<0)
-/// Called by (/datum/round_event_control/RunEvent).
+/// Called by (/datum/round_event_control/run_event).
 #define COMSIG_GLOB_RANDOM_EVENT "!random_event"
 	/// Do not allow this random event to continue.
 	#define CANCEL_RANDOM_EVENT (1<<0)
@@ -51,6 +51,8 @@
 	#define LINKED_UP (1<<0)
 /// an obj/item is created! (obj/item/created_item)
 #define COMSIG_GLOB_NEW_ITEM "!new_item"
+/// called post /obj/item initialize (obj/item/created_item)
+#define COMSIG_GLOB_ATOM_AFTER_POST_INIT "!atom_after_post_init"
 /// an obj/machinery is created! (obj/machinery/created_machine)
 #define COMSIG_GLOB_NEW_MACHINE "!new_machine"
 /// a client (re)connected, after all /client/New() checks have passed : (client/connected_client)

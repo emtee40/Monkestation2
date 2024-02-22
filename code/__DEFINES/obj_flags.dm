@@ -42,6 +42,8 @@
 #define ITEM_HAS_CONTEXTUAL_SCREENTIPS (1 << 19)
 /// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
 #define NO_BLOOD_ON_ITEM (1 << 20)
+/// Whether this item should skip the /datum/component/fantasy applied on spawn on the RPG event. Used on things like stacks
+#define SKIP_FANTASY_ON_SPAWN (1<<21)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -98,6 +100,7 @@
 #define TOY_FIREARM_OVERLAY (1<<0) // If update_overlay would add some indicator that the gun is a toy, like a plastic cap on a pistol
 /// Currently used to identify valid guns to steal
 #define NOT_A_REAL_GUN (1<<1)
+#define GUN_SMOKE_PARTICLES (1<<2)
 
 /// Flags for sharpness in obj/item
 #define SHARP_EDGED (1<<0)

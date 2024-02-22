@@ -131,8 +131,11 @@
 	if(!client.patreon)
 		client.patreon = new(client)
 
-	if(!client.saved_tokens)
-		client.saved_tokens = new(client)
+	if(!client.twitch)
+		client.twitch = new(client)
+
+	if(!client.client_token_holder)
+		client.client_token_holder = new(client)
 
 	return TRUE
 

@@ -6,6 +6,12 @@
 #define ACHIEVEMENT_DEFAULT "default"
 #define ACHIEVEMENT_SCORE "score"
 
+/// preferences for the sound played when unlocking an achievement
+#define CHEEVO_SOUND_TADA "Tada Fanfare"
+#define CHEEVO_SOUND_JINGLE "Beeps Jingle"
+#define CHEEVO_SOUND_PING "Success Ping"
+#define CHEEVO_SOUND_OFF "Disabled"
+
 //Misc Medal hub IDs
 #define MEDAL_METEOR "Your Life Before Your Eyes"
 #define MEDAL_PULSE "Jackpot"
@@ -36,6 +42,7 @@
 #define MEDAL_VOID_ASCENSION "Void"
 #define MEDAL_BLADE_ASCENSION "Blade"
 #define MEDAL_COSMOS_ASCENSION "Cosmos"
+#define MEDAL_KNOCK_ASCENSION "Knock"
 #define MEDAL_TOOLBOX_SOUL "Toolsoul"
 #define MEDAL_CHEM_TUT "Beginner Chemist"
 #define MEDAL_HOT_DAMN "Hot Damn!"
@@ -46,6 +53,9 @@
 #define MEDAL_NARSUPREME "Narsupreme"
 #define MEDAL_SPRINGLOCK "The Man Inside the Modsuit"
 #define MEDAL_HEALTHY "Heart Healthy"
+#define MEDAL_DEBT_EXTINGUISHED "Debt Extinguished"
+#define MEDAL_ARCHMAGE "Archmage"
+#define MEDAL_THEORETICAL_LIMITS "All Within Theoretical Limits"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"
@@ -126,6 +136,9 @@
 
 // DB ID for style point count
 #define STYLE_SCORE "Style Score"
+
+/// DB ID for the amount of achievements unlocked by the player.
+#define ACHIEVEMENTS_SCORE "Achievements Score"
 
 // Tourist related achievements and scores
 

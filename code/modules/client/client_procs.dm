@@ -465,7 +465,25 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
 	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
-		player_age = 0
+		if(!SSdbcore.Connect())
+			player_age = -1
+		else
+			account_join_date = findJoinDate()
+			if(!account_join_date)
+				player_age = 0
+			else
+				var/datum/db_query/query_datediff = SSdbcore.NewQuery(
+					"SELECT DATEDIFF(Now(), :account_join_date)",
+					list("account_join_date" = account_join_date)
+				)
+				if(!query_datediff.Execute())
+					qdel(query_datediff)
+					return
+				if(query_datediff.NextRow())
+					account_age = text2num(query_datediff.item[1])
+				qdel(query_datediff)
+			player_age = account_age
+
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
 	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
 		if (nnpa >= 0)
@@ -519,6 +537,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	if(((player_age != -1) && player_age < CONFIG_GET(number/minimum_age)) && !(ckey in GLOB.interviews.approved_ckeys))
+		interviewee = TRUE
+		register_for_interview()
+
 	if (!interviewee)
 		initialize_menus()
 
@@ -543,7 +565,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!gc_destroyed)
 		// Yes this is the same as what's found in qdel(). Yes it does need to be here
 		// Get off my back
-		SEND_SIGNAL(src, COMSIG_PARENT_QDELETING, TRUE)
+		SEND_SIGNAL(src, COMSIG_QDELETING, TRUE)
 		Destroy() //Clean up signals and timers.
 	return ..()
 
@@ -1111,6 +1133,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				if(OOC_CHANNEL)
 					var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
 					winset(src, "default-[REF(key)]", "parent=default;name=[key];command=[ooc]")
+				if(LOOC_CHANNEL) // monke edit: looc
+					var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+					winset(src, "default-[REF(key)]", "parent=default;name=[key];command=[looc]")
 				if(ADMIN_CHANNEL)
 					if(holder)
 						var/asay = tgui_say_create_open_command(ADMIN_CHANNEL)

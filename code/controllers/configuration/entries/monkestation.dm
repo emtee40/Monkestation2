@@ -9,6 +9,7 @@
 
 /datum/config_entry/string/patreon_link_website
 
+/datum/config_entry/string/twitch_link_website
 
 /datum/config_entry/string/regular_roundend_webhook_url
 
@@ -25,3 +26,5 @@
 //Endpoint for Github Issues, the `owner/repo` part.
 /datum/config_entry/string/issue_slug
 	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/looc_enabled

@@ -26,6 +26,7 @@
 		return FALSE
 	buyers_preferences.adjust_metacoins(buyer.ckey, -item_cost, donator_multipler = FALSE)
 
+	logger.Log(LOG_CATEGORY_META, "[buyer] bought a [name] for [item_cost]", list("currency_left" = buyer.prefs.metacoins))
 	if(!one_time_buy)
 		finalize_purchase(buyer)
 		return

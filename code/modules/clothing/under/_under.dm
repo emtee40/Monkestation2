@@ -21,6 +21,7 @@
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 
 /datum/armor/clothing_under
 	bio = 10
@@ -343,6 +344,8 @@
 		return
 	adjusted = !adjusted
 	if(adjusted)
+		if(alt_covers_chest) //For snowflake suits that do NOT expose the chest. //MONKESTATION EDIT
+			return
 		if(!(female_sprite_flags & FEMALE_UNIFORM_TOP_ONLY))
 			female_sprite_flags = NO_FEMALE_UNIFORM
 		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted (and also the arms, realistically)

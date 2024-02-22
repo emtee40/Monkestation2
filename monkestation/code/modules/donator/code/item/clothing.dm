@@ -141,3 +141,93 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH | PEPPERPROOF
+
+/obj/item/clothing/under/costume/krieg
+	name = "\improper Krieg's Attire"
+	desc = "The garb of a malicious psycho from the Pandora sector."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "kriegunder"
+	worn_icon_state = "kriegunder"
+	inhand_icon_state = null
+	body_parts_covered = LEGS|ARMS
+
+/obj/item/clothing/mask/krieg
+	name = "\improper Krieg's Mask"
+	desc = "The mask of a malicious psycho from the Pandora sector."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "kriegmask"
+	inhand_icon_state = null
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/suit/hooded/aotcloak
+	name = "survey corps cloak"
+	desc = "A lightweight but durable cloak with an emblem emblazoned on the back."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "aotcloak"
+	body_parts_covered = CHEST|ARMS
+	cold_protection = CHEST|ARMS
+	allowed = list()
+	armor_type = /datum/armor/hooded_wintercoat
+	hoodtype = /obj/item/clothing/head/hooded/aotcloak
+	layer = NECK_LAYER
+
+/obj/item/clothing/suit/hooded/aotcloak/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/flashlight,
+		/obj/item/lighter,
+		/obj/item/modular_computer/pda,
+		/obj/item/radio,
+		/obj/item/storage/bag/books,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+	)
+
+/obj/item/clothing/head/hooded/aotcloak
+	name = "survey corps cloak hood"
+	desc = "A cozy winter hood attached to a heavy winter jacket."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "aotcloak_hood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags_inv = HIDEHAIR|HIDEEARS
+	armor_type = /datum/armor/hooded_winterhood
+
+/obj/item/clothing/head/costume/bells
+	name = "Hair ribbons with bells"
+	desc = "A cute hair accessory adorned with red ribbons and small bells."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "bells"
+
+/obj/item/clothing/head/costume/zed_officercap
+	name = "\improper Zed Officer Cap"
+	desc = "Only dumb furries wear this. You notice a smiley face on the insignia."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "zed_officercap"
+	inhand_icon_state = null
+
+/obj/item/clothing/mask/igor
+	name = "\improper Igor Mask"
+	desc = "A mask that resembles a peculiar man named Igor."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "igor_mask"
+	inhand_icon_state = null
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/suit/costume/violet_jacket
+	name = "\improper Violet's Jacket"
+	desc = "A jacket resembling the outfit worn by the Phantom Thief known as Violet."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "violet_jacket"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS

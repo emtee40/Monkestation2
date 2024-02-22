@@ -55,6 +55,7 @@
 	message_mime = "mumbles silently!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 
+/* monkestation edit start - relocating this to our own code @ <monkestation/code/modules/mob/living/emote.dm>
 /datum/emote/living/carbon/human/scream
 	key = "scream"
 	key_third_person = "screams"
@@ -62,6 +63,11 @@
 	message_mime = "acts out a scream!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	vary = TRUE
+
+/datum/emote/carbon/human/scream/run_emote(mob/user, params, type_override, intentional = FALSE)
+	if(!intentional && HAS_TRAIT(user, TRAIT_ANALGESIA))
+		return
+	return ..()
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -87,6 +93,7 @@
 	if(ismonkey(user))
 		return TRUE
 	return ..()
+monkestation edit end */
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"
@@ -225,7 +232,14 @@
 //Butt-Based Farts
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	if(issilicon(user))
-		user.visible_message("[user] lets out a synthesized fart!", "You let out a synthesized fart!")
+		var/list/ignored_mobs = list()
+		for(var/mob/anything in GLOB.player_list)
+			if(!anything.client)
+				continue
+			if(!anything.client.prefs.read_preference(/datum/preference/toggle/prude_mode))
+				continue
+			ignored_mobs |= anything
+		user.visible_message("[user] lets out a synthesized fart!", "You let out a synthesized fart!", ignored_mobs = ignored_mobs)
 		playsound(user, pick(
 			'monkestation/sound/effects/robot_farts/rbf1.ogg',
 			'monkestation/sound/effects/robot_farts/rbf2.ogg',
@@ -245,7 +259,7 @@
 			'monkestation/sound/effects/robot_farts/rbf16.ogg',
 			'monkestation/sound/effects/robot_farts/rbf17.ogg',
 			'monkestation/sound/effects/robot_farts/rbf18.ogg',
-		), 50, TRUE)
+		), 50, TRUE, mixer_channel = CHANNEL_PRUDE)
 		return
 	. = ..()
 	if(user.stat == CONSCIOUS)

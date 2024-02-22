@@ -111,6 +111,7 @@
 	if(objective_complete)
 		return
 	rifts_charged = 0
+	ADD_TRAIT(owner.current, TRAIT_RIFT_FAILURE, REF(src))
 	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_depression)
 	riftTimer = -1
 	SEND_SOUND(owner.current, sound('sound/vehicles/rocketlaunch.ogg'))
@@ -135,7 +136,7 @@
 	if(main_objective)
 		main_objective.completed = TRUE
 	priority_announce("A large amount of lifeforms have been detected approaching [station_name()] at extreme speeds. \
-	Remaining crew are advised to evacuate as soon as possible.", "Central Command Wildlife Observations")
+		Remaining crew are advised to evacuate as soon as possible.", "[command_name()] Wildlife Observations", has_important_message = TRUE)
 	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)
 		rift.carp_stored = 999999

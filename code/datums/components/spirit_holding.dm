@@ -7,7 +7,7 @@
 	///bool on if this component is currently polling for observers to inhabit the item
 	var/attempting_awakening = FALSE
 	///mob contained in the item.
-	var/mob/living/simple_animal/shade/bound_spirit
+	var/mob/living/basic/shade/bound_spirit
 
 /datum/component/spirit_holding/Initialize()
 	if(!ismovable(parent)) //you may apply this to mobs, i take no responsibility for how that works out
@@ -19,12 +19,12 @@
 		QDEL_NULL(bound_spirit)
 
 /datum/component/spirit_holding/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_destroy))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_destroy))
 
 /datum/component/spirit_holding/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_ATTACK_SELF, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ITEM_ATTACK_SELF, COMSIG_QDELETING))
 
 ///signal fired on examining the parent
 /datum/component/spirit_holding/proc/on_examine(datum/source, mob/user, list/examine_list)
