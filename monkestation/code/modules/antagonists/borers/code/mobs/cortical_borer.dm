@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	if(iscorticalborer(movable_atom) && density)
 		if(!do_after(movable_atom, 5 SECONDS, src))
 			return ..()
-		movable_atom.forceMove(get_turf(src))
+		movable_atom.forceMove(drop_location())
 		to_chat(movable_atom, span_notice("You squeeze through [src]."))
 		return
 	return ..()

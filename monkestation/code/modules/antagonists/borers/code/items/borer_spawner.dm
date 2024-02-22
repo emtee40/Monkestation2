@@ -59,7 +59,7 @@
 
 	var/mob/dead/observer/picked_candidate = pick(candidates)
 
-	var/mob/living/basic/cortical_borer/neutered/new_mob = new(get_turf(src))
+	var/mob/living/basic/cortical_borer/neutered/new_mob = new(drop_location())
 	picked_candidate.mind.transfer_to(new_mob, TRUE)
 
 	var/datum/antagonist/cortical_borer/borer_antagonist_datum = new

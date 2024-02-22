@@ -11,10 +11,15 @@
 	var/evo_type = BORER_EVOLUTION_GENERAL
 	/// If TRUE, this is an evolution that locks out other evolutions of the same tier & above but in different genomes
 	var/mutually_exclusive = FALSE
-	/// What evolutions this one unlocks
-	var/list/unlocked_evolutions = list()
 	/// What numerical tier is this? (Doesn't affect anything mechanically)
 	var/tier = 0
+
+	/// What evolutions this one unlocks
+	var/list/unlocked_evolutions = list()
+	/// What action does this evolution unlock
+	var/added_action = FALSE
+	/// If TRUE neutered borers wont be able to get an action button from this, but will still be able to progress through the evolution tree
+	var/restricted_for_neutered = FALSE
 
 /// What happens when a borer gets this evolution
 /datum/borer_evolution/proc/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
@@ -23,6 +28,14 @@
 		cortical_owner.genome_locked = TRUE
 	if(gain_text)
 		to_chat(cortical_owner, span_notice("<span class='italics'>[gain_text]</span>"))
+
+	if(restricted_for_neutered)
+		if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
+			to_chat(cortical_owner, span_danger("<span class='italics'>You didnt manage to properly evolve, you feel a strange sensation.</span>"))
+			return
+	if(added_action)
+		var/datum/action/cooldown/borer/new_action = new added_action(cortical_owner)
+		new_action.Grant(cortical_owner)
 
 /datum/borer_evolution/base
 	name = "The Beginning"

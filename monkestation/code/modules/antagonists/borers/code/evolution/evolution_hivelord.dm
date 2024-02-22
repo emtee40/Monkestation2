@@ -9,13 +9,8 @@
 	tier = 1
 	evo_cost = 1
 	unlocked_evolutions = list(/datum/borer_evolution/hivelord/blood_chemical)
-
-/datum/borer_evolution/hivelord/produce_offspring/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
-	. = ..()
-	if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
-		return
-	var/datum/action/cooldown/borer/produce_offspring/attack_action = new(cortical_owner)
-	attack_action.Grant(cortical_owner)
+	added_action = /datum/action/cooldown/borer/produce_offspring
+	restricted_for_neutered = TRUE
 
 // T2
 /datum/borer_evolution/hivelord/blood_chemical
@@ -24,11 +19,7 @@
 	gain_text = "As we were dissecting a former host monkey's fecal matter, I noticed a high concentration of banana matter, despite us not feeding them any for the past week."
 	tier = 2
 	unlocked_evolutions = list(/datum/borer_evolution/hivelord/movespeed)
-
-/datum/borer_evolution/hivelord/blood_chemical/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
-	. = ..()
-	var/datum/action/cooldown/borer/learn_bloodchemical/attack_action = new(cortical_owner)
-	attack_action.Grant(cortical_owner)
+	added_action = /datum/action/cooldown/borer/learn_bloodchemical
 
 // T3
 /datum/borer_evolution/hivelord/movespeed
@@ -50,11 +41,7 @@
 	gain_text = "As I was writing my report one day, I noticed that one of the worms had slipped out of its cage and into a monkey without so much as a sound. Fascinating how they seem to know the importance of sound."
 	tier = 4
 	unlocked_evolutions = list(/datum/borer_evolution/hivelord/produce_offspring_alone)
-
-/datum/borer_evolution/hivelord/stealth_mode/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
-	. = ..()
-	var/datum/action/cooldown/borer/stealth_mode/attack_action = new(cortical_owner)
-	attack_action.Grant(cortical_owner)
+	added_action = /datum/action/cooldown/borer/stealth_mode
 
 // T5
 /datum/borer_evolution/hivelord/produce_offspring_alone
@@ -69,9 +56,8 @@
 		/datum/borer_evolution/synthetic_chems_positive,
 		/datum/borer_evolution/synthetic_chems_negative,
 	)
+	restricted_for_neutered = TRUE // we set this to TRUE purelly for the message, they dont have the reproduction action anyway
 
 /datum/borer_evolution/hivelord/produce_offspring_alone/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
 	. = ..()
-	if(istype(cortical_owner, /mob/living/basic/cortical_borer/neutered))
-		return
 	cortical_owner.upgrade_flags |= BORER_ALONE_PRODUCTION

@@ -90,7 +90,7 @@
 
 /obj/item/cortical_cage/container_resist_act(mob/living/user)
 	user.changeNext_move(CLICK_CD_BREAKOUT)
-	user.last_special = world.time + CLICK_CD_BREAKOUT
+	COOLDOWN_START(user, last_special, CLICK_CD_BREAKOUT)
 	to_chat(user, span_notice("You begin squeezing through the bars in an attempt to escape! (This will take time.)"))
 	to_chat(loc, span_warning("You see [user] begin trying to squeeze through the bars!"))
 	if(!do_after(user, rand(30 SECONDS, 40 SECONDS), target = user) || opened || !(user in contents))

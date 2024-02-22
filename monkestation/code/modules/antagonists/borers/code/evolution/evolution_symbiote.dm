@@ -9,11 +9,7 @@
 	tier = 1
 	unlocked_evolutions = list(/datum/borer_evolution/symbiote/chem_per_level)
 	evo_cost = 1
-
-/datum/borer_evolution/symbiote/willing_host/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
-	. = ..()
-	var/datum/action/cooldown/borer/willing_host/attack_action = new(cortical_owner)
-	attack_action.Grant(cortical_owner)
+	added_action = /datum/action/cooldown/borer/willing_host
 
 // T2
 /datum/borer_evolution/symbiote/chem_per_level
@@ -104,8 +100,4 @@
 		/datum/borer_evolution/synthetic_borer,
 		/datum/borer_evolution/synthetic_chems_positive,
 	)
-
-/datum/borer_evolution/symbiote/revive_host/on_evolve(mob/living/basic/cortical_borer/cortical_owner)
-	. = ..()
-	var/datum/action/cooldown/borer/revive_host/attack_action = new(cortical_owner)
-	attack_action.Grant(cortical_owner)
+	added_action = /datum/action/cooldown/borer/revive_host
