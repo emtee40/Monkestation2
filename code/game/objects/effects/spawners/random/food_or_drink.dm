@@ -156,6 +156,7 @@
 		/obj/item/reagent_containers/cup/glass/bottle/sake = 5,
 		/obj/item/reagent_containers/cup/glass/bottle/grappa = 5,
 		/obj/item/reagent_containers/cup/glass/bottle/applejack = 5,
+		/obj/item/reagent_containers/cup/glass/bottle/wine_voltaic = 5, // monkestation edit
 		/obj/item/reagent_containers/cup/bottle/ethanol = 2,
 		/obj/item/reagent_containers/cup/glass/bottle/fernet = 2,
 		/obj/item/reagent_containers/cup/glass/bottle/champagne = 2,
@@ -166,6 +167,7 @@
 		/obj/item/reagent_containers/cup/glass/bottle/lizardwine = 1,
 		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 1,
 		/obj/item/reagent_containers/cup/glass/bottle/trappist = 1,
+
 	)
 
 /obj/effect/spawner/random/food_or_drink/pizzaparty
