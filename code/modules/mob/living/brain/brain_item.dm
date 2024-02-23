@@ -54,23 +54,17 @@
 		brain_owner.update_body_parts()
 		return
 
+	// Not a ling? Now you get to assume direct control.
 	if(brainmob)
-		// If it's a ling decoy brain, nothing to transfer, just throw it out
-		if(decoy_override)
-			if(brainmob?.key)
-				stack_trace("Decoy override brain with a key assigned - This should never happen.")
+		if(brain_owner.key)
+			brain_owner.ghostize()
 
-		// Not a ling - assume direct control
+		if(brainmob.mind)
+			brainmob.mind.transfer_to(brain_owner)
 		else
-			if(brain_owner.key)
-				brain_owner.ghostize()
+			brain_owner.key = brainmob.key
 
-			if(brainmob.mind)
-				brainmob.mind.transfer_to(brain_owner)
-			else
-				brain_owner.key = brainmob.key
-
-			brain_owner.set_suicide(HAS_TRAIT(brainmob, TRAIT_SUICIDED))
+		brain_owner.set_suicide(HAS_TRAIT(brainmob, TRAIT_SUICIDED))
 
 		QDEL_NULL(brainmob)
 	else
@@ -132,13 +126,8 @@
 
 /obj/item/organ/internal/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s [initial(name)]"
-	if(brainmob)
-		if(!decoy_override)
-			return
-
-		// it's just a dummy, throw it out
-		QDEL_NULL(brainmob)
-
+	if(brainmob || decoy_override)
+		return
 	if(!L.mind)
 		return
 	brainmob = new(src)
@@ -157,10 +146,9 @@
 		// Hack, fucked dna needs to follow the brain to prevent memes, so we need to copy over the trait sources and shit
 		for(var/source in GET_TRAIT_SOURCES(L, TRAIT_BADDNA))
 			ADD_TRAIT(brainmob, TRAIT_BADDNA, source)
-
-	if(L.mind && L.mind.current && !decoy_override)
+	if(L.mind && L.mind.current)
 		L.mind.transfer_to(brainmob)
-		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
+	to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 
 /obj/item/organ/internal/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -226,7 +214,7 @@
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 		return
-	if(brainmob && (decoy_override || brainmob.client || brainmob.get_ghost()))
+	if((brainmob && (brainmob.client || brainmob.get_ghost())) || decoy_override)
 		if(organ_flags & ORGAN_FAILING)
 			. += span_info("It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.")
 		else if(damage >= BRAIN_DAMAGE_DEATH*0.5)
@@ -274,11 +262,13 @@
 		..()
 
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	QDEL_NULL(brainmob)
+	if(brainmob)
+		QDEL_NULL(brainmob)
 	QDEL_LIST(traumas)
 
 	destroy_all_skillchips()
-	owner?.mind?.set_current(null) //You aren't allowed to return to brains that don't exist
+	if(owner?.mind) //You aren't allowed to return to brains that don't exist
+		owner.mind.set_current(null)
 	return ..()
 
 /obj/item/organ/internal/brain/on_life(seconds_per_tick, times_fired)
