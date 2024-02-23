@@ -152,7 +152,7 @@
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/victim)
 	if(!ishuman(victim))
 		return FALSE
-	if (is_species(human_victim, /datum/species/golem/sand)) // Monkestation Edit: Golems are different than tg
+	if (is_species(victim, /datum/species/golem/sand)) // Monkestation Edit: Golems are different than tg
 		return TRUE
 	var/mob/living/carbon/human/human_victim = victim
 	return human_victim.mind && istype(human_victim.mind.martial_art, /datum/martial_art/the_sleeping_carp)

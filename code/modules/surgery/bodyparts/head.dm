@@ -281,9 +281,9 @@
 	else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
 		debrain_icon = 'icons/mob/species/alien/bodyparts.dmi'
 		debrain_icon_state = "debrained_larva"
-	else if(bodytype & BODYTYPE_GOLEM)
+	/* else if(bodytype & BODYTYPE_GOLEM) Monkestation Removal: no debrain sprite for golems yet
 		debrain_icon = 'icons/mob/species/golems.dmi'
-		debrain_icon_state = "debrained"
+		debrain_icon_state = "debrained" */
 	else if((TRAIT_NOBLOOD in species_flags_list))
 		return null
 

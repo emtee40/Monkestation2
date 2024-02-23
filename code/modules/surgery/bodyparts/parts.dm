@@ -114,14 +114,11 @@
 	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
 	var/datum/worn_feature_offset/held_hand_offset
 
-/obj/item/bodypart/arm/Destroy()
-	QDEL_NULL(worn_glove_offset)
-	QDEL_NULL(held_hand_offset)
-	return ..()
-
 	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/arm/Destroy()
+	QDEL_NULL(worn_glove_offset)
+	QDEL_NULL(held_hand_offset)
 	return ..()
 
 /obj/item/bodypart/arm/left
@@ -349,11 +346,6 @@
 	unarmed_stun_threshold = 10
 	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_foot_offset
-
-/obj/item/bodypart/leg/Destroy()
-	QDEL_NULL(worn_foot_offset)
-	return ..()
-
 	/// Can these legs be digitigrade? See digitigrade.dm
 	var/can_be_digitigrade = FALSE
 	///Set limb_id to this when in "digi mode". MUST BE UNIQUE LIKE ALL LIMB IDS
@@ -363,6 +355,7 @@
 	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/leg/Destroy()
+	QDEL_NULL(worn_foot_offset)
 	return ..()
 
 /obj/item/bodypart/leg/left

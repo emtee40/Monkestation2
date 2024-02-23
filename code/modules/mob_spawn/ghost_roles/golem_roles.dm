@@ -6,7 +6,7 @@
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "shell_complete"
+	icon_state = "construct"
 	mob_species = /datum/species/golem
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
@@ -15,16 +15,18 @@
 	you_are_text = "You are a Free Golem. Your family worships The Liberator."
 	flavour_text = "In his infinite and divine wisdom, he set your clan free to travel the stars with a single declaration: \"Yeah go do whatever.\""
 	spawner_job_path = /datum/job/free_golem
+	/// If TRUE, other golems can touch us to swap into this shell.
+	var/can_transfer = TRUE
 	/// Weakref to the creator of this golem shell.
 	var/datum/weakref/owner_ref
-	/// Typepath to a material to feed to the golem as soon as it is built
-	var/initial_type
 
-/obj/effect/mob_spawn/ghost_role/human/golem/Initialize(mapload, mob/creator, made_of)
+/obj/effect/mob_spawn/ghost_role/human/golem/Initialize(mapload, datum/species/golem/species, mob/creator)
 	if(creator)
 		name = "inert servant golem shell"
 		prompt_name = "servant golem"
-	initial_type = made_of
+	if(species) //spawners list uses object name to register so this goes before ..()
+		name += " ([initial(species.prefix)])"
+		mob_species = species
 	. = ..()
 	var/area/init_area = get_area(src)
 	if(!mapload && init_area)
@@ -51,11 +53,13 @@
 
 /obj/effect/mob_spawn/ghost_role/human/golem/special(mob/living/new_spawn, mob/mob_possessor)
 	. = ..()
-	if(is_path_in_list(initial_type, GLOB.golem_stack_food_directory))
+	/* if(is_path_in_list(initial_type, GLOB.golem_stack_food_directory)) Monkestation Edit: No food buffs since no food
 		var/datum/golem_food_buff/initial_buff = GLOB.golem_stack_food_directory[initial_type]
-		initial_buff.apply_effects(new_spawn)
+		initial_buff.apply_effects(new_spawn) */
 
 	var/mob/living/real_owner = owner_ref?.resolve()
+	var/datum/species/golem/golem_species = mob_species
+	to_chat(new_spawn, "[initial(golem_species.info_text)]")
 	if(isnull(real_owner))
 		if(!is_station_level(new_spawn.z))
 			to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! \

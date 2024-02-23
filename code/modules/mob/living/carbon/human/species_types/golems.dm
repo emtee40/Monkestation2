@@ -4,6 +4,7 @@
 	id = SPECIES_GOLEM
 	species_traits = list(
 		NO_DNA_COPY,
+		MUTCOLORS,
 		NOTRANSSTING,
 		NO_UNDERWEAR,
 		NOEYEHOLES,
@@ -19,7 +20,8 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NODISMEMBER,
-		TRAIT_NEVER_WOUNDED
+		TRAIT_NEVER_WOUNDED,
+		TRAIT_NO_DEBRAIN_OVERLAY //Monkestation Addition: No debrain sprite... yet
 	)
 	mutantheart = null
 	mutantlungs = null
@@ -33,6 +35,9 @@
 	sexes = FALSE
 	meat = /obj/item/food/meat/slab/human/mutant/golem
 	species_language_holder = /datum/language_holder/golem
+	// To prevent golem subtypes from overwhelming the odds when random species
+	// changes, only the Random Golem type can be chosen
+	fixed_mut_color = "#aaaaaa"
 
 	bodytemp_heat_damage_limit = BODYTEMP_HEAT_LAVALAND_SAFE
 	bodytemp_cold_damage_limit = BODYTEMP_COLD_ICEBOX_SAFE
@@ -41,8 +46,6 @@
 	mutanteyes = /obj/item/organ/internal/eyes/golem
 	mutantbrain = /obj/item/organ/internal/brain/golem
 	mutanttongue = /obj/item/organ/internal/tongue/golem
-	mutantstomach = /obj/item/organ/internal/stomach/golem
-	mutantappendix = /obj/item/organ/internal/appendix/golem
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,
@@ -52,8 +55,15 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
 
+
+	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."
+	var/random_eligible = TRUE //If false, the golem subtype can't be made through golem mutation toxin
+
+	var/prefix = "Iron"
+	var/list/special_names = list("Tarkus")
 	/// Chance that we will generate a human surname, for lore reasons
 	var/human_surname_chance = 3
+	var/special_name_chance = 5
 
 /datum/species/golem/random_name(gender,unique,lastname)
 	var/name = pick(GLOB.golem_names)
