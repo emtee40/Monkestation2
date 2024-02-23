@@ -76,7 +76,7 @@
 	COOLDOWN_START(src, in_the_zone, 45 SECONDS)
 
 	owner.AddComponent(/datum/component/after_image, 16, 0.5, TRUE)
-	owner.AddComponent(/datum/component/slowing_field, 0.1, 5, 2)
+	owner.AddComponent(/datum/component/slowing_field, 0.1, 5, 3)
 	addtimer(CALLBACK(src, PROC_REF(exit_the_zone), owner), 15 SECONDS)
 
 

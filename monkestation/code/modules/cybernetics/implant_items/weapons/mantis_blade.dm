@@ -46,12 +46,18 @@
 	inhand_icon_state = "syndie_mantis"
 	force = 15
 	block_chance = 20
+	COOLDOWN_DECLARE(lunge)
 
 /obj/item/mantis_blade/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!COOLDOWN_FINISHED(src, lunge) || world.time < user.next_move)
+		return
+
 	if(proximity_flag || get_dist(user,target) > 3 || !isliving(target))
 		return
 
 	for(var/i in 1 to get_dist(user,target))
-		step_towards(user,target)
+		if(!step_towards(user,target))
+			return
+	COOLDOWN_START(src, lunge, 10 SECONDS)
 	attack(target,user)

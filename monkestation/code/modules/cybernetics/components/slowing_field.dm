@@ -5,11 +5,14 @@
 	var/atom_speed_multiplier = 1
 	///list of slowed things
 	var/list/affected = list()
+	///our area range
+	var/area_range = 1
 
 /datum/component/slowing_field/Initialize(bullet_speed_multiplier = 1, atom_speed_multiplier = 1, area_range = 1)
 	. = ..()
 	src.bullet_speed_multiplier = bullet_speed_multiplier
 	src.atom_speed_multiplier = atom_speed_multiplier
+	src.area_range = area_range
 
 	var/static/list/connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered_turf),
@@ -17,12 +20,32 @@
 		COMSIG_ATOM_INITIALIZED_ON = PROC_REF(on_entered_turf),
 	)
 
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
 	AddComponent(/datum/component/connect_range, parent, connections, area_range, TRUE)
+	on_parent_moved()
 
 /datum/component/slowing_field/Destroy(force, silent)
 	. = ..()
 	for(var/atom/a as anything in affected)
 		on_exited_turf(src, a)
+
+/datum/component/slowing_field/proc/on_parent_moved(datum/source)
+	SIGNAL_HANDLER
+
+	var/list/remaining = list()
+	remaining += affected
+	for(var/atom/movable/thing in range(area_range, parent))
+		if(!isliving(thing) && !isprojectile(thing))
+			continue
+		if(thing in remaining)
+			remaining -= thing
+			continue
+		on_entered_turf(get_turf(thing), thing)
+
+	for(var/atom/movable/thing as anything in remaining)
+		if(!istype(thing))
+			continue
+		on_exited_turf(get_turf(thing), thing)
 
 /datum/component/slowing_field/proc/on_entered_turf(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -59,4 +82,4 @@
 
 
 /datum/movespeed_modifier/status_effect/slowing_field
-	multiplicative_slowdown = 1
+	variable = TRUE
