@@ -11,6 +11,9 @@
 	icon = ""
 	icon_state = ""
 	desc = "A one handed axe used by vikings."
+	force = 20
+	throwforce = 45
+	embedding = 50
 
 /obj/item/melee/viking/genja
 	name = "Genja"
@@ -19,19 +22,13 @@
 	desc = "A large 2 handed axe used for raiding."
 	base_force = 15
 	on_force = 30
-
+	throwforce = 60
+	embedding = 50
 
 
 /obj/itme/melee/viking/genja/Initialize(mapload)
 	. = ..()
-	force = base_force
-	AddComponent(/datum/component/two_handed, \
-		force_unwielded=base_force, \
-		force_wielded= on_force, \
-		icon_wielded="[base_icon_state]1", \
-		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
-		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
-	)
+	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
 
 /obj/item/melee/viking/skeggox
 	name = "Skeggox"
@@ -39,7 +36,7 @@
 	icon_state = ""
 	desc = "An axe meant to disarm the users opponent"
 	force = 18
-	throwforce = 30
+	throwforce = 40
 	embedding = 50
 
 
