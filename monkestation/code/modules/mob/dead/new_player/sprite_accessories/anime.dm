@@ -42,7 +42,6 @@
 	icon = 'monkestation/icons/mob/anime/anime_head32x48.dmi'
 	icon_state = "bigantlers"
 
-
 /datum/sprite_accessory/anime_head/fox
 	name = "Fox Ears"
 	icon_state = "fox"
@@ -92,9 +91,9 @@
 	name = "Turtle Shell"
 	icon_state = "turtle"
 
-/datum/sprite_accessory/anime_middle/succubus
-	name = "Succubus Wings"
-	icon_state = "succubus"
+/datum/sprite_accessory/anime_middle/demon
+	name = "Demon Wings"
+	icon_state = "demon"
 
 /datum/sprite_accessory/anime_middle/angel
 	name = "Angel Wings"
