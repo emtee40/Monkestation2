@@ -44,8 +44,7 @@
 		return
 
 	for(var/gang in gang_list)
-		gang_list += new gang
-		gang -= gang
+		gang = new gang
 	setup = TRUE
 //monkestation edit end
 
