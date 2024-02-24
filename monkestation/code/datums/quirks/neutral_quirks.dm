@@ -23,7 +23,7 @@
 	var/list/anime_list = list(
 		/obj/item/organ/external/anime_head,
 		/obj/item/organ/external/anime_middle,
-		/obj/item/organ/external/anime_bottom,
+		/obj/item/organ/external/tail/anime_bottom,
 		)
 
 /datum/quirk/anime/add(client/client_source)

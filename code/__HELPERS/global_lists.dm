@@ -40,7 +40,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_head, GLOB.anime_top_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_middle, GLOB.anime_middle_list) //Monkestation Addition
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_bottom, GLOB.anime_bottom_list) //Monkestation Addition
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/anime_bottom, GLOB.anime_bottom_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/arachnid_appendages, GLOB.arachnid_appendages_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/arachnid_chelicerae, GLOB.arachnid_chelicerae_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list) //Monkestation Addition

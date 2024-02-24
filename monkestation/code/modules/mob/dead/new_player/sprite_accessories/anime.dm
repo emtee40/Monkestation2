@@ -104,64 +104,64 @@
 	name = "Seraphim Wings"
 	icon_state = "seraphim"
 
-/datum/sprite_accessory/anime_bottom
+/datum/sprite_accessory/tails/anime_bottom
 	icon = 'monkestation/icons/mob/anime/anime_bottom.dmi'
 	color_src = ANIME
 
-/datum/sprite_accessory/anime_bottom/none
+/datum/sprite_accessory/tails/anime_bottom/none
 	name = "None"
 	icon_state = "none"
 
-/datum/sprite_accessory/anime_bottom/pony
+/datum/sprite_accessory/tails/anime_bottom/pony
 	name = "Pony Tail"
 	icon_state = "pony"
 
-/datum/sprite_accessory/anime_bottom/squirrel
+/datum/sprite_accessory/tails/anime_bottom/squirrel
 	name = "Squirrel Tail"
 	icon_state = "squirrel"
 
-/datum/sprite_accessory/anime_bottom/kitsune
+/datum/sprite_accessory/tails/anime_bottom/kitsune
 	name = "Kitsune Tail"
 	icon_state = "kitsune"
 	hasinner = TRUE
 
-/datum/sprite_accessory/anime_bottom/corgi
+/datum/sprite_accessory/tails/anime_bottom/corgi
 	name = "Corgi Puff"
 	icon_state = "corgi"
 
-/datum/sprite_accessory/anime_bottom/demon
+/datum/sprite_accessory/tails/anime_bottom/demon
 	name = "Demon Tail"
 	icon_state = "demon"
 
-/datum/sprite_accessory/anime_bottom/feathers
+/datum/sprite_accessory/tails/anime_bottom/feathers
 	name = "Feathers"
 	icon_state = "feathers"
 
-/datum/sprite_accessory/anime_bottom/fox
+/datum/sprite_accessory/tails/anime_bottom/fox
 	name = "Fox Tail"
 	icon_state = "fox"
 
-/datum/sprite_accessory/anime_bottom/shark
+/datum/sprite_accessory/tails/anime_bottom/shark
 	name = "Shark Tail"
 	icon_state = "shark"
 
-/datum/sprite_accessory/anime_bottom/wolf
+/datum/sprite_accessory/tails/anime_bottom/wolf
 	name = "Wolf Tail"
 	icon_state = "wolf"
 
-/datum/sprite_accessory/anime_bottom/nine_tails
+/datum/sprite_accessory/tails/anime_bottom/nine_tails
 	name = "Nine Tailed Fox"
 	icon_state = "nine_tails"
 	hasinner = TRUE
 
-/datum/sprite_accessory/anime_bottom/cat
+/datum/sprite_accessory/tails/anime_bottom/cat
 	name = "Cat Tail"
 	icon_state = "cat"
 
-/datum/sprite_accessory/anime_bottom/rabbit
+/datum/sprite_accessory/tails/anime_bottom/rabbit
 	name = "Rabbit Tail"
 	icon_state = "rabbit"
 
-/datum/sprite_accessory/anime_bottom/bunny
+/datum/sprite_accessory/tails/anime_bottom/bunny
 	name = "Bunny Puff"
 	icon_state = "playbunny"

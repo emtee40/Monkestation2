@@ -103,7 +103,7 @@
 	if(!GLOB.anime_middle_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_middle, GLOB.anime_middle_list)
 	if(!GLOB.anime_top_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_bottom, GLOB.anime_bottom_list)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/anime_bottom, GLOB.anime_bottom_list)
 	if(!GLOB.arachnid_appendages_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/arachnid_appendages, GLOB.arachnid_appendages_list)
 	if(!GLOB.arachnid_chelicerae_list.len)
