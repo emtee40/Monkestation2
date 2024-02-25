@@ -114,6 +114,8 @@
 		. = human_user.dna.species.get_scream_sound(user)
 	if(is_cat_enough(user))
 		return pick('monkestation/sound/voice/feline/scream1.ogg', 'monkestation/sound/voice/feline/scream2.ogg', 'monkestation/sound/voice/feline/scream3.ogg')
+	if(is_shark_enough(user))
+		return 'monkestation/sound/voice/screams/misc/shark_scream0.ogg'
 
 /datum/emote/living/scream/should_vary(mob/living/user)
 	if(ishuman(user) && !is_cat_enough(user))
@@ -227,3 +229,12 @@
 		return TRUE
 	else
 		return FALSE
+
+/datum/emote/living/awoo
+	key = "awoo"
+	key_third_person = "lets out an awoo"
+	message = "lets out an awoo!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/awoo/get_sound(mob/living/user)
+	return pick('monkestation/sound/voice/screams/misc/awoo1.ogg', 'monkestation/sound/voice/screams/misc/awoo2.ogg')

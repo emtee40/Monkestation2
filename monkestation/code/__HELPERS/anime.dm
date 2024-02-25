@@ -13,6 +13,7 @@
 	if(istype(anime_head?.bodypart_overlay?.sprite_datum, /datum/sprite_accessory/anime_head/cat) && istype(anime_bottom?.bodypart_overlay?.sprite_datum, /datum/sprite_accessory/tails/anime_bottom/cat)) // cat ears AND tail? aight then, you're very much cat
 		return TRUE
 
-// /proc/is_wolf_enough(mob/living/user, include_all_anime = FALSE)
-
-//to add iswolf, awooooo
+/proc/is_shark_enough(mob/living/user, include_all_anime = FALSE)
+	var/obj/item/organ/external/tail/anime_bottom/anime_bottom = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(istype(anime_bottom?.bodypart_overlay?.sprite_datum, /datum/sprite_accessory/tails/anime_bottom/shark)) // checks if user has a shark tail
+		return TRUE
