@@ -69,7 +69,7 @@
 /datum/store_item/head/helldiverhelmet
 	name = "Helldiver Helmet"
 	item_path = /obj/item/clothing/head/helldiverhelmet
-	item_cost = 5000
+	item_cost = 10000
 
 /*
 BUNNY EARS

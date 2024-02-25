@@ -85,4 +85,4 @@
 /datum/store_item/suit/helldiverarmor
 	name = "Helldiver Armor"
 	item_path = /obj/item/clothing/suit/helldiverarmor
-	item_cost = 5000
+	item_cost = 10000

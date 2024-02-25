@@ -162,4 +162,4 @@
 /datum/store_item/neck/helldivercape
 	name = "Helldiver Cape"
 	item_path = /obj/item/clothing/neck/helldivercape
-	item_cost = 5000
+	item_cost = 20000
