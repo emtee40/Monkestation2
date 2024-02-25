@@ -289,7 +289,7 @@
 #define A1_CURVE 70
 
 /obj/machinery/power/transmission_laser/proc/sell_power(power_amount)
-	var/mw_power = power_amount / 1 MW
+	var/mw_power = power_amount / (1 MW)
 
 	var/generated_cash = (2 * mw_power * PROCESS_CAP) / (2 * mw_power + PROCESS_CAP * A1_CURVE)
 	generated_cash += (4 * mw_power * MINIMUM_BAR) / (4 * mw_power + MINIMUM_BAR)
@@ -302,18 +302,9 @@
 	generated_cash += unsent_earnings
 	unsent_earnings = generated_cash
 
-//	var/datum/bank_account/department/civilian_bank_account = SSeconomy.get_dep_account(ACCOUNT_CIV)
-
 	var/datum/bank_account/department/engineering_bank_account = SSeconomy.get_dep_account(ACCOUNT_ENG)
-
-//	var/datum/bank_account/department/science_bank_account = SSeconomy.get_dep_account(ACCOUNT_SCI)
-//	var/datum/bank_account/department/medical_bank_account = SSeconomy.get_dep_account(ACCOUNT_MED)
-//	var/datum/bank_account/department/service_bank_account = SSeconomy.get_dep_account(ACCOUNT_SRV)
-
 	var/datum/bank_account/department/cargo_bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	var/datum/bank_account/department/security_bank_account = SSeconomy.get_dep_account(ACCOUNT_SEC)
-
-//	var/small_cut = generated_cash * 0.1
 
 	var/medium_cut = generated_cash * 0.25
 	var/high_cut = generated_cash * 0.50

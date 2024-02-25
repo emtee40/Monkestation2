@@ -55,16 +55,16 @@
 		switch(announcement_reason)
 			if(ANNOUNCEMENT_MILESTONE)
 				major_title = "[command_name()] energy unit"
-				message = "New milestone reached! [message]"
+				message = "New milestone reached!\n[message]"
 			if(ANNOUNCEMENT_HISTORY)
 				major_title = "[command_name()] energy unit"
 				minor_title = "Power Transmission Laser report, history sub-division"
-				message = "PTL history lesson: [message]"
+				message = "PTL history lesson\n[message]"
 
 	priority_announce(
 		sender_override = major_title,
 		title = minor_title,
-		text = "[message], [flavor_text]",
+		text = "[message]\n[flavor_text]",
 		color_override = "orange",
 	)
 
@@ -97,7 +97,7 @@
 	priority_announce(
 		sender_override = "[command_name()] energy unit",
 		title = "Regular Power Transmission Laser report",
-		text = "Total power exported via the PTL: [readable_power] \n\
+		text = "Total power exported via the PTL: [readable_power]\n\
 				Total earnings: [total_earnings] credits",
 		color_override = "orange",
 	)
