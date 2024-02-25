@@ -79,16 +79,16 @@
 	var/readable_power
 
 	switch(total_power)
-		if(1 MW to (1 GW - 1))
+		if(1 MW to (1 GW) - 1)
 			readable_power = "[total_power / (1 MW)] Megawatts"
 
-		if(1 GW to (1 TW - 1))
+		if(1 GW to (1 TW) - 1)
 			readable_power = "[total_power / (1 GW)] Gigawatts"
 
-		if(1 TW to (1 PW - 1))
+		if(1 TW to (1 PW) - 1)
 			readable_power = "[total_power / (1 TW)] Terawatts"
 
-		if(1 PW to (1 EW - 1))
+		if(1 PW to (1 EW) - 1)
 			readable_power = "[total_power / (1 PW)] Petawatts"
 
 		if(1 EW to INFINITY)
