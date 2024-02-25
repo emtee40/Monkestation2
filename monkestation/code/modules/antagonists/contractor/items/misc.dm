@@ -109,6 +109,11 @@
 
 	pinpointer_turf = current_turf
 
+	// we dont need to track our target when they are in the area already
+	for(var/turf/possible_turf as anything in all_tracked_area_turfs)
+		if(pinpointer_turf == possible_turf)
+			return
+
 	/// The turf that has the lowest possible range towards us and the area
 	var/turf/closest_turf
 	/// Whats the range between us and the closest turf?
@@ -180,6 +185,7 @@
  * Debug area pinpointer focuses on visualization, to better show how the area pinpointer interacts with turfs
  * Red - This tile is ignored by tracking, but recognized as a part of the target area
  * Green - This tile is a potential target, but not yet our current target
+ * Yellow - The tile would be a potential target, but the tracking is currently off due to the pinpointer being in its area
  * Blue - This is the tile we are currently tracking
  */
 /obj/item/pinpointer/area_pinpointer/debug
@@ -204,6 +210,14 @@
 
 /obj/item/pinpointer/area_pinpointer/debug/scan_for_target()
 	. = ..()
+	// we dont track turfs when the person holding us is in the area we are pointing to
+	for(var/turf/possible_turf as anything in all_tracked_area_turfs)
+		if(pinpointer_turf == possible_turf)
+			for(var/turf/open/tracked_turf as anything in tracked_area_turfs)
+				tracked_turf.color = rgb(255, 255, 0)
+				tracked_turf.maptext = MAPTEXT("-")
+			return
+
 	for(var/turf/open/tracked_turf as anything in tracked_area_turfs)
 		tracked_turf.color = rgb(0, 255, 0)
 		tracked_turf.maptext = MAPTEXT("+")
