@@ -243,6 +243,7 @@
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 		/datum/action/cooldown/mob_cooldown/bloodling/heal,
+		/datum/action/cooldown/mob_cooldown/bloodling/give_life,
 	)
 	speed = 2
 
@@ -259,5 +260,6 @@
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 		/datum/action/cooldown/mob_cooldown/bloodling/heal,
+		/datum/action/cooldown/mob_cooldown/bloodling/give_life,
 	)
 	speed = 2.5

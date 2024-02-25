@@ -13,7 +13,7 @@
 
 /mob/living/basic/bloodling/minion/harvester
 	name = "harvester"
-	desc = "A vague mass of flesh with two large scything talons."
+	desc = "A mass of flesh with two large scything talons."
 
 	health = 100
 	maxHealth = 100
