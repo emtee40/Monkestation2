@@ -27,18 +27,28 @@
 	var/turf/pinpointer_turf
 	/// The area we are currently tracking
 	var/area/tracked_area
-	/// The list of all open turfs within our tracked area, stored so we dont have to re-generate it every time we are tracking the area
-	var/list/turf/open/area_open_turfs = list()
+
+	/// The list of all open turfs within our tracked area
+	var/list/turf/all_tracked_area_turfs = list()
+	/// The list of all open turfs within our tracked area that we dont track, used exclusivelly for the debug pinpointer
+	var/list/turf/open/not_tracked_area_turfs = list()
+	/// The list of all open turfs within our tracked area, trimmed down to only the turfs we track
+	var/list/turf/open/tracked_area_turfs = list()
 	/// The list of all turfs with doors on them, used for the door mode
 	var/list/turf/open/door_turfs = list()
+
 	/// a switch, if TRUE it will display all door turfs instead of all open turfs
 	var/door_mode = FALSE
 
 /obj/item/pinpointer/area_pinpointer/Destroy()
 	tracked_area = null
 	pinpointer_turf = null
-	area_open_turfs = null
+
+	all_tracked_area_turfs = null
+	not_tracked_area_turfs = null
+	tracked_area_turfs = null
 	door_turfs = null
+
 	return ..()
 
 /obj/item/pinpointer/area_pinpointer/AltClick(mob/living/carbon/user)
@@ -58,28 +68,41 @@
 		. += span_notice("It is currently tracking the nearest floor in the given area, alt+click to switch modes")
 
 /obj/item/pinpointer/area_pinpointer/get_direction_icon(here, there)
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
-
-	var/turf/pinpointer_turf = get_turf(src)
-	for(var/turf/possible_turf as anything in area_turfs) // im a bit scared of the effects this may have on performance, but it seems fine
-		if(get_dist_euclidian(pinpointer_turf, possible_turf) <= minimum_range)
+	// if we are in an area, we cheat a bit and instead of tracking our target, we just display the icon of being in the location
+	for(var/turf/possible_turf as anything in all_tracked_area_turfs)
+		if(pinpointer_turf == possible_turf)
 			return "pinon[alert ? "alert" : ""]direct[icon_suffix]"
 
 	return ..()
 
-/obj/item/pinpointer/area_pinpointer/proc/regenerate_tracked_turfs()
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
-	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
+/obj/item/pinpointer/area_pinpointer/proc/create_target_turfs()
+	all_tracked_area_turfs = get_area_turfs(tracked_area)
+	// Treatment 1: store all open turfs, exclude all walls right-away and store open turfs with doors on a seperate variable
+	for(var/turf/floor as anything in all_tracked_area_turfs) // Lets go over everything and store the turfs we care about
 		if(floor.density) // catch all the walls, we dont want them
+			not_tracked_area_turfs += floor
 			continue
-		area_open_turfs += floor
+		tracked_area_turfs += floor
 		if(locate(/obj/machinery/door/airlock) in floor)
 			door_turfs += floor
 
+	// Treatment 2: Any tile that is not near a wall is removed from our list
+	// This majorly improves our performance in large rooms
+	for(var/turf/open/open_turf as anything in tracked_area_turfs)
+		var/marked_for_deletion = TRUE
+
+		for(var/turf/unknown_turf as anything in RANGE_TURFS(1, open_turf))
+			// we are near a wall, this turf is important
+			// this also ignores windows, might need to change it depending on how relevant it is
+			if(unknown_turf.density)
+				marked_for_deletion = FALSE
+
+		if(marked_for_deletion)
+			not_tracked_area_turfs += open_turf
+			tracked_area_turfs -= open_turf // it has no walls around it, so this turf is just bloating calculations for tracking. Cut it off
+
 /obj/item/pinpointer/area_pinpointer/scan_for_target()
-	var/current_turf = get_turf(src)
+	var/current_turf = drop_location()
 
 	if(pinpointer_turf == current_turf) // if our position has not changed, we dont need to update our target.
 		return
@@ -91,10 +114,11 @@
 	/// Whats the range between us and the closest turf?
 	var/closest_turf_range = 255
 	if(!door_mode)
-		for(var/turf/open/floor as anything in area_open_turfs) // Lets go over every turf and check their distances for the closest tile
+		for(var/turf/open/floor as anything in tracked_area_turfs) // Lets go over every turf and check their distances for the closest tile
 			if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
 				closest_turf_range = get_dist_euclidian(pinpointer_turf, floor)
 				closest_turf = floor
+
 	else // if door_mode is TRUE, we instead want to track the nearest airlock instead of all turfs
 		for(var/turf/open/floor as anything in door_turfs) // Lets go over every door and check their distances for the closest tile
 			if(get_dist_euclidian(pinpointer_turf, floor) < closest_turf_range)
@@ -107,8 +131,13 @@
 	if(active)
 		toggle_on()
 		user.visible_message(span_notice("[user] deactivates [user.p_their()] pinpointer."), span_notice("You deactivate your pinpointer."))
-		area_open_turfs = list() // empty the lists so we can fill it on the next activation with the new area's turfs
-		door_turfs = list() // if we wouldn't empty them, the pinpointer would get both confusing and very expensive to run
+
+		// empty the lists so we can fill it on the next activation with the new area's turfs
+		all_tracked_area_turfs = list()
+		not_tracked_area_turfs = list()
+		tracked_area_turfs = list()
+		door_turfs = list()
+
 		return
 
 	if(!user)
@@ -139,19 +168,18 @@
 
 	tracked_area = target_area
 
-	regenerate_tracked_turfs()
+	create_target_turfs()
 
-	target = get_first_open_turf_in_area(target_area)
+	target = get_first_open_turf_in_area(target_area) // failsafe
 
 	toggle_on()
 
 	user.visible_message(span_notice("[user] activates [user.p_their()] pinpointer."), span_notice("You activate your pinpointer."))
 
 /**
- * Debug area pinpointer focuses on visualization over performance, admin-spawn only
- * Red - This tile is ignored by tracking
- * Yellow - This tile is not tracked, but is marked
- * Green - This tile is tracked and potentially a target
+ * Debug area pinpointer focuses on visualization, to better show how the area pinpointer interacts with turfs
+ * Red - This tile is ignored by tracking, but recognized as a part of the target area
+ * Green - This tile is a potential target, but not yet our current target
  * Blue - This is the tile we are currently tracking
  */
 /obj/item/pinpointer/area_pinpointer/debug
@@ -159,52 +187,51 @@
 	desc = "A debug version of the area pinpointer, this one visualizes all of the turfs that are being tracked and ignored."
 	var/list/obj/machinery/door/airlock/affected_airlock_list = list()
 
+/obj/item/pinpointer/area_pinpointer/debug/create_target_turfs()
+	. = ..()
+	for(var/turf/non_tracked_turf as anything in not_tracked_area_turfs) // this tile will never be a potential target, no need to refresh it
+		non_tracked_turf.color = rgb(255, 0, 0)
+		non_tracked_turf.maptext = MAPTEXT("X")
+
+	// we want to make the alpha of all the doors in the area lower so we can see the turf's colors easier
+	for(var/turf/open/door_turf as anything in door_turfs)
+		var/obj/machinery/door/airlock/affected_airlock = locate(/obj/machinery/door/airlock) in door_turf
+		if(!affected_airlock)
+			CRASH("[src] has tried to locate an airlock that was inside of the (door_turfs) list, but failed. This should never happen!")
+
+		affected_airlock_list += affected_airlock
+		affected_airlock.alpha = 50
+
 /obj/item/pinpointer/area_pinpointer/debug/scan_for_target()
 	. = ..()
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
-	for(var/turf/floor as anything in area_turfs) // Lets go over everything and store the turfs we care about
-		floor.maptext = initial(floor.maptext)
-		if(floor.density)
-			floor.color = rgb(255, 0, 0) // color the walls red, we dont track them
-			floor.maptext = MAPTEXT("X")
-			continue
-		if(!door_mode)
-			floor.color = rgb(0, 255, 0) // color the floors green, we track them
-		else
-			floor.color = rgb(255, 255, 0) // we are not necessarily tracking them, but still mark them since they are relevant
-		if(locate(/obj/machinery/door/airlock) in floor)
-			var/obj/machinery/door/airlock/affected_airlock = locate(/obj/machinery/door/airlock) in floor
-			affected_airlock_list += affected_airlock
-			affected_airlock.alpha = 50
-			if(door_mode)
-				floor.color = rgb(0, 255, 0) // color the doors green, we are tracking them
-			else
-				floor.color = rgb(255, 255, 0) // we aint tracking them, still mark them
+	for(var/turf/open/tracked_turf as anything in tracked_area_turfs)
+		tracked_turf.color = rgb(0, 255, 0)
+		tracked_turf.maptext = MAPTEXT("+")
 
 	target.color = rgb(0, 0, 255) // higher color priority than any other turfs
-	target.maptext = MAPTEXT("TARGET")
+	target.maptext = MAPTEXT("T")
 
 /obj/item/pinpointer/area_pinpointer/debug/attack_self(mob/living/user)
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
 	if(active)
-		for(var/turf/floor as anything in area_turfs) // we need to clear all the colors we created
+		for(var/turf/floor as anything in all_tracked_area_turfs) // we need to clear all the colors we created
 			floor.color = initial(floor.color)
 			floor.maptext = initial(floor.maptext)
-		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list) // we need to reset the alpha on the airlocks
+
+		// we need to reset the alpha on the airlocks
+		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list)
 			affected_airlock.alpha = initial(affected_airlock.alpha)
+
 		affected_airlock_list = list() // empty da list when we are done cleaning
 	return ..()
 
 /obj/item/pinpointer/area_pinpointer/debug/Destroy()
-	var/list/area_turfs = list()
-	area_turfs = get_area_turfs(tracked_area)
 	if(active)
-		for(var/turf/floor as anything in area_turfs) // we need to clear all the colors we created
+		for(var/turf/floor as anything in all_tracked_area_turfs) // we need to clear all th- wait why am i getting dejavu?
 			floor.color = initial(floor.color)
 			floor.maptext = initial(floor.maptext)
-		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list) // we need to reset the alpha on the airlocks
+
+		for(var/obj/machinery/door/airlock/affected_airlock as anything in affected_airlock_list)
 			affected_airlock.alpha = initial(affected_airlock.alpha)
+
 	affected_airlock_list = null
 	return ..()
