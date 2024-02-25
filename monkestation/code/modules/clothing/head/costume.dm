@@ -53,6 +53,24 @@
 	worn_icon = 'monkestation/icons/mob/clothing/head.dmi'
 	icon_state = "guardman_helmet"
 
+/obj/item/clothing/head/helldiverhelmet
+	name = "helldiver helmet"
+	desc = "Have a taste of Democracy!!!"
+	icon = 'monkestation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/head.dmi'
+	icon_state = "helldiver_helm"
+	worn_icon_state = "helldiver_helm"
+	flags_inv = HIDEHAIR|HIDEFACE|HIDESNOUT|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACIALHAIR
+
+/datum/loadout_item/head/helldiverhelmet
+	name = "Helldiver Helmet"
+	item_path = /obj/item/clothing/head/helldiverhelmet
+
+/datum/store_item/head/helldiverhelmet
+	name = "Helldiver Helmet"
+	item_path = /obj/item/clothing/head/helldiverhelmet
+	item_cost = 5000
+
 /*
 BUNNY EARS
 */

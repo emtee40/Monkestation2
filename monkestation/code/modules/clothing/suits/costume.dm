@@ -40,6 +40,7 @@
 	worn_icon = 'monkestation/icons/mob/clothing/suit.dmi'
 	icon_state = "shipwrecked_suit"
 	worn_icon_state = "shipwrecked_suit"
+	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/head/shipwreckedhelmet
 	name = "shipwrecked captain helmet"
@@ -57,6 +58,7 @@
 	worn_icon = 'monkestation/icons/mob/clothing/suit.dmi'
 	icon_state = "kingofbugs_suit"
 	worn_icon_state = "kingofbugs_suit"
+	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/head/kingofbugshelmet
 	name = "king of bugs helmet"
@@ -66,3 +68,21 @@
 	icon_state = "kingofbugs_helmet"
 	worn_icon_state = "kingofbugs_helmet"
 	worn_y_offset = 5
+
+/obj/item/clothing/suit/helldiverarmor
+	name = "helldiver armor"
+	desc = "Have a cup of LIBER-TEA!!!"
+	icon = 'monkestation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/suit.dmi'
+	icon_state = "helldiver_armor"
+	worn_icon_state = "helldiver_armor"
+	flags_inv = HIDEJUMPSUIT
+
+/datum/loadout_item/suit/helldiverarmor
+	name = "Helldiver Armor"
+	item_path = /obj/item/clothing/suit/helldiverarmor
+
+/datum/store_item/suit/helldiverarmor
+	name = "Helldiver Armor"
+	item_path = /obj/item/clothing/suit/helldiverarmor
+	item_cost = 5000
