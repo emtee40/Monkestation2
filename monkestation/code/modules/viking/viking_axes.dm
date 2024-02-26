@@ -15,6 +15,19 @@
 	throwforce = 45
 	embedding = 50
 
+/obj/item/melee/viking/godly_tenja
+	name = "Leviathan Axe"
+	icon = ""
+	icon_state = ""
+	desc = "An axe with no equal to its power"
+	force = 25
+	throwforce = 65
+	embedding = 75
+
+/obj/item/melee/viking/godly_tenja/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	target.adjust_bodytemperature(-50 * power_multiplier)
+
 /obj/item/melee/viking/genja
 	name = "Genja"
 	icon = ""
