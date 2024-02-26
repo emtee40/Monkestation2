@@ -71,6 +71,5 @@
 		var/tl = SSticker.GetTimeLeft()
 		to_chat(src, "Please set up your character and select \"Ready\". The game will start [tl > 0 ? "in about [DisplayTimeText(tl)]" : "soon"].")
 
-
 	spawn(4 SECONDS)
-		client.playtitlemusic()
+		client?.playtitlemusic()

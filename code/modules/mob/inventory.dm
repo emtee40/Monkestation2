@@ -144,7 +144,7 @@
 	return FALSE
 
 /mob/proc/can_put_in_hand(I, hand_index)
-	if(hand_index > held_items.len)
+	if(hand_index > length(held_items))
 		return FALSE
 	if(!put_in_hand_check(I))
 		return FALSE
@@ -153,7 +153,7 @@
 	return !held_items[hand_index]
 
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
-	if(hand_index == null || !held_items.len || (!forced && !can_put_in_hand(I, hand_index)))
+	if(hand_index == null || !length(held_items) || (!forced && !can_put_in_hand(I, hand_index)))
 		return FALSE
 
 	if(isturf(I.loc) && !ignore_anim)
@@ -260,7 +260,7 @@
 //Here lie drop_from_inventory and before_item_take, already forgotten and not missed.
 
 /mob/proc/canUnEquip(obj/item/I, force)
-	if(!I)
+	if(QDELETED(I))
 		return TRUE
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
 		return FALSE
@@ -286,13 +286,13 @@
  * If the item can be dropped, it will be forceMove()'d to the ground and the turf's Entered() will be called.
 */
 /mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE, invdrop = TRUE)
-	if (isnull(I))
+	if(QDELETED(I))
 		return TRUE
 
 	SEND_SIGNAL(src, COMSIG_MOB_DROPPING_ITEM)
 	. = doUnEquip(I, force, drop_location(), FALSE, invdrop = invdrop, silent = silent)
 
-	if(!. || !I) //ensure the item exists and that it was dropped properly.
+	if(!. || QDELETED(I)) //ensure the item exists and that it was dropped properly.
 		return
 
 	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP))
@@ -303,7 +303,8 @@
 //for when the item will be immediately placed in a loc other than the ground
 /mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE, silent = TRUE)
 	. = doUnEquip(I, force, newloc, FALSE, silent = silent)
-	I.do_drop_animation(src)
+	if(!QDELETED(I)) // since some items do in fact delete themselves on unequip
+		I.do_drop_animation(src)
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
@@ -317,7 +318,7 @@
 													//Use no_move if the item is just gonna be immediately moved afterward
 													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
 	PROTECTED_PROC(TRUE)
-	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
+	if(QDELETED(I)) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
 		return TRUE
 
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
@@ -330,7 +331,7 @@
 	if(hand_index)
 		held_items[hand_index] = null
 		update_held_items()
-	if(I)
+	if(!QDELETED(I))
 		if(client)
 			client.screen -= I
 		I.layer = initial(I.layer)
@@ -342,7 +343,7 @@
 			else
 				I.forceMove(newloc)
 		I.dropped(src, silent)
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+		SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	return TRUE
 

@@ -23,19 +23,16 @@
 
 /obj/item/implant/hard_spear/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	. = ..()
-	if (!.)
+	if (!. || !spell_to_give)
 		return
-
-	if (!spell_to_give)
-		return FALSE
-
-	var/datum/action/cooldown/spell/existing = locate(spell_to_give) in user.actions
-	if(existing)
-		if(!existing.level_spell())
-			to_chat(target, span_boldnotice("The implant is unable to upgrade your hardlight spear further"))
-			return FALSE
-		timerid = QDEL_IN_STOPPABLE(src, deltime)
-		return TRUE
+	if(!QDELETED(user))
+		var/datum/action/cooldown/spell/existing = locate(spell_to_give) in user.actions
+		if(existing)
+			if(!existing.level_spell())
+				to_chat(target, span_boldnotice("The implant is unable to upgrade your hardlight spear further"))
+				return FALSE
+			timerid = QDEL_IN_STOPPABLE(src, deltime)
+			return TRUE
 	spell_inside = TRUE
 	spell_to_give.Grant(target)
 	return TRUE
@@ -45,12 +42,11 @@
 	if (!.)
 		return FALSE
 
-	if(spell_inside)
-		if(spell_to_give)
-			spell_inside_level = spell_to_give.spell_level
-			spell_to_give.Remove(source)
-			if(source.stat != DEAD && !silent)
-				to_chat(source, span_boldnotice(""))
+	if(spell_inside && spell_to_give)
+		spell_inside_level = spell_to_give.spell_level
+		spell_to_give.Remove(source)
+		if(source.stat != DEAD && !silent)
+			to_chat(source, span_boldnotice(""))
 
 	if(timerid)
 		deltimer(timerid)
