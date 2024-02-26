@@ -1,8 +1,36 @@
+/datum/bodypart_overlay/simple/proc/unique_properties(obj/item/organ/internal/cyberimp/called_from)
+	return
+
 /obj/item/organ/internal/cyberimp
 	var/hacked = FALSE
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
 	var/list/encode_info = AUGMENT_NO_REQ
+
+	///are we a visual implant
+	var/visual_implant = FALSE
+	/// The bodypart overlay datum we should apply to whatever mob we are put into
+	var/datum/bodypart_overlay/simple/bodypart_overlay
+	/// What limb we are inside of, used for tracking when and how to remove our overlays and all that
+	var/obj/item/bodypart/ownerlimb
+
+/obj/item/organ/internal/cyberimp/New(mob/M = null)
+	if(iscarbon(M))
+		src.Insert(M)
+	if(implant_overlay) // <- this is old code that is better replaced with bodypart_overlays
+		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
+		overlay.color = implant_color
+		add_overlay(overlay)
+	return ..()
+
+/obj/item/organ/internal/cyberimp/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/organ/internal/cyberimp/Destroy()
+	if(ownerlimb && visual_implant)
+		remove_from_limb()
+	return ..()
 
 /obj/item/organ/internal/cyberimp/examine(mob/user)
 	. = ..()
@@ -36,14 +64,31 @@
 	else
 		to_chat(owner,"<span class = 'danger'> cyberlink beeps: ERR02 ELECTROMAGNETIC MALFUNCTION DETECTED IN [uppertext(name)] </span>")
 
+/obj/item/organ/internal/cyberimp/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
+	. = ..()
+	if(visual_implant)
+		if(!.)
+			return
+		if(!limb)
+			return FALSE
 
-/obj/item/organ/internal/cyberimp/New(mob/M = null)
-	if(iscarbon(M))
-		src.Insert(M)
-	if(implant_overlay)
-		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
-		overlay.color = implant_color
-		add_overlay(overlay)
+		ownerlimb = limb
+		add_to_limb(ownerlimb)
+
+/obj/item/organ/internal/cyberimp/add_to_limb(obj/item/bodypart/bodypart)
+	bodypart_overlay = new bodypart_overlay()
+	bodypart_overlay.unique_properties(src)
+	ownerlimb = bodypart
+	ownerlimb.add_bodypart_overlay(bodypart_overlay)
+	owner.update_body_parts()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/remove_from_limb()
+	ownerlimb.remove_bodypart_overlay(bodypart_overlay)
+	QDEL_NULL(bodypart_overlay)
+	ownerlimb = null
+	owner.update_body_parts()
 	return ..()
 
 /**

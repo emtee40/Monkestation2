@@ -13,6 +13,11 @@
 	/// The object type to create on the new turf when forcibly teleporting out
 	var/force_teleport_in_effect
 
+	var/beam_icon_state
+	var/beam_icon
+	var/list/beams = list()
+	var/force_teleports
+
 	VAR_PRIVATE
 		// Pathfinding can yield, so only move us closer if this is the best one
 		current_path_tick = 0
@@ -25,6 +30,9 @@
 	distance = 3,
 	force_teleport_out_effect,
 	force_teleport_in_effect,
+	beam_icon_state,
+	beam_icon,
+	force_teleports = TRUE
 )
 	. = ..()
 
@@ -52,6 +60,9 @@
 	src.distance = distance
 	src.force_teleport_out_effect = force_teleport_out_effect
 	src.force_teleport_in_effect = force_teleport_in_effect
+	src.beam_icon_state = beam_icon_state
+	src.beam_icon = beam_icon
+	src.force_teleports = force_teleports
 
 	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(on_owner_qdel))
 
@@ -67,6 +78,7 @@
 
 /datum/component/leash/Destroy()
 	owner = null
+	QDEL_LIST(beams)
 	return ..()
 
 /datum/component/leash/proc/set_distance(distance)
@@ -105,6 +117,10 @@
 /datum/component/leash/proc/check_distance()
 	set waitfor = FALSE
 	PRIVATE_PROC(TRUE)
+
+	if(beam_icon && beam_icon_state)
+		var/list/true_path = get_path_to(parent, owner)
+		redraw_beams(true_path)
 
 	if (get_dist(parent, owner) <= distance)
 		return
@@ -149,6 +165,9 @@
 /datum/component/leash/proc/force_teleport_back(reason)
 	PRIVATE_PROC(TRUE)
 
+	if(!force_teleports)
+		qdel(src)
+
 	var/atom/movable/movable_parent = parent
 
 	SSblackbox.record_feedback("tally", "leash_force_teleport_back", 1, reason)
@@ -165,6 +184,32 @@
 		movable_parent.balloon_alert(movable_parent, "moved out of range!")
 
 	SEND_SIGNAL(parent, COMSIG_LEASH_FORCE_TELEPORT)
+
+
+/datum/component/leash/proc/redraw_beams(list/path)
+	for(var/datum/beam/beam as anything in beams)
+		beams -= beam
+		qdel(beam)
+
+	var/atom/movable/movable_parent = parent
+	var/turf/first_turf = path[1]
+	var/atom/new_host = movable_parent
+
+	var/normal_direction = get_dir(movable_parent, first_turf) // we want to follow 1 dir until it turns and follow that way
+	var/dist = length(path)
+	for(var/turf/to_move as anything in path)
+		dist--
+		if(dist == 0)
+			beams += new_host.Beam(to_move, beam_icon_state, beam_icon)
+			normal_direction = get_dir(new_host, to_move)
+			new_host = to_move
+
+		else if((get_dir(new_host, to_move) == normal_direction))
+			continue
+
+		beams += new_host.Beam(to_move, beam_icon_state, beam_icon)
+		normal_direction = get_dir(new_host, to_move)
+		new_host = to_move
 
 /// A debug spawner that will create a corgi leashed to a bike horn, plus a beam
 /obj/effect/spawner/debug_leash

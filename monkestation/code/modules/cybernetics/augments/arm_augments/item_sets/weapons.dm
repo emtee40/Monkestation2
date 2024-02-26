@@ -96,3 +96,32 @@
 
 /obj/item/organ/internal/cyberimp/arm/item_set/syndie_mantis/l
 	zone = BODY_ZONE_L_ARM
+
+/obj/item/organ/internal/cyberimp/arm/item_set/razorwire
+	name = "razorwire spool implant"
+	desc = "An integrated spool of razorwire, capable of being used as a weapon when whipped at your foes. \
+		Built into the back of your hand, try your best to not get it tangled."
+	items_to_create = list(/obj/item/melee/razorwire)
+	encode_info = AUGMENT_SYNDICATE_LEVEL
+	icon = 'monkestation/code/modules/cybernetics/icons/implants.dmi'
+	icon_state = "razorwire"
+	visual_implant = TRUE
+	bodypart_overlay = /datum/bodypart_overlay/simple/razorwire
+
+/obj/item/organ/internal/cyberimp/arm/item_set/razorwire/l
+	zone = BODY_ZONE_L_ARM
+
+/obj/item/organ/internal/cyberimp/arm/item_set/razorwire/Retract()
+	if(active_item)
+		var/obj/item/melee/razorwire/wire = active_item
+		wire.disconnect()
+	return ..()
+
+/datum/bodypart_overlay/simple/razorwire
+	icon = 'monkestation/code/modules/cybernetics/icons/implants.dmi'
+	icon_state = "razorwire_right"
+	layers = EXTERNAL_FRONT
+
+/datum/bodypart_overlay/simple/razorwire/unique_properties(obj/item/organ/internal/cyberimp/called_from)
+	if(called_from.zone == BODY_ZONE_L_ARM)
+		icon_state = "razorwire_left"

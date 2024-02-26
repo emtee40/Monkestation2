@@ -9,12 +9,6 @@
 	var/double_legged = FALSE
 	slot = ORGAN_SLOT_SPINAL
 
-/obj/item/organ/internal/cyberimp/chest/Initialize()
-	. = ..()
-	update_icon()
-
-
-
 /datum/action/item_action/organ_action/sandy
 	name = "Sandevistan Activation"
 
@@ -28,42 +22,8 @@
 
 	COOLDOWN_DECLARE(in_the_zone)
 	/// The bodypart overlay datum we should apply to whatever mob we are put into
-	var/datum/bodypart_overlay/simple/sandy/bodypart_overlay
-	/// What limb we are inside of, used for tracking when and how to remove our overlays and all that
-	var/obj/item/bodypart/ownerlimb
-
-/obj/item/organ/internal/cyberimp/chest/sandevistan/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
-	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
-
-	. = ..()
-
-	if(!.)
-		return
-	if(!limb)
-		return FALSE
-
-	ownerlimb = limb
-	add_to_limb(ownerlimb)
-
-
-/obj/item/organ/internal/cyberimp/chest/sandevistan/add_to_limb(obj/item/bodypart/bodypart)
-	bodypart_overlay = new()
-	ownerlimb = bodypart
-	ownerlimb.add_bodypart_overlay(bodypart_overlay)
-	owner.update_body_parts()
-	return ..()
-
-/obj/item/organ/internal/cyberimp/chest/sandevistan/remove_from_limb()
-	ownerlimb.remove_bodypart_overlay(bodypart_overlay)
-	QDEL_NULL(bodypart_overlay)
-	ownerlimb = null
-	owner.update_body_parts()
-	return ..()
-
-/obj/item/organ/internal/cyberimp/chest/sandevistan/Destroy()
-	if(ownerlimb)
-		remove_from_limb()
-	return ..()
+	visual_implant = TRUE
+	bodypart_overlay = /datum/bodypart_overlay/simple/sandy
 
 /obj/item/organ/internal/cyberimp/chest/sandevistan/ui_action_click()
 	if((organ_flags & ORGAN_FAILING))
