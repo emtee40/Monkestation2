@@ -138,7 +138,6 @@
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list), //Monkestation Addition
 		"tail_monkey" = "Chimp", //Monkestation Addition
 		"pod_hair" = pick(GLOB.pod_hair_list),
-		"anime_horns" = pick(GLOB.anime_horns_list), //Monkestation Addition
 		"anime_top" = pick(GLOB.anime_top_list), //Monkestation Addition
 		"anime_middle" = pick(GLOB.anime_middle_list), //Monkestation Addition
 		"anime_bottom" = pick(GLOB.anime_bottom_list), //Monkestation Addition
