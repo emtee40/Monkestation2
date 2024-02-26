@@ -44,7 +44,7 @@
 /obj/item/mantis_blade/chromata
 	tool_behaviour = TOOL_CROWBAR
 
-/obj/item/mantis_blade/chromata/proc/check_can_crowbar()
+/obj/item/mantis_blade/chromata/proc/check_can_crowbar(mob/user)
 	var/obj/item/some_item = user.get_inactive_held_item()
 
 	if(!istype(some_item,type))
@@ -80,6 +80,8 @@
 
 	COOLDOWN_START(src, lunge, 10 SECONDS)
 	COOLDOWN_START(other, lunge, 10 SECONDS)
-	user.stamina?.adjust(-30) // cost of a lunge
+	if(isliving(user))
+		var/mob/living/living = user
+		living.stamina?.adjust(-30) // cost of a lunge
 
 	attack(target,user)
