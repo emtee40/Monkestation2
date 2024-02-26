@@ -1,78 +1,86 @@
-#define SPECIES_RATTUS "rattus"
-
-#define RATTUS_BELT_ICON 'monkestation/icons/mob/clothing/species/rattus/belts.dmi'
-#define RATTUS_BACK_ICON 'monkestation/icons/mob/clothing/species/rattus/back.dmi'
-
 /*
-	LORE (also called the bullshit i made up with pizza and kitsune)
-	A cargo ship crashed into the dessert plannet of Voltaire
-	This cargo ship was full of cheese, wine, and french personel (all of which died)
+	Le' Lore
 
-	the rattus being savage cannibals they are go into the cargo ship and eat the fench obsorbing thier dna, turning all of the rattus french.
-	they later developed space travel and said to NanoTrasen "Bonjour, je suis maintenant là pour voler tout votre fromage !"
+	How did the rattus come to be?
+	A cargo ship crashed into the dessert plannet of Voltaire
+	This cargo ship was full of cheese, wine, and french personel
+	The rattus being in a state of savagery scamper into the cargo ship and eat the remaining french that are alive obsorbing thier dna!
+	This turns the rattus french and civilized.
+	The rattus later over DECADES (two weeks) develop space travel and eventally get discovered by nanotraseen!
+	The rattus get hired by Nanotrasen for thier excellent enthusiasm ~~and resilience~~.
+	This is where the story continues, onboard the newest Nanotraseen project.. Space Station 13!
 */
 
+/*
+	le wall of grief
+
+	Icons
+			belt
+			backpack
+
+	add hair/facial-hair? (firstly we need hair offsets.. of which don't exist in tg code)
+*/
+
+#define SPECIES_RATTUS "rattus"
 /datum/species/rattus
-	name = "Rattus Norvegicus"
+	name = "\improper Rattus Norvegicus"
 	plural_form = "Ratti"
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP
 	id = SPECIES_RATTUS
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	species_traits = list(
-		NO_UNDERWEAR,
 		NOEYESPRITES,
-		SPECIES_FUR,
-		NOAUGMENTS,
+		MUTCOLORS,
+		DYNCOLORS,
+		NO_UNDERWEAR,
+		NOAUGMENTS, //No icons for augments on rattus currently
 		NOTRANSSTING,
-		)
+	)
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_VAULTING,
-		TRAIT_NIGHT_VISION,
-		TRAIT_POOR_AIM,
-		)
+	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	species_cookie = /obj/item/food/cheese/wedge
 	meat = /obj/item/food/meat/slab/mouse
-	liked_food = DAIRY | SUGAR | ALCOHOL | GROSS //("Sad European" -MechaDH)
+	liked_food = DAIRY | SUGAR | ALCOHOL | GROSS
 	disliked_food = VEGETABLES
-	maxhealthmod = 1
-	stunmod = 1.1
-	speedmod = -0.2
-	brutemod = 1.75
-	burnmod = 2.5
-	siemens_coeff = 4
-	payday_modifier = 0.75
-	uses_fur = TRUE
-	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
+	fire_overlay = "human_small_fire"
+	speedmod = -0.25
+	stunmod = 1.05
+	brutemod = 1.6
+	burnmod = 1.75
+	siemens_coeff = 75
+	payday_modifier = 0.8
+	inherent_factions = list(FACTION_RAT)
+	no_equip_flags = ITEM_SLOT_ICLOTHING | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET
+	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
-	no_equip_flags = ITEM_SLOT_ICLOTHING | ITEM_SLOT_NECK | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_BACKPACK | ITEM_SLOT_BACK
-	custom_worn_icons = list(
-		LOADOUT_ITEM_BELT = RATTUS_BELT_ICON,
-		LOADOUT_ITEM_MISC = RATTUS_BACK_ICON,
-		)
-	offset_features = list(
-		OFFSET_HANDS = list(0,-3),
-		OFFSET_HEAD = list(0,-5),
-		OFFSET_SUIT = list(0,-5),
-		OFFSET_EARS = list(0,-5),
-		OFFSET_BELT = list(0,-6),
-		OFFSET_EYES = list(0,-6),
-		OFFSET_FACE = list(0,-6),
-		OFFSET_ACCESSORY = list(0,-6),
-		OFFSET_S_STORE = list(0,-6),
-		OFFSET_FACEMASK = list(0,-5),
-		OFFSET_GLASSES = list(0,-6),
-		)
 	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/rattus,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/rattus,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/rattus,
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/rattus,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/rattus,
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/rattus,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/rattus,
-		)
+	)
+	offset_features = list(
+		OFFSET_HANDS = list(0,-2),
+		OFFSET_BELT = list(0,-3), //replace with real sprites later
+		OFFSET_BACK = list(0,-5), //replace with real sprites later
+
+		OFFSET_ID = list(0,-5),
+		OFFSET_GLASSES = list(0,-5),
+		OFFSET_EARS = list(0,-5),
+		OFFSET_FACEMASK = list(0,-5),
+		OFFSET_HEAD = list(0,-5),
+		OFFSET_FACE = list(0,-5),
+		OFFSET_EYES = list(0,-6),
+		OFFSET_ACCESSORY = list(0,-6),
+		OFFSET_NECK = list(0,-5),
+	)
 	family_heirlooms = list(
+		/obj/item/assembly/mousetrap/armed, // :)
 		/obj/item/trash/raisins,
 		/obj/item/trash/cheesie,
 		/obj/item/trash/candy,
@@ -93,46 +101,7 @@
 		/obj/item/trash/waffles,
 		/obj/item/trash/tray,
 		/obj/item/trash/can,
-		/obj/item/shard,
-		/obj/item/broken_bottle,
-		/obj/item/light/tube/broken,
-		/obj/item/light/bulb/broken,
-		/obj/item/assembly/mousetrap/armed,
-		/obj/item/popsicle_stick,
-		/obj/item/shard/plasma,
 		)
-
-/datum/species/rattus/get_species_description()
-	return "Rats, rats, we're the rats. \
-		We prey at night, we stalk at night, we're the rats. \
-		I'm the giant rat that makes all of the rules. \
-		Let's see what kind of trouble we can get ourselves into."
-
-/datum/species/rattus/random_name(gender,unique,lastname)
-	var/randname = rattus_name(gender)
-	if(lastname)
-		randname += " [lastname]"
-	return randname
-
-/datum/species/rattus/get_scream_sound(mob/living/carbon/human/human)
-	return 'monkestation/sound/voice/rattus/rattusscream.ogg'
-
-/datum/species/rattus/get_laugh_sound(mob/living/carbon/human/human)
-	return 'monkestation/sound/voice/rattus/rattuslaugh.ogg'
-
-/datum/language_holder/rattus
-	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM), /datum/language/rattus = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM), /datum/language/rattus = list(LANGUAGE_ATOM))
-
-/datum/language/rattus
-	name = "Rattus French"
-	desc = "The traditional lanugage of the Rattus peoples."
-	key = "r"
-	space_chance = 100
-	default_priority = 90
-	syllables = list("lager","maotai","bulleit","cognac","raki","mojito","smirnoff","brandy","sazerac","wine","calvados","chambord","liqueur","whisky","gin","scotch","cheese","fontina","roquefort","limburger","jarlsberg","emmental","taleggio","pecorino","cheddar","edam","asiago","stilton","munster","swis","feta","gruyere",,"colby","pepper-jack","gouda","manchego","blue-cheese","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","fromage","omelette-du-fromage","(RAT SOUNDS)","(INCOHERENT YELLING)","squeak","le","hon","hun","honhonhon","baugete","baugette","cigarette","viva","fuck","tete-de-noeud","andouille","blaireau","casse-toi","tabarnak","accoutrement","eiffel-tower")
-	icon = 'monkestation/icons/misc/language.dmi'
-	icon_state = "rattus"
 
 /obj/item/bodypart/head/rattus
 	icon_greyscale =  'monkestation/icons/mob/species/rattus/bodyparts.dmi'
@@ -142,6 +111,7 @@
 	is_dimorphic = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	dmg_overlay_type = "monkey"
+	layer = BELOW_MOB_LAYER + 0.01 //forced to be above torso
 
 /obj/item/bodypart/head/rattus
 	icon_greyscale =  'monkestation/icons/mob/species/rattus/bodyparts.dmi'
@@ -196,8 +166,50 @@
 
 /obj/item/organ/internal/tongue/rattus
 	name = "rattus tongue"
-	desc = "A fleshy muscle mostly used for lying. Reaks of alcohol and cheese."
+	desc = "A fleshy muscle mostly used for the consuming of alcohol and cheese."
 	say_mod = "squeaks"
 
 /obj/item/organ/internal/tongue/rattus/get_possible_languages()
 	return ..() + /datum/language/rattus
+
+/datum/language_holder/rattus
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM), /datum/language/rattus = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM), /datum/language/rattus = list(LANGUAGE_ATOM))
+
+/datum/language/rattus
+	name = "Rattus ''traditional'' French"
+	desc = "The traditional lanugage of the Rattus peoples."
+	key = "r"
+	space_chance = 100
+	default_priority = 90
+	syllables = list(
+					//alcohol
+					"lager","absinthe","amaro","amaretto","aperol","armagnac","baileys","beer","bellini","bitters","bourbon","brandy","bulleit","cachaça","calvados","campari","cava","champagne","chardonnay","chartreuse","chianti","cider","cognac","cosmopolitan","cynar","daquiri","genever","gin","grand-marnier","grappa","grenadine","irish-coffee","jägermeister","kahlúa","kir-royale","lager","limoncello","mai-tai","manhattan","margarita","martini","mead","merlot","mezcal","mojito","moscato","negroni","pilsner","pinot-grigio","pinot-noir","port","prosecco","raki","rum","sake","sangria","sazerac","scotch","sherry","smirnoff","sour","sparkling-wine","tequila","vodka","whisky","wine","zinfandel",
+					//cheese
+					"cheese","fontina","roquefort","limburger","jarlsberg","emmental","taleggio","pecorino","cheddar","edam","asiago","stilton","munster","swis","feta","gruyere","colby","pepper-jack","gouda","manchego","blue-cheese","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","fromage","omelette-du-fromage",
+					//misc
+					"(RAT SOUNDS)","(INCOHERENT YELLING)","andouille","blaireau","squeak","le","hon","hun","honhonhon","baugette","cigarette","viva","fuck","tete-de-noeud","casse-toi","tabarnak","accoutrement","eiffel-tower","emmanuel-macron"
+					)
+	icon = 'monkestation/icons/misc/language.dmi'
+	icon_state = "rattus"
+
+/datum/species/rattus/get_species_description()
+	return "Rats, rats, we're the rats. We prey at night, we stalk at night, we're the rats. I'm the giant rat that makes all of the rules. Let's see what kind of trouble we can get ourselves into."
+
+/datum/species/rattus/get_scream_sound(mob/living/carbon/human/human)
+	return 'monkestation/sound/voice/rattus/rattusscream.ogg'
+
+/datum/species/rattus/get_laugh_sound(mob/living/carbon/human/human)
+	return 'monkestation/sound/voice/rattus/rattuslaugh.ogg'
+
+/datum/species/rattus/random_name(gender,unique,lastname)
+	var/randname = rattus_name(gender)
+	if(lastname)
+		randname += " [lastname]"
+	return randname
+
+/proc/rattus_name(gender) //I should consolidate my txt files into this dm file
+	if(gender == MALE)
+		return "[pick(world.file2list("monkestation/strings/names/rattus_male_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
+	else
+		return "[pick(world.file2list("monkestation/strings/names/rattus_female_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
