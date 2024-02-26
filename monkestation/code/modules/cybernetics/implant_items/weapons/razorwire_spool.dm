@@ -49,9 +49,7 @@
 
 	var/total_dist  = get_dist(user, target) + additional_distance
 
-	var/list/path = get_path_to(user, target, total_dist)
-	if(!length(path) || length(path) > total_dist)
-		COOLDOWN_START(src, ensnare, 5 SECONDS) // womp womp
+	if(!CheckToolReach(user, target, 4))
 		return
 
 	tracked_component = movable.AddComponent(/datum/component/leash, src, total_dist, beam_icon_state = "razorwire", beam_icon = 'icons/effects/beam.dmi', force_teleports = FALSE)
