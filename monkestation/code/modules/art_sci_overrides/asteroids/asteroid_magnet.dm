@@ -267,7 +267,7 @@
 
 // X COORDINATES
 		if("0x")
-			coords_y = 0
+			coords_x = 0
 			if(Auto_pinging)
 				ping(coords_x, coords_y)
 
