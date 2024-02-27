@@ -3,6 +3,7 @@
 
 /obj/machinery/asteroid_magnet
 	name = "asteroid magnet computer"
+	desc = "Control panel for the asteroid magnet."
 	icon_state = "blackbox"
 	resistance_flags = INDESTRUCTIBLE
 	use_power = NO_POWER_USE
@@ -32,6 +33,11 @@
 
 	/// Status of the user interface
 	var/status = STATUS_OKAY
+	/// Boolean to keep track of state and protect against double summoning
+	var/summon_in_progress = FALSE
+
+	/// The cooldown between uses.
+	COOLDOWN_DECLARE(summon_cd)
 
 /obj/machinery/asteroid_magnet/Initialize(mapload)
 	. = ..()
@@ -86,7 +92,7 @@
 		return
 
 	if(href_list["summon_selected"])
-		summon_sequence()
+		summon_sequence(selected_template)
 		return
 
 /obj/machinery/asteroid_magnet/ui_interact(mob/user, datum/tgui/ui)
@@ -211,7 +217,7 @@
 			bg_color = "#e67300 !important"
 		content += {"
 					<div class='highlighter' onclick='byondCall(\"[ref(template)]\")' style='width: 100%;height: 2em;background-color: [bg_color]'>
-						<span class='computerText' style='padding-left: 10px'>[template.name] ([template.x],[template.y])</span>
+						<span class='computerText' style='padding-left: 10px'>[template.name] ([template.x], [template.y])</span>
 					</div>
 		"}
 
@@ -263,24 +269,35 @@
 
 /// Test to see if we should clear the magnet area.
 /// Returns FALSE if it can clear, returns a string error message if it can't.
-/obj/machinery/asteroid_magnet/proc/check_for_magnet_errors()
+/obj/machinery/asteroid_magnet/proc/check_for_magnet_errors(datum/mining_template/template)
 	. = FALSE
-	if(isnull(selected_template))
-		return "ERROR N1"
+	if(summon_in_progress)
+		return "ERROR: ASTEROID ALREADY BEING SUMMONED"
+
+	if(!COOLDOWN_FINISHED(src, summon_cd))
+		return "ERROR: MAGNET COOLING DOWN"
+
+	if(isnull(template))
+		return "ERROR: ASTEROID NOT DETECTED"
+
+	if(template.summoned)
+		return "ERROR: ASTEROID ALREADY SUMMONED"
 
 	for(var/mob/M as mob in range(area_size + 1, center_turf))
 		if(isliving(M))
-			return "ERROR C3"
+			return "ERROR: HEAT SIGNATURES DETECTED ON THE ASTEROID"
 
 /// Performs a full summoning sequence, including putting up boundaries, clearing out the area, and bringing in the new asteroid.
 /obj/machinery/asteroid_magnet/proc/summon_sequence(datum/mining_template/template)
-	var/magnet_error = check_for_magnet_errors()
+	var/magnet_error = check_for_magnet_errors(template)
 	if(magnet_error)
 		status = magnet_error
 		updateUsrDialog()
 		return
 
 	var/area/station/cargo/mining/asteroid_magnet/A = get_area(center_turf)
+
+	summon_in_progress = TRUE
 	A.area_flags |= NOTELEPORT // We dont want people getting nuked during the generation sequence
 	status = "Summoning[ellipsis()]"
 	available_templates -= template
@@ -289,21 +306,24 @@
 	var/time = world.timeofday
 	var/list/forcefields = PlaceForcefield()
 	CleanupTemplate()
-	PlaceTemplate(selected_template)
+	PlaceTemplate(template)
 
 	/// This process should take ATLEAST 20 seconds
 	time = (world.timeofday + 20 SECONDS) - time
 	if(time > 0)
-		addtimer(CALLBACK(src, PROC_REF(_FinishSummonSequence), forcefields), time)
+		addtimer(CALLBACK(src, PROC_REF(_FinishSummonSequence), template, forcefields), time)
 	else
-		_FinishSummonSequence(forcefields)
+		_FinishSummonSequence(template, forcefields)
 	return
 
-/obj/machinery/asteroid_magnet/proc/_FinishSummonSequence(list/forcefields)
+/obj/machinery/asteroid_magnet/proc/_FinishSummonSequence(datum/mining_template/template, list/forcefields)
 	QDEL_LIST(forcefields)
 
 	var/area/station/cargo/mining/asteroid_magnet/A = get_area(center_turf)
 	A.area_flags &= ~NOTELEPORT // Annnnd done
+	summon_in_progress = FALSE
+	template.summoned = TRUE
+	COOLDOWN_START(src, summon_cd, 1 MINUTE)
 
 	status = STATUS_OKAY
 	updateUsrDialog()
@@ -326,7 +346,7 @@
 /obj/machinery/asteroid_magnet/proc/CleanupTemplate()
 	PRIVATE_PROC(TRUE)
 
-	var/list/turfs_to_destroy = ReserveTurfsForAsteroidGeneration(center_turf, area_size, space_only = FALSE)
+	var/list/turfs_to_destroy = ReserveTurfsForAsteroidGeneration(center_turf, area_size, baseturf_only = FALSE)
 	for(var/turf/T as anything in turfs_to_destroy)
 		CHECK_TICK
 
