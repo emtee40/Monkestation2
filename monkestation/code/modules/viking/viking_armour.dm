@@ -3,7 +3,7 @@
 
 /obj/item/clothing/head/viking
 	icon = 'monkestation/icons/viking/viking_items.dmi'
-	worn_icon = 'monkestation/icons/viking_armour.dmi'
+	worn_icon = 'monkestation/icons/viking/viking_armor.dmi'
 
 
 //warning this item will include the godslayer armor heal (as soon as i get the code in)
@@ -20,7 +20,7 @@
 /obj/item/clothing/under/viking/godly_tunic
 	name = " Cloak of Fenrir"
 	desc = "a cloak made from hide torn from Fenrir"
-	worn_icon = "pelts_worn"
+	worn_icon = "pelts"
 	icon_state = "pelts_item"
 	armor_type = /datum/armor/godly_viking
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -52,7 +52,7 @@
 /obj/item/clothing/under/viking/tunic
 	name = "viking tunic"
 	desc = "A tunic made from wolf pelts"
-	worn_icon = "pelts_worn"
+	worn_icon = "pelts"
 	icon_state = "pelts_item"
 	armor_type = /datum/armor/viking
 	w_class = WEIGHT_CLASS_NORMAL

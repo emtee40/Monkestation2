@@ -39,7 +39,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/melee/viking/godly_tenja/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
@@ -48,7 +47,7 @@
 
 /obj/item/melee/viking/genja
 	name = "battle axe"
-	base_icon_state = "battle_axe0"
+	base_icon_state = "battle_axe_item0"
 	lefthand_file = "battle_axe0"
 	righthand_file = "battle_axe0"
 	worn_icon_state = "battle_axe_worn"
@@ -59,7 +58,7 @@
 	sharpness = SHARP_EDGED
 	wound_bonus = 30
 	block_chance = 30
-	slot_flags = ITEM_SLOT_BACKPACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 /// How much damage to do unwielded
 	var/force_unwielded = 15
