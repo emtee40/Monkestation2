@@ -16,6 +16,7 @@
 	righthand_file = "hand_axe_inhand_R"
 	worn_icon_state = "hand_axe_worn"
 	desc = "A one handed axe used by vikings."
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 20
 	throwforce = 45
 	embedding = 50
@@ -30,6 +31,7 @@
 	righthand_file = "hand_axe_inhand_R"
 	worn_icon_state = "hand_axe_frost_worn"
 	desc = "An axe with no equal to its power"
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 25
 	throwforce = 65
 	embedding = 75
@@ -44,18 +46,18 @@
 		var/mob/living/carbon/carbon_target = target
 		carbon_target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 4)
 		carbon_target.reagents.add_reagent(/datum/reagent/consumable/ice, 4)
-
+		carbon_target.reagents.add_reagent(/datum/reagent/medicine/c2/hercuri, 4)
 /obj/item/melee/viking/genja
 	name = "battle axe"
-	base_icon_state = "battle_axe_item0"
-	lefthand_file = "battle_axe0"
-	righthand_file = "battle_axe0"
+	icon_state = "battleaxe0"
+	base_icon_state = "battleaxe"
 	worn_icon_state = "battle_axe_worn"
 	desc = "A large 2 handed axe used for raiding."
 	force = 15
 	throwforce = 60
 	embedding = 50
 	sharpness = SHARP_EDGED
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	wound_bonus = 30
 	block_chance = 30
 	slot_flags = ITEM_SLOT_BACK
@@ -69,6 +71,9 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
 
+/obj/item/melee/viking/genja/update_icon_state()
+	icon_state = "[base_icon_state]0"
+	return ..()
 /obj/item/melee/viking/skeggox
 	name = "grappling axe"
 	icon_state = "hooking_axe_item"
@@ -76,6 +81,7 @@
 	righthand_file = "hooking_axe_inhand_R"
 	worn_icon_state = "hooking_axe_worn"
 	desc = "An axe meant to disarm the users opponent"
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 18
 	throwforce = 40
 	embedding = 50
