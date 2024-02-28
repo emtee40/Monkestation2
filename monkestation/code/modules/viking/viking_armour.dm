@@ -51,7 +51,7 @@
 
 /obj/item/clothing/under/viking/tunic
 	name = "viking tunic"
-	desc = "A tunic made from wolf pelts"
+	desc = "A tunic made from wolf pelts."
 	worn_icon_state = "pelts"
 	icon_state = "pelts_item"
 	armor_type = /datum/armor/viking
