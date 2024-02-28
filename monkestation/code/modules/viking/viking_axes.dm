@@ -75,7 +75,7 @@
 	lefthand_file = "hooking_axe_inhand_L"
 	righthand_file = "hooking_axe_inhand_R"
 	worn_icon_state = "hooking_axe_worn"
-	desc = "An axe meant to disarm the users opponent"
+	desc = "An axe meant to disarm the users opponent."
 	force = 18
 	throwforce = 40
 	embedding = 50
