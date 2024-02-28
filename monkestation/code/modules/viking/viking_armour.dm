@@ -41,7 +41,7 @@
 
 /obj/item/clothing/head/viking/helmet
 	name = "viking helmet"
-	desc = "The helmet of someone insane enough to bring an axe to a gun fight"
+	desc = "The helmet of someone insane enough to bring an axe to a gun fight."
 	worn_icon_state = "honeless_helm_worn"
 	icon_state = "hornless_helm_item"
 	armor_type = /datum/armor/viking
