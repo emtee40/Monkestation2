@@ -11,9 +11,7 @@
 
 /obj/item/melee/viking/tenja
 	name = "boarding axe"
-	icon_state = "hand_axe_item"
-	lefthand_file = "hand_axe_inhand_L"
-	righthand_file = "hand_axe_inhand_R"
+	icon_state = "hand_axe"
 	worn_icon_state = "hand_axe_worn"
 	desc = "A one handed axe used by vikings."
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -26,9 +24,7 @@
 
 /obj/item/melee/viking/godly_tenja
 	name = "Leviathan Axe"
-	icon_state = "hand_axe_frost_item"
-	lefthand_file = "hand_axe_frost_inhand_L"
-	righthand_file = "hand_axe_inhand_R"
+	icon_state = "hand_axe_frost"
 	worn_icon_state = "hand_axe_frost_worn"
 	desc = "An axe with no equal to its power."
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -80,12 +76,8 @@
 	lefthand_file = "hooking_axe_inhand_L"
 	righthand_file = "hooking_axe_inhand_R"
 	worn_icon_state = "hooking_axe_worn"
-<<<<<<< HEAD
-	desc = "An axe meant to disarm the users opponent"
-	hitsound = 'sound/weapons/bladeslice.ogg'
-=======
 	desc = "An axe meant to disarm the users opponent."
->>>>>>> ddc252cb06806918110ee09636818797647a8f61
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 18
 	throwforce = 40
 	embedding = 50
