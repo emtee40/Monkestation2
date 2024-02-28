@@ -9,7 +9,7 @@
 //warning this item will include the godslayer armor heal (as soon as i get the code in)
 /obj/item/clothing/head/viking/godly_helmet
 	name = " Horned Helm"
-	desc = "A helmet blessed by the gods its wearing will not go down without a fight"
+	desc = "A helmet blessed by the gods its wearer will not go down without a fight."
 	worn_icon_state = "horned_helm_worn"
 	icon_state = "horned_helm_item"
 	armor_type = /datum/armor/godly_viking
