@@ -21,6 +21,37 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = STOPSPRESSUREDAMAGE
+/// Amount to heal when the effect is triggered
+	var/heal_amount = 500
+	/// Time until the effect can take place again
+	var/effect_cooldown_time = 5 MINUTES
+	/// Current cooldown for the effect
+	COOLDOWN_DECLARE(effect_cooldown)
+	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
+
+/obj/item/clothing/head/viking/godly_helmet/examine(mob/user)
+	. = ..()
+	if(loc == user && !COOLDOWN_FINISHED(src, effect_cooldown))
+		. += "You feel like the revival effect will be able to occur again in [COOLDOWN_TIMELEFT(src, effect_cooldown) / 10] seconds."
+
+/obj/item/clothing/head/viking/godly_helmet/equipped(mob/user, slot)
+	. = ..()
+	if(slot & ITEM_SLOT_HEAD)
+		RegisterSignal(user, COMSIG_MOB_STATCHANGE, PROC_REF(resurrect))
+		return
+	UnregisterSignal(user, COMSIG_MOB_STATCHANGE)
+
+/obj/item/clothing/head/viking/godly_helmet/dropped(mob/user)
+	..()
+	UnregisterSignal(user, COMSIG_MOB_STATCHANGE)
+
+/obj/item/clothing/head/viking/godly_helmet/proc/resurrect(mob/living/carbon/user, new_stat)
+	SIGNAL_HANDLER
+	if(new_stat > CONSCIOUS && new_stat < DEAD && COOLDOWN_FINISHED(src, effect_cooldown))
+		COOLDOWN_START(src, effect_cooldown, effect_cooldown_time) //This needs to happen first, otherwise there's an infinite loop
+		user.heal_ordered_damage(heal_amount, damage_heal_order)
+		user.visible_message(span_notice("[user] suddenly revives, as if their rage healed them!"), span_notice("You suddenly feel invigorated!"))
+		playsound(user.loc, 'sound/magic/clockwork/ratvar_attack.ogg', 50)
 
 /obj/item/clothing/under/viking/godly_tunic
 	name = " Cloak of Fenrir"
