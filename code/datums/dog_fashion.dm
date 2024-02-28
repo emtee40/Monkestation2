@@ -239,8 +239,8 @@
 
 /datum/dog_fashion/head/viking/helmet
 	name = "&REAL_NAME% the Berserker"
-	desc = "%REAL_NAME% is gone into a rage from lack of petting"
+	desc = "%REAL_NAME% has gone into a rage from lack of petting."
 	obj_icon_state = "berserker"
 	speak = list("RAAARGH!", "Grrrrrr!")
-	emote_see = list("bares his fangs", "practices his warcry")
-	emote_hear = list("plans the demise of his owner")
+	emote_see = list("bares their fangs.", "practices their warcry.")
+	emote_hear = list("plans the demise of their owner.")

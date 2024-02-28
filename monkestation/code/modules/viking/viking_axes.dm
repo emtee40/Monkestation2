@@ -30,7 +30,7 @@
 	lefthand_file = "hand_axe_frost_inhand_L"
 	righthand_file = "hand_axe_inhand_R"
 	worn_icon_state = "hand_axe_frost_worn"
-	desc = "An axe with no equal to its power"
+	desc = "An axe with no equal to its power."
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 25
 	throwforce = 65
@@ -80,8 +80,12 @@
 	lefthand_file = "hooking_axe_inhand_L"
 	righthand_file = "hooking_axe_inhand_R"
 	worn_icon_state = "hooking_axe_worn"
+<<<<<<< HEAD
 	desc = "An axe meant to disarm the users opponent"
 	hitsound = 'sound/weapons/bladeslice.ogg'
+=======
+	desc = "An axe meant to disarm the users opponent."
+>>>>>>> ddc252cb06806918110ee09636818797647a8f61
 	force = 18
 	throwforce = 40
 	embedding = 50

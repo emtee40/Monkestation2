@@ -14,7 +14,7 @@
 //warning this item will include the godslayer armor heal (as soon as i get the code in)
 /obj/item/clothing/head/viking/godly_helmet
 	name = " Horned Helm"
-	desc = "A helmet blessed by the gods its wearing will not go down without a fight"
+	desc = "A helmet blessed by the gods its wearer will not go down without a fight."
 	worn_icon_state = "horned_helm_worn"
 	icon_state = "horned_helm_item"
 	armor_type = /datum/armor/godly_viking
@@ -24,7 +24,7 @@
 
 /obj/item/clothing/under/viking/godly_tunic
 	name = " Cloak of Fenrir"
-	desc = "a cloak made from hide torn from Fenrir"
+	desc = "A cloak made from hide torn from Fenrir."
 	worn_icon_state = "pelts"
 	icon_state = "pelts_item"
 	armor_type = /datum/armor/godly_viking
@@ -46,7 +46,7 @@
 
 /obj/item/clothing/head/viking/helmet
 	name = "viking helmet"
-	desc = "The helmet of someone insane enough to bring an axe to a gun fight"
+	desc = "The helmet of someone insane enough to bring an axe to a gun fight."
 	worn_icon_state = "honeless_helm_worn"
 	icon_state = "hornless_helm_item"
 	armor_type = /datum/armor/viking
@@ -56,7 +56,7 @@
 
 /obj/item/clothing/under/viking/tunic
 	name = "viking tunic"
-	desc = "A tunic made from wolf pelts"
+	desc = "A tunic made from wolf pelts."
 	worn_icon_state = "pelts"
 	icon_state = "pelts_item"
 	armor_type = /datum/armor/viking
