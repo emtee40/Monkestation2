@@ -1,3 +1,4 @@
+/// Anime Color
 
 /datum/preference/color/anime_color
 	savefile_key = "feature_animecolor"
@@ -19,14 +20,9 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
+
+/// Anime Top
 
 /datum/preference/choiced/anime_top
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -65,14 +61,10 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
+
+/// Anime Middle
+
 /datum/preference/choiced/anime_middle
 	category = PREFERENCE_CATEGORY_CLOTHING
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -120,14 +112,9 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
+
+/// Anime Bottom
 
 /datum/preference/choiced/anime_bottom
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -179,11 +166,4 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
