@@ -176,7 +176,6 @@
 /datum/ai_behavior/basic_melee_attack/amoung/surgeon/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 
 	var/mob/living/basic/surgeon = controller.pawn
-	var/datum/weakref/weak_target = controller.blackboard[target_key]
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
