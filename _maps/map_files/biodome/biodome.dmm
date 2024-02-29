@@ -3162,7 +3162,9 @@
 /area/station/service/chapel)
 "biR" = (
 /obj/structure/fluff/bus/passable/seat,
-/obj/effect/spawner/random/entertainment/plushie,
+/obj/effect/spawner/random/entertainment/plushie{
+	pixel_y = 24
+	},
 /turf/open/floor/iron/dark,
 /area/station/maintenance/fore/greater)
 "biS" = (
@@ -12409,7 +12411,9 @@
 /area/station/engineering/atmos)
 "eLt" = (
 /obj/structure/fluff/bus/passable/seat/driver,
-/obj/effect/spawner/random/entertainment/plushie_delux,
+/obj/effect/spawner/random/entertainment/plushie_delux{
+	pixel_y = 21
+	},
 /turf/open/floor/iron/dark,
 /area/station/maintenance/fore/greater)
 "eLE" = (
@@ -22929,6 +22933,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron/white,
 /area/station/science/cytology)
+"iVZ" = (
+/obj/structure/fluff/bus/passable/seat,
+/obj/effect/spawner/random/entertainment/plushie{
+	pixel_y = 16
+	},
+/turf/open/floor/iron/dark,
+/area/station/maintenance/fore/greater)
 "iWo" = (
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
@@ -28712,6 +28723,11 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	dir = 8;
+	pixel_y = 0;
+	pixel_x = -24
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/station/service/kitchen/coldroom)
 "leE" = (
@@ -31164,11 +31180,12 @@
 	network = list("ss13","engine")
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
-/obj/machinery/airalarm/engine{
-	dir = 8;
-	pixel_x = -23
-	},
 /obj/structure/cable/layer3,
+/obj/machinery/airalarm/engine{
+	dir = 4;
+	pixel_y = 0;
+	pixel_x = 24
+	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "lZD" = (
@@ -42103,10 +42120,6 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "qkU" = (
-/obj/machinery/airalarm/kitchen_cold_room{
-	dir = 1;
-	pixel_y = 24
-	},
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 10
@@ -45464,6 +45477,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/security/entrance,
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/engineering)
 "rvQ" = (
@@ -92455,7 +92469,7 @@ rRv
 rRv
 sRF
 mDm
-biR
+iVZ
 wZB
 sBz
 eoI
