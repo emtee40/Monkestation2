@@ -231,3 +231,19 @@
 	icon_state = "violet_jacket"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|ARMS
+
+/obj/item/clothing/suit/toggle/quilark
+	name = "discontinued winter coat"
+	desc = "An old world coat, it has an old red cross no longer in use. It smells strangely of iron around the neck."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "coat_quilark"
+	toggle_noun = "zipper"
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/head/costume/fur_cap_quilark
+	name = "discontinued cross hat"
+	desc = "An old world hat, it has a red cross no longer in use. The inside has a strong scent of iron."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "fur_hat_quilark"
