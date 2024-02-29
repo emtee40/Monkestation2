@@ -75,3 +75,12 @@
 /turf/open/misc/beach/coast/corner/break_tile()
 	. = ..()
 	icon_state = "sandwater_inner"
+
+/turf/closed/mineral/random/regrowth/station
+	turf_transforms = FALSE
+	color = "#58606b"
+
+	turf_type = /turf/open/misc/asteroid/airless
+	baseturfs = /turf/open/misc/asteroid/airless
+	initial_gas_mix = AIRLESS_ATMOS
+	defer_change = TRUE
