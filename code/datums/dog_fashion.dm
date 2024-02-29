@@ -237,8 +237,8 @@
 	emote_see = list("shakes a little.", "looks around.")
 	emote_hear = list("licks a trickle of the butter up.", "smiles.")
 
-/datum/dog_fashion/head/viking/helmet
-	name = "&REAL_NAME% the Berserker"
+/datum/dog_fashion/head/berserker
+	name = "%REAL_NAME% the Berserker"
 	desc = "%REAL_NAME% has gone into a rage from lack of petting."
 	obj_icon_state = "berserker"
 	speak = list("RAAARGH!", "Grrrrrr!")

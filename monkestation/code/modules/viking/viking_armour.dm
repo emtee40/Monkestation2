@@ -84,7 +84,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = STOPSPRESSUREDAMAGE
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/berserker
 
 /obj/item/clothing/under/viking/tunic
 	name = "viking tunic"
