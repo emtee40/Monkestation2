@@ -78,7 +78,7 @@
 
 /turf/closed/mineral/random/regrowth/station
 	turf_transforms = FALSE
-	color = "#58606b"
+	color = "#9dfa8b"
 
 	turf_type = /turf/open/misc/asteroid/airless
 	baseturfs = /turf/open/misc/asteroid/airless
