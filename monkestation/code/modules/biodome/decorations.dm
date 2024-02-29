@@ -57,6 +57,7 @@
 	sign_change_name = "Pride Flag - Transgender"
 
 /obj/item/kirbyplants/random/dead
+	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-25"
 
 /obj/structure/broken_flooring
