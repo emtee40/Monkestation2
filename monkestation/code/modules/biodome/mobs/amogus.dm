@@ -177,7 +177,7 @@
 
 	var/mob/living/basic/surgeon = controller.pawn
 	var/datum/weakref/weak_target = controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
+	var/atom/target = controller.blackboard[target_key]
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
 	if(!targeting_strategy.can_attack(surgeon, target))
