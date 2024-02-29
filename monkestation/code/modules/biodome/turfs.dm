@@ -53,3 +53,25 @@
 
 /turf/open/floor/wood/stairs/right
 	icon_state = "woodstairs_right"
+
+/turf/open/misc/beach/coast
+	name = "coastline"
+	desc = "Tide's high tonight. Charge your batons."
+	icon_state = "sandwater_t"
+	base_icon_state = "sandwater_t"
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
+
+/turf/open/misc/beach/coast/break_tile()
+	. = ..()
+	icon_state = "sandwater_t"
+
+/turf/open/misc/beach/coast/corner
+	icon_state = "sandwater_inner"
+	base_icon_state = "sandwater_inner"
+
+/turf/open/misc/beach/coast/corner/break_tile()
+	. = ..()
+	icon_state = "sandwater_inner"
