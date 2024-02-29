@@ -235,6 +235,7 @@
 
 /datum/species/ethereal/lustrous //Ethereal pirates with an inherent bluespace prophet trauma.
 	name = "Lustrous"
+	sexes = FALSE //monkestation edit
 	id = SPECIES_ETHEREAL_LUSTROUS
 	examine_limb_id = SPECIES_ETHEREAL
 	mutantbrain = /obj/item/organ/internal/brain/lustrous
