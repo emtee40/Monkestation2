@@ -24,7 +24,6 @@
 	desc = "The flag of Gay Pride. Hang that rainbow up with pride!"
 	icon = 'monkestation/code/modules/biodome/icons/pride_flags.dmi'
 	icon_state = "flag_pride"
-	is_editable = TRUE
 	sign_change_name = "Pride Flag - Rainbow"
 
 /obj/structure/sign/flag/pride/ace
