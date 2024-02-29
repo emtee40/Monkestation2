@@ -236,8 +236,8 @@
 	speak = list() //they're very patient and focused on holding the butter on 'em
 	emote_see = list("shakes a little.", "looks around.")
 	emote_hear = list("licks a trickle of the butter up.", "smiles.")
-
-/datum/dog_fashion/head/berserker
+//will finish once i have sprites
+//datum/dog_fashion/head/berserker
 	name = "%REAL_NAME% the Berserker"
 	desc = "%REAL_NAME% has gone into a rage from lack of petting."
 	obj_icon_state = "berserker"
