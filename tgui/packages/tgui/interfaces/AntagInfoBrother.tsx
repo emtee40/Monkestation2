@@ -27,7 +27,7 @@ export const AntagInfoBrother = (props, context) => {
         <Section scrollable fill>
           <Stack vertical>
             <Stack.Item textColor="red" fontSize="20px">
-              You are the {antag_name} of {brothers}!
+              You are the {antag_name}!
             </Stack.Item>
             <Stack.Item>
               <ObjectivePrintout />
