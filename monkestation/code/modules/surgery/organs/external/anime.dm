@@ -1,25 +1,42 @@
-/obj/item/organ/external/anime_head
-	name = "anime implants"
-	desc = "An anime implant fitted for a persons head."
-	icon_state = "antennae"
+/// Anime Horns
+/obj/item/organ/external/horns/anime_horns
+	name = "anime horns"
 
-	zone = BODY_ZONE_HEAD
-	slot = ORGAN_SLOT_EXTERNAL_ANIME_HEAD
+/// Anime Ears
 
-	preference = "feature_anime_top"
+/obj/item/organ/internal/ears/anime_ears
+	name = "anime ears"
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
+	icon_state = "kitty"
+	visual = TRUE
+	var/ears_pref = null
 
-	bodypart_overlay = /datum/bodypart_overlay/mutant/anime_head
+	preference = "feature_anime_ears"
 
-/datum/bodypart_overlay/mutant/anime_head
-	color_source = ORGAN_COLOR_ANIME
-	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
-	feature_key = "anime_top"
+///datum/bodypart_overlay/ears/anime_ears
+//	color_source = ORGAN_COLOR_ANIME
+//	feature_key = "anime_ears"
 
-/datum/bodypart_overlay/mutant/anime_head/get_global_feature_list()
-	return GLOB.anime_top_list
+/obj/item/organ/internal/ears/anime_ears/on_insert(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.dna.features["animecolor"]
+		ear_owner.dna.features["anime_ears"] = ear_owner.dna.species.mutant_bodyparts["anime_ears"] = "Cat"
+		ear_owner.dna.update_uf_block(DNA_EARS_BLOCK)
+		ear_owner.update_body()
 
-/datum/bodypart_overlay/mutant/anime_head/get_base_icon_state()
-	return sprite_datum.icon_state
+/obj/item/organ/internal/ears/anime_ears/on_remove(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.dna.features["animecolor"]
+		ear_owner.dna.species.mutant_bodyparts -= "anime_ears"
+		ear_owner.update_body()
+
+///datum/bodypart_overlay/ears/anime_ears/get_global_feature_list()
+//	return GLOB.anime_ears_list
+
+/// Anime Chest
 
 /obj/item/organ/external/anime_middle
 	name = "anime implants"
@@ -27,7 +44,7 @@
 	icon_state = "antennae"
 
 	zone = BODY_ZONE_CHEST
-	slot = ORGAN_SLOT_EXTERNAL_ANIME_CHEST
+	slot = ORGAN_SLOT_EXTERNAL_WINGS
 
 	preference = "feature_anime_middle"
 
@@ -43,6 +60,8 @@
 
 /datum/bodypart_overlay/mutant/anime_middle/get_base_icon_state()
 	return sprite_datum.icon_state
+
+/// Anime Bottom
 
 /obj/item/organ/external/tail/anime_bottom
 	name = "anime tail"

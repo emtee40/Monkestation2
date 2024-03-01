@@ -103,7 +103,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["ipc_screen"] = "BSOD" //Monkestation Addition
 	target.dna.features["ipc_chassis"] = "Bishop Cyberkinetics" //Monkestation Addition
 	target.dna.features["ipc_antenna"] = "None" //Monkestation Addition
-	target.dna.features["anime_top"] = "None" //Monkestation Addition
+	target.dna.features["anime_ears"] = "None" //Monkestation Addition
 	target.dna.features["anime_middle"] = "None" //Monkestation Addition
 	target.dna.features["anime_bottom"] = "None" //Monkestation Addition
 	target.dna.features["arachnid_appendages"] = "Long" //Monkestation Addition

@@ -98,8 +98,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.tails_list_monkey.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey)
-	if(!GLOB.anime_top_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_head, GLOB.anime_top_list)
+	if(!GLOB.anime_ears_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_ears, GLOB.anime_ears_list)
 	if(!GLOB.anime_middle_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/anime_middle, GLOB.anime_middle_list)
 	if(!GLOB.anime_bottom_list.len)
@@ -138,7 +138,7 @@
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list), //Monkestation Addition
 		"tail_monkey" = "Chimp", //Monkestation Addition
 		"pod_hair" = pick(GLOB.pod_hair_list),
-		"anime_top" = pick(GLOB.anime_top_list), //Monkestation Addition
+		"anime_ears" = pick(GLOB.anime_ears_list), //Monkestation Addition
 		"anime_middle" = pick(GLOB.anime_middle_list), //Monkestation Addition
 		"anime_bottom" = pick(GLOB.anime_bottom_list), //Monkestation Addition
 		"arachnid_appendages" = pick(GLOB.arachnid_appendages_list), //Monkestation Addition

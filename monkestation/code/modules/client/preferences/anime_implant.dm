@@ -22,29 +22,29 @@
 
 	return "Anime" in preferences.all_quirks
 
-/// Anime Top
+/// Anime Ears
 
-/datum/preference/choiced/anime_top
+/datum/preference/choiced/anime_ears
 	category = PREFERENCE_CATEGORY_CLOTHING
 	savefile_identifier = PREFERENCE_CHARACTER
-	main_feature_name = "Anime Top"
-	savefile_key = "feature_anime_top"
+	main_feature_name = "Anime Ears"
+	savefile_key = "feature_anime_ears"
 	should_generate_icons = TRUE
 
-/datum/preference/choiced/anime_top/init_possible_values()
+/datum/preference/choiced/anime_ears/init_possible_values()
 	var/list/values = list()
 
 	var/icon/head_icon = icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
 	head_icon.Blend(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
-	for (var/name in GLOB.anime_top_list)
-		var/datum/sprite_accessory/accessory = GLOB.anime_top_list[name]
+	for (var/name in GLOB.anime_ears_list)
+		var/datum/sprite_accessory/accessory = GLOB.anime_ears_list[name]
 		if (accessory == null || accessory.icon_state == null)
 			continue
 
 		var/icon/final_icon = new(head_icon)
 
-		var/icon/icon = icon(accessory.icon, "m_anime_top_[accessory.icon_state]_FRONT")
+		var/icon/icon = icon(accessory.icon, "m_anime_ears_[accessory.icon_state]_FRONT")
 		final_icon.Blend(icon, ICON_OVERLAY)
 
 		final_icon.Crop(10, 19, 22, 31)
@@ -54,10 +54,10 @@
 
 	return values
 
-/datum/preference/choiced/anime_top/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["anime_top"] = value
+/datum/preference/choiced/anime_ears/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["anime_ears"] = value
 
-/datum/preference/choiced/anime_top/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/anime_ears/is_accessible(datum/preferences/preferences)
 	if (!..(preferences))
 		return FALSE
 
