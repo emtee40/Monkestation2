@@ -3992,10 +3992,18 @@
 /turf/open/floor/carpet,
 /area/station/commons/dorms)
 "bWM" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/open/floor/plating,
-/area/station/maintenance/fore)
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigarettes/cigars,
+/obj/item/lighter/skull{
+	pixel_y = 7;
+	pixel_x = -2
+	},
+/turf/open/floor/iron,
+/area/station/security/brig)
 "bWS" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
@@ -9246,18 +9254,10 @@
 /turf/open/floor/glass/reinforced,
 /area/station/science/lobby)
 "eth" = (
-/obj/structure/cable,
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes/cigars,
-/obj/item/lighter/skull{
-	pixel_y = 7;
-	pixel_x = -2
-	},
-/turf/open/floor/iron,
-/area/station/security/brig)
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/open/floor/plating,
+/area/station/maintenance/fore)
 "etm" = (
 /obj/machinery/button/door/directional/west{
 	id = "Cabin4";
@@ -16274,16 +16274,10 @@
 /turf/open/floor/carpet,
 /area/station/commons/dorms)
 "hPt" = (
-/obj/structure/cable,
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/item/gun/energy/e_gun/old,
-/turf/open/floor/iron,
-/area/station/security/brig)
+/obj/effect/spawner/random/structure/grille,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space)
 "hPz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19523,6 +19517,27 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
+"jsM" = (
+/obj/machinery/light/directional/east,
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
+	pixel_y = 9;
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_y = 11;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_y = 5;
+	pixel_x = 8
+	},
+/turf/open/floor/iron,
+/area/station/security/brig)
 "jsP" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -24336,6 +24351,17 @@
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
+"lDv" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/dark_red/filled/line{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/item/gun/energy/e_gun/old,
+/turf/open/floor/iron,
+/area/station/security/brig)
 "lDz" = (
 /obj/machinery/computer/cargo/request,
 /turf/open/floor/wood,
@@ -24527,24 +24553,16 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "lIN" = (
-/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/trimline/dark_red/filled/line{
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/whiskey{
-	pixel_y = 9;
-	pixel_x = -5
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	name = "Brig Trophy Cabinet";
+	req_access = list("armory")
 	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_y = 11;
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_y = 5;
-	pixel_x = 8
-	},
+/obj/item/storage/toolbox/mechanical/old,
 /turf/open/floor/iron,
 /area/station/security/brig)
 "lIO" = (
@@ -28599,12 +28617,11 @@
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "nGT" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/light/directional/north,
+/obj/machinery/computer/communications{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/command/bridge)
 "nGY" = (
@@ -30411,6 +30428,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/command/captain,
 /turf/open/floor/iron,
 /area/station/command/bridge)
 "oxQ" = (
@@ -45089,7 +45107,12 @@
 "vnp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_y = 4
+	pixel_y = 4;
+	pixel_x = 5
+	},
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = -5
 	},
 /turf/open/floor/iron,
 /area/station/command/bridge)
@@ -46629,19 +46652,6 @@
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
-"wdd" = (
-/obj/effect/turf_decal/trimline/dark_red/filled/line{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Brig Trophy Cabinet";
-	req_access = list("armory")
-	},
-/obj/item/storage/toolbox/mechanical/old,
-/turf/open/floor/iron,
-/area/station/security/brig)
 "wdh" = (
 /obj/machinery/airalarm/kitchen_cold_room,
 /turf/closed/wall,
@@ -75283,11 +75293,11 @@ mQx
 wLb
 wLb
 pkR
-eth
-hPt
-wdd
-tQJ
+bWM
+lDv
 lIN
+tQJ
+jsM
 wLb
 dXs
 jrT
@@ -79835,12 +79845,12 @@ mqR
 sHa
 sCL
 sCL
-bWM
+eth
 mqR
 qTa
 sCL
 sCL
-bWM
+eth
 nJR
 nJR
 cmP
@@ -81120,7 +81130,7 @@ rvd
 uPO
 sCL
 sHa
-bWM
+eth
 sCL
 wkm
 uPO
@@ -100284,7 +100294,7 @@ rvd
 rvd
 rvd
 rvd
-rvd
+beI
 rvd
 rvd
 rvd
@@ -100541,12 +100551,12 @@ rvd
 rvd
 rvd
 rvd
+beI
 rvd
 rvd
 rvd
-rvd
-rvd
-rvd
+hPt
+hPt
 rOA
 rvd
 rvd
@@ -100792,17 +100802,17 @@ rvd
 beI
 rvd
 beI
+beI
+beI
+vfB
+vfB
+vfB
 rvd
-rvd
-rvd
-rvd
-rvd
-rvd
-rvd
-rvd
-rvd
-rvd
-rvd
+beI
+beI
+hPt
+hPt
+hPt
 rvd
 beI
 beI
@@ -101053,9 +101063,9 @@ vfB
 rvd
 rvd
 rvd
-rvd
-rvd
-rvd
+vfB
+vfB
+vfB
 rvd
 rvd
 rvd
