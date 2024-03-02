@@ -4,6 +4,7 @@
 	antagpanel_category = "Florida Man"
 	objectives = list()
 	show_to_ghosts = TRUE
+	preview_outfit = /datum/outfit/florida_man_one
 
 /datum/antagonist/florida_man/on_gain()
 	forge_objectives()
