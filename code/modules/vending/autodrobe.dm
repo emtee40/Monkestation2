@@ -60,6 +60,8 @@
 				/obj/item/clothing/under/costume/gi = 1,
 				/obj/item/clothing/neck/worldchampioncape = 1,
 				/obj/item/clothing/under/costume/worldchampiongi = 1,
+				/obj/item/clothing/head/milkmanhat = 2,
+				/obj/item/clothing/under/costume/milkman = 2,
 			),
 		),
 		list(
@@ -97,8 +99,11 @@
 				/obj/item/clothing/mask/gas/sexymime = 1,
 				/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
 				/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
-				/obj/item/clothing/under/rank/civilian/clown/jester = 1,
 				/obj/item/clothing/head/costume/jester = 1,
+				/obj/item/clothing/under/rank/civilian/clown/jester = 1, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/shoes/clown_shoes/green_jester_shoes =1, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/head/costume/jester/alt =1, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/under/rank/civilian/clown/jester/alt =1, // MONKESTATION EDIT ADDITION
 				/obj/item/clothing/under/costume/villain = 1,
 				/obj/item/clothing/suit/costume/joker = 1,
 				/obj/item/clothing/under/costume/joker = 1,
@@ -110,6 +115,7 @@
 				/obj/item/clothing/under/suit/white_on_white = 1,
 				/obj/item/clothing/head/tragic = 2,
 				/obj/item/clothing/under/costume/tragic = 2,
+				/obj/item/clothing/under/costume/streetmime = 1,
 				/obj/item/clothing/mask/gas/clown_hat/yellow = 1,
 				/obj/item/clothing/shoes/clown_shoes/yellow = 1,
 				/obj/item/clothing/head/knowingclown = 2,
@@ -141,6 +147,7 @@
 				/obj/item/clothing/suit/costume/cheongsam_red = 1,
 				/obj/item/clothing/suit/costume/cheongsam_blue = 1,
 				/obj/item/clothing/under/wonka = 1,
+				/obj/item/clothing/shoes/heels = 4, // MONKESTATION EDIT ADDITION
 			),
 		),
 		list(
@@ -185,6 +192,10 @@
 				/obj/item/clothing/neck/maid = 1,
 				/obj/item/clothing/under/rank/civilian/janitor/maid = 1,
 				/obj/item/clothing/accessory/maidapron = 1,
+				/obj/item/clothing/under/costume/playbunny = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/neck/tie/bunnytie = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/head/playbunnyears = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/suit/jacket/tailcoat = 2, // MONKESTATION EDIT ADDITION
 			),
 		),
 		list(
@@ -203,6 +214,10 @@
 				/obj/item/clothing/mask/gas/prop = 4,
 				/obj/item/clothing/mask/gas/atmosprop = 3,
 				/obj/item/clothing/mask/animal/small/tribal = 1,
+				/obj/item/clothing/head/shipwreckedhelmet = 2,
+				/obj/item/clothing/suit/shipwreckedsuit = 2,
+				/obj/item/clothing/head/kingofbugshelmet = 2,
+				/obj/item/clothing/suit/kingofbugssuit = 2,
 			),
 		),
 	)

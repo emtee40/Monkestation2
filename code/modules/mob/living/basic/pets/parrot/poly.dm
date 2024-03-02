@@ -116,7 +116,7 @@
 	else
 		var/json_file = file("data/npc_saves/Poly.json")
 		if(!fexists(json_file))
-			return
+			return list()
 		var/list/json = json_decode(file2text(json_file))
 		returnable_list = json["phrases"]
 		rounds_survived = json["roundssurvived"]
@@ -168,11 +168,7 @@
 		file_data["longestdeathstreak"] = longest_deathstreak
 
 	var/formatted_data
-#if DM_VERSION >= 515
 	formatted_data = json_encode(file_data, JSON_PRETTY_PRINT)
-#else
-	formatted_data = json_encode(file_data)
-#endif
 
 	rustg_file_write(formatted_data, file_path)
 	memory_saved = TRUE
@@ -228,10 +224,6 @@
 	if(filter)
 		animate(filter, alpha = 200, time = 2 SECONDS, loop = -1)
 		animate(alpha = 60, time = 2 SECONDS)
-
-	var/datum/disease/parrot_possession/on_possession = new /datum/disease/parrot_possession
-	on_possession.set_parrot(src)
-	possessed_human.ForceContractDisease(on_possession, make_copy = FALSE, del_on_fail = TRUE)
 
 #undef POLY_DEFAULT
 #undef POLY_LONGEST_SURVIVAL

@@ -153,13 +153,14 @@
 		. += beaker_overlay
 
 
-/obj/machinery/chem_dispenser/emag_act(mob/user)
+/obj/machinery/chem_dispenser/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
-		to_chat(user, span_warning("[src] has no functional safeties to emag."))
-		return
-	to_chat(user, span_notice("You short out [src]'s safeties."))
+		balloon_alert(user, "already emagged!")
+		return FALSE
+	balloon_alert(user, "safeties shorted out")
 	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
 	obj_flags |= EMAGGED
+	return TRUE
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity <= EXPLODE_LIGHT)
@@ -212,7 +213,10 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
+			var/chem_name = R.name
+			if(istype(R, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+				chem_name = "Ammonia?"
+			beakerContents.Add(list(list("name" = chem_name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -501,6 +505,7 @@
 		/datum/reagent/consumable/shamblers,
 		/datum/reagent/consumable/spacemountainwind,
 		/datum/reagent/consumable/sodawater,
+		/datum/reagent/consumable/sol_dry,
 		/datum/reagent/consumable/space_up,
 		/datum/reagent/consumable/sugar,
 		/datum/reagent/consumable/tea,

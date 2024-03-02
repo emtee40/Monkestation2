@@ -118,7 +118,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 40 SECONDS
-	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/wood = SHEET_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 2)
 
 /obj/item/match/firebrand/Initialize(mapload)
@@ -333,9 +333,24 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	var/to_smoke = smoke_all ? (reagents.total_volume * (dragtime / smoketime)) : REAGENTS_METABOLISM
 	var/mob/living/carbon/smoker = loc
-	if(!istype(smoker) || src != smoker.wear_mask)
-		reagents.remove_any(to_smoke)
-		return
+	// These checks are a bit messy but at least they're fairly readable
+	// Check if the smoker is a carbon mob, since it needs to have wear_mask
+	if(!istype(smoker))
+		// If not, check if it's a gas mask
+		if(!istype(smoker, /obj/item/clothing/mask/gas))
+			reagents.remove_any(to_smoke)
+			return
+
+		smoker = smoker.loc
+
+		// If it is, check if that mask is on a carbon mob
+		if(!istype(smoker) || smoker.get_item_by_slot(ITEM_SLOT_MASK) != loc)
+			reagents.remove_any(to_smoke)
+			return
+	else
+		if(src != smoker.wear_mask)
+			reagents.remove_any(to_smoke)
+			return
 
 	reagents.expose(smoker, INGEST, min(to_smoke / reagents.total_volume, 1))
 	var/obj/item/organ/internal/lungs/lungs = smoker.get_organ_slot(ORGAN_SLOT_LUNGS)
@@ -1092,21 +1107,25 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(screw && (obj_flags & EMAGGED))
 		to_chat(user, span_warning("[src] can't be modified!"))
 
-/obj/item/clothing/mask/vape/emag_act(mob/user)// I WON'T REGRET WRITTING THIS, SURLY.
-	if(screw)
-		if(!(obj_flags & EMAGGED))
-			obj_flags |= EMAGGED
-			super = FALSE
-			to_chat(user, span_warning("You maximize the voltage of [src]."))
-			icon_state = "vape_open_high"
-			set_greyscale(new_config = /datum/greyscale_config/vape/open_high)
-			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread //for effect
-			sp.set_up(5, 1, src)
-			sp.start()
-		else
-			to_chat(user, span_warning("[src] is already emagged!"))
-	else
-		to_chat(user, span_warning("You need to open the cap to do that!"))
+/obj/item/clothing/mask/vape/emag_act(mob/user, obj/item/card/emag/emag_card) // I WON'T REGRET WRITTING THIS, SURLY.
+
+	if (!screw)
+		balloon_alert(user, "open the cap first!")
+		return FALSE
+
+	if (obj_flags & EMAGGED)
+		balloon_alert(user, "already emagged!")
+		return FALSE
+
+	obj_flags |= EMAGGED
+	super = FALSE
+	balloon_alert(user, "voltage maximized")
+	icon_state = "vape_open_high"
+	set_greyscale(new_config = /datum/greyscale_config/vape/open_high)
+	var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread //for effect
+	sp.set_up(5, 1, src)
+	sp.start()
+	return TRUE
 
 /obj/item/clothing/mask/vape/attack_self(mob/user)
 	if(reagents.total_volume > 0)

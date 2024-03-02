@@ -14,6 +14,17 @@
 
 /mob/living/basic/guardian/support/Initialize(mapload, datum/guardian_fluff/theme)
 	. = ..()
+	//MONKESTATION EDIT START
+	// Fixes support guardian not being able to heal. The original `required_modifier` check is
+	// bugged due to our codebase having both Combat Mode and Intents. We instead use the
+	// `extra_checks` feature here, to check if the user is right-clicking, by checking to see if
+	// they're performing a secondary action.
+	//
+	// Note: You may notice the original AddComponent macro is entirely commented out, instead of
+	// just the relevant part. I tried to only comment out the relevant part, but no matter what I
+	// do, it just kept returning errors about the macro syntax. So instead of trying to fix it, I
+	// opted for... this.
+	/*
 	AddComponent(\
 		/datum/component/healing_touch,\
 		heal_brute = healing_amount,\
@@ -25,7 +36,21 @@
 		complete_text = "",\
 		required_modifier = RIGHT_CLICK,\
 		after_healed = CALLBACK(src, PROC_REF(after_healed)),\
+	) //MONKESTATION EDIT ORIGINAL
+	*/
+	AddComponent(\
+		/datum/component/healing_touch,\
+		heal_brute = healing_amount,\
+		heal_burn = healing_amount,\
+		heal_tox = healing_amount,\
+		heal_oxy = healing_amount,\
+		heal_time = 0,\
+		action_text = "",\
+		complete_text = "",\
+		extra_checks = CALLBACK(src, PROC_REF(wants_to_heal)),\
+		after_healed = CALLBACK(src, PROC_REF(after_healed)),\
 	)
+	//MONKESTATION EDIT END
 
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.show_to(src)
@@ -36,6 +61,15 @@
 /mob/living/basic/guardian/support/set_guardian_colour(colour)
 	. = ..()
 	AddComponent(/datum/component/healing_touch, heal_color = guardian_colour)
+
+//MONKESTATION ADDITION START
+/// Called by the healing_touch component to check if we want this attack to heal
+/mob/living/basic/guardian/support/proc/wants_to_heal(mob/living/source, mob/living/target)
+	var/is_right_clicking = (istate & ISTATE_SECONDARY)
+	if(is_right_clicking)
+		return TRUE
+	return FALSE
+//MONKESTATION ADDITION END
 
 /// Called after we heal someone, show some visuals
 /mob/living/basic/guardian/support/proc/after_healed(mob/living/healed)
@@ -90,7 +124,7 @@
 	if (isguardian(owner))
 		var/mob/living/basic/guardian/guardian_owner = owner
 		beacon.add_atom_colour(guardian_owner.guardian_colour, FIXED_COLOUR_PRIORITY)
-	RegisterSignal(beacon, COMSIG_PARENT_QDELETING, PROC_REF(on_beacon_deleted))
+	RegisterSignal(beacon, COMSIG_QDELETING, PROC_REF(on_beacon_deleted))
 	to_chat(src, span_bolddanger("Beacon placed! You may now warp targets and objects to it, including your user, via Alt+Click."))
 	StartCooldown()
 	return TRUE

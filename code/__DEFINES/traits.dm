@@ -5,13 +5,13 @@
 #define ADD_TRAIT(target, trait, source) \
 	do { \
 		var/list/_L; \
-		if (!target.status_traits) { \
-			target.status_traits = list(); \
-			_L = target.status_traits; \
+		if (!target._status_traits) { \
+			target._status_traits = list(); \
+			_L = target._status_traits; \
 			_L[trait] = list(source); \
 			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
 		} else { \
-			_L = target.status_traits; \
+			_L = target._status_traits; \
 			if (_L[trait]) { \
 				_L[trait] |= list(source); \
 			} else { \
@@ -22,7 +22,7 @@
 	} while (0)
 #define REMOVE_TRAIT(target, trait, sources) \
 	do { \
-		var/list/_L = target.status_traits; \
+		var/list/_L = target._status_traits; \
 		var/list/_S; \
 		if (sources && !islist(sources)) { \
 			_S = list(sources); \
@@ -40,13 +40,13 @@
 				SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
 			}; \
 			if (!length(_L)) { \
-				target.status_traits = null \
+				target._status_traits = null \
 			}; \
 		} \
 	} while (0)
 #define REMOVE_TRAIT_NOT_FROM(target, trait, sources) \
 	do { \
-		var/list/_traits_list = target.status_traits; \
+		var/list/_traits_list = target._status_traits; \
 		var/list/_sources_list; \
 		if (sources && !islist(sources)) { \
 			_sources_list = list(sources); \
@@ -64,13 +64,13 @@
 				SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
 			}; \
 			if (!length(_traits_list)) { \
-				target.status_traits = null \
+				target._status_traits = null \
 			}; \
 		} \
 	} while (0)
 #define REMOVE_TRAITS_NOT_IN(target, sources) \
 	do { \
-		var/list/_L = target.status_traits; \
+		var/list/_L = target._status_traits; \
 		var/list/_S = sources; \
 		if (_L) { \
 			for (var/_T in _L) { \
@@ -81,14 +81,14 @@
 					}; \
 				};\
 			if (!length(_L)) { \
-				target.status_traits = null\
+				target._status_traits = null\
 			};\
 		}\
 	} while (0)
 
 #define REMOVE_TRAITS_IN(target, sources) \
 	do { \
-		var/list/_L = target.status_traits; \
+		var/list/_L = target._status_traits; \
 		var/list/_S = sources; \
 		if (sources && !islist(sources)) { \
 			_S = list(sources); \
@@ -104,18 +104,18 @@
 					}; \
 				};\
 			if (!length(_L)) { \
-				target.status_traits = null\
+				target._status_traits = null\
 			};\
 		}\
 	} while (0)
 
-#define HAS_TRAIT(target, trait) (target.status_traits?[trait] ? TRUE : FALSE)
-#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target.status_traits[trait]))
-#define HAS_TRAIT_FROM_ONLY(target, trait, source) (HAS_TRAIT(target, trait) && (source in target.status_traits[trait]) && (length(target.status_traits[trait]) == 1))
-#define HAS_TRAIT_NOT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (length(target.status_traits[trait] - source) > 0))
+#define HAS_TRAIT(target, trait) (target._status_traits?[trait] ? TRUE : FALSE)
+#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]))
+#define HAS_TRAIT_FROM_ONLY(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]) && (length(target._status_traits[trait]) == 1))
+#define HAS_TRAIT_NOT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (length(target._status_traits[trait] - source) > 0))
 /// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
 /// You should not be using this
-#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
+#define GET_TRAIT_SOURCES(target, trait) target._status_traits?[trait] || list()
 /// Returns the amount of sources for a trait. useful if you don't want to have a "thing counter" stuck around all the time
 #define COUNT_TRAIT_SOURCES(target, trait) length(GET_TRAIT_SOURCES(target, trait))
 /// A simple helper for checking traits in a mob's mind
@@ -165,6 +165,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ILLITERATE "illiterate"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
+/// Softspoken. Always whisper.
+#define TRAIT_SOFTSPOKEN "softspoken"
 /// Gibs on death and slips like ice.
 #define TRAIT_CURSED "cursed"
 /// Emotemute. Can't... emote.
@@ -194,6 +196,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GUN_NATURAL "gunnatural"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
 /// Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_FAKEDEATH "fakedeath"
 #define TRAIT_DISFIGURED "disfigured"
@@ -254,8 +259,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
 /// Humans with this trait cannot be turned into zombies
 #define TRAIT_NO_ZOMBIFY "no_zombify"
-/// Humans with this trait cannot be affected by changeling transformation stings
-#define TRAIT_NO_TRANSFORMATION_STING "no_transformation_sting"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 /// Carbons with this trait can eat blood to regenerate their own blood volume, instead of injecting it
@@ -293,6 +296,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOOD_DEFICIENCY "blood_deficiency"
 #define TRAIT_JOLLY "jolly"
 #define TRAIT_NOCRITDAMAGE "no_crit"
+///Added to mob or mind, changes the icons of the fish shown in the minigame UI depending on the possible reward.
+#define TRAIT_REVEAL_FISH "reveal_fish"
 
 /// Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [GALOSHES_DONT_HELP] set
 #define TRAIT_NO_SLIP_WATER "noslip_water"
@@ -359,7 +364,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
-#define TRAIT_SURGEON "surgeon"
+//#define TRAIT_SURGEON "surgeon"  // monke edit: replace with TRAIT_ALL_SURGERIES and TRAIT_PERFECT_SURGEON
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_SOOTHED_THROAT "soothed-throat"
 #define TRAIT_BOOZE_SLIDER "booze-slider"
@@ -419,8 +424,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TUMOR_SUPPRESSED "brain_tumor_suppressed"
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_RDS_SUPPRESSED "rds_suppressed"
-/// overrides the update_fire proc to always add fire (for lava)
-#define TRAIT_PERMANENTLY_ONFIRE "permanently_onfire"
+/// Mobs that have this trait cannot be extinguished
+#define TRAIT_NO_EXTINGUISH "no_extinguish"
 /// Indicates if the mob is currently speaking with sign language
 #define TRAIT_SIGN_LANG "sign_language"
 /// The mob's nanites are sending a monitoring signal visible on diag HUD
@@ -541,6 +546,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
+
+/// Mob is unable to feel pain
+#define TRAIT_ANALGESIA "analgesia"
 
 // METABOLISMS
 // Various jobs on the station have historically had better reactions
@@ -681,6 +689,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FISH_SAFE_STORAGE "fish_case"
 /// Stuff that can go inside fish cases
 #define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile"
+/// If the item can be used as a bit.
+#define TRAIT_FISHING_BAIT "fishing_bait"
+/// The quality of the bait. It influences odds of catching fish
+#define TRAIT_BASIC_QUALITY_BAIT "baic_quality_bait"
+#define TRAIT_GOOD_QUALITY_BAIT "good_quality_bait"
+#define TRAIT_GREAT_QUALITY_BAIT "great_quality_bait"
+/// Baits with this trait will ignore bait preferences and related fish traits.
+#define OMNI_BAIT_TRAIT "omni_bait"
 /// Plants that were mutated as a result of passive instability, not a mutation threshold.
 #define TRAIT_PLANT_WILDMUTATE "wildmutation"
 /// If you hit an APC with exposed internals with this item it will try to shock you
@@ -755,6 +771,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAT				"cat"
 #define TRAIT_HIDDEN_IMAGE		"generic-hidden-image"
 #define TRAIT_HIDDEN_CLOWN		"clown_disbelief"
+#define TRAIT_MINING_CALLOUTS	"miner_callouts"
 
 /// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
@@ -838,6 +855,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// For clarity, this trait should always be associated/tied to a reference to the mob that suicided- not anything else.
 #define TRAIT_SUICIDED "committed_suicide"
 
+/// Trait given to a living mob to prevent wizards from making it immortal
+#define TRAIT_PERMANENTLY_MORTAL "permanently_mortal"
+
 ///Trait given to a mob with a ckey currently in a temporary body, allowing people to know someone will re-enter the round later.
 #define TRAIT_MIND_TEMPORARILY_GONE "temporarily_gone"
 
@@ -857,6 +877,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FISH_AMPHIBIOUS "fish_amphibious"
 ///Trait needed for the lubefish evolution
 #define TRAIT_FISH_FED_LUBE "fish_fed_lube"
+#define TRAIT_FISH_NO_HUNGER "fish_no_hunger"
 
 /// Trait given to angelic constructs to let them purge cult runes
 #define TRAIT_ANGELIC "angelic"
@@ -939,6 +960,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MOTOR_LACK_TRAIT "motor-lack"
 /// Trait associated with mafia
 #define MAFIA_TRAIT "mafia"
+/// Trait associated with ctf
+#define CTF_TRAIT "ctf"
 /// Trait associated with highlander
 #define HIGHLANDER_TRAIT "highlander"
 /// Trait given from playing pretend with baguettes
@@ -953,7 +976,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DO_NOT_SPLASH "do_not_splash"
 /// Marks an atom when the cleaning of it is first started, so that the cleaning overlay doesn't get removed prematurely
 #define TRAIT_CURRENTLY_CLEANING "currently_cleaning"
-
+/// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
+#define TRAIT_CHASM_DESTROYED "chasm_destroyed"
+/// Trait from being under the floor in some manner
+#define TRAIT_UNDERFLOOR "underfloor"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -1016,6 +1042,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// sticky nodrop sounds like a bad soundcloud rapper's name
 #define STICKY_NODROP "sticky-nodrop"
 #define SKILLCHIP_TRAIT "skillchip"
+#define SKILL_TRAIT "skill"
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
 #define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
 #define LOCKED_BORG_TRAIT "locked-borg"
@@ -1130,6 +1157,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MAGNETIC_ID_CARD "magnetic_id_card"
 /// ID cards with this trait have special appraisal text.
 #define TRAIT_TASTEFULLY_THICK_ID_CARD "impressive_very_nice"
+/// things with this trait are treated as having no access in /obj/proc/check_access(obj/item)
+#define TRAIT_ALWAYS_NO_ACCESS "alwaysnoaccess"
 
 /// Traits granted to items due to their chameleon properties.
 #define CHAMELEON_ITEM_TRAIT "chameleon_item_trait"

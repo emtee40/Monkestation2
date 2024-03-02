@@ -133,7 +133,7 @@
 				deity = "Christ"
 			to_chat(ghostie, span_userdanger("The power of [deity] compels you!"))
 			ghostie.apply_status_effect(/datum/status_effect/incapacitating/paralyzed/revenant, 2 SECONDS)
-			ghostie.apply_status_effect(/datum/status_effect/revenant/revealed, 2 SECONDS)
+			ghostie.apply_status_effect(/datum/status_effect/revenant/revealed, 10 SECONDS)
 			ghostie.adjust_health(50)
 		for(var/mob/living/carbon/C in get_hearers_in_view(effective_size,T))
 			if(IS_CULTIST(C))
@@ -294,7 +294,7 @@
 	var/range = created_volume/3
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2))
+		A.flash_lighting_fx(range = (range + 2))
 	for(var/mob/living/C in get_hearers_in_view(range, location))
 		if(C.flash_act(affect_silicon = TRUE))
 			if(get_dist(C, location) < 4)
@@ -314,7 +314,7 @@
 	var/range = created_volume/10
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2))
+		A.flash_lighting_fx(range = (range + 2))
 	for(var/mob/living/C in get_hearers_in_view(range, location))
 		if(C.flash_act(affect_silicon = TRUE))
 			if(get_dist(C, location) < 4)

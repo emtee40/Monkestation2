@@ -136,7 +136,7 @@
 /mob/living/basic/guardian/proc/guardian_recolour()
 	if (isnull(client))
 		return
-	var/chosen_guardian_colour = input(src, "What would you like your colour to be?", "Choose Your Colour", "#ffffff") as color|null
+	var/chosen_guardian_colour = tgui_color_picker(src, "What would you like your colour to be?", "Choose Your Colour", "#ffffff")
 	if (isnull(chosen_guardian_colour)) //redo proc until we get a color
 		to_chat(src, span_warning("Invalid colour, please try again."))
 		return guardian_recolour()
@@ -228,7 +228,7 @@
 			summoner.faction += "[REF(src)]"
 	remove_all_languages(LANGUAGE_MASTER)
 	copy_languages(to_who, LANGUAGE_MASTER) // make sure holoparasites speak same language as master
-	RegisterSignal(to_who, COMSIG_PARENT_QDELETING, PROC_REF(on_summoner_deletion))
+	RegisterSignal(to_who, COMSIG_QDELETING, PROC_REF(on_summoner_deletion))
 	RegisterSignal(to_who, COMSIG_LIVING_ON_WABBAJACKED, PROC_REF(on_summoner_wabbajacked))
 	RegisterSignal(to_who, COMSIG_LIVING_SHAPESHIFTED, PROC_REF(on_summoner_shapeshifted))
 	RegisterSignal(to_who, COMSIG_LIVING_UNSHAPESHIFTED, PROC_REF(on_summoner_unshapeshifted))
@@ -248,7 +248,7 @@
 	if (!isnull(summoner_turf))
 		forceMove(summoner_turf)
 	unleash()
-	UnregisterSignal(summoner, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_LIVING_SHAPESHIFTED, COMSIG_LIVING_UNSHAPESHIFTED))
+	UnregisterSignal(summoner, list(COMSIG_QDELETING, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_LIVING_SHAPESHIFTED, COMSIG_LIVING_UNSHAPESHIFTED))
 	if (different_person)
 		summoner.faction -= "[REF(src)]"
 		faction -= summoner.faction

@@ -56,10 +56,9 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
-	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1)
-	ratdisease += R
 	AddElement(/datum/element/connect_loc, loc_connections)
 	make_tameable()
+	AddComponent(/datum/component/swarming, 16, 16) //max_x, max_y
 
 /mob/living/basic/mouse/proc/make_tameable()
 	if (tame)

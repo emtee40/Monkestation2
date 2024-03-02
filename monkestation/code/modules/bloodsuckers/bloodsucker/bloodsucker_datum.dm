@@ -104,7 +104,7 @@
 /datum/antagonist/bloodsucker/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	RegisterSignal(current_mob, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "As a vampiric clown, you are no longer a danger to yourself. Your clownish nature has been subdued by your thirst for blood.")
@@ -128,7 +128,7 @@
 /datum/antagonist/bloodsucker/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_PARENT_EXAMINE, COMSIG_LIVING_DEATH))
+	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_EXAMINE, COMSIG_LIVING_DEATH))
 	handle_clown_mutation(current_mob, removing = FALSE)
 
 	if(current_mob.hud_used)
@@ -486,12 +486,3 @@
 			gourmand_objective.owner = owner
 			gourmand_objective.objective_name = "Optional Objective"
 			objectives += gourmand_objective
-
-/datum/antagonist/bloodsucker/antag_token(datum/mind/hosts_mind, mob/spender)
-	. = ..()
-	if(isobserver(spender))
-		var/mob/living/carbon/human/newmob = spender.change_mob_type( /mob/living/carbon/human , null, null, TRUE )
-		newmob.equipOutfit(/datum/outfit/job/assistant)
-		newmob.mind.make_bloodsucker(hosts_mind)
-	else
-		hosts_mind.make_bloodsucker(hosts_mind)

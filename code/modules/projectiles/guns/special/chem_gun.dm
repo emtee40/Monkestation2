@@ -9,7 +9,7 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 4
-	custom_materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT)
 	clumsy_check = FALSE
 	fire_sound = 'sound/items/syringeproj.ogg'
 	var/time_per_syringe = 250
@@ -41,7 +41,7 @@
 /obj/item/gun/chem/can_shoot()
 	return syringes_left
 
-/obj/item/gun/chem/handle_chamber()
+/obj/item/gun/chem/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	if(chambered && !chambered.loaded_projectile && syringes_left)
 		chambered.newshot()
 

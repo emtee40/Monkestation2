@@ -18,7 +18,7 @@
 	/// Used interally, you don't want to modify
 	var/cooldown_check = 0
 	/// Default wait time until can stun again.
-	var/cooldown = (1 SECONDS)
+	var/cooldown = (1.5 SECONDS)
 	/// The length of the knockdown applied to a struck living, non-cyborg mob.
 	var/knockdown_time = (1.5 SECONDS)
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
@@ -26,7 +26,7 @@
 	/// The length of the knockdown applied to the user on clumsy_check()
 	var/clumsy_knockdown_time = 18 SECONDS
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
-	var/stamina_damage = 100
+	var/stamina_damage = 95 //3 hit stam crit from full, but they most likely wont be due to running a bit
 	/// Chance of causing force_say() when stunning a human mob
 	var/force_say_chance = 33
 	/// Can we stun cyborgs?
@@ -310,6 +310,7 @@
 	bare_wound_bonus = 5
 	clumsy_knockdown_time = 15 SECONDS
 	active = FALSE
+	cooldown = 1.5 SECONDS //monkestation edit
 
 	/// The sound effecte played when our baton is extended.
 	var/on_sound = 'sound/weapons/batonextend.ogg'
@@ -331,9 +332,11 @@
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
+//monkestation edit start
 /obj/item/melee/baton/telescopic/additional_effects_non_cyborg(mob/living/target, mob/living/user)
 	. = ..()
 	target.Disorient(6 SECONDS, 5, paralyze = 3 SECONDS, stack_status = FALSE)
+//monkestation edit end
 
 /obj/item/melee/baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/human_user = user
@@ -370,7 +373,8 @@
 	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
-/obj/item/melee/baton/telescopic/contractor_baton
+//monkestation removal start
+/*/obj/item/melee/baton/telescopic/contractor_baton
 	name = "contractor baton"
 	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."
 	icon = 'icons/obj/weapons/baton.dmi'
@@ -384,7 +388,7 @@
 	force = 5
 	cooldown = 2.5 SECONDS
 	force_say_chance = 80 //very high force say chance because it's funny
-	stamina_damage = 170
+	stamina_damage = 170 //monkestation edit: stam damage increased
 	clumsy_knockdown_time = 24 SECONDS
 	affect_cyborg = TRUE
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
@@ -398,7 +402,8 @@
 
 /obj/item/melee/baton/telescopic/contractor_baton/additional_effects_non_cyborg(mob/living/target, mob/living/user)
 	target.set_jitter_if_lower(40 SECONDS)
-	target.set_stutter_if_lower(40 SECONDS)
+	target.set_stutter_if_lower(40 SECONDS)*/
+//monkestation removal end
 
 /obj/item/melee/baton/security
 	name = "stun baton"
@@ -443,7 +448,7 @@
 			log_mapping("[src] at [AREACOORD(src)] had an invalid preload_cell_type: [preload_cell_type].")
 		else
 			cell = new preload_cell_type(src)
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(convert))
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(convert))
 	update_appearance()
 
 /obj/item/melee/baton/security/get_cell()
@@ -461,7 +466,7 @@
 /obj/item/melee/baton/security/Destroy()
 	if(cell)
 		QDEL_NULL(cell)
-	UnregisterSignal(src, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(src, COMSIG_ATOM_ATTACKBY)
 	return ..()
 
 /obj/item/melee/baton/security/proc/convert(datum/source, obj/item/item, mob/user)
@@ -720,7 +725,7 @@
 	cell_hit_cost = 2000
 	throw_stun_chance = 99  //Have you prayed today?
 	convertible = FALSE
-	custom_materials = list(/datum/material/iron = 10000, /datum/material/glass = 4000, /datum/material/silver = 10000, /datum/material/gold = 2000)
+	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 5, /datum/material/glass = SHEET_MATERIAL_AMOUNT*2, /datum/material/silver = SHEET_MATERIAL_AMOUNT*5, /datum/material/gold = SHEET_MATERIAL_AMOUNT)
 
 /obj/item/melee/baton/security/boomerang/Initialize(mapload)
 	. = ..()

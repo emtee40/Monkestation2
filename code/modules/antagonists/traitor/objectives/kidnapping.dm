@@ -1,3 +1,5 @@
+//MONKESTATIONFILE REMOVAL, CHECK THE FILE IN THE MODULAR DIRECTORY
+/*
 /datum/traitor_objective/target_player/kidnapping
 	name = "Kidnap %TARGET% the %JOB TITLE% and deliver them to %AREA%"
 	description = "%TARGET% holds extremely important information regarding secret NT projects - and you'll need to kidnap and deliver them to %AREA%, where our transport pod will be waiting. \
@@ -158,7 +160,7 @@
 
 	var/datum/mind/target_mind = pick(possible_targets)
 	target = target_mind.current
-	AddComponent(/datum/component/traitor_objective_register, target, fail_signals = list(COMSIG_PARENT_QDELETING))
+	AddComponent(/datum/component/traitor_objective_register, target, fail_signals = list(COMSIG_QDELETING))
 	var/list/possible_areas = GLOB.the_station_areas.Copy()
 	for(var/area/possible_area as anything in possible_areas)
 		if(ispath(possible_area, /area/station/hallway) || ispath(possible_area, /area/station/security) || initial(possible_area.outdoors))
@@ -321,3 +323,4 @@
 	for (var/obj/item/implant/storage/internal_bag in kidnapee.implants)
 		belongings += internal_bag.contents
 	return belongings
+*/

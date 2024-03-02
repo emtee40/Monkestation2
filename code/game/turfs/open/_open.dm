@@ -83,6 +83,9 @@
 /turf/open/indestructible/light
 	icon_state = "light_on-1"
 
+/turf/open/indestructible/plating
+	icon_state = "plating"
+
 /turf/open/indestructible/permalube
 	icon_state = "darkfull"
 
@@ -267,7 +270,7 @@
 		slipper.Immobilize(1 SECONDS)
 		slipper.incapacitate(1 SECONDS)
 	else
-		slipper.Knockdown(knockdown_amount)
+		slipper.bananeer(total_time = knockdown_amount * 0.1, stun_duration = knockdown_amount, height = (knockdown_amount * 0.5), flip_count = round(knockdown_amount * 0.1))
 		slipper.Paralyze(paralyze_amount)
 		slipper.stop_pulling()
 

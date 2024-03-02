@@ -11,7 +11,7 @@
 	worn_icon_state = "gun"
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	custom_materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
@@ -142,11 +142,11 @@
 		. += "It has a <b>bayonet</b> lug on it."
 
 //called after the gun has successfully fired its chambered ammo.
-/obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
-	handle_chamber(empty_chamber, from_firing, chamber_next_round)
+/obj/item/gun/proc/process_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	handle_chamber(user, empty_chamber, from_firing, chamber_next_round)
 	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
 
-/obj/item/gun/proc/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+/obj/item/gun/proc/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	return
 
 //check if there's enough ammo/energy/whatever to shoot one time
@@ -197,6 +197,14 @@
 						vision_distance = COMBAT_MESSAGE_RANGE,
 						ignored_mobs = user
 				)
+	if(CHECK_BITFIELD(gun_flags, GUN_SMOKE_PARTICLES))
+		var/x_component = sin((get_angle(user, pbtarget))) * 40
+		var/y_component = cos((get_angle(user, pbtarget))) * 40
+		var/obj/effect/abstract/particle_holder/gun_smoke = new(get_turf(src), /particles/firing_smoke)
+		gun_smoke.particles.velocity = list(x_component, y_component)
+		addtimer(VARSET_CALLBACK(gun_smoke.particles, count, 0), 5)
+		addtimer(VARSET_CALLBACK(gun_smoke.particles, drift, 0), 3)
+		QDEL_IN(gun_smoke, 0.6 SECONDS)
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
@@ -352,7 +360,7 @@
 		shoot_with_empty_chamber(user)
 		firing_burst = FALSE
 		return FALSE
-	process_chamber()
+	process_chamber(user = user)
 	update_appearance()
 	return TRUE
 
@@ -407,7 +415,7 @@
 		else
 			shoot_with_empty_chamber(user)
 			return
-		process_chamber()
+		process_chamber(user = user)
 		update_appearance()
 		semicd = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reset_semicd)), modified_delay)

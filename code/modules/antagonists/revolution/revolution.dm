@@ -637,7 +637,7 @@
 			add_memory_in_range(head_of_staff, 5, /datum/memory/revolution_heads_victory, protagonist = head_of_staff)
 
 	priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
-		We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
+		We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "[command_name()] Loyalty Monitoring Division")
 
 /// Mutates the ticker to report that the revs have won
 /datum/team/revolution/proc/round_result(finished)
@@ -753,12 +753,3 @@
 #undef HEAD_UPDATE_PERIOD
 #undef REVOLUTION_VICTORY
 #undef STATION_VICTORY
-
-/datum/antagonist/rev/head/antag_token(datum/mind/hosts_mind, mob/spender)
-	. = ..()
-	if(isobserver(spender))
-		var/mob/living/carbon/human/newmob = spender.change_mob_type( /mob/living/carbon/human , null, null, TRUE )
-		newmob.equipOutfit(/datum/outfit/job/assistant)
-		newmob.mind.make_rev()
-	else
-		hosts_mind.make_rev()

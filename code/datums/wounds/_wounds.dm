@@ -259,8 +259,8 @@
 /// Setter for [victim]. Should completely transfer signals, attributes, etc. To the new victim - if there is any, as it can be null.
 /datum/wound/proc/set_victim(new_victim)
 	if(victim)
-		UnregisterSignal(victim, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS, COMSIG_CARBON_POST_REMOVE_LIMB, COMSIG_CARBON_POST_ATTACH_LIMB))
-		UnregisterSignal(victim, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(victim, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, COMSIG_CARBON_POST_REMOVE_LIMB, COMSIG_CARBON_POST_ATTACH_LIMB))
+		UnregisterSignal(victim, COMSIG_QDELETING)
 		UnregisterSignal(victim, COMSIG_MOB_SWAP_HANDS)
 		UnregisterSignal(victim, COMSIG_CARBON_POST_REMOVE_LIMB)
 		if (actionspeed_mod)
@@ -269,7 +269,7 @@
 	remove_wound_from_victim()
 	victim = new_victim
 	if(victim)
-		RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(null_victim))
+		RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(null_victim))
 		RegisterSignals(victim, list(COMSIG_MOB_SWAP_HANDS, COMSIG_CARBON_POST_REMOVE_LIMB, COMSIG_CARBON_POST_ATTACH_LIMB), PROC_REF(add_or_remove_actionspeed_mod))
 
 		if (limb)
@@ -282,7 +282,7 @@
 		return FALSE //Limb can either be a reference to something or `null`. Returning the number variable makes it clear no change was made.
 	. = limb
 	if(limb) // if we're nulling limb, we're basically detaching from it, so we should remove ourselves in that case
-		UnregisterSignal(limb, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(limb, COMSIG_QDELETING)
 		UnregisterSignal(limb, list(COMSIG_BODYPART_GAUZED, COMSIG_BODYPART_GAUZE_DESTROYED))
 		LAZYREMOVE(limb.wounds, src)
 		limb.update_wounds(replaced)
@@ -294,7 +294,7 @@
 	// POST-CHANGE
 
 	if (limb)
-		RegisterSignal(limb, COMSIG_PARENT_QDELETING, PROC_REF(source_died))
+		RegisterSignal(limb, COMSIG_QDELETING, PROC_REF(source_died))
 		RegisterSignals(limb, list(COMSIG_BODYPART_GAUZED, COMSIG_BODYPART_GAUZE_DESTROYED), PROC_REF(gauze_state_changed))
 		if (disabling)
 			limb.add_traits(list(TRAIT_PARALYSIS, TRAIT_DISABLED_BY_WOUND), REF(src))
@@ -548,7 +548,7 @@
 	return base_xadone_progress_to_qdel * severity
 
 /// When synthflesh is applied to the victim, we call this. No sense in setting up an entire chem reaction system for wounds when we only care for a few chems. Probably will change in the future
-/datum/wound/proc/on_synthflesh(power)
+/datum/wound/proc/on_synthflesh(reac_volume)
 	return
 
 /// Called when the patient is undergoing stasis, so that having fully treated a wound doesn't make you sit there helplessly until you think to unbuckle them
@@ -642,18 +642,21 @@
 	return "[desc]."
 
 /datum/wound/proc/get_scanner_description(mob/user)
-	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]"
+	return "Type: [name]\nSeverity: [severity_text(simple = FALSE)]\nDescription: [desc]\nRecommended Treatment: [treat_text]"
 
-/datum/wound/proc/severity_text()
+/datum/wound/proc/get_simple_scanner_description(mob/user)
+	return "[name] detected!\nRisk: [severity_text(simple = TRUE)]\nDescription: [simple_desc ? simple_desc : desc]\n<i>Treatment Guide: [simple_treat_text]</i>\n<i>Homemade Remedies: [homemade_treat_text]</i>"
+
+/datum/wound/proc/severity_text(simple = FALSE)
 	switch(severity)
 		if(WOUND_SEVERITY_TRIVIAL)
 			return "Trivial"
 		if(WOUND_SEVERITY_MODERATE)
-			return "Moderate"
+			return "Moderate" + (simple ? "!" : "")
 		if(WOUND_SEVERITY_SEVERE)
-			return "Severe"
+			return "Severe" + (simple ? "!!" : "")
 		if(WOUND_SEVERITY_CRITICAL)
-			return "Critical"
+			return "Critical" + (simple ? "!!!" : "")
 
 /// Returns TRUE if our limb is the head or chest, FALSE otherwise.
 /// Essential in the sense of "we cannot live without it".

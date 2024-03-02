@@ -245,6 +245,23 @@
 			return !zebra || list_to_check[path]
 	return FALSE
 
+/**
+ * Checks for specific paths in a list, while returning the path found.
+ *
+ * Subpaths must come before parent paths if subtypes are to be considered.
+ *
+ * Arguments:
+ * - path_to_check: A typepath to check.
+ * - [list_to_check][/list]: A list of typepaths to check the path_to_check against.
+ */
+/proc/is_path_in_list_return_path(path_to_check, list/list_to_check)
+	if(!LAZYLEN(list_to_check) || !path_to_check)
+		return FALSE
+	for(var/path in list_to_check)
+		if(ispath(path_to_check, path))
+			return path
+	return FALSE
+
 ///Checks for specific types in specifically structured (Assoc "type" = TRUE|FALSE) lists ('typecaches')
 #define is_type_in_typecache(A, L) (A && length(L) && L[(ispath(A) ? A : A:type)])
 
@@ -516,6 +533,13 @@
 		var/picked = rand(1,list_to_pick.len)
 		. = list_to_pick[picked]
 		list_to_pick.Cut(picked,picked+1) //Cut is far more efficient that Remove()
+
+/// Pick a random element from the list and remove it from the list.
+/proc/pick_n_take_weighted(list/list_to_pick)
+	if(length(list_to_pick))
+		var/picked = pick_weight(list_to_pick)
+		list_to_pick -= picked
+		return picked
 
 ///Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)

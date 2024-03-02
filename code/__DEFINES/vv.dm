@@ -97,6 +97,7 @@
 #define VV_HK_AUTO_RENAME "auto_rename"
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
+#define VV_HK_EDIT_MOVABLE_PHYSICS "edit_movable_physics" //Monkestation EDIT PHYSICS
 #define VV_HK_EDIT_DISPLACEMENT_LARGE "edit_large_displacement"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_ADD_AI "add_ai"
@@ -161,3 +162,4 @@
 #define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
 
 #define VV_HK_POSSESS_ITEM "possess_item"
+#define VV_HK_VIEW_DISEASE_DATA "disease_data"

@@ -32,26 +32,29 @@
 	required_enemies = 5
 	// I give up, just there should be enough heads with 35 players...
 	min_players = 35
-	roundstart = TRUE
 	earliest_start = 45 MINUTES
 	weight = 4
 	max_occurrences = 1
+	prompted_picking = TRUE
 
 /datum/round_event/antagonist/solo/ghost/nuclear_operative
 	excute_round_end_reports = TRUE
-	end_when = 60000 /// we will end on our own when revs win
 	var/static/datum/team/nuclear/nuke_team
 	var/set_leader = FALSE
 	var/required_role = ROLE_NUCLEAR_OPERATIVE
+	var/datum/mind/most_experienced
 
 /datum/round_event/antagonist/solo/ghost/nuclear_operative/add_datum_to_mind(datum/mind/antag_mind)
+	if(most_experienced == antag_mind)
+		return
 	var/mob/living/current_mob = antag_mind.current
 	var/list/items = current_mob.get_equipped_items(TRUE)
 	current_mob.unequip_everything()
 	for(var/obj/item/item as anything in items)
 		qdel(item)
 
-	var/datum/mind/most_experienced = get_most_experienced(setup_minds, required_role)
+	if(!most_experienced)
+		most_experienced = get_most_experienced(setup_minds, required_role)
 	antag_mind.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
 	antag_mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
@@ -60,9 +63,8 @@
 
 	if(!set_leader)
 		set_leader = TRUE
-		var/datum/antagonist/nukeop/leader/leader_antag_datum = new()
+		var/datum/antagonist/nukeop/leader/leader_antag_datum = most_experienced.add_antag_datum(/datum/antagonist/nukeop/leader)
 		nuke_team = leader_antag_datum.nuke_team
-		most_experienced.add_antag_datum(leader_antag_datum)
 
 	if(antag_mind == most_experienced)
 		return
@@ -70,7 +72,7 @@
 	var/datum/antagonist/nukeop/new_op = new antag_datum()
 	antag_mind.add_antag_datum(new_op)
 
-
+//this might be able to be kept as just calling parent
 /datum/round_event/antagonist/solo/ghost/nuclear_operative/round_end_report()
 	var/result = nuke_team.get_result()
 	switch(result)

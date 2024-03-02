@@ -201,6 +201,7 @@
 		if(SSatoms.InitAtom(src, FALSE, args))
 			//we were deleted
 			return
+	SSdemo.mark_new(src) //Monkestation edit: Replays
 
 /**
  * The primary method that objects are setup in SS13 with
@@ -624,6 +625,10 @@
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
+/// Sets the wire datum of an atom
+/atom/proc/set_wires(datum/wires/new_wires)
+	wires = new_wires
+
 /**
  * React to an EMP of the given severity
  *
@@ -719,7 +724,7 @@
  * Default behaviour is to get the name and icon of the object and it's reagents where
  * the [TRANSPARENT] flag is set on the reagents holder
  *
- * Produces a signal [COMSIG_PARENT_EXAMINE]
+ * Produces a signal [COMSIG_ATOM_EXAMINE]
  */
 /atom/proc/examine(mob/user)
 	var/examine_string = get_examine_string(user, thats = TRUE)
@@ -741,14 +746,17 @@
 
 	if(reagents)
 		var/user_sees_reagents = user.can_see_reagents()
-		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_PARENT_REAGENT_EXAMINE, user, ., user_sees_reagents)
+		var/reagent_sigreturn = SEND_SIGNAL(src, COMSIG_ATOM_REAGENT_EXAMINE, user, ., user_sees_reagents)
 		if(!(reagent_sigreturn & STOP_GENERIC_REAGENT_EXAMINE))
 			if(reagents.flags & TRANSPARENT)
 				if(reagents.total_volume > 0)
 					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
 					if(user_sees_reagents) //Show each individual reagent
 						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
-							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
+							var/reagent_name = current_reagent.name
+							if(istype(current_reagent, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+								reagent_name = "Ammonia?"
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [reagent_name]"
 						if(reagents.is_reacting)
 							. += span_warning("It is currently reacting!")
 						. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
@@ -761,7 +769,7 @@
 				else
 					. += span_danger("It's empty.")
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**
  * Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_WINDOW (default 1 second)
@@ -769,14 +777,14 @@
  * This is where you can put extra information on something that may be superfluous or not important in critical gameplay
  * moments, while allowing people to manually double-examine to take a closer look
  *
- * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
+ * Produces a signal [COMSIG_ATOM_EXAMINE_MORE]
  */
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE_MORE, user, .)
 
 /**
  * Updates the appearence of the icon
@@ -851,6 +859,7 @@
 /atom/proc/update_overlays()
 	SHOULD_CALL_PARENT(TRUE)
 	. = list()
+
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
 /**
@@ -945,9 +954,23 @@
 		return FALSE
 	return TRUE
 
+/**
+ * Respond to fire being used on our atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_FIRE_ACT] and return
+ */
 /atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
-	return
+	return FALSE
+
+/**
+ * Sends [COMSIG_ATOM_EXTINGUISH] signal, which properly removes burning component if it is present.
+ *
+ * Default behaviour is to send [COMSIG_ATOM_ACID_ACT] and return
+ */
+/atom/proc/extinguish()
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_EXTINGUISH)
 
 /**
  * React to being hit by a thrown object
@@ -961,7 +984,7 @@
  */
 /atom/proc/hitby(atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, hitting_atom, skipcatch, hitpush, blocked, throwingdatum)
-	if(density && !has_gravity(hitting_atom)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...). //MONKESTATION EDIT PHYSICS
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), hitting_atom), 2)
 
 /**
@@ -1015,6 +1038,9 @@
 ///to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/injected_mob)
 	var/list/blood_dna = injected_mob.get_blood_dna_list()
+	if(iscarbon(injected_mob))
+		var/mob/living/carbon/mob = injected_mob
+		try_infect_with_mobs_diseases(mob)
 	if(!blood_dna)
 		return FALSE
 	return add_blood_DNA(blood_dna)
@@ -1057,10 +1083,15 @@
 /**
  * Respond to an emag being used on our atom
  *
- * Default behaviour is to send [COMSIG_ATOM_EMAG_ACT] and return
+ * Args:
+ * * mob/user: The mob that used the emag. Nullable.
+ * * obj/item/card/emag/emag_card: The emag that was used. Nullable.
+ *
+ * Returns:
+ * TRUE if the emag had any effect, falsey otherwise.
  */
 /atom/proc/emag_act(mob/user, obj/item/card/emag/emag_card)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user, emag_card)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user, emag_card))
 
 /**
  * Respond to narsie eating our atom
@@ -1900,6 +1931,7 @@
  * Override this if you want custom behaviour in whatever gets hit by the rust
  */
 /atom/proc/rust_heretic_act()
+	return
 
 /**
  * Used to set something as 'open' if it's being used as a supplypod
@@ -2014,7 +2046,7 @@
 		active_hud.screentip_text.maptext = ""
 		return
 
-	active_hud.screentip_text.maptext_y = 0
+	active_hud.screentip_text.maptext_y = 10 // 10px lines us up with the action buttons top left corner
 	var/lmb_rmb_line = ""
 	var/ctrl_lmb_ctrl_rmb_line = ""
 	var/alt_lmb_alt_rmb_line = ""
@@ -2081,15 +2113,15 @@
 					extra_lines++
 
 				if(extra_lines)
-					extra_context = "<br><span style='font-size: 7px'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
-					//first extra line pushes atom name line up 10px, subsequent lines push it up 9px, this offsets that and keeps the first line in the same place
-					active_hud.screentip_text.maptext_y = -10 + (extra_lines - 1) * -9
+					extra_context = "<br><span class='subcontext'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
+					//first extra line pushes atom name line up 11px, subsequent lines push it up 9px, this offsets that and keeps the first line in the same place
+					active_hud.screentip_text.maptext_y = -1 + (extra_lines - 1) * -9
 
 	if (screentips_enabled == SCREENTIP_PREFERENCE_CONTEXT_ONLY && extra_context == "")
 		active_hud.screentip_text.maptext = ""
 	else
 		//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-		active_hud.screentip_text.maptext = "<span class='maptext' style='text-align: center; font-size: 32px; color: [active_hud.screentip_color]'>[name][extra_context]</span>"
+		active_hud.screentip_text.maptext = "<span class='context' style='text-align: center; color: [active_hud.screentip_color]'>[name][extra_context]</span>"
 
 /// Gets a merger datum representing the connected blob of objects in the allowed_types argument
 /atom/proc/GetMergeGroup(id, list/allowed_types)

@@ -93,7 +93,7 @@
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/command/glass, TITLE = "Command"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/medical/glass, TITLE = "Medical"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/research/glass, TITLE = "Research"),
-				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/virology/glass, TITLE = "Virology"),
+				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/virology/glass, TITLE = "Pathology"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/mining/glass, TITLE = "Mining"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/maintenance/glass, TITLE = "Maintenance"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/external/glass, TITLE = "External"),
@@ -111,7 +111,7 @@
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/medical, TITLE = "Medical"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/research, TITLE = "Research"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/freezer, TITLE = "Freezer"),
-				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/virology, TITLE = "Virology"),
+				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/virology, TITLE = "Pathology"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/mining, TITLE = "Mining"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/maintenance, TITLE = "Maintenance"),
 				list(AIRLOCK_TYPE = /obj/machinery/door/airlock/external, TITLE = "External"),
@@ -653,11 +653,11 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT *6, /datum/material/glass=SHEET_MATERIAL_AMOUNT*4)
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
-	custom_materials = list(/datum/material/iron=48000, /datum/material/glass=32000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*24, /datum/material/glass=SHEET_MATERIAL_AMOUNT*16)
 	ammoamt = 160
 
 /obj/item/construction/rcd/combat/admin

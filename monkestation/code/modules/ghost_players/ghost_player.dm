@@ -5,6 +5,8 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 	set name = "Toggle Centcomm Spawning"
 	set desc= "Toggles whether dead players can respawn in the centcomm area"
 
+	if(!check_rights(R_FUN))
+		return
 	GLOB.disable_ghost_spawning = !GLOB.disable_ghost_spawning
 
 /mob/living/carbon/human/ghost
@@ -35,17 +37,15 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 	. = ..()
 	var/datum/action/cooldown/mob_cooldown/return_to_ghost/created_ability = new /datum/action/cooldown/mob_cooldown/return_to_ghost(src)
 	created_ability.Grant(src)
-	equipOutfit(/datum/outfit/job/assistant)
-	regenerate_icons()
 
 /mob/living/carbon/human/ghost/Destroy()
-	. = ..()
 	if(dueling && linked_button)
 		addtimer(CALLBACK(linked_button, TYPE_PROC_REF(/obj/structure/fight_button, end_duel), src), 3 SECONDS)
 
 	if(linked_button)
 		linked_button.remove_user(src)
 		linked_button = null
+	return ..()
 
 /mob/living/carbon/human/ghost/Life(seconds_per_tick, times_fired)
 	if(stat > SOFT_CRIT)
@@ -131,11 +131,18 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 		if(brain)
 			brain.temporary_sleep = TRUE
 
-	var/mob/living/carbon/human/ghost/new_existance = new(key, mind, can_reenter_corpse, brain)
-	client?.prefs.safe_transfer_prefs_to(new_existance, TRUE, FALSE)
-	new_existance.move_to_ghostspawn()
-	new_existance.key = key
-	client?.init_verbs()
+	var/client/our_client = client || GLOB.directory[ckey]
+	var/mob/living/carbon/human/ghost/new_existence = new(key, mind, can_reenter_corpse, brain)
+	our_client?.prefs.safe_transfer_prefs_to(new_existence, TRUE, FALSE)
+	new_existence.move_to_ghostspawn()
+	new_existence.key = key
+	new_existence.equip_outfit_and_loadout(/datum/outfit/ghost_player, our_client.prefs)
+	for(var/datum/loadout_item/item as anything in loadout_list_to_datums(our_client?.prefs?.loadout_list))
+		if(length(item.restricted_roles))
+			continue
+		item.post_equip_item(our_client.prefs, new_existence)
+	SSquirks.AssignQuirks(new_existence, our_client)
+	our_client?.init_verbs()
 	qdel(src)
 	return TRUE
 

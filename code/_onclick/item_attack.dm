@@ -10,6 +10,14 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	var/is_right_clicking = (user.istate & ISTATE_SECONDARY)
 
+	//Monkestation edit: REPLAYS
+	SSdemo.mark_dirty(src)
+	if(isturf(target))
+		SSdemo.mark_turf(target)
+	else
+		SSdemo.mark_dirty(target)
+	//Monkestation edit: REPLAYS
+
 	if(tool_behaviour && (target.tool_act(user, src, tool_behaviour, is_right_clicking) & TOOL_ACT_MELEE_CHAIN_BLOCKING))
 		return TRUE
 
@@ -74,6 +82,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	interact(user)
+	SSdemo.mark_dirty(src) //Monkestation Edit: Replays
 
 /// Called when the item is in the active hand, and right-clicked. Intended for alternate or opposite functions, such as lowering reagent transfer amount. At the moment, there is no verb or hotkey.
 /obj/item/proc/attack_self_secondary(mob/user, modifiers)
@@ -127,7 +136,7 @@
  * See: [/obj/item/proc/melee_attack_chain]
  */
 /atom/proc/attackby(obj/item/attacking_item, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, attacking_item, user, params) & COMPONENT_NO_AFTERATTACK)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, attacking_item, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 	return FALSE
 
@@ -142,7 +151,7 @@
  * See: [/obj/item/proc/melee_attack_chain]
  */
 /atom/proc/attackby_secondary(obj/item/weapon, mob/user, params)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY_SECONDARY, weapon, user, params)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY_SECONDARY, weapon, user, params)
 
 	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -155,7 +164,7 @@
 /obj/attackby(obj/item/attacking_item, mob/user, params)
 	return ..() || ((obj_flags & CAN_BE_HIT) && attacking_item.attack_atom(src, user, params))
 
-/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
+/mob/living/proc/can_perform_surgery(mob/living/user, params)
 	for(var/datum/surgery/operations as anything in surgeries)
 		if(user.istate & ISTATE_HARM)
 			break
@@ -166,6 +175,12 @@
 		var/list/modifiers = params2list(params)
 		if(operations.next_step(user, modifiers))
 			return TRUE
+	return FALSE
+
+
+/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(can_perform_surgery(user, params))
+		return TRUE
 
 	if(..())
 		return TRUE

@@ -165,6 +165,9 @@
 
 // gauze is only relevant for wounds, which are handled in the wounds themselves
 /obj/item/stack/medical/gauze/try_heal(mob/living/patient, mob/user, silent)
+
+	var/treatment_delay = (user == patient ? self_delay : other_delay)
+
 	var/obj/item/bodypart/limb = patient.get_bodypart(check_zone(user.zone_selected))
 	if(!limb)
 		patient.balloon_alert(user, "missing limb!")
@@ -174,8 +177,9 @@
 		return
 
 	var/gauzeable_wound = FALSE
+	var/datum/wound/woundies
 	for(var/i in limb.wounds)
-		var/datum/wound/woundies = i
+		woundies = i
 		if(woundies.wound_flags & ACCEPTS_GAUZE)
 			gauzeable_wound = TRUE
 			break
@@ -184,11 +188,19 @@
 		return
 
 	if(limb.current_gauze && (limb.current_gauze.absorption_capacity * 1.2 > absorption_capacity)) // ignore if our new wrap is < 20% better than the current one, so someone doesn't bandage it 5 times in a row
-		patient.balloon_alert(user, "already bandaged!")
+		patient.balloon_alert(user, pick("already bandaged!", "bandage is clean!")) // good enough
 		return
 
-	user.visible_message(span_warning("[user] begins wrapping the wounds on [patient]'s [limb.plaintext_zone] with [src]..."), span_warning("You begin wrapping the wounds on [user == patient ? "your" : "[patient]'s"] [limb.plaintext_zone] with [src]..."))
-	if(!do_after(user, (user == patient ? self_delay : other_delay), target=patient))
+	if(HAS_TRAIT(woundies, TRAIT_WOUND_SCANNED))
+		treatment_delay *= 0.5
+		if(user == patient)
+			to_chat(user, span_notice("You keep in mind the indications from the holo-image about your injury, and expertly begin wrapping your wounds with [src]."))
+		else
+			user.visible_message(span_warning("[user] begins expertly wrapping the wounds on [patient]'s [limb.plaintext_zone] with [src]..."), span_warning("You begin quickly wrapping the wounds on [patient]'s [limb.plaintext_zone] with [src], keeping the holo-image indications in mind..."))
+	else
+		user.visible_message(span_warning("[user] begins wrapping the wounds on [patient]'s [limb.plaintext_zone] with [src]..."), span_warning("You begin wrapping the wounds on [user == patient ? "your" : "[patient]'s"] [limb.plaintext_zone] with [src]..."))
+
+	if(!do_after(user, treatment_delay, target = patient))
 		return
 
 	user.visible_message("<span class='infoplain'><span class='green'>[user] applies [src] to [patient]'s [limb.plaintext_zone].</span></span>", "<span class='infoplain'><span class='green'>You bandage the wounds on [user == patient ? "your" : "[patient]'s"] [limb.plaintext_zone].</span></span>")
@@ -251,7 +263,7 @@
 	repeating = TRUE
 	heal_brute = 10
 	stop_bleeding = 0.6
-	grind_results = list(/datum/reagent/medicine/spaceacillin = 2)
+	grind_results = list(/datum/reagent/medicine/antipathogenic/spaceacillin = 2)
 	merge_type = /obj/item/stack/medical/suture
 
 /obj/item/stack/medical/suture/emergency
@@ -310,7 +322,7 @@
 	flesh_regeneration = 3
 
 	var/is_open = TRUE ///This var determines if the sterile packaging of the mesh has been opened.
-	grind_results = list(/datum/reagent/medicine/spaceacillin = 2)
+	grind_results = list(/datum/reagent/medicine/antipathogenic/spaceacillin = 2)
 	merge_type = /obj/item/stack/medical/mesh
 
 /obj/item/stack/medical/mesh/Initialize(mapload, new_amount, merge = TRUE, list/mat_override=null, mat_amt=1)
@@ -400,7 +412,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 
-	amount = 1
+	amount = 5
 	self_delay = 20
 	grind_results = list(/datum/reagent/bone_dust = 10, /datum/reagent/carbon = 10)
 	novariants = TRUE
@@ -433,8 +445,8 @@
 	use(1)
 	return BRUTELOSS
 
-/obj/item/stack/medical/bone_gel/four
-	amount = 4
+/obj/item/stack/medical/bone_gel/one
+	amount = 1
 
 /obj/item/stack/medical/poultice
 	name = "mourning poultices"

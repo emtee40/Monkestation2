@@ -137,6 +137,10 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 	name = "Maid Neck Cover"
 	item_path = /obj/item/clothing/neck/maid
 
+/datum/loadout_item/neck/bowtie_collar
+	name = "Colorable Bowtie Collar"
+	item_path = /obj/item/clothing/neck/tie/bunnytie/tied
+
 /datum/loadout_item/neck/boatcloak
 	name = "Boat cloak"
 	item_path = /obj/item/clothing/neck/boatcloak
@@ -144,6 +148,43 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 /datum/loadout_item/neck/polycloak
 	name = "Poly cloak"
 	item_path = /obj/item/clothing/neck/polycloak
+
+
+/datum/loadout_item/neck/trans
+	name = "Trans Pride Cloak"
+	item_path = /obj/item/clothing/neck/trans
+
+/datum/loadout_item/neck/pan
+	name = "Pansexual Pride Cloak"
+	item_path = /obj/item/clothing/neck/pan
+
+/datum/loadout_item/neck/les
+	name = "Lesbian Pride Cloak"
+	item_path = /obj/item/clothing/neck/les
+
+/datum/loadout_item/neck/intersex
+	name = "Intersex Pride Cloak"
+	item_path = /obj/item/clothing/neck/intersex
+
+/datum/loadout_item/neck/gay
+	name = "Gay Pride Cloak"
+	item_path = /obj/item/clothing/neck/gay
+
+/datum/loadout_item/neck/enby
+	name = "Nonbinary Pride Cloak"
+	item_path = /obj/item/clothing/neck/enby
+
+/datum/loadout_item/neck/bi
+	name = "Bisexual Pride Cloak"
+	item_path = /obj/item/clothing/neck/bi
+
+/datum/loadout_item/neck/aro
+	name = "Aro Pride Cloak"
+	item_path = /obj/item/clothing/neck/aro
+
+/datum/loadout_item/neck/ace
+	name = "Asexual Pride Cloak"
+	item_path = /obj/item/clothing/neck/ace
 
 /*
 *	DONATOR

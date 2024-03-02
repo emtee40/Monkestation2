@@ -103,7 +103,7 @@
 /obj/item/reagent_containers/create_reagents(max_vol, flags)
 	. = ..()
 	RegisterSignals(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_change))
-	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, PROC_REF(on_reagents_del))
+	RegisterSignal(reagents, COMSIG_QDELETING, PROC_REF(on_reagents_del))
 
 /obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, params)
 	if (!(user.istate & ISTATE_HARM))
@@ -112,7 +112,7 @@
 
 /obj/item/reagent_containers/proc/on_reagents_del(datum/reagents/reagents)
 	SIGNAL_HANDLER
-	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_QDELETING))
 	return NONE
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
@@ -146,7 +146,7 @@
 /obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, params)
 	if(HAS_TRAIT(target, TRAIT_DO_NOT_SPLASH))
 		return ..()
-	if(!(user.istate & ISTATE_HARM))
+	if(!(user.istate & ISTATE_HARM) && istype(user.client?.imode, /datum/interaction_mode/combat_mode))
 		return ..()
 	if (try_splash(user, target))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

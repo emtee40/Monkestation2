@@ -79,6 +79,10 @@
 		if(give_secondary_objectives)
 			uplink_handler.has_objectives = TRUE
 			uplink_handler.generate_objectives()
+//monkestation edit start
+		else
+			uplink_handler.has_objectives = FALSE
+//monkestation edit end
 
 		if(uplink_handler.progression_points < SStraitor.current_global_progression)
 			uplink_handler.progression_points = SStraitor.current_global_progression * SStraitor.newjoin_progression_coeff
@@ -92,7 +96,7 @@
 				if((uplink_handler.assigned_role in item.restricted_roles) || (uplink_handler.assigned_species in item.restricted_species))
 					uplink_items += item
 					continue
-		uplink_handler.extra_purchasable += create_uplink_sales(uplink_sale_count, /datum/uplink_category/discounts, 1, uplink_items)
+		uplink_handler.extra_purchasable += create_uplink_sales(uplink_sale_count, /datum/uplink_category/discounts, 5, uplink_items) //monkestation edit: from 1 stock to 5
 
 	if(give_objectives)
 		forge_traitor_objectives()
@@ -344,11 +348,17 @@
 		var/completed_objectives_text = "Completed Uplink Objectives: "
 		for(var/datum/traitor_objective/objective as anything in uplink_handler.completed_objectives)
 			if(objective.objective_state == OBJECTIVE_STATE_COMPLETED)
-				completed_objectives_text += "<br><B>[objective.name]</B> - ([objective.telecrystal_reward] TC, [DISPLAY_PROGRESSION(objective.progression_reward)] Reputation)"
+				completed_objectives_text += "<br><B>[objective.name]</B> - ([objective.telecrystal_reward] TC, [DISPLAY_PROGRESSION(objective.progression_reward)] Threat Level)"
+//monkestation edit on previous line: replaced "Reputation" with "Threat Level"
 		result += completed_objectives_text
-		result += "<br>The traitor had a total of [DISPLAY_PROGRESSION(uplink_handler.progression_points)] Reputation and [uplink_handler.telecrystals] Unused Telecrystals."
-
+		result += "<br>The traitor had a total of [DISPLAY_PROGRESSION(uplink_handler.progression_points)] Threat Level and [uplink_handler.telecrystals] Unused Telecrystals."
+//monkestation edit on previous line: replaced "Reputation" with "Threat Level"
 	var/special_role_text = lowertext(name)
+
+//monkestation edit start
+	if(uplink_handler?.purchased_contractor_items)
+		result += contractor_round_end()
+//monkestation edit end
 
 	if(traitor_won)
 		result += span_greentext("The [special_role_text] was successful!")
@@ -390,12 +400,3 @@
 
 #undef FLAVOR_FACTION_SYNDICATE
 #undef FLAVOR_FACTION_NANOTRASEN
-
-/datum/antagonist/traitor/antag_token(datum/mind/hosts_mind, mob/spender)
-	. = ..()
-	if(isobserver(spender))
-		var/mob/living/carbon/human/newmob = spender.change_mob_type( /mob/living/carbon/human , null, null, TRUE )
-		newmob.equipOutfit(/datum/outfit/job/assistant)
-		newmob.mind.make_traitor()
-	else
-		hosts_mind.make_traitor()

@@ -95,6 +95,23 @@
 	if(m_intent == MOVE_INTENT_WALK)
 		return TRUE
 
+	if(length(diseases) && isliving(M))
+		var/mob/living/living = M
+		var/block = living.check_contact_sterility(BODY_ZONE_EVERYTHING)
+		var/list/contact = filter_disease_by_spread(diseases, required = DISEASE_SPREAD_CONTACT_SKIN)
+		if(length(contact) && !block)
+			for(var/datum/disease/advanced/V as anything in contact)
+				living.infect_disease(V, notes="(Skin Contact - (Bump), coming from [src])")
+
+	if(isliving(M))
+		var/mob/living/living = M
+		var/block = check_contact_sterility(BODY_ZONE_EVERYTHING)
+		if(length(living.diseases))
+			var/list/contact = filter_disease_by_spread(living.diseases, required = DISEASE_SPREAD_CONTACT_SKIN)
+			if(length(contact) && !block)
+				for(var/datum/disease/advanced/V as anything in contact)
+					infect_disease(V, notes="(Skin Contact - (Bump), coming from [living])")
+
 	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
@@ -119,16 +136,6 @@
 		var/mob/living/L = M
 		theyre_blocking = L.istate & ISTATE_BLOCKING
 		they_can_move = L.mobility_flags & MOBILITY_MOVE
-		//Also spread diseases
-		for(var/thing in diseases)
-			var/datum/disease/D = thing
-			if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
-				L.ContactContractDisease(D)
-
-		for(var/thing in L.diseases)
-			var/datum/disease/D = thing
-			if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
-				ContactContractDisease(D)
 
 		//Should stop you pushing a restrained person out of the way
 		if(L.pulledby && L.pulledby != src && HAS_TRAIT(L, TRAIT_RESTRAINED))
@@ -309,8 +316,10 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+/mob/living/start_pulling(atom/movable/AM, 	state, force = pull_force, supress_message = FALSE)
 	if(!AM || !src)
+		return FALSE
+	if(isturf(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
@@ -382,15 +391,22 @@
 
 			SEND_SIGNAL(M, COMSIG_LIVING_GET_PULLED, src)
 			//Share diseases that are spread by touch
-			for(var/thing in diseases)
-				var/datum/disease/D = thing
-				if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
-					L.ContactContractDisease(D)
+			if(length(diseases) && isliving(M))
+				var/mob/living/living = M
+				var/block = living.check_contact_sterility(BODY_ZONE_EVERYTHING)
+				var/list/contact = filter_disease_by_spread(diseases, required = DISEASE_SPREAD_CONTACT_SKIN)
+				if(length(contact) && !block)
+					for(var/datum/disease/advanced/V as anything in contact)
+						living.infect_disease(V, notes="(Skin Contact - (Grab), coming from [src])")
 
-			for(var/thing in L.diseases)
-				var/datum/disease/D = thing
-				if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
-					ContactContractDisease(D)
+			if(isliving(M))
+				var/mob/living/living = M
+				var/block = check_contact_sterility(BODY_ZONE_EVERYTHING)
+				if(length(living.diseases))
+					var/list/contact = filter_disease_by_spread(living.diseases, required = DISEASE_SPREAD_CONTACT_SKIN)
+					if(length(contact) && !block)
+						for(var/datum/disease/advanced/V as anything in contact)
+							infect_disease(V, notes="(Skin Contact - (Grab), coming from [living])")
 
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
@@ -468,6 +484,7 @@
 /mob/living/_pointed(atom/pointing_at)
 	if(!..())
 		return FALSE
+
 	log_message("points at [pointing_at]", LOG_EMOTE)
 	visible_message("<span class='infoplain'>[span_name("[src]")] points at [pointing_at].</span>", span_notice("You point at [pointing_at]."))
 
@@ -506,7 +523,7 @@
 /mob/living/incapacitated(flags)
 	if((flags & IGNORE_CRIT) && ((stat >= SOFT_CRIT && (stat != DEAD && stat != UNCONSCIOUS)) && !src.pulledby))
 		return FALSE
-		
+
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return TRUE
 
@@ -514,7 +531,7 @@
 		return TRUE
 	if(!(flags & IGNORE_GRAB) && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		return TRUE
-	if(!(flags & IGNORE_STASIS) && IS_IN_STASIS(src))
+	if(!(flags & IGNORE_STASIS) && HAS_TRAIT(src, TRAIT_STASIS))
 		return TRUE
 	return FALSE
 
@@ -1151,7 +1168,7 @@
 	buckled.user_unbuckle_mob(src,src)
 
 /mob/living/proc/resist_fire()
-	return
+	return FALSE
 
 /mob/living/proc/resist_restraints()
 	return
@@ -1546,11 +1563,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	return fire_status.ignite(silent)
 
-/mob/living/proc/update_fire()
-	var/datum/status_effect/fire_handler/fire_handler = has_status_effect(/datum/status_effect/fire_handler)
-	if(fire_handler)
-		fire_handler.update_overlay()
-
 /**
  * Extinguish all fire on the mob
  *
@@ -1558,6 +1570,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
  * Signals the extinguishing.
  */
 /mob/living/proc/extinguish_mob()
+	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
+		return
 	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
 	if(!fire_status || !fire_status.on_fire)
 		return
@@ -1576,10 +1590,14 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 /mob/living/proc/adjust_fire_stacks(stacks, fire_type = /datum/status_effect/fire_handler/fire_stacks)
 	if(stacks < 0)
+		if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //You can't reduce fire stacks of the everlasting flames
+			return
 		stacks = max(-fire_stacks, stacks)
 	apply_status_effect(fire_type, stacks)
 
 /mob/living/proc/adjust_wet_stacks(stacks, wet_type = /datum/status_effect/fire_handler/wet_stacks)
+	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
+		return
 	if(stacks < 0)
 		stacks = max(fire_stacks, stacks)
 	apply_status_effect(wet_type, stacks)
@@ -1656,19 +1674,18 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	ignite_mob()
 
 /**
- * Sets fire overlay of the mob.
+ * Gets the fire overlay to use for this mob
  *
- * Vars:
+ * Args:
  * * stacks: Current amount of fire_stacks
  * * on_fire: If we're lit on fire
- * * last_icon_state: Holds last fire overlay icon state, used for optimization
- * * suffix: Suffix for the fire icon state for special fire types
  *
- * This should return last_icon_state for the fire status efect
+ * Return a mutable appearance, the overlay that will be applied.
  */
 
-/mob/living/proc/update_fire_overlay(stacks, on_fire, last_icon_state, suffix = "")
-	return last_icon_state
+/mob/living/proc/get_fire_overlay(stacks, on_fire)
+	RETURN_TYPE(/mutable_appearance)
+	return null
 
 /**
  * Handles effects happening when mob is on normal fire
@@ -2581,7 +2598,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(picked_theme == "Random")
 		picked_theme = null //holopara code handles not having a theme by giving a random one
 	var/picked_name = tgui_input_text(admin, "Name the guardian, leave empty to let player name it.", "Guardian Controller")
-	var/picked_color = input(admin, "Set the guardian's color, cancel to let player set it.", "Guardian Controller", "#ffffff") as color|null
+	var/picked_color = tgui_color_picker(admin, "Set the guardian's color, cancel to let player set it.", "Guardian Controller", "#ffffff")
 	if(tgui_alert(admin, "Confirm creation.", "Guardian Controller", list("Yes", "No")) != "Yes")
 		return
 	var/mob/living/basic/guardian/summoned_guardian = new picked_type(src, picked_theme)

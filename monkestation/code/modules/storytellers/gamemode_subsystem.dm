@@ -1,4 +1,8 @@
 #define INIT_ORDER_GAMEMODE 70
+///how many storytellers can be voted for along with always_votable ones
+#define DEFAULT_STORYTELLER_VOTE_OPTIONS 4
+///amount of players we can have before no longer running votes for storyteller
+#define MAX_POP_FOR_STORYTELLER_VOTE 25
 
 SUBSYSTEM_DEF(gamemode)
 	name = "Gamemode"
@@ -9,10 +13,10 @@ SUBSYSTEM_DEF(gamemode)
 
 	/// List of our event tracks for fast access during for loops.
 	var/list/event_tracks = EVENT_TRACKS
-	/// Our storyteller. He progresses our trackboards and picks out events
+	/// Our storyteller. They progresses our trackboards and picks out events
 	var/datum/storyteller/storyteller
-	/// Result of the storyteller vote. Defaults to the guide.
-	var/voted_storyteller = /datum/storyteller/guide
+	/// Result of the storyteller vote/pick. Defaults to the guide.
+	var/selected_storyteller = /datum/storyteller/guide
 	/// List of all the storytellers. Populated at init. Associative from type
 	var/list/storytellers = list()
 	/// Next process for our storyteller. The wait time is STORYTELLER_WAIT_TIME
@@ -139,9 +143,16 @@ SUBSYSTEM_DEF(gamemode)
 	var/sec_crew = 0
 	var/med_crew = 0
 
-	var/wizardmode = FALSE
+	/// Is storyteller secret or not
+	var/secret_storyteller = FALSE
 
-	var/datum/round_event_control/current_roundstart_event
+	/// List of new player minds we currently want to give our roundstart antag to
+	var/list/roundstart_antag_minds = list()
+
+	var/wizardmode = FALSE //refactor this into just being a unique storyteller
+
+	/// What is our currently desired/selected roundstart event
+	var/datum/round_event_control/antagonist/solo/current_roundstart_event
 	var/list/last_round_events = list()
 	var/ran_roundstart = FALSE
 	var/list/triggered_round_events = list()
@@ -244,9 +255,9 @@ SUBSYSTEM_DEF(gamemode)
 			var/mob/dead/new_player/new_player = player
 			if(new_player.ready == PLAYER_READY_TO_PLAY && new_player.mind && new_player.check_preferences())
 				candidate_candidates += player
-		else if (observers && isobserver(player))
+		else if(observers && isobserver(player))
 			candidate_candidates += player
-		else if (living_players && isliving(player))
+		else if(living_players && isliving(player))
 			if(!ishuman(player) && !isAI(player))
 				continue
 			if(!(player.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
@@ -257,7 +268,7 @@ SUBSYSTEM_DEF(gamemode)
 		if(QDELETED(candidate) || !candidate.key || !candidate.client || (!observers && !candidate.mind))
 			continue
 		if(!observers)
-			if(!isliving(candidate))
+			if(!ready_players && !isliving(candidate))
 				continue
 			if(no_antags && candidate.mind.special_role)
 				continue
@@ -273,7 +284,7 @@ SUBSYSTEM_DEF(gamemode)
 			var/time_to_check
 			if(required_time)
 				time_to_check = required_time
-			else if (inherit_required_time)
+			else if(inherit_required_time)
 				time_to_check = GLOB.special_roles[be_special]
 
 			if(time_to_check && candidate.client.get_remaining_days(time_to_check) > 0)
@@ -378,7 +389,7 @@ SUBSYSTEM_DEF(gamemode)
 			continue
 		ASYNC
 			event.try_start()
-//		INVOKE_ASYNC(event, /datum/round_event.proc/try_start)
+		INVOKE_ASYNC(event, TYPE_PROC_REF(/datum/round_event, try_start))
 
 /// Schedules an event to run later.
 /datum/controller/subsystem/gamemode/proc/schedule_event(datum/round_event_control/passed_event, passed_time, passed_cost, passed_ignore, passed_announce, _forced = FALSE)
@@ -427,7 +438,7 @@ SUBSYSTEM_DEF(gamemode)
 		var/high_pop_bound = pop_scale_thresholds[track]
 		var/scale_penalty = pop_scale_penalties[track]
 
-		var/perceived_pop = max(low_pop_bound, active_players) // after max pop we start generating even more threat
+		var/perceived_pop = min(max(low_pop_bound, active_players), high_pop_bound)
 
 		var/divisor = high_pop_bound - low_pop_bound
 		/// If the bounds are equal, we'd be dividing by zero or worse, if upper is smaller than lower, we'd be increasing the factor, just make it 1 and continue.
@@ -446,7 +457,7 @@ SUBSYSTEM_DEF(gamemode)
 	if(. == EVENT_CANT_RUN)//we couldn't run this event for some reason, set its max_occurrences to 0
 		event.max_occurrences = 0
 	else if(. == EVENT_READY)
-		event.runEvent(random = TRUE, admin_forced = forced) // fallback to dynamic
+		event.run_event(random = TRUE, admin_forced = forced) // fallback to dynamic
 
 ///Resets frequency multiplier.
 /datum/controller/subsystem/gamemode/proc/resetFrequency()
@@ -538,7 +549,7 @@ SUBSYSTEM_DEF(gamemode)
 /datum/controller/subsystem/gamemode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
 	if(!report)
 		report = !CONFIG_GET(flag/no_intercept_report)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/display_roundstart_logout_report), ROUNDSTART_LOGOUT_REPORT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(display_roundstart_logout_report)), ROUNDSTART_LOGOUT_REPORT_TIME)
 
 	if(CONFIG_GET(flag/reopen_roundstart_suicide_roles))
 		var/delay = CONFIG_GET(number/reopen_roundstart_suicide_roles_delay)
@@ -546,7 +557,7 @@ SUBSYSTEM_DEF(gamemode)
 			delay = (delay SECONDS)
 		else
 			delay = (4 MINUTES) //default to 4 minutes if the delay isn't defined.
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(reopen_roundstart_suicide_roles)), delay)
 
 	if(SSdbcore.Connect())
 		var/list/to_set = list()
@@ -775,18 +786,29 @@ SUBSYSTEM_DEF(gamemode)
 	point_thresholds[EVENT_TRACK_ROLESET] = CONFIG_GET(number/roleset_point_threshold)
 	point_thresholds[EVENT_TRACK_OBJECTIVES] = CONFIG_GET(number/objectives_point_threshold)
 
+/datum/controller/subsystem/gamemode/proc/handle_picking_stroyteller()
+	if(length(GLOB.clients) > MAX_POP_FOR_STORYTELLER_VOTE)
+		secret_storyteller = TRUE
+		selected_storyteller = pick_weight(get_valid_storytellers(TRUE))
+		return
+	SSvote.initiate_vote(/datum/vote/storyteller, "pick round storyteller", forced = TRUE)
+
 /datum/controller/subsystem/gamemode/proc/storyteller_vote_choices()
-	var/client_amount = GLOB.clients.len
-	var/list/choices = list()
-	for(var/storyteller_type in storytellers)
-		var/datum/storyteller/storyboy = storytellers[storyteller_type]
-		if(!storyboy.votable)
-			continue
-		if((storyboy.population_min && storyboy.population_min > client_amount) || (storyboy.population_max && storyboy.population_max < client_amount))
-			continue
-		choices += storyboy.name
-		choices[storyboy.name] = 0
-	return choices
+	var/list/final_choices = list()
+	var/list/pick_from = list()
+	for(var/datum/storyteller/storyboy in get_valid_storytellers())
+		if(storyboy.always_votable)
+			final_choices[storyboy.name] = 0
+		else
+			pick_from[storyboy.name] = storyboy.weight //might be able to refactor this to be slightly better due to get_valid_storytellers returning a weighted list
+
+	var/added_storytellers = 0
+	while(added_storytellers < DEFAULT_STORYTELLER_VOTE_OPTIONS && length(pick_from))
+		added_storytellers++
+		var/picked_storyteller = pick_weight(pick_from)
+		final_choices[picked_storyteller] = 0
+		pick_from -= picked_storyteller
+	return final_choices
 
 /datum/controller/subsystem/gamemode/proc/storyteller_desc(storyteller_name)
 	for(var/storyteller_type in storytellers)
@@ -800,19 +822,35 @@ SUBSYSTEM_DEF(gamemode)
 	for(var/storyteller_type in storytellers)
 		var/datum/storyteller/storyboy = storytellers[storyteller_type]
 		if(storyboy.name == winner_name)
-			voted_storyteller = storyteller_type
+			selected_storyteller = storyteller_type
 			break
 
+///return a weighted list of all storytellers that are currently valid to roll, if return_types is set then we will return types instead of instances
+/datum/controller/subsystem/gamemode/proc/get_valid_storytellers(return_types = FALSE)
+	var/client_amount = length(GLOB.clients)
+	var/list/valid_storytellers = list()
+	for(var/storyteller_type in storytellers)
+		var/datum/storyteller/storyboy = storytellers[storyteller_type]
+		if(storyboy.restricted || (storyboy.population_min && storyboy.population_min > client_amount) || (storyboy.population_max && storyboy.population_max < client_amount))
+			continue
+
+		valid_storytellers[return_types ? storyboy.type : storyboy] = storyboy.weight
+	return valid_storytellers
+
 /datum/controller/subsystem/gamemode/proc/init_storyteller()
-	set_storyteller(voted_storyteller)
+	set_storyteller(selected_storyteller)
 
 /datum/controller/subsystem/gamemode/proc/set_storyteller(passed_type)
 	if(!storytellers[passed_type])
-		message_admins("Attempted to set an invalid storyteller type: [passed_type].")
+		message_admins("Attempted to set an invalid storyteller type: [passed_type], force setting to guide instead.")
+		storyteller = storytellers[/datum/storyteller/guide] //if we dont have any then we brick, lets not do that
 		CRASH("Attempted to set an invalid storyteller type: [passed_type].")
 	storyteller = storytellers[passed_type]
-	to_chat(world, span_notice("<b>Storyteller is [storyteller.name]!</b>"))
-	to_chat(world, span_notice("[storyteller.welcome_text]"))
+	if(!secret_storyteller)
+		send_to_playing_players(span_notice("<b>Storyteller is [storyteller.name]!</b>"))
+		send_to_playing_players(span_notice("[storyteller.welcome_text]"))
+	else
+		send_to_observers(span_boldbig("<b>Storyteller is [storyteller.name]!</b>")) //observers still get to know
 
 /// Panel containing information, variables and controls about the gamemode and scheduled event
 /datum/controller/subsystem/gamemode/proc/admin_panel(mob/user)
@@ -1158,3 +1196,6 @@ SUBSYSTEM_DEF(gamemode)
 				continue
 			listed.occurrences++
 			listed.occurrences++
+
+#undef DEFAULT_STORYTELLER_VOTE_OPTIONS
+#undef MAX_POP_FOR_STORYTELLER_VOTE

@@ -476,6 +476,8 @@
 /atom/movable/proc/start_pulling(atom/movable/pulled_atom, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(pulled_atom))
 		return FALSE
+	if(!istype(pulled_atom))
+		return FALSE
 	if(!(pulled_atom.can_be_pulled(src, state, force)))
 		return FALSE
 
@@ -502,6 +504,7 @@
 	pulling = pulled_atom
 	pulled_atom.set_pulledby(src)
 	SEND_SIGNAL(src, COMSIG_ATOM_START_PULL, pulled_atom, state, force)
+	SEND_SIGNAL(pulled_atom, COMSIG_ATOM_PULLED, src, state, force)
 	setGrabState(state)
 	if(ismob(pulled_atom))
 		var/mob/pulled_mob = pulled_atom
@@ -810,6 +813,7 @@
 	if (!moving_diagonally && client_mobs_in_contents)
 		update_parallax_contents()
 
+	SSdemo.mark_dirty(src) //Monkestation Edit: REPLAYS
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
 	if(old_loc)
@@ -1620,6 +1624,7 @@
 
 /atom/movable/vv_get_dropdown()
 	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_MOVABLE_PHYSICS, "Edit Movable Physics")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_DISPLACEMENT_LARGE, "Edit Large Displacement")
 	VV_DROPDOWN_OPTION(VV_HK_DEADCHAT_PLAYS, "Start/Stop Deadchat Plays")
@@ -1648,6 +1653,10 @@
 				apply_displacement_icon(/obj/effect/distortion/large)
 			else
 				return
+
+	if(href_list[VV_HK_EDIT_MOVABLE_PHYSICS] && check_rights(R_VAREDIT))
+		var/client/C = usr.client
+		C?.open_movable_physics_editor(src)
 
 	if(href_list[VV_HK_DEADCHAT_PLAYS] && check_rights(R_FUN))
 		if(tgui_alert(usr, "Allow deadchat to control [src] via chat commands?", "Deadchat Plays [src]", list("Allow", "Cancel")) != "Allow")

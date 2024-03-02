@@ -161,7 +161,7 @@
 			if(1)
 				owner.emote("twitch")
 			if(2 to 3)
-				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "VALID", "AHELP", "ANIMES", "ICKY", "OCKY", "LIZZZARD", "HELP")]", forced=name)
+				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "MROW", "ANIMES", "LIZZZARD", "HELP")]", forced=name)
 		var/x_offset_old = owner.pixel_x
 		var/y_offset_old = owner.pixel_y
 		var/x_offset = owner.pixel_x + rand(-2,2)
@@ -219,48 +219,48 @@
 	quality = POSITIVE
 	text_gain_indication = "<span class='notice'>Your skin begins to glow softly.</span>"
 	instability = 5
-	var/obj/effect/dummy/luminescent_glow/glowth //shamelessly copied from luminescents
-	var/glow = 2.5
-	var/range = 2.5
-	var/glow_color
 	power_coeff = 1
 	conflicts = list(/datum/mutation/human/glow/anti)
+	var/glow_power = 2.5
+	var/glow_range = 2.5
+	var/glow_color
+	var/obj/effect/dummy/lighting_obj/moblight/glow
 
 /datum/mutation/human/glow/on_acquiring(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
-	glow_color = glow_color()
-	glowth = new(owner)
+	glow_color = get_glow_color()
+	glow = owner.mob_light()
 	modify()
 
 // Override modify here without a parent call, because we don't actually give an action.
 /datum/mutation/human/glow/modify()
-	if(!glowth)
+	if(!glow)
 		return
 
-	glowth.set_light_range_power_color(range * GET_MUTATION_POWER(src), glow, glow_color)
-
-/// Returns the color for the glow effect
-/datum/mutation/human/glow/proc/glow_color()
-	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
+	glow.set_light_range_power_color(glow_range * GET_MUTATION_POWER(src), glow_power, glow_color)
 
 /datum/mutation/human/glow/on_losing(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
-	QDEL_NULL(glowth)
+	QDEL_NULL(glow)
+
+/// Returns a color for the glow effect
+/datum/mutation/human/glow/proc/get_glow_color()
+	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
 /datum/mutation/human/glow/anti
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
-	text_gain_indication = "<span class='notice'>Your light around you seems to disappear.</span>"
+	text_gain_indication = "<span class='notice'>The light around you seems to disappear.</span>"
 	glow = -1.5
 	conflicts = list(/datum/mutation/human/glow)
 	locked = TRUE
 
-/datum/mutation/human/glow/anti/glow_color()
-	return COLOR_VERY_LIGHT_GRAY
+/datum/mutation/human/glow/anti/get_glow_color()
+	return COLOR_BLACK
 
 /datum/mutation/human/strong
 	name = "Strength"

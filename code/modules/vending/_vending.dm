@@ -211,7 +211,7 @@
 		circuit = null
 		build_inv = TRUE
 	. = ..()
-	wires = new /datum/wires/vending(src)
+	set_wires(new /datum/wires/vending(src))
 
 	if(build_inv) //non-constructable vending machine
 		build_inventories()
@@ -1053,11 +1053,12 @@
 	update_canister()
 	. = ..()
 
-/obj/machinery/vending/emag_act(mob/user)
+/obj/machinery/vending/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
-		return
+		return FALSE
 	obj_flags |= EMAGGED
-	to_chat(user, span_notice("You short out the product lock on [src]."))
+	balloon_alert(user, "product lock disabled")
+	return TRUE
 
 /obj/machinery/vending/interact(mob/user)
 	if(seconds_electrified && !(machine_stat & NOPOWER))
@@ -1641,7 +1642,7 @@
 	max_integrity = 700
 	max_loaded_items = 40
 	light_mask = "greed-light-mask"
-	custom_materials = list(/datum/material/gold = MINERAL_MATERIAL_AMOUNT * 5)
+	custom_materials = list(/datum/material/gold = SHEET_MATERIAL_AMOUNT * 5)
 
 /obj/machinery/vending/custom/greed/Initialize(mapload)
 	. = ..()

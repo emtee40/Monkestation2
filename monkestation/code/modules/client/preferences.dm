@@ -26,6 +26,8 @@
 		"high_threat" = 0,
 		"medium_threat" = 0,
 		"low_threat" = 0,
+		"event_tokens" = 0,
+		"event_token_month" = 0,
 	)
 
 	///amount of metaconis you can earn per shift
@@ -43,3 +45,6 @@
 		)
 	///amount of lootboxes owned
 	var/lootboxes_owned = 0
+
+	///our current antag rep (base is 10)
+	var/antag_rep = 10

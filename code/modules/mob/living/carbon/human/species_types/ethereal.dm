@@ -52,13 +52,9 @@
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 	var/default_color
 
-
-
 /datum/species/ethereal/Destroy(force)
-	if(ethereal_light)
-		QDEL_NULL(ethereal_light)
+	QDEL_NULL(ethereal_light)
 	return ..()
-
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
 	. = ..()
@@ -72,7 +68,7 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag_act))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	RegisterSignal(ethereal, COMSIG_LIGHT_EATER_ACT, PROC_REF(on_light_eater))
-	ethereal_light = ethereal.mob_light()
+	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	spec_updatehealth(ethereal)
 	new_ethereal.set_safe_hunger_level()
 	update_mail_goodies(ethereal)
@@ -146,13 +142,14 @@
 /datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
 	if(emageffect)
-		return
+		return FALSE
 	emageffect = TRUE
 	if(user)
 		to_chat(user, span_notice("You tap [H] on the back with your card."))
 	H.visible_message(span_danger("[H] starts flickering in an array of colors!"))
 	handle_emag(H)
 	addtimer(CALLBACK(src, PROC_REF(stop_emag), H), 2 MINUTES) //Disco mode for 2 minutes! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
+	return TRUE
 
 /// Special handling for getting hit with a light eater
 /datum/species/ethereal/proc/on_light_eater(mob/living/carbon/human/source, datum/light_eater)

@@ -11,6 +11,8 @@
 	SIGNAL_HANDLER
 	if(examine_hint)
 		examine_list += examine_hint
+	if(explict_examine)
+		examine_list += explict_examine
 
 /datum/component/artifact/proc/on_sticker(atom/source, obj/item/sticker/sticker, mob/user)
 	SIGNAL_HANDLER
@@ -47,24 +49,30 @@
 		else if(!(user.istate & ISTATE_HARM))
 			holder.visible_message(span_notice("[user] gently pushes [user.pulling] against the [holder]."))
 			process_stimuli(STIMULUS_CARBON_TOUCH)
+			logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has pushed [user.pulling] into [parent]")
 		return
 
 	if(artifact_size == ARTIFACT_SIZE_LARGE) //only large artifacts since the average spessman wouldnt notice)
 		user.visible_message(span_notice("[user] touches [holder]."))
-		
+
 	if(ishuman(user))
-		var/mob/living/carbon/human/human = user 
+		var/mob/living/carbon/human/human = user
 		var/obj/item/bodypart/arm = human.get_active_hand()
 		if(arm.bodytype & BODYTYPE_ROBOTIC)
 			process_stimuli(STIMULUS_SILICON_TOUCH)
+			logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has touched [parent] with [arm]")
 		else
 			process_stimuli(STIMULUS_CARBON_TOUCH)
+			logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has touched [parent] with [arm]")
 	else if(iscarbon(user))
 		process_stimuli(STIMULUS_CARBON_TOUCH)
+		logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has touched [parent]")
 	else if(issilicon(user))
 		process_stimuli(STIMULUS_SILICON_TOUCH)
+		logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has touched [parent]")
 
 	process_stimuli(STIMULUS_FORCE, 1)
+	logger.Log(LOG_CATEGORY_ARTIFACT, "[user] has touched [parent]")
 
 	if(active)
 		effect_touched(user)
@@ -75,7 +83,7 @@
 //just redirect to on_unarmed
 /datum/component/artifact/proc/on_robot_attack(datum/source, mob/living/user)
 	SIGNAL_HANDLER
-	on_unarmed(source, user) 
+	on_unarmed(source, user)
 
 /datum/component/artifact/proc/ex_act(atom/source, severity)
 	SIGNAL_HANDLER
@@ -90,3 +98,11 @@
 /datum/component/artifact/proc/on_attackby(atom/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 	I.on_artifact_interact(src, user)
+
+/datum/component/artifact/proc/log_pull(datum/source, atom/puller)
+	SIGNAL_HANDLER
+	logger.Log(LOG_CATEGORY_ARTIFACT, "[puller] has started pulling the [parent]")
+
+/datum/component/artifact/proc/log_stop_pull(datum/source, atom/puller)
+	SIGNAL_HANDLER
+	logger.Log(LOG_CATEGORY_ARTIFACT, "[puller] has stopped pulling the [parent]")

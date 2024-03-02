@@ -6,6 +6,7 @@
 
 	GLOB.carbon_list += src
 	AddComponent(/datum/component/carbon_sprint)
+	immune_system = new(src)
 	var/static/list/loc_connections = list(
 		COMSIG_CARBON_DISARM_PRESHOVE = PROC_REF(disarm_precollide),
 		COMSIG_CARBON_DISARM_COLLIDE = PROC_REF(disarm_collision),
@@ -21,6 +22,7 @@
 	QDEL_LIST(organs)
 	QDEL_LIST(bodyparts)
 	QDEL_LIST(implants)
+	QDEL_NULL(immune_system)
 	for(var/wound in all_wounds) // these LAZYREMOVE themselves when deleted so no need to remove the list here
 		qdel(wound)
 	for(var/scar in all_scars)
@@ -33,10 +35,13 @@
 	if(!all_wounds || !(!(user.istate & ISTATE_HARM) || user == src))
 		return ..()
 
+	if(can_perform_surgery(user, params))
+		return TRUE
+
 	for(var/i in shuffle(all_wounds))
-		var/datum/wound/W = i
-		if(W.try_treating(item, user))
-			return 1
+		var/datum/wound/wound = i
+		if(wound.try_treating(item, user))
+			return TRUE
 
 	return ..()
 
@@ -152,7 +157,7 @@
 		var/obj/item/thrown_item = thrown_thing
 		if(thrown_item.throw_verb)
 			verb_text = thrown_item.throw_verb
-	visible_message(span_danger("[src] [plural_s(verb_text)] [thrown_thing][power_throw ? " really hard!" : "."]"), \
+	visible_message(span_danger("[src] [verb_text][plural_s(verb_text)] [thrown_thing][power_throw ? " really hard!" : "."]"), \
 					span_danger("You [verb_text] [thrown_thing][power_throw ? " really hard!" : "."]"))
 	log_message("has thrown [thrown_thing] [power_throw > 0 ? "really hard" : ""]", LOG_ATTACK)
 	var/extra_throw_range = HAS_TRAIT(src, TRAIT_THROWINGARM) ? 2 : 0
@@ -218,16 +223,7 @@
 		buckled.user_unbuckle_mob(src,src)
 
 /mob/living/carbon/resist_fire()
-	adjust_fire_stacks(-5)
-	Paralyze(60, ignore_canstun = TRUE)
-	spin(32,2)
-	visible_message(span_danger("[src] rolls on the floor, trying to put [p_them()]self out!"), \
-		span_notice("You stop, drop, and roll!"))
-	sleep(3 SECONDS)
-	if(fire_stacks <= 0 && !QDELETED(src))
-		visible_message(span_danger("[src] successfully extinguishes [p_them()]self!"), \
-			span_notice("You extinguish yourself."))
-	return
+	return !!apply_status_effect(/datum/status_effect/stop_drop_roll)
 
 /mob/living/carbon/resist_restraints()
 	var/obj/item/I = null
@@ -880,7 +876,7 @@
 		set_handcuffed(null)
 		update_handcuffed()
 
-	stamina.adjust(stamina.maximum)
+	stamina.adjust(stamina.maximum, TRUE)
 	return ..()
 
 /mob/living/carbon/can_be_revived()
@@ -1002,6 +998,9 @@
 
 /proc/cmp_organ_slot_asc(slot_a, slot_b)
 	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
+
+/mob/living/carbon/proc/get_footprint_sprite()
+	return FOOTPRINT_SPRITE_PAWS
 
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()

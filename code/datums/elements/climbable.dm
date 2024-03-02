@@ -19,13 +19,13 @@
 		src.climb_stun = climb_stun
 
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 	RegisterSignal(target, COMSIG_ATOM_BUMPED, PROC_REF(try_speedrun))
 	ADD_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 
 /datum/element/climbable/Detach(datum/target)
-	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
 	REMOVE_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
 	return ..()
 
@@ -77,8 +77,8 @@
 			vault_over_object(user, climbed_thing)
 			if(climb_stun)
 				user.Stun(climb_stun)
-				user.visible_message("<span class='warning'>[user] flips over [src]!</span>", \
-									"<span class='notice'>You flip over [climbed_thing]!</span>")
+				user.visible_message(span_warning("[user] flips over [climbed_thing]!"), \
+									span_notice("You flip over [climbed_thing]!"))
 
 		else if(do_climb(climbed_thing, user, params))
 			user.visible_message(span_warning("[user] climbs onto [climbed_thing]."), \

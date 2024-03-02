@@ -732,6 +732,9 @@
 		to_chat(usr, span_notice("Jumping to [target_ckey]'s new mob: [target_mob]!"))
 		show_player_panel(target_mob)
 
+	else if(href_list["adminopendemo"])
+		usr.client << link("http://viewer.monkestation.com/?roundid=[GLOB.round_id]&password=[CONFIG_GET(string/replay_password)]#[world.time]") //opens current round at current time
+
 	else if(href_list["adminplayerobservefollow"])
 		if(!isobserver(usr) && !check_rights(R_ADMIN))
 			return
@@ -1475,15 +1478,17 @@
 	else if(href_list["slowquery"])
 		if(!check_rights(R_ADMIN))
 			return
+
+		var/data = list("key" = usr.key)
 		var/answer = href_list["slowquery"]
 		if(answer == "yes")
-			log_query_debug("[usr.key] | Reported a server hang")
 			if(tgui_alert(usr, "Did you just press any admin buttons?", "Query server hang report", list("Yes", "No")) == "Yes")
 				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
 				if(response)
-					log_query_debug("[usr.key] | [response]")
+					data["response"] = response
+			logger.Log(LOG_CATEGORY_DEBUG_SQL, "server hang", data)
 		else if(answer == "no")
-			log_query_debug("[usr.key] | Reported no server hang")
+			logger.Log(LOG_CATEGORY_DEBUG_SQL, "no server hang", data)
 
 	else if(href_list["ctf_toggle"])
 		if(!check_rights(R_ADMIN))
@@ -1758,26 +1763,26 @@
 			return
 
 		web_sound(usr, link_url)
-
-	else if(href_list["approve_token"])
+//monkestation edit start
+	else if(href_list["approve_antag_token"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/atom/movable/target = locate(href_list["approve_token"])
+		var/atom/movable/target = locate(href_list["approve_antag_token"])
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.saved_tokens.approve_token()
-		message_admins("[user_client]'s token has been approved, by [owner]")
+		user_client.client_token_holder.approve_antag_token()
+		log_admin("[user_client]'s token has been approved by [owner].")
 
-	else if(href_list["reject_token"])
+	else if(href_list["reject_antag_token"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/atom/movable/target = locate(href_list["reject_token"])
+		var/atom/movable/target = locate(href_list["reject_antag_token"])
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.saved_tokens.reject_token()
-		message_admins("[user_client]'s token has been rejected, by [owner]")
+		user_client.client_token_holder.reject_antag_token()
+		log_admin("[user_client]'s token has been rejected by [owner].")
 
 	else if(href_list["open_music_review"])
 		if(!check_rights(R_ADMIN))
@@ -1787,3 +1792,24 @@
 		if(!istype(cassette_review))
 			return
 		cassette_review.ui_interact(usr)
+
+	else if(href_list["approve_token_event"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/atom/movable/target = locate(href_list["approve_token_event"])
+		if(!IS_CLIENT_OR_MOCK(target))
+			return
+		var/client/user_client = target
+		user_client.client_token_holder.approve_token_event()
+		log_admin("[user_client]'s token event has been approved by [owner].")
+
+	else if(href_list["reject_token_event"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/atom/movable/target = locate(href_list["reject_token_event"])
+		if(!IS_CLIENT_OR_MOCK(target))
+			return
+		var/client/user_client = target
+		user_client.client_token_holder.reject_token_event()
+		log_admin("[user_client]'s token event has been rejected by [owner].")
+//monkestation edit end
