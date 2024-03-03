@@ -56,7 +56,7 @@
 /obj/item/clothing/under/viking/godly_tunic
 	name = " Cloak of Fenrir"
 	desc = "A cloak made from hide torn from Fenrir."
-	worn_icon_state = "pelts_worn"
+	worn_icon_state = "pelts"
 	icon_state = "pelts"
 	armor_type = /datum/armor/godly_viking
 	resistance_flags = FIRE_PROOF | ACID_PROOF
