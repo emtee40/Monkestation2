@@ -195,14 +195,14 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/condiment/milk
 
-// Milk is good for humans, but bad for plants.
-// The sugars cannot be used by plants, and the milk fat harms growth. Except shrooms.
-/datum/reagent/consumable/milk/on_hydroponics_apply(obj/machinery/hydroponics/mytray, mob/user)
-	mytray.adjust_waterlevel(round(volume * 0.3))
-	var/obj/item/seeds/myseed = mytray.myseed
-	if(isnull(myseed) || myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
-		return
-	myseed.adjust_potency(-round(volume * 0.5))
+	// Milk is good for humans, but bad for plants. The sugars cannot be used by plants, and the milk fat harms growth. Not shrooms though. I can't deal with this now...
+/datum/reagent/consumable/milk/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
+	. = ..()
+	if(chems.has_reagent(src.type, 1))
+		mytray.adjust_waterlevel(round(chems.get_reagent_amount(type) * 1))
+		mytray.adjust_plant_health(round(chems.get_reagent_amount(type) * 0.1))
+		if(myseed)
+			myseed.adjust_potency(-chems.get_reagent_amount(src.type) * 0.5)
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(affected_mob.getBruteLoss() && SPT_PROB(10, seconds_per_tick))
