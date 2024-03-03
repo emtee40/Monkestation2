@@ -352,6 +352,8 @@
 	var/digitigrade_id
 	/// Used solely by digitigrade limbs to remember what their old limb ID was.
 	var/old_limb_id
+	/// Used by the bloodysoles component to make footprints
+	var/footprint_sprite = FOOTPRINT_SPRITE_SHOES
 	biological_state = BIO_STANDARD_JOINTED
 
 /obj/item/bodypart/leg/Destroy()
@@ -437,6 +439,7 @@
 	unarmed_damage_low = 2
 	unarmed_damage_high = 3
 	unarmed_stun_threshold = 4
+	footprint_sprite =  FOOTPRINT_SPRITE_PAWS
 
 /obj/item/bodypart/leg/left/alien
 	icon = 'icons/mob/species/alien/bodyparts.dmi'
@@ -531,6 +534,7 @@
 	unarmed_damage_low = 2
 	unarmed_damage_high = 3
 	unarmed_stun_threshold = 4
+	footprint_sprite =  FOOTPRINT_SPRITE_PAWS
 
 /obj/item/bodypart/leg/right/alien
 	icon = 'icons/mob/species/alien/bodyparts.dmi'
