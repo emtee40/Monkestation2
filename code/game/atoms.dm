@@ -202,6 +202,7 @@
 			//we were deleted
 			return
 	SSdemo.mark_new(src) //Monkestation edit: Replays
+	animate_holder = new(src)
 
 /**
  * The primary method that objects are setup in SS13 with
@@ -1340,6 +1341,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
+	VV_DROPDOWN_OPTION(VV_HK_ADJUST_ANIMATIONS, "Adjust Animations")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
@@ -1486,6 +1488,9 @@
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_color_matrix_editor(src)
+
+	if(href_list[VV_HK_ADJUST_ANIMATIONS] && check_rights(R_VAREDIT))
+		animate_holder.ui_interact(usr)
 
 /atom/vv_get_header()
 	. = ..()

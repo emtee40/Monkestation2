@@ -68,7 +68,7 @@
 ///picks a random colour for our amoung
 /mob/living/basic/amoung/proc/random_colour()
 	var/our_color = pick(amoung_colors)
-	set_greyscale(colors=list(amoung_colors[our_color]))
+	set_greyscale(colors = list(amoung_colors[our_color]))
 
 /mob/living/basic/amoung/bee_friendly()
 	return TRUE //why not lol
