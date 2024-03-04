@@ -101,6 +101,3 @@
 	name = "Nuka Cola"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
 
-/obj/item/reagent_containers/cup/glass/drinkingglass/filled/sunset_sarsaparilla //monkestation edit
-	name = "Sunset Sarsaparilla"
-	list_reagents = list(/datum/reagent/consumable/sunset_sarsaparilla = 50)
