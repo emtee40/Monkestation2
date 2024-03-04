@@ -56,12 +56,12 @@
 	parent = creator
 
 /datum/animate_holder/Destroy(force, ...)
-	. = ..()
 	steps.Cut(1)
 	easings.Cut(1)
 	reanimate()
 
 	parent = null
+	. = ..()
 
 
 /datum/animate_holder/proc/reanimate()
