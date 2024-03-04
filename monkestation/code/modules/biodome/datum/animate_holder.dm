@@ -55,6 +55,15 @@
 /datum/animate_holder/New(atom/creator)
 	parent = creator
 
+/datum/animate_holder/Destroy(force, ...)
+	. = ..()
+	steps.Cut(1)
+	easings.Cut(1)
+	reanimate()
+
+	parent = null
+
+
 /datum/animate_holder/proc/reanimate()
 	var/first_item = TRUE
 	for(var/list/held_list as anything in steps)

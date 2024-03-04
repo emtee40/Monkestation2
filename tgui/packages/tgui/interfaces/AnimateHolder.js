@@ -112,6 +112,124 @@ const AnimateSteps = (props, context) => {
                 }
               />
             </LabeledList.Item>
+            <LabeledList.Item label="Maptext">
+              <Input
+                value={step.maptext ? step.maptext : ''}
+                width="90px"
+                onInput={(e, value) =>
+                  act('modify_step', {
+                    variable: 'maptext',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Maptext Y">
+              <NumberInput
+                width="45px"
+                minValue={-1000}
+                maxValue={1000}
+                value={step.maptext_y ? step.maptext_y : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'maptext_y',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Maptext X">
+              <NumberInput
+                width="45px"
+                minValue={-1000}
+                maxValue={1000}
+                value={step.maptext_x ? step.maptext_x : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'maptext_x',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Maptext Width">
+              <NumberInput
+                width="45px"
+                minValue={0}
+                maxValue={1000}
+                value={step.maptext_width ? step.maptext_width : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'maptext_width',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Maptext Height">
+              <NumberInput
+                width="45px"
+                minValue={0}
+                maxValue={1000}
+                value={step.maptext_height ? step.maptext_height : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'maptext_height',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Layer">
+              <NumberInput
+                width="45px"
+                minValue={-32700}
+                maxValue={32700}
+                value={step.layer ? step.layer : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'layer',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Luminosity">
+              <NumberInput
+                width="45px"
+                minValue={-32700}
+                maxValue={32700}
+                value={step.luminosity ? step.luminosity : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'luminosity',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Direction">
+              <NumberInput
+                width="45px"
+                minValue={0}
+                maxValue={8}
+                value={step.dir ? step.dir : 0}
+                onChange={(_, value) =>
+                  act('modify_step', {
+                    variable: 'dir',
+                    value: value,
+                    index: steps.indexOf(step) + 1,
+                  })
+                }
+              />
+            </LabeledList.Item>
             <LabeledList.Item label={'Easing'}>
               <ButtonCheckbox
                 checked={easings[steps.indexOf(step)].LINEAR_EASING}
