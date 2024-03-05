@@ -62,16 +62,20 @@
 	SIGNAL_HANDLER
 	remove_data()
 
-/datum/animate_holder/proc/remove_data()
-	if(parent)
-		UnregisterSignal(parent, COMSIG_QDELETING)
+/datum/animate_holder/proc/remove_data(from_destroy = FALSE)
+	if(!parent)
+		return
+	UnregisterSignal(parent, COMSIG_QDELETING)
 	steps.Cut(1)
 	easings.Cut(1)
 	reanimate()
+	parent.animate_holder = null
 	parent = null
+	if(!from_destroy)
+		qdel(src)
 
 /datum/animate_holder/Destroy(force, ...)
-	remove_data()
+	remove_data(TRUE)
 	. = ..()
 
 
