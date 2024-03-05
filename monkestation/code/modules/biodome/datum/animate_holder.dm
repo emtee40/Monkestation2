@@ -55,12 +55,23 @@
 /datum/animate_holder/New(atom/creator)
 	parent = creator
 
-/datum/animate_holder/Destroy(force, ...)
+	if(parent)
+		RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(handle_parent_del))
+
+/datum/animate_holder/proc/handle_parent_del()
+	SIGNAL_HANDLER
+	remove_data()
+
+/datum/animate_holder/proc/remove_data()
+	if(parent)
+		UnregisterSignal(parent, COMSIG_QDELETING)
 	steps.Cut(1)
 	easings.Cut(1)
 	reanimate()
-
 	parent = null
+
+/datum/animate_holder/Destroy(force, ...)
+	remove_data()
 	. = ..()
 
 
