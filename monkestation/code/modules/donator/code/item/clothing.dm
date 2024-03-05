@@ -188,6 +188,17 @@
 		/obj/item/toy,
 	)
 
+/obj/item/clothing/under/costume/aotuniform
+	name = "\improper Survey Corps Uniform"
+	desc = "The uniform of a Survey Corps member."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "aotuniform"
+	worn_icon_state = "aotuniform"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS|LEGS
+
+
 /obj/item/clothing/head/hooded/aotcloak
 	name = "survey corps cloak hood"
 	desc = "A cozy winter hood attached to a heavy winter jacket."
@@ -213,3 +224,33 @@
 	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
 	icon_state = "zed_officercap"
 	inhand_icon_state = null
+
+/obj/item/clothing/mask/igor
+	name = "\improper Igor Mask"
+	desc = "A mask that resembles a peculiar man named Igor."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "igor_mask"
+	inhand_icon_state = null
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/suit/costume/violet_jacket
+	name = "\improper Violet's Jacket"
+	desc = "A jacket resembling the outfit worn by the Phantom Thief known as Violet."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "violet_jacket"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS
+
+
+/obj/item/clothing/suit/lambcloak
+	name = "lamb's cloak"
+	desc = "A brilliant red cloak adorned with a bell."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "lambcloak"
+	body_parts_covered = CHEST|ARMS
+	cold_protection = CHEST|ARMS
+	layer = NECK_LAYER
+

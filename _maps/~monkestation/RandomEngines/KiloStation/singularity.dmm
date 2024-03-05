@@ -93,8 +93,10 @@
 "is" = (
 /obj/structure/cable,
 /obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/cable/layer1,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "kilo_singularity_airlock"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "iW" = (
@@ -106,11 +108,11 @@
 "jc" = (
 /obj/structure/cable,
 /obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
 /obj/structure/fans/tiny,
 /obj/structure/cable/layer1,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	cycle_id = "kilo_singularity_airlock"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "jl" = (
@@ -396,7 +398,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
@@ -417,6 +418,7 @@
 /obj/machinery/light/blacklight/directional/north,
 /obj/structure/cable,
 /obj/structure/window/plasma,
+/obj/machinery/camera/emp_proof/directional/south,
 /turf/open/floor/iron,
 /area/station/engineering/supermatter/room)
 "En" = (
@@ -458,11 +460,8 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/layer1,
 /obj/structure/cable,
-/obj/machinery/camera/emp_proof/directional/west{
-	c_tag = "Singularity Engine #4"
-	},
 /turf/open/space/basic,
-/area/station/engineering/supermatter/room)
+/area/space)
 "Hs" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron,
@@ -1006,7 +1005,7 @@ IJ
 rz
 Ib
 oK
-Hs
+oK
 pk
 Ii
 Ii
@@ -1028,7 +1027,7 @@ En
 (12,1,1) = {"
 pa
 UA
-oK
+Hs
 NK
 pk
 lZ
@@ -1123,9 +1122,9 @@ Ib
 oK
 NK
 pk
-sz
-sz
-sz
+oK
+oK
+oK
 Fj
 RL
 WZ
