@@ -21,8 +21,11 @@
 		owner.balloon_alert(owner, "only works on mobs!")
 		return FALSE
 	var/mob/living/mob_target = target
-	if(mob_target.ckey && !mob_target.stat == CONSCIOUS)
-		owner.balloon_alert(owner, "only works on non-sentient conscious mobs!")
+	if(mob_target.ckey && !mob_target.stat == DEAD)
+		owner.balloon_alert(owner, "only works on non-sentient alive mobs!")
+		return FALSE
+	if(iscarbon(mob_target))
+		owner.balloon_alert(owner, "doesn't work on carbons!")
 		return FALSE
 	return ..()
 
@@ -30,12 +33,14 @@
 	var/mob/living/target_mob = target
 
 	var/question = "Would you like to be a [target_mob] servant of [owner]?"
-	var/list/candidates = poll_candidates_for_mobs(question, ROLE_SENTIENCE, ROLE_SENTIENCE, 10 SECONDS, target_mob, POLL_IGNORE_SHUTTLE_DENIZENS)
+	var/list/candidates = poll_candidates_for_mob(question, ROLE_SENTIENCE, ROLE_SENTIENCE, 10 SECONDS, target_mob, POLL_IGNORE_SHUTTLE_DENIZENS)
 	if(!LAZYLEN(candidates) && !LAZYLEN(target_mob))
+		owner.balloon_alert(owner, "[target_mob] rejects your generous gift...for now...")
 		return FALSE
-	var/mob/dead/observer/C = pick_n_take(candidates)
-	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(target_mob)])")
+	var/mob/dead/observer/candie = pick_n_take(candidates)
+	message_admins("[key_name_admin(candie)] has taken control of ([key_name_admin(target_mob)])")
 	target_mob.ghostize(FALSE)
-	target_mob.key = C.key
+	target_mob.key = candie.key
+	target_mob.mind.add_antag_datum(/datum/antagonist/changeling/bloodling_thrall)
 	return TRUE
 

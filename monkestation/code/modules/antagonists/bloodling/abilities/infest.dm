@@ -35,7 +35,7 @@
 
 /datum/action/cooldown/mob_cooldown/bloodling/infest/Activate(atom/target)
 	var/mob/living/mob = target
-	if(istype(mob, /mob/living/carbon/human))
+	if(iscarbon(mob))
 		var/mob/living/carbon/human/carbon_mob = target
 		if(HAS_TRAIT(carbon_mob, TRAIT_MINDSHIELD))
 			if(!do_after(owner, 15 SECONDS))
