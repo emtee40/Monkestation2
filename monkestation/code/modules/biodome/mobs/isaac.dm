@@ -55,8 +55,8 @@
 		item = new
 		item.pixel_y += 12
 		src.vis_contents += item
-		item.animate_holder.add_animation_step(list("pixel_y" = item.pixel_y + 4, "loop" = -1, "time" = 0.3 SECONDS))
-		item.animate_holder.add_animation_step(list("pixel_y" = item.pixel_y - 4, "time" = 0.3 SECONDS))
+		item.add_animation_step_list(list("pixel_y" = item.pixel_y + 4, "loop" = -1, "time" = 0.3 SECONDS))
+		item.add_animation_step_list(list("pixel_y" = item.pixel_y - 4, "time" = 0.3 SECONDS))
 
 	item.icon_state = picked_icon_state
 

@@ -244,3 +244,12 @@
 			base_list.Cut(item)
 
 	return base_list
+
+
+///list format of the animation step for if the generic add_animate_step proc is missing vars in updates this passes it in as a arglist list.
+/atom/proc/add_animation_step_list(list/instructions)
+	if(!length(instructions))
+		return
+	if(!animate_holder)
+		animate_holder = new(src)
+	animate_holder.add_animation_step(instructions)

@@ -202,7 +202,6 @@
 			//we were deleted
 			return
 	SSdemo.mark_new(src) //Monkestation edit: Replays
-	animate_holder = new(src)
 
 /**
  * The primary method that objects are setup in SS13 with
