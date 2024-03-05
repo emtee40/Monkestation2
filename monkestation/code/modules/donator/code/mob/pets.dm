@@ -112,3 +112,26 @@
 	icon_dead = "spider_dead"
 	gold_core_spawnable = NO_SPAWN
 	ai_controller = /datum/ai_controller/basic_controller/
+
+/mob/living/basic/butterfly/void
+	name = "Void Butterfly"
+	desc = "They say if a void butterfly flaps its wings..."
+	icon = 'monkestation/code/modules/donator/icons/mob/pets.dmi'
+	icon_state = "void_butterfly"
+	icon_living = "void_butterfly"
+	icon_dead = "void_butterfly_dead"
+	gold_core_spawnable = NO_SPAWN
+	health = 20
+	maxHealth = 20
+
+/mob/living/basic/butterfly/void/spacial
+	fixed_color = TRUE
+
+/mob/living/basic/crab/plant
+	name = "Plant crab"
+	desc = "Is it a crab made of plant or a plant made of crab?"
+	icon = 'monkestation/code/modules/donator/icons/mob/pets.dmi'
+	icon_state = "crab_plant"
+	icon_living = "crab_plant"
+	icon_dead = "crab_plant_dead"
+	gold_core_spawnable = NO_SPAWN

@@ -9,7 +9,7 @@
 	var/mob/living/carbon/human/jailbird = quirk_holder
 	var/quirk_crime	= pick(world.file2list("monkestation/strings/random_crimes.txt"))
 	to_chat(jailbird, "<span class='boldnotice'>You are on parole for the crime of: [quirk_crime]!</span>")
-	addtimer(CALLBACK(src, .proc/apply_arrest, quirk_crime), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_arrest), quirk_crime), 10 SECONDS)
 
 
 /datum/quirk/jailbird/proc/apply_arrest(crime_name)
@@ -48,8 +48,8 @@
 
 /datum/quirk/stowaway/post_add()
 	. = ..()
-	to_chat(quirk_holder, "<span class='boldnotice'>You've awoken to find yourself inside [GLOB.station_name] without real identification!</span>")
-	addtimer(CALLBACK(src, .proc/datacore_deletion), 5 SECONDS)
+	to_chat(quirk_holder, span_boldnotice("You've awoken to find yourself inside [GLOB.station_name] without real identification!"))
+	addtimer(CALLBACK(src, PROC_REF(datacore_deletion)), 5 SECONDS)
 
 /datum/quirk/stowaway/proc/datacore_deletion()
 	var/mob/living/carbon/human/stowaway = quirk_holder
@@ -203,18 +203,3 @@
 	if(isipc(quirk_holder)) //monkestation addition
 		to_chat(quirk_holder, span_boldnotice("Your chassis feels frail."))
 
-/datum/quirk/extra_sensory_paranoia
-	name = "Extra-Sensory Paranoia"
-	desc = "You feel like something wants to kill you..."
-	mob_trait = TRAIT_PARANOIA
-	value = -8
-	icon = FA_ICON_OPTIN_MONSTER
-
-/datum/quirk/extra_sensory_paranoia/add()
-	var/datum/brain_trauma/magic/stalker/T = new()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
-
-/datum/quirk/extra_sensory_paranoia/remove()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.cure_trauma_type(/datum/brain_trauma/magic/stalker, TRAUMA_RESILIENCE_ABSOLUTE)
