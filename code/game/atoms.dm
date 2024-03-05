@@ -336,7 +336,7 @@
 	if(smoothing_flags & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
 	if(animate_holder)
-		qdel(animate_holder)
+		QDEL_NULL(animate_holder)
 
 	return ..()
 
