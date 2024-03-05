@@ -34,6 +34,7 @@
 	damage = 0
 	hitsound_wall = ""
 	impact_effect_type = null
+	embedding = list(embed_chance=0)
 
 /obj/item/ammo_box/magazine/fingergun_emote
 	name = "finger gun magazine"
