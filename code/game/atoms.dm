@@ -1491,8 +1491,12 @@
 		var/client/C = usr.client
 		C?.open_color_matrix_editor(src)
 
+	//monke edit start: BIODOME
 	if(href_list[VV_HK_ADJUST_ANIMATIONS] && check_rights(R_VAREDIT))
+		if(!animate_holder)
+			animate_holder = new(src)
 		animate_holder.ui_interact(usr)
+	//monke edit end: BIODOME
 
 /atom/vv_get_header()
 	. = ..()
