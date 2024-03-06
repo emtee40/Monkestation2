@@ -254,7 +254,8 @@
 		if(myseed && plant_status != HYDROTRAY_PLANT_DEAD)
 			// Advance age
 			var/growth_mult = (1.01 ** -myseed.maturation)
-			if(!(age > max(myseed.maturation, myseed.production)/* Fuck Corpse Flowers */ && (growth >= myseed.harvest_age * growth_mult) && self_sustaining))
+			//Checks if a self sustaining tray is fully grown and fully "functional" (corpse flowers require a specific age to produce miasma)
+			if(!(age > max(myseed.maturation, myseed.production) && (growth >= myseed.harvest_age * growth_mult) && self_sustaining))
 				age++
 
 			needs_update = TRUE
