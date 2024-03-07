@@ -196,8 +196,11 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /mob/living/carbon/human/dummy/extra_tall
 	bound_height = 64
 
+	var/atom/movable/screen/map_view/char_preview/char_viewer
 	var/list/extra_bodyparts = list()
 
 /mob/living/carbon/human/dummy/extra_tall/Destroy()
+	char_viewer.body = null
+	char_viewer = null
 	QDEL_LIST(extra_bodyparts)
 	return ..()
