@@ -3,7 +3,6 @@
 	key = "fingergun"
 	key_third_person = "fingerguns"
 	hands_use_check = TRUE
-	cooldown = 1 SECONDS
 
 /datum/emote/living/carbon/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -11,8 +10,8 @@
 		return
 	var/obj/item/gun/ballistic/fingergun_emote/N = new(user)
 	if(user.put_in_hands(N))
-		to_chat(user, span_notice("You fold your hand into a finger gun."))
-		user.manual_emote("folds thier hand into a finger gun.")
+		to_chat(user, span_notice("You fold your hand into a finger gun"))
+		user.manual_emote("folds [user.p_their()] hand into a finger gun")
 	else
 		qdel(N)
 		to_chat(user, span_warning("You're incapable of readying a finger gun in your current state."))
