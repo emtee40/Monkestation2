@@ -3,6 +3,7 @@
 	key = "fingergun"
 	key_third_person = "fingerguns"
 	hands_use_check = TRUE
+	cooldown = 3 SECONDS
 
 /datum/emote/living/carbon/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -65,6 +66,7 @@
 	spawnwithmagazine = TRUE
 	internal_magazine = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
+	fire_delay = 0.5
 
 /obj/item/gun/ballistic/fingergun_emote/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null) //mostly copied from /obj/item/gun/proc/shoot_live_shot(
 	if(!HAS_TRAIT(user, TRAIT_MIMING))
