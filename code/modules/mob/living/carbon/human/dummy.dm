@@ -200,7 +200,8 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	var/list/extra_bodyparts = list()
 
 /mob/living/carbon/human/dummy/extra_tall/Destroy()
-	char_viewer.body = null
-	char_viewer = null
+	if(char_viewer)
+		char_viewer.body = null
+		char_viewer = null
 	QDEL_LIST(extra_bodyparts)
 	return ..()
