@@ -10,8 +10,8 @@
 		return
 	var/obj/item/gun/ballistic/fingergun_emote/N = new(user)
 	if(user.put_in_hands(N))
-		to_chat(user, span_notice("You fold your hand into a finger gun"))
-		user.manual_emote("folds [user.p_their()] hand into a finger gun")
+		to_chat(user, span_notice("You fold your hand into a finger gun."))
+		user.manual_emote("folds [user.p_their()] hand into a finger gun.")
 	else
 		qdel(N)
 		to_chat(user, span_warning("You're incapable of readying a finger gun in your current state."))
@@ -66,8 +66,31 @@
 	internal_magazine = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
 
-/obj/item/gun/ballistic/fingergun_emote/fire_sounds()
-	usr.say("'s hand flying upwards with recoil*BANG!")
+/obj/item/gun/ballistic/fingergun_emote/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null) //mostly copied from /obj/item/gun/proc/shoot_live_shot(
+	user.say("'s hand flying upwards with recoil*BANG!")
+	if(tk_firing(user))
+		visible_message(
+				span_danger("[src] fires itself[pointblank ? " point blank at [pbtarget]!" : "!"]"),
+				vision_distance = COMBAT_MESSAGE_RANGE
+		)
+	else if(pointblank)
+		user.visible_message(
+				span_danger("[user] fires [src] point blank at [pbtarget]!"),
+				span_danger("You fire [src] point blank at [pbtarget]!"),
+		)
+		to_chat(pbtarget, span_userdanger("[user] fires [src] point blank at you!"))
+		if(pb_knockback > 0 && ismob(pbtarget))
+			var/mob/PBT = pbtarget
+			var/atom/throw_target = get_edge_target_turf(PBT, user.dir)
+			PBT.throw_at(throw_target, pb_knockback, 2)
+	else if(!tk_firing(user))
+		user.visible_message(
+				span_danger("[user] fires [src]!"),
+				vision_distance = COMBAT_MESSAGE_RANGE,
+				ignored_mobs = user
+		)
+
+
 
 /obj/item/gun/ballistic/fingergun_emote/attack_self()
 	return
