@@ -44,7 +44,7 @@
 
 /obj/item/gun/ballistic/fingergun_emote
 	name = "finger gun"
-	desc = "This is how real men fight."
+	desc = "''Ya' need a count?'' ''Nah sir.'' *abruptly gets shot in the head. ''Well.. that ain't good...'' *falls over backwards ''I should'a seen this comming.''"
 	icon = 'monkestation/icons/obj/weapons/guns/fingergun_emote.dmi'
 	icon_state = "item"
 	inhand_icon_state = "nothing"
@@ -67,7 +67,8 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 
 /obj/item/gun/ballistic/fingergun_emote/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null) //mostly copied from /obj/item/gun/proc/shoot_live_shot(
-	user.say("'s hand flying upwards with recoil*BANG!")
+	if(!HAS_TRAIT(user, TRAIT_MIMING))
+		user.say("'s hand flying upwards with imaginary recoil*BANG!")
 	if(tk_firing(user))
 		visible_message(
 				span_danger("[src] fires itself[pointblank ? " point blank at [pbtarget]!" : "!"]"),
@@ -89,8 +90,6 @@
 				vision_distance = COMBAT_MESSAGE_RANGE,
 				ignored_mobs = user
 		)
-
-
 
 /obj/item/gun/ballistic/fingergun_emote/attack_self()
 	return
