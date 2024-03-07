@@ -230,7 +230,6 @@
 					pic_source = antag_datum,
 					role_name_text = lowertext(cast_control.name),
 				)
-			candidates |= picked_mob
 		else
 			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
