@@ -113,9 +113,6 @@
 					antibodies[A] = min(antibodies[A] + 1, 100)
 
 /datum/immune_system/proc/NaturalImmune() //called with a 8% chance every time a virus activates
-	// Immune strength over base amount should decay over time while sick
-	if(strength > 1)
-		strength = max(strength - 0.05, 0)
 	for (var/datum/disease/advanced/disease as anything in host.diseases)
 		for (var/A in disease.antigen)
 			var/tally = 1.5
