@@ -152,9 +152,9 @@
 	user.visible_message(span_notice("[user] opens a book titled \"[book_data.title]\" and begins reading intently."))
 	ui_interact(user)
 
-/obj/item/book/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
-		if(!user.can_perform_action(src) || !user.can_write(I))
+/obj/item/book/attackby(obj/item/attacking_item, mob/user, params)
+	if(istype(attacking_item, /obj/item/pen))
+		if(!user.can_perform_action(src) || !user.can_write(attacking_item))
 			return
 		if(user.is_blind())
 			to_chat(user, span_warning("As you are trying to write on the book, you suddenly feel very stupid!"))
@@ -166,12 +166,12 @@
 		var/choice = tgui_input_list(usr, "What would you like to change?", "Book Alteration", list("Title", "Contents", "Author", "Cancel"))
 		if(isnull(choice))
 			return
-		if(!user.can_perform_action(src) || !user.can_write(I))
+		if(!user.can_perform_action(src) || !user.can_write(attacking_item))
 			return
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title", "Book Title", max_length = 30))
-				if(!user.can_perform_action(src) || !user.can_write(I))
+				if(!user.can_perform_action(src) || !user.can_write(attacking_item))
 					return
 				if (length_char(newtitle) > 30)
 					to_chat(user, span_warning("That title won't fit on the cover!"))
@@ -183,7 +183,7 @@
 				book_data.set_title(html_decode(newtitle)) //Don't want to double encode here
 			if("Contents")
 				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed)", "Book Contents", multiline = TRUE)
-				if(!user.can_perform_action(src) || !user.can_write(I))
+				if(!user.can_perform_action(src) || !user.can_write(attacking_item))
 					return
 				if(!content)
 					to_chat(user, span_warning("The content is invalid."))
@@ -191,7 +191,7 @@
 				book_data.set_content(html_decode(content))
 			if("Author")
 				var/author = tgui_input_text(user, "Write the author's name", "Author Name")
-				if(!user.can_perform_action(src) || !user.can_write(I))
+				if(!user.can_perform_action(src) || !user.can_write(attacking_item))
 					return
 				if(!author)
 					to_chat(user, span_warning("The name is invalid."))
@@ -225,7 +225,7 @@
 				computer.inventory_update()
 				user.balloon_alert(user, "book added to inventory")
 
-	else if((istype(I, /obj/item/knife) || I.tool_behaviour == TOOL_WIRECUTTER) && !(flags_1 & HOLOGRAM_1))
+	else if((istype(attacking_item, /obj/item/knife) || attacking_item.tool_behaviour == TOOL_WIRECUTTER) && !(flags_1 & HOLOGRAM_1))
 		to_chat(user, span_notice("You begin to carve out [book_data.title]..."))
 		if(do_after(user, 30, target = src))
 			to_chat(user, span_notice("You carve out the pages from [book_data.title]! You didn't want to read it anyway."))
