@@ -15,11 +15,11 @@
 /datum/round_event/ghost_role/slasher/spawn_role()
 	var/list/candidates = SSpolling.poll_ghost_candidates(
 		question = "Do you want to play as a Slasher?",
-		check_jobban = ROLE_SLASHER,
 		role = ROLE_SLASHER,
+		check_jobban = ROLE_SLASHER,
 		poll_time = 20 SECONDS,
 		pic_source = /datum/antagonist/slasher,
-		role_name_text = "slasher",
+		role_name_text = "slasher"
 	)
 	var/turf/spawn_loc = find_safe_turf()//Used for the Drop Pod type of spawn
 
