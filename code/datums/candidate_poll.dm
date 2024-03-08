@@ -112,15 +112,12 @@
 	return TRUE
 
 /datum/candidate_poll/proc/do_never_for_this_round(mob/candidate)
-	var/list/ignore_list = GLOB.poll_ignore[ignoring_category]
-	if(!ignore_list)
-		GLOB.poll_ignore[ignoring_category] = list()
-	GLOB.poll_ignore[ignoring_category] += candidate.ckey
+	LAZYADDASSOC(GLOB.poll_ignore, ignoring_category, candidate.ckey)
 	to_chat(candidate, span_danger("Choice registered: Never for this round."))
 	remove_candidate(candidate, silent = TRUE)
 
 /datum/candidate_poll/proc/undo_never_for_this_round(mob/candidate)
-	GLOB.poll_ignore[ignoring_category] -= candidate.ckey
+	LAZYREMOVEASSOC(GLOB.poll_ignore, ignoring_category, candidate.ckey)
 	to_chat(candidate, span_notice("Choice registered: Eligible for this round"))
 
 /datum/candidate_poll/proc/trim_candidates()

@@ -72,12 +72,13 @@ SUBSYSTEM_DEF(polling)
 		if(!candidate_mob.client)
 			continue
 		// Universal opt-out for all players if it's for a role.
-		if(role && (!candidate_mob.client.prefs.read_preference(/datum/preference/toggle/ghost_roles)))
+		if(!candidate_mob.client.prefs.read_preference(/datum/preference/toggle/ghost_roles))
 			continue
 		// Opt-out for admins whom are currently adminned.
-		if(role && (!candidate_mob.client.prefs.read_preference(/datum/preference/toggle/ghost_roles_as_admin)) && candidate_mob.client.holder)
+		if(!candidate_mob.client.prefs.read_preference(/datum/preference/toggle/ghost_roles_as_admin) && candidate_mob.client.holder)
 			continue
-		if(role && !is_eligible(candidate_mob, role, check_jobban, ignore_category))
+		// Eligibility check (checks jobbans, prefs, and ignore categories)
+		if(!is_eligible(candidate_mob, role, check_jobban, ignore_category))
 			continue
 
 		if(start_signed_up)
