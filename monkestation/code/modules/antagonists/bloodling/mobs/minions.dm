@@ -4,6 +4,7 @@
 
 	biomass = 0
 	biomass_max = 200
+	damage_coeff = list(BRUTE = 1, BURN = 1.25, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 1)
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,

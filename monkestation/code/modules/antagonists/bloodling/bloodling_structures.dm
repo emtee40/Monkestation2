@@ -54,4 +54,4 @@
 
 	var/turf/our_turf = src.loc
 	new /mob/living/basic/mouse(our_turf)
-	our_turf.add_liquid_list(list(/datum/reagent/toxin/mutagen = 10), TRUE)
+	our_turf.add_liquid_list(list(/datum/reagent/toxin/mutagen = 15), TRUE)

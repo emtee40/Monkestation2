@@ -33,16 +33,17 @@
 	if(!do_after(owner, 2 SECONDS))
 		return FALSE
 
+	// A bit of everything healing not much but helpful
+	carbon_mob.adjustBruteLoss(-40)
+	carbon_mob.adjustToxLoss(-40)
+	carbon_mob.adjustFireLoss(-40)
+	carbon_mob.adjustOxyLoss(-40)
+
 	if(carbon_mob.stat != DEAD)
-		// A bit of everything healing not much but helpful
-		carbon_mob.adjustBruteLoss(-40)
-		carbon_mob.adjustToxLoss(-40)
-		carbon_mob.adjustFireLoss(-40)
-		carbon_mob.adjustOxyLoss(-40)
 		return TRUE
 
 	carbon_mob.revive()
 	// Any oxygen damage they suffered whilst in crit
-	carbon_mob.adjustOxyLoss(-100)
+	carbon_mob.adjustOxyLoss(-200)
 	return TRUE
 

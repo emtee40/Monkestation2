@@ -4,19 +4,6 @@
 	button_icon_state = "alien_hide"
 	cooldown_time = 20 SECONDS
 
-/datum/action/cooldown/mob_cooldown/bloodling/devour/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-	to_chat(on_who, span_noticealien("You prepare to swallow a limb whole. <b>Click a target to rip off a limb!</b>"))
-
-/datum/action/cooldown/mob_cooldown/bloodling/devour/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to rip off their limb..."))
-
 /datum/action/cooldown/mob_cooldown/bloodling/devour/PreActivate(atom/target)
 	var/mob/living/mob = target
 	if(!iscarbon(mob))
@@ -25,10 +12,17 @@
 	return ..()
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/Activate(atom/target)
+	. = ..()
+	eat_limb(target)
+	StartCooldown()
+	return TRUE
+
+/datum/action/cooldown/mob_cooldown/bloodling/devour/proc/eat_limb(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
 	var/list/candidate_for_removal = list()
 	var/mob/living/carbon/carbon_target = target
 
+	// Loops over the limbs of our target carbon, this is so stuff like the head, chest or unremovable body parts arent destroyed
 	for(var/obj/item/bodypart/bodypart in carbon_target.bodyparts)
 		if(bodypart.body_zone == BODY_ZONE_HEAD)
 			continue
@@ -55,5 +49,3 @@
 		span_alertalien("[our_mob] snaps its maw over [target]s [target_part] and swiftly devours it!"),
 		span_noticealien("You devour [target]s [target_part]!"),
 	)
-	StartCooldown()
-	return TRUE

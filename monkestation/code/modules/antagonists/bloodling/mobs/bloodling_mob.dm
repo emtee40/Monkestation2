@@ -20,7 +20,6 @@
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
 	basic_mob_flags = FLAMMABLE_MOB
-	sight = SEE_SELF|SEE_MOBS
 	faction = list(FACTION_BLOODLING)
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/effects/attackblob.ogg'
@@ -69,6 +68,7 @@
 	desc = "An abomination of some spawn. A mess of tendrils, mouths and chitin, whatever created it was not merciful."
 	maxHealth = INFINITE // Bloodlings have unlimited health, instead biomass acts as their health
 	health = INFINITE
+	sight = SEE_SELF|SEE_MOBS
 
 	biomass = 50
 	biomass_max = 500
@@ -78,7 +78,6 @@
 /mob/living/basic/bloodling/proper/Initialize(mapload)
 	. = ..()
 
-	RegisterSignal(src, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 
 /mob/living/basic/bloodling/proper/adjust_health(amount, updating_health = TRUE, forced = FALSE)
@@ -93,17 +92,11 @@
 
 	return .
 
-/// On_life proc that checks their amount of biomass
-/mob/living/basic/bloodling/proper/proc/on_life(seconds_per_tick = SSMOBS_DT, times_fired)
-	SIGNAL_HANDLER
-
-	if(biomass <= 0)
-		gib()
-		return
-
 // Bloodlings health and damage needs updating when biomass is added
 /mob/living/basic/bloodling/proper/add_biomass(amount)
 	. = ..()
+	if(biomass <= 0)
+		gib()
 	// Damage is based on biomass, and handled here
 	obj_damage = biomass * 0.2
 	// less than 5 damage would be very bad
@@ -115,25 +108,39 @@
 
 /// Checks if we should evolve, and also calls the evolution proc
 /mob/living/basic/bloodling/proper/proc/check_evolution()
-	if(75 > biomass && evolution_level != 1)
+	if((75 > biomass) && evolution_level != 1)
 		evolution(1)
-		return
-	if(125 > biomass >= 75 && evolution_level != 2)
+		return TRUE
+	if((125 > biomass >= 75) && evolution_level != 2)
 		evolution(2)
-		return
-	if(175 > biomass >= 125 && evolution_level != 3)
+		return TRUE
+	if((175 > biomass) >= 125 && evolution_level != 3)
 		evolution(3)
-		return
-	if(225 > biomass >= 175 && evolution_level != 4)
+		return TRUE
+	if((225 > biomass >= 175) && evolution_level != 4)
 		evolution(4)
-		return
-	if(biomass >= 225 && evolution_level != 5)
+		return TRUE
+	if((biomass >= 225) && evolution_level != 5)
 		evolution(5)
-		return
+		return TRUE
+	return FALSE
 
 /// Creates the mob for us to then mindswap into
 /mob/living/basic/bloodling/proper/proc/evolution(tier)
+	/// What bloodling we are going to spawn
 	var/new_bloodling = null
+	if(evolution_level > tier)
+		visible_message(
+			span_alertalien("[src] begins to shrink!"),
+			span_noticealien("You devolve!"),
+		)
+
+	else
+		visible_message(
+			span_alertalien("[src] begins to grow!"),
+			span_noticealien("You evolve!"),
+		)
+
 	switch(tier)
 		if(1)
 			new_bloodling = new /mob/living/basic/bloodling/proper/tier1/(src.loc)
@@ -149,10 +156,6 @@
 
 
 /mob/living/basic/bloodling/proper/proc/evolution_mind_change(var/mob/living/basic/bloodling/proper/new_bloodling)
-	visible_message(
-		span_alertalien("[src] begins to grow!"),
-		span_noticealien("You evolve!"),
-	)
 	new_bloodling.setDir(dir)
 	if(numba)
 		new_bloodling.numba = numba
@@ -177,7 +180,7 @@
 	SIGNAL_HANDLER
 
 	var/damage_amount = damage
-	// Stamina damage is fucky, so we ignore it
+	// Stamina damage is fucky, so we'll ignore it
 	if(damagetype == STAMINA)
 		return
 
@@ -189,7 +192,6 @@
 	add_biomass(-damage_amount)
 
 /mob/living/basic/bloodling/proper/Destroy()
-	UnregisterSignal(src, COMSIG_LIVING_LIFE)
 	UnregisterSignal(src, COMSIG_MOB_APPLY_DAMAGE)
 
 	return ..()
