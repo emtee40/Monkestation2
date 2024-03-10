@@ -1,7 +1,7 @@
 /datum/status_effect/unholy_determination/on_apply()
 	. = ..()
 	owner.add_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_FEARLESS, TRAIT_STABLEHEART, TRAIT_STABLELIVER, TRAIT_ANTICONVULSANT, TRAIT_TUMOR_SUPPRESSED), type)
-	owner.setStaminaLoss(0)
+	owner.stamina.revitalize(forced = TRUE)
 	owner.SetSleeping(0)
 	owner.SetUnconscious(0)
 	owner.SetAllImmobility(0)
