@@ -424,8 +424,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TUMOR_SUPPRESSED "brain_tumor_suppressed"
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_RDS_SUPPRESSED "rds_suppressed"
-/// overrides the update_fire proc to always add fire (for lava)
-#define TRAIT_PERMANENTLY_ONFIRE "permanently_onfire"
+/// Mobs that have this trait cannot be extinguished
+#define TRAIT_NO_EXTINGUISH "no_extinguish"
 /// Indicates if the mob is currently speaking with sign language
 #define TRAIT_SIGN_LANG "sign_language"
 /// The mob's nanites are sending a monitoring signal visible on diag HUD
@@ -549,6 +549,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Mob is unable to feel pain
 #define TRAIT_ANALGESIA "analgesia"
+
+/// Is the mob standing on an elevated surface? This prevents them from dropping down if not elevated first.
+#define TRAIT_ON_ELEVATED_SURFACE "on_elevated_surface"
 
 // METABOLISMS
 // Various jobs on the station have historically had better reactions
@@ -912,6 +915,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define LICH_TRAIT "lich"
+
+/// From [/datum/element/elevation] for purpose of registering/removing signals and detaching the elevation_core when the trait is absent.
+#define TRAIT_TURF_HAS_ELEVATED_OBJ(z) "turf_has_elevated_obj_[z]"
 /// The item is magically cursed
 #define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
@@ -980,6 +986,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Trait from being under the floor in some manner
 #define TRAIT_UNDERFLOOR "underfloor"
+/// From [/datum/element/elevation_core] for purpose of checking if the turf has the trait from an instance of the element
+#define TRAIT_ELEVATED_TURF "elevated_turf"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
