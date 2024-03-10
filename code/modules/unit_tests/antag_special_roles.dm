@@ -3,6 +3,10 @@
 
 /datum/unit_test/antag_special_roles/Run()
 	for(var/datum/antagonist/antag as anything in subtypesof(/datum/antagonist))
+		// Ignore antags that don't have preview outfits, as they likely aren't preferences.
+		if(!ispath(antag::preview_outfit))
+			continue
+		// For obvious reasons, skip over unset roles.
 		var/role = antag::job_rank
 		if(!istext(role))
 			continue
