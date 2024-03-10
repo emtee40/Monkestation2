@@ -26,15 +26,15 @@
 	. = ..()
 
 /datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/attacker, mob/living/defender)
-	if(findtext(streak,STRONG_PUNCH_COMBO))
+	if(findtext(streak, STRONG_PUNCH_COMBO))
 		reset_streak()
 		strongPunch(attacker, defender)
 		return TRUE
-	if(findtext(streak,LAUNCH_KICK_COMBO))
+	if(findtext(streak, LAUNCH_KICK_COMBO))
 		reset_streak()
 		launchKick(attacker, defender)
 		return TRUE
-	if(findtext(streak,DROP_KICK_COMBO))
+	if(findtext(streak, DROP_KICK_COMBO))
 		reset_streak()
 		dropKick(attacker, defender)
 		return TRUE
@@ -49,7 +49,7 @@
 	defender.visible_message(span_danger("[attacker] [atk_verb]s [defender]!"), \
 					span_userdanger("[attacker] [atk_verb]s you!"), null, null, attacker)
 	to_chat(attacker, span_danger("You [atk_verb] [defender]!"))
-	playsound(defender, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	playsound(defender, 'sound/weapons/punch1.ogg', vol = 25, vary = TRUE, extrarange = -1)
 	log_combat(attacker, defender, "strong punched (Sleeping Carp)")
 	defender.apply_damage(20, attacker.get_attack_type(), affecting)
 	return
@@ -59,7 +59,7 @@
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_KICK)
 	defender.visible_message(span_warning("[attacker] kicks [defender] square in the chest, sending them flying!"), \
 					span_userdanger("You are kicked square in the chest by [attacker], sending you flying!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, attacker)
-	playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', vol = 50, vary = TRUE, extrarange = -1)
 	var/atom/throw_target = get_edge_target_turf(defender, attacker.dir)
 	defender.throw_at(throw_target, 7, 4, attacker)
 	defender.apply_damage(15, attacker.get_attack_type(), BODY_ZONE_CHEST, wound_bonus = CANT_WOUND)
@@ -69,7 +69,7 @@
 ///Keelhaul: Disarm Disarm combo, knocks people down and deals substantial stamina damage, and also discombobulates them. Knocks objects out of their hands if they're already on the ground.
 /datum/martial_art/the_sleeping_carp/proc/dropKick(mob/living/attacker, mob/living/defender)
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_KICK)
-	playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', vol = 50, vary = TRUE, extrarange = -1)
 	if(defender.body_position == STANDING_UP)
 		defender.Knockdown(4 SECONDS)
 		defender.visible_message(span_warning("[attacker] kicks [defender] in the head, sending them face first into the floor!"), \
@@ -78,7 +78,7 @@
 		defender.drop_all_held_items()
 		defender.visible_message(span_warning("[attacker] kicks [defender] in the head!"), \
 					span_userdanger("You are kicked in the head by [attacker]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, attacker)
-	defender.apply_damage(40, STAMINA)
+	defender.stamina.adjust(-100)
 	defender.adjust_dizzy_up_to(10 SECONDS, 10 SECONDS)
 	defender.adjust_temp_blindness_up_to(2 SECONDS, 10 SECONDS)
 	log_combat(attacker, defender, "dropkicked (Sleeping Carp)")
@@ -93,15 +93,15 @@
 		return TRUE
 	var/grab_log_description = "grabbed"
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
-	playsound(defender, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	if(defender.stat != DEAD && !defender.IsUnconscious() && defender.staminaloss >= 80) //We put our target to sleep.
+	playsound(defender, 'sound/weapons/punch1.ogg', vol = 25, vary = TRUE, extrarange = -1)
+	if(defender.stat != DEAD && !defender.IsUnconscious() && defender.stamina.current <= 50) //We put our target to sleep.
 		defender.visible_message(
 			span_danger("[attacker] carefully pinch a nerve in [defender]'s neck, knocking them out cold"),
 			span_userdanger("[attacker] pinches something in your neck, and you fall unconscious!"),
 		)
 		grab_log_description = "grabbed and nerve pinched"
 		defender.Unconscious(10 SECONDS)
-	defender.apply_damage(20, STAMINA)
+	defender.stamina.adjust(-50)
 	log_combat(attacker, defender, "[grab_log_description] (Sleeping Carp)")
 	return ..()
 
@@ -113,7 +113,7 @@
 	)
 		var/obj/item/bodypart/head = defender.get_bodypart(BODY_ZONE_HEAD)
 		if(!isnull(head))
-			playsound(defender, 'sound/effects/wounds/crack1.ogg', 100)
+			playsound(defender, 'sound/effects/wounds/crack1.ogg', vol = 100)
 			defender.visible_message(
 				span_danger("[attacker] snaps the neck of [defender]!"),
 				span_userdanger("Your neck is snapped by [attacker]!"),
@@ -153,14 +153,14 @@
 		return TRUE
 
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
-	playsound(defender, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	defender.apply_damage(20, STAMINA)
+	playsound(defender, 'sound/weapons/punch1.ogg', vol = 25, vary = TRUE, extrarange = -1)
+	defender.stamina.adjust(-50)
 	log_combat(attacker, defender, "disarmed (Sleeping Carp)")
 
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/proc/can_deflect(mob/living/carp_user)
-	if(!can_use(carp_user) || !(carp_user.istate & ISTATE_HARM|ISTATE_BLOCKING)) // monke edit: istates/intents
+	if(!can_use(carp_user) || !((carp_user.istate & ISTATE_HARM|ISTATE_BLOCKING) || carp_user.throw_mode)) // monke edit: istates/intents
 		return FALSE
 	if(carp_user.incapacitated(IGNORE_GRAB)) //NO STUN
 		return FALSE
@@ -183,7 +183,7 @@
 		span_danger("[carp_user] effortlessly swats [hitting_projectile] aside! [carp_user.p_They()] can block bullets with [carp_user.p_their()] bare hands!"),
 		span_userdanger("You deflect [hitting_projectile]!"),
 	)
-	playsound(carp_user, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	playsound(carp_user, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), vol = 75, vary = TRUE)
 	hitting_projectile.firer = carp_user
 	hitting_projectile.set_angle(rand(0, 360))//SHING
 	return COMPONENT_BULLET_PIERCED
@@ -192,9 +192,7 @@
 /datum/martial_art/the_sleeping_carp/proc/on_attackby(mob/living/carp_user, obj/item/attack_weapon, mob/attacker, params)
 	SIGNAL_HANDLER
 
-	if(!istype(attack_weapon, /obj/item/melee/touch_attack))
-		return
-	if(!can_deflect(carp_user))
+	if(!istype(attack_weapon, /obj/item/melee/touch_attack) || !can_deflect(carp_user))
 		return
 	var/obj/item/melee/touch_attack/touch_weapon = attack_weapon
 	carp_user.visible_message(
@@ -256,9 +254,9 @@
 		user.Paralyze(6 SECONDS)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			H.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD)
 		else
-			user.take_bodypart_damage(2*force)
+			user.take_bodypart_damage(2 * force)
 		return
 	if(iscyborg(target))
 		return ..()
