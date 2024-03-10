@@ -52,9 +52,11 @@
 	log_reftracker("Finished searching datums")
 
 	//Warning, attempting to search clients like this will cause crashes if done on live. Watch yourself
+#ifndef REFERENCE_DOING_IT_LIVE
 	for(var/client/thing) //clients
 		logged_ref_count += DoSearchVar(thing, "Clients -> [thing.type]", search_time = starting_time)
 	log_reftracker("Finished searching clients")
+#endif
 
 	log_reftracker("found_refs length, [length(found_refs)]")
 	log_reftracker("Completed search for references to a [type].")
