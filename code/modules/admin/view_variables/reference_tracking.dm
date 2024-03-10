@@ -60,8 +60,8 @@
 
 	log_reftracker("found_refs length, [length(found_refs)]")
 	log_reftracker("Completed search for references to a [type].")
-	if(logged_ref_count != our_ref_count)
-		log_reftracker("logged_ref_count != our_ref_count")
+	if(logged_ref_count != our_refcount)
+		log_reftracker("logged_ref_count != our_refcount")
 
 	if(usr?.client)
 		usr.client.running_find_references = null
