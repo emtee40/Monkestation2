@@ -3,12 +3,6 @@
 	desc = "Transfer biomass to another organism."
 	button_icon_state = "dissonant_shriek"
 
-/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-	to_chat(on_who, span_noticealien("You prepare to send biomass. <b>Click a target to transfer!</b>"))
-
 /datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass/PreActivate(atom/target)
 	var/mob/living/mob = target
 	if(!istype(mob, /mob/living/basic/bloodling))

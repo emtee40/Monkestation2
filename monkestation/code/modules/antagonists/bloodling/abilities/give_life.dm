@@ -3,19 +3,6 @@
 	desc = "Bestow the gift of life onto the ignorant."
 	button_icon_state = "alien_hide"
 
-/datum/action/cooldown/mob_cooldown/bloodling/give_life/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-	to_chat(on_who, span_noticealien("You prepare to bestow a life. <b>Click a target to grant them the gift!</b>"))
-
-/datum/action/cooldown/mob_cooldown/bloodling/give_life/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("They do not deserve it... Yet..."))
-
 /datum/action/cooldown/mob_cooldown/bloodling/give_life/PreActivate(atom/target)
 	if(!ismob(target))
 		owner.balloon_alert(owner, "only works on mobs!")

@@ -3,19 +3,6 @@
 	desc = "Allows you to absorb a dead carbon or living mob close to you."
 	button_icon_state = "alien_hide"
 
-/datum/action/cooldown/mob_cooldown/bloodling/absorb/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-	to_chat(on_who, span_noticealien("You prepare to claim a creatures biomass. <b>Click a target to begin absorbing it!</b>"))
-
-/datum/action/cooldown/mob_cooldown/bloodling/absorb/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to claim biomass..."))
-
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/PreActivate(atom/target)
 	if(owner == target)
 		return FALSE
@@ -30,8 +17,7 @@
 		owner.balloon_alert(owner, "doesn't work on non-mobs!")
 		return FALSE
 
-	var/mob/living/mob_to_absorb = target
-	if(!iscarbon(mob_to_absorb))
+	if(!iscarbon(target))
 		return ..()
 
 	var/mob/living/carbon/carbon_to_absorb = target
@@ -41,6 +27,10 @@
 	return ..()
 
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/Activate(atom/target)
+	. = ..()
+	return consume(target)
+
+/datum/action/cooldown/mob_cooldown/bloodling/absorb/proc/consume(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
 	/// How long it takes to absorb something
 	var/absorb_time = 5 SECONDS

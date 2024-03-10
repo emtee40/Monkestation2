@@ -4,20 +4,6 @@
 	button_icon_state = "alien_hide"
 	biomass_cost = 75
 
-/datum/action/cooldown/mob_cooldown/bloodling/infest/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You ready yourself to infest a creature! <b>Click a target to begin infesting it!</b>"))
-
-/datum/action/cooldown/mob_cooldown/bloodling/infest/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to infest..."))
-
 /datum/action/cooldown/mob_cooldown/bloodling/infest/PreActivate(atom/target)
 	if(!ismob(target))
 		owner.balloon_alert(owner, "doesn't work on non-mobs!")

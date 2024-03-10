@@ -4,20 +4,6 @@
 	button_icon_state = "alien_hide"
 	biomass_cost = 50
 
-/datum/action/cooldown/mob_cooldown/bloodling/heal/set_click_ability(mob/on_who)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You ready yourself to heal a thrall! <b>Click a thrall to begin healing it!</b>"))
-
-/datum/action/cooldown/mob_cooldown/bloodling/heal/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!.)
-		return
-
-	to_chat(on_who, span_noticealien("You steady yourself. Now is not the time to heal this one..."))
-
 /datum/action/cooldown/mob_cooldown/bloodling/heal/PreActivate(atom/target)
 	if(!ismob(target))
 		return FALSE

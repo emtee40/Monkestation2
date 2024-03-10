@@ -12,10 +12,8 @@
 	return ..()
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/Activate(atom/target)
-	. = ..()
-	eat_limb(target)
 	StartCooldown()
-	return TRUE
+	return eat_limb(target)
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/proc/eat_limb(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
@@ -49,3 +47,4 @@
 		span_alertalien("[our_mob] snaps its maw over [target]s [target_part] and swiftly devours it!"),
 		span_noticealien("You devour [target]s [target_part]!"),
 	)
+	return TRUE
