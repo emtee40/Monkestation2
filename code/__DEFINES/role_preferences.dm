@@ -165,6 +165,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	// I'm not too sure why these are here, but they're not moving.
 	ROLE_PAI = 0,
 	ROLE_SENTIENCE = 0,
+	ROLE_LAVALAND = 0,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
