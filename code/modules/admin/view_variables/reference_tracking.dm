@@ -56,7 +56,6 @@
 		logged_ref_count += DoSearchVar(thing, "Clients -> [thing.type]", search_time = starting_time)
 	log_reftracker("Finished searching clients")
 
-	log_reftracker("found_refs length, [length(found_refs)]")
 	log_reftracker("Completed search for references to a [type].")
 	if(logged_ref_count != our_refcount)
 		log_reftracker("logged_ref_count != our_refcount")
