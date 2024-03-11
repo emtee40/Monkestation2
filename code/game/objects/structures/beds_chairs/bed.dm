@@ -22,11 +22,15 @@
 	var/build_stack_type = /obj/item/stack/sheet/iron
 	/// How many mats to drop when deconstructed
 	var/build_stack_amount = 2
+	/// Mobs standing on it are nudged up by this amount. Also used to align the person back when buckled to it after init.
+	var/elevation = 8
 
 /obj/structure/bed/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/soft_landing)
 	register_context()
+	if(elevation)
+		AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/bed/examine(mob/user)
 	. = ..()
@@ -185,6 +189,26 @@
 	qdel(src)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
+/obj/structure/bed/medical/emergency/post_buckle_mob(mob/living/M)
+	. = ..()
+	set_density(TRUE)
+	icon_state = "up"
+	//Push them up from the normal lying position
+	M.pixel_y = M.base_pixel_y
+
+/obj/structure/bed/medical/emergency/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, TRUE)
+
+
+/obj/structure/bed/medical/emergency/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	set_density(FALSE)
+	icon_state = "down"
+	//Set them back down to the normal lying position
+	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
+
 /obj/item/emergency_bed
 	name = "roller bed"
 	desc = "A collapsed medical bed that can be carried around."
@@ -255,6 +279,7 @@
 	anchored = FALSE
 	build_stack_type = /obj/item/stack/sheet/mineral/wood
 	build_stack_amount = 10
+	elevation = 0
 	var/owned = FALSE
 
 /obj/structure/bed/dogbed/ian
@@ -304,6 +329,7 @@
 	name = "dirty mattress"
 	desc = "An old grubby mattress. You try to not think about what could be the cause of those stains."
 	icon_state = "dirty_mattress"
+	elevation = 7
 
 /obj/structure/bed/maint/Initialize(mapload)
 	. = ..()
@@ -320,11 +346,12 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/target)
-	if(buckled_mobs.len > 1 && !goldilocks) // Push the second buckled mob a bit higher from the normal lying position
+	if(length(buckled_mobs) > 1 && !goldilocks) // Push the second buckled mob a bit higher from the normal lying position
 		target.pixel_y = target.base_pixel_y + 6
 		goldilocks = target
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/target)
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	. = ..()
 	if(target == goldilocks)
+		target.pixel_y -= 14
 		goldilocks = null
