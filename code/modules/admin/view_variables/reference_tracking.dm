@@ -92,7 +92,6 @@
 	if(isdatum(potential_container))
 		var/datum/datum_container = potential_container
 		if(datum_container.last_find_references == search_time)
-			log_reftracker("datum_container.last_find_references == search_time")
 			return FALSE
 
 		datum_container.last_find_references = search_time
