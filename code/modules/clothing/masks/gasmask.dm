@@ -27,9 +27,16 @@ GLOBAL_LIST_INIT(clown_mask_options, list(
 	var/starting_filter_type = /obj/item/gas_filter
 	///Does the mask have an FOV?
 	var/has_fov = FALSE
+	///Cigarette in the mask
+	var/obj/item/clothing/mask/cigarette/cig
 
 /datum/armor/mask_gas
 	bio = 100
+
+/obj/item/clothing/mask/gas/worn_overlays(mutable_appearance/standing, isinhands)
+	. = ..()
+	if(!isinhands && cig)
+		. += cig.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/clothing/mask.dmi')
 
 /obj/item/clothing/mask/gas/Initialize(mapload)
 	. = ..()
@@ -46,15 +53,64 @@ GLOBAL_LIST_INIT(clown_mask_options, list(
 	QDEL_LAZYLIST(gas_filters)
 	return..()
 
+/obj/item/clothing/mask/gas/equipped(mob/equipee, slot)
+	cig?.equipped(equipee, slot)
+	return ..()
+
+/obj/item/clothing/mask/gas/adjustmask(mob/living/carbon/user)
+	if(isnull(cig))
+		return ..()
+	balloon_alert(user, "there's a cig in the way!")
+
+
 /obj/item/clothing/mask/gas/examine(mob/user)
 	. = ..()
-	if(max_filters > 0)
-		. += "<span class='notice'>[src] has [max_filters] slot\s for filters.</span>"
+	if(cig)
+		. += span_notice("There is a [cig.name] jammed into the filter slot.")
+	if(max_filters > 0 && !cig)
+		. += span_notice("[src] has [max_filters] slot\s for filters.")
 	if(LAZYLEN(gas_filters) > 0)
-		. += "<span class='notice'>Currently there [LAZYLEN(gas_filters) == 1 ? "is" : "are"] [LAZYLEN(gas_filters)] filter\s with [get_filter_durability()]% durability.</span>"
-		. += "<span class='notice'>The filters can be removed by right-clicking with an empty hand on [src].</span>"
+		. += span_notice("Currently there [LAZYLEN(gas_filters) == 1 ? "is" : "are"] [LAZYLEN(gas_filters)] filter\s with [get_filter_durability()]% durability.")
+		. += span_notice("The filters can be removed by right-clicking with an empty hand on [src].")
+
+/obj/item/clothing/mask/gas/Exited(atom/movable/gone)
+	. = ..()
+	if(gone == cig)
+		cig = null
+		if(ismob(loc))
+			var/mob/wearer = loc
+			wearer.update_worn_mask()
 
 /obj/item/clothing/mask/gas/attackby(obj/item/tool, mob/user)
+	var/valid_wearer = ismob(loc)
+	var/mob/wearer = loc
+	if(istype(tool, /obj/item/clothing/mask/cigarette))
+		if(flags_cover & MASKCOVERSMOUTH)
+			balloon_alert(user, "mask's mouth is covered!")
+			return ..()
+
+		if(max_filters <= 0 || cig)
+			balloon_alert(user, "can't hold that!")
+			return ..()
+
+		if(has_filter)
+			balloon_alert(user, "filters in the mask!")
+			return ..()
+
+		cig = tool
+		if(valid_wearer)
+			cig.equipped(loc, wearer.get_slot_by_item(cig))
+
+		cig.forceMove(src)
+		if(valid_wearer)
+			wearer.update_worn_mask()
+		return TRUE
+
+	if(cig)
+		var/cig_attackby = cig.attackby(tool, user)
+		if(valid_wearer)
+			wearer.update_worn_mask()
+		return cig_attackby
 	if(!istype(tool, /obj/item/gas_filter))
 		return ..()
 	if(LAZYLEN(gas_filters) >= max_filters)
@@ -66,6 +122,13 @@ GLOBAL_LIST_INIT(clown_mask_options, list(
 	return TRUE
 
 /obj/item/clothing/mask/gas/attack_hand_secondary(mob/user, list/modifiers)
+	if(cig)
+		user.put_in_hands(cig)
+		cig = null
+		if(ismob(loc))
+			var/mob/wearer = loc
+			wearer.update_worn_mask()
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(!has_filter || !max_filters)
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	for(var/i in 1 to max_filters)
@@ -148,7 +211,7 @@ GLOBAL_LIST_INIT(clown_mask_options, list(
 	desc = "A gas mask with built-in welding goggles and a face shield. Looks like a skull - clearly designed by a nerd."
 	icon_state = "weldingmask"
 	flash_protect = FLASH_PROTECTION_WELDER
-	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*2, /datum/material/glass=SHEET_MATERIAL_AMOUNT)
 	tint = 2
 	armor_type = /datum/armor/gas_welding
 	actions_types = list(/datum/action/item_action/toggle)
@@ -355,7 +418,7 @@ GLOBAL_LIST_INIT(clown_mask_options, list(
 	desc = "A creepy wooden mask. Surprisingly expressive for a poorly carved bit of wood."
 	icon_state = "tiki_eyebrow"
 	inhand_icon_state = null
-	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
+	custom_materials = list(/datum/material/wood = SHEET_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
 	has_fov = FALSE
 	flags_cover = MASKCOVERSEYES
