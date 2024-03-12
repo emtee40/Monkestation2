@@ -2,26 +2,17 @@
 	Le' Lore
 
 	How did the rattus come to be?
-	A cargo ship crashed into the dessert plannet of Voltaire
-	This cargo ship was full of cheese, wine, and french personel
-	The rattus being in a state of savagery scamper into the cargo ship and eat the remaining french that are alive obsorbing thier dna!
+	A cargo ship crashed into the dessert plannet of Voltaire.
+	This cargo ship was full of cheese, wine, and french personel.
+	The rattus being in a state of savagery, scamper into the cargo ship and eat the remaining french that are alive obsorbing thier dna!
 	This turns the rattus french and civilized.
 	The rattus later over DECADES (two weeks) develop space travel and eventally get discovered by nanotraseen!
 	The rattus get hired by Nanotrasen for thier excellent enthusiasm ~~and resilience~~.
 	This is where the story continues, onboard the newest Nanotraseen project.. Space Station 13!
 */
 
-/*
-	le wall of grief
-
-	Icons
-			belt
-			backpack
-
-	add hair/facial-hair? (firstly we need hair offsets.. of which don't exist in tg code)
-*/
-
 #define SPECIES_RATTUS "rattus"
+
 /datum/species/rattus
 	name = "\improper Rattus Norvegicus"
 	plural_form = "Ratti"
@@ -30,10 +21,9 @@
 	species_traits = list(
 		NOEYESPRITES,
 		MUTCOLORS,
-		DYNCOLORS,
 		NO_UNDERWEAR,
-		NOAUGMENTS, //No icons for augments on rattus currently
-		NOTRANSSTING,
+		NOAUGMENTS, //No icons for augments on rattus currently and that would look so cursed, also how would they even FIT on a rat?
+		NOTRANSSTING, //ChangeLing Abuse Bad! (Lore Reason : Rattus themselves are closely related to lings)
 	)
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
@@ -43,22 +33,24 @@
 	species_cookie = /obj/item/food/cheese/wedge
 	meat = /obj/item/food/meat/slab/mouse
 	liked_food = DAIRY | SUGAR | ALCOHOL | GROSS
-	disliked_food = VEGETABLES
+	toxic_food = VEGETABLES //Veggies?! YUCK!!
+	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
 	fire_overlay = "human_small_fire"
+	uses_fur = TRUE
+	allow_numbers_in_name = TRUE
 	speedmod = -0.25
-	stunmod = 1.05
-	brutemod = 1.6
-	burnmod = 1.75
-	siemens_coeff = 75
-	payday_modifier = 0.8
+	stunmod = 1.1
+	brutemod = 2.5
+	burnmod = 3.75
+	siemens_coeff = 20
+	payday_modifier = 0.75 //They are weak and made of wet tissue paper, it was hard for them to get hired in the first place.
 	inherent_factions = list(FACTION_RAT)
-	no_equip_flags = ITEM_SLOT_ICLOTHING | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET
-	mutanttongue = /obj/item/organ/internal/tongue/rattus
+	no_equip_flags = ITEM_SLOT_ICLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
 	bodypart_overrides = list(
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/rattus,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/rattus,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/rattus,
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/rattus,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/rattus,
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/rattus,
@@ -66,8 +58,9 @@
 	)
 	offset_features = list(
 		OFFSET_HANDS = list(0,-2),
-		OFFSET_BELT = list(0,-3), //replace with real sprites later
-		OFFSET_BACK = list(0,-5), //replace with real sprites later
+		OFFSET_BELT = list(0,-3), //replace with unique sprites later
+		OFFSET_BACK = list(0,-5), //replace with unique sprites later
+		OFFSET_SUIT = list(0,-5), //replace with unique sprites later
 
 		OFFSET_ID = list(0,-5),
 		OFFSET_GLASSES = list(0,-5),
@@ -80,26 +73,14 @@
 		OFFSET_NECK = list(0,-5),
 	)
 	family_heirlooms = list(
-		/obj/item/assembly/mousetrap/armed, // :)
+		/obj/item/assembly/mousetrap/armed,
 		/obj/item/trash/raisins,
 		/obj/item/trash/cheesie,
-		/obj/item/trash/candy,
 		/obj/item/trash/chips,
 		/obj/item/trash/sosjerky,
 		/obj/item/trash/pistachios,
-		/obj/item/trash/peanuts,
-		/obj/item/trash/boritos,
-		/obj/item/trash/boritos/green,
-		/obj/item/trash/boritos/purple,
-		/obj/item/trash/boritos/red,
 		/obj/item/trash/popcorn,
 		/obj/item/trash/energybar,
-		/obj/item/trash/semki,
-		/obj/item/trash/cnds,
-		/obj/item/trash/syndi_cakes,
-		/obj/item/trash/shrimp_chips,
-		/obj/item/trash/waffles,
-		/obj/item/trash/tray,
 		/obj/item/trash/can,
 		)
 
@@ -111,7 +92,6 @@
 	is_dimorphic = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	dmg_overlay_type = "monkey"
-	layer = BELOW_MOB_LAYER + 0.01 //forced to be above torso
 
 /obj/item/bodypart/head/rattus
 	icon_greyscale =  'monkestation/icons/mob/species/rattus/bodyparts.dmi'
@@ -183,13 +163,13 @@
 	space_chance = 100
 	default_priority = 90
 	syllables = list(
-					//alcohol
-					"lager","absinthe","amaro","amaretto","aperol","armagnac","baileys","beer","bellini","bitters","bourbon","brandy","bulleit","cachaça","calvados","campari","cava","champagne","chardonnay","chartreuse","chianti","cider","cognac","cosmopolitan","cynar","daquiri","genever","gin","grand-marnier","grappa","grenadine","irish-coffee","jägermeister","kahlúa","kir-royale","lager","limoncello","mai-tai","manhattan","margarita","martini","mead","merlot","mezcal","mojito","moscato","negroni","pilsner","pinot-grigio","pinot-noir","port","prosecco","raki","rum","sake","sangria","sazerac","scotch","sherry","smirnoff","sour","sparkling-wine","tequila","vodka","whisky","wine","zinfandel",
-					//cheese
-					"cheese","fontina","roquefort","limburger","jarlsberg","emmental","taleggio","pecorino","cheddar","edam","asiago","stilton","munster","swis","feta","gruyere","colby","pepper-jack","gouda","manchego","blue-cheese","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","fromage","omelette-du-fromage",
-					//misc
-					"(RAT SOUNDS)","(INCOHERENT YELLING)","andouille","blaireau","squeak","le","hon","hun","honhonhon","baugette","cigarette","viva","fuck","tete-de-noeud","casse-toi","tabarnak","accoutrement","eiffel-tower","emmanuel-macron"
-					)
+		//alcohol
+		"lager","absinthe","amaro","amaretto","aperol","armagnac","baileys","beer","bellini","bitters","bourbon","brandy","bulleit","cachaça","calvados","campari","cava","champagne","chardonnay","chartreuse","chianti","cider","cognac","cosmopolitan","cynar","daquiri","genever","gin","grand-marnier","grappa","grenadine","irish-coffee","jägermeister","kahlúa","kir-royale","lager","limoncello","mai-tai","manhattan","margarita","martini","mead","merlot","mezcal","mojito","moscato","negroni","pilsner","pinot-grigio","pinot-noir","port","prosecco","raki","rum","sake","sangria","sazerac","scotch","sherry","smirnoff","sour","sparkling-wine","tequila","vodka","whisky","wine","zinfandel",
+		//cheese
+		"cheese","fontina","roquefort","limburger","jarlsberg","emmental","taleggio","pecorino","cheddar","edam","asiago","stilton","munster","swis","feta","gruyere","colby","pepper-jack","gouda","manchego","blue-cheese","parmesan","mozzarella","ricotta","brie","camembert","provolone","gorgonzola","muenster","mascarpone","monterey","havarti","fromage","omelette-du-fromage",
+		//misc
+		"andouille","blaireau","squeak","le","hon","hun","honhonhon","baugette","cigarette","viva","fuck","tete-de-noeud","casse-toi","tabarnak","accoutrement","eiffel-tower","emmanuel-macron"
+		)
 	icon = 'monkestation/icons/misc/language.dmi'
 	icon_state = "rattus"
 
@@ -203,13 +183,9 @@
 	return 'monkestation/sound/voice/rattus/rattuslaugh.ogg'
 
 /datum/species/rattus/random_name(gender,unique,lastname)
-	var/randname = rattus_name(gender)
-	if(lastname)
-		randname += " [lastname]"
-	return randname
-
-/proc/rattus_name(gender) //I should consolidate my txt files into this dm file
+	var/rattusname = "Rattus Norvegicus"
 	if(gender == MALE)
-		return "[pick(world.file2list("monkestation/strings/names/rattus_male_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
+		rattusname = "[pick(world.file2list("monkestation/strings/names/rattus_female_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
 	else
-		return "[pick(world.file2list("monkestation/strings/names/rattus_female_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
+		rattusname = "[pick(world.file2list("monkestation/strings/names/rattus_male_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
+	return rattusname
