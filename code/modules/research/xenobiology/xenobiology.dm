@@ -705,7 +705,6 @@
 
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(
 		"Do you want to play as [dumb_mob.name]",
-		check_jobban = ROLE_SENTIENCE,
 		role = ROLE_SENTIENCE,
 		poll_time = 5 SECONDS,
 		target_mob = dumb_mob,

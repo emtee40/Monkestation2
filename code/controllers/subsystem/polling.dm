@@ -222,6 +222,8 @@ SUBSYSTEM_DEF(polling)
 		if(potential_candidate.client && potential_candidate.client.get_remaining_days(required_time) > 0)
 			return FALSE
 
+	if(isnull(check_jobban) || !isnull(role))
+		check_jobban = role
 	if(check_jobban)
 		if(is_banned_from(potential_candidate.ckey, list(check_jobban, ROLE_SYNDICATE)))
 			return FALSE
