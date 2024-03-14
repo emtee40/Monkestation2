@@ -2,6 +2,7 @@
 	name = "Space Florida Man"
 	roundend_category = "Florida Men"
 	antagpanel_category = "Florida Man"
+	job_rank = ROLE_FLORIDA_MAN
 	objectives = list()
 	show_to_ghosts = TRUE
 	preview_outfit = /datum/outfit/florida_man_one
