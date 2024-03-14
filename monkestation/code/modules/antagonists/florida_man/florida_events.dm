@@ -28,7 +28,7 @@
 /datum/round_event/ghost_role/florida_man/spawn_role()
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
 		"Do you want to play as Florida Man?",
-		check_jobban = ROLE_TRAITOR,
+		role = ROLE_FLORIDA_MAN,
 		poll_time = 20 SECONDS,
 		pic_source = /datum/antagonist/florida_man,
 		role_name_text = "florida man"
