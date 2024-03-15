@@ -201,6 +201,7 @@
 		if(SSatoms.InitAtom(src, FALSE, args))
 			//we were deleted
 			return
+	SSdemo.mark_new(src) //Monkestation edit: Replays
 
 /**
  * The primary method that objects are setup in SS13 with
@@ -752,7 +753,10 @@
 					. += "It contains <b>[round(reagents.total_volume, 0.01)]</b> units of various reagents[user_sees_reagents ? ":" : "."]"
 					if(user_sees_reagents) //Show each individual reagent
 						for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
-							. += "&bull; [round(current_reagent.volume, 0.01)] units of [current_reagent.name]"
+							var/reagent_name = current_reagent.name
+							if(istype(current_reagent, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+								reagent_name = "Ammonia?"
+							. += "&bull; [round(current_reagent.volume, 0.01)] units of [reagent_name]"
 						if(reagents.is_reacting)
 							. += span_warning("It is currently reacting!")
 						. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
@@ -855,6 +859,7 @@
 /atom/proc/update_overlays()
 	SHOULD_CALL_PARENT(TRUE)
 	. = list()
+
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
 /**
@@ -949,9 +954,23 @@
 		return FALSE
 	return TRUE
 
+/**
+ * Respond to fire being used on our atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_FIRE_ACT] and return
+ */
 /atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
-	return
+	return FALSE
+
+/**
+ * Sends [COMSIG_ATOM_EXTINGUISH] signal, which properly removes burning component if it is present.
+ *
+ * Default behaviour is to send [COMSIG_ATOM_ACID_ACT] and return
+ */
+/atom/proc/extinguish()
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_EXTINGUISH)
 
 /**
  * React to being hit by a thrown object
@@ -1912,6 +1931,7 @@
  * Override this if you want custom behaviour in whatever gets hit by the rust
  */
 /atom/proc/rust_heretic_act()
+	return
 
 /**
  * Used to set something as 'open' if it's being used as a supplypod
@@ -2026,7 +2046,7 @@
 		active_hud.screentip_text.maptext = ""
 		return
 
-	active_hud.screentip_text.maptext_y = 0
+	active_hud.screentip_text.maptext_y = 10 // 10px lines us up with the action buttons top left corner
 	var/lmb_rmb_line = ""
 	var/ctrl_lmb_ctrl_rmb_line = ""
 	var/alt_lmb_alt_rmb_line = ""
@@ -2093,15 +2113,15 @@
 					extra_lines++
 
 				if(extra_lines)
-					extra_context = "<br><span style='font-size: 7px'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
-					//first extra line pushes atom name line up 10px, subsequent lines push it up 9px, this offsets that and keeps the first line in the same place
-					active_hud.screentip_text.maptext_y = -10 + (extra_lines - 1) * -9
+					extra_context = "<br><span class='subcontext'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
+					//first extra line pushes atom name line up 11px, subsequent lines push it up 9px, this offsets that and keeps the first line in the same place
+					active_hud.screentip_text.maptext_y = -1 + (extra_lines - 1) * -9
 
 	if (screentips_enabled == SCREENTIP_PREFERENCE_CONTEXT_ONLY && extra_context == "")
 		active_hud.screentip_text.maptext = ""
 	else
 		//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-		active_hud.screentip_text.maptext = "<span class='maptext' style='text-align: center; font-size: 32px; color: [active_hud.screentip_color]'>[name][extra_context]</span>"
+		active_hud.screentip_text.maptext = "<span class='context' style='text-align: center; color: [active_hud.screentip_color]'>[name][extra_context]</span>"
 
 /// Gets a merger datum representing the connected blob of objects in the allowed_types argument
 /atom/proc/GetMergeGroup(id, list/allowed_types)

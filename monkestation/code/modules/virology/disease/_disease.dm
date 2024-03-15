@@ -381,6 +381,9 @@ GLOBAL_LIST_INIT(virusDB, list())
 	if(mob.immune_system)
 		if(prob(8))
 			mob.immune_system.NaturalImmune()
+		//Slowly decay back to regular strength immune system while you are sick
+		if(mob.immune_system.strength > 1)
+			mob.immune_system.strength = max(mob.immune_system.strength - 0.01, 1)
 
 	if(!mob.immune_system.CanInfect(src))
 		cure(mob)
@@ -824,10 +827,10 @@ GLOBAL_LIST_INIT(virusDB, list())
 		D.pattern = rand(1,6)
 		D.pattern_color = "#[pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)]"
 		if (alert("Do you want to specify the appearance of your pathogen in a petri dish?","Choose your appearance","Yes","No") == "Yes")
-			D.color = input(C, "Choose the color of the dish", "Cosmetic") as color
+			D.color = tgui_color_picker(C, "Choose the color of the dish", "Cosmetic")
 			D.pattern = input(C, "Choose the shape of the pattern inside the dish (1 to 6)", "Cosmetic",rand(1,6)) as num
 			D.pattern = clamp(D.pattern,1,6)
-			D.pattern_color = input(C, "Choose the color of the pattern", "Cosmetic") as color
+			D.pattern_color = tgui_color_picker(C, "Choose the color of the pattern", "Cosmetic")
 
 		D.spread_flags = 0
 		if (alert("Can this virus spread_flags into blood? (warning! if choosing No, this virus will be impossible to sample and analyse!)","Spreading Vectors","Yes","No") == "Yes")
