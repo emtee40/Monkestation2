@@ -148,7 +148,6 @@
 			//Check assoc sublists
 			if(islist(assoc_val))
 				DoSearchVar(potential_container[element_in_list], "[container_name]\[[element_in_list]\] -> [assoc_val] (list)", recursive_limit - 1, search_time)
-	return
 
 /proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
 	thing_to_del.qdel_and_find_ref_if_fail(force)
