@@ -26,12 +26,10 @@
 
 	var/starting_time = world.time
 
-	var/our_refcount = refcount(src)
-	log_reftracker("Refcount for [type]: [our_refcount]")
+	log_reftracker("Refcount for [type]: [refcount(src)]")
 
-	var/logged_ref_count = 0
 	//Time to search the whole game for our ref
-	logged_ref_count += DoSearchVar(GLOB, "GLOB", search_time = starting_time) //globals
+	DoSearchVar(GLOB, "GLOB", search_time = starting_time) //globals
 	log_reftracker("Finished searching globals")
 
 	//Yes we do actually need to do this. The searcher refuses to read weird lists
@@ -40,27 +38,25 @@
 	for(var/key in global.vars)
 		global_vars[key] = global.vars[key]
 
-	logged_ref_count += DoSearchVar(global_vars, "Native Global", search_time = starting_time)
+	DoSearchVar(global_vars, "Native Global", search_time = starting_time)
 	log_reftracker("Finished searching native globals")
 
 	for(var/datum/thing in world) //atoms (don't beleive its lies)
-		logged_ref_count += DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time)
+		DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time)
 	log_reftracker("Finished searching atoms")
 
 	for(var/datum/thing) //datums
-		logged_ref_count += DoSearchVar(thing, "Datums -> [thing.type]", search_time = starting_time)
+		DoSearchVar(thing, "Datums -> [thing.type]", search_time = starting_time)
 	log_reftracker("Finished searching datums")
 
 	//Warning, attempting to search clients like this will cause crashes if done on live. Watch yourself
 #ifndef REFERENCE_DOING_IT_LIVE
 	for(var/client/thing) //clients
-		logged_ref_count += DoSearchVar(thing, "Clients -> [thing.type]", search_time = starting_time)
+		DoSearchVar(thing, "Clients -> [thing.type]", search_time = starting_time)
 	log_reftracker("Finished searching clients")
 #endif
 
 	log_reftracker("Completed search for references to a [type].")
-	if(logged_ref_count != our_refcount)
-		log_reftracker("logged_ref_count != our_refcount")
 
 	if(usr?.client)
 		usr.client.running_find_references = null
@@ -77,22 +73,21 @@
 	#endif
 
 	if(usr?.client && !usr.client.running_find_references)
-		return FALSE
+		return
 
 	if(!recursive_limit)
 		log_reftracker("Recursion limit reached. [container_name]")
-		return FALSE
+		return
 
 	//Check each time you go down a layer. This makes it a bit slow, but it won't effect the rest of the game at all
 	#ifndef FIND_REF_NO_CHECK_TICK
 	CHECK_TICK
 	#endif
 
-	var/found_ref = FALSE //UNDO THIS COMMIT, THIS IS FOR DEBUGGING ONLY
 	if(isdatum(potential_container))
 		var/datum/datum_container = potential_container
 		if(datum_container.last_find_references == search_time)
-			return FALSE
+			return
 
 		datum_container.last_find_references = search_time
 		var/list/vars_list = datum_container.vars
@@ -112,7 +107,6 @@
 					continue //End early, don't want these logging
 				#endif
 				log_reftracker("Found [type] [text_ref(src)] in [datum_container.type]'s [text_ref(datum_container)] [varname] var. [container_name]")
-				found_ref = TRUE
 				continue
 
 			if(islist(variable))
@@ -133,7 +127,6 @@
 					continue //End early, don't want these logging
 				#endif
 				log_reftracker("Found [type] [text_ref(src)] in list [container_name].")
-				found_ref = TRUE
 				continue
 
 			var/assoc_val = null
@@ -147,7 +140,6 @@
 					continue //End early, don't want these logging
 				#endif
 				log_reftracker("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
-				found_ref = TRUE
 				continue
 			//We need to run both of these checks, since our object could be hiding in either of them
 			//Check normal sublists
@@ -156,7 +148,7 @@
 			//Check assoc sublists
 			if(islist(assoc_val))
 				DoSearchVar(potential_container[element_in_list], "[container_name]\[[element_in_list]\] -> [assoc_val] (list)", recursive_limit - 1, search_time)
-	return found_ref
+	return
 
 /proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
 	thing_to_del.qdel_and_find_ref_if_fail(force)
