@@ -26,5 +26,5 @@
 	centerspawner = FALSE
 	template_height = 26
 	template_width = 29
-	weight = 2
+	weight = 4
 	station_name = "Box Station"
