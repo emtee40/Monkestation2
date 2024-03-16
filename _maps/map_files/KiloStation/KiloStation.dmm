@@ -7991,6 +7991,7 @@
 /area/station/engineering/atmos/pumproom)
 "cPu" = (
 /obj/machinery/light/directional/west,
+/obj/machinery/vending/wardrobe/gene_wardrobe,
 /turf/open/floor/grass,
 /area/station/science/genetics)
 "cPw" = (
@@ -8075,9 +8076,8 @@
 /obj/item/toy/figure/qm{
 	pixel_x = -17
 	},
-/obj/machinery/modular_computer/console/preset/id{
-	dir = 1
-	},
+/obj/structure/table,
+/obj/item/modular_computer/laptop,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm)
 "cRW" = (
@@ -21233,6 +21233,16 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/storage)
+"hdB" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/box/disks_nanite,
+/obj/item/nanite_scanner,
+/obj/item/nanite_remote,
+/turf/open/floor/iron/dark,
+/area/station/science/research)
 "hdY" = (
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance"
@@ -24759,7 +24769,6 @@
 "ieu" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/nanite_program_hub,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/ordnance/office)
 "ieI" = (
@@ -31222,7 +31231,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "kkg" = (
-/obj/machinery/computer/nanite_cloud_controller,
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance/office)
 "kkC" = (
@@ -42018,7 +42030,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/east,
 /obj/structure/cable,
-/obj/machinery/nanite_programmer,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/ordnance/office)
 "nSh" = (
@@ -61695,7 +61706,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/vending/wardrobe/gene_wardrobe,
+/obj/machinery/nanite_program_hub,
 /turf/open/floor/iron/dark,
 /area/station/science/research)
 "unr" = (
@@ -63125,9 +63136,6 @@
 	pixel_x = 8;
 	pixel_y = 9
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 5
-	},
 /obj/item/storage/box/disks_nanite,
 /obj/item/storage/box/disks_nanite,
 /turf/open/floor/iron/dark,
@@ -64007,6 +64015,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
+"vbD" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/nanite_programmer,
+/turf/open/floor/iron/dark,
+/area/station/science/research)
 "vbP" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
@@ -68978,6 +68996,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/computer/nanite_cloud_controller,
 /turf/open/floor/iron/dark,
 /area/station/science/research)
 "wAC" = (
@@ -70594,7 +70613,12 @@
 /area/station/science/xenobiology)
 "xcj" = (
 /obj/effect/turf_decal/siding/green,
-/obj/machinery/door/firedoor/border_only/closed,
+/obj/machinery/door/window/left/directional/west{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right";
+	name = "Garden Pen"
+	},
 /turf/open/misc/sandy_dirt,
 /area/station/service/hydroponics/garden)
 "xck" = (
@@ -112225,7 +112249,7 @@ bUx
 cKY
 mDj
 vGY
-eHI
+hdB
 eHI
 eHI
 rPy
@@ -112483,7 +112507,7 @@ imS
 wzI
 wzI
 unp
-wAz
+vbD
 wAz
 nEA
 jeU
