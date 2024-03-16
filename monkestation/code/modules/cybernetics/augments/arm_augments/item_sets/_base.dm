@@ -33,6 +33,9 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/item_set/update_implants()
+	if(QDELETED(active_item))
+		return
+
 	if(!check_compatibility())
 		Retract()
 
