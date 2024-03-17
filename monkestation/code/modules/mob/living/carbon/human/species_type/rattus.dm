@@ -22,8 +22,9 @@
 		NOEYESPRITES,
 		MUTCOLORS,
 		NO_UNDERWEAR,
+		NOTRANSSTING,
+		NOBLOODOVERLAY,
 		NOAUGMENTS, //No icons for augments on rattus currently and that would look so cursed, also how would they even FIT on a rat?
-		NOTRANSSTING, //ChangeLing Abuse Bad! (Lore Reason : Rattus themselves are closely related to lings)
 	)
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
@@ -41,12 +42,12 @@
 	allow_numbers_in_name = TRUE
 	speedmod = -0.25
 	stunmod = 1.1
-	brutemod = 2.5
+	brutemod = 2.75
 	burnmod = 3.75
 	siemens_coeff = 20
 	payday_modifier = 0.75 //They are weak and made of wet tissue paper, it was hard for them to get hired in the first place.
 	inherent_factions = list(FACTION_RAT)
-	no_equip_flags = ITEM_SLOT_ICLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET
+	no_equip_flags = ITEM_SLOT_GLOVES | ITEM_SLOT_ICLOTHING | ITEM_SLOT_FEET //| ITEM_SLOT_OCLOTHING
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/rattus,
@@ -57,20 +58,21 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/rattus,
 	)
 	offset_features = list(
-		OFFSET_HANDS = list(0,-2),
-		OFFSET_BELT = list(0,-3), //replace with unique sprites later
-		OFFSET_BACK = list(0,-5), //replace with unique sprites later
-		OFFSET_SUIT = list(0,-5), //replace with unique sprites later
-
-		OFFSET_ID = list(0,-5),
-		OFFSET_GLASSES = list(0,-5),
-		OFFSET_EARS = list(0,-5),
-		OFFSET_FACEMASK = list(0,-5),
-		OFFSET_HEAD = list(0,-5),
-		OFFSET_FACE = list(0,-5),
-		OFFSET_EYES = list(0,-6),
-		OFFSET_ACCESSORY = list(0,-6),
-		OFFSET_NECK = list(0,-5),
+		OFFSET_HANDS = list(0,-6),
+		OFFSET_BELT = list(0,-8), //need unique sprites later [they look fine already, just a few oddities]
+		OFFSET_BACK = list(0,-10), //need unique sprites later [backpacks look almost correct, still wierd]
+		OFFSET_NECK = list(0,-11), //need unique sprites later [cloaks are VERY wonky]
+		OFFSET_ID = list(0,-11),
+		OFFSET_GLASSES = list(0,-11),
+		OFFSET_EARS = list(0,-11),
+		OFFSET_FACEMASK = list(0,-11),
+		OFFSET_HEAD = list(0,-11),
+		OFFSET_FACE = list(0,-11),
+		OFFSET_S_STORE = list(0,-8),
+		OFFSET_SUIT = list(0,-11), //need unique sprites later [they just don't look good on rattus]
+		OFFSET_UNIFORM = list(0,-11),
+		OFFSET_SHOES = list(0,-11),
+		OFFSET_GLOVES = list(0,-11),
 	)
 	family_heirlooms = list(
 		/obj/item/assembly/mousetrap/armed,
@@ -134,7 +136,6 @@
 	limb_id = SPECIES_RATTUS
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	dmg_overlay_type = "monkey"
-
 
 /obj/item/bodypart/leg/right/rattus
 	icon_greyscale =  'monkestation/icons/mob/species/rattus/bodyparts.dmi'
