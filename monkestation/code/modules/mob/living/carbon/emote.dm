@@ -48,6 +48,8 @@
 	desc = "''Ya' need a count?'' ''Nah sir.'' *abruptly gets shot in the head. ''Well.. that ain't good...'' *falls over backwards ''I should'a seen this comming.''"
 	icon = 'monkestation/icons/obj/weapons/guns/fingergun_emote.dmi'
 	icon_state = "item"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	inhand_icon_state = "nothing"
 	item_flags = DROPDEL | HAND_ITEM
 	force = 0
