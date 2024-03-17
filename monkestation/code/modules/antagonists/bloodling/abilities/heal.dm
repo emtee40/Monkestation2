@@ -7,9 +7,11 @@
 /datum/action/cooldown/mob_cooldown/bloodling/heal/PreActivate(atom/target)
 	if(!ismob(target))
 		return FALSE
+
 	var/mob/living/targetted_mob = target
 	if(!iscarbon(targetted_mob))
 		return FALSE
+
 	if(!IS_BLOODLING_THRALL(targetted_mob))
 		return FALSE
 	return ..()

@@ -18,12 +18,14 @@
 	return istype(owner, /mob/living/basic/bloodling)
 
 /datum/action/cooldown/mob_cooldown/bloodling/PreActivate(atom/target)
+	if(get_dist(owner, target) > 1)
+		return FALSE
+
 	var/mob/living/basic/bloodling/our_mob = owner
-	// Parent calls Activate(), so if parent returns TRUE,
-	// it means the activation happened successfuly by this point
 	. = ..()
 	if(!.)
 		return FALSE
+
 	// Since bloodlings evolve it may result in them or their abilities going away
 	// so we can just return true here
 	if(QDELETED(src) || QDELETED(owner))

@@ -7,9 +7,6 @@
 	if(owner == target)
 		return FALSE
 
-	if(get_dist(owner, target) > 1)
-		return FALSE
-
 	if(istype(target, /obj/item/food/deadmouse))
 		return ..()
 
@@ -17,7 +14,8 @@
 		owner.balloon_alert(owner, "doesn't work on non-mobs!")
 		return FALSE
 
-	if(!iscarbon(target))
+	var/mob/living/mob_to_absorb = target
+	if(!iscarbon(mob_to_absorb))
 		return ..()
 
 	var/mob/living/carbon/carbon_to_absorb = target

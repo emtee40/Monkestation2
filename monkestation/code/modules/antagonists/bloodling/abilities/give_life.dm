@@ -7,10 +7,12 @@
 	if(!ismob(target))
 		owner.balloon_alert(owner, "only works on mobs!")
 		return FALSE
+
 	var/mob/living/mob_target = target
 	if(mob_target.ckey && !mob_target.stat == DEAD)
 		owner.balloon_alert(owner, "only works on non-sentient alive mobs!")
 		return FALSE
+
 	if(iscarbon(mob_target))
 		owner.balloon_alert(owner, "doesn't work on carbons!")
 		return FALSE
