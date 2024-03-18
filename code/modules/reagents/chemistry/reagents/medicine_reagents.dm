@@ -1070,7 +1070,7 @@
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/affected_mob)
 	..()
-	if(HAS_TRAIT(affected_mob, TRAIT_INCAPACITATED, STAMINA))
+	if(HAS_TRAIT(affected_mob, TRAIT_INCAPACITATED))
 		affected_mob.exit_stamina_stun()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulants)
 

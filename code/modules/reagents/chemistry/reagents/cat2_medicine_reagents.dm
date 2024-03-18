@@ -135,7 +135,7 @@
 	if(affected_mob.stamina.loss >= 100)
 		to_chat(affected_mob,span_warning("You feel more tired than you usually do, perhaps if you rest your eyes for a bit..."))
 		affected_mob.stamina.adjust(100, TRUE)
-		if(HAS_TRAIT(affected_mob, TRAIT_INCAPACITATED, STAMINA))
+		if(HAS_TRAIT(affected_mob, TRAIT_INCAPACITATED))
 			affected_mob.exit_stamina_stun()
 		affected_mob.Sleeping(10 SECONDS)
 	..()
