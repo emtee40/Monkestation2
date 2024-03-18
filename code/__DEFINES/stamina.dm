@@ -77,3 +77,5 @@
 #define STAMINA_GRAB_AGGRESSIVE_RESIST_CHANCE 60
 /// Chance to resist out of chokeholds grabs.
 #define STAMINA_GRAB_CHOKE_RESIST_CHANCE 45
+
+#define TRAIT_CANT_STAMCRIT "cant_stamcrit"

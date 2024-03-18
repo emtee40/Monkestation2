@@ -129,7 +129,7 @@
 	. = TRUE
 
 /datum/reagent/medicine/c2/probital/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.stamina.adjust(-3 * REM * seconds_per_tick, FALSE)
+	affected_mob.stamina.adjust(-3 * REM * seconds_per_tick, TRUE)
 	if(affected_mob.stamina.loss >= 80)
 		affected_mob.adjust_drowsiness(2 SECONDS * REM * seconds_per_tick)
 	if(affected_mob.stamina.loss >= 100)
