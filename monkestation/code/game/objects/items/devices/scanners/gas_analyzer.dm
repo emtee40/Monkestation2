@@ -5,4 +5,3 @@
 			if(anomaly.scan_anomaly(user, src))
 				return AFTERATTACK_PROCESSED_ITEM
 	return ..()
-f
