@@ -109,17 +109,17 @@
 		}\
 	} while (0)
 
-#define HAS_TRAIT(target, trait) (target._status_traits?[trait] ? TRUE : FALSE)
-#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]))
+#define HAS_TRAIT(target, trait) (target?._status_traits?[trait] ? TRUE : FALSE)
+#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target?._status_traits[trait]))
 #define HAS_TRAIT_FROM_ONLY(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]) && (length(target._status_traits[trait]) == 1))
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (length(target._status_traits[trait] - source) > 0))
 /// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
 /// You should not be using this
-#define GET_TRAIT_SOURCES(target, trait) target._status_traits?[trait] || list()
+#define GET_TRAIT_SOURCES(target, trait) target?._status_traits?[trait] || list()
 /// Returns the amount of sources for a trait. useful if you don't want to have a "thing counter" stuck around all the time
 #define COUNT_TRAIT_SOURCES(target, trait) length(GET_TRAIT_SOURCES(target, trait))
 /// A simple helper for checking traits in a mob's mind
-#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
+#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || HAS_TRAIT(target?.mind, trait))
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -1269,6 +1269,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLUED_ITEM_TRAIT "glued-item"
 #define TRAIT_BELT_SATCHEL "belt_satchel"
 
+/// Trait given to mobs that we do not want to mindswap
+#define TRAIT_NO_MINDSWAP "no_mindswap"
+
 //monkestation edit start
 /// One can breath under water, you get me?
 #define TRAIT_WATER_BREATHING "water_breathing"
@@ -1295,5 +1298,3 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
-/// Trait given to mobs that we do not want to mindswap
-#define TRAIT_NO_MINDSWAP "no_mindswap"
