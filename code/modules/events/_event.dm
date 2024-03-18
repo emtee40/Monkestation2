@@ -89,75 +89,36 @@
 // Admin-created events override this.
 /datum/round_event_control/proc/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	var/static/list/logged_failures
-	if(!logged_failures)
-		logged_failures = list()
 //monkestation edit start
 	if(roundstart && ((SSticker.round_start_time && world.time - SSticker.round_start_time >= 2 MINUTES) || (SSgamemode.ran_roundstart && !fake_check)))
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("1 [src]")
-			logged_failures += src
 		return FALSE
 //monkestation edit end
 	if(occurrences >= max_occurrences)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("2 [src]")
-			logged_failures += src
 		return FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("3 [src]")
-			logged_failures += src
 		return FALSE
 	if(!allow_magic && wizardevent != SSevents.wizardmode)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("4 [src]")
-			logged_failures += src
 		return FALSE
 	if(players_amt < min_players)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("5 [src]")
-			logged_failures += src
 		return FALSE
 	if(holidayID && !check_holidays(holidayID))
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("6 [src]")
-			logged_failures += src
 		return FALSE
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("7 [src]")
-			logged_failures += src
 		return FALSE
 	if(ispath(typepath, /datum/round_event/ghost_role) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("8 [src]")
-			logged_failures += src
 		return FALSE
 
 	//monkestation edit start - STORYTELLERS
 	if(checks_antag_cap && !roundstart && !SSgamemode.can_inject_antags())
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("9 [src]")
-			logged_failures += src
 		return FALSE
 	if(!check_enemies())
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("10 [src]")
-			logged_failures += src
 		return FALSE
 	if(allowed_storytellers && ((islist(allowed_storytellers) && !is_type_in_list(SSgamemode.storyteller, allowed_storytellers)) || SSgamemode.storyteller.type != allowed_storytellers))
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("11 [src]")
-			logged_failures += src
 		return FALSE
 	//monkestation edit end - STORYTELLERS
 
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if (istype(dynamic) && dynamic_should_hijack && dynamic.random_event_hijacked != HIJACKED_NOTHING)
-		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
-			SSjob.JobDebug("12 [src]")
-			logged_failures += src
 		return FALSE
 
 	return TRUE
