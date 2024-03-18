@@ -93,7 +93,7 @@
 	if(!logged_failures)
 		logged_failures = list()
 //monkestation edit start
-	if(roundstart && (world.time-SSticker.round_start_time >= 2 MINUTES || (SSgamemode.ran_roundstart && !fake_check)))
+	if(roundstart && ((SSticker.round_start_time && world.time - SSticker.round_start_time >= 2 MINUTES) || (SSgamemode.ran_roundstart && !fake_check)))
 		if(istype(src, /datum/round_event_control/antagonist) && !(src in logged_failures))
 			SSjob.JobDebug("1 [src]")
 			logged_failures += src
