@@ -25,7 +25,6 @@
 	antag_datum = /datum/antagonist/traitor
 	roundstart = TRUE
 	earliest_start = 0 SECONDS
-	//min_players = 1
 
 /datum/round_event_control/antagonist/solo/traitor/midround
 	name = "Sleeper Agents (Traitors)"

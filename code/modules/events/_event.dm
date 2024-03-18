@@ -91,46 +91,34 @@
 	SHOULD_CALL_PARENT(TRUE)
 //monkestation edit start
 	if(roundstart && (world.time-SSticker.round_start_time >= 2 MINUTES || (SSgamemode.ran_roundstart && !fake_check)))
-		message_admins("1 [src]")
 		return FALSE
 //monkestation edit end
 	if(occurrences >= max_occurrences)
-		message_admins("2 [src]")
 		return FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
-		message_admins("3 [src]")
 		return FALSE
 	if(!allow_magic && wizardevent != SSevents.wizardmode)
-		message_admins("4 [src]")
 		return FALSE
 	if(players_amt < min_players)
-		message_admins("5 [src]")
 		return FALSE
 	if(holidayID && !check_holidays(holidayID))
-		message_admins("6 [src]")
 		return FALSE
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		message_admins("7 [src]")
 		return FALSE
 	if(ispath(typepath, /datum/round_event/ghost_role) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
-		message_admins("8 [src]")
 		return FALSE
 
 	//monkestation edit start - STORYTELLERS
 	if(checks_antag_cap && !roundstart && !SSgamemode.can_inject_antags())
-		message_admins("9 [src]")
 		return FALSE
 	if(!check_enemies())
-		message_admins("10 [src]")
 		return FALSE
 	if(allowed_storytellers && ((islist(allowed_storytellers) && !is_type_in_list(SSgamemode.storyteller, allowed_storytellers)) || SSgamemode.storyteller.type != allowed_storytellers))
-		message_admins("11 [src]")
 		return FALSE
 	//monkestation edit end - STORYTELLERS
 
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if (istype(dynamic) && dynamic_should_hijack && dynamic.random_event_hijacked != HIJACKED_NOTHING)
-		message_admins("12 [src]")
 		return FALSE
 
 	return TRUE
