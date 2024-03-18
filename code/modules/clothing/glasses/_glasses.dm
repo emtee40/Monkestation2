@@ -537,12 +537,12 @@
 		chameleon_action.hidden = FALSE
 		actions += chameleon_action
 		chameleon_action.Grant(user)
-		log_game("[key_name(user)] has removed the disguise lock on the chameleon jumpsuit ([name]) with [W]")
+		log_game("[key_name(user)] has removed the disguise lock on the chameleon thermals ([name]) with [W]")
 	else
 		chameleon_action.hidden = TRUE
 		actions -= chameleon_action
 		chameleon_action.Remove(user)
-		log_game("[key_name(user)] has locked the disguise of the chameleon jumpsuit ([name]) with [W]")
+		log_game("[key_name(user)] has locked the disguise of the chameleon thermals ([name]) with [W]")
 // MONKESTATION ADDITION END
 
 /obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
