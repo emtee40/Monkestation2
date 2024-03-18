@@ -171,7 +171,7 @@
 	if(!valid_rolesets)
 		valid_rolesets = list()
 		valid_rolesets += SSgamemode.event_pools[EVENT_TRACK_ROLESET]
-	JobDebug("p_d_r ROLESETS, [english_list(valid_rolesets)]")
+
 	valid_rolesets -= SSgamemode.current_roundstart_event
 	var/player_count = 0
 	for(var/job in assigned_players_by_job)
@@ -184,7 +184,6 @@
 		else
 			actual_valid_rolesets[roleset] = roleset.weight
 	valid_rolesets = actual_valid_rolesets
-	JobDebug("p_d_r ACTUAL ROLESETS, [english_list(valid_rolesets)]")
 
 	if(SSgamemode.current_roundstart_event && (SSgamemode.current_roundstart_event in valid_rolesets))
 		JobDebug("p_d_r failed, SSgamemode.current_roundstart_event in valid_rolesets")
