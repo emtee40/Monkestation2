@@ -834,6 +834,13 @@
 	icon_state = "engine_sm_room"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
+//Steelstation Second Sm
+/area/station/engineering/supermatter/aux_sm
+	name = "Auxiliary Supermatter"
+
+/area/station/engineering/supermatter/room/aux_sm
+	name = "Auxiliary Supermatter Engine"
+
 /area/station/engineering/break_room
 	name = "\improper Engineering Foyer"
 	icon_state = "engine_break"
