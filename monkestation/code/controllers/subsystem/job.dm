@@ -177,7 +177,6 @@
 	for(var/job in assigned_players_by_job)
 		player_count += length(assigned_players_by_job[job])
 
-	JobDebug("p_d_r COUNT, [player_count]")
 	var/list/actual_valid_rolesets = list()
 	for(var/datum/round_event_control/antagonist/solo/roleset in valid_rolesets)
 		if(!roleset.roundstart || !roleset.can_spawn_event(player_count))
