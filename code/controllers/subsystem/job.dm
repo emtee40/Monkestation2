@@ -476,7 +476,7 @@ SUBSYSTEM_DEF(job)
 				// Filter any job that doesn't fit the current level.
 				var/player_job_level = player.client?.prefs.job_preferences[job.title]
 				if(isnull(player_job_level))
-					JobDebug("FOC player job not enabled, Player: [player]")
+					//JobDebug("FOC player job not enabled, Player: [player]")
 					continue
 				else if(player_job_level != level)
 					JobDebug("FOC player job enabled but at different level, Player: [player], TheirLevel: [job_priority_level_to_string(player_job_level)], ReqLevel: [job_priority_level_to_string(level)]")
