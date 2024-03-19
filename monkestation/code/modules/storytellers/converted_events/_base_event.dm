@@ -204,11 +204,11 @@
 		log_storyteller("Running roundstart antagonist assignment, event: [src], roundstart_antag_minds: [english_list(SSgamemode.roundstart_antag_minds)]")
 		for(var/datum/mind/antag_mind in SSgamemode.roundstart_antag_minds)
 			if(!antag_mind.current)
-				log_storyteller("Roundstart antagonist setup error: antag_mind([antag_mind.client]) in roundstart_antag_minds without a set mob")
+				log_storyteller("Roundstart antagonist setup error: antag_mind([antag_mind]) in roundstart_antag_minds without a set mob")
 				continue
 			candidates += antag_mind.current
 			SSgamemode.roundstart_antag_minds -= antag_mind
-			log_storyteller("Roundstart antag_mind, [antag_mind.client]")
+			log_storyteller("Roundstart antag_mind, [antag_mind]")
 
 	//guh
 	var/list/cliented_list = list()
