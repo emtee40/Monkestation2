@@ -59,7 +59,7 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	cortical_owner.chemical_evolution -= chemical_evo_points
 	cortical_owner.potential_chemicals -= learned_reagent
 
-	owner.balloon_alert(owner, "[initial(reagent_choice)] learned")
+	owner.balloon_alert(owner, "[reagent_choice] learned")
 	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
 		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))
 
@@ -122,7 +122,7 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 		owner.balloon_alert(owner, "chemical blacklisted")
 		return
 	if(!(learned_reagent.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED))
-		owner.balloon_alert(owner, "cannot learn [initial(reagent_choice)]")
+		owner.balloon_alert(owner, "cannot learn [reagent_choice]")
 		return
 
 	cortical_owner.chemical_evolution -= chemical_evo_points
@@ -136,7 +136,7 @@ GLOBAL_VAR_INIT(objective_blood_borer, 3)
 	if(cortical_owner.blood_chems_learned == BLOOD_CHEM_OBJECTIVE)
 		GLOB.successful_blood_chem += 1
 
-	owner.balloon_alert(owner, "[initial(reagent_choice)] learned")
+	owner.balloon_alert(owner, "[reagent_choice] learned")
 	if(!HAS_TRAIT(cortical_owner.human_host, TRAIT_AGEUSIA))
 		to_chat(cortical_owner.human_host, span_notice("You get a strange aftertaste of [initial(learned_reagent.taste_description)]!"))
 
