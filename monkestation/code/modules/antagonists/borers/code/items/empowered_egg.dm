@@ -43,7 +43,13 @@
 	if(QDELETED(owner) || owner.stat != DEAD)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to spawn as a cortical borer?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		role = ROLE_CORTICAL_BORER,
+		check_jobban = ROLE_CORTICAL_BORER,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_CORTICAL_BORER,
+		pic_source = /mob/living/basic/cortical_borer/empowered,
+	)
 	if(!length(candidates))
 		var/obj/effect/mob_spawn/ghost_role/borer_egg/empowered/borer_egg = new(owner.drop_location())
 		borer_egg.generation = generation

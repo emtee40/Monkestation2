@@ -5,7 +5,7 @@
 	name = "Cortical Borer Infestation"
 	tags = list(TAG_TEAM_ANTAG, TAG_EXTERNAL, TAG_ALIEN)
 	typepath = /datum/round_event/ghost_role/cortical_borer
-	antag_flag = ROLE_BORER
+	antag_flag = ROLE_CORTICAL_BORER
 	track = EVENT_TRACK_MAJOR
 	enemy_roles = list(
 		JOB_CAPTAIN,
@@ -53,7 +53,12 @@
 		message_admins("An event attempted to spawn a borer but no suitable vents were found. Shutting down.")
 		return MAP_ERROR
 
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to spawn as a cortical borer?", ROLE_PAI, FALSE, 10 SECONDS, POLL_IGNORE_CORTICAL_BORER)
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		role = ROLE_CORTICAL_BORER,
+		check_jobban = ROLE_CORTICAL_BORER,
+		ignore_category = POLL_IGNORE_CORTICAL_BORER,
+		pic_source = /mob/living/basic/cortical_borer,
+	)
 
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
@@ -77,7 +82,7 @@
 	name = "Cortical Borer Infestation"
 	antag_datum = /datum/antagonist/cortical_borer
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_BORER
+	antag_flag = ROLE_CORTICAL_BORER
 	enemy_roles = list(
 		JOB_CAPTAIN,
 		JOB_DETECTIVE,

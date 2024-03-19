@@ -1,6 +1,6 @@
 /datum/antagonist/cortical_borer
 	name = "Cortical Borer"
-	job_rank = ROLE_BORER
+	job_rank = ROLE_CORTICAL_BORER
 	roundend_category = "enslaved cortical borers" // may look a bit confusing, but these borers are not a part of a hivemind. So they are probably enslaved
 	antagpanel_category = "Cortical Borers"
 	ui_name = "AntagInfoBorer"

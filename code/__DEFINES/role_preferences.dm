@@ -40,6 +40,7 @@
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
 // monke midrounds
+#define ROLE_CORTICAL_BORER "Cortical Borer"
 #define ROLE_DRIFTING_CONTRACTOR "Drifting Contractor"
 #define ROLE_FLORIDA_MAN "Florida Man"
 #define ROLE_SLASHER "Slasher"

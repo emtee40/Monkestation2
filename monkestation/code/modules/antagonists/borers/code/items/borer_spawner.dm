@@ -28,6 +28,8 @@
 		return
 	sleep(polling_time * 0.2)
 	visible_message(span_notice("The borer seems to have woken up"))
+	if(!opened) // one more check to be sure
+		return
 	sleep(polling_time * 0.2)
 	visible_message(span_notice("The borer has perked up their head, finally noticing the opened cage..."))
 	sleep(polling_time * 0.2)
@@ -45,10 +47,12 @@
 		sleep(delayed)
 	INVOKE_ASYNC(src, PROC_REF(do_wriggler_messages)) // give them something to look at whilst we poll the ghosts
 	update_appearance()
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
-		"Do you want to play as a neutered cortical borer?",
-		ROLE_BORER,
-		poll_time = polling_time
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		role = ROLE_CORTICAL_BORER,
+		check_jobban = ROLE_CORTICAL_BORER,
+		poll_time = polling_time,
+		ignore_category = POLL_IGNORE_CORTICAL_BORER,
+		pic_source = /mob/living/basic/cortical_borer/neutered,
 	)
 	if(!LAZYLEN(candidates))
 		opened = FALSE
