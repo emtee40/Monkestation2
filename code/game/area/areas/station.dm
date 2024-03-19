@@ -595,6 +595,11 @@
 	icon_state = "kitchen_cold"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+//Auxiliary Kitchen 
+/area/station/service/auxkitchen
+	name = "\improper Auxiliary Kitchen"
+	icon_state = "kitchen"
+
 /area/station/service/kitchen/diner
 	name = "\improper Diner"
 	icon_state = "diner"
