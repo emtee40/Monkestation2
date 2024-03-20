@@ -30,13 +30,34 @@ const InputX = (props, context) => {
         <LabeledList.Item label="X coordinates: ">{coords_x}</LabeledList.Item>
       </LabeledList>
       <Box mt="0.5em">
-        <Button content={'-100'} onClick={() => act('-100x')} />
-        <Button content={'-10'} onClick={() => act('-10x')} />
-        <Button content={'-1'} onClick={() => act('-1x')} />
-        <Button content={'Reset'} onClick={() => act('0x')} />
-        <Button content={'+1'} onClick={() => act('+1x')} />
-        <Button content={'+10'} onClick={() => act('+10x')} />
-        <Button content={'+100'} onClick={() => act('+100x')} />
+        <Button
+          content={'-100'}
+          onClick={() => act('Change X Coordinates', { Position_Change: -100 })}
+        />
+        <Button
+          content={'-10'}
+          onClick={() => act('Change X Coordinates', { Position_Change: -10 })}
+        />
+        <Button
+          content={'-1'}
+          onClick={() => act('Change X Coordinates', { Position_Change: -1 })}
+        />
+        <Button
+          content={'Reset'}
+          onClick={() => act('Change X Coordinates', { Position_Change: 0 })}
+        />
+        <Button
+          content={'+1'}
+          onClick={() => act('Change X Coordinates', { Position_Change: 1 })}
+        />
+        <Button
+          content={'+10'}
+          onClick={() => act('Change X Coordinates', { Position_Change: 10 })}
+        />
+        <Button
+          content={'+100'}
+          onClick={() => act('Change X Coordinates', { Position_Change: 100 })}
+        />
       </Box>
     </Section>
   );
@@ -52,13 +73,34 @@ const InputY = (props, context) => {
         <LabeledList.Item label="Y coordinates: ">{coords_y}</LabeledList.Item>
       </LabeledList>
       <Box mt="0.5em">
-        <Button content={'-100'} onClick={() => act('-100y')} />
-        <Button content={'-10'} onClick={() => act('-10y')} />
-        <Button content={'-1'} onClick={() => act('-1y')} />
-        <Button content={'Reset'} onClick={() => act('0y')} />
-        <Button content={'+1'} onClick={() => act('+1y')} />
-        <Button content={'+10'} onClick={() => act('+10y')} />
-        <Button content={'+100'} onClick={() => act('+100y')} />
+        <Button
+          content={'-100'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: -100 })}
+        />
+        <Button
+          content={'-10'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: -10 })}
+        />
+        <Button
+          content={'-1'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: -1 })}
+        />
+        <Button
+          content={'Reset'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: 0 })}
+        />
+        <Button
+          content={'+1'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: 1 })}
+        />
+        <Button
+          content={'+10'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: 10 })}
+        />
+        <Button
+          content={'+100'}
+          onClick={() => act('Change Y Coordinates', { Position_Change: 100 })}
+        />
       </Box>
     </Section>
   );

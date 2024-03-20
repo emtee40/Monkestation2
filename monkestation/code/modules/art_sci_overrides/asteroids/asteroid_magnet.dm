@@ -264,85 +264,31 @@
 	var/list/map_offsets = map.return_offsets()
 	var/list/map_bounds = map.return_bounds()
 	switch(action)
+		if("Change X Coordinates")
+			var/amount = params["Position_Change"]
+			if(amount == 0) // if position change is zero, we are trying to reset the coordinates instead of changing them
+				coords_x = 0
+				if(Auto_pinging)
+					ping(coords_x, coords_y)
+				return
 
-// X COORDINATES
-		if("0x")
-			coords_x = 0
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-
-		if("-1x")
-			coords_x = WRAP(coords_x + map_offsets[1] + -1, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
-			coords_x -= map_offsets[1]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("-10x")
-			coords_x = WRAP(coords_x + map_offsets[1] + -10, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
-			coords_x -= map_offsets[1]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("-100x")
-			coords_x = WRAP(coords_x + map_offsets[1] + -10, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
+			coords_x = WRAP(coords_x + map_offsets[1] + amount, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
 			coords_x -= map_offsets[1]
 			if(Auto_pinging)
 				ping(coords_x, coords_y)
 
-		if("+1x")
-			coords_x = WRAP(coords_x + map_offsets[1] + 1, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
-			coords_x -= map_offsets[1]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("+10x")
-			coords_x = WRAP(coords_x + map_offsets[1] + 10, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
-			coords_x -= map_offsets[1]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("+100x")
-			coords_x = WRAP(coords_x + map_offsets[1] + 100, map_bounds[1] + map_offsets[1], map_bounds[2] + map_offsets[1])
-			coords_x -= map_offsets[1]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
+		if("Change Y Coordinates")
+			var/amount = params["Position_Change"]
+			if(amount == 0) // if position change is zero, we are trying to reset the coordinates instead of changing them
+				coords_y = 0
+				if(Auto_pinging)
+					ping(coords_x, coords_y)
+				return
 
-/// Y COORDINATES
-
-		if("0y")
-			coords_y = 0
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-
-		if("-1y")
-			coords_y = WRAP(coords_y + map_offsets[2] + -1, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
+			coords_y = WRAP(coords_y + map_offsets[2] + amount, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
 			coords_y -= map_offsets[2]
 			if(Auto_pinging)
 				ping(coords_x, coords_y)
-		if("-10y")
-			coords_y = WRAP(coords_y + map_offsets[2] + -10, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
-			coords_y -= map_offsets[2]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("-100y")
-			coords_y = WRAP(coords_y + map_offsets[2] + -100, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
-			coords_y -= map_offsets[2]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-
-		if("+1y")
-			coords_y = WRAP(coords_y + map_offsets[2] + 1, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
-			coords_y -= map_offsets[2]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("+10y")
-			coords_y = WRAP(coords_y + map_offsets[2] + 10, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
-			coords_y -= map_offsets[2]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-		if("+100y")
-			coords_y = WRAP(coords_y + map_offsets[2] + 100, map_bounds[3] + map_offsets[2], map_bounds[4] + map_offsets[2])
-			coords_y -= map_offsets[2]
-			if(Auto_pinging)
-				ping(coords_x, coords_y)
-
-// OTHER SHIT
 
 		if("TogglePinging")
 			Auto_pinging = !Auto_pinging
