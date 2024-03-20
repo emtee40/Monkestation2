@@ -256,15 +256,14 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		return
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
-// stuff for not messing with the no messable conveyors
+// stuff for not messing with the not messable conveyors
 /obj/machinery/conveyor/no_touch/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(attacking_item.tool_behaviour == TOOL_CROWBAR)
-		user.visible_message(span_notice("[user] struggles to pry up [src] with [attacking_item]."), \
-		span_notice("You struggle to pry up [src] with [attacking_item], but realize that would make you a monster!"))
+		to_chat(user, span_notice("The belt is stuck on too tight!"))
 	else if(attacking_item.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, span_notice("You don't think rotating this belt would be a good idea."))
+		to_chat(user, span_notice("You can't turn this belt!"))
 	else if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
-		to_chat(user, span_notice("Why would you ever want to inverse the belt?"))
+		to_chat(user, span_notice("The belt cannot be reversed!"))
 		
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/attacking_item, mob/living/user, params)
