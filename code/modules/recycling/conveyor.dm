@@ -52,6 +52,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor/centcom_auto
 	id = "round_end_belt"
 
+/obj/machinery/conveyor/no_touch
+	id = "non_adjustable_belt" //stop those monsters from moving these belts
+
 /obj/machinery/conveyor/inverted //Directions inverted so you can use different corner pieces.
 	icon_state = "conveyor_map_inverted"
 	flipped = TRUE
@@ -253,6 +256,16 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		return
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
+// stuff for not messing with the no messable conveyors
+/obj/machinery/conveyor/no_touch/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(attacking_item.tool_behaviour == TOOL_CROWBAR)
+		user.visible_message(span_notice("[user] struggles to pry up [src] with [attacking_item]."), \
+		span_notice("You struggle to pry up [src] with [attacking_item], but realize that would make you a monster!"))
+	else if(attacking_item.tool_behaviour == TOOL_WRENCH)
+		to_chat(user, span_notice("You don't think rotating this belt would be a good idea."))
+	else if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
+		to_chat(user, span_notice("Why would you ever want to inverse the belt?"))
+		
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(attacking_item.tool_behaviour == TOOL_CROWBAR)
