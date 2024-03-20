@@ -55,7 +55,6 @@
 
 	var/list/candidates = SSpolling.poll_ghost_candidates(
 		role = ROLE_CORTICAL_BORER,
-		check_jobban = ROLE_CORTICAL_BORER,
 		ignore_category = POLL_IGNORE_CORTICAL_BORER,
 		pic_source = /mob/living/basic/cortical_borer,
 	)

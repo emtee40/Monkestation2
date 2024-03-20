@@ -7,7 +7,7 @@
 	/// Used to animate the cage opening when you use the borer spawner, and closing if it fails to spawn a borer. Also midly against spam
 	var/opened = FALSE
 	/// Toggles if the borer spawner should be delayed or not, if this gets a value if will use that value to delay (for example: 5 SECONDS)
-	var/delayed = FALSE
+	var/delayed = 2 SECONDS
 	/// Dictates the poll time
 	var/polling_time = 10 SECONDS
 
@@ -49,7 +49,6 @@
 	update_appearance()
 	var/list/candidates = SSpolling.poll_ghost_candidates(
 		role = ROLE_CORTICAL_BORER,
-		check_jobban = ROLE_CORTICAL_BORER,
 		poll_time = polling_time,
 		ignore_category = POLL_IGNORE_CORTICAL_BORER,
 		pic_source = /mob/living/basic/cortical_borer/neutered,
