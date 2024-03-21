@@ -23,7 +23,8 @@
 	faction = list(FACTION_BLOODLING)
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/effects/attackblob.ogg'
-
+	/// Loot this mob drops on death.
+	var/list/loot = list(/obj/effect/gibspawner/generic)
 	/// The amount of biomass our bloodling has
 	var/biomass = 1
 	/// The maximum amount of biomass a bloodling can gain
@@ -36,6 +37,7 @@
 /mob/living/basic/bloodling/Initialize(mapload)
 	. = ..()
 	create_abilities()
+	AddElement(/datum/element/death_drops, loot)
 
 /mob/living/basic/bloodling/get_status_tab_items()
 	. = ..()

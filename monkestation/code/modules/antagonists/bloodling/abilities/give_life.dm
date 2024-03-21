@@ -22,7 +22,15 @@
 	var/mob/living/target_mob = target
 
 	var/question = "Would you like to be a [target_mob] servant of [owner]?"
-	var/list/candidates = poll_candidates_for_mob(question, ROLE_SENTIENCE, ROLE_SENTIENCE, 10 SECONDS, target_mob, POLL_IGNORE_SHUTTLE_DENIZENS)
+	var/list/candidates = SSpolling.poll_ghost_candidates_for_mob(
+		question,
+		ROLE_SENTIENCE,
+		ROLE_SENTIENCE,
+		10 SECONDS,
+		target_mob,
+		POLL_IGNORE_SHUTTLE_DENIZENS,
+		pic_source = target_mob
+	)
 	if(!LAZYLEN(candidates) && !LAZYLEN(target_mob))
 		owner.balloon_alert(owner, "[target_mob] rejects your generous gift...for now...")
 		return FALSE
