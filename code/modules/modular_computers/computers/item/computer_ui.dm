@@ -15,6 +15,7 @@
 	if(!active_ui)
 		if(active_program)
 			active_ui = new(user, src, active_program.tgui_id, active_program.filedesc)
+			active_program.ui_interact(user, active_ui)
 		else
 			active_ui = new(user, src, "NtosMain")
 		return active_ui.open()
@@ -22,11 +23,12 @@
 	if(active_program)
 		active_ui.interface = active_program.tgui_id
 		active_ui.title = active_program.filedesc
+		active_program.ui_interact(user, active_ui)
 	else
 		active_ui.interface = "NtosMain"
 
-	update_static_data(user, active_ui)
 	active_ui.send_assets()
+	update_static_data_for_all_viewers()
 
 /obj/item/modular_computer/interact(mob/user)
 	if(enabled)
