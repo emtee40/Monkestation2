@@ -1,5 +1,5 @@
 /datum/saymode/bloodling
-	key = "q"
+	key = "9"
 	mode = MODE_BLOODLING
 
 /datum/saymode/changeling/handle_message(mob/living/user, message, datum/language/language)

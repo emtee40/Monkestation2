@@ -19,7 +19,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mob_biotypes = MOB_ORGANIC
 	speak_emote = list("spews")
-	basic_mob_flags = FLAMMABLE_MOB
+	basic_mob_flags = FLAMMABLE_MOB | DEL_ON_DEATH
 	faction = list(FACTION_BLOODLING)
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/effects/attackblob.ogg'
@@ -57,10 +57,6 @@
 	for(var/datum/action/path as anything in initial_powers)
 		var/datum/action/bloodling_action = new path()
 		bloodling_action.Grant(src)
-
-/mob/living/basic/bloodling/death()
-	gib()
-	return ..()
 
 //////////////////// The actual bloodling mob ////////////////////
 /mob/living/basic/bloodling/proper
