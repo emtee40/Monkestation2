@@ -9,6 +9,16 @@
 	weight = 8
 	station_name = "Tramstation"
 
+/datum/map_template/random_room/random_engines/tram_byos
+	name = "Tram Build Your Own Supermatter"
+	room_id = "tram_byos"
+	mappath = "_maps/~monkestation/RandomEngines/TramStation/byos.dmm"
+	centerspawner = FALSE
+	template_height = 20
+	template_width = 24
+	weight = 2
+	station_name = "Tramstation"
+
 /datum/map_template/random_room/random_engines/tram_singularity
 	name = "Tram Singularity"
 	room_id = "tram_singularity"
