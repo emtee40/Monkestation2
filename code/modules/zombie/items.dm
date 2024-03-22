@@ -81,7 +81,7 @@
 	if(!infection)
 		infection = new()
 		infection.Insert(target)
-		to_chat(user, span_alien("You see [target] twitch for a moment as [target.p_their()] head is covered in \a [infection] - [target.p_Theyve()] been infected."))
+		to_chat(user, span_alien("You see [target] twitch for a moment as [target.p_their()] head is covered in \a [infection] - [target.p_theyve()] been infected."))
 
 /obj/item/mutant_hand/zombie/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is ripping [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!"))
