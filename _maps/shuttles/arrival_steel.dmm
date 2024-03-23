@@ -16,6 +16,10 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
+"e" = (
+/obj/machinery/vending/wallmed/directional/north,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/arrival)
 "f" = (
 /obj/machinery/power/shuttle_engine/large{
 	dir = 8
@@ -25,6 +29,13 @@
 "g" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/arrival)
+"h" = (
+/obj/machinery/requests_console{
+	department = "Arrival shuttle";
+	name = "Arrivals Shuttle console"
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "i" = (
 /obj/structure/chair/comfy/shuttle{
@@ -37,6 +48,15 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/arrival)
+"m" = (
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/arrival)
+"n" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/rack,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "q" = (
 /obj/docking_port/mobile/arrivals{
@@ -64,10 +84,27 @@
 /area/shuttle/arrival)
 "x" = (
 /obj/structure/table,
+/obj/item/radio/intercom/directional/east,
+/obj/item/flashlight,
+/obj/item/radio{
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 6
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "y" = (
 /turf/open/floor/mineral/titanium,
+/area/shuttle/arrival)
+"z" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "A" = (
 /obj/structure/chair/comfy/shuttle{
@@ -82,6 +119,13 @@
 "C" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/arrival)
+"F" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/toolbox/emergency,
+/obj/structure/rack,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "G" = (
 /obj/machinery/door/airlock/titanium{
@@ -115,6 +159,10 @@
 "N" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/arrival)
+"O" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "P" = (
 /turf/closed/wall/mineral/titanium,
@@ -152,7 +200,43 @@
 /obj/machinery/requests_console/directional/north{
 	department = "Arrival shuttle"
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/mineral/titanium,
+/area/shuttle/arrival)
+"X" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/utility/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate/internals,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 
 (1,1,1) = {"
@@ -186,19 +270,19 @@ f
 P
 "}
 (3,1,1) = {"
-P
+z
 b
 b
 P
-i
-i
+X
+X
 B
-i
-i
+F
+n
 P
 b
 b
-P
+z
 "}
 (4,1,1) = {"
 s
@@ -266,9 +350,9 @@ s
 s
 P
 P
-P
+h
 B
-P
+O
 P
 P
 s
@@ -327,8 +411,8 @@ s
 P
 P
 P
-B
-P
+e
+O
 P
 P
 s
@@ -384,13 +468,13 @@ s
 s
 s
 s
-P
+O
 S
 x
 B
 B
 M
-P
+O
 s
 s
 s
@@ -416,9 +500,9 @@ s
 s
 P
 B
+m
 B
-B
-B
+m
 B
 P
 s

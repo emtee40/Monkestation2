@@ -334,6 +334,12 @@
 	credit_cost = CARGO_CRATE_VALUE * 4
 	description = "A train but in space, choo choo!"
 
+/datum/map_template/shuttle/emergency/steel
+	suffix = "steel"
+	name = "Steel Station Emergency Shuttle"
+	credit_cost = CARGO_CRATE_VALUE * 12
+	description = "A space airliner designed for steel stations runways. This shuttle will not fit other stations and should be headed with caution."
+
 /datum/map_template/shuttle/emergency/scrapheap
 	suffix = "scrapheap"
 	name = "Standby Evacuation Vessel \"Scrapheap Challenge\""
@@ -716,6 +722,10 @@
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"
 	name = "arrival shuttle (Kilo)"
+
+/datum/map_template/shuttle/arrival/steel
+	suffix = "steel"
+	name = "arrival shuttle (Steel)"
 
 /datum/map_template/shuttle/arrival/pubby
 	suffix = "pubby"
