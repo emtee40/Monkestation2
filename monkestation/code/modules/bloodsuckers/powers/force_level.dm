@@ -41,5 +41,3 @@
 		for(var/datum/action/cooldown/bloodsucker/power as anything in bloodsuckerdatum.powers)
 			if(istype(power, /datum/action/cooldown/bloodsucker/masquerade) || istype(power, /datum/action/cooldown/bloodsucker/veil))
 				bloodsuckerdatum.RemovePower(power)
-
-
