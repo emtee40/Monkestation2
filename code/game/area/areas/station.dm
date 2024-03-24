@@ -595,7 +595,8 @@
 	icon_state = "kitchen_cold"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-//Auxiliary Kitchen 
+//Auxiliary Kitchen
+//Monkestation edit for duplicate departments
 /area/station/service/auxkitchen
 	name = "\improper Auxiliary Kitchen"
 	icon_state = "kitchen"
@@ -840,6 +841,7 @@
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 //Steelstation Second Sm
+//Monkestation edit for duplicate departments
 /area/station/engineering/supermatter/aux_sm
 	name = "Auxiliary Supermatter"
 

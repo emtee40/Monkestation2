@@ -257,6 +257,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
 // stuff for not messing with the not messable conveyors
+// Monkestation edit for Steelstation
 /obj/machinery/conveyor/no_touch/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(attacking_item.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, span_notice("The belt is stuck on too tight!"))
@@ -264,7 +265,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		to_chat(user, span_notice("You can't turn this belt!"))
 	else if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)
 		to_chat(user, span_notice("The belt cannot be reversed!"))
-		
+
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(attacking_item.tool_behaviour == TOOL_CROWBAR)
