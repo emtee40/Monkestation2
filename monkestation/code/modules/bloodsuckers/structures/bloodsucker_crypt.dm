@@ -131,6 +131,10 @@
 	/// Prevents popup spam.
 	var/disloyalty_offered = FALSE
 
+/obj/structure/bloodsucker/vassalrack/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/elevation, pixel_shift = 14)
+
 /obj/structure/bloodsucker/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
 	new /obj/item/stack/sheet/iron(src.loc, 4)
@@ -268,6 +272,10 @@
  */
 /obj/structure/bloodsucker/vassalrack/proc/torture_victim(mob/living/user, mob/living/target)
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	if(target.stat > UNCONSCIOUS)
+		balloon_alert(user, "too badly injured!")
+		return FALSE
+
 	if(IS_VASSAL(target))
 		var/datum/antagonist/vassal/vassaldatum = target.mind.has_antag_datum(/datum/antagonist/vassal)
 		if(!vassaldatum.master.broke_masquerade)
@@ -406,9 +414,9 @@
 
 /obj/structure/bloodsucker/vassalrack/proc/remove_loyalties(mob/living/target)
 	// Find Mind Implant & Destroy
-	for(var/obj/item/implant/all_implants as anything in target.implants)
-		if(all_implants.type == /obj/item/implant/mindshield)
-			all_implants.removed(target, silent = TRUE)
+	for(var/obj/item/implant/implant as anything in target.implants)
+		if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
+			qdel(implant)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
