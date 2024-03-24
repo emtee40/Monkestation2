@@ -46,7 +46,7 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	data = list(
 		"level" = 0.01,//very slow, meaning it will do little when you are already sick
-		"threshold" = 5,
+		"threshold" = 3,
 		) //level is in precentage
 
 /datum/chemical_reaction/immune_healer
