@@ -21,9 +21,10 @@
 	quirk_flags = QUIRK_CHANGES_APPEARANCE
 
 	var/list/anime_list = list(
-		/obj/item/organ/external/anime_head,
+		/obj/item/organ/external/horns/anime_horns,
+		/obj/item/organ/internal/ears/anime_ears,
 		/obj/item/organ/external/anime_middle,
-		/obj/item/organ/external/anime_bottom,
+		/obj/item/organ/external/tail/anime_bottom,
 		)
 
 /datum/quirk/anime/add(client/client_source)

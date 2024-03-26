@@ -1,3 +1,4 @@
+/// Anime Color
 
 /datum/preference/color/anime_color
 	savefile_key = "feature_animecolor"
@@ -19,36 +20,31 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
 
-/datum/preference/choiced/anime_top
+/// Anime Ears
+
+/datum/preference/choiced/anime_ears
 	category = PREFERENCE_CATEGORY_CLOTHING
 	savefile_identifier = PREFERENCE_CHARACTER
-	main_feature_name = "Anime Top"
-	savefile_key = "feature_anime_top"
+	main_feature_name = "Anime Ears"
+	savefile_key = "feature_anime_ears"
 	should_generate_icons = TRUE
 
-/datum/preference/choiced/anime_top/init_possible_values()
+/datum/preference/choiced/anime_ears/init_possible_values()
 	var/list/values = list()
 
 	var/icon/head_icon = icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_head_m")
 	head_icon.Blend(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
-	for (var/name in GLOB.anime_top_list)
-		var/datum/sprite_accessory/accessory = GLOB.anime_top_list[name]
+	for (var/name in GLOB.anime_ears_list)
+		var/datum/sprite_accessory/accessory = GLOB.anime_ears_list[name]
 		if (accessory == null || accessory.icon_state == null)
 			continue
 
 		var/icon/final_icon = new(head_icon)
 
-		var/icon/icon = icon(accessory.icon, "m_anime_top_[accessory.icon_state]_FRONT")
+		var/icon/icon = icon(accessory.icon, "m_anime_ears_[accessory.icon_state]_FRONT")
 		final_icon.Blend(icon, ICON_OVERLAY)
 
 		final_icon.Crop(10, 19, 22, 31)
@@ -58,21 +54,17 @@
 
 	return values
 
-/datum/preference/choiced/anime_top/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["anime_top"] = value
+/datum/preference/choiced/anime_ears/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["anime_ears"] = value
 
-/datum/preference/choiced/anime_top/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/anime_ears/is_accessible(datum/preferences/preferences)
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
+
+/// Anime Middle
+
 /datum/preference/choiced/anime_middle
 	category = PREFERENCE_CATEGORY_CLOTHING
 	savefile_identifier = PREFERENCE_CHARACTER
@@ -120,14 +112,9 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks
+
+/// Anime Bottom
 
 /datum/preference/choiced/anime_bottom
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -179,11 +166,4 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/preference_middleware/quirks/located = locate(/datum/preference_middleware/quirks) in preferences.middleware
-	if(!located)
-		return FALSE
-	var/list/quirks = located.get_selected_quirks()
-	for(var/item in quirks)
-		if(item == "Anime")
-			return TRUE
-	return FALSE
+	return "Anime" in preferences.all_quirks

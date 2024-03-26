@@ -226,6 +226,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_MUSHROOM_CAPS_BLOCK] = construct_block(GLOB.caps_list.Find(features["caps"]), GLOB.caps_list.len)
 	if(features["pod_hair"])
 		L[DNA_POD_HAIR_BLOCK] = construct_block(GLOB.pod_hair_list.Find(features["pod_hair"]), GLOB.pod_hair_list.len)
+	if(features["anime_ears"])
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.anime_ears_list.Find(features["anime_ears"]), GLOB.anime_ears_list.len) //Monkestation Addition
+	if(features["anime_middle"])
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.anime_middle_list.Find(features["anime_middle"]), GLOB.anime_middle_list.len) //Monkestation Addition
+	if(features["anime_bottom"])
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.anime_bottom_list.Find(features["anime_bottom"]), GLOB.anime_bottom_list.len) //Monkestation Addition
 
 	for(var/blocknum in 1 to DNA_FEATURE_BLOCKS)
 		. += L[blocknum] || random_string(GET_UI_BLOCK_LEN(blocknum), GLOB.hex_characters)

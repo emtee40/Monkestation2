@@ -288,6 +288,9 @@
 	if(user.alternative_laughs.len)
 		return pick(user.alternative_laughs)
 
+	if(is_cat_enough(user))
+		return pick('monkestation/sound/voice/laugh/felinid/cat_laugh0.ogg', 'monkestation/sound/voice/laugh/felinid/cat_laugh1.ogg', 'monkestation/sound/voice/laugh/felinid/cat_laugh2.ogg', 'monkestation/sound/voice/laugh/felinid/cat_laugh3.ogg')
+
 	return user.dna.species.get_laugh_sound(user)
 // MonkeStation Edit End
 
