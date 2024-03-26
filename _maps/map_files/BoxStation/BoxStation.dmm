@@ -5024,10 +5024,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/holopad,
 /obj/structure/cable/layer3,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -17810,7 +17807,7 @@
 /obj/machinery/light/small/directional/east,
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/apc/cell_5k,
+/obj/effect/mapping_helpers/apc/cell_10k,
 /obj/effect/mapping_helpers/apc/full_charge,
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/entry)
@@ -17977,8 +17974,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 4;
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
+	id = "primary_ai_core_shutters";
+	name = "Primary AI Core Shutters"
 	},
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
@@ -18385,8 +18382,8 @@
 /obj/machinery/button/door/directional/south{
 	pixel_x = -24;
 	req_access = list("ai_upload");
-	id = "AI Core shutters";
-	name = "AI Core Shutters Toggle"
+	id = "primary_ai_core_shutters";
+	name = "Primary AI Core Shutters Control"
 	},
 /obj/machinery/button/door/directional/south{
 	pixel_x = 24;
@@ -21286,26 +21283,15 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos/pumproom)
 "hll" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/flasher/directional/north{
-	id = "AI";
-	name = "Meatbag Pacifier"
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "AI Chamber - Tertiary Core";
-	name = "core camera";
-	network = list("aicore")
-	},
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/left/directional/east{
 	name = "Tertiary AI Core";
 	req_access = list("ai_upload")
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
+	id = "tertiary_ai_core_shutters";
+	name = "Tertiary AI Core Shutters"
 	},
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
@@ -30417,10 +30403,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "koF" = (
-/obj/docking_port/stationary/random/icemoon{
-	dir = 2;
+/obj/docking_port/stationary/random{
 	name = "lavaland";
-	shuttle_id = "pod_4_lavaland"
+	shuttle_id = "pod_4_lavaland";
+	dir = 2
 	},
 /turf/open/space/basic,
 /area/space)
@@ -31490,36 +31476,21 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/lockers)
 "kJa" = (
-/obj/item/radio/intercom/directional/east{
-	freerange = 1;
-	listening = 0;
-	name = "Common Channel"
+/obj/effect/turf_decal/box,
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
-/obj/item/radio/intercom/directional/north{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel"
+/obj/machinery/camera/directional/south{
+	c_tag = "AI Chamber - Secondary Core";
+	name = "core camera";
+	network = list("aicore");
+	dir = 5
 	},
-/obj/item/radio/intercom/directional/south{
-	freerange = 1;
-	frequency = 1447;
-	listening = 0;
-	name = "Private Channel"
+/obj/machinery/flasher/directional/north{
+	id = "AI";
+	name = "Meatbag Pacifier"
 	},
-/obj/effect/landmark/start/ai/secondary,
-/obj/machinery/button/door/directional/north{
-	id = "AI Core shutters";
-	name = "AI Core Shutters Toggle";
-	pixel_x = 24;
-	req_access = list("ai_upload")
-	},
-/obj/machinery/button/door/directional/south{
-	pixel_x = 24;
-	req_access = list("ai_upload");
-	name = "AI Chamber Lockdown";
-	id = "AI Chamber entrance shutters"
-	},
-/turf/open/floor/circuit/green,
+/turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "kJo" = (
 /obj/effect/spawner/random/trash/mess,
@@ -36146,9 +36117,9 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/east,
-/obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/effect/mapping_helpers/apc/cell_5k,
+/obj/structure/cable,
+/obj/effect/mapping_helpers/apc/cell_10k,
 /obj/effect/mapping_helpers/apc/full_charge,
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/iron/dark/side{
@@ -41026,27 +40997,15 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "nTp" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/machinery/flasher/directional/north{
-	id = "AI";
-	name = "Meatbag Pacifier"
-	},
-/obj/machinery/camera/directional/south{
-	c_tag = "AI Chamber - Secondary Core";
-	name = "core camera";
-	network = list("aicore");
-	dir = 5
-	},
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/right/directional/west{
 	name = "Tertiary AI Core";
 	req_access = list("ai_upload")
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 4;
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
+	id = "secondary_ai_core_shutters";
+	name = "Secondary AI Core Shutters"
 	},
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
@@ -41887,36 +41846,20 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "ohg" = (
-/obj/item/radio/intercom/directional/west{
-	freerange = 1;
-	listening = 0;
-	name = "Common Channel"
+/obj/effect/turf_decal/box,
+/obj/machinery/ai_slipper{
+	uses = 10
 	},
-/obj/item/radio/intercom/directional/north{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel"
+/obj/machinery/camera/directional/south{
+	c_tag = "AI Chamber - Tertiary Core";
+	name = "core camera";
+	network = list("aicore")
 	},
-/obj/item/radio/intercom/directional/south{
-	freerange = 1;
-	frequency = 1447;
-	listening = 0;
-	name = "Private Channel"
+/obj/machinery/flasher/directional/north{
+	id = "AI";
+	name = "Meatbag Pacifier"
 	},
-/obj/effect/landmark/start/ai/secondary,
-/obj/machinery/button/door/directional/north{
-	id = "AI Chamber entrance shutters";
-	name = "AI Chamber Lockdown";
-	pixel_x = -24;
-	req_access = list("ai_upload")
-	},
-/obj/machinery/button/door/directional/south{
-	pixel_x = -24;
-	id = "AI Core shutters";
-	name = "AI Core Shutters Toggle";
-	req_access = list("ai_upload")
-	},
-/turf/open/floor/circuit/green,
+/turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai)
 "ohk" = (
 /obj/machinery/light/small/directional/west,
@@ -48812,8 +48755,7 @@
 	},
 /obj/machinery/holopad,
 /obj/structure/cable,
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -54478,6 +54420,38 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/ordnance)
+"sDi" = (
+/obj/item/radio/intercom/directional/east{
+	freerange = 1;
+	listening = 0;
+	name = "Common Channel"
+	},
+/obj/item/radio/intercom/directional/north{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel"
+	},
+/obj/item/radio/intercom/directional/south{
+	freerange = 1;
+	frequency = 1447;
+	listening = 0;
+	name = "Private Channel"
+	},
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/button/door/directional/north{
+	id = "secondary_ai_core_shutters";
+	name = "Secondary AI Core Shutters Control";
+	pixel_x = 24;
+	req_access = list("ai_upload")
+	},
+/obj/machinery/button/door/directional/south{
+	pixel_x = 24;
+	req_access = list("ai_upload");
+	name = "AI Chamber Lockdown";
+	id = "AI Chamber entrance shutters"
+	},
+/turf/open/floor/circuit/green,
+/area/station/ai_monitored/turret_protected/ai)
 "sDk" = (
 /obj/machinery/shower/directional/north,
 /obj/item/soap/deluxe,
@@ -57989,6 +57963,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/starboard)
+"tOn" = (
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "tOB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -60010,6 +59988,38 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"uwv" = (
+/obj/item/radio/intercom/directional/west{
+	freerange = 1;
+	listening = 0;
+	name = "Common Channel"
+	},
+/obj/item/radio/intercom/directional/north{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel"
+	},
+/obj/item/radio/intercom/directional/south{
+	freerange = 1;
+	frequency = 1447;
+	listening = 0;
+	name = "Private Channel"
+	},
+/obj/effect/landmark/start/ai/secondary,
+/obj/machinery/button/door/directional/north{
+	id = "AI Chamber entrance shutters";
+	name = "AI Chamber Lockdown";
+	pixel_x = -24;
+	req_access = list("ai_upload")
+	},
+/obj/machinery/button/door/directional/south{
+	pixel_x = -24;
+	id = "tertiary_ai_core_shutters";
+	name = "Tertiary AI Core Shutters Control";
+	req_access = list("ai_upload")
+	},
+/turf/open/floor/circuit/green,
+/area/station/ai_monitored/turret_protected/ai)
 "uwx" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
@@ -70897,8 +70907,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = "AI Core shutters";
-	name = "AI Core Shutter"
+	id = "primary_ai_core_shutters";
+	name = "Primary AI Core Shutters"
 	},
 /obj/machinery/turretid{
 	icon_state = "control_stun";
@@ -108966,17 +108976,17 @@ ksa
 ksa
 ksa
 ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
+fdt
+fdt
+fdt
+fdt
+oIb
+wxU
+oIb
+fdt
+fdt
+fdt
+fdt
 ksa
 ksa
 ksa
@@ -109224,15 +109234,15 @@ ksa
 ksa
 ksa
 fdt
-fdt
-fdt
-fdt
-oIb
-wxU
-oIb
-fdt
-fdt
-fdt
+ksa
+uoo
+ksa
+uoo
+xpD
+uoo
+ksa
+uoo
+ksa
 fdt
 ksa
 ksa
@@ -109485,7 +109495,7 @@ ksa
 uoo
 ksa
 uoo
-xpD
+mgG
 uoo
 ksa
 uoo
@@ -109741,9 +109751,9 @@ uoo
 ksa
 uoo
 ksa
-uoo
-mgG
-uoo
+fJK
+fJK
+fJK
 ksa
 uoo
 ksa
@@ -109995,14 +110005,14 @@ rYe
 rYe
 rYe
 rYe
-ksa
-uoo
-ksa
+tOn
+tOn
 fJK
 fJK
 fJK
-ksa
-uoo
+fJK
+fJK
+tOn
 ksa
 ksa
 fdt
@@ -110256,7 +110266,7 @@ fJK
 fJK
 fJK
 fJK
-fJK
+uwv
 fJK
 fJK
 fJK
@@ -113340,7 +113350,7 @@ fJK
 fJK
 fJK
 fJK
-fJK
+sDi
 fJK
 fJK
 fJK
@@ -113593,14 +113603,14 @@ pbE
 pbE
 pbE
 pbE
-ksa
-uoo
-ksa
+tOn
+tOn
 fJK
 fJK
 fJK
-ksa
-uoo
+fJK
+fJK
+tOn
 ksa
 ksa
 fdt
@@ -113853,9 +113863,9 @@ uoo
 ksa
 uoo
 ksa
-uoo
-hKs
-uoo
+fJK
+fJK
+fJK
 ksa
 uoo
 ksa
@@ -114111,7 +114121,7 @@ ksa
 uoo
 ksa
 uoo
-xpD
+hKs
 uoo
 ksa
 uoo
@@ -114364,15 +114374,15 @@ ksa
 ksa
 ksa
 fdt
-fdt
-fdt
-fdt
-oIb
-wxU
-oIb
-fdt
-fdt
-fdt
+ksa
+uoo
+ksa
+uoo
+xpD
+uoo
+ksa
+uoo
+ksa
 fdt
 ksa
 ksa
@@ -114584,7 +114594,7 @@ tDa
 xpD
 nuA
 uoo
-xfv
+vRc
 ksa
 ksa
 ksa
@@ -114620,17 +114630,17 @@ ksa
 ksa
 ksa
 ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
-ksa
+fdt
+fdt
+fdt
+fdt
+oIb
+wxU
+oIb
+fdt
+fdt
+fdt
+fdt
 ksa
 ksa
 ksa
@@ -114841,7 +114851,7 @@ tDa
 xpD
 nuA
 ksa
-ksa
+vRc
 ksa
 ksa
 ksa
@@ -115098,7 +115108,7 @@ tDa
 xpD
 nuA
 ksa
-ksa
+vRc
 ksa
 ksa
 ksa
@@ -115355,7 +115365,7 @@ tDa
 xpD
 nuA
 ksa
-ksa
+vRc
 ksa
 ksa
 ksa
@@ -115611,8 +115621,8 @@ hgw
 dUm
 xpD
 nuA
-ksa
-ksa
+uoo
+xfv
 ksa
 ksa
 ksa
