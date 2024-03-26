@@ -18,13 +18,14 @@
 	icon = 'monkestation/code/modules/slimecore/icons/machinery.dmi'
 	base_icon_state = "cross_compressor"
 	icon_state = "cross_compressor"
+	category="Distribution"
 
 	anchored = TRUE
 
 	idle_power_usage = 10
 	active_power_usage = 1000
 
-	buffer = 300
+	buffer = 5000
 	reagent_flags = NO_REACT
 
 	var/compressing = FALSE
@@ -187,6 +188,7 @@
 		choice = show_radial_menu(user, src, cross_breed_choices[base_choice], require_near = TRUE, tooltips = TRUE)
 	else
 		choice = show_radial_menu(user, src, recipe_choices, require_near = TRUE, tooltips = TRUE)
+
 	if(!(choice in choice_to_datum))
 		return
 
