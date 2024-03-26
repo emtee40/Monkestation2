@@ -48,9 +48,10 @@
 	recheck_mutation()
 
 /datum/slime_mutation_data/proc/check_ate(datum/source, atom/target)
-	if(!(target.type in needed_items))
-		return
+	for(var/item in needed_items)
+		if(!istype(target, item))
+			continue
+		needed_items -= item
 
-	needed_items -= target.type
 	recheck_mutation()
 

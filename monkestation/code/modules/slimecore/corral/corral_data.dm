@@ -17,7 +17,9 @@
 		RegisterSignal(turf, COMSIG_ATOM_ENTERED, PROC_REF(check_entered))
 		RegisterSignal(turf, COMSIG_ATOM_EXITED, PROC_REF(check_exited))
 
-		for(var/mob/living/basic/slime/slime in locate(/mob/living/basic/slime) in turf.contents)
+		for(var/mob/living/basic/slime/slime as anything in turf.contents)
+			if(!istype(slime))
+				continue
 			managed_slimes |= slime
 
 /datum/corral_data/Destroy(force, ...)
