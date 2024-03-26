@@ -170,6 +170,7 @@
 	icon = 'monkestation/code/modules/slimecore/icons/machinery.dmi'
 	icon_state = "corral_fence"
 	can_atmos_pass = ATMOS_PASS_NO
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 
 /obj/effect/corral_fence/CanPass(atom/movable/mover, border_dir)
 	. = ..()
@@ -178,3 +179,9 @@
 	if((istype(mover, /mob/living/basic/slime) || ismonkey(mover) || istype(mover, /mob/living/basic/xenofauna)) && !HAS_TRAIT(mover, VACPACK_THROW))
 		return FALSE
 	return TRUE
+
+
+/obj/effect/corral_fence/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.xenofauna_or_slime)
+		return FALSE
+	return TRUE //anything expect slimes can astar pass
