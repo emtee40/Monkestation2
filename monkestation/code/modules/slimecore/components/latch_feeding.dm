@@ -10,9 +10,10 @@
 	var/stops_at_crit
 	///did we just unlatch?
 	var/unlatching = FALSE
+	///our callback
+	var/datum/callback/check_and_replace
 
-
-/datum/component/latch_feeding/Initialize(atom/movable/target, damage_type, damage_amount, hunger_restore, stops_at_crit)
+/datum/component/latch_feeding/Initialize(atom/movable/target, damage_type, damage_amount, hunger_restore, stops_at_crit, datum/callback/callback)
 	. = ..()
 	src.target = target
 	if(!target)
@@ -22,6 +23,7 @@
 	src.damage_amount = damage_amount
 	src.hunger_restore = hunger_restore
 	src.stops_at_crit = stops_at_crit
+	src.check_and_replace = callback
 
 	if(!latch_target())
 		return COMPONENT_INCOMPATIBLE
@@ -34,6 +36,7 @@
 	REMOVE_TRAIT(parent, TRAIT_FEEDING, LATCH_TRAIT)
 	. = ..()
 	target = null
+	qdel(check_and_replace)
 
 /datum/component/latch_feeding/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_LIVING_SET_BUCKLED, PROC_REF(check_buckled))
@@ -107,10 +110,11 @@
 		stop_feeding()
 		return
 
-	if(iscarbon(living_target))
-		living_target.apply_damage(damage_amount, damage_type, spread_damage = TRUE)
-	else
-		living_target.apply_damage(damage_amount, BRUTE, spread_damage = TRUE)
+	if(!check_and_replace || (check_and_replace && !check_and_replace.Invoke()))
+		if(iscarbon(living_target))
+			living_target.apply_damage(damage_amount, damage_type, spread_damage = TRUE)
+		else
+			living_target.apply_damage(damage_amount, BRUTE, spread_damage = TRUE)
 
 	if(parent) // ??? I was getting runtimes for no parent but IDK how
 		SEND_SIGNAL(parent, COMSIG_MOB_FEED, target, hunger_restore)

@@ -74,6 +74,8 @@
 	///if set and with the trait replaces the grey part with this
 	var/icon_state_override
 	var/overwrite_color
+	var/datum/reagent/chemical_injection
+	var/overriding_name_prefix
 
 /mob/living/basic/slime/Initialize(mapload, datum/slime_color/passed_color)
 	. = ..()
@@ -171,7 +173,10 @@
 		icon_state = icon_dead
 
 	update_name()
-	SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, current_color.secretion_path, 10, 10 SECONDS)
+	if(!chemical_injection)
+		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, current_color.secretion_path, 10, 10 SECONDS)
+	else
+		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, chemical_injection, 10, 10 SECONDS)
 
 /mob/living/basic/slime/update_overlays()
 	. = ..()
@@ -217,7 +222,10 @@
 	if(slime_name_regex.Find(name))
 		if(!number)
 			number = rand(1, 1000)
-		name = "[current_color.name] [(slime_flags & ADULT_SLIME) ? "adult" : "baby"] slime ([number])"
+		if(overriding_name_prefix)
+			name = "[overriding_name_prefix] [current_color.name] [(slime_flags & ADULT_SLIME) ? "adult" : "baby"] slime ([number])"
+		else
+			name = "[current_color.name] [(slime_flags & ADULT_SLIME) ? "adult" : "baby"] slime ([number])"
 		real_name = name
 	return ..()
 
@@ -339,6 +347,14 @@
 		if(buckled)
 			unbuckle_mob(buckled, TRUE)
 	return
+
+/mob/living/basic/slime/proc/latch_callback(mob/living/target)
+	if(!chemical_injection)
+		return FALSE
+	if(!target.reagents)
+		return FALSE
+	target.reagents.add_reagent(chemical_injection, 3) // guh
+	return TRUE
 
 /mob/living/basic/slime/rainbow
 	current_color = /datum/slime_color/rainbow

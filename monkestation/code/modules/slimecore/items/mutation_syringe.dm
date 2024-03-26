@@ -49,6 +49,9 @@
 	name = "never ooze slime mutation syringe"
 	infusing_trait_path = /datum/slime_trait/never_ooze
 
+/obj/item/slime_mutation_syringe/soda_slime
+	name = "soda slime mutation syringe"
+	infusing_trait_path = /datum/slime_trait/soda_slime
 
 /obj/item/slime_mutation_syringe_random
 	name = "slime mutation syringe"
