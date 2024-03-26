@@ -299,6 +299,7 @@
 /obj/item/antag_spawner/loadout
 	name = "generic beacon"
 	desc = "A single-use beacon designed to quickly launch bad code into the field."
+	// Icons are monkeystation edits
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
 	/// The mob type to spawn.
@@ -340,15 +341,21 @@
 		return
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
-	var/list/baddie_candidates = poll_ghost_candidates("Do you want to play as a [role_to_play]?", poll_role_check, poll_role_check, 10 SECONDS, poll_ignore_category)
-	if(!LAZYLEN(baddie_candidates))
+	var/mob/chosen_one = SSpolling.poll_ghost_candidates(
+		check_jobban = poll_role_check,
+		role = poll_role_check,
+		poll_time = 10 SECONDS,
+		ignore_category = poll_ignore_category,
+		pic_source = src, // Monkestation edit
+		role_name_text = role_to_play,
+	)
+	if(isnull(chosen_one))
 		to_chat(user, span_warning(fail_text))
 		return
 	if(QDELETED(src) || !check_usability(user))
 		return
 	used = TRUE
-	var/mob/dead/observer/ghostie = pick(baddie_candidates)
-	spawn_antag(ghostie.client, get_turf(src), user)
+	spawn_antag(chosen_one.client, get_turf(src), user)
 	do_sparks(4, TRUE, src)
 	qdel(src)
 
@@ -367,7 +374,7 @@
 	else
 		spawned_mob.forceMove(locate(1,1,1))
 
-	antag_datum = new()
+	op_mind.add_antag_datum(antag_datum)
 
 	if(ishuman(spawned_mob))
 		var/mob/living/carbon/human/human_mob = spawned_mob
