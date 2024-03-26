@@ -153,9 +153,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 ///is this a ghost accessible area?
 #define GHOST_AREA (1<<18)
 ///can we explode during rounds?
-#define NO_EXPLOSIONS_DURING (1<<19)
-///are ghosts not allowed to enter during round
-#define NO_GHOSTS_DURING_ROUND (1<<20)
+#define NO_GHOSTS_DURING_ROUND (1<<19)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
@@ -176,6 +174,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define PASSDOORS (1<<10)
 #define PASSVEHICLE (1<<11)
 #define PASSITEM (1<<12)
+/// Do not intercept click attempts during Adjacent() checks. See [turf/proc/ClickCross]. **ONLY MEANINGFUL ON pass_flags_self!**
+#define LETPASSCLICKS (1<<13)
 
 //Movement Types
 #define GROUND (1<<0)
@@ -201,6 +201,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define INDESTRUCTIBLE (1<<6)
 /// can't be frozen
 #define FREEZE_PROOF (1<<7)
+/// can't be shuttle crushed.
+#define SHUTTLE_CRUSH_PROOF (1<<8)
 
 //tesla_zap
 #define ZAP_MACHINE_EXPLOSIVE (1<<0)

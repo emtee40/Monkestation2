@@ -703,7 +703,15 @@
 	balloon_alert(user, "offering...")
 	being_used = TRUE
 
-	var/list/candidates = poll_candidates_for_mob("Do you want to play as [dumb_mob.name]?", ROLE_SENTIENCE, ROLE_SENTIENCE, 5 SECONDS, dumb_mob, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(
+		"Do you want to play as [dumb_mob.name]",
+		role = ROLE_SENTIENCE,
+		poll_time = 5 SECONDS,
+		target_mob = dumb_mob,
+		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
+		pic_source = dumb_mob,
+		role_name_text = "sentient mob"
+	)
 	if(!LAZYLEN(candidates))
 		balloon_alert(user, "try again later!")
 		being_used = FALSE
@@ -1019,7 +1027,7 @@
 	inhand_icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*5)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -1036,7 +1044,7 @@
 	inhand_icon_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*5)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

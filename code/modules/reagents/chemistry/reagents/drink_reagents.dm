@@ -91,8 +91,6 @@
 	affected_mob.adjust_eye_blur(-2 SECONDS * REM * seconds_per_tick)
 	affected_mob.adjust_temp_blindness(-2 SECONDS * REM * seconds_per_tick)
 	switch(current_cycle)
-		if(1 to 20)
-			//nothing
 		if(21 to 110)
 			if(SPT_PROB(100 * (1 - (sqrt(110 - current_cycle) / 10)), seconds_per_tick))
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_EYES, -2)
@@ -421,9 +419,38 @@
 	affected_mob.AdjustSleeping(-20 * REM * seconds_per_tick)
 	if(affected_mob.getToxLoss() && SPT_PROB(10, seconds_per_tick))
 		affected_mob.adjustToxLoss(-1, FALSE, required_biotype = affected_biotype)
+	var/to_chatted = FALSE
+	for(var/datum/wound/iter_wound as anything in affected_mob.all_wounds)
+		if(SPT_PROB(10, seconds_per_tick))
+			var/helped = iter_wound.tea_life_process()
+			if(!to_chatted && helped)
+				to_chat(affected_mob, span_notice("A calm, relaxed feeling suffuses you. Your wounds feel a little healthier."))
+			to_chatted = TRUE
 	affected_mob.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, 0, affected_mob.get_body_temp_normal())
 	..()
 	. = TRUE
+
+// Different handling, different name.
+// Returns FALSE by default so broken bones and 'loss' wounds don't give a false message
+/datum/wound/proc/tea_life_process()
+	return FALSE
+
+// Slowly increase (gauzed) clot rate
+/datum/wound/pierce/bleed/tea_life_process()
+	gauzed_clot_rate += 0.1
+	return TRUE
+
+// Slowly increase clot rate
+/datum/wound/slash/flesh/tea_life_process()
+	clot_rate += 0.2
+	return TRUE
+
+// There's a designated burn process, but I felt this would be better for consistency with the rest of the reagent's procs
+/datum/wound/burn/flesh/tea_life_process()
+	// Sanitizes and heals, but with a limit
+	flesh_healing = (flesh_healing > 0.1) ? flesh_healing : flesh_healing + 0.02
+	infestation_rate = max(infestation_rate - 0.005, 0)
+	return TRUE
 
 /datum/reagent/consumable/lemonade
 	name = "Lemonade"
@@ -656,20 +683,13 @@
 	quality = DRINK_VERYGOOD
 	taste_description = "carbonated oil"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	metabolized_traits = list(TRAIT_SHOCKIMMUNE)
 
 /datum/glass_style/drinking_glass/grey_bull
 	required_drink_type = /datum/reagent/consumable/grey_bull
 	name = "glass of Grey Bull"
 	desc = "Surprisingly it isn't grey."
 	icon_state = "grey_bull_glass"
-
-/datum/reagent/consumable/grey_bull/on_mob_metabolize(mob/living/affected_mob)
-	..()
-	ADD_TRAIT(affected_mob, TRAIT_SHOCKIMMUNE, type)
-
-/datum/reagent/consumable/grey_bull/on_mob_end_metabolize(mob/living/affected_mob)
-	REMOVE_TRAIT(affected_mob, TRAIT_SHOCKIMMUNE, type)
-	..()
 
 /datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	affected_mob.set_jitter_if_lower(40 SECONDS * REM * seconds_per_tick)
@@ -843,6 +863,24 @@
 	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, affected_mob.get_body_temp_normal())
 	..()
 	. = TRUE
+
+/datum/reagent/consumable/wellcheers
+	name = "Wellcheers"
+	description = "A strange purple drink, smelling of saltwater. Somewhere in the distance, you hear seagulls."
+	color = "#762399" // rgb: 118, 35, 153
+	taste_description = "grapes and the fresh open sea"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/wellcheers/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	affected_mob.adjust_drowsiness(3 SECONDS * REM * seconds_per_tick)
+	switch(affected_mob.mob_mood.mood_level)
+		if (MOOD_LEVEL_SAD4 to MOOD_LEVEL_SAD2)
+			affected_mob.stamina.adjust(-3 * REM * seconds_per_tick)//Monkestation Edit: custom stamina
+		if (MOOD_LEVEL_SAD2 to MOOD_LEVEL_HAPPY2)
+			affected_mob.add_mood_event("wellcheers", /datum/mood_event/wellcheers)
+		if (MOOD_LEVEL_HAPPY2 to MOOD_LEVEL_HAPPY4)
+			affected_mob.adjustBruteLoss(-1.5 * REM * seconds_per_tick, 0)
+	return ..()
 
 /datum/reagent/consumable/monkey_energy
 	name = "Monkey Energy"
@@ -1407,17 +1445,15 @@
 
 	var/newsize = pick(0.5, 0.75, 1, 1.50, 2)
 	newsize *= RESIZE_DEFAULT_SIZE
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
 	if(SPT_PROB(23, seconds_per_tick))
 		affected_mob.emote("sneeze")
 	..()
 
 /datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/affected_mob)
-	affected_mob.resize = RESIZE_DEFAULT_SIZE/current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE/current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 	..()
 
 /datum/reagent/consumable/bungojuice

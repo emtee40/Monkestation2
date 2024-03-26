@@ -96,7 +96,17 @@
 	name = "Monkey king"
 	icon_state = "monkey_king"
 
+/datum/sprite_accessory/hair/elitesimian
+	icon = 'monkestation/icons/mob/sprite_accessories/hair.dmi'
+	name = "Elite simian"
+	icon_state = "elitesimian"
+
 /datum/sprite_accessory/hair/edgerunner
     icon = 'monkestation/icons/mob/sprite_accessories/hair.dmi'
     name = "Edgerunner"
     icon_state = "edgerunner"
+
+/datum/sprite_accessory/hair/alchemist
+    icon = 'monkestation/icons/mob/sprite_accessories/hair.dmi'
+    name = "Alchemist"
+    icon_state = "alchemist"

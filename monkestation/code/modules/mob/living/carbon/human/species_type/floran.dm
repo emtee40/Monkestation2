@@ -2,7 +2,7 @@
 	name = "\improper Floran"
 	plural_form = "Florans"
 	id = SPECIES_FLORAN
-	sexes = FALSE
+	sexes = TRUE
 	species_traits = list(
 		MUTCOLORS,
 		MUTCOLORS_SECONDARY,
@@ -11,6 +11,8 @@
 	inherent_traits = list(
 		TRAIT_PLANT_SAFE,
 		TRAIT_NO_JUMPSUIT,
+		TRAIT_LIMBATTACHMENT,
+		TRAIT_EASYDISMEMBER
 	)
 	external_organs = list(
 		/obj/item/organ/external/pod_hair = "None",
@@ -22,7 +24,6 @@
 	heatmod = 0.67 //Same as lizard people
 	coldmod = 1.5 //Same as lizard people
 	speedmod = -0.1 //Same as arachnids
-	payday_modifier = 0.75
 	meat = /obj/item/food/meat/slab/human/mutant/plant
 	exotic_blood = /datum/reagent/water
 	// disliked_food = VEGETABLES | FRUIT | GRAIN
@@ -52,9 +53,9 @@
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
 		if(light_amount > 0.3)
-			H.heal_overall_damage(brute = 0.5 * seconds_per_tick, burn = 0.5 * seconds_per_tick, required_bodytype = BODYTYPE_ORGANIC) //Lowered to 0.25
-			H.adjustToxLoss(-0.5 * seconds_per_tick)
-			H.adjustOxyLoss(-0.5 * seconds_per_tick)
+			H.heal_overall_damage(brute = 0.25 * seconds_per_tick, burn = 0.25 * seconds_per_tick, required_bodytype = BODYTYPE_ORGANIC) //Lowered to 0.25
+			H.adjustToxLoss(-0.25 * seconds_per_tick)
+			H.adjustOxyLoss(-0.25 * seconds_per_tick)
 
 /datum/species/floran/on_species_gain(mob/living/carbon/new_floran, datum/species/old_species, pref_load)
 	. = ..()
@@ -133,7 +134,7 @@
 /obj/item/organ/external/floran_leaves
 	name = "floran leaves"
 	desc = "you shouldn't see this"
-	organ_flags = ORGAN_UNREMOVABLE
+	organ_flags = ORGAN_UNREMOVABLE | ORGAN_HIDDEN
 	icon_state = "floran_leaves"
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 

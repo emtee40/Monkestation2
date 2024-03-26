@@ -76,9 +76,12 @@
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
+	id_tag = assign_random_name()
 	soundloop = new(src, FALSE)
 	CalculateAffectingAreas()
 	my_area = get_area(src)
+	if(name == initial(name))
+		update_name()
 	if(!merger_typecache)
 		merger_typecache = typecacheof(/obj/machinery/door/firedoor)
 
@@ -182,6 +185,10 @@
 
 	return .
 
+/obj/machinery/door/firedoor/update_name(updates)
+	. = ..()
+	name = "[get_area_name(my_area)] [initial(name)] [id_tag]"
+
 /**
  * Calculates what areas we should worry about.
  *
@@ -270,6 +277,7 @@
 /obj/machinery/door/firedoor/proc/adjacent_change(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
 	SIGNAL_HANDLER
 	post_change_callbacks += CALLBACK(src, PROC_REF(CalculateAffectingAreas))
+	post_change_callbacks += CALLBACK(src, PROC_REF(process_results), changed) //check the atmosphere of the changed turf so we don't hold onto alarm if a wall is built
 
 /obj/machinery/door/firedoor/proc/check_atmos(turf/checked_turf)
 	var/datum/gas_mixture/environment = checked_turf.return_air()
@@ -324,6 +332,8 @@
 		return //We're already active
 	soundloop.start()
 	is_playing_alarm = TRUE
+	my_area.fault_status = AREA_FAULT_AUTOMATIC
+	my_area.fault_location = name
 	var/datum/merger/merge_group = GetMergeGroup(merger_id, merger_typecache)
 	for(var/obj/machinery/door/firedoor/buddylock as anything in merge_group.members)
 		buddylock.activate(code)
@@ -336,6 +346,8 @@
 /obj/machinery/door/firedoor/proc/start_deactivation_process()
 	soundloop.stop()
 	is_playing_alarm = FALSE
+	my_area.fault_status = AREA_FAULT_NONE
+	my_area.fault_location = null
 	var/datum/merger/merge_group = GetMergeGroup(merger_id, merger_typecache)
 	for(var/obj/machinery/door/firedoor/buddylock as anything in merge_group.members)
 		buddylock.reset()
@@ -372,7 +384,7 @@
 		if(LAZYLEN(place.active_firelocks) != 1)
 			continue
 		//if we're the first to activate in this particular area
-		place.set_fire_effect(TRUE) //bathe in red
+		place.set_fire_effect(TRUE, AREA_FAULT_AUTOMATIC, name) //bathe in red
 		if(place == my_area)
 			// We'll limit our reporting to just the area we're on. If the issue affects bordering areas, they can report it themselves
 			place.alarm_manager.send_alarm(ALARM_FIRE, place)
@@ -432,7 +444,7 @@
 		LAZYREMOVE(place.active_firelocks, src)
 		if(LAZYLEN(place.active_firelocks)) // If we were the last firelock still active, clear the area effects
 			continue
-		place.set_fire_effect(FALSE)
+		place.set_fire_effect(FALSE, AREA_FAULT_NONE, name)
 		if(place == my_area)
 			place.alarm_manager.clear_alarm(ALARM_FIRE, place)
 
@@ -698,6 +710,11 @@
 /obj/machinery/door/firedoor/border_only/Initialize(mapload)
 	. = ..()
 	adjust_lights_starting_offset()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/door/firedoor/border_only/adjust_lights_starting_offset()
 	light_xoffset = 0

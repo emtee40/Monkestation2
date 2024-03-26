@@ -570,8 +570,7 @@
 		job.allow_bureaucratic_error = FALSE
 		job.total_positions = 0
 
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	dynamic.unfavorable_situation()
+	SSgamemode.point_gain_multipliers[EVENT_TRACK_ROLESET]++
 
 	var/message_header = "A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials."
 	var/extra_detail = try_auto_call_shuttle() \
@@ -753,12 +752,3 @@
 #undef HEAD_UPDATE_PERIOD
 #undef REVOLUTION_VICTORY
 #undef STATION_VICTORY
-
-/datum/antagonist/rev/head/antag_token(datum/mind/hosts_mind, mob/spender)
-	. = ..()
-	if(isobserver(spender))
-		var/mob/living/carbon/human/newmob = spender.change_mob_type( /mob/living/carbon/human , null, null, TRUE )
-		newmob.equipOutfit(/datum/outfit/job/assistant)
-		newmob.mind.make_rev()
-	else
-		hosts_mind.make_rev()

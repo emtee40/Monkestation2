@@ -94,6 +94,11 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = FALSE
 
+/datum/emote/living/scream/run_emote(mob/user, params, type_override, intentional = FALSE)
+	if(!intentional && HAS_TRAIT(user, TRAIT_ANALGESIA))
+		return
+	return ..()
+
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(issilicon(user))
 		return pick(
@@ -145,9 +150,9 @@
 /datum/emote/living/bark/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_ANIME))
-	 return TRUE
+		return TRUE
 	else
-	 return FALSE
+		return FALSE
 /datum/emote/living/bark
 	key = "bark"
 	key_third_person = "barks"
@@ -162,3 +167,63 @@
 	else
 		return pick('monkestation/sound/voice/feline/bark.ogg','monkestation/sound/voice/feline/bark2.ogg') // Yes, bark trait in feline folder [Bad To The Bone]
 
+/datum/emote/living/weh
+	key = "weh"
+	key_third_person = "wehs"
+	message = "wehs!"
+	message_param = "wehs at %t!"
+	message_mime = "wehs silently!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/weh/get_sound(mob/living/user)
+	if(islizard(user))
+		return 'monkestation/sound/voice/weh.ogg'
+	else
+		return FALSE
+
+/datum/emote/living/weh/can_run_emote(mob/user, status_check, intentional)
+	if(islizard(user))
+		return TRUE
+	else
+		return FALSE
+
+/datum/emote/living/squeal
+	key = "squeal"
+	key_third_person = "squeals"
+	message = "squeals!"
+	message_param = "squeals at %t!"
+	message_mime = "squeals silently!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/squeal/get_sound(mob/living/user)
+	if(islizard(user))
+		return 'monkestation/sound/voice/lizard/squeal.ogg' //This is from Bay
+	else
+		return FALSE
+
+/datum/emote/living/squeal/can_run_emote(mob/user, status_check, intentional)
+	if(islizard(user))
+		return TRUE
+	else
+		return FALSE
+
+/datum/emote/living/tailthump
+	key = "thump"
+	key_third_person = "thumps their tail"
+	message = "thumps their tail!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/tailthump/get_sound(mob/living/user)
+	if(islizard(user))
+		return 'monkestation/sound/voice/lizard/tailthump.ogg' //https://freesound.org/people/TylerAM/sounds/389665/
+	else
+		return FALSE
+
+/datum/emote/living/tailthump/can_run_emote(mob/user, status_check, intentional)
+	if(islizard(user))
+		return TRUE
+	else
+		return FALSE

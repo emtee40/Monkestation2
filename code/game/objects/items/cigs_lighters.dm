@@ -118,7 +118,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 40 SECONDS
-	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/wood = SHEET_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 2)
 
 /obj/item/match/firebrand/Initialize(mapload)
@@ -219,9 +219,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!lighting_text)
 		return ..()
 
+	var/mob/living/carbon/carbuser = user
+
+	if(!istype(carbuser))
+		carbuser = null
+
 	if(!reagents.has_reagent(/datum/reagent/oxygen)) //cigarettes need oxygen
 		var/datum/gas_mixture/air = return_air()
-		if(!air || !air.has_gas(/datum/gas/oxygen, 1)) //or oxygen on a tile to burn
+		if(!air || !air.has_gas(/datum/gas/oxygen, 1) || !carbuser?.can_breathe_helmet()) //or oxygen on a tile to burn
 			to_chat(user, span_notice("Your [name] needs a source of oxygen to burn."))
 			return ..()
 
@@ -333,9 +338,24 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	var/to_smoke = smoke_all ? (reagents.total_volume * (dragtime / smoketime)) : REAGENTS_METABOLISM
 	var/mob/living/carbon/smoker = loc
-	if(!istype(smoker) || src != smoker.wear_mask)
-		reagents.remove_any(to_smoke)
-		return
+	// These checks are a bit messy but at least they're fairly readable
+	// Check if the smoker is a carbon mob, since it needs to have wear_mask
+	if(!istype(smoker))
+		// If not, check if it's a gas mask
+		if(!istype(smoker, /obj/item/clothing/mask/gas))
+			reagents.remove_any(to_smoke)
+			return
+
+		smoker = smoker.loc
+
+		// If it is, check if that mask is on a carbon mob
+		if(!istype(smoker) || smoker.get_item_by_slot(ITEM_SLOT_MASK) != loc)
+			reagents.remove_any(to_smoke)
+			return
+	else
+		if(src != smoker.wear_mask)
+			reagents.remove_any(to_smoke)
+			return
 
 	reagents.expose(smoker, INGEST, min(to_smoke / reagents.total_volume, 1))
 	var/obj/item/organ/internal/lungs/lungs = smoker.get_organ_slot(ORGAN_SLOT_LUNGS)
@@ -349,9 +369,17 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/mob/living/user = isliving(loc) ? loc : null
 	var/turf/location = get_turf(src)
 	user?.ignite_mob()
+
+	var/mob/living/carbon/carbuser
+	if(user)
+		carbuser = user
+
+	if(carbuser && !istype(carbuser))
+		carbuser = null
+
 	if(!reagents.has_reagent(/datum/reagent/oxygen)) //cigarettes need oxygen
 		var/datum/gas_mixture/air = return_air()
-		if(!air || !air.has_gas(/datum/gas/oxygen, 1)) //or oxygen on a tile to burn
+		if(!air || !air.has_gas(/datum/gas/oxygen, 1) || !carbuser?.can_breathe_helmet())  //or oxygen on a tile to burn
 			extinguish()
 			return
 

@@ -2,14 +2,21 @@
 	name = "Jailbird"
 	desc = "You're a ex-criminal! You start the round set to parole for a random crime."
 	value = 0
-	icon = "bird"
+	icon = FA_ICON_CROW
+
+/datum/quirk/jailbird/add_to_holder(mob/living/new_holder, quirk_transfer, client/client_source)
+	// Don't bother adding to ghost players
+	if(istype(new_holder, /mob/living/carbon/human/ghost))
+		qdel(src)
+		return FALSE
+	return ..()
 
 /datum/quirk/jailbird/post_add()
 	. = ..()
 	var/mob/living/carbon/human/jailbird = quirk_holder
 	var/quirk_crime	= pick(world.file2list("monkestation/strings/random_crimes.txt"))
 	to_chat(jailbird, "<span class='boldnotice'>You are on parole for the crime of: [quirk_crime]!</span>")
-	addtimer(CALLBACK(src, .proc/apply_arrest, quirk_crime), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_arrest), quirk_crime), 10 SECONDS)
 
 
 /datum/quirk/jailbird/proc/apply_arrest(crime_name)
@@ -18,6 +25,10 @@
 	var/crime = "[pick(world.file2list("monkestation/strings/random_police.txt"))] [(rand(9)+1)] [pick("days", "weeks", "months", "years")] ago"
 	var/perpname = jailbird.real_name
 	var/datum/record/crew/jailbird_record = find_record(perpname)
+	// remove quirk if we don't even have a record
+	if(QDELETED(jailbird_record))
+		qdel(src)
+		return
 	var/datum/crime/new_crime = new(name = crime_name, details = crime, author = "Nanotrasen Bounty Department")
 	jailbird_record.crimes += new_crime
 	jailbird_record.wanted_status = WANTED_PAROLE
@@ -27,7 +38,7 @@
 	name = "Stowaway"
 	desc = "You wake up up inside a random locker with only a crude fake for an ID card."
 	value = -2
-	icon = "suitcase"
+	icon = FA_ICON_SUITCASE
 
 /datum/quirk/stowaway/add_unique()
 	. = ..()
@@ -48,8 +59,8 @@
 
 /datum/quirk/stowaway/post_add()
 	. = ..()
-	to_chat(quirk_holder, "<span class='boldnotice'>You've awoken to find yourself inside [GLOB.station_name] without real identification!</span>")
-	addtimer(CALLBACK(src, .proc/datacore_deletion), 5 SECONDS)
+	to_chat(quirk_holder, span_boldnotice("You've awoken to find yourself inside [GLOB.station_name] without real identification!"))
+	addtimer(CALLBACK(src, PROC_REF(datacore_deletion)), 5 SECONDS)
 
 /datum/quirk/stowaway/proc/datacore_deletion()
 	var/mob/living/carbon/human/stowaway = quirk_holder
@@ -119,7 +130,7 @@
 	desc = "The station's just full of free stuff!  Nobody would notice if you just... took it, right?"
 	mob_trait = TRAIT_KLEPTOMANIAC
 	value = -2
-	icon = "bag-shopping"
+	icon = FA_ICON_BAG_SHOPPING
 
 /datum/quirk/kleptomaniac/add()
 	var/datum/brain_trauma/mild/kleptomania/T = new()
@@ -134,7 +145,7 @@
 	name = "Unstable Rear"
 	desc = "For reasons unknown, your posterior is unstable and will fall off more often."
 	value = -1
-	icon = "diamond-exclamation"
+	icon = FA_ICON_BOMB
 	//All effects are handled directly in butts.dm
 
 //IPC PUNISHMENT SYSTEM//
@@ -203,18 +214,3 @@
 	if(isipc(quirk_holder)) //monkestation addition
 		to_chat(quirk_holder, span_boldnotice("Your chassis feels frail."))
 
-/datum/quirk/extra_sensory_paranoia
-	name = "Extra-Sensory Paranoia"
-	desc = "You feel like something wants to kill you..."
-	mob_trait = TRAIT_PARANOIA
-	value = -8
-	icon = "fa-optin-monster" // "fa-ghost"
-
-/datum/quirk/extra_sensory_paranoia/add()
-	var/datum/brain_trauma/magic/stalker/T = new()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
-
-/datum/quirk/extra_sensory_paranoia/remove()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.cure_trauma_type(/datum/brain_trauma/magic/stalker, TRAUMA_RESILIENCE_ABSOLUTE)
