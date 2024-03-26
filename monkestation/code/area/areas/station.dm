@@ -20,3 +20,7 @@
 /area/station/cargo/quartermaster
 	name = "\improper Quartermaster's Office"
 	icon_state = "quart"
+
+/area/station/science/artifactlab
+	name = "\improper Artifact Lab"
+	icon_state = "science"
