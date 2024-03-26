@@ -1,5 +1,3 @@
-#define MAJOR_ANNOUNCEMENT_TITLE(string) ("<span class='major_announcement_title'>" + string + "</span>")
-
 /proc/send_formatted_admin_message(
 	text,
 	title = "Admin Alert",
@@ -15,5 +13,3 @@
 	SEND_ADMINCHAT_MESSAGE(finalized_announcement)
 	if(sound_override)
 		SEND_ADMINS_NOTFICATION_SOUND(sound_override)
-
-#undef MAJOR_ANNOUNCEMENT_TITLE
