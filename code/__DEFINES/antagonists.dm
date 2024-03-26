@@ -331,6 +331,8 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 // This flag disables certain checks that presume antagonist datums mean 'baddie'.
 #define FLAG_FAKE_ANTAG (1 << 0)
 
+#define FREEDOM_IMPLANT_CHARGES 4
+
 /// Changeling abilities with DNA cost = this are innately given to all changelings
 #define CHANGELING_POWER_INNATE -1
 /// Changeling abilities with DNA cost = this are not obtainable by changelings - either used for secret unlockable or abstract abilities
