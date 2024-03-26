@@ -268,7 +268,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [name]?", "[name]", job_rank, 5 SECONDS, owner.current)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(
+		"Do you want to play as a [name]?",
+		check_jobban = job_rank || "[name]",
+		role = job_rank,
+		poll_time = 5 SECONDS,
+		target_mob = owner.current,
+		role_name_text = name
+	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -479,7 +486,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /// Adds a HUD that will show you other members with the same antagonist.
 /// If an antag typepath is passed to `antag_to_check`, will check that, otherwise will use the source type.
-/datum/antagonist/proc/add_team_hud(mob/target, antag_to_check)
+/datum/antagonist/proc/add_team_hud(mob/target, antag_to_check, passed_hud_keys) //monkestation edit: adds passed_hud_keys
 	QDEL_NULL(team_hud_ref)
 
 	team_hud_ref = WEAKREF(target.add_alt_appearance(
@@ -487,6 +494,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		"antag_team_hud_[REF(src)]",
 		hud_image_on(target),
 		antag_to_check || type,
+		passed_hud_keys || hud_keys, //monkestation edit
 	))
 
 	// Add HUDs that they couldn't see before
