@@ -113,7 +113,7 @@
 	if(length(reagents.reagent_list) >= 2 && length(reagents_for_recipe) >= 2)
 		var/needed_reagents = reagents_for_recipe[2]
 		var/datum/reagent/first_reagent = reagents.reagent_list[2]
-		var/filled_precent = first_reagent.volume / needed_reagents[needed_reagents]
+		var/filled_precent = first_reagent.volume / reagents_for_recipe[needed_reagents]
 
 		var/state = "quarter"
 		switch(filled_precent)
