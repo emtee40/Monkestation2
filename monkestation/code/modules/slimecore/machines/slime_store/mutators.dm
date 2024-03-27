@@ -45,3 +45,9 @@
 	desc = "Adds the soda slime mutation to a single slime."
 	item_path = /obj/item/slime_mutation_syringe/soda_slime
 	cost = 3000
+
+/datum/slime_store_item/beer_slime
+	name = "Beer Slime Mutation Syringe"
+	desc = "Adds the beer slime mutation to a single slime."
+	item_path = /obj/item/slime_mutation_syringe/beer_slime
+	cost = 3000

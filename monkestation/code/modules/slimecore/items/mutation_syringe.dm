@@ -53,6 +53,10 @@
 	name = "soda slime mutation syringe"
 	infusing_trait_path = /datum/slime_trait/soda_slime
 
+/obj/item/slime_mutation_syringe/beer_slime
+	name = "beer slime mutation syringe"
+	infusing_trait_path = /datum/slime_trait/beer_slime
+
 /obj/item/slime_mutation_syringe_random
 	name = "slime mutation syringe"
 	desc = "Infuses a mutation into a slime."
