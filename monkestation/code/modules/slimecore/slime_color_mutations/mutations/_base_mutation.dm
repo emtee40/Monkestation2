@@ -4,6 +4,8 @@
 	var/weight = 10
 	///our probability of being mutated after weight
 	var/mutate_probability = 100
+	///are we blocked from color mutation syringes
+	var/syringe_blocked = FALSE
 	///can we mutate
 	var/can_mutate = FALSE
 	///The slime mutation we pass on if we succeed
