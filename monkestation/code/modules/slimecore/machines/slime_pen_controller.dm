@@ -105,6 +105,14 @@
 			"desc" = upgrade.desc,
 		))
 
+	data["reagent_amount"] = linked_sucker.reagents.total_volume
+	data["reagent_data"] = list()
+	for(var/datum/reagent/reagent as anything in linked_sucker.reagents.reagent_list)
+		data["reagent_data"] += list(list(
+			"name" = reagent.name,
+			"amount" = reagent.volume,
+		))
+
 	data["buyable_upgrades"] = list()
 	for(var/datum/corral_upgrade/listed as anything in subtypesof(/datum/corral_upgrade))
 		var/list/upgrade_data = list()

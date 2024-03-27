@@ -176,7 +176,8 @@ const SlimeData = (_, context) => {
 
 const StoreViewer = (_, context) => {
   const { data, act } = useBackend(context);
-  const { buyable_upgrades, corral_upgrades } = data;
+  const { buyable_upgrades, corral_upgrades, reagent_data, reagent_amount } =
+    data;
 
   return (
     <Table>
@@ -241,6 +242,30 @@ const StoreViewer = (_, context) => {
             ))}
           </Collapsible>
         </LabeledList.Item>
+      </LabeledList>
+      <Section textAlign="center" fontSize="18px">
+        {'Stored Ooze: ' + toFixed(reagent_amount, 0.1) + ' units'}
+      </Section>
+      <LabeledList>
+        {reagent_data.map((reagent) => (
+          <LabeledList.Item key={reagent.name} label={reagent.name}>
+            <ProgressBar
+              ranges={{
+                bad: [0, 40],
+                average: [40, 70],
+                good: [70, 100],
+              }}
+              tooltip={reagent.amount}
+              value={(reagent.amount / reagent_amount) * 100}
+              minValue={0}
+              maxValue={100}>
+              {toFixed((reagent.amount / reagent_amount) * 100, 0.1) +
+                ' % (' +
+                toFixed(reagent.amount, 0.1) +
+                ' units)'}
+            </ProgressBar>
+          </LabeledList.Item>
+        ))}
       </LabeledList>
     </Table>
   );
