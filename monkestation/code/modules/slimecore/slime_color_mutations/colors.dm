@@ -177,12 +177,14 @@
 	icon_prefix = "light pink"
 	secretion_path = /datum/reagent/slime_ooze/lightpink
 	slime_color = "#E9B5A3"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/black
 	name = "black"
 	icon_prefix = "black"
 	secretion_path = /datum/reagent/slime_ooze/black
 	slime_color = "#333941"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/rainbow
 	name = "rainbow"
@@ -198,33 +200,39 @@
 	icon_prefix = "oil"
 	secretion_path = /datum/reagent/slime_ooze/oil
 	slime_color = "#242234"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/sepia
 	name = "sepia"
 	icon_prefix = "sepia"
 	secretion_path = /datum/reagent/slime_ooze/sepia
 	slime_color = "#A08662"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/adamantine
 	name = "adamantine"
 	icon_prefix = "adamantine"
 	secretion_path = /datum/reagent/slime_ooze/adamantine
 	slime_color = "#5DAF8D"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/bluespace
 	name = "bluespace"
 	icon_prefix = "bluespace"
 	secretion_path = /datum/reagent/slime_ooze/bluespace
 	slime_color = "#C0E4FD"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/pyrite
 	name = "pyrite"
 	icon_prefix = "pyrite"
 	secretion_path = /datum/reagent/slime_ooze/pyrite
 	slime_color = "#FFD541"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)
 
 /datum/slime_color/cerulean
 	name = "cerulean"
 	icon_prefix = "cerulean"
 	secretion_path = /datum/reagent/slime_ooze/cerulean
 	slime_color = "#285CC4"
+	possible_mutations = list(/datum/slime_mutation_data/rainbow)

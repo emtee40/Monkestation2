@@ -49,6 +49,8 @@
 /datum/component/latch_feeding/proc/latch_target(init = FALSE)
 	var/mob/basic_mob = parent
 	var/mob/living/living_target = target
+	SEND_SIGNAL(basic_mob, COMSIG_MOBSTACKER_DESTROY)
+	basic_mob.unbuckle_all_mobs()
 	if((living_target.stat >= SOFT_CRIT) && stops_at_crit && living_target.client)
 		if(init)
 			return FALSE

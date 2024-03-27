@@ -26,6 +26,7 @@
 	RegisterSignal(parent, COMSIG_CHECK_CAN_ADD_NEW_STACK, PROC_REF(can_add))
 	RegisterSignal(parent, COMSIG_ATOM_JOIN_STACK, PROC_REF(try_join_stack))
 	RegisterSignal(parent, COMSIG_LIVING_SET_BUCKLED, PROC_REF(check_collapse))
+	RegisterSignal(parent, COMSIG_MOBSTACKER_DESTROY, PROC_REF(destroy_self))
 
 /datum/component/mob_stacker/Destroy(force, silent)
 	. = ..()

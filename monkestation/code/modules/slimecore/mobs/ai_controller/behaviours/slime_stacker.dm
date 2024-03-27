@@ -11,11 +11,12 @@
 
 	if(HAS_TRAIT(controller.pawn, TRAIT_IN_STACK))
 		return FALSE
-
 	//Hiding location is priority
 	var/atom/real_target
 	var/list/potential_targets = list()
 	for(var/mob/living/basic/slime/target in oview(4, controller.pawn))
+		if(target.GetComponent(/datum/component/latch_feeding))
+			continue
 		if(target.GetComponent(/datum/component/mob_stacker))
 			if(target == controller.pawn)
 				return FALSE

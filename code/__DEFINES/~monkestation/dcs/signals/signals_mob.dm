@@ -21,3 +21,4 @@
 #define COMSIG_ATOM_JOIN_STACK "join_stack"
 #define COMSIG_STACK_MOVE "stack_move"
 #define COMSIG_CHECK_CAN_ADD_NEW_STACK "check_stack_add"
+#define COMSIG_MOBSTACKER_DESTROY "mobstack_destroy_stack"

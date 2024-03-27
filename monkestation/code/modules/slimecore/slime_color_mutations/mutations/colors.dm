@@ -77,3 +77,17 @@
 /datum/slime_mutation_data/lightpink
 	output = /datum/slime_color/lightpink
 	latch_needed = list(/mob/living/basic/xenofauna/voxslug = 80)
+
+/datum/slime_mutation_data/rainbow
+	output = /datum/slime_color/rainbow
+	needed_items = list(
+		/obj/item/slime_extract/orange = 1,
+		/obj/item/slime_extract/purple = 1,
+		/obj/item/slime_extract/blue = 1,
+		/obj/item/slime_extract/metal = 1,
+		/obj/item/slime_extract/yellow = 1,
+		/obj/item/slime_extract/darkblue = 1,
+		/obj/item/slime_extract/darkpurple = 1,
+		/obj/item/slime_extract/silver = 1,
+	)
+	syringe_blocked = TRUE

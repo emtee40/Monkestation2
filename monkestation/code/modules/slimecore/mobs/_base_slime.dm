@@ -299,6 +299,8 @@
 	for(var/datum/slime_mutation_data/listed as anything in possible_color_mutations)
 		if(!random && !listed.can_mutate)
 			continue
+		if(random && listed.syringe_blocked)
+			continue
 		valid_choices += listed
 		valid_choices[listed] = listed.weight
 	if(!length(valid_choices))
