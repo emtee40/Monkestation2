@@ -239,6 +239,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	for(var/turf/listed_turf as anything in members)
 		if(isclosedturf(listed_turf))
 			remove_from_group(listed_turf)
+			qdel(listed_turf.liquids)
 
 /datum/liquid_group/proc/process_member(turf/member)
 	if(isspaceturf(member))
