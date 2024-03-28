@@ -46,6 +46,9 @@ SUBSYSTEM_DEF(liquids)
 	if(length(arrayed_groups))
 		for(var/g in arrayed_groups)
 			var/datum/liquid_group/LG = g
+			if(!LG)
+				arrayed_groups -= g
+				continue
 			while(!MC_TICK_CHECK && length(LG.splitting_array)) // three at a time until we either finish or over-run, this should be done before anything else
 				LG.work_on_split_queue()
 				LG.cleanse_members()
