@@ -32,7 +32,7 @@
 
 /datum/slime_mutation_data/yellow
 	output = /datum/slime_color/yellow
-	needed_items = list(/obj/item/stock_parts/cell/upgraded)
+	needed_items = list(/obj/item/stock_parts/cell)
 
 /datum/slime_mutation_data/green
 	output = /datum/slime_color/green
