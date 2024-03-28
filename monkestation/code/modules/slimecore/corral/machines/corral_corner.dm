@@ -166,6 +166,8 @@
 /obj/effect/corral_fence
 	name = "corral fence"
 	desc = "A holographic fence designed to prevent slimes from leaving."
+	anchored = TRUE
+	can_be_unanchored = FALSE
 
 	icon = 'monkestation/code/modules/slimecore/icons/machinery.dmi'
 	icon_state = "corral_fence"
