@@ -110,6 +110,11 @@
 		recompile_ai_tree()
 
 
+/mob/living/basic/slime/death(gibbed)
+	. = ..()
+	if(buckled)
+		buckled?.unbuckle_all_mobs()
+
 /mob/living/basic/slime/Destroy()
 	. = ..()
 	for(var/datum/slime_trait/trait as anything in slime_traits)
