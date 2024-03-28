@@ -39,6 +39,10 @@
 	. = ..()
 	link_console()
 
+/obj/machinery/slime_market_pad/AltClick(mob/user)
+	. = ..()
+	link_console()
+
 /obj/machinery/slime_market_pad/proc/link_console()
 	if(console)
 		return
@@ -50,6 +54,7 @@
 			break
 
 /obj/machinery/slime_market_pad/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
 	if(!console)
 		to_chat(user, span_warning("[src] does not have a console linked to it!"))
 		return
@@ -73,7 +78,6 @@
 				continue
 			sell_extract(extract)
 		return
-	. = ..()
 
 /obj/machinery/slime_market_pad/proc/sell_extract(obj/item/slime_extract/extract)
 	SSresearch.xenobio_points += round(SSresearch.slime_core_prices[extract.type])

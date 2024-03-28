@@ -16,6 +16,8 @@
 		for(var/datum/reagent/containg_reagent as anything in reagents.reagent_list)
 			if(required_reagent == containg_reagent.type)
 				has_reagent = TRUE
+				if(containg_reagent.volume == chamber.reagents_for_recipe[required_reagent])
+					continue
 				if(containg_reagent.volume + CHEMICAL_QUANTISATION_LEVEL < chamber.reagents_for_recipe[required_reagent])
 					process_request(min(chamber.reagents_for_recipe[required_reagent] - containg_reagent.volume, MACHINE_REAGENT_TRANSFER) , required_reagent, dir)
 					return

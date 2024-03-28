@@ -34,7 +34,6 @@
 /obj/machinery/plumbing/ooze_sucker/Initialize(mapload, bolt, layer)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt, layer)
-	RegisterSignal(src, COMSIG_OBJ_HIDE, PROC_REF(on_hide))
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/plumbing/ooze_sucker/LateInitialize()
@@ -55,10 +54,6 @@
 	. = ..()
 	. += span_notice("It's currently turned [turned_on ? "ON" : "OFF"].")
 
-/obj/machinery/plumbing/ooze_sucker/update_appearance(updates)
-	. = ..()
-	layer = tile_placed ? GAS_SCRUBBER_LAYER : BELOW_OBJ_LAYER
-	plane = tile_placed ? FLOOR_PLANE : GAME_PLANE
 
 /obj/machinery/plumbing/ooze_sucker/update_icon_state()
 	. = ..()
@@ -73,9 +68,6 @@
 		turned_on = FALSE
 		update_icon_state()
 
-/obj/machinery/plumbing/ooze_sucker/proc/on_hide(atom/movable/AM, should_hide)
-	tile_placed = should_hide
-	update_appearance()
 
 /obj/machinery/plumbing/ooze_sucker/proc/toggle_state()
 	turned_on = !turned_on

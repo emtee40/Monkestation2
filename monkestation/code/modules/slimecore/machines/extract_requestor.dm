@@ -48,8 +48,6 @@
 		return
 	create_request(user, card)
 
-	. = ..()
-
 /obj/machinery/slime_extract_requestor/multitool_act(mob/living/user, obj/item/tool)
 	if(!panel_open)
 		return

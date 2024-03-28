@@ -7,7 +7,7 @@
 		BB_WONT_TARGET_CLIENTS = FALSE, //specifically to stop targetting clients
 	)
 
-	ai_movement = /datum/ai_movement/jps_slime
+	ai_movement = /datum/ai_movement/basic_avoidance
 	idle_behavior = /datum/idle_behavior/idle_slime_playful
 	planning_subtrees = list(
 		//we try to flee first these flip flop based on flee state which is controlled by a componenet on the mob
