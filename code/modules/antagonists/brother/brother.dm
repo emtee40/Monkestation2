@@ -26,7 +26,7 @@
 	owner.special_role = special_role
 	finalize_brother()
 
-	var/is_first_brother = team.members.len == 1
+	var/is_first_brother = length(team.members) == 1
 	team.brothers_left -= 1
 
 	if (is_first_brother || team.brothers_left > 0)
@@ -130,12 +130,12 @@
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner
 	var/brother_text = ""
-	for(var/i = 1 to brothers.len)
+	for(var/i = 1 to length(brothers))
 		var/datum/mind/M = brothers[i]
 		brother_text += M.name
-		if(i == brothers.len - 1)
+		if(i == length(brothers) - 1)
 			brother_text += " and "
-		else if(i != brothers.len)
+		else if(i != length(brothers))
 			brother_text += ", "
 	return brother_text
 
@@ -189,9 +189,9 @@
 	var/list/last_names = list()
 	for(var/datum/mind/team_minds as anything in members)
 		var/list/split_name = splittext(team_minds.name," ")
-		last_names += split_name[split_name.len]
+		last_names += split_name[length(split_name)]
 
-	if (last_names.len == 1)
+	if (length(last_names) == 1)
 		name = "[last_names[1]]'s Isolated Intifada"
 	else
 		name = "[initial(name)] of " + last_names.Join(" & ")
@@ -202,7 +202,7 @@
 	add_objective(new /datum/objective/convert_brother)
 
 	var/is_hijacker = prob(10)
-	for(var/i = 1 to max(1, CONFIG_GET(number/brother_objectives_amount) + (members.len > 2) - is_hijacker))
+	for(var/i = 1 to max(1, CONFIG_GET(number/brother_objectives_amount) + (length(members) > 2) - is_hijacker))
 		forge_single_objective()
 	if(is_hijacker)
 		if(!locate(/datum/objective/hijack) in objectives)
@@ -212,7 +212,7 @@
 
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100/GLOB.joined_player_list.len))
+		if(LAZYLEN(active_ais()) && prob(100/length(GLOB.joined_player_list)))
 			add_objective(new /datum/objective/destroy, needs_target = TRUE)
 		else if(prob(30))
 			add_objective(new /datum/objective/maroon, needs_target = TRUE)
