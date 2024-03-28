@@ -1,6 +1,6 @@
 /datum/species/plasmaman
-	name = "\improper Plasmaman"
-	plural_form = "Plasmamen"
+	name = "\improper Mossmeme"
+	plural_form = "Mossmemes"
 	id = SPECIES_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
@@ -15,26 +15,26 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_NOBLOOD,
 	)
 
-	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
-	inherent_respiration_type = RESPIRATION_PLASMA
+	inherent_biotypes = MOB_HUMANOID|MOB_PLANT
+	inherent_respiration_type = RESPIRATION_N2
 	mutantlungs = /obj/item/organ/internal/lungs/plasmaman
 	mutanttongue = /obj/item/organ/internal/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/internal/liver/plasmaman
 	mutantstomach = /obj/item/organ/internal/stomach/bone/plasmaman
 	mutantappendix = null
 	mutantheart = null
-	burnmod = 1.5
-	heatmod = 1.5
+	burnmod = 5
+	heatmod = 5
 	brutemod = 1.5
-	payday_modifier = 0.75
-	breathid = "plas"
-	disliked_food = FRUIT | CLOTH
-	liked_food = VEGETABLES
+	payday_modifier = 2
+	breathid = "nitro"
+	disliked_food = MEAT | GORE
+	liked_food = VEGETABLES | FRUIT | CLOTH | GRAIN
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	species_cookie = /obj/item/reagent_containers/condiment/milk
-	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
 
 	bodypart_overrides = list(
@@ -91,11 +91,11 @@
 
 	var/can_burn = FALSE
 	if(!isclothing(H.w_uniform) || !(H.w_uniform.clothing_flags & PLASMAMAN_PREVENT_IGNITION))
-		can_burn = TRUE
+		can_burn = FALSE
 	else if(!isclothing(H.gloves))
-		can_burn = TRUE
+		can_burn = FALSE
 	else if(!HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY) && (!isclothing(H.head) || !(H.head.clothing_flags & PLASMAMAN_PREVENT_IGNITION)))
-		can_burn = TRUE
+		can_burn = FALSE
 
 	if(!atmos_sealed && can_burn)
 		var/datum/gas_mixture/environment = H.loc.return_air()
@@ -105,7 +105,7 @@
 					H.adjust_fire_stacks(-10 * seconds_per_tick)
 			else if(!HAS_TRAIT(H, TRAIT_NOFIRE))
 				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0.25 * seconds_per_tick)
+					H.adjust_fire_stacks(0 * seconds_per_tick)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
 					H.ignite_mob()
@@ -125,12 +125,6 @@
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
-
-/datum/species/plasmaman/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
-	if(job?.plasmaman_outfit)
-		equipping.equipOutfit(job.plasmaman_outfit, visuals_only)
-	else
-		give_important_for_life(equipping)
 
 /datum/species/plasmaman/random_name(gender,unique,lastname)
 	if(unique)
@@ -192,8 +186,8 @@
 	)
 
 /datum/species/plasmaman/get_species_description()
-	return "Found on the Icemoon of Freyja, plasmamen consist of colonial \
-		fungal organisms which together form a sentient being. In human space, \
+	return "Found on the Mossmoon of Dexlai, mossmemes consist of colonial \
+		moss organisms which together form a sentient being. In human space, \
 		they're usually attached to skeletons to afford a human touch."
 
 
@@ -205,43 +199,37 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "user-shield",
 			SPECIES_PERK_NAME = "Protected",
-			SPECIES_PERK_DESC = "Plasmamen are immune to radiation, poisons, and most diseases.",
+			SPECIES_PERK_DESC = "Mossmemes are immune to radiation, poisons, and most diseases.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "bone",
 			SPECIES_PERK_NAME = "Wound Resistance",
-			SPECIES_PERK_DESC = "Plasmamen have higher tolerance for damage that would wound others.",
+			SPECIES_PERK_DESC = "Mossmemes have higher tolerance for damage that would wound others.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "wind",
 			SPECIES_PERK_NAME = "Plasma Healing",
-			SPECIES_PERK_DESC = "Plasmamen can heal wounds by consuming plasma.",
+			SPECIES_PERK_DESC = "Mossmemes can heal wounds by consuming plasma.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "hard-hat",
 			SPECIES_PERK_NAME = "Protective Helmet",
-			SPECIES_PERK_DESC = "Plasmamen's helmets provide them shielding from the flashes of welding, as well as an inbuilt flashlight.",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "fire",
-			SPECIES_PERK_NAME = "Living Torch",
-			SPECIES_PERK_DESC = "Plasmamen instantly ignite when their body makes contact with oxygen.",
+			SPECIES_PERK_DESC = "Mossmeme's helmets provide them shielding from the flashes of welding, as well as an inbuilt flashlight.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "wind",
-			SPECIES_PERK_NAME = "Plasma Breathing",
-			SPECIES_PERK_DESC = "Plasmamen must breathe plasma to survive. You receive a tank when you arrive.",
+			SPECIES_PERK_NAME = "Nitrogen Breathing",
+			SPECIES_PERK_DESC = "Mossmemes must breathe Nitrogen to survive. You won't receive a tank when you arrive.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "briefcase-medical",
 			SPECIES_PERK_NAME = "Complex Biology",
-			SPECIES_PERK_DESC = "Plasmamen take specialized medical knowledge to be \
+			SPECIES_PERK_DESC = "Mossmemes take specialized medical knowledge to be \
 				treated. Do not expect speedy revival, if you are lucky enough to get \
 				one at all.",
 		),

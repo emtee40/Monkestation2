@@ -799,13 +799,12 @@
 
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
-	desc = "A spongy rib-shaped mass for filtering plasma from the air."
+	desc = "A spongy rib-shaped mass for filtering nitrogen from the air."
 	icon_state = "lungs-plasma"
 	organ_traits = list(TRAIT_NOHUNGER) // A fresh breakfast of plasma is a great start to any morning.
 
 	safe_oxygen_min = 0 //We don't breathe this
-	safe_plasma_min = 4 //We breathe THIS!
-	safe_plasma_max = 0
+	safe_nitro_min = 4 //We breathe THIS!
 
 /obj/item/organ/internal/lungs/slime
 	name = "vacuole"

@@ -42,11 +42,9 @@
 
 /datum/unit_test/lungs/lungs_sanity_plasmaman/Run()
 	// 2500 Litres of pure Plasma.
-	var/datum/gas_mixture/plasma_test_mix = create_plasma_mix()
+	var/datum/gas_mixture/nitro_test_mix = create_nitrogen_mix()
 	var/mob/living/carbon/human/lab_rat = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/organ/internal/lungs/plasmaman/test_lungs = allocate(/obj/item/organ/internal/lungs/plasmaman)
-	// Test one breath of Plasma on Plasmaman lungs.
-	lungs_test_check_breath("pure Plasma", lab_rat, test_lungs, plasma_test_mix)
 
 	// Tests suffocation with Nitrogen.
 	var/datum/gas_mixture/nitro_test_mix = create_nitrogen_mix()
