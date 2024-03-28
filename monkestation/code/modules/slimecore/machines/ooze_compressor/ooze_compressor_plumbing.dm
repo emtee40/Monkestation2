@@ -18,7 +18,7 @@
 				has_reagent = TRUE
 				if(containg_reagent.volume == chamber.reagents_for_recipe[required_reagent])
 					continue
-				if(containg_reagent.volume + CHEMICAL_QUANTISATION_LEVEL < chamber.reagents_for_recipe[required_reagent])
+				if(containg_reagent.volume + CHEMICAL_QUANTISATION_LEVEL + 1 < chamber.reagents_for_recipe[required_reagent])
 					process_request(min(chamber.reagents_for_recipe[required_reagent] - containg_reagent.volume, MACHINE_REAGENT_TRANSFER) , required_reagent, dir)
 					return
 		if(!has_reagent)
