@@ -26,5 +26,5 @@
 	centerspawner = FALSE
 	template_height = 26
 	template_width = 29
-	weight = 4
+	weight = 0 // Changed from 4 to 0 until TG PR 81044 gets ported.
 	station_name = "Box Station"
