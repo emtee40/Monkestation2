@@ -262,7 +262,7 @@
 
 /datum/chemical_reaction/food/grounding_neutralise
 	results = list(/datum/reagent/consumable/salt = 2)
-	required_reagents = list(/datum/reagent/consumable/liquidelectricity/enriched = 2, /datum/reagent/consumable/grounding_solution = 1)
+	required_reagents = list(/datum/reagent/consumable/liquidelectricity = 2, /datum/reagent/consumable/grounding_solution = 1)  //Monkestation edit: no enriched
 	mix_message = "The mixture lets off a sharp snap as the electricity discharges."
 	mix_sound = 'sound/weapons/taser.ogg'
 	//reaction_flags = REACTION_INSTANT

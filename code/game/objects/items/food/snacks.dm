@@ -642,7 +642,7 @@ GLOBAL_LIST_INIT(safe_peanut_types, populate_safe_peanut_types())
 	icon_state = "shok_roks_candy"
 	trash_type = /obj/item/trash/shok_roks
 	food_reagents = list(
-		/datum/reagent/consumable/liquidelectricity/enriched = 2,
+		/datum/reagent/consumable/liquidelectricity = 2,  //Monkestation edit: no enriched
 		/datum/reagent/consumable/sugar = 3
 	)
 	tastes = list("sugar" = 1, "lightning" = 1)
