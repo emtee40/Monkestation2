@@ -38,6 +38,7 @@
 //More efficient than add_liquid for multiples
 /turf/proc/add_liquid_list(reagent_list, no_react = FALSE, chem_temp)
 	if(liquids && !liquids.liquid_group)
+		qdel(liquids)
 		return
 
 	if(!liquids)
