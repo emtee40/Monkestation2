@@ -18,7 +18,7 @@
 	required_oozes = list(/datum/reagent/slime_ooze/yellow = 20)
 	output_item = /obj/item/slime_extract/yellow
 
-/datum/compressor_recipe/blue
+/datum/compressor_recipe/darkpurple
 	required_oozes = list(/datum/reagent/slime_ooze/darkpurple = 20)
 	output_item = /obj/item/slime_extract/darkpurple
 
