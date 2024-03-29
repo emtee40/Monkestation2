@@ -632,10 +632,10 @@
 	result = /obj/item/food/boiledegg
 	category = CAT_EGG
 
-/datum/crafting_recipe/food/microwave/boiledrice
+/* /datum/crafting_recipe/food/microwave/boiledrice Monkestation Edit: Boiled rice needs to be boiled
 	reqs = list(/obj/item/food/uncooked_rice = 1)
 	result = /obj/item/food/boiledrice
-	category = CAT_SALAD
+	category = CAT_SALAD */
 
 /datum/crafting_recipe/food/microwave/onionrings
 	reqs = list(/obj/item/food/onion_slice = 1)
