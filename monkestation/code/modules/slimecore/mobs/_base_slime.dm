@@ -303,6 +303,7 @@
 
 
 /mob/living/basic/slime/proc/pick_mutation(random = FALSE)
+	mutating_into = null
 	var/list/valid_choices = list()
 	for(var/datum/slime_mutation_data/listed as anything in possible_color_mutations)
 		if(!random && !listed.can_mutate)
