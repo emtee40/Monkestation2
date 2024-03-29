@@ -1,4 +1,7 @@
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
-	if(user?.mind?.has_antag_datum(/datum/antagonist/brother))
+	var/datum/antagonist/brother/bb = user?.mind?.has_antag_datum(/datum/antagonist/brother)
+	var/datum/team/brother_team/blood_bond = bb?.get_team()
+	if(blood_bond && blood_bond.brothers_left > 0)
 		. += span_boldnotice("In order to convert someone into your blood brother, you must <i>directly flash them</i>, not AoE flash!")
+		. += span_warning("Conversion will fail if the target is either dead, unconscious, SSD, mindshielded, a member of security, someone else's brother, or if they are targeted by your objectives.")
