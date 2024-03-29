@@ -19,9 +19,12 @@
 		JOB_AI,
 		JOB_CYBORG,
 	)
-	// BBs should be slightly less common/abundant than normal traitors, albeit not overly so.
-	weight = /datum/round_event_control/antagonist/solo/traitor::weight * 0.8
-	denominator = /datum/round_event_control/antagonist/solo/traitor::denominator * 1.25
+	required_enemies = 1
+	// BBs should be less common/abundant than normal traitors, albeit not overly so.
+	weight = 5
+	maximum_antags = 2
+	denominator = 30
+	cost = 0.45 // so it doesn't eat up threat for a relatively low-threat antag
 
 /datum/round_event_control/antagonist/solo/brother/roundstart
 	name = "Blood Brothers"
@@ -31,6 +34,7 @@
 /datum/round_event_control/antagonist/solo/brother/midround
 	name = "Sleeper Agents (Blood Brothers)"
 	prompted_picking = TRUE
+	required_enemies = 2
 
 /datum/round_event/antagonist/solo/brother/add_datum_to_mind(datum/mind/antag_mind)
 	var/datum/team/brother_team/team = new
