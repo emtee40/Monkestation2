@@ -52,7 +52,7 @@
 
 	var/level = min(round(lastgenlev / 100000), 11)
 	if(level)
-		. += mutable_appearance('icons/obj/machines/engine/other.dmi', "[base_icon_state]-op[level]")
+		. += mutable_appearance('icons/obj/power.dmi', "[base_icon_state]-op[level]")
 	if(hot_circ && cold_circ)
 		. += "[base_icon_state]-oc[last_pressure_overlay]"
 
