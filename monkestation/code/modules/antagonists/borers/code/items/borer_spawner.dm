@@ -7,7 +7,7 @@
 	/// Used to animate the cage opening when you use the borer spawner, and closing if it fails to spawn a borer. Also midly against spam
 	var/opened = FALSE
 	/// Toggles if the borer spawner should be delayed or not, if this gets a value if will use that value to delay (for example: 5 SECONDS)
-	var/delayed = 2 SECONDS
+	var/delayed = FALSE
 	/// Dictates the poll time
 	var/polling_time = 10 SECONDS
 
@@ -63,7 +63,7 @@
 	var/mob/dead/observer/picked_candidate = pick(candidates)
 
 	var/mob/living/basic/cortical_borer/neutered/new_mob = new(drop_location())
-	picked_candidate.mind.transfer_to(new_mob, TRUE)
+	new_mob.ckey = picked_candidate.ckey
 
 	var/datum/antagonist/cortical_borer/borer_antagonist_datum = new
 
