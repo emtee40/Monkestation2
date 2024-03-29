@@ -263,7 +263,7 @@
 		return FALSE
 
 	ai_controller.set_ai_status(AI_STATUS_OFF)
-	visible_message(span_notice("[name] starts to ungulate, it looks to be mutating."))
+	visible_message(span_notice("[name] starts to undulate, it looks to be mutating."))
 	slime_flags |= MUTATING_SLIME
 
 	ungulate()
