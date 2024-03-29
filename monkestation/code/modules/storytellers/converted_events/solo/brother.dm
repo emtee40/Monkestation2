@@ -3,7 +3,6 @@
 	antag_datum = /datum/antagonist/brother
 	typepath = /datum/round_event/antagonist/solo/brother
 	tags = list(TAG_COMBAT, TAG_TEAM_ANTAG)
-	weight = /datum/round_event_control/antagonist/solo/traitor::weight * 0.8 // slightly less than traitors
 	protected_roles = list(
 		JOB_CAPTAIN,
 		JOB_HEAD_OF_PERSONNEL,
@@ -20,6 +19,9 @@
 		JOB_AI,
 		JOB_CYBORG,
 	)
+	// BBs should be slightly less common/abundant than normal traitors, albeit not overly so.
+	weight = /datum/round_event_control/antagonist/solo/traitor::weight * 0.8
+	denominator = /datum/round_event_control/antagonist/solo/traitor::denominator * 1.25
 
 /datum/round_event_control/antagonist/solo/brother/roundstart
 	name = "Blood Brothers"
