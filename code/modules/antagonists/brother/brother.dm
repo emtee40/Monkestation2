@@ -22,7 +22,7 @@
 	return team
 
 /datum/antagonist/brother/on_gain()
-	objectives += team.objectives
+	objectives |= team.objectives
 	owner.special_role = special_role
 	finalize_brother()
 
