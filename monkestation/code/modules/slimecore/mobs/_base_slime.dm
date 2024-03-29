@@ -20,6 +20,10 @@
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
 
+
+	response_help_continuous = "pets"
+	response_help_simple = "pets"
+
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
 	verb_exclaim = "loudly blorbles"

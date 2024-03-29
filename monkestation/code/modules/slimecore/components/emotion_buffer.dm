@@ -53,7 +53,9 @@
 		RegisterSignal(parent, EMOTION_BUFFER_UPDATE_OVERLAY_STATES, PROC_REF(replace_overlays))
 
 	RegisterSignal(parent, COMSIG_EMOTION_STORE, PROC_REF(register_emotional_data))
-
+	RegisterSignal(parent, EMOTION_BUFFER_SPEAK_FROM_BUFFER, PROC_REF(speak_from_buffer))
+	RegisterSignal(parent, COMSIG_EMOTION_HEARD, PROC_REF(store_heard))
+	RegisterSignal(parent, COMSIG_MOVABLE_HEAR, PROC_REF(hear_speech))
 
 /datum/component/emotion_buffer/Destroy(force, silent)
 	. = ..()
@@ -63,15 +65,19 @@
 	. = ..()
 	UnregisterSignal(parent, COMSIG_EMOTION_STORE)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
+	UnregisterSignal(parent, EMOTION_BUFFER_UPDATE_OVERLAY_STATES)
+	UnregisterSignal(parent, EMOTION_BUFFER_SPEAK_FROM_BUFFER)
+	UnregisterSignal(parent, COMSIG_EMOTION_HEARD)
+	UnregisterSignal(parent, COMSIG_MOVABLE_HEAR)
 
 
 /datum/component/emotion_buffer/proc/register_emotional_data(datum/source, atom/from, emotion, emotional_text)
 	if(!emotional_buffer[emotion])
 		return
 	if(from)
-		emotional_buffer[emotion] += "[from] [emotional_text]"
+		emotional_buffer[emotion] += list("[from] [emotional_text]" = FALSE)
 	else
-		emotional_buffer[emotion] += "[emotional_text]"
+		emotional_buffer[emotion] += list("[emotional_text]" = FALSE)
 
 	current_emotion = emotion
 
@@ -85,3 +91,35 @@
 /datum/component/emotion_buffer/proc/replace_overlays(mob/living/source, list/new_icon_states)
 	emotional_overlays = list()
 	emotional_overlays += new_icon_states
+
+/datum/component/emotion_buffer/proc/speak_from_buffer(mob/living/source)
+	if(prob(100))
+		var/spoken_emotion = current_emotion
+		if(prob(25))
+			var/list/viable_emotions = list()
+			for(var/emotion in emotional_buffer)
+				if(!length(emotional_buffer[emotion]))
+					continue
+				viable_emotions |= emotion
+			spoken_emotion = pick(viable_emotions)
+		var/list/speakable_phrases = list()
+		for(var/phrase in emotional_buffer[spoken_emotion])
+			if(emotional_buffer[spoken_emotion][phrase])
+				continue
+			speakable_phrases |= phrase
+
+		var/choice = pick(speakable_phrases)
+		if(!choice)
+			return
+		emotional_buffer[spoken_emotion][choice] = TRUE
+		source.say(choice)
+
+		for(var/mob/living/mob in range(5, source))
+			if(mob == source)
+				continue
+			SEND_SIGNAL(mob, COMSIG_EMOTION_HEARD, spoken_emotion, choice, source)
+
+/datum/component/emotion_buffer/proc/store_heard(mob/living/source, emotion, phrase, mob/living/speaker)
+	emotional_heard[emotion] += list("[speaker] said [phrase]" = FALSE)
+
+/datum/component/emotion_buffer/proc/hear_speech()

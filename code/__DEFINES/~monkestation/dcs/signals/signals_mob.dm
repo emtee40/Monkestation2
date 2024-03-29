@@ -14,7 +14,7 @@
 #define COMSIG_MOB_ADJUST_HUNGER "adjust_hunger_mob"
 
 #define COMSIG_EMOTION_STORE "store_emotion"
-#define COMSIG_EMOTION_RELEASE "release_emotion"
+#define EMOTION_BUFFER_SPEAK_FROM_BUFFER "release_emotion"
 #define COMSIG_EMOTION_HEARD "heard_emotion"
 #define EMOTION_BUFFER_UPDATE_OVERLAY_STATES "update_emotion_overlay"
 

@@ -28,6 +28,7 @@
 						span_notice("[user] [response_help_continuous] you."), null, null, user)
 		to_chat(user, span_notice("You [response_help_simple] [src]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		SEND_SIGNAL(src, COMSIG_EMOTION_STORE, user, EMOTION_HAPPY, "[response_help_continuous] me.")
 	else
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, span_warning("You don't want to hurt [src]!"))
