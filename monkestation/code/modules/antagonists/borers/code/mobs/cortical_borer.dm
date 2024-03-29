@@ -288,7 +288,8 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 		deathgasp_once = TRUE
 		for(var/borers in GLOB.cortical_borers)
 			to_chat(borers, span_boldwarning("[src] has left the hivemind forcibly!"))
-	QDEL_NULL(reagent_holder)
+	if(gibbed)
+		QDEL_NULL(reagent_holder)
 	return ..()
 
 //so we can add some stuff to status, making it easier to read... maybe some hud some day
