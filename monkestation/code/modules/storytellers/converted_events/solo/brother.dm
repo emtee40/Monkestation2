@@ -3,6 +3,7 @@
 	antag_datum = /datum/antagonist/brother
 	typepath = /datum/round_event/antagonist/solo/brother
 	tags = list(TAG_COMBAT, TAG_TEAM_ANTAG)
+	weight = /datum/round_event_control/antagonist/solo/traitor::weight * 0.8 // slightly less than traitors
 	protected_roles = list(
 		JOB_CAPTAIN,
 		JOB_HEAD_OF_PERSONNEL,
