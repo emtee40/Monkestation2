@@ -13,11 +13,11 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_PRISONER,
 		JOB_SECURITY_OFFICER,
-		JOB_WARDEN,
+		JOB_WARDEN
 	)
 	restricted_roles = list(
 		JOB_AI,
-		JOB_CYBORG,
+		JOB_CYBORG
 	)
 	required_enemies = 1
 	// BBs should be less common/abundant than normal traitors, albeit not overly so.
