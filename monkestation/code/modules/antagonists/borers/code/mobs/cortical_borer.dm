@@ -488,14 +488,21 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	timed_maturity = world.time + 1 SECONDS
 	maturity_age++
 
+	/**
+	 * The point values are double what they seem
+	 * So in the beginning you start out with the following generation:
+	 * Evolution point per 1 minute and 20 seconds
+	 * Chemical point per 40 seconds
+	 */
+
 	//20:40, 15:30, 10:20, 5:10
-	var/maturity_threshold = 20
+	var/maturity_threshold = 2 SECONDS
 	if(GLOB.successful_egg_number >= GLOB.objective_egg_borer_number)
-		maturity_threshold -= 2
+		maturity_threshold -= 0.2 SECONDS
 	if(length(GLOB.willing_hosts) >= GLOB.objective_willing_hosts)
-		maturity_threshold -= 10
+		maturity_threshold -= 1 SECOND
 	if(GLOB.successful_blood_chem >= GLOB.objective_blood_borer)
-		maturity_threshold -= 3
+		maturity_threshold -= 0.3 SECONDS
 
 	if(maturity_age == maturity_threshold)
 		if(chemical_evolution < limited_borer) //you can only have a default of 10 at a time
