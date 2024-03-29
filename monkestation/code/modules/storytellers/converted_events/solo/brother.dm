@@ -19,6 +19,13 @@
 		JOB_AI,
 		JOB_CYBORG
 	)
+	enemy_roles = list(
+		JOB_CAPTAIN,
+		JOB_HEAD_OF_SECURITY,
+		JOB_DETECTIVE,
+		JOB_WARDEN,
+		JOB_SECURITY_OFFICER
+	)
 	required_enemies = 1
 	// BBs should be less common/abundant than normal traitors, albeit not overly so.
 	weight = 5
