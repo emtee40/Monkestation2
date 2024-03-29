@@ -270,9 +270,10 @@
 	return TRUE
 
 /mob/living/basic/slime/proc/change_color(datum/slime_color/new_color)
+	var/datum/slime_color/new_slime_color = new new_color
 	QDEL_NULL(current_color)
-	current_color = new_color
-	current_color.on_add_to_slime(src)
+	current_color = new_slime_color
+	new_slime_color.on_add_to_slime(src)
 
 	update_slime_varience()
 
@@ -291,13 +292,15 @@
 	recompile_ai_tree()
 
 /mob/living/basic/slime/proc/finish_mutating()
+	animate(src) // empty animate to break ungulating
+	if(!mutating_into)
+		return
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_HUNGER, -200)
 	change_color(mutating_into)
 
 	slime_flags &= ~MUTATING_SLIME
 	ai_controller.set_ai_status(AI_STATUS_ON)
 
-	animate(src) // empty animate to break ungulating
 
 /mob/living/basic/slime/proc/pick_mutation(random = FALSE)
 	var/list/valid_choices = list()
@@ -312,7 +315,9 @@
 		return FALSE
 
 	var/datum/slime_mutation_data/picked = pick_weight(valid_choices)
-	mutating_into = new picked.output
+	if(!picked)
+		return FALSE
+	mutating_into = picked.output
 	return TRUE
 
 /mob/living/basic/slime/proc/attempt_change(datum/source, hunger_precent)
