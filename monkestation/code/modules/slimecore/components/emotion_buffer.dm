@@ -117,6 +117,8 @@
 				continue
 			speakable_phrases |= phrase
 
+		if(!length(speakable_phrases))
+			return
 		var/choice = pick(speakable_phrases)
 		if(!choice)
 			return
