@@ -232,8 +232,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		//Both are abstract types meant to scream bloody murder if spawned in raw
 		/obj/item/organ/external,
 		/obj/item/organ/external/wings,
-		/obj/effect/spawner/random_engines,
-		/obj/effect/spawner/random_bar,
 		///this instant starts a timer, and if its being instantly deleted it can cause issues
 		/obj/machinery/atm,
 		/datum/hotspot,
@@ -317,6 +315,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 	ignore += typesof(/datum/weather_event)
 	ignore += typesof(/datum/particle_weather)
 	ignore += typesof(/mob/living/basic/aquatic)
+	ignore += typesof(/obj/effect/spawner/room) //monkestation edit
 
 	return ignore
 

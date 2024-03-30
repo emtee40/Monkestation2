@@ -1,9 +1,19 @@
 /datum/map_template/random_room
-	var/room_id //The SSmapping random_room_template list is ordered by this var
-	var/spawned //Whether this template (on the random_room template list) has been spawned
-	var/station_name //Matches this template with that right station
+	///The key type that this room will spawn under
+	var/room_key = RANDOM_ROOM_KEY_DEFAULT
+	///Our exact id, should be unique to each type. If unset then we will be ignored
+	var/room_id
+	///List of stations this template is restricted to. Keep unset to allow spawning on any station
+	var/list/valid_station_list //TODO: convert this into defines
+	///Do we spawn centered
 	var/centerspawner = TRUE
+	///How many tiles tall is this template
 	var/template_height = 0
+	///How many tiles long is this template
 	var/template_width = 0
-	var/weight = 10 //weight a room has to appear
-	var/stock = 1 //how many times this room can appear in a round
+	///Weight for this room to be picked for spawning
+	var/weight = 10
+	///Amount to subtract from weight each time we spawn
+	var/scaling_weight = 0
+	///The maximum amount of times this room can be picked to spawn, set to -1 for unlimited
+	var/stock = 1

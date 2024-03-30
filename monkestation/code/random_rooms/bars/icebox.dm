@@ -1,13 +1,14 @@
 //should most likely make these all be a subtype of /random_bar/icebox/ or something, would need use subtypesof() though
 /datum/map_template/random_room/random_bar/icebox_base
 	name = "Baseline Icebox Bar"
+	room_key = RANDOM_ROOM_KEY_ICEBOX_BAR
 	room_id = "icebox_bar_base"
 	mappath = "_maps/~monkestation/RandomBars/Icebox/icebox_bar_base.dmm"
 	centerspawner = FALSE
 	template_height = 12
 	template_width = 18
 	weight = 8
-	station_name = "Ice Box Station"
+	valid_station_list = list("Ice Box Station")
 
 
 /datum/map_template/random_room/random_bar/icebox_base/abductor

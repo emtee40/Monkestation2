@@ -1,5 +1,6 @@
 /datum/map_template/random_room/random_arena
 	name = "Default Arena Template"
+	room_key = RANDOM_ROOM_KEY_ARENA
 	centerspawner = FALSE
 	template_width = 17
 	template_height = 10
