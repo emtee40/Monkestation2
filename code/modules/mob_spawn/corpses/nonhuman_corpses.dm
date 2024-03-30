@@ -22,7 +22,7 @@
 	icon = 'icons/mob/simple/slimes.dmi'
 	icon_state = "grey baby slime" //sets the icon in the map editor
 	///the color of the slime you're spawning.
-	var/slime_species = "grey"
+	var/slime_species = /datum/slime_color/grey
 
 /obj/effect/mob_spawn/corpse/slime/special(mob/living/basic/slime/spawned_slime)
 	. = ..()
