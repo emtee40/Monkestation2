@@ -11,7 +11,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/slime
 	density = FALSE
 
-	maximum_survivable_temperature = 900
+	maximum_survivable_temperature = 2000
 
 	melee_damage_lower = 5
 	melee_damage_upper = 25
