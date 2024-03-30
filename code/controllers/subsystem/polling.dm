@@ -135,18 +135,16 @@ SUBSYSTEM_DEF(polling)
 				the_pic_source.plane = old_plane
 			else if(ispath(pic_source, /datum/antagonist))
 				var/datum/antagonist/antagonist = new pic_source
-				var/icon/preview_icon = antagonist.preview_outfit ? antagonist.render_preview_outfit(antagonist.preview_outfit) : null
+				poll_image = antagonist.render_poll_preview()
 				qdel(antagonist)
-				poll_image = preview_icon ? image(preview_icon) : image('icons/effects/effects.dmi', icon_state = "static", layer = FLOAT_LAYER)
 			else
 				poll_image = image(pic_source, layer = FLOAT_LAYER)
-		else
+		if(!poll_image)
 			// Just use a generic image
 			poll_image = image('icons/effects/effects.dmi', icon_state = "static", layer = FLOAT_LAYER)
 
-		if(poll_image)
-			poll_image.plane = poll_alert_button.plane
-			poll_alert_button.add_overlay(poll_image)
+		poll_image.plane = poll_alert_button.plane
+		poll_alert_button.add_overlay(poll_image)
 
 		// Chat message
 		var/act_jump = ""
