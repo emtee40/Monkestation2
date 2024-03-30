@@ -184,3 +184,5 @@
 /obj/machinery/processor/container_resist_act(mob/living/user)
 	user.forceMove(drop_location())
 	user.visible_message(span_notice("[user] crawls free of the processor!"))
+
+#undef PROCESSOR_SELECT_RECIPE
