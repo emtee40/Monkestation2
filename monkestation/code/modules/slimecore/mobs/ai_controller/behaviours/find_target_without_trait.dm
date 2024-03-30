@@ -41,6 +41,9 @@
 		if(HAS_TRAIT(pot_target, trait))
 			continue
 
+		if(SEND_SIGNAL(controller.pawn, COMSIG_FRIENDSHIP_CHECK_LEVEL, pot_target, FRIENDSHIP_FRIEND))
+			continue
+
 		if(pot_target.client && controller.blackboard[BB_WONT_TARGET_CLIENTS])
 			continue
 

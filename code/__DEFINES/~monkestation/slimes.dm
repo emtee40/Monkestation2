@@ -76,3 +76,14 @@
 #define BEHAVIOUR_CHANGE "behaviour_change"
 #define DANGEROUS_CHANGE "dangerous_change"
 #define DOCILE_CHANGE "docile_change"
+
+#define FRIENDSHIP_HATED "hated"
+#define FRIENDSHIP_DISLIKED "disliked"
+#define FRIENDSHIP_STRANGER "stranger"
+#define FRIENDSHIP_NEUTRAL "neutral"
+#define FRIENDSHIP_ACQUAINTANCES "acquaintances"
+#define FRIENDSHIP_FRIEND "friend"
+#define FRIENDSHIP_BESTFRIEND "bestfriend"
+
+#define COMSIG_FRIENDSHIP_CHECK_LEVEL "friendship_check_level"
+#define COMSIG_FRIENDSHIP_CHANGE "friendship_change"

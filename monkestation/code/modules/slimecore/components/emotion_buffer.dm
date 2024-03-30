@@ -71,11 +71,18 @@
 	UnregisterSignal(parent, COMSIG_MOVABLE_HEAR)
 
 
-/datum/component/emotion_buffer/proc/register_emotional_data(datum/source, atom/from, emotion, emotional_text)
+/datum/component/emotion_buffer/proc/register_emotional_data(datum/source, atom/from, emotion, emotional_text, intensity = 1)
 	if(!emotional_buffer[emotion])
 		return
+
+	if((emotion in list(EMOTION_ANGER, EMOTION_SAD, EMOTION_SCARED)) && intensity)
+		intensity *= -1
+
+
 	if(from)
 		emotional_buffer[emotion] += list("[from] [emotional_text]" = FALSE)
+		if(intensity)
+			SEND_SIGNAL(parent, COMSIG_FRIENDSHIP_CHANGE, from, intensity)
 	else
 		emotional_buffer[emotion] += list("[emotional_text]" = FALSE)
 

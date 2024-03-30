@@ -1,6 +1,7 @@
 /datum/component/scared_of_item // this runs independantly of ai_controller so we aren't wasting ai process time on this as its a passive check.
 	var/range
 	var/was_scared = FALSE
+	var/mob/last_scared_by
 
 /datum/component/scared_of_item/Initialize(item_path, range)
 	src.range = range
@@ -26,6 +27,7 @@
 
 			if(!was_scared)
 				SEND_SIGNAL(basic_mob, COMSIG_EMOTION_STORE, human, EMOTION_SCARED, "chased me with an extinguisher.")
+				last_scared_by = human
 				was_scared = TRUE
 			broke = TRUE
 			break
@@ -33,5 +35,6 @@
 			return
 	basic_mob.ai_controller.set_blackboard_key(BB_BASIC_MOB_STOP_FLEEING, TRUE)
 	if(was_scared)
-		SEND_SIGNAL(basic_mob, COMSIG_EMOTION_STORE, null, EMOTION_HAPPY, "They stopped chasing me with an extinguisher.")
+		SEND_SIGNAL(basic_mob, COMSIG_EMOTION_STORE, last_scared_by, EMOTION_HAPPY, "stopped chasing me with an extinguisher.", 0)
 		was_scared = FALSE
+		last_scared_by = null

@@ -98,6 +98,7 @@
 	AddComponent(/datum/component/generic_mob_hunger, 400, 0.1, 5 MINUTES, 200)
 	AddComponent(/datum/component/scared_of_item, 5)
 	AddComponent(/datum/component/emotion_buffer, emotion_states)
+	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100))
 
 	RegisterSignal(src, COMSIG_HUNGER_UPDATED, PROC_REF(hunger_updated))
 	RegisterSignal(src, COMSIG_MOB_OVERATE, PROC_REF(attempt_change))
