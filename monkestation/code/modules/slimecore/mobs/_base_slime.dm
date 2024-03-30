@@ -11,6 +11,11 @@
 	ai_controller = /datum/ai_controller/basic_controller/slime
 	density = FALSE
 
+	maximum_survivable_temperature = 900
+
+	melee_damage_lower = 5
+	melee_damage_upper = 25
+
 	pass_flags = PASSTABLE | PASSGRILLE
 	gender = NEUTER
 	faction = list(FACTION_SLIME)
@@ -22,7 +27,7 @@
 
 
 	response_help_continuous = "pets"
-	response_help_simple = "pets"
+	response_help_simple = "pet"
 
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
@@ -92,6 +97,8 @@
 		/datum/pet_command/point_targeting/attack/latch,
 		/datum/pet_command/stop_eating,
 	)
+	///the amount of ooze we produce
+	var/ooze_production = 10
 
 /mob/living/basic/slime/Initialize(mapload, datum/slime_color/passed_color)
 	. = ..()
@@ -108,7 +115,7 @@
 
 	AddComponent(/datum/component/obeys_commands, friendship_commands)
 
-	AddComponent(/datum/component/liquid_secretion, current_color.secretion_path, 10, 10 SECONDS, TYPE_PROC_REF(/mob/living/basic/slime, check_secretion))
+	AddComponent(/datum/component/liquid_secretion, current_color.secretion_path, ooze_production, 10 SECONDS, TYPE_PROC_REF(/mob/living/basic/slime, check_secretion))
 	AddComponent(/datum/component/generic_mob_hunger, 400, 0.1, 5 MINUTES, 200)
 	AddComponent(/datum/component/scared_of_item, 5)
 	AddComponent(/datum/component/emotion_buffer, emotion_states)
@@ -214,9 +221,9 @@
 
 	update_name()
 	if(!chemical_injection)
-		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, current_color.secretion_path, 10, 10 SECONDS)
+		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, current_color.secretion_path, ooze_production, 10 SECONDS)
 	else
-		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, chemical_injection, 10, 10 SECONDS)
+		SEND_SIGNAL(src, COMSIG_SECRETION_UPDATE, chemical_injection, ooze_production, 10 SECONDS)
 
 /mob/living/basic/slime/update_overlays()
 	. = ..()
@@ -254,9 +261,22 @@
 	slime_traits += new_trait
 	return TRUE
 
+///unlike add trait this uses a type and is checked against the list don't pass the created one pass the type
 /mob/living/basic/slime/proc/remove_trait(datum/slime_trait/removed_trait)
-	slime_traits -= removed_trait
-	qdel(removed_trait)
+	for(var/datum/slime_trait/trait as anything in slime_traits)
+		if(trait.type != removed_trait)
+			continue
+		slime_traits -= trait
+		qdel(trait)
+		return
+
+///unlike add trait this uses a type and is checked against the list don't pass the created one pass the type
+/mob/living/basic/slime/proc/has_slime_trait(datum/slime_trait/checked_trait)
+	for(var/datum/slime_trait/trait as anything in slime_traits)
+		if(trait.type != checked_trait)
+			continue
+		return TRUE
+	return FALSE
 
 /mob/living/basic/slime/update_name()
 	if(slime_name_regex.Find(name))

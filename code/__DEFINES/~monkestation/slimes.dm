@@ -11,6 +11,7 @@
 #define TRAIT_ON_DEATH (1<<0)
 #define TRAIT_VISUAL (1<<1)
 
+#define TRAIT_MUTATOR_USED "mutator_trait"
 #define TRAIT_IN_STACK "inside_mob_stack"
 #define TRAIT_FEEDING "feeding_trait"
 #define LATCH_TRAIT "latch_trait"

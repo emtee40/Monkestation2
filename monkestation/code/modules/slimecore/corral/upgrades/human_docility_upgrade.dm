@@ -11,4 +11,6 @@
 	slime.ai_controller.set_blackboard_key(BB_WONT_TARGET_CLIENTS, TRUE)
 
 /datum/corral_upgrade/human_docility_upgrade/on_slime_exited(mob/living/basic/slime/slime)
+	if(slime.has_slime_trait(/datum/slime_trait/docility))
+		return
 	slime.ai_controller.set_blackboard_key(BB_WONT_TARGET_CLIENTS, FALSE)

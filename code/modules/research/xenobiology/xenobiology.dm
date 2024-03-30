@@ -60,35 +60,6 @@
 	to_chat(user, span_warning("Nothing happened... This slime extract cannot be activated this way."))
 	return FALSE
 
-/**
-* Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
-*
-* By using a valid core on a living adult slime, then feeding it nine more of the same type, you can mutate it into more useful items. Not every slime type has an implemented core cross.
-*/
-/obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)
-	if(!isslime(M))
-		return ..()
-	if(M.stat)
-		to_chat(user, span_warning("The slime is dead!"))
-		return
-	if(!M.is_adult)
-		to_chat(user, span_warning("The slime must be an adult to cross its core!"))
-		return
-	if(M.effectmod && M.effectmod != effectmod)
-		to_chat(user, span_warning("The slime is already being crossed with a different extract!"))
-		return
-
-	if(!M.effectmod)
-		M.effectmod = effectmod
-
-	M.applied++
-	qdel(src)
-	to_chat(user, span_notice("You feed the slime [src], [M.applied == 1 ? "starting to mutate its core." : "further mutating its core."]"))
-	playsound(M, 'sound/effects/attackblob.ogg', 50, TRUE)
-
-	if(M.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-		M.spawn_corecross()
-
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
 	icon_state = "grey_slime_extract"
@@ -302,8 +273,8 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message(span_warning("[user]'s skin flashes red for a moment..."), span_warning("Your skin flashes red as you emit rage-inducing pheromones..."))
-			for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(user), null))
-				slime.rabid = TRUE
+			for(var/mob/living/basic/slime/slime in viewers(get_turf(user), null))
+				ADD_TRAIT(slime, TRAIT_SLIME_RABID, "red-extract")
 				slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
 			return 600
 
@@ -672,21 +643,20 @@
 	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "potsilver"
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack(mob/living/basic/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, span_warning("The potion only works on slimes!"))
 		return ..()
 	if(M.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return
-	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
+	if(HAS_TRAIT(M, TRAIT_SLIME_RABID)) //Stops being rabid, but doesn't become truly docile.
 		to_chat(M, span_warning("You absorb the potion, and your rabid hunger finally settles to a normal desire to feed."))
 		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
-		M.rabid = FALSE
+		REMOVE_TRAIT(M, TRAIT_SLIME_RABID, null)
 		qdel(src)
 		return
-	M.docile = 1
-	M.set_nutrition(700)
+	M.add_trait(/datum/slime_trait/docility)
 	to_chat(M, span_warning("You absorb the potion and feel your intense desire to feed melt away."))
 	to_chat(user, span_notice("You feed the slime the potion, removing its hunger and calming it."))
 	var/newname = sanitize_name(tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "Pet Slime", MAX_NAME_LEN))
@@ -818,22 +788,18 @@
 	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "potred"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack(mob/living/basic/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, span_warning("The steroid only works on baby slimes!"))
 		return ..()
-	if(M.is_adult) //Can't steroidify adults
-		to_chat(user, span_warning("Only baby slimes can use the steroid!"))
-		return
 	if(M.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return
-	if(M.cores >= 5)
-		to_chat(user, span_warning("The slime already has the maximum amount of extract!"))
+	if(M.ooze_production >= 50)
+		to_chat(user, span_warning("The slime is already producing too much ooze!"))
 		return
-
-	to_chat(user, span_notice("You feed the slime the steroid. It will now produce one more extract."))
-	M.cores++
+	to_chat(user, span_notice("You feed the slime the steroid. It will now produce more ooze."))
+	M.ooze_production++
 	qdel(src)
 
 /obj/item/slimepotion/enhancer
@@ -848,7 +814,7 @@
 	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "potcyan"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/basic/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, span_warning("The stabilizer only works on slimes!"))
 		return ..()
@@ -869,14 +835,14 @@
 	icon = 'icons/obj/medical/chemical.dmi'
 	icon_state = "potgreen"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack(mob/living/basic/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, span_warning("The mutator only works on slimes!"))
 		return ..()
 	if(M.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return
-	if(M.mutator_used)
+	if(HAS_TRAIT(M, TRAIT_MUTATOR_USED))
 		to_chat(user, span_warning("This slime has already consumed a mutator, any more would be far too unstable!"))
 		return
 	if(M.mutation_chance == 100)
@@ -885,7 +851,7 @@
 
 	to_chat(user, span_notice("You feed the slime the mutator. It is now more likely to mutate."))
 	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
-	M.mutator_used = TRUE
+	ADD_TRAIT(M, TRAIT_MUTATOR_USED, "slime-mutator")
 	qdel(src)
 
 /obj/item/slimepotion/speed
