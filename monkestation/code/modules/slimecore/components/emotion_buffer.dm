@@ -108,6 +108,8 @@
 				if(!length(emotional_buffer[emotion]))
 					continue
 				viable_emotions |= emotion
+			if(!length(viable_emotions))
+				return
 			spoken_emotion = pick(viable_emotions)
 		var/list/speakable_phrases = list()
 		for(var/phrase in emotional_buffer[spoken_emotion])
