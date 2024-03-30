@@ -13,9 +13,6 @@
 
 	maximum_survivable_temperature = 2000
 
-	melee_damage_lower = 5
-	melee_damage_upper = 25
-
 	pass_flags = PASSTABLE | PASSGRILLE
 	gender = NEUTER
 	faction = list(FACTION_SLIME)
