@@ -83,6 +83,16 @@
 	var/datum/reagent/chemical_injection
 	var/overriding_name_prefix
 
+
+	/// Commands you can give this carp once it is tamed, not static because subtypes can modify it
+	var/friendship_commands = list(
+		/datum/pet_command/idle,
+		/datum/pet_command/free,
+		/datum/pet_command/follow,
+		/datum/pet_command/point_targeting/attack/latch,
+		/datum/pet_command/stop_eating,
+	)
+
 /mob/living/basic/slime/Initialize(mapload, datum/slime_color/passed_color)
 	. = ..()
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_SLIME, 0.5, -11)
@@ -96,11 +106,13 @@
 		current_color = new passed_color
 	current_color.on_add_to_slime(src)
 
+	AddComponent(/datum/component/obeys_commands, friendship_commands)
+
 	AddComponent(/datum/component/liquid_secretion, current_color.secretion_path, 10, 10 SECONDS, TYPE_PROC_REF(/mob/living/basic/slime, check_secretion))
 	AddComponent(/datum/component/generic_mob_hunger, 400, 0.1, 5 MINUTES, 200)
 	AddComponent(/datum/component/scared_of_item, 5)
 	AddComponent(/datum/component/emotion_buffer, emotion_states)
-	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100))
+	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100), FRIENDSHIP_FRIEND)
 
 	RegisterSignal(src, COMSIG_HUNGER_UPDATED, PROC_REF(hunger_updated))
 	RegisterSignal(src, COMSIG_MOB_OVERATE, PROC_REF(attempt_change))
@@ -156,6 +168,8 @@
 	rebuild_foods()
 
 	RemoveElement(/datum/element/basic_eating)
+
+	new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/pet_planning)
 
 	if(!HAS_TRAIT(src, TRAIT_SLIME_RABID))
 		new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/simple_find_nearest_target_to_flee_has_item)
