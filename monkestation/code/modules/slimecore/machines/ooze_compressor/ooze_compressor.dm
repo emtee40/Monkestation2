@@ -96,15 +96,12 @@
 	if(!current_recipe)
 		return
 	for(var/datum/reagent/reagent as anything in current_recipe.required_oozes)
-		var/reagent_name = ""
 		var/reagent_volume = 0
 		for(var/datum/reagent/listed_reagent as anything in reagents.reagent_list)
 			if(listed_reagent.type != reagent)
 				continue
-			reagent_name = listed_reagent.name
 			reagent_volume = listed_reagent.volume
-		. += span_notice("[reagent_volume] out of [current_recipe.required_oozes[reagent]] units of [reagent_name].")
-		reagent_name = ""
+		. += span_notice("[reagent_volume] out of [current_recipe.required_oozes[reagent]] units of [initial(reagent.name)].")
 		reagent_volume = 0
 
 /obj/machinery/plumbing/ooze_compressor/update_overlays()

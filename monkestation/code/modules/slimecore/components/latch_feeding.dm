@@ -13,7 +13,7 @@
 	///our callback
 	var/datum/callback/check_and_replace
 
-/datum/component/latch_feeding/Initialize(atom/movable/target, damage_type, damage_amount, hunger_restore, stops_at_crit, datum/callback/callback)
+/datum/component/latch_feeding/Initialize(atom/movable/target, damage_type, damage_amount, hunger_restore, stops_at_crit, datum/callback/callback, checks_loc = TRUE)
 	. = ..()
 	src.target = target
 	if(!target)
@@ -25,7 +25,7 @@
 	src.stops_at_crit = stops_at_crit
 	src.check_and_replace = callback
 
-	if(!latch_target())
+	if(!latch_target(loc_check = checks_loc))
 		return COMPONENT_INCOMPATIBLE
 
 	ADD_TRAIT(parent, TRAIT_FEEDING, LATCH_TRAIT)
@@ -46,7 +46,7 @@
 	UnregisterSignal(parent, COMSIG_LIVING_SET_BUCKLED)
 	UnregisterSignal(parent, COMSIG_MOB_OVERATE)
 
-/datum/component/latch_feeding/proc/latch_target(init = FALSE)
+/datum/component/latch_feeding/proc/latch_target(init = FALSE, loc_check = TRUE)
 	var/mob/basic_mob = parent
 	var/mob/living/living_target = target
 	SEND_SIGNAL(basic_mob, COMSIG_MOBSTACKER_DESTROY)
@@ -59,7 +59,7 @@
 			return FALSE
 
 	target.unbuckle_all_mobs(force = TRUE)
-	if(target.buckle_mob(basic_mob, force=TRUE))
+	if(target.buckle_mob(basic_mob, TRUE, loc_check))
 		basic_mob.layer = target.layer + 0.1
 		target.visible_message(span_danger("[basic_mob] latches onto [target]!"), \
 						span_userdanger("[basic_mob] latches onto [target]!"))

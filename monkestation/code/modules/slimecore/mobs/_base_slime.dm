@@ -29,6 +29,8 @@
 	verb_exclaim = "loudly blorbles"
 	verb_yell = "loudly blorbles"
 
+	can_be_held = TRUE
+
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
@@ -131,6 +133,12 @@
 		qdel(mutation)
 
 	QDEL_NULL(current_color)
+
+/mob/living/basic/slime/mob_try_pickup(mob/living/user, instant)
+	if(!SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_FRIEND))
+		to_chat(user, span_notice("[src] doesn't trust you enough to let you pick them up"))
+		return FALSE
+	. = ..()
 
 /mob/living/basic/slime/proc/rebuild_foods()
 	compiled_liked_foods |= trait_foods
@@ -388,3 +396,14 @@
 	if(HAS_TRAIT(src, VACPACK_THROW))
 		REMOVE_TRAIT(src, VACPACK_THROW, "vacpack")
 		pass_flags &= ~PASSMOB
+
+/mob/living/basic/slime/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, gentle, quickstart)
+	force = 0
+	. = ..()
+
+/mob/living/basic/slime/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, throwingdatum.thrower, FRIENDSHIP_FRIEND))
+		if(!HAS_TRAIT(hit_atom, TRAIT_LATCH_FEEDERED) && isliving(hit_atom))
+			AddComponent(/datum/component/latch_feeding, hit_atom, TOX, 2, 4, FALSE, CALLBACK(src, PROC_REF(latch_callback), hit_atom), FALSE)
+			visible_message(span_danger("[throwingdatum.thrower] hucks [src] at [hit_atom] causing the [src] to stick to [hit_atom]."))
