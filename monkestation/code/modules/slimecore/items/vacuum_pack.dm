@@ -242,6 +242,8 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	var/atom/movable/spawned = new spawn_type(user.loc)
+	spawned.AddComponent(/datum/component/vac_tagged, user)
+
 	pack.linked.stored_matter -= pack.linked.vacuum_printable_types[spawn_type]
 	playsound(user, 'sound/misc/moist_impact.ogg', 50, TRUE)
 	spawned.transform = matrix().Scale(0.5)

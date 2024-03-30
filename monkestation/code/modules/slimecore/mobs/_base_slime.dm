@@ -140,6 +140,14 @@
 		return FALSE
 	. = ..()
 
+/mob/living/basic/slime/examine(mob/user)
+	. = ..()
+	if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_FRIEND))
+		if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_BESTFRIEND))
+			. += span_notice("You are one of [src]'s best friends!")
+		else
+			. += span_notice("You are one of [src]'s friends")
+
 /mob/living/basic/slime/proc/rebuild_foods()
 	compiled_liked_foods |= trait_foods
 

@@ -120,3 +120,4 @@
 
 	if(parent) // ??? I was getting runtimes for no parent but IDK how
 		SEND_SIGNAL(parent, COMSIG_MOB_FEED, target, hunger_restore)
+		SEND_SIGNAL(target, COMSIG_MOB_FED_ON, parent, hunger_restore)

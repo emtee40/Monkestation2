@@ -1,6 +1,7 @@
 #define COMSIG_MOB_STOP_HUNGER "stop_hunger_mob"
 #define COMSIG_MOB_START_HUNGER "start_hunger_mob"
 #define COMSIG_MOB_FEED "feed_hunger_mob"
+#define COMSIG_MOB_FED_ON "fed_on_mob"
 #define COMSIG_MOB_RETURN_HUNGER "return_hunger_mob"
 #define COMSIG_MOB_REFUSED_EAT "refused_hunger_mob"
 #define COMSIG_MOB_OVERATE "overate_hunger_mob"
