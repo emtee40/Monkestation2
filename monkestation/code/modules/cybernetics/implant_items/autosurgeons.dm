@@ -29,7 +29,6 @@
 
 /obj/item/autosurgeon/skillchip/syndicate
 	name = "suspicious skillchip autosurgeon"
-	icon_state = "syndicate_autoimplanter"
 
 /obj/item/autosurgeon/skillchip/Initialize(mapload)
 	. = ..()
