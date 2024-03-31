@@ -28,7 +28,7 @@
 	)
 	required_enemies = 1
 	// BBs should be less common/abundant than normal traitors, albeit not overly so.
-	weight = 5
+	weight = 8
 	maximum_antags = 2
 	denominator = 30
 	cost = 0.45 // so it doesn't eat up threat for a relatively low-threat antag
