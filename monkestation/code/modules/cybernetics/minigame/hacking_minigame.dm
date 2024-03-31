@@ -3,7 +3,7 @@
  * Piping minigame, controls the board and procs surrounding it
  *
  * Holds all relevant information regarding the piping minigame
- * Contains the procs needed to generate the game, check if the game is finisehd and rotate any pieces.
+ * Contains the procs needed to generate the game, check if the game is finished and rotate any pieces.
  *
  */
 /datum/hacking_minigame

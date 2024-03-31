@@ -24,6 +24,7 @@
 	/// The bodypart overlay datum we should apply to whatever mob we are put into
 	visual_implant = TRUE
 	bodypart_overlay = /datum/bodypart_overlay/simple/sandy
+	var/cooldown_time = 45 SECONDS
 
 /obj/item/organ/internal/cyberimp/chest/sandevistan/ui_action_click()
 	if((organ_flags & ORGAN_FAILING))
@@ -33,7 +34,7 @@
 	if(!COOLDOWN_FINISHED(src, in_the_zone))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be recharging..."))
 		return
-	COOLDOWN_START(src, in_the_zone, 45 SECONDS)
+	COOLDOWN_START(src, in_the_zone, cooldown_time)
 
 	owner.AddComponent(/datum/component/after_image, 16, 0.5, TRUE)
 	owner.AddComponent(/datum/component/slowing_field, 0.1, 5, 3)
@@ -50,3 +51,24 @@
 	icon = 'monkestation/code/modules/cybernetics/icons/implants.dmi'
 	icon_state = "sandy_overlay"
 	layers = EXTERNAL_ADJACENT
+
+
+/obj/item/organ/internal/cyberimp/chest/sandevistan/refurbished
+	name = "refurbished sandevistan"
+	desc = "The branding has been scratched off of these and it looks hastily put together."
+
+	cooldown_time = 65 SECONDS
+
+/obj/item/organ/internal/cyberimp/chest/sandevistan/refurbished/ui_action_click(mob/user, actiontype)
+	if(prob(45))
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
+			to_chat(user, span_warning("You are overloaded with information and suffer some backlash."))
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/chest/sandevistan/refurbished/exit_the_zone(mob/living/exiter)
+	. = ..()
+	exiter.adjustBruteLoss(10)
+	to_chat(exiter, span_warning("Your body was not able to handle the strain of [src] causing you to experience some minor bruising."))
+
