@@ -143,6 +143,7 @@
 /obj/item/organ/internal/cyberimp/arm/item_set/connector
 	name = "universal connection implant"
 	desc = "Special inhand implant that allows you to connect your brain directly into the protocl sphere of implants, which allows for you to hack them and make the compatible."
+	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#39992d"

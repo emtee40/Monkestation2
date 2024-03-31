@@ -1,6 +1,7 @@
 /obj/item/organ/internal/cyberimp/leg/chemplant
 	name = "Debug Chemplant"
 	desc = "You shouldn't see this!"
+	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "chemplant"
 	implant_overlay = "chemplant_overlay"
 	var/list/reagent_list = list()
