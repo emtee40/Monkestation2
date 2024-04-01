@@ -10,13 +10,12 @@
 		return
 	loc.visible_message(span_warning("\The [src] begins to beep loudly!"))
 	used = TRUE
-	addtimer(CALLBACK(src, PROC_REF(launch_payload)), 40)
+	addtimer(CALLBACK(src, PROC_REF(launch_payload)), 4 SECONDS)
 
 /obj/item/jukebox_beacon/proc/launch_payload()
-	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
-
-	new /obj/machinery/media/jukebox(toLaunch)
-	new /obj/item/wrench(toLaunch)
-
-	new /obj/effect/pod_landingzone(drop_location(), toLaunch)
+	podspawn(list(
+		"target" = get_turf(src),
+		"spawn" = list(/obj/item/wrench, /obj/machinery/media/jukebox),
+		"style" = STYLE_CENTCOM
+	))
 	qdel(src)
