@@ -30,3 +30,18 @@
 /datum/config_entry/flag/looc_enabled
 
 /datum/config_entry/flag/log_storyteller
+
+/datum/config_entry/number/roundstart_research_boost
+	min_val = 1
+	default = 1.5
+	integer = FALSE
+
+/datum/config_entry/number/roundstart_research_time
+	min_val = 0
+	default = 20
+	integer = FALSE
+
+/datum/config_entry/number/roundstart_research_time/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		config_entry_value *= 600 //documented as minutes in config.txt

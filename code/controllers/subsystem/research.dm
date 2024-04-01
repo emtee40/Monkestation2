@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(research)
 		var/list/bitcoins = list()
 		for(var/obj/machinery/rnd/server/miner as anything in techweb_list.techweb_servers)
 			if(miner.working)
-				bitcoins = single_server_income.Copy()
+				bitcoins = boosted_ssi() // monke edit: point boosting
 				break //Just need one to work.
 
 		if(!isnull(techweb_list.last_income))
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(research)
 			techweb_list.last_bitcoins = bitcoins  // Doesn't take tick drift into account
 			for(var/i in bitcoins)
 				bitcoins[i] *= (income_time_difference / 10) * techweb_list.income_modifier
-			techweb_list.add_point_list(bitcoins)
+			techweb_list.add_point_list(bitcoins, boost = FALSE) // monke edit: point boosting
 
 		techweb_list.last_income = world.time
 

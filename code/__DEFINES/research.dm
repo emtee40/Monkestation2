@@ -19,7 +19,7 @@
 	)
 
 //! Amount of points gained per second by a single R&D server, see: [research][code/controllers/subsystem/research.dm]
-#define TECHWEB_SINGLE_SERVER_INCOME 52.3
+#define TECHWEB_SINGLE_SERVER_INCOME 80.0 // monke edit: boost bitcoin mining speed
 
 //! Swab cell line types
 #define CELL_LINE_TABLE_SLUDGE "cell_line_sludge_table"
