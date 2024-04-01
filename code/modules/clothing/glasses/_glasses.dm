@@ -12,6 +12,7 @@
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = SMALL_MATERIAL_AMOUNT*2.5)
 	gender = PLURAL
+	supports_variations_flags = CLOTHING_PONY_VARIATION
 	var/vision_flags = 0
 	var/invis_view = SEE_INVISIBLE_LIVING // Admin only for now
 	/// Override to allow glasses to set higher than normal see_invis

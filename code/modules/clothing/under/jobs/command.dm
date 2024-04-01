@@ -8,6 +8,7 @@
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
 	armor_type = /datum/armor/rank_captain
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /datum/armor/rank_captain
 	bio = 10
@@ -21,7 +22,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/captain/suit
 	name = "captain's suit"
@@ -29,6 +30,7 @@
 	icon_state = "green_suit"
 	inhand_icon_state = "dg_suit"
 	can_adjust = FALSE
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/captain/suit/skirt
 	name = "green suitskirt"
@@ -38,7 +40,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/captain/parade
 	name = "captain's parade uniform"

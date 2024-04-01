@@ -10,6 +10,7 @@
 	icon_state = "barman"
 	inhand_icon_state = "bar_suit"
 	alt_covers_chest = TRUE
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/bartender/purple
 	desc = "It looks like it has lots of flair!"
@@ -25,7 +26,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
@@ -33,6 +34,7 @@
 	icon_state = "chaplain"
 	inhand_icon_state = "bl_suit"
 	can_adjust = FALSE
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/chaplain/skirt
 	name = "chaplain's jumpskirt"
@@ -42,7 +44,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/chef
 	name = "cook's suit"
@@ -50,6 +52,7 @@
 	icon_state = "chef"
 	inhand_icon_state = "chef"
 	alt_covers_chest = TRUE
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/chef/skirt
 	name = "cook's skirt"
@@ -58,13 +61,14 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel
 	desc = "A slick uniform worn by those to earn the position of \"Head of Personnel\"."
 	name = "head of personnel's uniform"
 	icon_state = "hop"
 	inhand_icon_state = "b_suit"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt
 	name = "head of personnel's skirt"
@@ -74,7 +78,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/suit
 	name = "head of personnel's suit"
@@ -99,6 +103,7 @@
 	icon_state = "hydroponics"
 	inhand_icon_state = "g_suit"
 	armor_type = /datum/armor/civilian_hydroponics
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /datum/armor/civilian_hydroponics
 	bio = 50
@@ -111,7 +116,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
@@ -119,6 +124,7 @@
 	icon_state = "janitor"
 	inhand_icon_state = "janitor"
 	armor_type = /datum/armor/civilian_janitor
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /datum/armor/civilian_janitor
 	bio = 10
@@ -130,7 +136,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/janitor/maid
 	name = "maid uniform"
@@ -159,6 +165,7 @@
 	name = "lawyer black suit"
 	icon_state = "lawyer_black"
 	inhand_icon_state = "lawyer_black"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/black/skirt
 	name = "lawyer black suitskirt"
@@ -166,7 +173,7 @@
 	inhand_icon_state = "lawyer_black"
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/beige
 	name = "good lawyer's suit"
@@ -174,6 +181,7 @@
 	icon_state = "good_suit"
 	inhand_icon_state = "good_suit"
 	worn_icon = 'icons/mob/clothing/under/suits.dmi'
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/beige/skirt
 	name = "good lawyer's suitskirt"
@@ -183,12 +191,13 @@
 	worn_icon = 'icons/mob/clothing/under/suits.dmi'
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/red
 	name = "lawyer red suit"
 	icon_state = "lawyer_red"
 	inhand_icon_state = "lawyer_red"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/red/skirt
 	name = "lawyer red suitskirt"
@@ -196,12 +205,13 @@
 	inhand_icon_state = "lawyer_red"
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/blue
 	name = "lawyer blue suit"
 	icon_state = "lawyer_blue"
 	inhand_icon_state = "lawyer_blue"
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/blue/skirt
 	name = "lawyer blue suitskirt"
@@ -209,7 +219,7 @@
 	inhand_icon_state = "lawyer_blue"
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON  | CLOTHING_PONY_VARIATION
 
 /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
 	name = "blue suit"

@@ -127,6 +127,7 @@
 #define NORMAL_STYLE 0
 #define ALT_STYLE 1
 #define DIGITIGRADE_STYLE 2
+#define PONY_STYLE 3
 
 //Flags (actual flags, fucker ^) for /obj/item/var/supports_variations_flags
 ///No alternative sprites based on bodytype
@@ -139,6 +140,8 @@
 #define CLOTHING_MONKEY_VARIATION (1<<3)
 ///Has a sprite for snouted heads specifically.
 #define CLOTHING_SNOUTED_VARIATION (1<<4)
+///Has a sprite for ponies
+#define CLOTHING_PONY_VARIATION (1<<5)
 
 //flags for covering body parts
 #define GLASSESCOVERSEYES (1<<0)

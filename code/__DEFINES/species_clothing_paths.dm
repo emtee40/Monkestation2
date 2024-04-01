@@ -22,3 +22,9 @@
 #define SNOUTED_MASK_FILE 'monkestation/icons/mob/species/misc/mask_muzzled.dmi'
 ///The dmi containing snouted variation helmets
 #define SNOUTED_HEAD_FILE 'monkestation/icons/mob/species/misc/head_muzzled.dmi'
+
+#define PONY_UNIFORM_FILE 'monkestation/code/modules/friendship-is-what/icons/uniform.dmi'
+#define PONY_SHOE_FILE 'monkestation/code/modules/friendship-is-what/icons/shoes.dmi'
+#define PONY_GLOVE_FILE 'monkestation/code/modules/friendship-is-what/icons/gloves.dmi'
+#define PONY_EAR_FILE 'monkestation/code/modules/friendship-is-what/icons/ears.dmi'
+#define PONY_EYE_FILE 'monkestation/code/modules/friendship-is-what/icons/eyes.dmi'

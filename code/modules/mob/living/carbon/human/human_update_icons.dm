@@ -110,6 +110,8 @@ There are several things that need to be remembered:
 				var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_UNIFORM, uniform)
 				if(species_icon_file)
 					icon_file = species_icon_file
+		else if((dna?.species.bodytype & BODYTYPE_PONY) && (uniform.supports_variations_flags & CLOTHING_PONY_VARIATION))
+			icon_file = PONY_UNIFORM_FILE
 		//Female sprites have lower priority than digitigrade sprites
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_UNIFORM, w_uniform)
@@ -202,6 +204,9 @@ There are several things that need to be remembered:
 				icon_file = species_icon_file
 				mutant_override = TRUE
 
+		else if((dna?.species.bodytype & BODYTYPE_PONY) && (gloves.supports_variations_flags & CLOTHING_PONY_VARIATION))
+			icon_file = PONY_GLOVE_FILE
+
 		var/mutable_appearance/gloves_overlay = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null)
 		if(!mutant_override &&(OFFSET_GLOVES in dna.species.offset_features))
 			gloves_overlay.pixel_x += dna.species.offset_features[OFFSET_GLOVES][1]
@@ -235,6 +240,8 @@ There are several things that need to be remembered:
 			if(species_icon_file)
 				icon_file = species_icon_file
 				mutant_override = TRUE
+		else if((dna?.species.bodytype & BODYTYPE_PONY) && (glasses.supports_variations_flags & CLOTHING_PONY_VARIATION))
+			icon_file = PONY_EYE_FILE
 
 		var/mutable_appearance/glasses_overlay = glasses.build_worn_icon(default_layer = GLASSES_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null)
 		if(!mutant_override &&(OFFSET_GLASSES in dna.species.offset_features))
@@ -269,6 +276,9 @@ There are several things that need to be remembered:
 			if(species_icon_file)
 				icon_file = species_icon_file
 				mutant_override = TRUE
+
+		else if((dna?.species.bodytype & BODYTYPE_PONY) && (ears.supports_variations_flags & CLOTHING_PONY_VARIATION))
+			icon_file = PONY_EAR_FILE
 
 		var/mutable_appearance/ears_overlay = ears.build_worn_icon(default_layer = EARS_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null)
 		if(!mutant_override &&(OFFSET_EARS in dna.species.offset_features))
@@ -337,6 +347,17 @@ There are several things that need to be remembered:
 					if(species_icon_file)
 						icon_file = species_icon_file
 				mutant_override = TRUE
+
+		else if((dna.species.bodytype & BODYTYPE_PONY) && (worn_item.supports_variations_flags & CLOTHING_PONY_VARIATION))
+			var/obj/item/bodypart/leg/leg = src.get_bodypart(BODY_ZONE_L_LEG)
+			if(leg.limb_id == leg.digitigrade_id) //make sure our legs are visually digitigrade
+				icon_file = PONY_SHOE_FILE
+				if(!(icon_exists(icon_file, RESOLVE_ICON_STATE(worn_item)))) //if the digitigrade icon doesn't exist
+					var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SHOES, shoes)
+					if(species_icon_file)
+						icon_file = species_icon_file
+				mutant_override = TRUE
+
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SHOES, shoes)
 			if(species_icon_file)

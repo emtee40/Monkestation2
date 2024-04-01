@@ -41,7 +41,7 @@
 	/// The overlay of the accessory we're demonstrating. Only index 1 will show up.
 	/// This is the overlay on the MOB, not the item itself.
 	var/mutable_appearance/accessory_overlay
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_PONY_VARIATION
 
 /datum/armor/clothing_under
 	bio = 10

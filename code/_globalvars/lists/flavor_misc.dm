@@ -51,6 +51,8 @@ GLOBAL_LIST_EMPTY(arachnid_appendages_list) //Monkestation Addition
 GLOBAL_LIST_EMPTY(arachnid_chelicerae_list) //Monkestation Addition
 GLOBAL_LIST_EMPTY(goblin_ears_list) //Monkestation Addition
 GLOBAL_LIST_EMPTY(floran_leaves_list) //Monkestation Addition
+GLOBAL_LIST_EMPTY(tails_list_pony) //Monkestation Addition
+GLOBAL_LIST_EMPTY(pony_hair) //Monkestation Addition
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Blue" = "#3399ff",

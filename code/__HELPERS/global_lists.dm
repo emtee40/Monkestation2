@@ -46,6 +46,9 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list) //Monkestation Addition
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/floran_leaves, GLOB.floran_leaves_list) //Monkestation Addition
 
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/pony_hair, GLOB.pony_hair) //Monkestation Addition
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/pony, GLOB.tails_list_pony) //Monkestation Addition
+
 /// Inits GLOB.species_list. Not using GLOBAL_LIST_INIT b/c it depends on GLOB.string_lists
 /proc/init_species_list()
 	for(var/spath in subtypesof(/datum/species))

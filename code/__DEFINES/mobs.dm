@@ -91,6 +91,8 @@
 #define BODYTYPE_ALIEN (1<<7)
 ///The limb fits a modular custom shape
 #define BODYTYPE_CUSTOM (1<<8)
+///this is for ponies
+#define BODYTYPE_PONY (1<<9)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -131,6 +133,7 @@
 #define SPECIES_SIMIAN "simian" //Monkestation Addition
 #define SPECIES_GOBLIN "goblin" //Monkestation Addition
 #define SPECIES_FLORAN "floran" //Monkestation Addition
+#define SPECIES_PONY "pony"
 // Like species IDs, but not specifically attached a species.
 #define BODYPART_ID_ALIEN "alien"
 #define BODYPART_ID_ROBOTIC "robotic"
