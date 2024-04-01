@@ -77,3 +77,6 @@
 
 	var/mob/living/basic/slime/slime = target
 	slime.start_mutating(TRUE)
+	used = TRUE
+	icon_state = "mutation_syringe-empty"
+	to_chat(user, span_notice("You inject [target] with [src]."))
