@@ -109,6 +109,8 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["arachnid_appendages"] = "Long" //Monkestation Addition
 	target.dna.features["arachnid_chelicerae"] = "Basic" //Monkestation Addition
 	target.dna.features["goblin_ears"] = "Normal" //Monkestation Addition
+	target.dna.features["tail_pony"] = "pony_pinkiepie" //Monkestation Addition
+	target.dna.features["pony_hair"] = "pony_pinkiepie" //Monkestation Addition
 	target.dna.features["floran_leaves"] = "Furnivour" //Monkestation Addition
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
