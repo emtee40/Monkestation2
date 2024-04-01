@@ -57,13 +57,6 @@
 
 	ass_image = 'icons/ass/assplasma.png'
 
-	outfit_override_registry = list(
-		/datum/outfit/syndicate = /datum/outfit/syndicate/plasmaman,
-		/datum/outfit/syndicate/full = /datum/outfit/syndicate/full/plasmaman,
-		/datum/outfit/syndicate/leader = /datum/outfit/syndicate/leader/plasmaman,
-		/datum/outfit/syndicate/reinforcement = /datum/outfit/syndicate/reinforcement/plasmaman,
-	)
-
 	/// If the bones themselves are burning clothes won't help you much
 	var/internal_fire = FALSE
 
@@ -78,53 +71,8 @@
 	else if(!isclothing(H.wear_suit) || !(H.wear_suit.clothing_flags & STOPSPRESSUREDAMAGE))
 		atmos_sealed = FALSE
 	else if(!HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY) && (!isclothing(H.head) || !(H.head.clothing_flags & STOPSPRESSUREDAMAGE)))
-		atmos_sealed = FALSE
-
-	var/flammable_limb = FALSE
-	for(var/obj/item/bodypart/found_bodypart as anything in H.bodyparts)//If any plasma based limb is found the plasmaman will attempt to autoignite
-		if(IS_ORGANIC_LIMB(found_bodypart) && found_bodypart.limb_id == SPECIES_PLASMAMAN) //Allows for "donated" limbs and augmented limbs to prevent autoignition
-			flammable_limb = TRUE
-			break
-
-	if(!flammable_limb && !H.on_fire) //Allows their suit to attempt to autoextinguish if augged and on fire
-		return
-
-	var/can_burn = FALSE
-	if(!isclothing(H.w_uniform) || !(H.w_uniform.clothing_flags & PLASMAMAN_PREVENT_IGNITION))
-		can_burn = FALSE
-	else if(!isclothing(H.gloves))
-		can_burn = FALSE
-	else if(!HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY) && (!isclothing(H.head) || !(H.head.clothing_flags & PLASMAMAN_PREVENT_IGNITION)))
-		can_burn = FALSE
-
-	if(!atmos_sealed && can_burn)
-		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment?.total_moles())
-			if(environment.gases[/datum/gas/hypernoblium] && (environment.gases[/datum/gas/hypernoblium][MOLES]) >= 5)
-				if(H.on_fire && H.fire_stacks > 0)
-					H.adjust_fire_stacks(-10 * seconds_per_tick)
-			else if(!HAS_TRAIT(H, TRAIT_NOFIRE))
-				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0 * seconds_per_tick)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
-					H.ignite_mob()
-					internal_fire = TRUE
-
-	else if(H.fire_stacks)
-		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
-		if(istype(P))
-			P.Extinguish(H)
-			internal_fire = FALSE
-	else
-		internal_fire = FALSE
 
 	H.update_appearance(UPDATE_OVERLAYS)
-
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, seconds_per_tick, times_fired, no_protection = FALSE)
-	if(internal_fire)
-		no_protection = TRUE
-	. = ..()
 
 /datum/species/plasmaman/random_name(gender,unique,lastname)
 	if(unique)
