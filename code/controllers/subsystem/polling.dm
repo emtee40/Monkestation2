@@ -143,6 +143,31 @@ SUBSYSTEM_DEF(polling)
 		poll_image.plane = poll_alert_button.plane
 		poll_alert_button.add_overlay(poll_image)
 
+		var/image/poll_image
+		if(pic_source)
+			if(isatom(pic_source))
+				var/atom/the_pic_source = pic_source
+				var/old_layer = the_pic_source.layer
+				var/old_plane = the_pic_source.plane
+				the_pic_source.plane = poll_alert_button.plane
+				the_pic_source.layer = FLOAT_LAYER
+				poll_alert_button.add_overlay(the_pic_source)
+				the_pic_source.layer = old_layer
+				the_pic_source.plane = old_plane
+			else if(ispath(pic_source, /datum/antagonist))
+				var/datum/antagonist/antagonist = new pic_source
+				poll_image = antagonist.render_poll_preview() || image('icons/effects/effects.dmi', icon_state = "static", layer = FLOAT_LAYER)
+				qdel(antagonist)
+			else
+				poll_image = image(pic_source, layer = FLOAT_LAYER)
+		else
+			// Just use a generic image
+			poll_image = image('icons/effects/effects.dmi', icon_state = "static", layer = FLOAT_LAYER)
+
+		if(poll_image)
+			poll_image.plane = poll_alert_button.plane
+			poll_alert_button.add_overlay(poll_image)
+
 		// Chat message
 		var/act_jump = ""
 		if(isatom(pic_source) && isobserver(candidate_mob))
