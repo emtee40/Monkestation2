@@ -601,7 +601,8 @@ There are several things that need to be remembered:
 
 		if((dna?.species.bodytype & BODYTYPE_PONY))
 			back_overlay.transform.Turn(90)
-			back_overlay.pixel_y -= 3
+			back_overlay.pixel_y -= 4
+			back_overlay.pixel_x += 1
 
 		overlays_standing[BACK_LAYER] = back_overlay
 
