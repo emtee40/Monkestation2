@@ -1,6 +1,7 @@
 /datum/component/irradiated/RegisterWithParent()
 	. = ..()
-	RegisterSignal(parent, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
+	if(!ismob(parent)) // no, you still have to go under the shower
+		RegisterSignal(parent, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
 
 /datum/component/irradiated/UnregisterFromParent()
 	. = ..()
