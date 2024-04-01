@@ -3,7 +3,6 @@
 	desc = "Communicate privately with your fellow blood brother(s)."
 	button_icon_state = "comms"
 	check_flags = AB_CHECK_CONSCIOUS
-	var/datum/antagonist/brother/bond
 
 /datum/action/bb/comms/IsAvailable(feedback)
 	. = ..()
