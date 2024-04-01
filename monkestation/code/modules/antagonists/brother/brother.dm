@@ -41,5 +41,5 @@
 	for(var/datum/mind/brother as anything in team.members)
 		to_chat(brother.current, formatted_msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = (brother == owner))
 	for(var/dead_mob in GLOB.dead_mob_list)
-		var/link = FOLLOW_LINK(dead_mob, owner)
+		var/link = FOLLOW_LINK(dead_mob, owner.current)
 		to_chat(dead_mob, "[link] [formatted_msg]", type = MESSAGE_TYPE_RADIO)
