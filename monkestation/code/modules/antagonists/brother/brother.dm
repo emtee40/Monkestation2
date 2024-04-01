@@ -1,5 +1,5 @@
 /datum/antagonist/brother
-	var/datum/action/brother_comms/comms_action
+	var/datum/action/bb/comms/comms_action
 
 // Apply team-specific antag HUD.
 /datum/antagonist/brother/apply_innate_effects(mob/living/mob_override)
