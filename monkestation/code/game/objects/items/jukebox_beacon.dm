@@ -3,7 +3,7 @@
 	desc = "N.T. jukebox beacon, toss it down and you will have a complementary jukebox delivered to you. It comes with a free wrench to move it after deployment."
 	icon = 'monkestation/icons/obj/items_and_weapons.dmi'
 	icon_state = "music_beacon"
-	var/used
+	var/used = FALSE
 
 /obj/item/jukebox_beacon/attack_self()
 	if(used)
@@ -13,6 +13,8 @@
 	addtimer(CALLBACK(src, PROC_REF(launch_payload)), 4 SECONDS)
 
 /obj/item/jukebox_beacon/proc/launch_payload()
+	if(QDELETED(src))
+		return
 	podspawn(list(
 		"target" = get_turf(src),
 		"spawn" = list(/obj/item/wrench, /obj/machinery/media/jukebox),
