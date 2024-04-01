@@ -21,7 +21,7 @@
 	offset_features = list(
 		OFFSET_HEAD = list(0,0),
 		OFFSET_GLASSES = list(0,0),
-		OFFSET_HANDS = list(0,3),
+		OFFSET_HANDS = list(0,-3),
 		OFFSET_FACEMASK = list(0,0),
 	)
 	external_organs = list(

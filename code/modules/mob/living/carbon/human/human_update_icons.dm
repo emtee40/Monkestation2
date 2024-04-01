@@ -349,14 +349,8 @@ There are several things that need to be remembered:
 				mutant_override = TRUE
 
 		else if((dna.species.bodytype & BODYTYPE_PONY) && (worn_item.supports_variations_flags & CLOTHING_PONY_VARIATION))
-			var/obj/item/bodypart/leg/leg = src.get_bodypart(BODY_ZONE_L_LEG)
-			if(leg.limb_id == leg.digitigrade_id) //make sure our legs are visually digitigrade
-				icon_file = PONY_SHOE_FILE
-				if(!(icon_exists(icon_file, RESOLVE_ICON_STATE(worn_item)))) //if the digitigrade icon doesn't exist
-					var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SHOES, shoes)
-					if(species_icon_file)
-						icon_file = species_icon_file
-				mutant_override = TRUE
+			icon_file = PONY_SHOE_FILE
+			mutant_override = TRUE
 
 		else if(dna.species.bodytype & BODYTYPE_CUSTOM)
 			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_SHOES, shoes)
@@ -364,7 +358,7 @@ There are several things that need to be remembered:
 				icon_file = species_icon_file
 				mutant_override = TRUE
 
-		if(!(icon_exists(icon_file, RESOLVE_ICON_STATE(worn_item))))
+		if(!(icon_exists(icon_file, RESOLVE_ICON_STATE(worn_item))) && !(dna.species.bodytype & BODYTYPE_PONY))
 			mutant_override = FALSE
 			icon_file = DEFAULT_SHOES_FILE
 
@@ -604,7 +598,13 @@ There are several things that need to be remembered:
 		if(!mutant_override &&(OFFSET_BACK in dna.species.offset_features))
 			back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK][1]
 			back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK][2]
+
+		if((dna?.species.bodytype & BODYTYPE_PONY))
+			back_overlay.transform.Turn(90)
+			back_overlay.pixel_y -= 3
+
 		overlays_standing[BACK_LAYER] = back_overlay
+
 	apply_overlay(BACK_LAYER)
 
 /mob/living/carbon/human/update_worn_legcuffs()
