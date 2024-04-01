@@ -46,7 +46,7 @@
 	burnmod = 3.75
 	siemens_coeff = 20
 	payday_modifier = 0.75 //They are weak and made of wet tissue paper, it was hard for them to get hired in the first place.
-	no_equip_flags = ITEM_SLOT_GLOVES | ITEM_SLOT_ICLOTHING | ITEM_SLOT_FEET //| ITEM_SLOT_OCLOTHING
+	no_equip_flags = ITEM_SLOT_GLOVES | ITEM_SLOT_OCLOTHING | ITEM_SLOT_FEET
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/rattus,
