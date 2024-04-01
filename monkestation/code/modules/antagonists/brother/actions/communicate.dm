@@ -9,6 +9,7 @@
 	. = ..()
 	if(!.)
 		return
+	var/datum/team/brother_team/team = bond.get_team()
 	if(length(team.members) < 2)
 		if(feedback)
 			owner.balloon_alert(owner, "no blood brothers to communicate with!")
