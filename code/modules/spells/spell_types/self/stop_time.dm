@@ -189,7 +189,7 @@
 
 	active_turn_guy = turn_guy
 
-	turn_guy.add_filter("your_turn_filter", 1, list("type" = "outline", "size" = 2, "color" = COLOR_GOLD, "alpha" = 0))
+	turn_guy.add_filter("your_turn_filter", 1, list("type" = "outline", "size" = 2, "color" = COLOR_VIVID_YELLOW, "alpha" = 0))
 	var/the_filter = turn_guy.get_filter("your_turn_filter")
 	animate(the_filter, alpha = 200, time = 0.3 SECONDS, loop = 2)
 	animate(alpha = 0, time = 0.3 SECONDS)
@@ -200,7 +200,7 @@
 		turn_guy.AdjustKnockdown(-6 SECONDS)
 		turn_guy.AdjustImmobilized(-6 SECONDS)
 		turn_guy.AdjustUnconscious(-6 SECONDS)
-		turn_guy.adjustStaminaLoss(-30)
+		turn_guy.stamina?.adjust(60)
 		end_turn(turn_guy, FALSE)
 		return
 
@@ -210,7 +210,6 @@
 	field.chronofield.unfreeze_atom(turn_guy)
 
 	RegisterSignals(turn_guy, list(
-		COMSIG_LIVING_GRAB,
 		COMSIG_LIVING_PICKED_UP_ITEM,
 		COMSIG_LIVING_UNARMED_ATTACK,
 		COMSIG_MOB_ITEM_AFTERATTACK,
@@ -246,7 +245,6 @@
 		curr_index += 1
 
 	UnregisterSignal(turn_guy, list(
-		COMSIG_LIVING_GRAB,
 		COMSIG_LIVING_PICKED_UP_ITEM,
 		COMSIG_LIVING_UNARMED_ATTACK,
 		COMSIG_MOB_ITEM_AFTERATTACK,
@@ -310,7 +308,8 @@
 	make_turn_based()
 
 /mob/living/proc/make_turn_based()
-	GRANT_ACTION(/datum/action/cooldown/spell/timestop/turn_based)
+	var/datum/action/cooldown/spell/timestop/turn_based/action = new
+	action.Grant(src)
 
 /mob/living/silicon/ai/make_turn_based()
 	return
