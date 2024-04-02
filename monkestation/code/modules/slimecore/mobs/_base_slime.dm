@@ -17,6 +17,9 @@
 	gender = NEUTER
 	faction = list(FACTION_SLIME)
 
+	melee_damage_lower = 5
+	melee_damage_upper = 15
+
 	//emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
@@ -25,6 +28,8 @@
 
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
+	attack_verb_continuous = "glomps"
+	attack_verb_simple = "glomp"
 
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
@@ -163,6 +168,16 @@
 			. += span_notice("You are one of [src]'s best friends!")
 		else
 			. += span_notice("You are one of [src]'s friends")
+
+/mob/living/basic/slime/resolve_right_click_attack(atom/target, list/modifiers)
+	if(GetComponent(/datum/component/latch_feeding))
+		unbuckle_all_mobs()
+		return
+	else if(CanReach(target) && !HAS_TRAIT(target, TRAIT_LATCH_FEEDERED))
+		AddComponent(/datum/component/latch_feeding, target, TOX, 2, 4, FALSE, CALLBACK(src, TYPE_PROC_REF(/mob/living/basic/slime, latch_callback), target))
+		return
+	. = ..()
+
 
 /mob/living/basic/slime/proc/rebuild_foods()
 	compiled_liked_foods |= trait_foods

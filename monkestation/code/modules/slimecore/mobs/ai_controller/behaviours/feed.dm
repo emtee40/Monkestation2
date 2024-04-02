@@ -1,6 +1,7 @@
 /datum/ai_behavior/basic_melee_attack/try_latch_feed
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	terminate_after_action = TRUE
+	melee_attacks = FALSE
 
 /datum/ai_behavior/basic_melee_attack/try_latch_feed/setup(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 	var/mob/living/basic/basic_mob = controller.pawn
