@@ -65,6 +65,7 @@
 	name = "Cherry Jelly"
 	item_path = /obj/item/reagent_containers/condiment/cherryjelly
 	cost_per_order = 30
+
 /datum/orderable_item/reagents/honey
 	name = "Honey"
 	item_path = /obj/item/reagent_containers/condiment/honey
