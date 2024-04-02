@@ -4,10 +4,11 @@
 	amount = 1
 	merge_type = /obj/item/stack/cable_coil/monitoring
 	target_type = /obj/structure/cable/monitoring
+	gender = FEMALE // yes i made your cable coil female
 
 /obj/item/stack/cable_coil/monitoring/update_name()
 	. = ..()
-	name = "\a wire with an electronic display"
+	name = "wire with an electronic display"
 
 /obj/item/stack/cable_coil/monitoring/update_desc()
 	. = ..()
@@ -21,6 +22,7 @@
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer with an attached electronic display that is displaying its current power amount."
 	cable_color = CABLE_COLOR_CYAN
 	color = CABLE_COLOR_CYAN
+	gender = FEMALE // nothing wrong here
 
 /obj/structure/cable/monitoring/examine(mob/user)
 	. = ..()
@@ -57,10 +59,11 @@
 	amount = 1
 	merge_type = /obj/item/stack/cable_coil/valve
 	target_type = /obj/structure/cable/valve
+	gender = FEMALE // indeed, the cable coil is female
 
 /obj/item/stack/cable_coil/valve/update_name()
 	. = ..()
-	name = "\a fuse wire"
+	name = "fuse wire"
 
 /obj/item/stack/cable_coil/valve/update_desc()
 	. = ..()
@@ -74,6 +77,7 @@
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer, this one is outfitted with special valve capabilities. Enabling for power to be disabled or enabled quickly and safelly."
 	cable_color = CABLE_COLOR_CYAN
 	color = CABLE_COLOR_CYAN
+	gender = FEMALE // seems about right
 	var/off_Layer = "industrial" // when off, we switch to the industrial cable tag. When ON we switch to the initial one
 	var/transmits_power = TRUE
 
