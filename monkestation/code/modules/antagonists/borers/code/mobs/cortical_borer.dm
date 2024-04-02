@@ -239,6 +239,9 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	/// Skips unique borer status tab text, used for unique borer subtypes with their own status tabs
 	var/skip_status_tab = FALSE
 
+/mob/living/basic/cortical_borer/can_track(mob/living/user)
+	return FALSE // The validhunt box machines are onto us, we cannot let them track us
+
 /mob/living/basic/cortical_borer/Initialize(mapload)
 	. = ..()
 	AddComponent( \
