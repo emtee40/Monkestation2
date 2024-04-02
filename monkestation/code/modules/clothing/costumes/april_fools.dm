@@ -1,4 +1,516 @@
+//Just in time for easter too!
 
+/// CIVILIAN JOBS ///
+
+//Bartender
+/obj/item/clothing/under/rank/civilian/bartender/bunnysuit
+	name = "bartender's bunnysuit"
+	desc = "The staple of any bunny themed bartenders. Looks even more stylish than the standard bunny suit."
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_bar"
+	worn_icon = "bunnysuit_bar"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/bartender/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/bartender
+	name = "bartender's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "bar"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+//Chaplain
+/obj/item/clothing/under/rank/civilian/chaplain/bunnysuit
+	name = "chaplain's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_chaplain"
+	worn_icon = "bunnysuit_chaplain"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/chaplain/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/chaplain
+	name = "chaplain's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "chaplain"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+
+/obj/item/clothing/suit/jacket/tailcoat/chaplain
+	name = "chaplain's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "chaplain"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+//Chef
+
+/obj/item/clothing/under/rank/civilian/chef/bunnysuit
+	name = "chef's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_chef"
+	worn_icon = "bunnysuit_chef"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/chef/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/chef
+	name = "chef's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "chef"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/chef
+	name = "chef's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "chef"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/chef
+	name = "chef's bowtie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "bowtie_collar_chef_tied"
+	tie_type = "bowtie_collar_chef"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+//Head of Personnel
+/obj/item/clothing/under/rank/civilian/head_of_personnel/bunnysuit
+	name = "head of personnel's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_hop"
+	worn_icon = "bunnysuit_hop"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/head_of_personnel/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/head_of_personnel
+	name = "head of personnel's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "hop"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+	armor_type = /datum/armor/hats_hopcap
+
+/obj/item/clothing/suit/jacket/tailcoat/head_of_personnel
+	name = "head of personnel's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "hop"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/head_of_personnel
+	name = "head of personnel's bowtie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "bowtie_collar_hop_tied"
+	tie_type = "bowtie_collar_hop"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+//Botanist
+/obj/item/clothing/under/rank/civilian/hydroponics/bunnysuit
+	name = "botanist's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_botany"
+	worn_icon = "bunnysuit_botany"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/hydroponics/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/hydroponics
+	name = "botanist's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "botany"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/hydroponics
+	name = "botanist's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "botany"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/hydroponics
+	name = "botanist's bowtie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "bowtie_collar_botany_tied"
+	tie_type = "bowtie_collar_botany"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+//Janitor
+/obj/item/clothing/under/rank/civilian/janitor/bunnysuit
+	name = "janitor's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_janitor"
+	worn_icon = "bunnysuit_janitor"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/janitor/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/janitor
+	name = "janitor's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "janitor"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/janitor
+	name = "janitor's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "janitor"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/janitor
+	name = "janitor's bowtie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "bowtie_collar_janitor_tied"
+	tie_type = "bowtie_collar_janitor"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+/obj/item/clothing/shoes/galoshes/heeled
+	name = "heeled galoshes"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/heeled_shoes.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/heeled_shoes_worn.dmi'
+	icon_state = "galoshes_heeled"
+	worn_icon = "galoshes_heeled"
+
+//Lawyer Suits
+/obj/item/clothing/under/rank/civilian/lawyer/black/bunnysuit
+	name = "lawyer's black bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_law_black"
+	worn_icon = "bunnysuit_law_black"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/lawyer/black/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/lawyer/black
+	name = "lawyer's black bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "lawyer_black"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/lawyer/black
+	name = "lawyer's black tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "lawyer_black"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/lawyer/black
+	name = "black tie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "tie_collar_lawyer_black_tied"
+	tie_type = "tie_collar_lawyer_black"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+/obj/item/clothing/under/rank/civilian/lawyer/beige/bunnysuit
+	name = "good lawyer's bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_good"
+	worn_icon = "bunnysuit_good"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/lawyer/beige/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/lawyer/beige
+	name = "good lawyer's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "lawyer_good"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/lawyer/beige
+	name = "good lawyer's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "lawyer_good"
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/lawyer/beige
+	name = "good tie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "tie_collar_lawyer_good_tied"
+	tie_type = "tie_collar_lawyer_good"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+/obj/item/clothing/under/rank/civilian/lawyer/red/bunnysuit
+	name = "lawyer's red bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_law_red"
+	worn_icon = "bunnysuit_law_red"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/lawyer/red/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/lawyer/red
+	name = "lawyer's red bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "lawyer_red"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/lawyer/red
+	name = "lawyer's red tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "lawyer_red"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/lawyer/red
+	name = "red tie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "tie_collar_lawyer_red_tied"
+	tie_type = "tie_collar_lawyer_red"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+/obj/item/clothing/under/rank/civilian/lawyer/blue/bunnysuit
+	name = "lawyer's blue bunnysuit"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_law_blue"
+	worn_icon = "bunnysuit_law_blue"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/civilian/lawyer/blue/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/head/playbunnyears/lawyer/blue
+	name = "lawyer's blue bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "lawyer_blue"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/suit/jacket/tailcoat/lawyer/blue
+	name = "lawyer's blue tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "lawyer_blue"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
+
+/obj/item/clothing/neck/tie/bunnytie/lawyer/blue
+	name = "blue tie collar"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
+	icon_state = "tie_collar_lawyer_blue_tied"
+	tie_type = "tie_collar_lawyer_blue"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
+//Curator
+/obj/item/clothing/under/rank/civilian/curator/bunnysuit
+	name = "curator's bunnysuit"
+	desc = "The staple of any bunny themed librarians. A professional yet comfortable suit perfect for the aspiring bunny academic."
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
+	icon_state = "bunnysuit_curator_red"
+	worn_icon = "bunnysuit_curator_red"
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/curator/bunnysuit/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/under/rank/civilian/curator/bunnysuit/teal
+	icon_state = "bunnysuit_curator_green"
+	worn_icon = "bunnysuit_curator_green"
+
+/obj/item/clothing/under/rank/civilian/curator/bunnysuit/green
+	icon_state = "bunnysuit_curator_teal"
+	worn_icon = "bunnysuit_curator_teal"
+
+/obj/item/clothing/head/playbunnyears/curator
+	name = "curator's bunny ears headband"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
+	icon_state = "curator_red"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_worn = null
+
+/obj/item/clothing/head/playbunnyears/curator/teal
+	icon_state = "curator_teal"
+
+/obj/item/clothing/head/playbunnyears/curator/green
+	icon_state = "curator_green"
+
+/obj/item/clothing/suit/jacket/tailcoat/curator
+	name = "curator's tailcoat"
+	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
+	icon_state = "curator_red"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
+	greyscale_colors = null
 
 /obj/item/clothing/suit/jacket/tailcoat/curator/teal
 	icon_state = "curator_teal"
