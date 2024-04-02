@@ -67,17 +67,6 @@
 	greyscale_config_worn_digitigrade = null
 	greyscale_colors = null
 
-/obj/item/clothing/neck/tie/bunnytie/chaplain
-	name = "chaplain's bowtie collar"
-	desc = ""
-	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
-	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
-	icon_state = "bowtie_collar_chaplain_tied"
-	tie_type = "bowtie_collar_chaplain"
-	greyscale_config = null
-	greyscale_config_worn = null
-	greyscale_colors = null
-
 //Chef
 
 /obj/item/clothing/under/rank/civilian/chef/bunnysuit
@@ -334,8 +323,8 @@
 	desc = ""
 	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
-	icon_state = "bunnysuit_law_good"
-	worn_icon = "bunnysuit_law_good"
+	icon_state = "bunnysuit_good"
+	worn_icon = "bunnysuit_good"
 	body_parts_covered = CHEST|GROIN|LEGS
 	alt_covers_chest = TRUE
 	can_adjust = TRUE
@@ -1024,9 +1013,11 @@
 	greyscale_config_worn = null
 	armor_type = /datum/armor/fedora_det_hat
 
-/obj/item/clothing/suit/jacket/tailcoat/detective/noir
+/obj/item/clothing/suit/jacket/tailcoat/detective
 	name = "detective's tailcoat"
 	desc = ""
+	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
 	icon_state = "detective"
 	greyscale_config = null
 	greyscale_config_worn = null
@@ -1110,6 +1101,11 @@
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
 	icon_state = "bunnysuit_prisoner"
 	worn_icon = "bunnysuit_prisoner"
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
+	greyscale_config_worn_digitigrade = null
 	body_parts_covered = CHEST|GROIN|LEGS
 	alt_covers_chest = TRUE
 
@@ -1560,17 +1556,6 @@
 	greyscale_config = null
 	greyscale_config_worn = null
 	greyscale_config_worn_digitigrade = null
-	greyscale_colors = null
-
-/obj/item/clothing/neck/tie/bunnytie/psychologist
-	name = "psychologist's bowtie collar"
-	desc = ""
-	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
-	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
-	icon_state = "bowtie_collar_psychologist_tied"
-	tie_type = "bowtie_collar_psychologist"
-	greyscale_config = null
-	greyscale_config_worn = null
 	greyscale_colors = null
 
 /// SCIENCE JOBS ///
