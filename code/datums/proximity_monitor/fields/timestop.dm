@@ -53,22 +53,12 @@
 	if(!hidden)
 		playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, -1)
 	chronofield = new (src, freezerange, TRUE, immune, antimagic_flags, channelled)
-	if(!channelled && duration != INFINITY)
+	if(!channelled)
 		QDEL_IN(src, duration)
 
 
 /obj/effect/timestop/magic
 	antimagic_flags = MAGIC_RESISTANCE
-
-/obj/effect/timestop/magic/turn_based
-	antimagic_flags = NONE
-	hidden = TRUE
-	alpha = 0
-
-// /obj/effect/timestop/magic/turn_based/freeze_mob(mob/living/victim)
-// 	if(HAS_TRAIT_NOT_FROM(victim, TRAIT_TURN_COMBATANT, REF(src)))
-// 		return
-// 	return ..()
 
 ///indefinite version, but only if no immune atoms move.
 /obj/effect/timestop/channelled
@@ -105,10 +95,6 @@
 
 /datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/movable, turf/location)
 	freeze_atom(movable)
-	SEND_SIGNAL(src, COMSIG_TIMESTOP_ENTERED, movable)
-
-/datum/proximity_monitor/advanced/timestop/field_turf_uncrossed(atom/movable/movable, turf/location)
-	SEND_SIGNAL(src, COMSIG_TIMESTOP_EXITED, movable)
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
 	if(global_frozen_atoms[A] || !istype(A))
@@ -226,9 +212,6 @@
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/victim)
 	frozen_mobs += victim
-	for(var/obj/item/held in victim.held_items)
-		ADD_TRAIT(held, TRAIT_NODROP, TIMESTOP_TRAIT)
-		RegisterSignal(held, COMSIG_ITEM_DROPPED, PROC_REF(clear_nodrop))
 	victim.Stun(20, ignore_canstun = TRUE)
 	victim.add_traits(list(TRAIT_MUTE, TRAIT_EMOTEMUTE), TIMESTOP_TRAIT)
 	SSmove_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
@@ -242,14 +225,7 @@
 		var/mob/living/basic/basic_victim = victim
 		basic_victim.ai_controller?.set_ai_status(AI_STATUS_OFF)
 
-/datum/proximity_monitor/advanced/timestop/proc/clear_nodrop(obj/item/source, ...)
-	SIGNAL_HANDLER
-	REMOVE_TRAIT(source, TRAIT_NODROP, TIMESTOP_TRAIT)
-
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/victim)
-	for(var/obj/item/held in victim.held_items)
-		REMOVE_TRAIT(held, TRAIT_NODROP, TIMESTOP_TRAIT)
-		UnregisterSignal(held, COMSIG_ITEM_DROPPED)
 	victim.AdjustStun(-20, ignore_canstun = TRUE)
 	victim.remove_traits(list(TRAIT_MUTE, TRAIT_EMOTEMUTE), TIMESTOP_TRAIT)
 	frozen_mobs -= victim
