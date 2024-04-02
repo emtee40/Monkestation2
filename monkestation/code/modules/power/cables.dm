@@ -1,16 +1,20 @@
 /obj/item/stack/cable_coil/monitoring
+	name = "electronic display cable coil" // only shows up in vendors
 	max_amount = 1
 	amount = 1
 	merge_type = /obj/item/stack/cable_coil/monitoring
 	target_type = /obj/structure/cable/monitoring
 
-/obj/item/stack/cable_coil/update_name()
+/obj/item/stack/cable_coil/monitoring/update_name()
 	. = ..()
-	name = "a wire with an electronic display"
+	name = "\a wire with an electronic display"
 
 /obj/item/stack/cable_coil/monitoring/update_desc()
 	. = ..()
 	desc = "A piece of insulated power cable with an attached electronic display, allowing for quick and safe network power checking."
+
+/obj/item/stack/cable_coil/monitoring/attack_self(mob/living/user)
+	return
 
 /obj/structure/cable/monitoring
 	name = "cable with an attached electronic display"
@@ -27,12 +31,7 @@
 	. = ..()
 	. += "power_monitor"
 
-/obj/structure/cable/monitoring/attackby(obj/item/W, mob/user, params)
-	var/turf/T = get_turf(src)
-	if(T.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE && (W.tool_behaviour == TOOL_WIRECUTTER || W.tool_behaviour == TOOL_MULTITOOL))
-		handlecable(W, user, params)
-		return
-
+/obj/structure/cable/monitoring/attack_hand(mob/living/user, list/modifiers)
 	to_chat(user, get_power_info())
 
 /obj/structure/cable/monitoring/deconstruct(disassembled = TRUE)
@@ -50,4 +49,58 @@
 		var/obj/item/stack/cable_coil/monitoring/cable = new(drop_location(), 1)
 		cable.set_cable_color(cable_color)
 
+	qdel(src)
+
+/obj/item/stack/cable_coil/valve
+	name = "valve cable coil" // only shows up in vendors
+	max_amount = 1
+	amount = 1
+	merge_type = /obj/item/stack/cable_coil/valve
+	target_type = /obj/structure/cable/valve
+
+/obj/item/stack/cable_coil/valve/update_name()
+	. = ..()
+	name = "\a fuse wire"
+
+/obj/item/stack/cable_coil/valve/update_desc()
+	. = ..()
+	desc = "A piece of insulated power cable thats capable of having its power flow stopped without risk of electrocution"
+
+/obj/item/stack/cable_coil/valve/attack_self(mob/living/user)
+	return
+
+/obj/structure/cable/valve
+	name = "a fuse wire"
+	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer, this one is outfitted with special valve capabilities. Enabling for power to be disabled or enabled quickly and safelly."
+	cable_color = CABLE_COLOR_CYAN
+	color = CABLE_COLOR_CYAN
+	var/off_Layer = "industrial" // when off, we switch to the industrial cable tag. When ON we switch to the initial one
+	var/transmits_power = TRUE
+
+/obj/structure/cable/valve/update_overlays()
+	. = ..()
+	if(transmits_power)
+		. += "power_on"
+	else
+		. += "power_off"
+
+/obj/structure/cable/valve/attack_hand(mob/living/user, list/modifiers)
+	transmits_power = !transmits_power
+	balloon_alert_to_viewers("fuse [transmits_power ? "on" : "off"]")
+
+	if(transmits_power)
+		cable_tag = initial(cable_tag)
+	else
+		cable_tag = off_Layer
+
+	cut_cable_from_powernet(FALSE) // update the powernets
+	Connect_cable(TRUE)
+	auto_propagate_cut_cable(src)
+
+	update_overlays()
+
+/obj/structure/cable/valve/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		var/obj/item/stack/cable_coil/valve/cable = new(drop_location(), 1)
+		cable.set_cable_color(cable_color)
 	qdel(src)
