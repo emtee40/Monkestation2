@@ -3,6 +3,7 @@
 	desc = "These seeds grow into sweet honeydew melon plants."
 	icon = 'monkestation/icons/obj/hydroponics/fruit.dmi'
 	icon_state = "honeydew-seed"
+	icon_dead = "honeydew-dead"
 	species = "honeydew"
 	plantname = "Honeydew Melon Vines"
 	product = /obj/item/food/grown/honeydew
@@ -16,7 +17,9 @@
 
 /obj/item/food/grown/honeydew
 	seed = /obj/item/seeds/watermelon/honeydew
+	name = "honeydew melon"
 	desc = "A sweet melon variant that, bizarrely, distills into honey."
+	icon = 'monkestation/icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeydew"
 	foodtypes = FRUIT
 	distill_reagent = /datum/reagent/consumable/honey
