@@ -201,11 +201,14 @@
 	var/list/possible_candidates = cast_control.get_candidates()
 	var/list/candidates = list()
 	if(cast_control == SSgamemode.current_roundstart_event && length(SSgamemode.roundstart_antag_minds))
+		log_storyteller("Running roundstart antagonist assignment, event: [src], roundstart_antag_minds: [english_list(SSgamemode.roundstart_antag_minds)]")
 		for(var/datum/mind/antag_mind in SSgamemode.roundstart_antag_minds)
 			if(!antag_mind.current)
+				log_storyteller("Roundstart antagonist setup error: antag_mind([antag_mind]) in roundstart_antag_minds without a set mob")
 				continue
 			candidates += antag_mind.current
-			SSgamemode.roundstart_antag_minds -= antag_mind //commented out for debugging in case something breaks
+			SSgamemode.roundstart_antag_minds -= antag_mind
+			log_storyteller("Roundstart antag_mind, [antag_mind]")
 
 	//guh
 	var/list/cliented_list = list()
@@ -221,7 +224,15 @@
 			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
 			if(picked_mob)
-				candidates |= poll_candidates("Would you like to be a [cast_control.name]", antag_flag, antag_flag, 20 SECONDS, FALSE, FALSE, list(picked_mob))
+				candidates |= SSpolling.poll_candidates(
+					question = "Would you like to be a [cast_control.name]?",
+					check_jobban = antag_flag,
+					role = antag_flag,
+					poll_time = 20 SECONDS,
+					group = list(picked_mob),
+					pic_source = antag_datum,
+					role_name_text = lowertext(cast_control.name),
+				)
 		else
 			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
 			var/mob/picked_mob = picked_client.mob
@@ -263,7 +274,15 @@
 		mass_adjust_antag_rep(cliented_list, 1)
 
 	if(prompted_picking)
-		candidates = poll_candidates("Would you like to be a [cast_control.name]", antag_flag, antag_flag, 20 SECONDS, FALSE, FALSE, candidates)
+		candidates = SSpolling.poll_candidates(
+			question = "Would you like to be a [cast_control.name]?",
+			check_jobban = antag_flag,
+			role = antag_flag,
+			poll_time = 20 SECONDS,
+			group = candidates,
+			pic_source = antag_datum,
+			role_name_text = lowertext(cast_control.name),
+		)
 
 	var/list/weighted_candidates = return_antag_rep_weight(candidates)
 

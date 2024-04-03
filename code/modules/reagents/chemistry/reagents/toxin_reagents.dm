@@ -265,7 +265,7 @@
 /datum/reagent/toxin/zombiepowder/on_mob_metabolize(mob/living/holder_mob)
 	. = ..()
 	holder_mob.adjustOxyLoss(0.5*REM, FALSE, required_biotype = affected_biotype, required_respiration_type = affected_respiration_type)
-	if(data?["method"] & INGEST)
+	if((data?["method"] & INGEST) && holder_mob.stat != DEAD)
 		holder_mob.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/holder_mob)
@@ -292,7 +292,8 @@
 		if(5 to 8)
 			affected_mob.stamina.adjust(-40 * REM * seconds_per_tick, 0)
 		if(9 to INFINITY)
-			affected_mob.fakedeath(type)
+			if(affected_mob.stat != DEAD)
+				affected_mob.fakedeath(type)
 	..()
 	return TRUE
 
@@ -672,9 +673,8 @@
 
 /datum/reagent/toxin/venom/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	var/newsize = 1.1 * RESIZE_DEFAULT_SIZE
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
 
 	toxpwr = 0.1 * volume
 	affected_mob.adjustBruteLoss((0.3 * volume) * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype)
@@ -686,9 +686,8 @@
 		..()
 
 /datum/reagent/toxin/venom/on_mob_end_metabolize(mob/living/affected_mob)
-	affected_mob.resize = RESIZE_DEFAULT_SIZE/current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE/current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 	..()
 
 /datum/reagent/toxin/fentanyl
