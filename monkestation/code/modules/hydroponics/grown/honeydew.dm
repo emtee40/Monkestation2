@@ -1,7 +1,8 @@
 /obj/item/seeds/watermelon/honeydew
 	name = "pack of honeydew melon seeds"
 	desc = "These seeds grow into sweet honeydew melon plants."
-	icon_state = "seed-honeydew"
+	icon = 'monkestation/icons/obj/hydroponics/fruit.dmi'
+	icon_state = "honeydew-seed"
 	species = "honeydew"
 	plantname = "Honeydew Melon Vines"
 	product = /obj/item/food/grown/honeydew
