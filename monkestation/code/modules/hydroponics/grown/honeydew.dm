@@ -23,3 +23,6 @@
 	icon_state = "honeydew"
 	foodtypes = FRUIT
 	distill_reagent = /datum/reagent/consumable/honey
+
+/obj/item/food/grown/honeydew/make_processable()
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/honeydewslice, 6, 20, screentip_verb = "Slice")
