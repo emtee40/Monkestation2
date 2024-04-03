@@ -1,6 +1,10 @@
 /datum/antagonist/brother
 	var/datum/action/bb/comms/comms_action
 
+/datum/antagonist/brother/on_gain()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(update_static_data_for_all_viewers)), 5) // stupid hack to ensure the whole "can't see objectives" thing doesn't happen
+
 // Apply team-specific antag HUD.
 /datum/antagonist/brother/apply_innate_effects(mob/living/mob_override)
 	. = ..()
