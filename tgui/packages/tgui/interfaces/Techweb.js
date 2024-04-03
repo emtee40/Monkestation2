@@ -140,6 +140,7 @@ export const TechwebContent = (props, context) => {
     t_disk,
     d_disk,
     locked,
+    boosted,
   } = data;
   const [techwebRoute, setTechwebRoute] = useLocalState(
     context,
@@ -159,7 +160,10 @@ export const TechwebContent = (props, context) => {
                 {Object.keys(points).map((k) => (
                   <li key={k}>
                     <b>{k}</b>: {points[k]}
-                    {!!points_last_tick[k] && ` (+${points_last_tick[k]}/sec)`}
+                    {!!points_last_tick[k] &&
+                      ` (+${points_last_tick[k]}/sec${
+                        boosted ? ', boosted' : ''
+                      })`}
                   </li>
                 ))}
               </ul>
