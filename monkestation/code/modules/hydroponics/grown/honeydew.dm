@@ -7,6 +7,7 @@
 	product = /obj/item/food/grown/honeydew
 	lifespan = 60
 	endurance = 40
+	growing_icon = 'monkestation/icons/obj/hydroponics/growing.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.1, /datum/reagent/consumable/nutriment = 0.15)
 	rarity = 20
