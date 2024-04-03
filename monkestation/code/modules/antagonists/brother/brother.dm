@@ -40,10 +40,14 @@
 /datum/antagonist/brother/proc/communicate(message)
 	if(!istext(message) || !length(message) || QDELETED(owner) || QDELETED(team))
 		return
-	owner.current.log_talk(message, LOG_SAY, tag = "blood brother")
+	owner.current.log_talk(html_decode(message), LOG_SAY, tag = "blood brother")
 	var/formatted_msg = "<span class='[team.color]'><b><i>\[Blood Bond\]</i> [span_name("[owner.name]")]</b>: [message]</span>"
 	for(var/datum/mind/brother as anything in team.members)
-		to_chat(brother.current, formatted_msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = (brother == owner))
+		var/mob/living/target = brother.current
+		if(brother != owner)
+			target.balloon_alert(target, "you hear a voice")
+			target.playsound_local(get_turf(target), 'goon/sounds/radio_ai.ogg', vol = 25, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+		to_chat(target, formatted_msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = (brother == owner))
 	for(var/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, owner.current)
 		to_chat(dead_mob, "[link] [formatted_msg]", type = MESSAGE_TYPE_RADIO)
