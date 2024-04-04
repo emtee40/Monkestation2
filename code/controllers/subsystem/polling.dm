@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(polling)
 	pic_source,
 	role_name_text,
 	list/custom_response_messages,
-	start_signed_up = FALSE,
+	start_signed_up = FALSE
 )
 	RETURN_TYPE(/list/mob)
 	if(group.len == 0)

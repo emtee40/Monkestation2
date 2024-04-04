@@ -1,5 +1,7 @@
 /datum/team/brother_team
 	var/color
+	var/summoned_gear = FALSE
+	var/choosing_gear = FALSE
 	var/static/next_color = 1
 
 /datum/team/brother_team/add_brother(mob/living/new_brother, source)
@@ -21,3 +23,9 @@
 	for(var/datum/mind/brother as anything in members)
 		var/datum/antagonist/brother/blood_bond = brother.has_antag_datum(/datum/antagonist/brother)
 		blood_bond?.comms_action?.build_all_button_icons()
+
+/datum/team/brother_team/proc/has_recruited()
+	return length(members) > 1
+
+/datum/team/brother_team/proc/fully_recruited()
+	return brothers_left < 1

@@ -8,7 +8,6 @@
 	. = ..()
 	if(!.)
 		return
-	var/datum/team/brother_team/team = bond.get_team()
 	if(length(team.members) < 2)
 		if(feedback)
 			owner.balloon_alert(owner, "no blood brothers to communicate with!")
@@ -18,7 +17,6 @@
 	. = ..()
 	if(!.)
 		return
-	var/datum/team/brother_team/team = bond.get_team()
 	var/message = tgui_input_text(owner, "What do you wish to communicate with your fellow blood brother[length(team.members) > 2 ? "s" : ""]?", "Blood Bond", timeout = 90 SECONDS)
 	if(!message || !IsAvailable(feedback = TRUE))
 		return FALSE
