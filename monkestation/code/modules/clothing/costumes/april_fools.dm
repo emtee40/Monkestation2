@@ -607,7 +607,7 @@
 
 /obj/item/clothing/under/rank/captain/bunnysuit
 	name = "captain's bunnysuit"
-	desc = ""
+	desc = "The staple of any bunny themed captains. Great for securing the disk."
 	icon = 'monkestation/icons/obj/clothing/april_fools/bunnysuits.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunnysuits_worn.dmi'
 	icon_state = "bunnysuit_captain"
@@ -622,7 +622,7 @@
 
 /obj/item/clothing/head/playbunnyears/captain
 	name = "captain's bunny ears headband"
-	desc = ""
+	desc = "A pair of dark blue bunny ears attached to a headband. Worn in lieu of the more traditional bicorn hat."
 	icon = 'monkestation/icons/obj/clothing/april_fools/bunny_ears.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/bunny_ears_worn.dmi'
 	icon_state = "captain"
@@ -634,7 +634,7 @@
 
 /obj/item/clothing/suit/jacket/tailcoat/captain
 	name = "captain's tailcoat"
-	desc = ""
+	desc = "A nautical coat usually worn by bunny themed captains. It’s reinforced with genetically modified armored blue rabbit fluff."
 	icon = 'monkestation/icons/obj/clothing/april_fools/tailcoats.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/tailcoats_worn.dmi'
 	icon_state = "captain"
@@ -645,7 +645,7 @@
 
 /obj/item/clothing/neck/tie/bunnytie/captain
 	name = "captain's bowtie collar"
-	desc = ""
+	desc = "A blue tie that includes a collar. Looking commanding!"
 	icon = 'monkestation/icons/obj/clothing/april_fools/neckwear.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/costumes/april_fools/neckwear_worn.dmi'
 	icon_state = "bowtie_collar_captain_tied"
