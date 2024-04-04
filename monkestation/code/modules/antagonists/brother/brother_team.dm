@@ -2,6 +2,7 @@
 	var/color
 	var/summoned_gear = FALSE
 	var/choosing_gear = FALSE
+	var/datum/bb_gear/chosen_gear
 	var/static/next_color = 1
 
 /datum/team/brother_team/add_brother(mob/living/new_brother, source)
@@ -29,3 +30,15 @@
 
 /datum/team/brother_team/proc/fully_recruited()
 	return brothers_left < 1
+
+/datum/team/brother_team/proc/summon_gear(mob/living/summoner)
+	if(summoned_gear || choosing_gear || !chosen_gear || !fully_recruited() || QDELETED(summoner) || !(summoner.mind in members))
+		return FALSE
+	summoned_gear = TRUE
+	for(var/datum/mind/member as anything in members)
+		var/datum/antagonist/brother/blood_bond = member.has_antag_datum(/datum/antagonist/brother)
+		to_chat(member.current, span_notice("[summoner.mind.name || summoner.real_name] has summoned their gear, [chosen_gear.name], at [get_area(get_turf(summoner))]!"), type = MESSAGE_TYPE_INFO, avoid_highlighting = (member.current == summoner))
+		if(!QDELETED(blood_bond?.gear_action))
+			QDEL_NULL(blood_bond.gear_action)
+	chosen_gear.summon(summoner, src)
+	return TRUE

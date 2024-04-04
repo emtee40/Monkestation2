@@ -7,7 +7,11 @@ GLOBAL_LIST_INIT_TYPED(bb_gear, /datum/bb_gear, init_bb_gear())
 	var/static/list/icon/cached_previews
 
 /datum/bb_gear/proc/summon(mob/living/summoner, datum/team/brother_team/team)
-	CRASH("attempted to summon blood brother gear ([type]) that didn't have summon() implemented")
+	podspawn(list(
+		"target" = get_turf(summoner),
+		"style" = STYLE_SYNDICATE,
+		"spawn" = spawn_path,
+	))
 
 /datum/bb_gear/proc/preview()
 	RETURN_TYPE(/icon)
