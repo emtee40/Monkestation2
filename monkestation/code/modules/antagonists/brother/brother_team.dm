@@ -24,6 +24,7 @@
 	for(var/datum/mind/brother as anything in members)
 		var/datum/antagonist/brother/blood_bond = brother.has_antag_datum(/datum/antagonist/brother)
 		blood_bond?.comms_action?.build_all_button_icons()
+		blood_bond?.gear_action?.build_all_button_icons()
 
 /datum/team/brother_team/proc/has_recruited()
 	return length(members) > 1
@@ -41,4 +42,5 @@
 		if(!QDELETED(blood_bond?.gear_action))
 			QDEL_NULL(blood_bond.gear_action)
 	chosen_gear.summon(summoner, src)
+	update_action_icons()
 	return TRUE
