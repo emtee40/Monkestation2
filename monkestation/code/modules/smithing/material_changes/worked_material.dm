@@ -25,10 +25,18 @@
 	///our coolass color
 	var/merged_color
 
+/datum/component/worked_material/Initialize(...)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
 /datum/component/worked_material/RegisterWithParent()
 	. = ..()
 	//RegisterSignal(parent, COMSIG_MATERIAL_STAT_CHANGE, PROC_REF(modify_stats))
 	RegisterSignal(parent, COMSIG_MATERIAL_MERGE_MATERIAL, PROC_REF(merge_material))
+
+/datum/component/worked_material/process(seconds_per_tick)
+	for(var/datum/material_trait/trait as anything in material_traits)
+		trait.on_process(parent, src)
 
 /datum/component/worked_material/proc/merge_material(obj/item/source, obj/item/merger)
 	if(merger.GetComponent(/datum/component/worked_material))

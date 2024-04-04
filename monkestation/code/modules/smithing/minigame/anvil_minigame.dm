@@ -33,7 +33,7 @@
 	///do we debug?
 	var/debug = FALSE
 
-/datum/anvil_challenge/New(obj/structure/anvil/anvil, datum/anvil_recipe/end_product_recipe, mob/user)
+/datum/anvil_challenge/New(obj/structure/anvil/anvil, datum/anvil_recipe/end_product_recipe, mob/user, difficulty_modifier)
 	host_anvil = anvil
 	src.user = user
 	selected_recipe = end_product_recipe
@@ -42,6 +42,8 @@
 
 	notes_left = end_product_recipe.total_notes
 	total_notes = end_product_recipe.total_notes
+
+	difficulty = min(6, selected_recipe.difficulty + difficulty_modifier)
 
 	generate_anvil_beats(TRUE)
 
@@ -58,17 +60,23 @@
 /datum/anvil_challenge/proc/generate_anvil_beats(init = FALSE)
 	var/list/new_notes = list()
 
-	var/last_note_time = world.time
-	for(var/i = 1 to min(rand(1,3), notes_left))
+	var/last_note_time = REALTIMEOFDAY
+	for(var/i = 1 to min(rand(1,5), notes_left))
 		notes_left--
 		var/atom/movable/screen/hud_note/hud_note = new(null, null, src)
-		hud_note.generate_click_type()
+		var/time = rand(5, 10)
+		hud_note.generate_click_type(difficulty)
 		hud_note.pixel_x += 40 // we start 40 units back and move towards the end
 		anvil_presses += hud_note
-		anvil_presses[hud_note] = last_note_time + (1 SECONDS / difficulty)
+		anvil_presses[hud_note] = last_note_time + time
+
 		if(debug)
-			hud_note.maptext = "[last_note_time + (1 SECONDS / difficulty)] - 75"
-		last_note_time += (1 SECONDS / difficulty)
+			hud_note.maptext = "[last_note_time + time] - 75"
+		last_note_time += time
+
+		animate(hud_note, last_note_time - REALTIMEOFDAY, pixel_x = hud_note.pixel_x - 75)
+		animate(alpha=0, time = 0.4 SECONDS)
+
 		note_pixels_moved += hud_note
 		note_pixels_moved[hud_note] = 0
 		new_notes |= hud_note
@@ -78,8 +86,8 @@
 
 /datum/anvil_challenge/proc/check_click(datum/source, atom/target, atom/location, control, params, mob/user)
 	var/atom/movable/screen/hud_note/choice = anvil_presses[1]
-	var/upper_range = anvil_presses[choice] + 0.4 SECONDS
-	var/lower_range = anvil_presses[choice] - 0.4 SECONDS
+	var/upper_range = anvil_presses[choice] + 0.2 SECONDS
+	var/lower_range = anvil_presses[choice] - 0.2 SECONDS
 
 	var/list/modifiers = params2list(params)
 
@@ -91,24 +99,24 @@
 		click_list |= LEFT_CLICK
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		click_list |= ALT_CLICK
-	if(LAZYACCESS(modifiers, SHIFT_CLICK))
-		click_list |= SHIFT_CLICK
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
+		click_list |= CTRL_CLICK
 
 
 	if(!choice.check_click(click_list))
 		failed_notes++
 	else
-		if((world.time > lower_range) && (world.time < upper_range))
+		if((REALTIMEOFDAY > lower_range) && (REALTIMEOFDAY < upper_range))
 			anvil_presses -= anvil_presses[choice]
 			user.balloon_alert(user, "Great Hit!")
 			playsound(host_anvil, 'monkestation/code/modules/smithing/sounds/forge.ogg', 25, TRUE, mixer_channel = CHANNEL_SOUND_EFFECTS)
 
 		else
-			if(world.time > anvil_presses[choice] + 0.4 SECONDS)
-				off_time += world.time - (anvil_presses[choice] + 0.4 SECONDS)
+			if(REALTIMEOFDAY > anvil_presses[choice] + 0.4 SECONDS)
+				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.4 SECONDS)
 				failed_notes++
-			else if(world.time < anvil_presses[choice] - 0.4 SECONDS)
-				off_time += (anvil_presses[choice] + 0.4 SECONDS) - world.time
+			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.4 SECONDS)
+				off_time += (anvil_presses[choice] + 0.4 SECONDS) - REALTIMEOFDAY
 				failed_notes++
 
 	anvil_presses -= choice
@@ -133,16 +141,16 @@
 	host_anvil = null
 
 /datum/anvil_challenge/process(seconds_per_tick)
-	move_notes()
+	//move_notes()
 
-///we have to move 80 units over the span of the notes world.time
+///we have to move 80 units over the span of the notes REALTIMEOFDAY
 /datum/anvil_challenge/proc/move_notes()
 	for(var/atom/movable/screen/hud_note as anything in anvil_presses)
 		var/movement_left = 75 - note_pixels_moved[hud_note]
 		if(movement_left <= 0)
 			hud_note.alpha -= min(15, hud_note.alpha)
 			continue
-		var/time_left = max(anvil_presses[hud_note] - world.time , 1)
+		var/time_left = max(anvil_presses[hud_note] - REALTIMEOFDAY , 1)
 		var/estimated_movement = round(movement_left / time_left , 0.1)
 		if(debug)
 			hud_note.maptext = "[anvil_presses[hud_note]] - [movement_left]"
@@ -184,23 +192,26 @@
 	vis_flags = VIS_INHERIT_ID
 	var/list/click_requirements = list()
 
-/atom/movable/screen/hud_note/proc/generate_click_type()
-	switch(rand(1,2))
+/atom/movable/screen/hud_note/proc/generate_click_type(difficulty)
+	switch(rand(1,difficulty))
 		if(1)
 			click_requirements = list(LEFT_CLICK)
+			icon_state = "note"
 		if(2)
 			click_requirements = list(RIGHT_CLICK)
 			icon_state = "note-right"
-		/*
 		if(3)
 			click_requirements = list(LEFT_CLICK, ALT_CLICK)
+			icon_state = "note-alt"
 		if(4)
 			click_requirements = list(RIGHT_CLICK, ALT_CLICK)
+			icon_state = "note-right-alt"
 		if(5)
-			click_requirements = list(LEFT_CLICK, SHIFT_CLICK)
+			click_requirements = list(LEFT_CLICK, CTRL_CLICK)
+			icon_state = "note-ctrl"
 		if(6)
-			click_requirements = list(RIGHT_CLICK, SHIFT_CLICK)
-		*/
+			click_requirements = list(RIGHT_CLICK, CTRL_CLICK)
+			icon_state = "note-right-ctrl"
 
 /atom/movable/screen/hud_note/proc/check_click(list/click_modifiers)
 	var/list/copied_checks = click_requirements

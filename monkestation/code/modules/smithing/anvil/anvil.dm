@@ -16,7 +16,19 @@
 /obj/structure/anvil/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(!smithing && working_material)
-		new /datum/anvil_challenge(src, new chosen_recipe, user)
+		var/datum/component/worked_material/component = working_material.GetComponent(/datum/component/worked_material)
+		var/density_hardness = 0
+
+		if(!component)
+			var/obj/item/stack/stack = working_material
+			var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
+			density_hardness = material.hardness + material.density
+		else
+			density_hardness = component.hardness + component.density
+
+		var/difficulty_modifier = density_hardness / 40
+
+		new /datum/anvil_challenge(src, new chosen_recipe, user, difficulty_modifier)
 		smithing = TRUE
 
 /obj/structure/anvil/proc/generate_item(quality)

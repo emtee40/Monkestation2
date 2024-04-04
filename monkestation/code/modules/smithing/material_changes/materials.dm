@@ -22,4 +22,10 @@
 	conductivity = 85
 	density = 10
 
+/datum/material/uranium
+	radioactivity = 100
+	hardness = 45
+	density = 90
+	thermal = 80
+	material_traits = list(/datum/material_trait/radioactive)
 
