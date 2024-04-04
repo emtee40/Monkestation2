@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT_TYPED(bb_gear, /datum/bb_gear, init_bb_gear())
 	podspawn(list(
 		"target" = get_turf(summoner),
 		"style" = STYLE_SYNDICATE,
-		"spawn" = spawn_path,
+		"spawn" = spawn_path
 	))
 
 /datum/bb_gear/proc/preview()
