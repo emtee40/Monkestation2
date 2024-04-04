@@ -253,6 +253,7 @@
 	evolution_level = 5
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
+		/datum/action/cooldown/bloodling/ascension,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
