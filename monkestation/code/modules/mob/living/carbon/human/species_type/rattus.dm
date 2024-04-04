@@ -184,7 +184,7 @@
 /datum/species/rattus/random_name(gender,unique,lastname)
 	var/rattusname = "Rattus Norvegicus"
 	if(gender == MALE)
-		rattusname = "[pick(world.file2list("monkestation/strings/names/rattus_female_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
-	else
 		rattusname = "[pick(world.file2list("monkestation/strings/names/rattus_male_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
+	else
+		rattusname = "[pick(world.file2list("monkestation/strings/names/rattus_female_first.txt"))] [pick(world.file2list("monkestation/strings/names/rattus_last.txt"))]"
 	return rattusname
