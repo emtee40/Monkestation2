@@ -29,3 +29,11 @@
 	thermal = 80
 	material_traits = list(/datum/material_trait/radioactive)
 
+/datum/material/bananium
+	radioactivity = 45
+	conductivity = 30
+	density = 60
+	hardness = 70
+	thermal = 1
+	liquid_flow = 65
+	material_traits = list(/datum/material_trait/honk_blessed)

@@ -33,6 +33,11 @@
 	. = ..()
 	//RegisterSignal(parent, COMSIG_MATERIAL_STAT_CHANGE, PROC_REF(modify_stats))
 	RegisterSignal(parent, COMSIG_MATERIAL_MERGE_MATERIAL, PROC_REF(merge_material))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
+
+/datum/component/worked_material/proc/on_attack(datum/source, atom/target, mob/user)
+	for(var/datum/material_trait/trait as anything in material_traits)
+		trait.on_mob_attack(parent, src, target, user)
 
 /datum/component/worked_material/process(seconds_per_tick)
 	for(var/datum/material_trait/trait as anything in material_traits)
