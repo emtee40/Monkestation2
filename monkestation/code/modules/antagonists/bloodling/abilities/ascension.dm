@@ -5,40 +5,78 @@
 	biomass_cost = 250
 
 /datum/action/cooldown/bloodling/ascension/Activate(atom/target)
+	var/mob/living/basic/bloodling/our_mob = owner
+	our_mob.Immobilize(5 MINUTES)
+
+	/* PLANS
+	* Make this root you in place for 5 minutes
+	* turn the bloodling into a buffed up meteor heart on completion
+	*/
+
 	force_event(/datum/round_event_control/bloodling_ascension, "A bloodling is ascending")
 
 	return TRUE
 
+/* PLANS
+	* Make tiles that turn people into thralls
+*/
 
+/datum/dimension_theme/meat/bloodling
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "meat"
+	material = /datum/material/meat
+	sound = 'sound/items/eatfood.ogg'
+	replace_objs = list(\
+		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
+		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
+
+/* PLANS
+	* Make this call the shuttle
+*/
 /datum/round_event_control/bloodling_ascension
-	name = "Bloodling Ascension"
+	name = "Bloodling ascension"
 	typepath = /datum/round_event/bloodling_ascension
 	max_occurrences = 0
 	weight = 0
 	alert_observers = FALSE
 	category = EVENT_CATEGORY_SPACE
 
+/datum/round_event/bloodling_ascension
+	// Holds our theme
+	var/datum/dimension_theme/chosen_theme
+
 /datum/round_event/bloodling_ascension/announce(fake)
 
-	priority_announce("What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!","?????????", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
+	priority_announce("You have failed to contain the organism. Its takeover of the station will be absolute. Emergency shuttle dispatched.","Central Command Biohazard Agency", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
 
+// The start of the event, it grabs a bunch of turfs to parse and apply our theme to
 /datum/round_event/bloodling_ascension/start()
-	for(var/i = 1, i < 16, i++)
-		new /obj/effect/anomaly/dimensional/flesh(get_safe_random_station_turf(), null, FALSE)
+	chosen_theme = new /datum/dimension_theme/meat/bloodling()
+	// Placeholder code, just for testing
+	var/turf/start_turf = get_turf(pick(GLOB.station_turfs))
+	var/greatest_dist = 0
+	var/list/turfs_to_transform = list()
+	for (var/turf/transform_turf as anything in GLOB.station_turfs)
+		if (!chosen_theme.can_convert(transform_turf))
+			continue
+		var/dist = get_dist(start_turf, transform_turf)
+		if (dist > greatest_dist)
+			greatest_dist = dist
+		if (!turfs_to_transform["[dist]"])
+			turfs_to_transform["[dist]"] = list()
+		turfs_to_transform["[dist]"] += transform_turf
 
-/obj/effect/anomaly/dimensional/flesh
-	range = 5
-	immortal = TRUE
-	drops_core = FALSE
-	relocations_left = -1
+	if (chosen_theme.can_convert(start_turf))
+		chosen_theme.apply_theme(start_turf)
 
-/obj/effect/anomaly/dimensional/flesh/Initialize(mapload, new_lifespan, drops_core)
-	INVOKE_ASYNC(src, PROC_REF(prepare_area), /datum/dimension_theme/meat)
-	return ..()
+	for (var/iterator in 1 to greatest_dist)
+		if(!turfs_to_transform["[iterator]"])
+			continue
+		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
 
-/obj/effect/anomaly/dimensional/flesh/relocate()
-	var/datum/anomaly_placer/placer = new()
-	var/area/new_area = placer.findValidArea()
-	var/turf/new_turf = placer.findValidTurf(new_area)
-	src.forceMove(new_turf)
-	prepare_area(new_theme_path = /datum/dimension_theme/meat)
+/datum/round_event/bloodling_ascension/proc/transform_area(list/turfs)
+	for (var/turf/transform_turf as anything in turfs)
+		if (!chosen_theme.can_convert(transform_turf))
+			continue
+		chosen_theme.apply_theme(transform_turf)
+		CHECK_TICK
