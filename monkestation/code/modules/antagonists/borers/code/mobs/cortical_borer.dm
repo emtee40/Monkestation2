@@ -489,14 +489,14 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	. = TRUE
 	if(upgrade_flags & BORER_STEALTH_MODE)
 		return FALSE
-	timed_maturity = world.time + 1 SECONDS
+	timed_maturity = world.time + 0.5 SECONDS
 	maturity_age++
 
 	/**
 	 * The point values are double what they seem
 	 * So in the beginning you start out with the following generation:
-	 * Evolution point per 1 minute and 20 seconds
-	 * Chemical point per 40 seconds
+	 * Evolution point per 40 seconds
+	 * Chemical point per 20 seconds
 	 */
 
 	//20:40, 15:30, 10:20, 5:10
