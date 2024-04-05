@@ -1,3 +1,4 @@
+/* Temporary removal until a rebalance of the hardlights are complete. -Dexee
 /datum/uplink_item/implants/hardlight
 	name = "Hardlight Spear Implant"
 	desc = "An implant that allows you to summon and control a hardlight spear. \
@@ -14,7 +15,7 @@
 	purchasable_from = UPLINK_NUKE_OPS
 	item = /obj/item/storage/box/syndie_kit/imp_hard_spear/max
 	cost = 40
-
+*/
 /datum/uplink_item/dangerous/laser_musket
 	name = "Syndicate Laser Musket"
 	desc = "An exprimental 'rifle' designed by Aetherofusion. This laser(probably) uses alien technology to fit 4 high energy capacitors \
