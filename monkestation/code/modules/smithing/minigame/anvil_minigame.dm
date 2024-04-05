@@ -71,10 +71,10 @@
 		anvil_presses[hud_note] = last_note_time + time
 
 		if(debug)
-			hud_note.maptext = "[last_note_time + time] - 75"
+			hud_note.maptext = "[last_note_time + time] - 72"
 		last_note_time += time
 
-		animate(hud_note, last_note_time - REALTIMEOFDAY, pixel_x = hud_note.pixel_x - 75)
+		animate(hud_note, last_note_time - REALTIMEOFDAY, pixel_x = hud_note.pixel_x - 72)
 		animate(alpha=0, time = 0.4 SECONDS)
 
 		note_pixels_moved += hud_note
@@ -86,8 +86,8 @@
 
 /datum/anvil_challenge/proc/check_click(datum/source, atom/target, atom/location, control, params, mob/user)
 	var/atom/movable/screen/hud_note/choice = anvil_presses[1]
-	var/upper_range = anvil_presses[choice] + 0.2 SECONDS
-	var/lower_range = anvil_presses[choice] - 0.2 SECONDS
+	var/upper_range = anvil_presses[choice] + 0.4 SECONDS
+	var/lower_range = anvil_presses[choice] - 0.4 SECONDS
 
 	var/list/modifiers = params2list(params)
 
@@ -103,8 +103,10 @@
 		click_list |= CTRL_CLICK
 
 
+	var/good_hit = TRUE
 	if(!choice.check_click(click_list))
 		failed_notes++
+		good_hit = FALSE
 	else
 		if((REALTIMEOFDAY > lower_range) && (REALTIMEOFDAY < upper_range))
 			anvil_presses -= anvil_presses[choice]
@@ -115,19 +117,33 @@
 			if(REALTIMEOFDAY > anvil_presses[choice] + 0.4 SECONDS)
 				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.4 SECONDS)
 				failed_notes++
+				good_hit = FALSE
 			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.4 SECONDS)
 				off_time += (anvil_presses[choice] + 0.4 SECONDS) - REALTIMEOFDAY
 				failed_notes++
+				good_hit = FALSE
 
 	anvil_presses -= choice
 	note_pixels_moved -= choice
-	anvil_hud.pop_note(choice)
+	anvil_hud.pop_note(choice, good_hit)
 	if(!length(anvil_presses))
 		if(!notes_left)
 			end_minigame()
 		else
 			generate_anvil_beats()
 	return FALSE
+
+/datum/anvil_challenge/process(seconds_per_tick)
+	for(var/note in anvil_presses)
+		if(anvil_presses[note] + 0.6 SECONDS > REALTIMEOFDAY)
+			continue
+		anvil_presses -= note
+		anvil_hud.delete_note(note)
+		if(!length(anvil_presses))
+			if(!notes_left)
+				end_minigame()
+			else
+				generate_anvil_beats()
 
 /datum/anvil_challenge/proc/end_minigame()
 	UnregisterSignal(user.client, COMSIG_CLIENT_CLICK)
@@ -139,23 +155,6 @@
 	host_anvil.smithing = FALSE
 	host_anvil.generate_item(success)
 	host_anvil = null
-
-/datum/anvil_challenge/process(seconds_per_tick)
-	//move_notes()
-
-///we have to move 80 units over the span of the notes REALTIMEOFDAY
-/datum/anvil_challenge/proc/move_notes()
-	for(var/atom/movable/screen/hud_note as anything in anvil_presses)
-		var/movement_left = 75 - note_pixels_moved[hud_note]
-		if(movement_left <= 0)
-			hud_note.alpha -= min(15, hud_note.alpha)
-			continue
-		var/time_left = max(anvil_presses[hud_note] - REALTIMEOFDAY , 1)
-		var/estimated_movement = round(movement_left / time_left , 0.1)
-		if(debug)
-			hud_note.maptext = "[anvil_presses[hud_note]] - [movement_left]"
-		hud_note.pixel_x -= estimated_movement
-		note_pixels_moved[hud_note] += estimated_movement
 
 ///The screen object which bait, fish, and completion bar are visually attached to.
 /atom/movable/screen/anvil_hud
@@ -181,7 +180,14 @@
 		cached_notes += note
 		vis_contents += note
 
-/atom/movable/screen/anvil_hud/proc/pop_note(atom/movable/screen/hud_note/note)
+/atom/movable/screen/anvil_hud/proc/pop_note(atom/movable/screen/hud_note/note, good_hit)
+	addtimer(CALLBACK(src, PROC_REF(delete_note), note), 0.4 SECONDS)
+	if(good_hit)
+		flick("hit_state", note)
+		note.alpha = 255
+	animate(note, alpha = 0, time = 0.4 SECONDS)
+
+/atom/movable/screen/anvil_hud/proc/delete_note(atom/movable/screen/hud_note/note)
 	vis_contents -= note
 	cached_notes -= note
 	qdel(note)
@@ -191,6 +197,7 @@
 	icon_state = "note"
 	vis_flags = VIS_INHERIT_ID
 	var/list/click_requirements = list()
+	var/timer
 
 /atom/movable/screen/hud_note/proc/generate_click_type(difficulty)
 	switch(rand(1,difficulty))
