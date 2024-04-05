@@ -1102,13 +1102,13 @@
 	name = "Robotics Privacy Shutters"
 	},
 /obj/machinery/door/window/left/directional/north{
-	name = "Robotics Desk";
-	req_access = list("robotics")
+	name = "Robotics Desk"
 	},
 /obj/structure/desk_bell{
 	pixel_x = -7;
 	pixel_y = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/open/floor/plating,
 /area/station/science/robotics/lab)
 "amG" = (
@@ -3042,8 +3042,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/door/window/right/directional/south{
-	name = "Trash Chute";
-	req_access = list("janitor")
+	name = "Trash Chute"
 	},
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
@@ -3052,6 +3051,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/effect/mapping_helpers/airlock/access/all/service/janitor,
 /turf/open/floor/iron,
 /area/station/service/janitor)
 "aVF" = (
@@ -3155,9 +3155,9 @@
 /obj/item/food/grown/tomato,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/right/directional/west{
-	name = "Hydroponics Desk";
-	req_access = list("hydroponics")
+	name = "Hydroponics Desk"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "aYk" = (
@@ -4345,11 +4345,11 @@
 	},
 /obj/machinery/door/window/right/directional/west{
 	dir = 4;
-	name = "Cargo Desk";
-	req_access = list("shipping")
+	name = "Cargo Desk"
 	},
 /obj/item/flashlight,
 /obj/effect/spawner/random/bureaucracy/birthday_wrap,
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "bsI" = (
@@ -4908,14 +4908,14 @@
 	},
 /obj/machinery/door/window/left/directional/west{
 	dir = 4;
-	name = "Mailroom Desk";
-	req_access = list("shipping")
+	name = "Mailroom Desk"
 	},
 /obj/effect/landmark/start/hangover,
 /obj/structure/desk_bell{
 	pixel_x = -8;
 	pixel_y = 10
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "bCA" = (
@@ -10207,10 +10207,10 @@
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/window/left/directional/north{
 	dir = 2;
-	name = "Chemistry Desk";
-	req_access = list("pharmacy")
+	name = "Chemistry Desk"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/medical/pharmacy,
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
 "dlI" = (
@@ -10657,6 +10657,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
+/obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "dry" = (
@@ -15825,9 +15826,9 @@
 	location = "Kitchen"
 	},
 /obj/machinery/door/window/left/directional/north{
-	name = "Kitchen Delivery Access";
-	req_access = list("kitchen")
+	name = "Kitchen Delivery Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
 "faZ" = (
@@ -15895,10 +15896,10 @@
 	},
 /obj/machinery/door/window/left/directional/east{
 	dir = 1;
-	name = "Research and Development Delivery Access";
-	req_access = list("science")
+	name = "Research and Development Delivery Access"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/science/general,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard)
 "fcs" = (
@@ -18330,8 +18331,7 @@
 	},
 /obj/machinery/door/window/left/directional/south{
 	dir = 8;
-	name = "Atmospherics Delivery Access";
-	req_access = list("atmospherics")
+	name = "Atmospherics Delivery Access"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "atmos";
@@ -18341,6 +18341,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos/storage/gas)
 "fMB" = (
@@ -18926,13 +18927,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 4";
-	name = "Cell 4";
-	req_access = list("security")
+	name = "Cell 4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "fWq" = (
@@ -19746,13 +19747,13 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/door/window/right/directional/south{
-	name = "Cargo Disposal";
-	req_access = list("shipping")
+	name = "Cargo Disposal"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "gjV" = (
@@ -19943,8 +19944,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window/left/directional/south{
-	name = "Trash Chute";
-	req_access = list("janitor")
+	name = "Trash Chute"
 	},
 /obj/machinery/conveyor_switch/oneway{
 	dir = 4;
@@ -19959,6 +19959,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/janitor,
 /turf/open/floor/iron,
 /area/station/service/janitor)
 "gog" = (
@@ -20132,9 +20133,9 @@
 /obj/item/pen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/left/directional/west{
-	name = "Hydroponics Desk";
-	req_access = list("hydroponics")
+	name = "Hydroponics Desk"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "gqn" = (
@@ -20598,13 +20599,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 3";
-	name = "Cell 3";
-	req_access = list("security")
+	name = "Cell 3"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "gxU" = (
@@ -21505,13 +21506,13 @@
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/left/directional/east{
-	name = "Service Hall Delivery Access";
-	req_access = list("service")
+	name = "Service Hall Delivery Access"
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	location = "Bar"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/general,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/crew_quarters/bar)
 "gNE" = (
@@ -22968,12 +22969,12 @@
 "hnl" = (
 /obj/machinery/door/window/left/directional/north{
 	dir = 2;
-	name = "Cargo Delivery Access";
-	req_access = list("shipping")
+	name = "Cargo Delivery Access"
 	},
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard)
 "hnw" = (
@@ -25893,7 +25894,8 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cargo_technician,
+/obj/structure/cargo_shelf,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "ihy" = (
@@ -27225,11 +27227,11 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/brigdoor/left/directional/north{
 	dir = 2;
-	name = "Brig Control Desk";
-	req_access = list("armory")
+	name = "Brig Control Desk"
 	},
 /obj/item/folder/red,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/plating,
 /area/station/security/warden)
 "iBD" = (
@@ -27478,13 +27480,13 @@
 	dir = 8
 	},
 /obj/machinery/door/window/right/directional/west{
-	name = "Library Desk";
-	req_access = list("library")
+	name = "Library Desk"
 	},
 /obj/item/clipboard,
 /obj/item/toy/figure/curator,
 /obj/item/pen/fountain,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/mapping_helpers/airlock/access/all/service/library,
 /turf/open/floor/iron/dark,
 /area/station/service/library)
 "iFR" = (
@@ -36748,13 +36750,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 1";
-	name = "Cell 1";
-	req_access = list("security")
+	name = "Cell 1"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "lIr" = (
@@ -38866,13 +38868,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 5";
-	name = "Cell 5";
-	req_access = list("security")
+	name = "Cell 5"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "mrR" = (
@@ -39985,6 +39987,7 @@
 /obj/machinery/door/window/right/directional/west,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "mMg" = (
@@ -45023,10 +45026,10 @@
 	location = "Robotics"
 	},
 /obj/machinery/door/window/left/directional/east{
-	name = "Robotics Delivery Access";
-	req_access = list("robotics")
+	name = "Robotics Delivery Access"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/starboard/fore)
 "oyA" = (
@@ -45929,8 +45932,7 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/door/window/right/directional/south{
 	dir = 4;
-	name = "Mail Chute";
-	req_access = list("shipping")
+	name = "Mail Chute"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -45938,6 +45940,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "oOW" = (
@@ -48978,13 +48981,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 6";
-	name = "Cell 6";
-	req_access = list("security")
+	name = "Cell 6"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "pMw" = (
@@ -49326,8 +49329,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/door/window/left/directional/south{
-	name = "Cargo Disposal";
-	req_access = list("shipping")
+	name = "Cargo Disposal"
 	},
 /obj/machinery/conveyor_switch/oneway{
 	id = "packageSort2";
@@ -49348,6 +49350,7 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/iron,
 /area/station/cargo/sorting)
 "pRw" = (
@@ -50163,10 +50166,10 @@
 	location = "Hydroponics"
 	},
 /obj/machinery/door/window/left/directional/east{
-	req_access = list("hydroponics");
 	name = "HydroponicsDeliveryAccess"
 	},
 /obj/structure/plasticflaps/opaque,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
 "qfS" = (
@@ -52204,13 +52207,13 @@
 	name = "Atmospherics Blast Door"
 	},
 /obj/machinery/door/window/right/directional/west{
-	name = "Atmospherics Desk";
-	req_access = list("atmospherics")
+	name = "Atmospherics Desk"
 	},
 /obj/structure/desk_bell{
 	pixel_x = 8;
 	pixel_y = 10
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/open/floor/plating,
 /area/station/engineering/atmos/storage/gas)
 "qPz" = (
@@ -53461,8 +53464,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/left/directional/west{
 	dir = 4;
-	name = "Cargo Desk";
-	req_access = list("shipping")
+	name = "Cargo Desk"
 	},
 /obj/item/clipboard{
 	pixel_x = 3;
@@ -53476,6 +53478,7 @@
 	pixel_x = -8;
 	pixel_y = 10
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "riW" = (
@@ -57553,11 +57556,9 @@
 /area/station/security/lockers)
 "svW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/clothing/gloves/cargo_gauntlet,
-/obj/item/clothing/gloves/cargo_gauntlet,
-/obj/item/clothing/gloves/cargo_gauntlet,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/structure/cargo_shelf,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "svZ" = (
@@ -59125,13 +59126,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/brigdoor/right/directional/north{
 	id = "Cell 2";
-	name = "Cell 2";
-	req_access = list("security")
+	name = "Cell 2"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/brig)
 "sVh" = (
@@ -60486,8 +60487,7 @@
 	},
 /obj/machinery/door/window/right/directional/north{
 	dir = 4;
-	name = "Engineering Delivery Access";
-	req_access = list("engineering")
+	name = "Engineering Delivery Access"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
@@ -60498,6 +60498,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/open/floor/iron/dark,
 /area/station/engineering/lobby)
 "tpY" = (
@@ -62041,8 +62042,7 @@
 	},
 /obj/machinery/door/window/left/directional/east{
 	dir = 8;
-	name = "Ore Redemtion Window";
-	req_access = list("mineral_storeroom")
+	name = "Ore Redemtion Window"
 	},
 /turf/open/floor/plating,
 /area/station/cargo/office)
@@ -63216,9 +63216,9 @@
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/right/directional/west{
-	name = "Armoury Desk";
-	req_access = list("armory")
+	name = "Armoury Desk"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/open/floor/plating,
 /area/station/ai_monitored/security/armory)
 "ujO" = (
@@ -64800,8 +64800,7 @@
 	name = "Engineering Blast Doors"
 	},
 /obj/machinery/door/window/left/directional/east{
-	name = "Engineering Desk";
-	req_access = list("engineering")
+	name = "Engineering Desk"
 	},
 /obj/structure/desk_bell{
 	pixel_x = -7;
@@ -64810,6 +64809,7 @@
 /obj/item/folder/yellow{
 	pixel_x = 3
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/open/floor/plating,
 /area/station/engineering/lobby)
 "uHF" = (
@@ -70975,6 +70975,9 @@
 /obj/item/folder/red,
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
+/obj/item/clothing/gloves/cargo_gauntlet,
+/obj/item/clothing/gloves/cargo_gauntlet,
+/obj/item/clothing/gloves/cargo_gauntlet,
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "wyF" = (
@@ -71084,10 +71087,10 @@
 	name = "navigation beacon (Security Delivery)"
 	},
 /obj/machinery/door/window/right/directional/north{
-	name = "Security Delivery Access";
-	req_access = list("security")
+	name = "Security Delivery Access"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/port/aft)
 "wzY" = (
@@ -74828,10 +74831,10 @@
 	},
 /obj/machinery/door/window/left/directional/west{
 	dir = 1;
-	name = "Crate Return Door";
-	req_access = list("shipping")
+	name = "Crate Return Door"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/supply/shipping,
 /turf/open/floor/plating,
 /area/station/cargo/storage)
 "xOg" = (
@@ -75515,10 +75518,10 @@
 	dir = 1
 	},
 /obj/machinery/door/window/left/directional/north{
-	name = "Library Desk Access";
-	req_access = list("library")
+	name = "Library Desk Access"
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/mapping_helpers/airlock/access/all/service/library,
 /turf/open/floor/iron/dark,
 /area/station/service/library)
 "yad" = (
