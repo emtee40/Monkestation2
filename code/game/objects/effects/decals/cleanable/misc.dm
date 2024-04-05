@@ -207,13 +207,13 @@
 	name = "generic glitter pile"
 	desc = "The herpes of arts and crafts."
 	icon = 'icons/effects/atmospherics.dmi'
-	icon_state = "plasma_old"
+	icon_state = "plasma_older" //MONKESTATION EDIT: old sprite as it was before I added a new one
 	gender = NEUTER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/decal/cleanable/glitter/pink
 	name = "pink glitter"
-	icon_state = "plasma"
+	icon_state = "plasma_old" //MONKESTATION EDIT: It's the pink static plasma version
 
 /obj/effect/decal/cleanable/glitter/white
 	name = "white glitter"
