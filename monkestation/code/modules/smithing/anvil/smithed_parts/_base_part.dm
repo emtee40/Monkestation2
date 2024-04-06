@@ -32,6 +32,22 @@
 	AddComponent(/datum/component/worked_material)
 	SEND_SIGNAL(src, COMSIG_MATERIAL_MERGE_MATERIAL, created_from)
 
+	var/damage_state
+	switch(smithed_quality)
+		if(0 to 25)
+			damage_state = "damage-4"
+		if(25 to 50)
+			damage_state = "damage-3"
+		if(50 to 60)
+			damage_state = "damage-2"
+		if(60 to 90)
+			damage_state = "damage-1"
+		else
+			damage_state = null
+
+	if(damage_state)
+		add_filter("damage_filter", 1, alpha_mask_filter(icon = icon('monkestation/code/modules/smithing/icons/forge_items.dmi', damage_state), flags = MASK_INVERSE))
+
 
 /obj/item/smithed_part/update_name(updates)
 	. = ..()
@@ -40,6 +56,9 @@
 /obj/item/smithed_part/weapon_part
 	var/complete = FALSE
 	var/hilt_icon_state
+	var/left_weapon_inhand = 'monkestation/code/modules/smithing/icons/forge_weapon_l.dmi'
+	var/right_weapon_inhand = 'monkestation/code/modules/smithing/icons/forge_weapon_r.dmi'
+	var/weapon_inhand_icon_state
 	var/hilt_icon
 	var/weapon_name
 
@@ -55,4 +74,7 @@
 
 /obj/item/smithed_part/weapon_part/proc/finish_weapon()
 	complete = TRUE
+	inhand_icon_state = weapon_inhand_icon_state
+	lefthand_file = left_weapon_inhand
+	righthand_file = right_weapon_inhand
 	update_appearance()

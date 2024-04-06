@@ -3,11 +3,21 @@
 /obj/machinery/power/thermoelectric_generator
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
+	icon = 'goon/icons/teg.dmi'
 	icon_state = "teg"
 	base_icon_state = "teg"
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/thermoelectric_generator
+
+	///our internal semiconductor
+	var/obj/item/smithed_part/thermal_semi_conductor/conductor
+	///list of applied teg states
+	var/list/teg_states = list()
+	///the temperature of our semi conductor
+	var/semi_temp = T20C
+	///our base scale level
+	var/base_scale = 50
 
 	///The cold circulator machine, containing cold gas for the mix.
 	var/obj/machinery/atmospherics/components/binary/circulator/cold_circ
@@ -31,7 +41,11 @@
 
 /obj/machinery/power/thermoelectric_generator/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+
+	if(mapload)
+		conductor = new(src)
+		add_teg_state(/datum/thermoelectric_state/worked_material)
+
 	find_circulators()
 	connect_to_network()
 	SSair.start_processing_machine(src)
@@ -50,11 +64,14 @@
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	var/level = min(round(lastgenlev / 100000), 11)
+	var/level = clamp(round(26*lastgen / 4000000), 0, 26)
 	if(level)
-		. += mutable_appearance('icons/obj/power.dmi', "[base_icon_state]-op[level]")
+		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[level]")
+		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[level]", src)
 	if(hot_circ && cold_circ)
 		. += "[base_icon_state]-oc[last_pressure_overlay]"
+	if(lastgen)
+		.+= emissive_appearance('goon/icons/teg.dmi', "teg-on-emissive", src)
 
 /obj/machinery/power/thermoelectric_generator/wrench_act(mob/living/user, obj/item/tool)
 	if(!panel_open)
@@ -90,6 +107,29 @@
 	default_deconstruction_crowbar(tool)
 	return TRUE
 
+/obj/machinery/power/thermoelectric_generator/wirecutter_act(mob/living/user, obj/item/tool)
+	if(conductor && panel_open)
+		remove_conductor()
+	return TRUE
+
+/obj/machinery/power/thermoelectric_generator/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(!conductor && panel_open)
+		if(istype(attacking_item, /obj/item/smithed_part/thermal_semi_conductor))
+			insert_conductor(attacking_item, user)
+			return FALSE
+	. = ..()
+
+
+/obj/machinery/power/thermoelectric_generator/proc/remove_conductor()
+	remove_teg_state(/datum/thermoelectric_state/worked_material)
+	conductor.forceMove(get_turf(src))
+	conductor = null
+
+/obj/machinery/power/thermoelectric_generator/proc/insert_conductor(obj/item/smithed_part/thermal_semi_conductor/semi, mob/living/user)
+	semi.forceMove(src)
+	conductor = semi
+	add_teg_state(/datum/thermoelectric_state/worked_material)
+
 /obj/machinery/power/thermoelectric_generator/process()
 	//Setting this number higher just makes the change in power output slower, it doesnt actualy reduce power output cause **math**
 	var/power_output = round(lastgen / 10)
@@ -105,17 +145,22 @@
 
 	var/datum/gas_mixture/cold_air = cold_circ.return_transfer_air()
 	var/datum/gas_mixture/hot_air = hot_circ.return_transfer_air()
+
+
 	if(cold_air && hot_air)
 		var/cold_air_heat_capacity = cold_air.heat_capacity()
 		var/hot_air_heat_capacity = hot_air.heat_capacity()
+
 		var/delta_temperature = hot_air.temperature - cold_air.temperature
+
 		if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
-			var/efficiency = TEG_EFFICIENCY
-			var/energy_transfer = delta_temperature*hot_air_heat_capacity*cold_air_heat_capacity/(hot_air_heat_capacity+cold_air_heat_capacity)
-			var/heat = energy_transfer*(1-efficiency)
-			lastgen += energy_transfer*efficiency
-			hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
-			cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
+			var/efficiency = (1 - cold_air.temperature / hot_air.temperature) * return_efficiency_scale(delta_temperature, hot_air_heat_capacity, cold_air_heat_capacity)
+
+			var/energy_transfer = delta_temperature * hot_air_heat_capacity * cold_air_heat_capacity / (hot_air_heat_capacity + cold_air_heat_capacity - hot_air_heat_capacity * efficiency)
+			var/heat = energy_transfer * (1 - efficiency)
+			lastgen = energy_transfer * efficiency
+			hot_air.temperature -= energy_transfer / hot_air_heat_capacity
+			cold_air.temperature += heat / cold_air_heat_capacity
 
 	if(hot_air)
 		var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
@@ -131,6 +176,18 @@
 		last_pressure_overlay = current_pressure
 
 	update_appearance(UPDATE_ICON)
+
+/obj/machinery/power/thermoelectric_generator/proc/return_efficiency_scale(delta_temperature, heat_capacity, cold_capacity)
+	var/returned_scale = base_scale
+
+	var/heat = delta_temperature * (heat_capacity* cold_capacity /(heat_capacity + cold_capacity))
+	semi_temp += heat / heat_capacity
+	semi_temp -= heat / cold_capacity
+	semi_temp = max(semi_temp, 1)
+
+	returned_scale += clamp((1.70 * log(semi_temp)) - 15, -5, 15)
+
+	return returned_scale * 0.01 //we return as a decimal precent
 
 /obj/machinery/power/thermoelectric_generator/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -185,18 +242,11 @@
 
 	if(dir & (NORTH|SOUTH))
 		var/obj/machinery/atmospherics/components/binary/circulator/east_circulator = locate() in get_step(src, EAST)
-		if(east_circulator && east_circulator.dir == WEST)
+		if(east_circulator)
 			valid_circulators += east_circulator
 		var/obj/machinery/atmospherics/components/binary/circulator/west_circulator = locate() in get_step(src, WEST)
-		if(west_circulator && west_circulator.dir == EAST)
+		if(west_circulator)
 			valid_circulators += west_circulator
-	else
-		var/obj/machinery/atmospherics/components/binary/circulator/north_circulator = locate() in get_step(src, NORTH)
-		if(north_circulator && north_circulator.dir == SOUTH)
-			valid_circulators += north_circulator
-		var/obj/machinery/atmospherics/components/binary/circulator/south_circulator = locate() in get_step(src, SOUTH)
-		if(south_circulator && south_circulator.dir == NORTH)
-			valid_circulators += south_circulator
 
 	if(!valid_circulators.len)
 		return
@@ -218,5 +268,22 @@
 	if(cold_circ)
 		cold_circ.generator = null
 		cold_circ = null
+
+/obj/machinery/power/thermoelectric_generator/proc/add_teg_state(datum/thermoelectric_state/passed_state)
+	for(var/datum/thermoelectric_state/state as anything in teg_states)
+		if(state.type == passed_state)
+			return
+
+	var/datum/thermoelectric_state/new_state = new passed_state
+	new_state.owner = WEAKREF(src)
+	new_state.on_apply()
+	teg_states |= new_state
+
+/obj/machinery/power/thermoelectric_generator/proc/remove_teg_state(datum/thermoelectric_state/passed_state)
+	for(var/datum/thermoelectric_state/state as anything in teg_states)
+		if(state.type == passed_state)
+			teg_states -= state
+			state.on_remove()
+			qdel(state)
 
 #undef TEG_EFFICIENCY

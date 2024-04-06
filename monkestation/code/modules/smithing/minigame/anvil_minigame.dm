@@ -148,6 +148,7 @@
 				generate_anvil_beats()
 
 /datum/anvil_challenge/proc/end_minigame()
+	success = max(0, round(success - ((100 * (failed_notes / total_notes)) + 1 * (off_time * 2))))
 	UnregisterSignal(user.client, COMSIG_CLIENT_CLICK)
 	STOP_PROCESSING(SSfishing, src)
 	anvil_presses = null

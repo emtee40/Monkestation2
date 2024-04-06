@@ -24,9 +24,12 @@
 	var/first_add = TRUE
 	///our coolass color
 	var/merged_color
+	///do we color
+	var/colors = TRUE
 
-/datum/component/worked_material/Initialize(...)
+/datum/component/worked_material/Initialize(colors = TRUE)
 	. = ..()
+	src.colors = colors
 	START_PROCESSING(SSobj, src)
 
 /datum/component/worked_material/RegisterWithParent()
@@ -105,8 +108,9 @@
 		if(first_add)
 			first_add = FALSE
 
-	var/atom/movable/movable = parent
-	movable.color = merged_color
+	if(colors)
+		var/atom/movable/movable = parent
+		movable.color = merged_color
 
 /datum/component/worked_material/proc/component_merge(datum/component/worked_material/material)
 	if(first_add)
@@ -166,5 +170,6 @@
 	if(first_add)
 		first_add = FALSE
 
-	var/atom/movable/movable = parent
-	movable.color = merged_color
+	if(colors)
+		var/atom/movable/movable = parent
+		movable.color = merged_color
