@@ -2,4 +2,4 @@
 	name = "Sword Blade"
 	difficulty = 2
 	total_notes = 42
-	output = /obj/item/smithed_part/sword_blade
+	output = /obj/item/smithed_part/weapon_part/sword_blade

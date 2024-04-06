@@ -36,3 +36,23 @@
 /obj/item/smithed_part/update_name(updates)
 	. = ..()
 	name = "[mat_name] [base_name]"
+
+/obj/item/smithed_part/weapon_part
+	var/complete = FALSE
+	var/hilt_icon_state
+	var/hilt_icon
+	var/weapon_name
+
+/obj/item/smithed_part/weapon_part/update_name(updates)
+	. = ..()
+	if(complete)
+		name = "[mat_name] [weapon_name]"
+
+/obj/item/smithed_part/weapon_part/update_overlays()
+	. = ..()
+	if(complete)
+		. += mutable_appearance(hilt_icon, hilt_icon_state, appearance_flags = KEEP_APART)
+
+/obj/item/smithed_part/weapon_part/proc/finish_weapon()
+	complete = TRUE
+	update_appearance()

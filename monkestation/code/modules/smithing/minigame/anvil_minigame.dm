@@ -43,7 +43,7 @@
 	notes_left = end_product_recipe.total_notes
 	total_notes = end_product_recipe.total_notes
 
-	difficulty = min(6, selected_recipe.difficulty + difficulty_modifier)
+	difficulty = round(selected_recipe.difficulty + difficulty_modifier)
 
 	generate_anvil_beats(TRUE)
 
@@ -65,6 +65,8 @@
 		notes_left--
 		var/atom/movable/screen/hud_note/hud_note = new(null, null, src)
 		var/time = rand(5, 10)
+		if(difficulty >= 6)
+			time /= round((difficulty - 4) * 0.5)
 		hud_note.generate_click_type(difficulty)
 		hud_note.pixel_x += 40 // we start 40 units back and move towards the end
 		anvil_presses += hud_note
@@ -200,6 +202,8 @@
 	var/timer
 
 /atom/movable/screen/hud_note/proc/generate_click_type(difficulty)
+	difficulty = min(6, difficulty)
+
 	switch(rand(1,difficulty))
 		if(1)
 			click_requirements = list(LEFT_CLICK)

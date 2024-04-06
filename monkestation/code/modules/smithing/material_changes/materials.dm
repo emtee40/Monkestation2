@@ -37,3 +37,11 @@
 	thermal = 1
 	liquid_flow = 65
 	material_traits = list(/datum/material_trait/honk_blessed)
+
+/datum/material/mythril
+	liquid_flow = 80
+	thermal = 85
+	refractiveness = -25
+	hardness = 100
+	density = 100
+	material_traits = list(/datum/material_trait/magical, /datum/material_trait/weak_weapon)
