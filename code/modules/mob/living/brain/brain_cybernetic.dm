@@ -5,7 +5,7 @@
 	organ_flags = ORGAN_ROBOTIC | ORGAN_VITAL
 	failing_desc = "seems to be broken, and will not work without repairs."
 
-/obj/item/organ/internal/brain/cybernetic/brain_damage_examine()
+/obj/item/organ/internal/brain/cybernetic/examine(mob/user)
 	if(suicided)
 		return span_info("Its circuitry is smoking slightly. They must not have been able to handle the stress of it all.")
 	if(brainmob && (decoy_override || brainmob.client || brainmob.get_ghost()))

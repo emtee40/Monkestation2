@@ -36,6 +36,8 @@
 	mutantheart = null
 	mutantliver = null
 	mutantlungs = null
+	mutanteyes = /obj/item/organ/internal/eyes/robotic
+	mutantears = /obj/item/organ/internal/ears/cybernetic
 	species_language_holder = /datum/language_holder/synthetic
 	wing_types = list(/obj/item/organ/external/wings/functional/robotic)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
