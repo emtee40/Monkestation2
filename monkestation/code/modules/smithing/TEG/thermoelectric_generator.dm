@@ -38,6 +38,19 @@
 	 * Both has pressure: 11
 	 */
 	var/last_pressure_overlay = "00"
+	///our tegs overall damage
+	var/damage = 0
+	///our powerlevel
+	var/powerlevel = 0
+
+	//static list of messages to say
+	var/static/list/prefixes = list("an upsetting", "an unsettling", "a scary", "a loud", "a grouchy", "a grumpy", "an awful", "a horrible", "a despicable", "a pretty rad", "a godawful")
+	var/static/list/suffixes = list("noise", "racket", "ruckus", "sound", "clatter", "hubbub", "whirring", "clanging", "bang")
+
+
+	var/list/past_power_levels = list()
+	var/max_history = 50
+
 
 /obj/machinery/power/thermoelectric_generator/Initialize(mapload)
 	. = ..()
@@ -64,10 +77,10 @@
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	var/level = clamp(round(26*lastgen / 4000000), 0, 26)
-	if(level)
-		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[level]")
-		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[level]", src)
+	powerlevel = clamp(round(lastgen / 4000000), 0, 26)
+	if(powerlevel)
+		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]")
+		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]", src)
 	if(hot_circ && cold_circ)
 		. += "[base_icon_state]-oc[last_pressure_overlay]"
 	if(lastgen)
@@ -136,6 +149,7 @@
 	add_avail(power_output)
 	lastgenlev = power_output
 	lastgen -= power_output
+	process_damage()
 
 /obj/machinery/power/thermoelectric_generator/process_atmos()
 	if(!cold_circ || !hot_circ)
@@ -158,8 +172,13 @@
 
 			var/energy_transfer = delta_temperature * hot_air_heat_capacity * cold_air_heat_capacity / (hot_air_heat_capacity + cold_air_heat_capacity - hot_air_heat_capacity * efficiency)
 			var/heat = energy_transfer * (1 - efficiency)
-			lastgen = energy_transfer * efficiency
+			lastgen += energy_transfer * efficiency
 			hot_air.temperature -= energy_transfer / hot_air_heat_capacity
+
+			past_power_levels += lastgen
+			if (length(past_power_levels) > max_history)
+				past_power_levels.Cut(1, 2)
+
 			cold_air.temperature += heat / cold_air_heat_capacity
 
 	if(hot_air)
@@ -218,6 +237,8 @@
 	var/datum/gas_mixture/hot_circ_air2 = hot_circ.airs[2]
 
 	data["last_power_output"] = display_power(lastgenlev)
+
+	data["past_power_info"] = past_power_levels
 
 	var/list/cold_data = list()
 	cold_data["temperature_inlet"] = round(cold_circ_air2.temperature, 0.1)
@@ -285,5 +306,39 @@
 			teg_states -= state
 			state.on_remove()
 			qdel(state)
+
+/obj/machinery/power/thermoelectric_generator/proc/process_damage()
+	if(lastgenlev > 0)
+		if(damage < 0)
+			damage = 0
+		damage++
+
+	var/overwrites_process = FALSE
+	for(var/datum/thermoelectric_state/state as anything in teg_states)
+		if(state.process_damage())
+			overwrites_process = TRUE
+
+	if(overwrites_process)
+		return
+	damage_effects()
+
+
+/obj/machinery/power/thermoelectric_generator/proc/damage_effects()
+	if(damage >= 100 && prob(5))
+		playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
+		audible_message(span_warning("[src] makes [pick(prefixes)] [pick(suffixes)]!"))
+		damage -= 5
+
+	switch(powerlevel)
+		if(1 to 2)
+			playsound(src, 'goon/sounds/teg/tractor_running.ogg', 60, FALSE)
+			if(prob(3))
+				playsound(src, pick(list('goon/sounds/teg/tractor_running2.ogg', 'goon/sounds/teg/tractor_running3.ogg')), 80, FALSE) // this plays ontop so play it louder
+		if(3 to 11)
+			playsound(src, 'goon/sounds/teg/tractor_running.ogg', 60, FALSE)
+		if(12 to 15)
+			playsound(src, 'goon/sounds/teg/engine_highpower.ogg', 60, FALSE)
+		else
+			return
 
 #undef TEG_EFFICIENCY

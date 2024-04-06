@@ -7,3 +7,5 @@
 /datum/thermoelectric_state/proc/on_apply()
 
 /datum/thermoelectric_state/proc/on_remove()
+
+/datum/thermoelectric_state/proc/process_damage()
