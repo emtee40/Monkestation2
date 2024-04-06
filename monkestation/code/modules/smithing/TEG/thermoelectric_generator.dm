@@ -77,7 +77,7 @@
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	powerlevel = clamp(round(lastgen / 4000000), 0, 26)
+	powerlevel = clamp(round(lastgenlev / 4000000), 0, 26)
 	if(powerlevel)
 		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]")
 		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]", src)

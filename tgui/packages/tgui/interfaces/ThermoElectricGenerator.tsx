@@ -39,7 +39,7 @@ export const ThermoElectricGenerator = (props, context) => {
     );
   }
   return (
-    <Window width={350} height={195}>
+    <Window width={350} height={280}>
       <Window.Content>
         <Box>
           <Chart.Line
