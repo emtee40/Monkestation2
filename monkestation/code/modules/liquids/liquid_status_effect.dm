@@ -29,7 +29,7 @@
 	return ..()
 
 /datum/status_effect/water_affected/on_remove()
-	owner.remove_movespeed_modifier("water_slow")
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/liquids)
 
 
 /datum/movespeed_modifier/liquids
