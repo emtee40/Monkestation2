@@ -9,9 +9,9 @@
 	var/atom/parent_source = parent.loc
 	if(istype(parent_source, /obj/machinery/electroplater))
 		return
-	if(iscarbon(parent_source))
-		var/mob/living/carbon/carbon = parent_source
-		carbon.doUnEquip(parent, TRUE)
+	if(ismob(parent_source))
+		var/mob/carbon = parent_source
+		carbon.dropItemToGround(parent, TRUE)
 
 	parent_source.slipped_out(parent)
 	parent.forceMove(get_turf(parent))
