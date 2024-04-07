@@ -3,8 +3,8 @@
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/biomass_recycler
 	req_components = list(
-		/datum/stock_part/matter_bin = 1,
-		/datum/stock_part/manipulator = 1)
+		/datum/stock_part/matter_bin = 3,
+		/datum/stock_part/manipulator = 2)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/corral_corner
