@@ -101,7 +101,7 @@
 	Connect_cable(TRUE)
 	auto_propagate_cut_cable(src)
 
-	update_overlays()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/cable/valve/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
