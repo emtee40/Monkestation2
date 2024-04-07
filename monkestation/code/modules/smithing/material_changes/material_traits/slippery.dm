@@ -10,8 +10,8 @@
 	if(istype(parent_source, /obj/machinery/electroplater))
 		return
 	if(ismob(parent_source))
-		var/mob/carbon = parent_source
-		carbon.dropItemToGround(parent, TRUE)
+		var/mob/mob = parent_source
+		mob.dropItemToGround(parent, TRUE)
 
 	parent_source.slipped_out(parent)
 	parent.forceMove(get_turf(parent))
