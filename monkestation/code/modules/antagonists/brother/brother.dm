@@ -30,7 +30,7 @@
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
 	. = ..()
 	if(new_team)
-		LAZYADD(hud_keys, REF(new_team))
+		set_hud_keys(REF(new_team))
 
 /datum/antagonist/brother/antag_token(datum/mind/hosts_mind, mob/spender)
 	if(isobserver(spender))
