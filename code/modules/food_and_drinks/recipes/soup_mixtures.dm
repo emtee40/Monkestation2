@@ -1785,7 +1785,7 @@
 		/obj/item/food/spaghetti/rawnoodles = 1
 	)
 	required_catalysts = list(
-		/datum/reagent/water = 30
+		/datum/reagent/water/salt = 10,
 	)
 	resulting_food_path = /obj/item/food/spaghetti/boilednoodles
 	ingredient_reagent_multiplier = 0
