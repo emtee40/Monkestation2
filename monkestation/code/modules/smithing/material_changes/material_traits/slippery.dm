@@ -7,6 +7,19 @@
 	if(prob(50))
 		return
 	var/atom/parent_source = parent.loc
+	if(!parent_source)
+		if(isbodypart(parent))
+			var/obj/item/bodypart/bodypart = parent
+			bodypart.drop_limb()
+			return
+
+		if(isorgan(parent))
+			var/obj/item/organ/organ = parent
+			var/mob/living/parent_host = organ.owner
+			organ.Remove(organ.owner)
+			organ.forceMove(get_turf(parent_host))
+			return
+
 	if(istype(parent_source, /obj/machinery/electroplater))
 		return
 	if(ismob(parent_source))
