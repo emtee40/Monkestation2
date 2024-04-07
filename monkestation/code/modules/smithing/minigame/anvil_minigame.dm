@@ -52,7 +52,6 @@
 	. = TRUE
 	anvil_hud = new
 	anvil_hud.prepare_minigame(src, anvil_presses)
-
 	RegisterSignal(user.client, COMSIG_CLIENT_CLICK, PROC_REF(check_click))
 
 	START_PROCESSING(SSfishing, src)
@@ -60,7 +59,7 @@
 /datum/anvil_challenge/proc/generate_anvil_beats(init = FALSE)
 	var/list/new_notes = list()
 
-	var/last_note_time = REALTIMEOFDAY
+	var/last_note_time = REALTIMEOFDAY + 1 SECONDS
 	for(var/i = 1 to min(rand(1,5), notes_left))
 		notes_left--
 		var/atom/movable/screen/hud_note/hud_note = new(null, null, src)
@@ -68,15 +67,15 @@
 		if(difficulty >= 6)
 			time /= round((difficulty - 4) * 0.5)
 		hud_note.generate_click_type(difficulty)
-		hud_note.pixel_x += 40 // we start 40 units back and move towards the end
+		hud_note.pixel_x += 138 // we start 40 units back and move towards the end
 		anvil_presses += hud_note
 		anvil_presses[hud_note] = last_note_time + time
 
 		if(debug)
-			hud_note.maptext = "[last_note_time + time] - 72"
+			hud_note.maptext = "[last_note_time + time] - 170"
 		last_note_time += time
 
-		animate(hud_note, last_note_time - REALTIMEOFDAY, pixel_x = hud_note.pixel_x - 72)
+		animate(hud_note, last_note_time - REALTIMEOFDAY, pixel_x = hud_note.pixel_x - 170)
 		animate(alpha=0, time = 0.4 SECONDS)
 
 		note_pixels_moved += hud_note
@@ -88,8 +87,8 @@
 
 /datum/anvil_challenge/proc/check_click(datum/source, atom/target, atom/location, control, params, mob/user)
 	var/atom/movable/screen/hud_note/choice = anvil_presses[1]
-	var/upper_range = anvil_presses[choice] + 0.4 SECONDS
-	var/lower_range = anvil_presses[choice] - 0.4 SECONDS
+	var/upper_range = anvil_presses[choice] + 0.2 SECONDS
+	var/lower_range = anvil_presses[choice] - 0.2 SECONDS
 
 	var/list/modifiers = params2list(params)
 
@@ -116,12 +115,12 @@
 			playsound(host_anvil, 'monkestation/code/modules/smithing/sounds/forge.ogg', 25, TRUE, mixer_channel = CHANNEL_SOUND_EFFECTS)
 
 		else
-			if(REALTIMEOFDAY > anvil_presses[choice] + 0.4 SECONDS)
-				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.4 SECONDS)
+			if(REALTIMEOFDAY > anvil_presses[choice] + 0.2 SECONDS)
+				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.2 SECONDS)
 				failed_notes++
 				good_hit = FALSE
-			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.4 SECONDS)
-				off_time += (anvil_presses[choice] + 0.4 SECONDS) - REALTIMEOFDAY
+			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.2 SECONDS)
+				off_time += (anvil_presses[choice] + 0.2 SECONDS) - REALTIMEOFDAY
 				failed_notes++
 				good_hit = FALSE
 
