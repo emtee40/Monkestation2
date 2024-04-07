@@ -64,12 +64,11 @@
 /obj/machinery/electroplater/proc/try_plate()
 	if(!stored_material || !plating_item)
 		return
-	machine_do_after_visable(src, plating_time)
 	plating = TRUE
 	icon_state = "plater1"
-	addtimer(CALLBACK(src, PROC_REF(finish_plating)), plating_time)
 
-/obj/machinery/electroplater/proc/finish_plating()
+	machine_do_after_visable(src, plating_time) // glorified sleep go brrr
+
 	plating_item.AddComponent(/datum/component/worked_material)
 	SEND_SIGNAL(plating_item, COMSIG_MATERIAL_MERGE_MATERIAL, stored_material)
 	plating_item.forceMove(get_turf(src))
