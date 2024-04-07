@@ -81,8 +81,6 @@
 	if(powerlevel)
 		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]")
 		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]", src)
-	if(hot_circ && cold_circ)
-		. += "[base_icon_state]-oc[last_pressure_overlay]"
 	if(lastgen)
 		.+= emissive_appearance('goon/icons/teg.dmi', "teg-on-emissive", src)
 
