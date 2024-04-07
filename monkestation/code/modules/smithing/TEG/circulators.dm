@@ -161,7 +161,8 @@
 
 /obj/machinery/atmospherics/components/binary/circulator/update_overlays()
 	. = ..()
-	.+= emissive_appearance(icon, "[icon_state]-emissive", src)
+	if(active)
+		.+= emissive_appearance(icon, "[icon_state]-emissive", src)
 
 /obj/machinery/atmospherics/components/binary/circulator/wrench_act_secondary(mob/living/user, obj/item/tool)
 	if(!panel_open)
