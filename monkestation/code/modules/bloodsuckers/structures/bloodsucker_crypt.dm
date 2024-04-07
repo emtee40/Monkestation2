@@ -131,7 +131,7 @@
 	/// Prevents popup spam.
 	var/disloyalty_offered = FALSE
 	// Prevent spamming torture via spam click. Otherwise they're able to lose a lot of blood quickly
-	var/torture_debounce = FALSE
+	var/blood_draining = FALSE
 
 /obj/structure/bloodsucker/vassalrack/Initialize(mapload)
 	. = ..()
@@ -300,10 +300,10 @@
 	// Conversion Process
 	if(convert_progress)
 		//Are we currently torturing this person? If so, do not spill blood more.
-		if(torture_debounce)
+		if(blood_draining)
 			return
 			//We're torturing. Do not start another torture on this rack.
-			torture_debounce = TRUE
+			blood_draining = TRUE
 			balloon_alert(user, "spilling blood...")
 			bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
 			if(!do_torture(user, target))
@@ -375,7 +375,7 @@
 	// Now run process.
 	if(!do_after(user, (torture_time * mult), target))
 		//Torture failed. You can start again.
-		torture_debounce = FALSE
+		blood_draining = FALSE
 		return FALSE
 
 	if(held_item)
@@ -388,7 +388,7 @@
 	target.set_timed_status_effect(5 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	target.apply_damages(brute = torture_dmg_brute, burn = torture_dmg_burn, def_zone = selected_bodypart.body_zone)
 	//Torture succeeded. You may torture again.
-	torture_debounce = FALSE
+	blood_draining = FALSE
 	return TRUE
 
 /// Offer them the oppertunity to join now.
