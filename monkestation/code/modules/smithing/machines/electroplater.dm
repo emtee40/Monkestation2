@@ -68,8 +68,8 @@
 	icon_state = "plater1"
 
 	machine_do_after_visable(src, plating_time) // glorified sleep go brrr
-
-	plating_item.AddComponent(/datum/component/worked_material)
+	if(!plating_item.GetComponent(/datum/component/worked_material))
+		plating_item.AddComponent(/datum/component/worked_material)
 	SEND_SIGNAL(plating_item, COMSIG_MATERIAL_MERGE_MATERIAL, stored_material)
 	plating_item.forceMove(get_turf(src))
 	QDEL_NULL(stored_material)
