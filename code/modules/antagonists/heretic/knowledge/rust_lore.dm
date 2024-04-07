@@ -93,6 +93,7 @@
 	cost = 1
 	route = PATH_RUST
 
+/* Replaced in monkestation\code\modules\antagonists\heretic\knowledge\rust_lore.dm
 /datum/heretic_knowledge/rust_regen/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
@@ -139,6 +140,7 @@
 	// Heals blood loss
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += 2.5 * seconds_per_tick
+*/
 
 /datum/heretic_knowledge/mark/rust_mark
 	name = "Mark of Rust"

@@ -73,8 +73,10 @@
 /turf/open/floor/mineral/titanium/broken_states()
 	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 
+/*
 /turf/open/floor/mineral/titanium/rust_heretic_act()
-	return // titanium does not rust
+	return // titanium does not rust - monkestation edit: fuck you it's magic i ain't gotta explain shit
+*/
 
 /turf/open/floor/mineral/titanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -157,8 +159,10 @@
 /turf/open/floor/mineral/plastitanium/broken_states()
 	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 
+/*
 /turf/open/floor/mineral/plastitanium/rust_heretic_act()
-	return // plastitanium does not rust
+	return // plastitanium does not rust - monkestation edit: fuck you it's magic i ain't gotta explain shit
+*/
 
 /turf/open/floor/mineral/plastitanium/airless
 	initial_gas_mix = AIRLESS_ATMOS

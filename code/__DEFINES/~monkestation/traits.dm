@@ -14,9 +14,13 @@
 #define TRAIT_ALL_SURGERIES "all_surgeries"
 /// Prevents the user from ever (unintentionally) failing a surgery step, and ensures they always have the maximum surgery speed.
 #define TRAIT_PERFECT_SURGEON "perfect_surgeon"
-/// Station trait for when the clown has bridge access *shudders*
-#define STATION_TRAIT_CLOWN_BRIDGE "clown_bridge"
+/// Trait to track where leeching walk/rust healing has given the user a physiology buff.
+#define TRAIT_RUST_PHYSIOLOGY_BUFF "rust_physiology_buff"
 
 // /obj/item
 /// Whether a storage item can be compressed by the bluespace compression kit, without the usual storage limitation.
 #define TRAIT_BYPASS_COMPRESS_CHECK "can_compress_anyways"
+
+// Station traits
+/// Station trait for when the clown has bridge access *shudders*
+#define STATION_TRAIT_CLOWN_BRIDGE "clown_bridge"

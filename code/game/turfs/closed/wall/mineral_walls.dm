@@ -261,8 +261,10 @@
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_TITANIUM_WALLS
 	custom_materials = list(/datum/material/titanium = SHEET_MATERIAL_AMOUNT*2)
 
+/*
 /turf/closed/wall/mineral/titanium/rust_heretic_act()
-	return // titanium does not rust
+	return // titanium does not rust - monkestation edit: fuck you it's magic i ain't gotta explain shit
+*/
 
 /turf/closed/wall/mineral/titanium/nodiagonal
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
@@ -323,8 +325,10 @@
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_PLASTITANIUM_WALLS + SMOOTH_GROUP_SYNDICATE_WALLS
 	custom_materials = list(/datum/material/alloy/plastitanium = SHEET_MATERIAL_AMOUNT*2)
 
+/*
 /turf/closed/wall/mineral/plastitanium/rust_heretic_act()
-	return // plastitanium does not rust
+	return // plastitanium does not rust - monkestation edit: fuck you it's magic i ain't gotta explain shit
+*/
 
 /turf/closed/wall/mineral/plastitanium/nodiagonal
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
