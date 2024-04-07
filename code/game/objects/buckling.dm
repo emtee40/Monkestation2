@@ -92,6 +92,9 @@
 	if(!buckled_mobs)
 		buckled_mobs = list()
 
+	if(M.buckled)
+		M.buckled.unbuckle_mob(M)
+
 	if(!is_buckle_possible(M, force, check_loc))
 		return FALSE
 

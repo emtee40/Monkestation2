@@ -9,6 +9,10 @@
 	status_flags = CANPUSH
 	fire_stack_decay_rate = -5 // Reasonably fast as NPCs will not usually actively extinguish themselves
 
+
+	minimum_survivable_temperature = 100
+	maximum_survivable_temperature = 600
+
 	var/basic_mob_flags = NONE
 
 	///Defines how fast the basic mob can move. This is not a multiplier
