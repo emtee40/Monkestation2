@@ -31,7 +31,7 @@
 	required_container = /obj/item/slime_extract/grey
 
 /datum/chemical_reaction/slime/slimespawn/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/mob/living/basic/slime/S = new(get_turf(holder.my_atom))
+	var/mob/living/basic/slime/S = new(get_turf(holder.my_atom), /datum/slime_color/grey)
 	S.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
 	..()
 
