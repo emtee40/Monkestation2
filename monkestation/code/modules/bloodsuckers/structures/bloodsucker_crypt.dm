@@ -302,36 +302,36 @@
 		//Are we currently torturing this person? If so, do not spill blood more.
 		if(blood_draining)
 			return
-			//We're torturing. Do not start another torture on this rack.
-			blood_draining = TRUE
-			balloon_alert(user, "spilling blood...")
-			bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
-			if(!do_torture(user, target))
-				return FALSE
-			bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
-			// Prevent them from unbuckling themselves as long as we're torturing.
-			target.Paralyze(1 SECONDS)
-			convert_progress--
+		//We're torturing. Do not start another torture on this rack.
+		blood_draining = TRUE
+		balloon_alert(user, "spilling blood...")
+		bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		if(!do_torture(user, target))
+			return FALSE
+		bloodsuckerdatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		// Prevent them from unbuckling themselves as long as we're torturing.
+		target.Paralyze(1 SECONDS)
+		convert_progress--
 
-			// We're done? Let's see if they can be Vassal.
-			if(convert_progress)
-				balloon_alert(user, "needs more persuasion...")
+		// We're done? Let's see if they can be Vassal.
+		if(convert_progress)
+			balloon_alert(user, "needs more persuasion...")
+			return
+
+		if(disloyalty_requires)
+			balloon_alert(user, "has external loyalties! more persuasion required!")
+		else
+			balloon_alert(user, "ready for communion!")
+			return
+
+		if(!disloyalty_confirm && disloyalty_requires)
+			if(!do_disloyalty(user, target))
 				return
-
-			if(disloyalty_requires)
-				balloon_alert(user, "has external loyalties! more persuasion required!")
+			if(!disloyalty_confirm)
+				balloon_alert(user, "refused persuasion!")
 			else
 				balloon_alert(user, "ready for communion!")
-				return
-
-			if(!disloyalty_confirm && disloyalty_requires)
-				if(!do_disloyalty(user, target))
-					return
-				if(!disloyalty_confirm)
-					balloon_alert(user, "refused persuasion!")
-				else
-					balloon_alert(user, "ready for communion!")
-				return
+			return
 	//If they don't need any more torture, start converting them into a vassal!
 	else
 		user.balloon_alert_to_viewers("smears blood...", "painting bloody marks...")
