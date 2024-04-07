@@ -77,7 +77,7 @@
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	powerlevel = clamp(round(lastgenlev / 4000000), 0, 26)
+	powerlevel = clamp(round(lastgenlev * 26 / 4000000), 0, 26)
 	if(powerlevel)
 		. += mutable_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]")
 		. += emissive_appearance('goon/icons/teg.dmi', "[base_icon_state]-op[powerlevel]", src)
@@ -149,7 +149,7 @@
 	add_avail(power_output)
 	lastgenlev = power_output
 	lastgen -= power_output
-	process_damage()
+	process_engine()
 
 /obj/machinery/power/thermoelectric_generator/process_atmos()
 	if(!cold_circ || !hot_circ)
@@ -307,7 +307,7 @@
 			state.on_remove()
 			qdel(state)
 
-/obj/machinery/power/thermoelectric_generator/proc/process_damage()
+/obj/machinery/power/thermoelectric_generator/proc/process_engine()
 	if(lastgenlev > 0)
 		if(damage < 0)
 			damage = 0
@@ -315,15 +315,15 @@
 
 	var/overwrites_process = FALSE
 	for(var/datum/thermoelectric_state/state as anything in teg_states)
-		if(state.process_damage())
+		if(state.process_engine())
 			overwrites_process = TRUE
 
 	if(overwrites_process)
 		return
-	damage_effects()
+	engine_effects()
 
 
-/obj/machinery/power/thermoelectric_generator/proc/damage_effects()
+/obj/machinery/power/thermoelectric_generator/proc/engine_effects()
 	if(damage >= 100 && prob(5))
 		playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
 		audible_message(span_warning("[src] makes [pick(prefixes)] [pick(suffixes)]!"))
@@ -338,6 +338,99 @@
 			playsound(src, 'goon/sounds/teg/tractor_running.ogg', 60, FALSE)
 		if(12 to 15)
 			playsound(src, 'goon/sounds/teg/engine_highpower.ogg', 60, FALSE)
+		if(16 to 19)
+			playsound(src.loc, 'goon/sounds/teg/bellalert.ogg', 60, FALSE)
+			if(prob(5))
+				electrical_chain(radius = 2, power = 3)
+		if(20 to 21)
+			playsound(src.loc, 'sound/machines/warning-buzzer.ogg', 40, FALSE)
+			if(prob(5))
+				var/turf/my_turf = get_turf(src)
+				my_turf.pollute_turf(/datum/pollutant/smoke, 500)
+				visible_message(span_warning("[src] erupts into a plume of smoke!"))
+			if(damage >= 100 && prob(5))
+				playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
+				explosion(src, flame_range = 2)
+				damage -= 15
+		if(22 to 23)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 55, FALSE)
+			if(prob(5))
+				tesla_zap(src, 7, 7500, ZAP_MOB_STUN)
+			if(prob(5))
+				var/turf/my_turf = get_turf(src)
+				my_turf.pollute_turf(/datum/pollutant/smoke, 500)
+				visible_message(span_warning("[src] erupts into a plume of smoke!"))
+			if(damage >= 100 && prob(5))
+				playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
+				explosion(src, flame_range = 2)
+				damage -= 15
+		if(24 to 25)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 55, FALSE)
+			if(prob(10))
+				tesla_zap(src, 7, 7500, ZAP_MOB_STUN)
+			if(prob(10))
+				var/turf/my_turf = get_turf(src)
+				my_turf.pollute_turf(/datum/pollutant/smoke, 500)
+				visible_message(span_warning("[src] erupts into a plume of smoke!"))
+			if(damage >= 100 && prob(10))
+				playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
+				var/range = rand(1, 4)
+				explosion(src, flame_range = range)
+				for(var/atom/movable/movable in view(range, src))
+					if(movable.anchored)
+						continue
+					if(ismob(movable))
+						var/mob/living/mob = movable
+						mob.Disorient(8 SECONDS, 25)
+						mob.adjustBruteLoss(-10)
+						var/turf/target_turf = get_edge_target_turf(mob, get_dir(src, get_step_away(mob, src)))
+						mob.throw_at(target_turf, 200, 5) // begone
+					else if(prob(15))
+						var/turf/target_turf = get_edge_target_turf(movable, get_dir(src, get_step_away(movable, src)))
+						movable.throw_at(target_turf, 200, 5) // begone
+				damage -= 30
+
+		if(26 to INFINITY)
+			playsound(src.loc, 'sound/machines/engine_alert3.ogg', 55, FALSE)
+			if(prob(15))
+				var/turf/my_turf = get_turf(src)
+				my_turf.pollute_turf(/datum/pollutant/smoke, 1500)
+				visible_message(span_warning("[src] erupts into a plume of smoke!"))
+
+			if(damage > 100 && prob(6))
+				for(var/obj/structure/window/window in range(6, src)) // if we had wall durability this would check for walls and windows and deal x damage to them if they are below x integrity
+					if(window.get_integrity() > 51) // better than regular window return
+						continue
+					if(prob(get_dist(window, src) * 5))
+						continue
+					window.take_damage(50)
+
+				for(var/mob/living/mob in range(6, src))
+					shake_camera(mob, 0.2 SECONDS, 5)
+					mob.Disorient(1 SECONDS, 25)
+				damage -= 15
+
+			if(prob(33))
+				tesla_zap(src, 7, 7500, ZAP_MOB_STUN)
+
+			if(damage >= 100 && prob(10))
+				playsound(src, pick(list('goon/sounds/teg/engine_grump1.ogg','goon/sounds/teg/engine_grump2.ogg','goon/sounds/teg/engine_grump3.ogg','goon/sounds/teg/engine_grump4.ogg')), 70, FALSE)
+				var/range = rand(1, 4)
+				explosion(src, flame_range = range)
+				for(var/atom/movable/movable in view(range, src))
+					if(movable.anchored)
+						continue
+					if(ismob(movable))
+						var/mob/living/mob = movable
+						mob.Disorient(8 SECONDS, 25)
+						mob.adjustBruteLoss(-10)
+						var/turf/target_turf = get_edge_target_turf(mob, get_dir(src, get_step_away(mob, src)))
+						mob.throw_at(target_turf, 200, 5) // begone
+					else if(prob(15))
+						var/turf/target_turf = get_edge_target_turf(movable, get_dir(src, get_step_away(movable, src)))
+						movable.throw_at(target_turf, 200, 5) // begone
+				damage -= 30
+
 		else
 			return
 

@@ -92,6 +92,14 @@
 			if(!first_add)
 				refractiveness *= 0.5
 
+
+		for(var/datum/material_trait/trait as anything in material_traits)
+			material_traits[trait]--
+			if(!material_traits[trait])
+				trait.on_remove(parent)
+				material_traits -= trait
+				qdel(trait)
+
 		for(var/datum/material_trait/trait as anything in material.material_traits)
 			var/passed = TRUE
 			for(var/datum/material_trait/owned_traits as anything in material_traits)
@@ -102,7 +110,9 @@
 			if(!passed)
 				continue
 			var/datum/material_trait/new_trait = new trait
+
 			material_traits |= new_trait
+			material_traits[new_trait] = new_trait.reforges
 			new_trait.on_trait_add(parent)
 
 		if(first_add)
@@ -154,6 +164,14 @@
 		if(!first_add)
 			refractiveness *= 0.5
 
+
+	for(var/datum/material_trait/trait as anything in material_traits)
+		material_traits[trait]--
+		if(!material_traits[trait])
+			trait.on_remove(parent)
+			material_traits -= trait
+			qdel(trait)
+
 	for(var/datum/material_trait/trait as anything in material.material_traits)
 		var/passed = TRUE
 		for(var/datum/material_trait/owned_traits as anything in material_traits)
@@ -165,6 +183,7 @@
 			continue
 		var/datum/material_trait/new_trait = new trait.type
 		material_traits |= new_trait
+		material_traits[new_trait] = new_trait.reforges
 		new_trait.on_trait_add(parent)
 
 	if(first_add)

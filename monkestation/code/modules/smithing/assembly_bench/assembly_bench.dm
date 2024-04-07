@@ -40,7 +40,17 @@
 		for(var/item in current_recipe.needed_items)
 			if(istype(attacking_item, item))
 				current_recipe.needed_items[item]--
-				attacking_item.forceMove(src)
+
+				if(isstack(attacking_item))
+					var/obj/item/stack/stack = attacking_item
+					if(stack.amount == 1)
+						attacking_item.forceMove(src)
+					else
+						var/obj/item/stack/new_stack = stack.split_stack(user, 1)
+						new_stack.forceMove(src)
+				else
+					attacking_item.forceMove(src)
+
 				stored_items += attacking_item
 				if(!current_recipe.needed_items[item])
 					current_recipe.needed_items -= attacking_item.type

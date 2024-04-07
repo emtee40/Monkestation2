@@ -86,5 +86,13 @@
 		visible_message("[user] replaces the ingot on the anvil.")
 
 	working_material = item
-	item.forceMove(src)
+	if(isstack(item))
+		var/obj/item/stack/stack = item
+		if(stack.amount == 1)
+			item.forceMove(src)
+		else
+			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
+			new_stack.forceMove(src)
+	else
+		item.forceMove(src)
 	return TRUE
