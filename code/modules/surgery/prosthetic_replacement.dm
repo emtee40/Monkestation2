@@ -20,10 +20,9 @@
 	if(!iscarbon(target))
 		return FALSE
 	var/mob/living/carbon/carbon_target = target
-	// you can only start the surgery if the limb is missing.
-	// for oozelings, this surgery is only available on the head.
-	if((!isoozeling(target) || user.zone_selected == BODY_ZONE_HEAD) && !carbon_target.get_bodypart(user.zone_selected))
-		return TRUE
+	if(!isoozeling(target))
+		if(!carbon_target.get_bodypart(user.zone_selected)) //can only start if limb is missing
+			return TRUE
 	return FALSE
 
 

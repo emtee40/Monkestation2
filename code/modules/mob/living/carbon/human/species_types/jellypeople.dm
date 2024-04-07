@@ -15,9 +15,8 @@
 		EYECOLOR,
 	)
 	inherent_traits = list(
-		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TOXINLOVER,
-		TRAIT_NOBLOOD
+		TRAIT_NOBLOOD,
 	)
 	mutanttongue = /obj/item/organ/internal/tongue/jelly
 	mutantlungs = /obj/item/organ/internal/lungs/slime
@@ -37,7 +36,6 @@
 	inherent_factions = list(FACTION_SLIME)
 	species_language_holder = /datum/language_holder/jelly
 	ass_image = 'icons/ass/assslime.png'
-	wing_types = list(/obj/item/organ/external/wings/functional/slime)
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/jelly,

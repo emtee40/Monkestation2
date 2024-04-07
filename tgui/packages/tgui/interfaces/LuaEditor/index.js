@@ -169,7 +169,13 @@ export class LuaEditor extends Component {
                   title="Input"
                   buttons={
                     <>
-                      <Button onClick={() => act('runCodeFile')}>Import</Button>
+                      <Button.File
+                        onSelectFiles={(file) =>
+                          this.setState({ scriptInput: file })
+                        }
+                        accept=".lua,.luau">
+                        Import
+                      </Button.File>
                       <Button onClick={() => setModal('documentation')}>
                         Help
                       </Button>

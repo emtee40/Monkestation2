@@ -4,6 +4,9 @@ import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Button, Dropdown, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
+// defined this so the code is more readable
+const STAKES_HOLY_MATCH = 1;
+
 const weaponlist = [
   'Fist Fight',
   'Ceremonial Weapons',
@@ -35,7 +38,6 @@ type Info = {
   right_sign: string;
   in_area: BooleanLike;
   no_chaplains: BooleanLike;
-  stakes_holy_match: number;
   possible_areas: Array<string>;
 };
 
@@ -50,7 +52,6 @@ export const SparringContract = (props, context) => {
     right_sign,
     in_area,
     no_chaplains,
-    stakes_holy_match,
   } = data;
   const [weapon, setWeapon] = useLocalState(context, 'weapon', set_weapon);
   const [area, setArea] = useLocalState(context, 'area', set_area);
@@ -184,7 +185,7 @@ export const SparringContract = (props, context) => {
                   <Button
                     disabled={
                       !in_area ||
-                      (no_chaplains && set_stakes === stakes_holy_match)
+                      (no_chaplains && set_stakes === STAKES_HOLY_MATCH)
                     }
                     icon="fist-raised"
                     onClick={() => act('fight')}>

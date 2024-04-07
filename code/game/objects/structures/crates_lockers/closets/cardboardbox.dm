@@ -47,15 +47,11 @@
 	if(!do_alert)
 		return ..()
 
-	// Get mobs in view before we open the box.
-	var/list/alerted = list()
-	for(var/mob/living/alerted_mob in viewers(7, src))
-		if(alerted_mob.stat != CONSCIOUS || alerted_mob.is_blind())
-			continue
-		alerted += alerted_mob
+	// Cache the list before we open the box.
+	var/list/alerted = viewers(7, src)
 
 	// There are no mobs to alert?
-	if(!length(alerted))
+	if(!(locate(/mob/living) in alerted))
 		return ..()
 
 	. = ..()
@@ -66,10 +62,11 @@
 
 	COOLDOWN_START(src, alert_cooldown, time_between_alerts)
 
-	for(var/mob/living/alerted_mob as anything in alerted)
-		if(!alerted_mob.incapacitated(IGNORE_RESTRAINTS))
-			alerted_mob.face_atom(src)
-		alerted_mob.do_alert_animation()
+	for(var/mob/living/alerted_mob in alerted)
+		if(alerted_mob.stat == CONSCIOUS)
+			if(!alerted_mob.incapacitated(IGNORE_RESTRAINTS))
+				alerted_mob.face_atom(src)
+			alerted_mob.do_alert_animation()
 
 	playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
