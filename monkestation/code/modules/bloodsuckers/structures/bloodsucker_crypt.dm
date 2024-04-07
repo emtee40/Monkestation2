@@ -300,7 +300,8 @@
 	// Conversion Process
 	if(convert_progress)
 		//Are we currently torturing this person? If so, do not spill blood more.
-		if(!torture_debounce)
+		if(torture_debounce)
+			return
 			//We're torturing. Do not start another torture on this rack.
 			torture_debounce = TRUE
 			balloon_alert(user, "spilling blood...")
