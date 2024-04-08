@@ -50,80 +50,83 @@
 		data["slimes"] = list()
 		data["corral_upgrades"] = list()
 		data["buyable_upgrades"] = list()
-		return data
 
-	data["slimes"] = list()
-	for(var/mob/living/basic/slime/slime as anything in linked_data.managed_slimes)
-		var/list/slime_data = list()
-		slime_data += list(
-			"name" = slime.name,
-			"health" = round((slime.health / slime.maxHealth) * 100),
-			"slime_color" = capitalize(slime.current_color.name),
-			"hunger_precent" = slime.hunger_precent,
-			"mutation_chance" = slime.mutation_chance,
-			"accessory" = slime.worn_accessory ? slime.worn_accessory.name : "None",
-		)
-		slime_data["possible_mutations"] = list()
-		for(var/datum/slime_mutation_data/mutation_data as anything in slime.possible_color_mutations)
-			var/list/mutation_info = list()
-			var/mob_string
-			for(var/mob/living/mob as anything in mutation_data.latch_needed)
-				mob_string += "[mutation_data.latch_needed[mob]] units of genetic data from [initial(mob.name)]. \n"
-			var/item_string
-			for(var/obj/item/item as anything in mutation_data.needed_items)
-				item_string += "[initial(item.name)]. \n"
-
-			mutation_info += list(
-				"color" = capitalize(initial(mutation_data.output.name)),
-				"weight" = mutation_data.weight,
-				"mutate_chance" = mutation_data.mutate_probability,
-				"mobs_needed" = mob_string,
-				"items_needed" = item_string,
+	else
+		data["slimes"] = list()
+		for(var/mob/living/basic/slime/slime as anything in linked_data.managed_slimes)
+			var/list/slime_data = list()
+			slime_data += list(
+				"name" = slime.name,
+				"health" = round((slime.health / slime.maxHealth) * 100),
+				"slime_color" = capitalize(slime.current_color.name),
+				"hunger_precent" = slime.hunger_precent,
+				"mutation_chance" = slime.mutation_chance,
+				"accessory" = slime.worn_accessory ? slime.worn_accessory.name : "None",
 			)
-			slime_data["possible_mutations"] += list(mutation_info)
+			slime_data["possible_mutations"] = list()
+			for(var/datum/slime_mutation_data/mutation_data as anything in slime.possible_color_mutations)
+				var/list/mutation_info = list()
+				var/mob_string
+				for(var/mob/living/mob as anything in mutation_data.latch_needed)
+					mob_string += "[mutation_data.latch_needed[mob]] units of genetic data from [initial(mob.name)]. \n"
+				var/item_string
+				for(var/obj/item/item as anything in mutation_data.needed_items)
+					item_string += "[initial(item.name)]. \n"
 
-		slime_data["traits"] = list()
-		for(var/datum/slime_trait/trait as anything in slime.slime_traits)
-			var/list/trait_data = list()
-			trait_data += list(
-				"name" = trait.name,
-				"desc" = trait.desc,
-				"food" = (FOOD_CHANGE in trait.menu_buttons),
-				"environment" = (ENVIRONMENT_CHANGE in trait.menu_buttons),
-				"behaviour" = (BEHAVIOUR_CHANGE in trait.menu_buttons),
-				"danger" = (DANGEROUS_CHANGE in trait.menu_buttons),
-				"docile" = (DOCILE_CHANGE in trait.menu_buttons),
+				mutation_info += list(
+					"color" = capitalize(initial(mutation_data.output.name)),
+					"weight" = mutation_data.weight,
+					"mutate_chance" = mutation_data.mutate_probability,
+					"mobs_needed" = mob_string,
+					"items_needed" = item_string,
+				)
+				slime_data["possible_mutations"] += list(mutation_info)
+
+			slime_data["traits"] = list()
+			for(var/datum/slime_trait/trait as anything in slime.slime_traits)
+				var/list/trait_data = list()
+				trait_data += list(
+					"name" = trait.name,
+					"desc" = trait.desc,
+					"food" = (FOOD_CHANGE in trait.menu_buttons),
+					"environment" = (ENVIRONMENT_CHANGE in trait.menu_buttons),
+					"behaviour" = (BEHAVIOUR_CHANGE in trait.menu_buttons),
+					"danger" = (DANGEROUS_CHANGE in trait.menu_buttons),
+					"docile" = (DOCILE_CHANGE in trait.menu_buttons),
+				)
+				slime_data["traits"] += list(trait_data)
+
+			data["slimes"] += list(slime_data)
+
+		data["corral_upgrades"] = list()
+		for(var/datum/corral_upgrade/upgrade as anything in linked_data.corral_upgrades)
+			data["corral_upgrades"] += list(list(
+				"name" = upgrade.name,
+				"desc" = upgrade.desc,
+			))
+
+		data["buyable_upgrades"] = list()
+		for(var/datum/corral_upgrade/listed as anything in subtypesof(/datum/corral_upgrade))
+			var/list/upgrade_data = list()
+			upgrade_data += list(
+				"name" = listed.name,
+				"desc" = listed.desc,
+				"cost" = listed.cost,
+				"owned" = (listed in linked_data.corral_upgrades),
+				"path" = listed.type,
 			)
-			slime_data["traits"] += list(trait_data)
+			data["buyable_upgrades"] += list(upgrade_data)
 
-		data["slimes"] += list(slime_data)
-
-	data["corral_upgrades"] = list()
-	for(var/datum/corral_upgrade/upgrade as anything in linked_data.corral_upgrades)
-		data["corral_upgrades"] += list(list(
-			"name" = upgrade.name,
-			"desc" = upgrade.desc,
-		))
-
-	data["reagent_amount"] = linked_sucker.reagents.total_volume
+	data["reagent_amount"] = 0
 	data["reagent_data"] = list()
-	for(var/datum/reagent/reagent as anything in linked_sucker.reagents.reagent_list)
-		data["reagent_data"] += list(list(
-			"name" = reagent.name,
-			"amount" = reagent.volume,
-		))
-
-	data["buyable_upgrades"] = list()
-	for(var/datum/corral_upgrade/listed as anything in subtypesof(/datum/corral_upgrade))
-		var/list/upgrade_data = list()
-		upgrade_data += list(
-			"name" = listed.name,
-			"desc" = listed.desc,
-			"cost" = listed.cost,
-			"owned" = (listed in linked_data.corral_upgrades),
-			"path" = listed.type,
-		)
-		data["buyable_upgrades"] += list(upgrade_data)
+	if(linked_sucker)
+		data["reagent_amount"] = linked_sucker.reagents.total_volume
+		data["reagent_data"] = list()
+		for(var/datum/reagent/reagent as anything in linked_sucker.reagents.reagent_list)
+			data["reagent_data"] += list(list(
+				"name" = reagent.name,
+				"amount" = reagent.volume,
+			))
 
 	return data
 
