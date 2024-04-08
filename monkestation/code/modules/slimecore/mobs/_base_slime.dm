@@ -111,6 +111,7 @@
 	AddElement(/datum/element/soft_landing)
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_CAREFUL_STEPS, INNATE_TRAIT)
 
 	if(!passed_color)
 		current_color = new current_color

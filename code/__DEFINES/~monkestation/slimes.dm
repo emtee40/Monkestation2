@@ -20,6 +20,7 @@
 #define BB_BASIC_MOB_SCARED_ITEM "BB_basic_mob_scared_item"
 #define BB_WONT_TARGET_CLIENTS "BB_wont_target_clients"
 
+#define TRAIT_CAREFUL_STEPS "careful_steps"
 #define TRAIT_SLIME_STASIS "slime_stasis"
 #define TRAIT_SLIME_RABID "slime_rabid"
 #define TRAIT_SLIME_DUST_IMMUNE "slime_dust_immune"
