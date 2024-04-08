@@ -3,7 +3,7 @@
 	desc = "A vending machine for wardens and warden-related clothing! Not to be confused with a wardrobe or the WARDrobe."
 	icon = 'monkestation/icons/obj/vending.dmi'
 	icon_state = "wardrobe"
-	product_ads = "You're better than the rest of them, dress like it!;Error. Item: 'Krav Maga Gloves' not found!;Now with cushioned pants seat!"
+	product_ads = "You're better than the rest of them, dress like it!;Error. Item: 'krav maga gloves' not found!;Now with cushioned pants seat!"
 	vend_reply = "Thank you for using the SecDrobe!"
 	products = list(
 		/obj/item/storage/backpack/security = 1,
@@ -21,6 +21,7 @@
 		/obj/item/clothing/suit/hooded/wintercoat/security = 1,
 		/obj/item/clothing/mask/bandana/striped/security = 1,
 		/obj/item/clothing/gloves/color/black = 1,
+		/obj/item/clothing/gloves/color/red = 1,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	payment_department = ACCOUNT_SEC
