@@ -83,7 +83,7 @@
 		return ..()
 	affected_mob.reagents.remove_reagent(type, NANITE_SLURRY_ORGANIC_PURGE_RATE) //gets removed from organics very fast
 	if(prob(NANITE_SLURRY_ORGANIC_VOMIT_CHANCE))
-		affected_mob.vomit(vomit_type = /obj/effect/decal/cleanable/vomit/nanites)
+		affected_mob.vomit(vomit_type = /obj/effect/decal/cleanable/chem_pile)
 	return TRUE
 
 #undef NANITE_SLURRY_ORGANIC_PURGE_RATE

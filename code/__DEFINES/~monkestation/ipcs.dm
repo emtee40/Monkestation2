@@ -23,3 +23,5 @@
 
 #define TRAIT_REVIVES_BY_HEALING "trait_revives_by_healing"
 
+/// If a synth is revived via defib, they will get a brain trauma of this severity.
+#define SYNTH_DEFIBBED_TRAUMA_SEVERITY BRAIN_TRAUMA_SEVERE
