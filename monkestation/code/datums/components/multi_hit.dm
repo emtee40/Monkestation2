@@ -44,6 +44,7 @@
 	if(stamina_cost)
 		src.stamina_cost = stamina_cost
 	item_parent = parent
+
 /datum/component/multi_hit/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(pre_hit_callback))
 

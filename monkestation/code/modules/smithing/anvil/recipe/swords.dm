@@ -15,3 +15,9 @@
 	difficulty = 1
 	total_notes = 35
 	output = /obj/item/smithed_part/weapon_part/dagger_blade
+
+/datum/anvil_recipe/staff_head
+	name = "Staff Head"
+	difficulty = 3
+	total_notes = 42
+	output = /obj/item/smithed_part/weapon_part/staff_head

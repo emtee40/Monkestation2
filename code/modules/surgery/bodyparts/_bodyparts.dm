@@ -646,6 +646,13 @@
 			update_disabled()
 		if(updating_health)
 			owner.updatehealth()
+
+		//monkestation edit start
+		if(owner.stat == DEAD && HAS_TRAIT(owner, TRAIT_REVIVES_BY_HEALING))
+			if(owner.health > 50)
+				owner.revive(FALSE)
+		//monkestation edit end
+
 	cremation_progress = min(0, cremation_progress - ((brute_dam + burn_dam)*(100/max_damage)))
 	return update_bodypart_damage_state()
 

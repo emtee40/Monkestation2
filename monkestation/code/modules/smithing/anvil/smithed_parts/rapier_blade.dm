@@ -12,6 +12,7 @@
 	wound_bonus = 10
 	bare_wound_bonus = 25
 	armour_penetration = -5
+	AddComponent(/datum/component/multi_hit, icon_state = "stab", height = 2)
 
 	var/datum/component/worked_material/material = GetComponent(/datum/component/worked_material)
 
