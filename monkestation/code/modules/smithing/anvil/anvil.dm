@@ -93,6 +93,7 @@
 		else
 			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
 			new_stack.forceMove(src)
+			working_material = new_stack
 	else
 		item.forceMove(src)
 	return TRUE

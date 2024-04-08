@@ -23,6 +23,16 @@
 	var/atom/movable/slot_two_item
 
 
+/obj/machinery/arc_forge/Initialize(mapload)
+	. = ..()
+	register_context()
+
+/obj/machinery/arc_forge/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(slot_one_item && slot_two_item)
+		context[SCREENTIP_CONTEXT_ALT_LMB] = "Alloy Materials."
+	return CONTEXTUAL_SCREENTIP_SET
+
 /obj/machinery/arc_forge/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(isstack(attacking_item))
 		var/obj/item/stack/stack = attacking_item
