@@ -8,7 +8,7 @@
 	icon = 'monkestation/code/modules/smithing/icons/forge_structures.dmi'
 	icon_state = "anvil_empty"
 
-	var/datum/anvil_recipe/chosen_recipe = /datum/anvil_recipe/sword_blade
+	var/datum/anvil_recipe/chosen_recipe
 
 	var/obj/item/working_material
 	var/smithing = FALSE

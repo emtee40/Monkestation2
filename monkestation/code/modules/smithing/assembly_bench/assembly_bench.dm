@@ -52,7 +52,7 @@
 					attacking_item.forceMove(src)
 
 				stored_items += attacking_item
-				if(!current_recipe.needed_items[item] || current_recipe.needed_items[item] <= 0)
+				if((!current_recipe.needed_items[item]) || current_recipe.needed_items[item] <= 0)
 					current_recipe.needed_items -= attacking_item.type
 				if(!length(current_recipe.needed_items))
 					try_complete_recipe(user)
