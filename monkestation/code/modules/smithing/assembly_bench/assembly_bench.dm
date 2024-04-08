@@ -34,7 +34,7 @@
 			attacking_item.forceMove(src)
 			stored_items += attacking_item
 			held_starting_item = attacking_item
-			return
+			return FALSE
 
 	if(current_recipe)
 		for(var/item in current_recipe.needed_items)
@@ -56,6 +56,7 @@
 					current_recipe.needed_items -= attacking_item.type
 				if(!length(current_recipe.needed_items))
 					try_complete_recipe(user)
+				return FALSE
 	. = ..()
 
 /obj/structure/machine/assembly_bench/proc/try_complete_recipe(mob/living/user)
