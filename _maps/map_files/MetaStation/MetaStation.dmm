@@ -1966,6 +1966,9 @@
 	location = "QM #1"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "aKa" = (
@@ -5782,9 +5785,6 @@
 /area/station/commons/dorms)
 "cfv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
@@ -6812,8 +6812,8 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 1
 	},
-/obj/item/chair,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/electroplater,
 /turf/open/floor/iron,
 /area/station/construction/storage_wing)
 "cyS" = (
@@ -7812,10 +7812,8 @@
 /turf/open/floor/iron,
 /area/station/security/execution/transfer)
 "cUD" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/station/maintenance/port/fore)
 "cUH" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -9844,6 +9842,7 @@
 "dKY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
+/obj/structure/closet/crate/freezer,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "dLc" = (
@@ -14744,11 +14743,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"fDo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/structure/crate,
-/turf/open/floor/iron,
-/area/station/cargo/warehouse)
 "fDL" = (
 /obj/machinery/status_display/evac/directional/north,
 /obj/structure/extinguisher_cabinet/directional/west,
@@ -15316,13 +15310,11 @@
 /area/station/commons/fitness/recreation)
 "fOb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random/structure/crate_empty,
-/obj/effect/spawner/random/maintenance,
+/obj/machinery/arc_forge,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "fOd" = (
@@ -18496,8 +18488,6 @@
 "gUX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/random/maintenance,
-/obj/item/stock_parts/cell,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "gUY" = (
@@ -31634,6 +31624,7 @@
 	codes_txt = "delivery;dir=8";
 	location = "QM #2"
 	},
+/obj/structure/machine/assembly_bench,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "lpA" = (
@@ -31844,11 +31835,7 @@
 /area/station/service/hydroponics)
 "lsu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/freezer,
-/obj/structure/sink/kitchen/directional/south{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink"
-	},
+/obj/structure/anvil,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "lsJ" = (
@@ -34768,11 +34755,10 @@
 /turf/open/floor/iron/freezer,
 /area/station/security/prison/shower)
 "mxh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron,
-/area/station/cargo/warehouse)
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/plating,
+/area/station/maintenance/port/fore)
 "mxn" = (
 /turf/closed/wall/r_wall,
 /area/station/command/heads_quarters/hos)
@@ -44695,8 +44681,9 @@
 "pVi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch/directional/north,
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
+/obj/structure/sink/kitchen/directional/south{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink"
 	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
@@ -51827,10 +51814,14 @@
 /turf/open/floor/iron/white,
 /area/station/medical/chemistry)
 "stw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
 /turf/open/floor/iron,
-/area/station/cargo/warehouse)
+/area/station/construction/storage_wing)
 "stC" = (
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
@@ -55590,9 +55581,7 @@
 /area/station/hallway/primary/central)
 "tKA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/structure/crate_empty,
 /obj/effect/turf_decal/bot,
-/obj/item/electronics/apc,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
@@ -59992,6 +59981,7 @@
 	pixel_x = -9;
 	pixel_y = 3
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "vmp" = (
@@ -60608,7 +60598,6 @@
 /area/station/service/hydroponics)
 "vzj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/structure/crate_empty,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment{
@@ -63218,7 +63207,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
 "wtX" = (
@@ -88583,8 +88571,8 @@ aaa
 jXu
 twr
 gkS
-jXu
-lsu
+mxh
+kod
 nvg
 vzR
 dKY
@@ -89100,8 +89088,8 @@ lJR
 jXu
 wtQ
 tKA
-fDo
 xIZ
+lsu
 bNU
 vQs
 kxm
@@ -89355,8 +89343,8 @@ aEH
 uqX
 uwx
 vQs
-stw
-mxh
+kod
+gUX
 gUX
 kod
 oQx
@@ -90124,7 +90112,7 @@ rlU
 aaa
 aEH
 aHt
-uwx
+stw
 aIE
 aMA
 aMA
