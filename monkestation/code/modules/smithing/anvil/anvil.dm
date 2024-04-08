@@ -88,6 +88,8 @@
 	working_material = item
 	if(isstack(item))
 		var/obj/item/stack/stack = item
+		if(!stack.material_type)
+			return FALSE
 		if(stack.amount == 1)
 			item.forceMove(src)
 		else

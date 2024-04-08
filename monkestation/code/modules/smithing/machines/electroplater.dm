@@ -31,8 +31,10 @@
 /obj/machinery/electroplater/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(isstack(attacking_item))
 		if(stored_material)
-			return TRUE
+			return FALSE
 		var/obj/item/stack/stack = attacking_item
+		if(!stack.material_type)
+			return FALSE
 		if(stack.amount == 1)
 			attacking_item.forceMove(src)
 			stored_material = attacking_item
