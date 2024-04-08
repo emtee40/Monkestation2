@@ -358,7 +358,7 @@
 		to_chat(user, span_warning("[pack] is empty!"))
 		return
 
-	var/atom/movable/spewed
+	var/mob/living/spewed
 
 	if(pack.give_choice)
 		var/list/items = list()
@@ -387,7 +387,7 @@
 		ADD_TRAIT(spewed, VACPACK_THROW, "vacpack")
 		spewed.pass_flags |= PASSMOB
 		spewed.throw_at(target, min(get_dist(user, target), (pack.illegal ? 5 : 11)), 1, user)
-		if(prob(99))
+		if(prob(99) && spewed.stat != DEAD)
 			playsound(spewed, 'sound/misc/woohoo.ogg', 50, TRUE)
 
 	if(istype(spewed, /mob/living/basic/slime))
