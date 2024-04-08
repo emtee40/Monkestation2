@@ -74,6 +74,17 @@
 		plating_item.AddComponent(/datum/component/worked_material)
 	SEND_SIGNAL(plating_item, COMSIG_MATERIAL_MERGE_MATERIAL, stored_material)
 	plating_item.forceMove(get_turf(src))
+
+	var/material_name = "???"
+	if(isstack(stored_material))
+		var/obj/item/stack/stack = plating_item
+		var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
+		material_name = material.name
+	else if(istype(stored_material, /obj/item/merged_material))
+		var/obj/item/merged_material/mat = stored_material
+		material_name = stored_material.material_name
+	plating_item.name = "[material_name] plated [name]"
+
 	QDEL_NULL(stored_material)
 	plating_item = null
 	plating = FALSE
