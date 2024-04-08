@@ -25,3 +25,4 @@
 
 /// If a synth is revived via defib, they will get a brain trauma of this severity.
 #define SYNTH_DEFIBBED_TRAUMA_SEVERITY BRAIN_TRAUMA_SEVERE
+#define SYNTH_DEFIBBED_TRAUMA_DURATION 90 SECONDS
