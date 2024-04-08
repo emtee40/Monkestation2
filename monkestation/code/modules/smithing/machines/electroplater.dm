@@ -29,6 +29,7 @@
 	var/plating = FALSE
 
 /obj/machinery/electroplater/attacked_by(obj/item/attacking_item, mob/living/user)
+	. = ..()
 	if(isstack(attacking_item))
 		if(stored_material)
 			return FALSE
@@ -62,7 +63,6 @@
 	attacking_item.forceMove(src)
 	try_plate()
 	return FALSE
-	. = ..()
 
 /obj/machinery/electroplater/proc/try_plate()
 	if(!stored_material || !plating_item)

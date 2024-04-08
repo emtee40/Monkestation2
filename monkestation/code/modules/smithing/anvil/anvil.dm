@@ -85,17 +85,19 @@
 		working_material = null
 		visible_message("[user] replaces the ingot on the anvil.")
 
-	working_material = item
 	if(isstack(item))
 		var/obj/item/stack/stack = item
 		if(!stack.material_type)
+			working_material = null
 			return FALSE
 		if(stack.amount == 1)
 			item.forceMove(src)
+			working_material = item
 		else
 			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
 			new_stack.forceMove(src)
 			working_material = new_stack
-	else
+	else if(item.GetComponent(/datum/component/worked_material))
 		item.forceMove(src)
+		working_material = item
 	return TRUE

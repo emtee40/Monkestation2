@@ -47,6 +47,7 @@
 						attacking_item.forceMove(src)
 					else
 						var/obj/item/stack/new_stack = stack.split_stack(user, 1)
+						attacking_item = new_stack
 						new_stack.forceMove(src)
 				else
 					attacking_item.forceMove(src)
