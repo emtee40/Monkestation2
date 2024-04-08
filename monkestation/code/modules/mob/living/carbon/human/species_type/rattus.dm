@@ -38,7 +38,7 @@
 	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
 	fire_overlay = "human_small_fire"
-	uses_fur = TRUE
+	//uses_fur = TRUE //it's broken lol
 	speedmod = -0.25
 	stunmod = 1.1
 	brutemod = 2.75
