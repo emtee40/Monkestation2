@@ -15,6 +15,6 @@
 
 	var/datum/component/worked_material/material = GetComponent(/datum/component/worked_material)
 
-	force = round((material.density + material.hardness / 6.25) * (smithed_quality * 0.01))
+	force = round(((material.density + material.hardness) / 6.25) * (smithed_quality * 0.01))
 	throwforce = force * 1.5
 	w_class = WEIGHT_CLASS_NORMAL
