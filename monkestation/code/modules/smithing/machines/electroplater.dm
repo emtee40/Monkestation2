@@ -78,8 +78,9 @@
 	var/material_name = "???"
 	if(isstack(stored_material))
 		var/obj/item/stack/stack = plating_item
-		var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-		material_name = material.name
+		if(stack.material_type)
+			var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
+			material_name = material.name
 	else if(istype(stored_material, /obj/item/merged_material))
 		var/obj/item/merged_material/mat = stored_material
 		material_name = mat.material_name
