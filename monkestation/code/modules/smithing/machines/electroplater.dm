@@ -82,7 +82,7 @@
 		material_name = material.name
 	else if(istype(stored_material, /obj/item/merged_material))
 		var/obj/item/merged_material/mat = stored_material
-		material_name = stored_material.material_name
+		material_name = mat.material_name
 	plating_item.name = "[material_name] plated [name]"
 
 	QDEL_NULL(stored_material)
