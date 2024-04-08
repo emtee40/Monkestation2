@@ -294,6 +294,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE
 
+///IPCS NO LONGER ARE PURE ELECTRICAL BEINGS, any attempts to change this outside of Borbop will be denied. Thanks.
 /obj/item/organ/internal/stomach/synth
 	name = "synthetic bio-reactor"
 	icon = 'monkestation/code/modules/smithing/icons/ipc_organ.dmi'
