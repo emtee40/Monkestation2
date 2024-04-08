@@ -61,6 +61,7 @@
 	plating_item = attacking_item
 	attacking_item.forceMove(src)
 	try_plate()
+	return FALSE
 	. = ..()
 
 /obj/machinery/electroplater/proc/try_plate()
@@ -84,7 +85,7 @@
 	else if(istype(stored_material, /obj/item/merged_material))
 		var/obj/item/merged_material/mat = stored_material
 		material_name = mat.material_name
-	plating_item.name = "[material_name] plated [name]"
+	plating_item.name = "[material_name] plated [plating_item.name]"
 
 	QDEL_NULL(stored_material)
 	plating_item = null
