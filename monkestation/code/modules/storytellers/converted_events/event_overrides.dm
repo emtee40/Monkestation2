@@ -6,6 +6,7 @@
 /datum/round_event_control/anomaly
 	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_DESTRUCTIVE, TAG_MAGICAL)
+	shared_occurence_type = /datum/round_event_control/anomaly
 
 /datum/round_event_control/alien_infestation
 	track = EVENT_TRACK_ROLESET
@@ -71,7 +72,6 @@
 /datum/round_event_control/fugitives
 	track = EVENT_TRACK_MAJOR
 	tags = list(TAG_COMBAT, TAG_EXTERNAL)
-	checks_antag_cap = TRUE
 
 /datum/round_event_control/gravity_generator_blackout
 	track = EVENT_TRACK_MODERATE
@@ -120,12 +120,10 @@
 	checks_antag_cap = TRUE
 
 /datum/round_event_control/obsessed
-	track = EVENT_TRACK_MODERATE
-	tags = list(TAG_CREW_ANTAG, TAG_TARGETED)
+	weight = 0 // use storyteller variants instead
 
 /datum/round_event_control/operative
 	track = EVENT_TRACK_MAJOR //this is a safe guard and does not trigger normally(technically it can but not really) so no tags
-	checks_antag_cap = TRUE
 
 /datum/round_event_control/portal_storm_syndicate
 	track = EVENT_TRACK_MAJOR
@@ -209,6 +207,7 @@
 /datum/round_event_control/spider_infestation
 	track = EVENT_TRACK_ROLESET
 	tags = list(TAG_COMBAT, TAG_DESTRUCTIVE, TAG_EXTERNAL, TAG_ALIEN)
+	checks_antag_cap = TRUE
 
 /datum/round_event_control/stray_cargo
 	track = EVENT_TRACK_MUNDANE
@@ -233,3 +232,4 @@
 /datum/round_event_control/wormholes
 	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_COMMUNAL, TAG_MAGICAL)
+	shared_occurence_type = /datum/round_event_control/anomaly

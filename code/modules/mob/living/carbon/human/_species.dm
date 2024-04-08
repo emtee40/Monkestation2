@@ -324,9 +324,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * gender - The gender that the name should adhere to. Use MALE for male names, use anything else for female names.
  * * unique - If true, ensures that this new name is not a duplicate of anyone else's name currently on the station.
- * * lastname - Does this species' naming system adhere to the last name system? Set to false if it doesn't.
+ * * last_name - Do we use a given last name or pick a random new one?
  */
-/datum/species/proc/random_name(gender,unique,lastname)
+/datum/species/proc/random_name(gender, unique, last_name)
 	if(unique)
 		return random_unique_name(gender)
 
@@ -336,8 +336,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else
 		randname = pick(GLOB.first_names_female)
 
-	if(lastname)
-		randname += " [lastname]"
+	if(last_name)
+		randname += " [last_name]"
 	else
 		randname += " [pick(GLOB.last_names)]"
 
@@ -537,8 +537,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
+	//Assigns exotic blood type if the species has one
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
+	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
+	//(why the fuck is blood type not tied to a fucking DNA block?)
+	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
+		C.dna.blood_type = random_blood_type()
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/human = C
@@ -785,8 +790,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(src.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
+			//MONKESTATION EDITS FOR COLOURABLE SOCKS
+			var/mutable_appearance/socks_overlay
 			if(socks)
-				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				if(species_human.dna.species.sexes && species_human.physique == FEMALE && species_human.get_bodypart(BODY_ZONE_CHEST)?.is_dimorphic)
+					socks_overlay = wear_female_version(socks.icon_state, socks.icon, BODY_LAYER, FEMALE_UNIFORM_FULL)
+				else
+					socks_overlay = mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				if(!socks.use_static)
+					socks_overlay.color = species_human.socks_color
+				socks_overlay.pixel_y += height_offset
+				standing += socks_overlay
+			//MONKESTATION EDITS END
 
 	if(standing.len)
 		species_human.overlays_standing[BODY_LAYER] = standing

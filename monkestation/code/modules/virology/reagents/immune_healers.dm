@@ -3,9 +3,9 @@
 	description = "A powerful immune enhancing drug, often used in small doses to counteract immunodeficiency."
 	color = "#667056"
 	ph = 7.4
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	data = list(
-		"level" = 0.05,
+		"level" = 0.1,//fast at bringing your immune strength back to your initial level
 		"threshold" = 1,
 		) //level is in precentage
 
@@ -23,16 +23,30 @@
 		"level" = -0.05,
 		"threshold" = 1,
 		) //level is in precentage
+	overdose_threshold = 20 //about double the amount needed to bring your immune strength to 0
+
+/datum/reagent/medicine/immune_healer/immune_suppressant/overdose_process(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	if(affected_mob.immune_system.antibodies && affected_mob.immune_system.strength == 0)
+		var/list/possible_antibodies = list()
+		//only reduce antibodies that arent 1
+		for(var/antibody as anything in affected_mob.immune_system.antibodies)
+			if(affected_mob.immune_system.antibodies[antibody] > 1)
+				possible_antibodies += antibody
+		//checks if there are any antibodies to remove
+		if(length(possible_antibodies) > 0)
+			var/affected_antibody = pick(possible_antibodies)
+			affected_mob.immune_system.antibodies[affected_antibody] = max(affected_mob.immune_system.antibodies[affected_antibody] - 1, 1)
+	..()
 
 /datum/reagent/medicine/immune_healer/immune_booster
 	name = "Aetericilide"
 	description = "An immune system enhancement drug, able to increase the power of a person's immune system up to 5 times its starting level."
 	color = "#16eedc"
 	ph = 6.3
-	metabolization_rate = REAGENTS_METABOLISM
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	data = list(
-		"level" = 0.05,
-		"threshold" = 5,
+		"level" = 0.01,//very slow, meaning it will do little when you are already sick
+		"threshold" = 3,
 		) //level is in precentage
 
 /datum/chemical_reaction/immune_healer
