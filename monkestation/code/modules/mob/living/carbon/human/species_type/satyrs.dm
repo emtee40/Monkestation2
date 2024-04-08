@@ -37,6 +37,9 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/satyr,
 	)
 
+/datum/species/satyr/get_species_description()
+	return "Mythical goat-people. The clacking of hooves and smell of beer follow them around."
+
 /mob/living/carbon/human/species/satyr
     race = /datum/species/satyr
 
