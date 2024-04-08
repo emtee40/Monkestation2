@@ -109,17 +109,17 @@
 		}\
 	} while (0)
 
-#define HAS_TRAIT(target, trait) (target._status_traits?[trait] ? TRUE : FALSE)
-#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]))
+#define HAS_TRAIT(target, trait) (target?._status_traits?[trait] ? TRUE : FALSE)
+#define HAS_TRAIT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (source in target?._status_traits[trait]))
 #define HAS_TRAIT_FROM_ONLY(target, trait, source) (HAS_TRAIT(target, trait) && (source in target._status_traits[trait]) && (length(target._status_traits[trait]) == 1))
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (HAS_TRAIT(target, trait) && (length(target._status_traits[trait] - source) > 0))
 /// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
 /// You should not be using this
-#define GET_TRAIT_SOURCES(target, trait) target._status_traits?[trait] || list()
+#define GET_TRAIT_SOURCES(target, trait) target?._status_traits?[trait] || list()
 /// Returns the amount of sources for a trait. useful if you don't want to have a "thing counter" stuck around all the time
 #define COUNT_TRAIT_SOURCES(target, trait) length(GET_TRAIT_SOURCES(target, trait))
 /// A simple helper for checking traits in a mob's mind
-#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
+#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || HAS_TRAIT(target?.mind, trait))
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -165,6 +165,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ILLITERATE "illiterate"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
+/// Softspoken. Always whisper.
+#define TRAIT_SOFTSPOKEN "softspoken"
 /// Gibs on death and slips like ice.
 #define TRAIT_CURSED "cursed"
 /// Emotemute. Can't... emote.
@@ -194,6 +196,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GUN_NATURAL "gunnatural"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
 /// Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_FAKEDEATH "fakedeath"
 #define TRAIT_DISFIGURED "disfigured"
@@ -254,8 +259,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
 /// Humans with this trait cannot be turned into zombies
 #define TRAIT_NO_ZOMBIFY "no_zombify"
-/// Humans with this trait cannot be affected by changeling transformation stings
-#define TRAIT_NO_TRANSFORMATION_STING "no_transformation_sting"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 /// Carbons with this trait can eat blood to regenerate their own blood volume, instead of injecting it
@@ -361,7 +364,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
-#define TRAIT_SURGEON "surgeon"
+//#define TRAIT_SURGEON "surgeon"  // monke edit: replace with TRAIT_ALL_SURGERIES and TRAIT_PERFECT_SURGEON
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_SOOTHED_THROAT "soothed-throat"
 #define TRAIT_BOOZE_SLIDER "booze-slider"
@@ -421,8 +424,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TUMOR_SUPPRESSED "brain_tumor_suppressed"
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_RDS_SUPPRESSED "rds_suppressed"
-/// overrides the update_fire proc to always add fire (for lava)
-#define TRAIT_PERMANENTLY_ONFIRE "permanently_onfire"
+/// Mobs that have this trait cannot be extinguished
+#define TRAIT_NO_EXTINGUISH "no_extinguish"
 /// Indicates if the mob is currently speaking with sign language
 #define TRAIT_SIGN_LANG "sign_language"
 /// The mob's nanites are sending a monitoring signal visible on diag HUD
@@ -543,6 +546,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
+
+/// Mob is unable to feel pain
+#define TRAIT_ANALGESIA "analgesia"
+
+/// Is the mob standing on an elevated surface? This prevents them from dropping down if not elevated first.
+#define TRAIT_ON_ELEVATED_SURFACE "on_elevated_surface"
 
 // METABOLISMS
 // Various jobs on the station have historically had better reactions
@@ -906,6 +915,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define LICH_TRAIT "lich"
+
+/// From [/datum/element/elevation] for purpose of registering/removing signals and detaching the elevation_core when the trait is absent.
+#define TRAIT_TURF_HAS_ELEVATED_OBJ(z) "turf_has_elevated_obj_[z]"
 /// The item is magically cursed
 #define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
@@ -974,6 +986,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 /// Trait from being under the floor in some manner
 #define TRAIT_UNDERFLOOR "underfloor"
+/// From [/datum/element/elevation_core] for purpose of checking if the turf has the trait from an instance of the element
+#define TRAIT_ELEVATED_TURF "elevated_turf"
+/// If the movable shouldn't be reflected by mirrors.
+#define TRAIT_NO_MIRROR_REFLECTION "no_mirror_reflection"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -1255,6 +1271,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLUED_ITEM_TRAIT "glued-item"
 #define TRAIT_BELT_SATCHEL "belt_satchel"
 
+/// Trait given to mobs that we do not want to mindswap
+#define TRAIT_NO_MINDSWAP "no_mindswap"
+
 //monkestation edit start
 /// One can breath under water, you get me?
 #define TRAIT_WATER_BREATHING "water_breathing"
@@ -1284,5 +1303,3 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
-/// Trait given to mobs that we do not want to mindswap
-#define TRAIT_NO_MINDSWAP "no_mindswap"

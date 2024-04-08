@@ -522,16 +522,6 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE
 
-/datum/design/board/monkey_recycler
-	name = "Monkey Recycler Board"
-	desc = "The circuit board for a monkey recycler."
-	id = "monkey_recycler"
-	build_path = /obj/item/circuitboard/machine/monkey_recycler
-	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
-
 /datum/design/board/seed_extractor
 	name = "Seed Extractor Board"
 	desc = "The circuit board for a seed extractor."
@@ -616,7 +606,7 @@
 	name = "Weapon Recharger Board"
 	desc = "The circuit board for a Weapon Recharger."
 	id = "recharger"
-	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000)
+	materials = list(/datum/material/glass =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/gold =SHEET_MATERIAL_AMOUNT)
 	build_path = /obj/item/circuitboard/machine/recharger
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SECURITY

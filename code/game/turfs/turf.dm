@@ -195,12 +195,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		for(var/A in B.contents)
 			qdel(A)
 		return
-	QDEL_LIST(blueprint_data)
+	LAZYCLEARLIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	if (length(vis_contents))
+	if(length(vis_contents))
 		vis_contents.Cut()
 	SEND_SIGNAL(src, COMSIG_TURF_DESTROY)
 
@@ -601,12 +601,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if((acidpwr <= 0) || (acid_volume <= 0))
 		return FALSE
 
-	AddComponent(/datum/component/acid, acidpwr, acid_volume)
-	for(var/obj/O in src)
-		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+	AddComponent(/datum/component/acid, acidpwr, acid_volume, GLOB.acid_overlay)
+	for(var/atom/movable/movable_atom as anything in src)
+		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(movable_atom, TRAIT_T_RAY_VISIBLE))
 			continue
 
-		O.acid_act(acidpwr, acid_volume)
+		movable_atom.acid_act(acidpwr, acid_volume)
 
 	return . || TRUE
 

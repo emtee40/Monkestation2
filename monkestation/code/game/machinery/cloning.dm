@@ -51,6 +51,8 @@
 	var/list/unattached_flesh
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
+	/// Whether autoprocessing will automatically clone, or just scan.
+	var/auto_clone = TRUE
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
 
@@ -395,6 +397,10 @@
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
 		mob_occupant.flash_act()
+
+	var/policy = get_policy(POLICY_REVIVAL_CLONER) || get_policy(POLICY_REVIVAL)
+	if(policy)
+		to_chat(occupant, policy)
 
 	mob_occupant.adjustOrganLoss(ORGAN_SLOT_BRAIN, mob_occupant.getCloneLoss())
 

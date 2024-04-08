@@ -9,7 +9,7 @@
 	description = "The crew will either pay up, or face a pirate assault."
 	admin_setup = list(/datum/event_admin_setup/listed_options/pirates)
 	map_flags = EVENT_SPACE_ONLY
-	track = EVENT_TRACK_MAJOR
+	track = EVENT_TRACK_ROLESET
 	tags = list(TAG_COMBAT, TAG_COMMUNAL)
 	checks_antag_cap = TRUE
 
@@ -61,7 +61,7 @@
 	if(chosen_gang.paid_off)
 		return
 
-	var/list/candidates = poll_ghost_candidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
+	var/list/candidates = SSpolling.poll_ghost_candidates("Do you wish to be considered for a pirate crew of [chosen_gang.name]?", check_jobban = ROLE_SPACE_PIRATE, pic_source = /obj/item/claymore/cutlass, role_name_text = "pirate crew")
 	shuffle_inplace(candidates)
 
 	var/template_key = "pirate_[chosen_gang.ship_template_id]"
@@ -78,7 +78,7 @@
 
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/ghost_role/human/pirate/spawner in A)
-			if(candidates.len > 0)
+			if(length(candidates) > 0)
 				var/mob/our_candidate = candidates[1]
 				var/mob/spawned_mob = spawner.create_from_ghost(our_candidate)
 				candidates -= our_candidate

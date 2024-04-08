@@ -98,12 +98,6 @@
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE)
 
-/obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
-	if(!user.is_adult)
-		return
-	if(attack_generic(user, rand(10, 15), BRUTE, MELEE, 1))
-		log_combat(user, src, "attacked")
-
 /obj/singularity_act()
 	SSexplosions.high_mov_atom += src
 	if(src && !QDELETED(src))
@@ -116,10 +110,10 @@
 ///the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
 	. = ..()
-	if((resistance_flags & UNACIDABLE) || (acid_volume <= 0) || acidpwr <= 0)
+	if((resistance_flags & UNACIDABLE) || (acid_volume <= 0) || (acidpwr <= 0))
 		return FALSE
 
-	AddComponent(/datum/component/acid, acidpwr, acid_volume)
+	AddComponent(/datum/component/acid, acidpwr, acid_volume, custom_acid_overlay || GLOB.acid_overlay)
 	return TRUE
 
 ///called when the obj is destroyed by acid.
@@ -131,8 +125,8 @@
 ///Called when the obj is exposed to fire.
 /obj/fire_act(exposed_temperature, exposed_volume)
 	if(isturf(loc))
-		var/turf/T = loc
-		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
+		var/turf/our_turf = loc
+		if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
 			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
 		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
@@ -141,9 +135,8 @@
 		return TRUE
 	return ..()
 
-///called when the obj is destroyed by fire
-/obj/burn()
-	. = ..()
+/// Should be called when the atom is destroyed by fire, comparable to acid_melt() proc
+/obj/proc/burn()
 	deconstruct(FALSE)
 
 ///Called when the obj is hit by a tesla bolt.

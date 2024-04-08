@@ -213,7 +213,10 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
+			var/chem_name = R.name
+			if(istype(R, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+				chem_name = "Ammonia?"
+			beakerContents.Add(list(list("name" = chem_name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -478,7 +481,7 @@
 	has_panel_overlay = FALSE
 	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP // magical mystery temperature of 274.5, where ice does not melt, and water does not freeze
 	amount = 10
-	pixel_y = 6
+	anchored_tabletop_offset = 6
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks
 	working_state = null
 	nopower_state = null
@@ -502,6 +505,7 @@
 		/datum/reagent/consumable/shamblers,
 		/datum/reagent/consumable/spacemountainwind,
 		/datum/reagent/consumable/sodawater,
+		/datum/reagent/consumable/sol_dry,
 		/datum/reagent/consumable/space_up,
 		/datum/reagent/consumable/sugar,
 		/datum/reagent/consumable/tea,

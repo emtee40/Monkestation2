@@ -14,6 +14,7 @@
 	if(!prev_lying)
 		gib_animation()
 
+	ghostize()
 	spill_organs(no_brain, no_organs, no_bodyparts)
 
 	if(!no_bodyparts)
@@ -74,6 +75,9 @@
 	if(stat == DEAD)
 		return FALSE
 
+	if(!gibbed && (death_sound || death_message))
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
+
 	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
@@ -105,8 +109,5 @@
 
 	if (client)
 		client.move_delay = initial(client.move_delay)
-
-	if(!gibbed && (death_sound || death_message))
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 
 	return TRUE
