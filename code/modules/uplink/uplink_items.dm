@@ -143,9 +143,6 @@
 
 	if(isgun(created))
 		replace_pin(created)
-	else if(istype(created, /obj/item/storage/toolbox/guncase))
-		for(var/obj/item/gun/gun in created)
-			replace_pin(gun)
 
 	if(isobj(created))
 		var/obj/created_obj = created
