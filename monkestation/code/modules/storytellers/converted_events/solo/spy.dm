@@ -4,6 +4,10 @@
 	tags = list(TAG_COMBAT)
 	antag_datum = /datum/antagonist/spy
 	roundstart = TRUE
+	weight = 5
+	cost = 8
+	antag_cap = list("denominator" = 8, "offset" = 1)
+	requirements = list(8, 8, 8, 8, 8, 8, 8, 8, 8, 8)
 	earliest_start = 0 SECONDS
 	protected_roles = list(
 		JOB_CAPTAIN,
