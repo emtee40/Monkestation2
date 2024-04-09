@@ -180,6 +180,9 @@
 	if(slime.blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(slime)
 
+	if(slime.blood_volume < 0)
+		slime.blood_volume = 0
+
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/slime)
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - slime.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
@@ -203,7 +206,6 @@
 /// Here's where slimes heal off plasma and where they hate drinking water.
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/slime, seconds_per_tick, times_fired)
-	. = ..()
 	// slimes use plasma to fix wounds, and if they have enough blood, organs
 	var/static/list/organs_we_mend = list(
 		ORGAN_SLOT_BRAIN,
@@ -227,13 +229,14 @@
 
 	if(chem.type == /datum/reagent/water)
 		if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
-			return
+			return TRUE
 
 		slime.blood_volume -= 3 * seconds_per_tick
 		slime.reagents.remove_reagent(chem.type, min(chem.volume * 0.22, 10))
 		if (SPT_PROB(25, seconds_per_tick))
 			to_chat(slime, span_warning("The water starts to weaken and adulterate your insides!"))
-	return TRUE
+
+	return ..()
 
 
 /datum/reagent/toxin/slimeooze
