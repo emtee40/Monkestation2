@@ -66,7 +66,7 @@
 	QDEL_NULL(working_material)
 
 /obj/structure/anvil/attacked_by(obj/item/attacking_item, mob/living/user)
-	if(isstack(attacking_item) || istype(attacking_item, /obj/item/merged_material))
+	if((isstack(attacking_item) || istype(attacking_item, /obj/item/merged_material)) && !smithing)
 		if(try_place_item(attacking_item, user))
 			return TRUE
 
