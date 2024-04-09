@@ -45,16 +45,9 @@
 			return
 		chosen_recipe = name_to_type[pick]
 
-	if(!smithing && working_material && chosen_recipe)
-		var/datum/component/worked_material/component = working_material.GetComponent(/datum/component/worked_material)
+	if(!smithing && working_material && chosen_recipe && working_material.material_stats)
 		var/density_hardness = 0
-
-		if(!component)
-			var/obj/item/stack/stack = working_material
-			var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-			density_hardness = material.hardness + material.density
-		else
-			density_hardness = component.hardness + component.density
+		density_hardness = working_material.material_stats.hardness + working_material.material_stats.density
 
 		var/difficulty_modifier = density_hardness / 30
 
@@ -97,7 +90,7 @@
 			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
 			new_stack.forceMove(src)
 			working_material = new_stack
-	else if(item.GetComponent(/datum/component/worked_material))
+	else if(istype(item, /obj/item/merged_material))
 		item.forceMove(src)
 		working_material = item
 	return TRUE

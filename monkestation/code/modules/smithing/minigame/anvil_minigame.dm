@@ -52,7 +52,7 @@
 	. = TRUE
 	anvil_hud = new
 	anvil_hud.prepare_minigame(src, anvil_presses)
-	RegisterSignal(user.client, COMSIG_CLIENT_CLICK, PROC_REF(check_click))
+	RegisterSignal(user.client, COMSIG_CLIENT_CLICK_DIRTY, PROC_REF(check_click))
 
 	START_PROCESSING(SSfishing, src)
 
@@ -148,7 +148,7 @@
 
 /datum/anvil_challenge/proc/end_minigame()
 	success = max(0, round(success - ((100 * (failed_notes / total_notes)) + 1 * (off_time * 2))))
-	UnregisterSignal(user.client, COMSIG_CLIENT_CLICK)
+	UnregisterSignal(user.client, COMSIG_CLIENT_CLICK_DIRTY)
 	STOP_PROCESSING(SSfishing, src)
 	anvil_presses = null
 	note_pixels_moved = null
@@ -226,6 +226,8 @@
 
 /atom/movable/screen/hud_note/proc/check_click(list/click_modifiers)
 	var/list/copied_checks = click_requirements
+	if(length(click_modifiers) != length(copied_checks))
+		return FALSE
 	for(var/item in copied_checks)
 		if(item in click_modifiers)
 			copied_checks -= item

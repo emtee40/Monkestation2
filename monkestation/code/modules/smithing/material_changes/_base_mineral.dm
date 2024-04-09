@@ -22,12 +22,7 @@
 
 /obj/item/stack/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt)
 	. = ..()
-	//TODO: We need a managed subsystem for traits that stores materials with process effects if we want full experiences
 	if(!material_type)
 		return
-	var/datum/material/material = GET_MATERIAL_REF(material_type)
-	if(!material)
-		return
-	for(var/datum/material_trait/trait as anything in material.material_traits)
-		var/datum/material_trait/new_trait = new trait
-		new_trait.on_trait_add(src)
+	create_stats_from_material(material_type, FALSE)
+	material_stats.material_bitflags |= MATERIAL_STACK

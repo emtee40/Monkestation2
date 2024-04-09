@@ -13,11 +13,10 @@
 	var/scale_shift = 0
 
 	initial_scale = parent.base_scale
-	var/datum/component/worked_material/conductor = parent.conductor.GetComponent(/datum/component/worked_material)
-	if(conductor.conductivity)
-		electrical_conductivity = conductor.conductivity
-	if(conductor.thermal)
-		thermal_conductivity = conductor.thermal
+	if(parent.conductor.material_stats.conductivity)
+		electrical_conductivity = parent.conductor.material_stats.conductivity
+	if(parent.conductor.material_stats.thermal)
+		thermal_conductivity = parent.conductor.material_stats.thermal
 
 
 	scale_shift = clamp(((2 * electrical_conductivity / thermal_conductivity) - 2) * 10 , -20, 40)

@@ -337,6 +337,9 @@
 	if(smoothing_flags & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
 
+	if(material_stats)
+		QDEL_NULL(material_stats)
+
 	return ..()
 
 /// A quick and easy way to create a storage datum for an atom

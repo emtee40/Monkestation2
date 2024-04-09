@@ -12,8 +12,6 @@
 	reach = 2
 	AddComponent(/datum/component/multi_hit, icon_state = "swipe", width = 3, continues_travel = TRUE)
 
-	var/datum/component/worked_material/material = GetComponent(/datum/component/worked_material)
-
-	force = round(((material.density + material.hardness) / 5) * (smithed_quality * 0.01))
+	force = round(((material_stats.density + material_stats.hardness) / 5) * (smithed_quality * 0.01))
 	throwforce = force * 0.1 // good luck whipping a staff at something
 	w_class = WEIGHT_CLASS_HUGE

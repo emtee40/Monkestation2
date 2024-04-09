@@ -2,7 +2,7 @@
 	name = "Slippery"
 	reforges = 2
 
-/datum/material_trait/slippery/on_process(atom/movable/parent, datum/component/worked_material/host)
+/datum/material_trait/slippery/on_process(atom/movable/parent, datum/material_stats/host)
 	. = ..()
 	if(prob(50))
 		return

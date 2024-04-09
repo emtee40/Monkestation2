@@ -37,7 +37,10 @@
 	if(isstack(attacking_item))
 		var/obj/item/stack/stack = attacking_item
 		if(!stack.material_type)
-			return ..()
+			return TRUE
+		if(stack.amount > 1)
+			attacking_item = stack.split_stack(user, 1)
+
 		if(try_add_to_buffer(attacking_item))
 			return TRUE
 	if(istype(attacking_item, /obj/item/merged_material))
@@ -66,33 +69,16 @@
 		return FALSE
 
 	var/obj/item/merged_material/new_material = new(get_turf(src))
-	SEND_SIGNAL(new_material, COMSIG_MATERIAL_MERGE_MATERIAL, slot_one_item)
-	SEND_SIGNAL(new_material, COMSIG_MATERIAL_MERGE_MATERIAL, slot_two_item)
+	if(isstack(slot_one_item))
+		var/obj/item/stack/stack = slot_one_item
+		new_material.create_stats_from_material(stack.material_type)
+	else
+		new_material.create_stats_from_material_stats(slot_one_item.material_stats)
 
-	new_material.material_name = merge_names()
-	new_material.name = "[new_material.material_name] Ingot"
+	new_material.combine_material_stats(slot_two_item)
+
+	new_material.name = "[new_material.material_stats.material_name] Ingot"
 
 	QDEL_NULL(slot_one_item)
 	QDEL_NULL(slot_two_item)
 	return TRUE
-
-/obj/machinery/arc_forge/proc/merge_names()
-	var/name_1 = ""
-	var/name_2 = ""
-
-	if(slot_one_item.GetComponent(/datum/component/worked_material))
-		var/obj/item/merged_material/mat = slot_one_item
-		name_1 = copytext(mat.material_name, 1, round((length(mat.material_name) * 0.5) + 0.5))
-	else
-		var/obj/item/stack/stack = slot_one_item
-		var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-		name_1 = copytext(material.name, 1, round((length(material.name) * 0.5) + 0.5))
-
-	if(slot_two_item.GetComponent(/datum/component/worked_material))
-		var/obj/item/merged_material/mat = slot_two_item
-		name_2 = copytext(mat.material_name, round((length(mat.material_name) * 0.5) + 0.5), 0)
-	else
-		var/obj/item/stack/stack = slot_two_item
-		var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-		name_2 = copytext(material.name, round((length(material.name) * 0.5) + 0.5), 0)
-	return "[name_1][name_2]"

@@ -7,7 +7,6 @@
 	icon_state = "hot_chain"
 
 	var/base_name = "generic item"
-	var/mat_name = "???"
 
 	var/smithed_quality = 100
 
@@ -19,18 +18,14 @@
 	if(!created_from)
 		created_from = new /obj/item/stack/sheet/mineral/gold
 
-	if(!istype(created_from, /obj/item/merged_material))
-		var/obj/item/stack/stack = created_from
-		var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-		name = "[material.name] [base_name]"
-		mat_name = material.name
-	else
-		var/obj/item/merged_material/mat = created_from
-		name = "[mat.material_name] [base_name]"
-		mat_name = mat.material_name
 
-	AddComponent(/datum/component/worked_material)
-	SEND_SIGNAL(src, COMSIG_MATERIAL_MERGE_MATERIAL, created_from)
+	if(isstack(created_from) && !created_from.material_stats)
+		var/obj/item/stack/stack = created_from
+		create_stats_from_material(stack.material_type)
+	else
+		create_stats_from_material_stats(created_from.material_stats)
+
+	name = "[material_stats.material_name] [base_name]"
 
 	var/damage_state
 	switch(smithed_quality)
@@ -51,7 +46,7 @@
 
 /obj/item/smithed_part/update_name(updates)
 	. = ..()
-	name = "[mat_name] [base_name]"
+	name = "[material_stats.material_name] [base_name]"
 
 /obj/item/smithed_part/weapon_part
 	var/complete = FALSE
@@ -65,7 +60,7 @@
 /obj/item/smithed_part/weapon_part/update_name(updates)
 	. = ..()
 	if(complete)
-		name = "[mat_name] [weapon_name]"
+		name = "[material_stats.material_name] [weapon_name]"
 
 /obj/item/smithed_part/weapon_part/update_overlays()
 	. = ..()

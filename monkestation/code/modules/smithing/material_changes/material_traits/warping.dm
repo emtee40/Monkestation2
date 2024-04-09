@@ -1,8 +1,9 @@
 /datum/material_trait/warping
 	name = "Warping"
 	reforges = 2
+	trait_flags = MATERIAL_TRACK_NO_STACK_PROCESS
 
-/datum/material_trait/warping/on_process(atom/movable/parent, datum/component/worked_material/host)
+/datum/material_trait/warping/on_process(atom/movable/parent, datum/material_stats/host)
 	. = ..()
 	if(prob(90))
 		return

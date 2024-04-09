@@ -8,6 +8,6 @@
 
 /datum/material_trait/proc/on_remove(atom/movable/parent)
 
-/datum/material_trait/proc/on_process(atom/movable/parent, datum/component/worked_material/host)
+/datum/material_trait/proc/on_process(atom/movable/parent, datum/material_stats/host)
 
-/datum/material_trait/proc/on_mob_attack(atom/movable/parent, datum/component/worked_material/host, mob/living/target, mob/living/attacker)
+/datum/material_trait/proc/on_mob_attack(atom/movable/parent, datum/material_stats/host, mob/living/target, mob/living/attacker)

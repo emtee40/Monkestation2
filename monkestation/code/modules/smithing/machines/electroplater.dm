@@ -29,7 +29,6 @@
 	var/plating = FALSE
 
 /obj/machinery/electroplater/attacked_by(obj/item/attacking_item, mob/living/user)
-	. = ..()
 	if(isstack(attacking_item))
 		if(stored_material)
 			return FALSE
@@ -60,9 +59,10 @@
 		return TRUE
 
 	plating_item = attacking_item
-	attacking_item.forceMove(src)
-	try_plate()
-	return FALSE
+	if(attacking_item.forceMove(src))
+		try_plate()
+		return FALSE
+	. = ..()
 
 /obj/machinery/electroplater/proc/try_plate()
 	if(!stored_material || !plating_item)
@@ -71,21 +71,15 @@
 	icon_state = "plater1"
 
 	machine_do_after_visable(src, plating_time) // glorified sleep go brrr
-	if(!plating_item.GetComponent(/datum/component/worked_material))
-		plating_item.AddComponent(/datum/component/worked_material)
-	SEND_SIGNAL(plating_item, COMSIG_MATERIAL_MERGE_MATERIAL, stored_material)
-	plating_item.forceMove(get_turf(src))
+	if(!plating_item.material_stats)
+		if(isstack(stored_material))
+			var/obj/item/stack/stack = stored_material
+			plating_item.create_stats_from_material(stack.material_type)
+		else
+			plating_item.create_stats_from_material_stats(stored_material.material_stats)
 
-	var/material_name = "???"
-	if(isstack(stored_material))
-		var/obj/item/stack/stack = stored_material
-		if(stack.material_type)
-			var/datum/material/material = GET_MATERIAL_REF(stack.material_type)
-			material_name = material.name
-	else if(istype(stored_material, /obj/item/merged_material))
-		var/obj/item/merged_material/mat = stored_material
-		material_name = mat.material_name
-	plating_item.name = "[material_name] plated [plating_item.name]"
+	plating_item.forceMove(get_turf(src))
+	plating_item.name = "[plating_item.material_stats.material_name] plated [plating_item.name]"
 
 	QDEL_NULL(stored_material)
 	plating_item = null
