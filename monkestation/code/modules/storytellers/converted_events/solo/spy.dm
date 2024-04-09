@@ -1,4 +1,4 @@
-/datum/round_event_control/antagonist/solo/spy
+/datum/round_event_control/antagonist/solo/spy/roundstart
 	name = "Spy"
 	antag_flag = ROLE_SPY
 	tags = list(TAG_COMBAT)
