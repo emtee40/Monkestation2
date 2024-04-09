@@ -270,7 +270,7 @@
 	name = "combat first aid kit"
 	icon_state = "medkit_tactical"
 	inhand_icon_state = "medkit-tactical"
-	damagetype_healed = HEAL_ALL_DAMAGE
+	damagetype_healed = "all"
 
 /obj/item/storage/medkit/tactical_lite/PopulateContents()
 	if(empty)
