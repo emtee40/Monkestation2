@@ -186,6 +186,7 @@
 		unlock_text += "Simply speak \"[new_uplink.unlock_code]\" into frequency [RADIO_TOKEN_UPLINK] to unlock its hidden features."
 		add_memory(/datum/memory/key/traitor_uplink, uplink_loc = uplink_loc.name, uplink_code = new_uplink.unlock_code)
 	else if(istype(uplink_loc, /obj/item/pen))
+		var/instructions = english_list(new_uplink.unlock_code)
 		unlock_text += "Simply twist the top of the pen [instructions] from its starting position to unlock its hidden features."
 		add_memory(/datum/memory/key/traitor_uplink, uplink_loc = uplink_loc.name, uplink_code = instructions)
 
