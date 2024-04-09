@@ -1,3 +1,5 @@
+/obj/item/var/stamina_cost = 0
+
 /obj/item/smithed_part
 	name = "generic smithed item"
 	desc = "A forged item."
