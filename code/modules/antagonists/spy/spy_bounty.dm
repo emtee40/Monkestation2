@@ -197,7 +197,7 @@
 	return desired_item.targetitem
 
 /// Determines if the passed objective item is a reasonable, valid theft target.
-/datum/spy_bounty/objective_item/proc/is_valid_objective_item(datum/objective_item/item)
+/datum/spy_bounty/objective_item/proc/is_valid_objective_item(datum/spy_bounty/objective_item/item)
 	if(length(item.special_equipment) || item.difficulty <= 0 || item.difficulty >= 6)
 		return FALSE
 	if(is_type_in_typecache(item, blacklisted_item_types))
