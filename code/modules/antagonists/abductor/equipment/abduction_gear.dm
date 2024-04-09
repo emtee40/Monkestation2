@@ -24,7 +24,7 @@
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
-	var/combat_cooldown = 20
+	var/combat_cooldown = 2 SECONDS
 	var/datum/icon_snapshot/disguise
 
 /datum/armor/abductor_combat
