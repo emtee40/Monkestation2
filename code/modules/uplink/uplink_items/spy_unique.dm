@@ -95,11 +95,6 @@
 	item = /obj/item/storage/box/lethalshot
 	cost = 1
 
-/datum/uplink_item/spy_unique/shotgun_ammo/breacher_slug
-	name = "Box of Breacher Slugs"
-	desc = "A box of breacher slugs for a shotgun. For making a good first impression."
-	item = /obj/item/storage/box/breacherslug
-
 /datum/uplink_item/spy_unique/shotgun_ammo/slugs
 	name = "Box of Slugs"
 	desc = "A box of slugs for a shotgun. For big game hunting."
