@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(blackmarket)
 		if(!prob(initial(item.availability_prob)))
 			continue
 
-	var/datum/market_item/item_instance = new item()
+		var/datum/market_item/item_instance = new item()
 		for(var/potential_market in item_instance.markets)
 			if(!markets[potential_market])
 				stack_trace("SSblackmarket: Item [item_instance] available in market that does not exist.")
