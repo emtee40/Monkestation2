@@ -84,8 +84,8 @@ const format_deciseconds = (deciseconds: number) => {
   return `${minutes_string}:${seconds_string}`;
 };
 
-export const SpyUplink = () => {
-  const { data } = useBackend<Data>();
+export const SpyUplink = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { bounties, time_left } = data;
 
   return (

@@ -1,17 +1,7 @@
 import { useBackend } from '../backend';
-import { Section, Stack } from '../components';
+import { Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { Objective, ObjectivePrintout } from './common/Objectives';
-
-const greenText = {
-  fontWeight: 'italics',
-  color: '#20b142',
-};
-
-const redText = {
-  fontWeight: 'italics',
-  color: '#e03c3c',
-};
 
 type Data = {
   antag_name: string;
@@ -19,15 +9,12 @@ type Data = {
   objectives: Objective[];
 };
 
-export const AntagInfoSpy = () => {
-  const { data } = useBackend<Data>();
+export const AntagInfoSpy = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { antag_name, uplink_location, objectives } = data;
   return (
     <Window width={380} height={420} theme="ntos_darkmode">
-      <Window.Content
-        style={{
-          backgroundImage: 'none',
-        }}>
+      <Window.Content style={{ backgroundImage: 'none' }}>
         <Section title={`You are the ${antag_name || 'Spy'}.`}>
           <Stack vertical fill ml={1} mr={1}>
             <Stack.Item fontSize={1.2}>
@@ -36,10 +23,10 @@ export const AntagInfoSpy = () => {
               the station.
             </Stack.Item>
             <Stack.Item>
-              <span style={greenText}>
-                <b>Use it in hand</b> to access your uplink, and{' '}
-                <b>right click</b> on bounty targets to steal them.
-              </span>
+              <Stack.Item fontFamily="italics" color={'#20b142'}>
+                <Box>Use it in hand</Box> to access your uplink, and{' '}
+                <Box>right click</Box> on bounty targets to steal them.
+              </Stack.Item>
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item>
@@ -47,7 +34,9 @@ export const AntagInfoSpy = () => {
             </Stack.Item>
             <Stack.Item>
               Work together or work against them: The choice is yours, but{' '}
-              <span style={redText}>you cannot share the rewards.</span>
+              <Stack.Item fontFamily="italics" color={'#e03c3c'}>
+                you cannot share the rewards.
+              </Stack.Item>
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item>
