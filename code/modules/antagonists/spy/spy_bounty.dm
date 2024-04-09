@@ -385,7 +385,6 @@
 		/obj/machinery/computer/operating,
 		/obj/machinery/computer/order_console/mining,
 		/obj/machinery/computer/records/medical,
-		/obj/machinery/cryo_cell,
 		/obj/machinery/fax, // Completely random, wild card
 		/obj/machinery/hydroponics/constructable,
 		/obj/machinery/medical_kiosk,
@@ -403,7 +402,6 @@
 	random_options = list(
 		/obj/machinery/chem_dispenser,
 		/obj/machinery/computer/bank_machine,
-		/obj/machinery/computer/camera_advanced/xenobio,
 		/obj/machinery/computer/cargo, // This includes request-only ones in the public lobby
 		/obj/machinery/computer/crew,
 		/obj/machinery/computer/prisoner/management,
@@ -674,11 +672,6 @@
 	difficulty = SPY_DIFFICULTY_HARD
 	bot_type = /mob/living/simple_animal/bot/secbot/pingsky
 	help = "Abduct Officer Pingsky - commonly found protecting the station's AI."
-
-/datum/spy_bounty/some_bot/scrubbs
-	difficulty = SPY_DIFFICULTY_EASY
-	bot_type = /mob/living/basic/bot/cleanbot/medbay
-	help = "Abduct Scrubbs, MD - commonly found mopping up blood in Medbay."
 
 /datum/spy_bounty/some_bot/scrubbs/can_claim(mob/user)
 	return !(user.mind?.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_MEDICAL)
