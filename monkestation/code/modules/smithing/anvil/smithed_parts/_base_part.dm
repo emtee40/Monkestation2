@@ -4,7 +4,7 @@
 
 	icon = 'monkestation/code/modules/smithing/icons/forge_items.dmi'
 	base_icon_state = "chain"
-	icon_state = "hot_chain"
+	icon_state = "chain"
 
 	var/base_name = "generic item"
 
