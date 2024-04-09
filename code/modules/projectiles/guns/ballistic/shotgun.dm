@@ -92,7 +92,7 @@
 	alt_mag_type = /obj/item/ammo_box/magazine/internal/shot/tube/fire
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/deadly
-	spawn_magazine_type = /obj/item/ammo_box/magazine/internal/shot/tube/buckshot
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube/buckshot
 	alt_mag_type = /obj/item/ammo_box/magazine/internal/shot/tube/slug
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
