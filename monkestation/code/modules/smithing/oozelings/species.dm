@@ -1,3 +1,6 @@
+#define DAMAGE_WATER_STACKS 5
+#define REGEN_WATER_STACKS 1
+
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	plural_form = "Oozelings"
@@ -9,22 +12,24 @@
 		EYECOLOR,
 		HAIR,FACEHAIR,
 		)
+
+	hair_color = "mutcolor"
+	hair_alpha = 160
+
+	mutantliver = /obj/item/organ/internal/liver/slime
+	mutantstomach = /obj/item/organ/internal/stomach/slime
+	mutantbrain = /obj/item/organ/internal/brain/slime
+	mutantears = /obj/item/organ/internal/ears/jelly
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TOXINLOVER,
-		TRAIT_NOFIRE,
-		//TRAIT_ALWAYS_CLEAN,
+		TRAIT_NOBLOOD,
 		TRAIT_EASYDISMEMBER,
-		TRAIT_NOBLOOD
+		TRAIT_NOFIRE,
 	)
 
-	hair_color = "mutcolor"
-	hair_alpha = 150
-	mutantlungs = /obj/item/organ/internal/lungs/oozeling
-	mutanttongue = /obj/item/organ/internal/tongue/oozeling
 	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
-	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	burnmod = 0.6 // = 3/5x generic burn damage
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
@@ -44,6 +49,11 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
 	)
+
+	var/datum/action/innate/regenerate_limbs/regenerate_limbs
+	var/datum/action/cooldown/spell/slime_washing/slime_washing
+	var/datum/action/cooldown/spell/slime_hydrophobia/slime_hydrophobia
+	var/datum/action/innate/core_signal/core_signal
 
 /datum/species/oozeling/get_scream_sound(mob/living/carbon/human/human)
 	if(human.gender == MALE)
@@ -89,6 +99,12 @@
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
+	if(slime_washing)
+		slime_washing.Remove(C)
+	if(slime_hydrophobia)
+		slime_hydrophobia.Remove(C)
+	if(core_signal)
+		core_signal.Remove(C)
 	..()
 
 /datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -96,122 +112,129 @@
 	if(ishuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
+		slime_washing = new
+		slime_washing.Grant(C)
+		slime_hydrophobia = new
+		slime_hydrophobia.Grant(C)
+		core_signal = new
+		core_signal.Grant(C)
 
-/datum/species/oozeling/spec_life(mob/living/carbon/human/H)
-	..()
-	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
+//////
+/// HEALING SECTION
+/// Handles passive healing and water damage.
+
+/datum/species/oozeling/spec_life(mob/living/carbon/human/slime, seconds_per_tick, times_fired)
+	. = ..()
+	if(slime.stat != CONSCIOUS)
 		return
-	if(!H.blood_volume)
-		H.blood_volume += 5
-		H.adjustBruteLoss(5)
-		to_chat(H, span_danger("You feel empty!"))
-	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
-		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-			H.adjust_nutrition(-5)
-			H.blood_volume += 10
+
+	var/healing = TRUE
+
+	var/datum/status_effect/fire_handler/wet_stacks/wetness = locate() in slime.status_effects
+	if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
+		return
+	if(istype(wetness) && wetness.stacks > (DAMAGE_WATER_STACKS))
+		slime.blood_volume -= 2 * seconds_per_tick
+		if (SPT_PROB(25, seconds_per_tick))
+			slime.visible_message(span_danger("[slime]'s form begins to lose cohesion, seemingly diluting with the water!"), span_warning("The water starts to dilute your body, dry it off!"))
+
+	if(istype(wetness) && wetness.stacks > (REGEN_WATER_STACKS))
+		healing = FALSE
+		if (SPT_PROB(25, seconds_per_tick))
+			to_chat(slime, span_warning("You can't pull your body together and regenerate with water inside it!"))
+			slime.blood_volume -= 1 * seconds_per_tick
+
+	if(slime.blood_volume > BLOOD_VOLUME_NORMAL && healing)
+		if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
+			return
+		if(slime.stat != CONSCIOUS)
+			return
+		slime.heal_overall_damage(brute = 2 * seconds_per_tick, burn = 2 * seconds_per_tick, required_bodytype = BODYTYPE_ORGANIC)
+		slime.adjustOxyLoss(-1 * seconds_per_tick)
+
+	if(!slime.blood_volume)
+		slime.blood_volume += 5
+		slime.adjustBruteLoss(5)
+		to_chat(slime, span_danger("You feel empty!"))
+
+	if(slime.nutrition >= NUTRITION_LEVEL_WELL_FED && slime.blood_volume <= 672)
+		if(slime.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+			slime.adjust_nutrition(-5)
+			slime.blood_volume += 10
 		else
-			H.blood_volume += 8
-	if(H.nutrition <= NUTRITION_LEVEL_HUNGRY)
-		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-			H.blood_volume -= 8
+			slime.blood_volume += 8
+
+	if(slime.nutrition <= NUTRITION_LEVEL_HUNGRY)
+		if(slime.nutrition <= NUTRITION_LEVEL_STARVING)
+			slime.blood_volume -= 8
 			if(prob(5))
-				to_chat(H, span_info("You're starving! Get some food!"))
+				to_chat(slime, span_info("You're starving! Get some food!"))
 		else
 			if(prob(35))
-				H.blood_volume -= 2
+				slime.blood_volume -= 2
 				if(prob(5))
-					to_chat(H, span_danger("You're feeling pretty hungry..."))
-	var/atmos_sealed = FALSE
-	if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
-		var/obj/item/clothing/CS = H.wear_suit
-		var/obj/item/clothing/CH = H.head
-		if(CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
-			atmos_sealed = TRUE
-	if(H.w_uniform && H.head)
-		var/obj/item/clothing/head_clothing = H.head
-		if(istype(head_clothing) && (head_clothing.clothing_flags & STOPSPRESSUREDAMAGE))
-			atmos_sealed = TRUE
-	if(!atmos_sealed)
-		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment?.total_moles())
-			environment.assert_gas(/datum/gas/water_vapor)
-			if(environment.gases[/datum/gas/water_vapor][MOLES] >= 1)
-				H.blood_volume -= 15
-				if(prob(50))
-					to_chat(H, "<span class='danger'>Your ooze melts away rapidly in the water vapor!</span>")
-			environment.assert_gas(/datum/gas/plasma)
-			if(H.blood_volume <= 672 && environment.gases[/datum/gas/plasma][MOLES] >= 1)
-				H.blood_volume += 15
-	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
-		to_chat(H, "<span class='danger'>You feel drained!</span>")
-	if(H.blood_volume < BLOOD_VOLUME_OKAY)
-		Cannibalize_Body(H)
+					to_chat(slime, span_danger("You're feeling pretty hungry..."))
 
-/datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
-	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
+	if(slime.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
+		to_chat(slime, span_danger("You feel drained!"))
+	if(slime.blood_volume < BLOOD_VOLUME_OKAY)
+		Cannibalize_Body(slime)
+
+/datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/slime)
+	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - slime.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
+
 	if(!limbs_to_consume.len)
-		H.losebreath++
+		slime.losebreath++
 		return
-	if(H.num_legs) //Legs go before arms
+	if(slime.num_legs) //Legs go before arms
 		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
-	consumed_limb = H.get_bodypart(pick(limbs_to_consume))
+
+	consumed_limb = slime.get_bodypart(pick(limbs_to_consume))
 	consumed_limb.drop_limb()
-	to_chat(H, "<span class='userdanger'>Your [consumed_limb] is drawn back into your body, unable to maintain its shape!</span>")
+
+	to_chat(slime, span_userdanger("Your [consumed_limb] is drawn back into your body, unable to maintain its shape!"))
 	qdel(consumed_limb)
-	H.blood_volume += 80
-	H.nutrition += 20
+	slime.blood_volume += 80
+	slime.nutrition += 20
 
-/datum/action/innate/regenerate_limbs
-	name = "Regenerate Limbs"
-	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "slimeheal"
-	button_icon = 'icons/mob/actions/actions_slime.dmi'
-	background_icon_state = "bg_alien"
-	overlay_icon_state = "bg_alien_border"
+///////
+/// CHEMICAL HANDLING
+/// Here's where slimes heal off plasma and where they hate drinking water.
 
-/datum/action/innate/regenerate_limbs/IsAvailable(feedback = FALSE)
+/datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/slime, seconds_per_tick, times_fired)
 	. = ..()
-	if(!.)
-		return
-	var/mob/living/carbon/human/H = owner
-	var/list/limbs_to_heal = H.get_missing_limbs()
-	if(!length(limbs_to_heal))
-		return FALSE
-	if(H.blood_volume >= BLOOD_VOLUME_OKAY+40)
-		return TRUE
+	// slimes use plasma to fix wounds, and if they have enough blood, organs
+	var/static/list/organs_we_mend = list(
+		ORGAN_SLOT_BRAIN,
+		ORGAN_SLOT_LUNGS,
+		ORGAN_SLOT_LIVER,
+		ORGAN_SLOT_STOMACH,
+		ORGAN_SLOT_EYES,
+		ORGAN_SLOT_EARS,
+	)
+	if(chem.type == /datum/reagent/toxin/plasma || chem.type == /datum/reagent/toxin/hot_ice)
+		for(var/datum/wound/iter_wound as anything in slime.all_wounds)
+			iter_wound.on_xadone(4 * REM * seconds_per_tick)
+			slime.reagents.remove_reagent(chem.type, min(chem.volume * 0.22, 10))
+		if(slime.blood_volume > BLOOD_VOLUME_SLIME_SPLIT)
+			slime.adjustOrganLoss(
+			pick(organs_we_mend),
+			- 2 * seconds_per_tick,
+		)
+		if (SPT_PROB(5, seconds_per_tick))
+			to_chat(slime, span_purple("Your body's thirst for plasma is quenched, your inner and outer membrane using it to regenerate."))
 
-/datum/action/innate/regenerate_limbs/Activate()
-	var/mob/living/carbon/human/H = owner
-	var/list/limbs_to_heal = H.get_missing_limbs()
-	if(!length(limbs_to_heal))
-		to_chat(H, span_notice("You feel intact enough as it is."))
-		return
-	to_chat(H, span_notice("You focus intently on your missing [length(limbs_to_heal) >= 2 ? "limbs" : "limb"]..."))
-	if(H.blood_volume >= 40*length(limbs_to_heal)+BLOOD_VOLUME_OKAY)
-		H.regenerate_limbs()
-		H.blood_volume -= 40*length(limbs_to_heal)
-		to_chat(H, span_notice("...and after a moment you finish reforming!"))
-		return
-	else if(H.blood_volume >= 40)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+40)
-			var/healed_limb = pick(limbs_to_heal)
-			H.regenerate_limb(healed_limb)
-			limbs_to_heal -= healed_limb
-			H.blood_volume -= 40
-		to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more mass to heal completely!"))
-		return
-	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more mass to heal!"))
-
-/datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/water)
-		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, "<span class='warning'>The water you consumed is melting away your insides!</span>")
-		H.blood_volume -= 25
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
+			return
+
+		slime.blood_volume -= 3 * seconds_per_tick
+		slime.reagents.remove_reagent(chem.type, min(chem.volume * 0.22, 10))
+		if (SPT_PROB(25, seconds_per_tick))
+			to_chat(slime, span_warning("The water starts to weaken and adulterate your insides!"))
+	return TRUE
+
 
 /datum/reagent/toxin/slimeooze
 	name = "Slime Ooze"
@@ -223,7 +246,7 @@
 
 /datum/reagent/toxin/slimeooze/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
-		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		to_chat(M, span_danger("Your insides are burning!</span>"))
 		M.adjustToxLoss(rand(1,10)*REM, 0)
 		. = 1
 	else if(prob(40))
