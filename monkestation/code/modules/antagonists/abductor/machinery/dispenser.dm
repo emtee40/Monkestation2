@@ -12,7 +12,8 @@
 	active_power_usage = 0
 	max_n_of_items = 1000
 	tgui_theme = "abductor"
-	var/repair_rate = 0
+	visible_contents = FALSE
+	has_emissive = FALSE
 	var/allowed_to_everyone = FALSE
 
 /obj/machinery/smartfridge/abductor/Initialize()
@@ -50,7 +51,7 @@
 	. = ..()
 	if(!istype(organ))
 		return
-	organ.organ_flags &= ~ORGAN_FROZEN
-	organ.organ_flags &= ~ORGAN_FAILING
+	organ.organ_flags &= ~(ORGAN_FROZEN | ORGAN_FAILING)
 	organ.set_organ_damage(-200)
 	organ.name = initial(organ.name)
+

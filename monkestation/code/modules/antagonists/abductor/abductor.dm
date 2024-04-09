@@ -1,6 +1,10 @@
 /datum/antagonist/abductor
 	/// A list of surgeries that abductors can't do, to prevent bullshittery.
-	var/static/list/forbidden_surgeries = typecacheof(list(/datum/surgery/advanced/brainwashing, /datum/surgery/advanced/necrotic_revival))
+	var/static/list/forbidden_surgeries = typecacheof(list(
+		/datum/surgery/advanced/brainwashing,
+		/datum/surgery/advanced/brainwashing_sleeper,
+		/datum/surgery/advanced/necrotic_revival
+	))
 
 /datum/antagonist/abductor/on_gain()
 	. = ..()
