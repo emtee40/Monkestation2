@@ -5,9 +5,8 @@
 	antag_datum = /datum/antagonist/spy
 	roundstart = TRUE
 	weight = 5
-	cost = 8
-	base_antags = 7
-	maximum_antags = 9
+	base_antags = 3
+	maximum_antags = 5
 	earliest_start = 0 SECONDS
 	protected_roles = list(
 		JOB_CAPTAIN,
