@@ -32,11 +32,13 @@
 	if(!isnull(user.mind))
 		link_to_console(user)
 
+	/* monkestation removal: get rid of the abductor batong recall
 	var/obj/item/melee/baton/abductor/batong = locate() in user
 	if(!isnull(batong))
 		var/datum/action/cooldown/spell/summonitem/abductor/ayy_summon = new(user.mind || user)
 		ayy_summon.mark_item(batong)
 		ayy_summon.Grant(user)
+	*/
 
 /datum/outfit/abductor/agent
 	name = "Abductor Agent"

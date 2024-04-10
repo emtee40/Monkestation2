@@ -178,6 +178,8 @@
 		item_to_retrieve.loc.visible_message(span_warning("[item_to_retrieve] suddenly appears!"))
 	playsound(get_turf(item_to_retrieve), 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
+/* monkestation removal: get rid of the abductor batong recall
+
 /datum/action/cooldown/spell/summonitem/abductor
 	name =  "Baton Recall"
 	desc = "Activating this will trigger your baton's emergency translocation protocol, \
@@ -208,3 +210,4 @@
 /datum/action/cooldown/spell/summonitem/abductor/try_unlink_item(mob/living/caster)
 	to_chat(caster, span_warning("You can't unlink [marked_item]'s translocation crystals."))
 	return FALSE
+*/
