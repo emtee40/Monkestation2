@@ -51,7 +51,7 @@
 
 	RegisterSignal(arrived, COMSIG_ATOM_SUCKED, PROC_REF(remove_cause_sucked))
 	RegisterSignal(arrived, COMSIG_LIVING_DEATH, PROC_REF(remove_cause_sucked))
-	RegiserSignals(arrived, list(COMSIG_PREQDELETED, COMSIG_QDELETING), PROC_REF(try_remove))
+	RegisterSignals(arrived, list(COMSIG_PREQDELETED, COMSIG_QDELETING), PROC_REF(try_remove))
 	managed_slimes |= arrived
 	for(var/datum/corral_upgrade/upgrade as anything in corral_upgrades)
 		upgrade.on_slime_entered(arrived, src)
