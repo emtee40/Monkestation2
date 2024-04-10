@@ -19,5 +19,5 @@
 	owner.vomit(20)
 
 	var/mob/living/basic/slime/friend = new(owner.drop_location())
-	friend.slime_flags |= (PASSIVE_SLIME | NOOOZE_SLIME)
+	friend.slime_flags |= NOOOZE_SLIME
 	SEND_SIGNAL(friend, COMSIG_FRIENDSHIP_CHANGE, owner, 110)
