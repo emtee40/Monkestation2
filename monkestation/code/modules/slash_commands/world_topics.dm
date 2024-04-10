@@ -78,7 +78,7 @@
 		return
 	var/client/chosen_client = reply.client
 	if(!chosen_client)
-		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLY CLIENT FOUND", input)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLY CLIENT FOUND")
 		return
 
 	to_chat(chosen_client, "<font color='purple'>Mentor PM from-<b>[key_name_mentor(from, chosen_client, TRUE, FALSE, FALSE)]</b>: [msg]</font>")
