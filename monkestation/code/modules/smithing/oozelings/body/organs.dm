@@ -91,7 +91,7 @@
 	span_notice("You hear a wet crunching sound."))
 	playsound(user, 'sound/effects/wounds/crackandbleed.ogg', 80, TRUE)
 
-	drop_items_to_ground()
+	drop_items_to_ground(get_turf(user))
 
 /obj/item/organ/internal/brain/slime/Insert(mob/living/carbon/organ_owner, special = FALSE, drop_if_replaced, no_id_transfer)
 	. = ..()
@@ -199,7 +199,6 @@
 		Insert(new_body)
 		for(var/obj/item/bodypart/bodypart as anything in new_body.bodyparts)
 			if(!istype(bodypart, /obj/item/bodypart/chest))
-				new_body.remove_bodypart(bodypart)
 				qdel(bodypart)
 				continue
 
@@ -209,11 +208,11 @@
 		if(brainmob)
 			brainmob.mind.transfer_to(new_body)
 
-		drop_items_to_ground()
+		drop_items_to_ground(get_turf(new_body))
 		return TRUE
 	return FALSE
 
-/obj/item/organ/internal/brain/slime/proc/drop_items_to_ground()
+/obj/item/organ/internal/brain/slime/proc/drop_items_to_ground(turf/turf)
 	for(var/atom/movable/item as anything in stored_items)
-		item.forceMove(get_turf(src))
+		item.forceMove(turf)
 		stored_items -= item

@@ -690,7 +690,6 @@
 
 	if(!can_be_disabled)
 		set_disabled(FALSE)
-		CRASH("update_disabled called with can_be_disabled false")
 
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		set_disabled(TRUE)

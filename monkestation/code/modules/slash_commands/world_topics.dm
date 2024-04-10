@@ -61,19 +61,24 @@
 
 /datum/world_topic/reply_mentor/Run(list/input)
 	var/id = input["ID"]
+	logger.Log(LOG_CATEGORY_DEBUG, "ID: [id]", input)
 	if(!id)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR REPLY ID", input)
 		return
 	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[num2text(id)]
 	if(!retrieved)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR DATUM FOUND", input)
 		return
 	var/mob/M = retrieved.owner?.mob
 	webhook_mentor_pm(M, input["from"], id, input["reply_contents"])
 
 /datum/world_topic/reply_mentor/proc/webhook_mentor_pm(mob/reply, from, id, msg)
 	if(!reply)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLIER FOUND")
 		return
 	var/client/chosen_client = reply.client
 	if(!chosen_client)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLY CLIENT FOUND", input)
 		return
 
 	to_chat(chosen_client, "<font color='purple'>Mentor PM from-<b>[key_name_mentor(from, chosen_client, TRUE, FALSE, FALSE)]</b>: [msg]</font>")
