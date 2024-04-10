@@ -134,6 +134,7 @@
 	limb_id = SPECIES_RATTUS
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	dmg_overlay_type = "monkey"
+	footprint_sprite = FOOTPRINT_SPRITE_PAWS
 
 /obj/item/bodypart/leg/right/rattus
 	icon_greyscale =  'monkestation/icons/mob/species/rattus/bodyparts.dmi'
@@ -142,6 +143,7 @@
 	limb_id = SPECIES_RATTUS
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	dmg_overlay_type = "monkey"
+	footprint_sprite = FOOTPRINT_SPRITE_PAWS
 
 /obj/item/organ/internal/tongue/rattus
 	name = "rattus tongue"
