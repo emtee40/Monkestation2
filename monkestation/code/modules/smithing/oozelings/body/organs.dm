@@ -52,13 +52,16 @@
 	icon = 'monkestation/code/modules/smithing/icons/oozeling.dmi'
 	icon_state = "slime_core"
 	var/core_ejected = FALSE
-	var/gps_active = FALSE
+	var/gps_active = TRUE
 
 	var/datum/dna/stored_dna
+
+	var/list/stored_items = list()
 
 /obj/item/organ/internal/brain/slime/Initialize(mapload, mob/living/carbon/organ_owner, list/examine_list)
 	. = ..()
 	colorize()
+	transform.Scale(2, 2)
 
 /obj/item/organ/internal/brain/slime/examine()
 	. = ..()
@@ -84,11 +87,11 @@
 		return
 
 	user.visible_message(span_warning("[user] crunches something deep in the slime core! It gradually stops glowing."),
-	span_notice("You find the densest point, crushing it in your palm. The blinking light in the core slowly dissapates."),
+	span_notice("You find the densest point, crushing it in your palm. The blinking light in the core slowly dissapates and items start to come out."),
 	span_notice("You hear a wet crunching sound."))
 	playsound(user, 'sound/effects/wounds/crackandbleed.ogg', 80, TRUE)
-	gps_active = FALSE
-	qdel(GetComponent(/datum/component/gps))
+
+	drop_items_to_ground()
 
 /obj/item/organ/internal/brain/slime/Insert(mob/living/carbon/organ_owner, special = FALSE, drop_if_replaced, no_id_transfer)
 	. = ..()
@@ -125,7 +128,14 @@
 	core_ejected = TRUE
 	victim.visible_message(span_warning("[victim]'s body completely dissolves, collapsing outwards!"), span_notice("Your body completely dissolves, collapsing outwards!"), span_notice("You hear liquid splattering."))
 	var/turf/death_turf = get_turf(victim)
-	victim.unequip_everything()
+
+	var/list/items = list()
+	items |= victim.get_equipped_items(TRUE)
+	for(var/atom/movable/I as anything in items)
+		victim.dropItemToGround(I)
+		stored_items |= I
+		I.forceMove(src)
+
 	if(victim.get_organ_slot(ORGAN_SLOT_BRAIN) == src)
 		Remove(victim)
 	if(death_turf)
@@ -198,5 +208,12 @@
 
 		if(brainmob)
 			brainmob.mind.transfer_to(new_body)
+
+		drop_items_to_ground()
 		return TRUE
 	return FALSE
+
+/obj/item/organ/internal/brain/slime/proc/drop_items_to_ground()
+	for(var/atom/movable/item as anything in stored_items)
+		item.forceMove(get_turf(src))
+		stored_items -= item
