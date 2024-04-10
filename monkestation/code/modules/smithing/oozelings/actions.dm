@@ -140,6 +140,9 @@
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+40)
 			var/healed_limb = pick(limbs_to_heal)
 			H.regenerate_limb(healed_limb)
+			var/obj/item/bodypart/limb = H.get_bodypart(healed_limb)
+			limb.set_disabled(TRUE) // we toggle these
+			limb.set_disabled(FALSE)
 			limbs_to_heal -= healed_limb
 			H.blood_volume -= 40
 		to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more mass to heal completely!"))
