@@ -63,7 +63,7 @@
 	var/id = input["ID"]
 	if(!id)
 		return
-	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[text2num(id)]
+	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[num2text(id)]
 	if(!retrieved)
 		return
 	var/mob/M = retrieved.owner?.mob
