@@ -69,7 +69,7 @@
 	var/datum/request_manager/mentor/mentor = GLOB.mentor_requests
 	var/datum/request/retrieved = !id ? null : mentor.requests_by_id[id]
 
-	if(isnull(retrieved))
+	if(!retrieved)
 		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR DATUM FOUND", input)
 		return
 	var/mob/M = retrieved.owner?.mob
