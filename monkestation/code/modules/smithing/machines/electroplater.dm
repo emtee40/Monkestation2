@@ -28,6 +28,18 @@
 	///are we plating right now?
 	var/plating = FALSE
 
+/obj/machinery/electroplater/Initialize(mapload)
+	. = ..()
+	register_context()
+
+/obj/machinery/electroplater/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if((isstack(held_item) || istype(held_item, /obj/item/merged_material)) && !stored_material)
+		context[SCREENTIP_CONTEXT_LMB] = "Add Material Plate."
+	if(stored_material && held_item)
+		context[SCREENTIP_CONTEXT_LMB] = "Try to plate item."
+	return CONTEXTUAL_SCREENTIP_SET
+
 /obj/machinery/electroplater/attacked_by(obj/item/attacking_item, mob/living/user)
 	if(isstack(attacking_item))
 		if(stored_material)
@@ -38,11 +50,13 @@
 		if(stack.amount == 1)
 			attacking_item.forceMove(src)
 			stored_material = attacking_item
+			visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
 			return FALSE
 		else
 			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
 			new_stack.forceMove(src)
 			stored_material = new_stack
+			visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
 			return FALSE
 
 	else if(istype(attacking_item, /obj/item/merged_material))
@@ -50,6 +64,7 @@
 			return TRUE
 		attacking_item.forceMove(src)
 		stored_material = attacking_item
+		visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
 		return FALSE
 
 	if(!stored_material || plating_item || plating)

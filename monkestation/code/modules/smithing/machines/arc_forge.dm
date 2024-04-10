@@ -29,6 +29,8 @@
 
 /obj/machinery/arc_forge/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
+	if((!slot_one_item || !slot_two_item) && (isstack(held_item) || istype(held_item, /obj/item/merged_material)))
+		context[SCREENTIP_CONTEXT_LMB] = "Add material to alloy."
 	if(slot_one_item && slot_two_item)
 		context[SCREENTIP_CONTEXT_ALT_LMB] = "Alloy Materials."
 	return CONTEXTUAL_SCREENTIP_SET
@@ -42,9 +44,11 @@
 			attacking_item = stack.split_stack(user, 1)
 
 		if(try_add_to_buffer(attacking_item))
+			visible_message(span_notice("[user] adds [attacking_item] into the arc forge."))
 			return TRUE
 	if(istype(attacking_item, /obj/item/merged_material))
 		if(try_add_to_buffer(attacking_item))
+			visible_message(span_notice("[user] adds [attacking_item] into the arc forge."))
 			return TRUE
 	. = ..()
 
