@@ -1,13 +1,9 @@
-/datum/round_event_control/antagonist/solo/spy/roundstart
-	name = "Spy"
-	antag_flag = ROLE_SPY
+/datum/round_event_control/antagonist/solo/spy
 	tags = list(TAG_COMBAT)
 	antag_datum = /datum/antagonist/spy
-	roundstart = TRUE
 	weight = 5
 	base_antags = 1
 	maximum_antags = 3
-	earliest_start = 0 SECONDS
 	protected_roles = list(
 		JOB_CAPTAIN,
 		JOB_HEAD_OF_PERSONNEL,
@@ -24,3 +20,14 @@
 		JOB_AI,
 		JOB_CYBORG,
 	)
+
+/datum/round_event_control/antagonist/solo/spy/roundstart
+	antag_flag = ROLE_SPY
+	name = "Spy"
+	roundstart = TRUE
+	earliest_start = 0 SECONDS
+
+/datum/round_event_control/antagonist/solo/spy/midround
+	antag_flag = ROLE_MOLE_SLEEPER_AGENT
+	name = "Mole Sleeper Agent (Spy)"
+	prompted_picking = TRUE

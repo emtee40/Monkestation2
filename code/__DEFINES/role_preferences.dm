@@ -29,6 +29,7 @@
 #define ROLE_FUGITIVE "Fugitive"
 #define ROLE_LONE_OPERATIVE "Lone Operative"
 #define ROLE_MALF_MIDROUND "Malf AI (Midround)"
+#define ROLE_MOLE_SLEEPER_AGENT "Mole Sleeper Agent"
 #define ROLE_NIGHTMARE "Nightmare"
 #define ROLE_NINJA "Space Ninja"
 #define ROLE_OBSESSED "Obsessed"
