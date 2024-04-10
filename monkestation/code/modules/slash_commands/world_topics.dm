@@ -65,7 +65,7 @@
 	if(!id)
 		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR REPLY ID", input)
 		return
-	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[num2text(id)]
+	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[id]
 	if(!retrieved)
 		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR DATUM FOUND", input)
 		return
