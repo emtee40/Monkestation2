@@ -28,8 +28,6 @@
 	var/supply_color = COLOR_BLUE
 	///Extend the pipe to the edge for wall-mounted plumbed devices, like sinks and showers
 	var/extend_pipe_to_edge = FALSE
-	///should we ever stop?
-	var/should_stop = TRUE
 
 ///turn_connects is for wheter or not we spin with the object to change our pipes
 /datum/component/plumbing/Initialize(start=TRUE, ducting_layer, turn_connects=TRUE, datum/reagents/custom_receiver, extend_pipe_to_edge = FALSE)
@@ -74,7 +72,7 @@
 	return ..()
 
 /datum/component/plumbing/process()
-	if((!demand_connects || !reagents) && should_stop)
+	if(!demand_connects || !reagents)
 		STOP_PROCESSING(SSplumbing, src)
 		return
 	if(reagents.total_volume < reagents.maximum_volume)
@@ -210,7 +208,7 @@
 /datum/component/plumbing/proc/disable()
 	SIGNAL_HANDLER
 
-	if(!active || !should_stop)
+	if(!active)
 		return
 
 	STOP_PROCESSING(SSplumbing, src)
