@@ -78,6 +78,7 @@
 /datum/antagonist/rev/greet()
 	. = ..()
 	to_chat(owner, span_userdanger("Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!"))
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/revolutionary_tide.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	owner.announce_objectives()
 
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
@@ -555,14 +556,13 @@
 		if (player_mind in ex_revs + ex_headrevs)
 			continue
 
-		player_mind.add_antag_datum(/datum/antagonist/enemy_of_the_revolution)
-
 		if (!istype(player))
 			continue
 
+		player_mind.add_antag_datum(/datum/antagonist/enemy_of_the_revolution)
+
 		if(player_mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
 			ADD_TRAIT(player, TRAIT_DEFIB_BLACKLISTED, REF(src))
-			player.med_hud_set_status()
 
 	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		if(!(job.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY|DEPARTMENT_BITFLAG_COMMAND))
@@ -570,8 +570,7 @@
 		job.allow_bureaucratic_error = FALSE
 		job.total_positions = 0
 
-	var/datum/game_mode/dynamic/dynamic = SSticker.mode
-	dynamic.unfavorable_situation()
+	SSgamemode.point_gain_multipliers[EVENT_TRACK_ROLESET]++
 
 	var/message_header = "A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials."
 	var/extra_detail = try_auto_call_shuttle() \
@@ -629,7 +628,6 @@
 	for (var/datum/mind/rev_head as anything in ex_headrevs)
 		if(!isnull(rev_head.current))
 			ADD_TRAIT(rev_head.current, TRAIT_DEFIB_BLACKLISTED, REF(src))
-			rev_head.current.med_hud_set_status()
 
 	for(var/datum/objective/mutiny/head_tracker in objectives)
 		var/mob/living/head_of_staff = head_tracker.target?.current
