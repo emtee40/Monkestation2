@@ -1,4 +1,6 @@
 ///this cannablizes floor_pump code but rips specific reagents and and such just does stuff itself so it can be expanded easier in the future
+/datum/component/plumbing/simple_supply/ooze
+	should_stop = FALSE // hard codes these to never stop processing
 
 /obj/machinery/plumbing/ooze_sucker
 	name = "ooze sucker"
@@ -33,7 +35,7 @@
 
 /obj/machinery/plumbing/ooze_sucker/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/simple_supply, bolt, layer)
+	AddComponent(/datum/component/plumbing/simple_supply/ooze, bolt, layer)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/plumbing/ooze_sucker/LateInitialize()
