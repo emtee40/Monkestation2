@@ -1,6 +1,7 @@
 /datum/round_event_control/antagonist/solo/spy
 	tags = list(TAG_COMBAT)
 	antag_datum = /datum/antagonist/spy
+	weight = 10
 	base_antags = 1
 	maximum_antags = 3
 	protected_roles = list(
@@ -23,12 +24,10 @@
 /datum/round_event_control/antagonist/solo/spy/roundstart
 	antag_flag = ROLE_SPY
 	name = "Spy"
-	weight = 10
 	roundstart = TRUE
 	earliest_start = 0 SECONDS
 
 /datum/round_event_control/antagonist/solo/spy/midround
 	antag_flag = ROLE_DEFECTOR
 	name = "Defector (Spy)"
-	weight = 15
 	prompted_picking = TRUE
