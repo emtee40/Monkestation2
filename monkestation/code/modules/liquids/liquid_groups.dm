@@ -200,6 +200,11 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	handle_visual_changes()
 	reagents.my_atom = pick(members) /// change the location of explosions and sounds every group process
 
+	for(var/turf/turf as anything in members)
+		if(isopenturf(turf))
+			continue
+		remove_from_group(turf)
+
 	var/turf/open/open_turf = pick(members)
 	var/datum/gas_mixture/math_cache = open_turf.air
 
@@ -368,6 +373,11 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	process_group()
 
 /datum/liquid_group/proc/transfer_reagents_to_secondary_group(obj/effect/abstract/liquid_turf/member, obj/effect/abstract/liquid_turf/transfer)
+	if(!total_reagent_volume && !reagents.total_volume)
+		return
+	else if(!total_reagent_volume)
+		total_reagent_volume = reagents.total_volume
+
 	var/total_removed = length(members) + 1 / total_reagent_volume
 	var/remove_amount = total_removed / length(reagents.reagent_list)
 	if(!transfer)

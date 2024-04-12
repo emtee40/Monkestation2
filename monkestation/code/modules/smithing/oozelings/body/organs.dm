@@ -58,6 +58,9 @@
 
 	var/list/stored_items = list()
 
+	var/rebuilt = TRUE
+	var/coredeath = TRUE
+
 /obj/item/organ/internal/brain/slime/Initialize(mapload, mob/living/carbon/organ_owner, list/examine_list)
 	. = ..()
 	colorize()
@@ -114,12 +117,19 @@
 
 	addtimer(CALLBACK(src, PROC_REF(core_ejection), victim), 0) // explode them after the current proc chain ends, to avoid weirdness
 
+/obj/item/organ/internal/brain/slime/proc/enable_coredeath()
+	coredeath = TRUE
+	if(owner)
+		if(owner.stat != DEAD)
+			return
+		addtimer(CALLBACK(src, PROC_REF(core_ejection), owner), 0)
+
 ///////
 /// CORE EJECTION PROC
 /// Makes it so that when a slime dies, their core ejects and their body is qdel'd.
 
 /obj/item/organ/internal/brain/slime/proc/core_ejection(mob/living/carbon/human/victim, new_stat, turf/loc_override)
-	if(core_ejected)
+	if(core_ejected || !coredeath)
 		return
 	if(!stored_dna)
 		stored_dna = new
@@ -148,6 +158,23 @@
 
 	if(gps_active) // adding the gps signal if they have activated the ability
 		AddComponent(/datum/component/gps, "[victim]'s Core")
+
+	if(brainmob)
+		var/datum/antagonist/changeling/target_ling = brainmob.mind?.has_antag_datum(/datum/antagonist/changeling)
+
+		if(target_ling)
+			if(target_ling.oozeling_revives > 0)
+				target_ling.oozeling_revives--
+				addtimer(CALLBACK(src, PROC_REF(rebuild_body)), 30 SECONDS)
+
+		if(IS_BLOODSUCKER(brainmob))
+			var/datum/antagonist/bloodsucker/target_bloodsucker = brainmob.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+			if(target_bloodsucker.bloodsucker_blood_volume >= target_bloodsucker.max_blood_volume * 0.4)
+				addtimer(CALLBACK(src, PROC_REF(rebuild_body)), 30 SECONDS)
+				target_bloodsucker.bloodsucker_blood_volume -= target_bloodsucker.max_blood_volume * 0.15
+
+	rebuilt = FALSE
+	Remove(victim)
 	qdel(victim)
 
 /obj/item/organ/internal/brain/slime/proc/do_steam_effects(turf/loc)
@@ -169,46 +196,7 @@
 
 		user.visible_message(span_notice("[user] pours the contents of [item] onto [src], causing it to form a proper cytoplasm and outer membrane."), span_notice("You pour the contents of [item] onto [src], causing it to form a proper cytoplasm and outer membrane."))
 		item.reagents.clear_reagents() //removes the whole shit
-		set_organ_damage(-maxHealth) //heals 2 damage per unit of mannitol, and by using "set_organ_damage", we clear the failing variable if that was up
-
-		if(gps_active) // making sure the gps signal is removed if it's active on revival
-			gps_active = FALSE
-			qdel(GetComponent(/datum/component/gps))
-
-		//we have the plasma. we can rebuild them.
-		var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(src.loc)
-
-		new_body.underwear = "Nude"
-		new_body.undershirt = "Nude" //Which undershirt the player wants
-		new_body.socks = "Nude" //Which socks the player wants
-		stored_dna.transfer_identity(new_body, transfer_SE=1)
-		new_body.dna.features["mcolor"] = new_body.dna.features["mcolor"]
-		new_body.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
-		new_body.real_name = new_body.dna.real_name
-		new_body.name = new_body.dna.real_name
-		new_body.updateappearance(mutcolor_update=1)
-		new_body.domutcheck()
-		new_body.forceMove(get_turf(src))
-		new_body.blood_volume = BLOOD_VOLUME_SAFE+60
-		REMOVE_TRAIT(new_body, TRAIT_NO_TRANSFORM, REF(src))
-		if(brainmob)
-			SSquirks.AssignQuirks(new_body, brainmob.client)
-		var/obj/item/organ/internal/brain/new_body_brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
-		qdel(new_body_brain)
-		src.forceMove(new_body)
-		Insert(new_body)
-		for(var/obj/item/bodypart/bodypart as anything in new_body.bodyparts)
-			if(!istype(bodypart, /obj/item/bodypart/chest))
-				qdel(bodypart)
-				continue
-
-		new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from their core, yet to form the rest."))
-		to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
-
-		if(brainmob)
-			brainmob.mind.transfer_to(new_body)
-
-		drop_items_to_ground(get_turf(new_body))
+		rebuild_body()
 		return TRUE
 	return FALSE
 
@@ -216,3 +204,49 @@
 	for(var/atom/movable/item as anything in stored_items)
 		item.forceMove(turf)
 		stored_items -= item
+
+/obj/item/organ/internal/brain/slime/proc/rebuild_body()
+	if(rebuilt)
+		return
+	rebuilt = TRUE
+	set_organ_damage(-maxHealth) //heals 2 damage per unit of mannitol, and by using "set_organ_damage", we clear the failing variable if that was up
+
+	if(gps_active) // making sure the gps signal is removed if it's active on revival
+		gps_active = FALSE
+		qdel(GetComponent(/datum/component/gps))
+
+	//we have the plasma. we can rebuild them.
+	var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(src.loc)
+
+	new_body.underwear = "Nude"
+	new_body.undershirt = "Nude" //Which undershirt the player wants
+	new_body.socks = "Nude" //Which socks the player wants
+	stored_dna.transfer_identity(new_body, transfer_SE=1)
+	new_body.dna.features["mcolor"] = new_body.dna.features["mcolor"]
+	new_body.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
+	new_body.real_name = new_body.dna.real_name
+	new_body.name = new_body.dna.real_name
+	new_body.updateappearance(mutcolor_update=1)
+	new_body.domutcheck()
+	new_body.forceMove(get_turf(src))
+	new_body.blood_volume = BLOOD_VOLUME_SAFE+60
+	REMOVE_TRAIT(new_body, TRAIT_NO_TRANSFORM, REF(src))
+	if(brainmob)
+		SSquirks.AssignQuirks(new_body, brainmob.client)
+	var/obj/item/organ/internal/brain/new_body_brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
+	qdel(new_body_brain)
+	src.forceMove(new_body)
+	Insert(new_body)
+	for(var/obj/item/bodypart/bodypart as anything in new_body.bodyparts)
+		if(!istype(bodypart, /obj/item/bodypart/chest))
+			qdel(bodypart)
+			continue
+
+	new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from their core, yet to form the rest."))
+	to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
+
+	if(brainmob)
+		brainmob.mind.transfer_to(new_body)
+		new_body.grab_ghost()
+
+	drop_items_to_ground(get_turf(new_body))

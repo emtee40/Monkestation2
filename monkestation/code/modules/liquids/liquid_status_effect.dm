@@ -29,8 +29,8 @@
 	return ..()
 
 /datum/status_effect/water_affected/on_remove()
-	owner.remove_movespeed_modifier("liquid_slowdown")
-
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/liquids)
+	. = ..()
 
 /datum/movespeed_modifier/liquids
 	id = "liquid_slowdown"

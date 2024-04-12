@@ -1,5 +1,20 @@
 /atom/var/datum/material_stats/material_stats
 
+/atom/proc/create_random_mineral_stats(upper_limit = 100, lower_limit = 1)
+	material_stats = new(src)
+
+	material_stats.conductivity = rand(lower_limit, upper_limit)
+	material_stats.hardness = rand(lower_limit, upper_limit)
+	material_stats.density = rand(lower_limit, upper_limit)
+	material_stats.thermal = rand(lower_limit, upper_limit)
+	material_stats.flammability = rand(lower_limit, upper_limit)
+	material_stats.radioactivity = rand(lower_limit, upper_limit)
+	material_stats.liquid_flow = rand(lower_limit, upper_limit)
+	material_stats.refractiveness = rand(lower_limit, upper_limit)
+	material_stats.material_name = "???" // you should set this yourself after
+	material_stats.merged_color = random_color()
+	material_stats.apply_color()
+
 /atom/proc/combine_material_stats(atom/other_atom)
 	if((!other_atom.material_stats) || !material_stats)
 		return
@@ -99,7 +114,7 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	for(var/datum/material_trait/trait as anything in material_traits)
-		trait.on_remove(src)
+		trait.on_remove(parent)
 		qdel(trait)
 	material_traits = null
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
@@ -179,3 +194,10 @@
 		return
 	var/atom/movable/movable = parent
 	movable.color = merged_color
+
+/datum/material_stats/proc/add_trait(datum/material_trait/new_trait)
+	if(!new_trait)
+		return
+	var/datum/material_trait/trait = new new_trait.type
+	trait.on_trait_add(parent)
+	material_traits |= trait
