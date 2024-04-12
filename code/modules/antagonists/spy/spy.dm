@@ -179,6 +179,8 @@
 /datum/action/backup_uplink
 	name = "Create Uplink"
 	desc = "Fashion a PDA, Pen or Radio Headset into a swanky Spy Uplink."
+	button_icon = 'icons/mob/actions/actions_spy.dmi'
+	button_icon_state = "backup_uplink_spy"
 	var/list/valid_types = list(
 		/obj/item/modular_computer/pda,
 		/obj/item/pen,
