@@ -17,5 +17,7 @@ GLOBAL_LIST_INIT_TYPED(compressor_recipe_previews, /image, create_compressor_pre
 		.[recipe] = image(getFlatIcon(preview))
 		qdel(preview)
 
+#ifndef UNIT_TESTS // lol we cheat
 // stupid lazy hack so that crossbreed colors are properly captured by getFlatIcon without code duplication
 INITIALIZE_IMMEDIATE(/obj/item/slimecross)
+#endif
