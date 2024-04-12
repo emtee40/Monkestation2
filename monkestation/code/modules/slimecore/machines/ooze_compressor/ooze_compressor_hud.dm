@@ -37,6 +37,9 @@
 		old_users = hover_popup.hud_users_all_z_levels.Copy()
 		QDEL_NULL(hover_popup)
 
+	if(!length(GLOB.compressor_recipe_previews)) // we can't initialize this normally bc it will shit itself if initialized early
+		GLOB.compressor_recipe_previews = create_compressor_previews()
+
 	// setup new hover appearance
 	if(current_recipe)
 		hover_appearance = image(GLOB.compressor_recipe_previews[current_recipe.type], loc = src, layer = CHAT_LAYER)

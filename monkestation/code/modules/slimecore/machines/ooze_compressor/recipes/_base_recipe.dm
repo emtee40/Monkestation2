@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT_TYPED(compressor_recipe_previews, /image, create_compressor_previews())
+GLOBAL_LIST_EMPTY_TYPED(compressor_recipe_previews, /image)
 
 /datum/compressor_recipe
 	var/list/required_oozes = list()
@@ -16,8 +16,3 @@ GLOBAL_LIST_INIT_TYPED(compressor_recipe_previews, /image, create_compressor_pre
 		var/obj/item/preview = new output_type(null)
 		.[recipe] = image(getFlatIcon(preview))
 		qdel(preview)
-
-#ifndef UNIT_TESTS // lol we cheat
-// stupid lazy hack so that crossbreed colors are properly captured by getFlatIcon without code duplication
-INITIALIZE_IMMEDIATE(/obj/item/slimecross)
-#endif
