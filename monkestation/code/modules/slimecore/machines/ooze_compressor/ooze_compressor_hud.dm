@@ -8,9 +8,11 @@
 
 /obj/machinery/plumbing/ooze_compressor/MouseEntered(location, control, params)
 	. = ..()
-	if(!QDELETED(usr) && anchored)
-		manage_hud_as_needed()
-		hover_popup?.show_to(usr)
+	if(!QDELETED(usr) && params && anchored)
+		var/list/modifiers = params2list(params)
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			manage_hud_as_needed()
+			hover_popup?.show_to(usr)
 
 /obj/machinery/plumbing/ooze_compressor/MouseExited(location, control, params)
 	. = ..()
