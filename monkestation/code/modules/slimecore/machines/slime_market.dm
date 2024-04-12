@@ -6,8 +6,8 @@
 	base_icon_state = "market_pad"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	circuit = /obj/item/circuitboard/machine/slime_market_pad
 	var/obj/machinery/computer/slime_market/console
 
