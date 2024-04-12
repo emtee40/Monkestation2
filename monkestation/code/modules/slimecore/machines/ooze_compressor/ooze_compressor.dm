@@ -80,7 +80,7 @@
 	else
 		context[SCREENTIP_CONTEXT_LMB] = "Select a normal extract to make"
 		context[SCREENTIP_CONTEXT_RMB] = "Select a crossbreed to make"
-	context[SCREENTIP_CONTEXT_ALT_LMB] = "[repeat_recipe ? "Disable" : "Enable"] repeated extract compression"
+	context[SCREENTIP_CONTEXT_CTRL_LMB] = "[repeat_recipe ? "Disable" : "Enable"] repeated extract compression"
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/plumbing/ooze_compressor/create_reagents(max_vol, flags)
@@ -214,13 +214,12 @@
 		if(change_recipe(user, TRUE))
 			reagents.clear_reagents()
 
-/obj/machinery/plumbing/ooze_compressor/AltClick(mob/user)
-	. = ..()
-	if(. || !can_interact(user))
-		return
-	repeat_recipe = !repeat_recipe
-	balloon_alert_to_viewers("[repeat_recipe ? "enabled" : "disabled"] repeating")
-	visible_message(span_notice("[user] presses a button turning the repeat recipe system [repeat_recipe ? span_green("on") : span_red("off")]"))
+/obj/machinery/plumbing/ooze_compressor/CtrlClick(mob/user)
+	if(anchored && can_interact(user))
+		repeat_recipe = !repeat_recipe
+		balloon_alert_to_viewers("[repeat_recipe ? "enabled" : "disabled"] repeating")
+		visible_message(span_notice("[user] presses a button turning the repeat recipe system [repeat_recipe ? span_green("on") : span_red("off")]"))
+	return ..()
 
 /obj/machinery/plumbing/ooze_compressor/proc/change_recipe(mob/user, cross_breed = FALSE)
 	var/choice
