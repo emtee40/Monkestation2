@@ -1,3 +1,13 @@
+/datum/antagonist/wizard/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/target = mob_override || owner.current
+	ADD_TRAIT(target, TRAIT_CANT_SIGN_SPELLS, REF(src))
+
+/datum/antagonist/wizard/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/target = mob_override || owner.current
+	REMOVE_TRAITS_IN(target, REF(src))
+
 /datum/antagonist/wizard/traitor // traitors that complete a final objective to become a wizard, this subtype is mainly for wizard look things
 	name = "\improper Syndicate Space Wizard"
 	roundend_category = "syndicate wizards/witches"
