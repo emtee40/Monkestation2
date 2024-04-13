@@ -20,7 +20,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/bloodling/ascension/ascend(mob/living/basic/bloodling)
+/datum/action/cooldown/bloodling/ascension/proc/ascend(mob/living/basic/bloodling)
 	// Woah they can move
 	REMOVE_TRAIT(bloodling, TRAIT_IMMOBILIZED, REF(src))
 
