@@ -6,16 +6,23 @@
 
 /datum/action/cooldown/bloodling/ascension/Activate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
-	our_mob.Immobilize(5 MINUTES)
+	our_mob.move_resist = INFINITY
+	ADD_TRAIT(our_mob, TRAIT_IMMOBILIZED, REF(src))
+	// Waits 5 minutes before calling the ascension
+	addtimer(CALLBACK(src, PROC_REF(ascend), our_mob), 5 MINUTES)
+
 
 	/* PLANS
-	* Make this root you in place for 5 minutes
 	* turn the bloodling into a buffed up meteor heart on completion
 	*/
 
 	force_event(/datum/round_event_control/bloodling_ascension, "A bloodling is ascending")
 
 	return TRUE
+
+/datum/action/cooldown/bloodling/ascension/ascend(mob/living/basic/bloodling)
+	// Woah they can move
+	REMOVE_TRAIT(bloodling, TRAIT_IMMOBILIZED, REF(src))
 
 /* PLANS
 	* Make tiles that turn people into thralls
