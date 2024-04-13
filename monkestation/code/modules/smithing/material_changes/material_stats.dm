@@ -169,7 +169,7 @@
 
 	for(var/datum/material_trait/trait as anything in material_traits)
 		material_traits[trait]--
-		if(!material_traits[trait])
+		if(material_traits[trait] <= 0)
 			trait.on_remove(parent)
 			material_traits -= trait
 			qdel(trait)
