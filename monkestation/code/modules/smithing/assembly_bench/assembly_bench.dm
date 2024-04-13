@@ -24,7 +24,7 @@
 		for(var/obj/item/item as anything in current_recipe.needed_items)
 			. += span_notice("[current_recipe.needed_items[item]] [initial(item.name)] needed.")
 
-/obj/structure/machine/assembly_bench/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/structure/machine/assembly_bench/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(!current_recipe)
 		for(var/datum/assembly_recipe/recipe as anything in recipes)
 			if(recipe.item_to_start != attacking_item.type)
@@ -34,7 +34,7 @@
 			attacking_item.forceMove(src)
 			stored_items += attacking_item
 			held_starting_item = attacking_item
-			return FALSE
+			return
 
 	if(current_recipe)
 		for(var/item in current_recipe.needed_items)
@@ -57,8 +57,8 @@
 					current_recipe.needed_items -= item
 				if(!length(current_recipe.needed_items))
 					try_complete_recipe(user)
-				return FALSE
-	. = ..()
+				return
+	return ..()
 
 /obj/structure/machine/assembly_bench/proc/try_complete_recipe(mob/living/user)
 	if(!current_recipe)

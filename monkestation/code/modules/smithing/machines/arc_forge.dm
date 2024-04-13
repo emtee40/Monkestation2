@@ -35,22 +35,22 @@
 		context[SCREENTIP_CONTEXT_ALT_LMB] = "Alloy Materials."
 	return CONTEXTUAL_SCREENTIP_SET
 
-/obj/machinery/arc_forge/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/machinery/arc_forge/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(isstack(attacking_item))
 		var/obj/item/stack/stack = attacking_item
 		if(!stack.material_type)
-			return TRUE
+			return
 		if(stack.amount > 1)
 			attacking_item = stack.split_stack(user, 1)
 
 		if(try_add_to_buffer(attacking_item))
 			visible_message(span_notice("[user] adds [attacking_item] into the arc forge."))
-			return TRUE
+			return
 	if(istype(attacking_item, /obj/item/merged_material))
 		if(try_add_to_buffer(attacking_item))
 			visible_message(span_notice("[user] adds [attacking_item] into the arc forge."))
-			return TRUE
-	. = ..()
+			return
+	return ..()
 
 /obj/machinery/arc_forge/proc/try_add_to_buffer(obj/item/adder)
 	if(!slot_one_item)

@@ -65,12 +65,11 @@
 	new new_part (get_turf(src), working_material, quality)
 	QDEL_NULL(working_material)
 
-/obj/structure/anvil/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/structure/anvil/attackby(obj/item/attacking_item, mob/living/user, params)
 	if((isstack(attacking_item) || istype(attacking_item, /obj/item/merged_material)) && !smithing)
 		if(try_place_item(attacking_item, user))
-			return TRUE
-
-	. = ..()
+			return
+	return ..()
 
 /obj/structure/anvil/proc/try_place_item(obj/item/item, mob/living/user)
 	if(working_material)

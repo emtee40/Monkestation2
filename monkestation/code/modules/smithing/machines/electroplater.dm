@@ -40,44 +40,44 @@
 		context[SCREENTIP_CONTEXT_LMB] = "Try to plate item."
 	return CONTEXTUAL_SCREENTIP_SET
 
-/obj/machinery/electroplater/attacked_by(obj/item/attacking_item, mob/living/user)
+/obj/machinery/electroplater/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(isstack(attacking_item))
 		if(stored_material)
-			return FALSE
+			return ..()
 		var/obj/item/stack/stack = attacking_item
 		if(!stack.material_type)
-			return FALSE
+			return ..()
 		if(stack.amount == 1)
 			attacking_item.forceMove(src)
 			stored_material = attacking_item
 			visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
-			return FALSE
+			return
 		else
 			var/obj/item/stack/new_stack = stack.split_stack(user, 1)
 			new_stack.forceMove(src)
 			stored_material = new_stack
 			visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
-			return FALSE
+			return
 
 	else if(istype(attacking_item, /obj/item/merged_material))
 		if(stored_material)
-			return TRUE
+			return ..()
 		attacking_item.forceMove(src)
 		stored_material = attacking_item
 		visible_message(span_notice("[user] puts the [attacking_item] into the electoplater."))
-		return FALSE
+		return
 
 	if(!stored_material || plating_item || plating)
-		return TRUE
+		return ..()
 
 	if(HAS_TRAIT(attacking_item, TRAIT_NODROP))
-		return TRUE
+		return ..()
 
 	plating_item = attacking_item
 	if(attacking_item.forceMove(src))
 		try_plate()
-		return FALSE
-	. = ..()
+		return
+	return ..()
 
 /obj/machinery/electroplater/proc/try_plate()
 	if(!stored_material || !plating_item)
