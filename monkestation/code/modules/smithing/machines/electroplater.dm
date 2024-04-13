@@ -92,9 +92,11 @@
 			plating_item.create_stats_from_material(stack.material_type)
 		else
 			plating_item.create_stats_from_material_stats(stored_material.material_stats)
+	else
+		plating_item.material_stats.apply_traits_from(stored_material.material_stats)
 
 	plating_item.forceMove(get_turf(src))
-	plating_item.name = "[plating_item.material_stats.material_name] plated [plating_item.name]"
+	plating_item.name = "[stored_material.material_stats.material_name] plated [plating_item.name]"
 
 	QDEL_NULL(stored_material)
 	plating_item = null

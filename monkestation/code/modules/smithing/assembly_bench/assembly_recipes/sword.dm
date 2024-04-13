@@ -17,3 +17,8 @@
 	item_to_start = /obj/item/smithed_part/weapon_part/staff_head
 	needed_items = list(/obj/item/stack/sheet/mineral/wood = 2)
 	craft_time = 3 SECONDS
+
+/datum/assembly_recipe/smithed_weapon/pickaxe
+	item_to_start = /obj/item/smithed_part/weapon_part/pickaxe_head
+	needed_items = list(/obj/item/stack/sheet/mineral/wood = 2)
+	craft_time = 3 SECONDS

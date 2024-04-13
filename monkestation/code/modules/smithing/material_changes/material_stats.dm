@@ -68,6 +68,7 @@
 		var/datum/material_trait/new_trait = new trait
 		new_trait.on_trait_add(material_stats.parent)
 		material_stats.material_traits |= new_trait
+		material_stats.material_traits[new_trait] = material.material_traits[trait]
 
 
 /datum/material_stats
@@ -184,7 +185,7 @@
 			continue
 		var/datum/material_trait/new_trait = new trait.type
 		material_traits |= new_trait
-		material_traits[new_trait] = new_trait.reforges
+		material_traits[new_trait] = material.material_traits[trait]
 		new_trait.on_trait_add(parent)
 
 	apply_color()
@@ -201,3 +202,11 @@
 	var/datum/material_trait/trait = new new_trait.type
 	trait.on_trait_add(parent)
 	material_traits |= trait
+	material_traits[trait] = trait.reforges
+
+/datum/material_stats/proc/apply_traits_from(datum/material_stats/incoming)
+	for(var/datum/material_trait/trait as anything in incoming.material_traits)
+		var/datum/material_trait/new_trait = new trait.type
+		new_trait.on_trait_add(parent)
+		material_traits |= new_trait
+		material_traits[new_trait] = incoming.material_traits[trait]

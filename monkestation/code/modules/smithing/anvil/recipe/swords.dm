@@ -21,3 +21,9 @@
 	difficulty = 3
 	total_notes = 42
 	output = /obj/item/smithed_part/weapon_part/staff_head
+
+/datum/anvil_recipe/pickaxe_head
+	name = "Pickaxe Head"
+	difficulty = 2
+	total_notes = 40
+	output = /obj/item/smithed_part/weapon_part/pickaxe_head
