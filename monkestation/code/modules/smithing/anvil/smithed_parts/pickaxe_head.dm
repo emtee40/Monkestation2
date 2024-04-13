@@ -3,7 +3,6 @@
 	base_name = "pickaxe head"
 	weapon_name = "pickaxe"
 	weapon_inhand_icon_state = "pickaxe"
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 
