@@ -8,11 +8,9 @@
 
 /obj/machinery/plumbing/ooze_compressor/MouseEntered(location, control, params)
 	. = ..()
-	if(!QDELETED(usr) && params && anchored)
-		var/list/modifiers = params2list(params)
-		if(LAZYACCESS(modifiers, SHIFT_CLICK))
-			manage_hud_as_needed()
-			hover_popup?.show_to(usr)
+	if(!QDELETED(usr) && anchored)
+		manage_hud_as_needed()
+		hover_popup?.show_to(usr)
 
 /obj/machinery/plumbing/ooze_compressor/MouseExited(location, control, params)
 	. = ..()
@@ -46,10 +44,10 @@
 	if(current_recipe)
 		hover_appearance = image(GLOB.compressor_recipe_previews[current_recipe.type], loc = src, layer = CHAT_LAYER)
 		hover_appearance.add_filter("extract_outline", 1, outline_filter(size = 1, color = COLOR_WHITE))
-		hover_appearance.pixel_y = 4
+		hover_appearance.pixel_y = 10
 	else
 		hover_appearance = image(loc = src, layer = CHAT_LAYER)
-		hover_appearance.pixel_y = 12
+		hover_appearance.pixel_y = 18
 	SET_PLANE_EXPLICIT(hover_appearance, HUD_PLANE, src)
 	hover_appearance.plane = HUD_PLANE
 	hover_appearance.appearance_flags = RESET_COLOR
@@ -73,7 +71,7 @@
 		hover_popup.info_maptext.plane = HUD_PLANE
 		hover_popup.info_maptext.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 		hover_popup.info_maptext.maptext_height = world.icon_size / 2
-		hover_popup.info_maptext.maptext_y = current_recipe ? 4 : 12
+		hover_popup.info_maptext.maptext_y = 4
 	var/maptext
 	if(compressing)
 		hover_popup.info_maptext.maptext_width = world.icon_size * 2
