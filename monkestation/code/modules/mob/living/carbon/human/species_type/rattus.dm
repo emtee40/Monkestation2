@@ -29,6 +29,8 @@
 	inherent_traits = list(
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_VAULTING,
+		TRAIT_VENTCRAWLER_NUDE,
+		VENTCRAWLING_TRAIT,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	species_cookie = /obj/item/food/cheese/wedge
@@ -38,13 +40,11 @@
 	mutanttongue = /obj/item/organ/internal/tongue/rattus
 	species_language_holder = /datum/language_holder/rattus
 	fire_overlay = "human_small_fire"
-	//uses_fur = TRUE //it's broken lol
-	speedmod = -0.25
+	speedmod = -0.27
 	stunmod = 1.1
-	brutemod = 2.75
-	burnmod = 3.75
-	siemens_coeff = 20
-	payday_modifier = 0.75 //They are weak and made of wet tissue paper, it was hard for them to get hired in the first place.
+	brutemod = 2.0
+	burnmod = 3.5
+	siemens_coeff = 1.75
 	no_equip_flags = ITEM_SLOT_GLOVES | ITEM_SLOT_ICLOTHING | ITEM_SLOT_FEET
 	death_sound = "monkestation/sound/voice/rattus/rattusdeath.ogg"
 	bodypart_overrides = list(
