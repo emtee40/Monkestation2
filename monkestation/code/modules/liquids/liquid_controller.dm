@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(liquids)
 	name = "Liquid Turfs"
 	wait = 0.5 SECONDS
-	flags = SS_POST_FIRE_TIMING | SS_NO_INIT
+	flags = SS_KEEP_TIMING | SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	var/list/active_groups = list()
 
