@@ -297,7 +297,7 @@ GLOBAL_REAL(Master, /datum/controller/master)
 
 	// Capture end time
 	var/time = init_time.milliseconds()
-	var/seconds = round(init_time.seconds(), 0.01)
+	var/seconds = round(time / 1000, 0.01)
 
 	// Always update the blackbox tally regardless.
 	SSblackbox.record_feedback("tally", "subsystem_initialize", time, subsystem.name)
