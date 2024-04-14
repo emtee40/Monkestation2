@@ -8,6 +8,22 @@
 	max_integrity = 200
 	integrity_failure = 0.5
 
+/obj/structure/mirror/Initialize(mapload)
+	. = ..()
+	var/static/list/reflection_filter = alpha_mask_filter(icon = icon('icons/obj/watercloset.dmi', "mirror_mask"))
+	var/static/matrix/reflection_matrix = matrix(0.75, 0, 0, 0, 0.75, 0)
+	var/datum/callback/can_reflect = CALLBACK(src, PROC_REF(can_reflect))
+	var/list/update_signals = list(COMSIG_ATOM_BREAK)
+	AddComponent(/datum/component/reflection, reflection_filter = reflection_filter, reflection_matrix = reflection_matrix, can_reflect = can_reflect, update_signals = update_signals)
+
+/obj/structure/mirror/proc/can_reflect(atom/movable/target)
+	///I'm doing it this way too, because the signal is sent before the broken variable is set to TRUE.
+	if(atom_integrity <= integrity_failure * max_integrity)
+		return FALSE
+	if(broken || !isliving(target) || HAS_TRAIT(target, TRAIT_NO_MIRROR_REFLECTION))
+		return FALSE
+	return TRUE
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 
 /obj/structure/mirror/Initialize(mapload)
@@ -203,7 +219,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 					amazed_human.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			if(MUTCOLORS in amazed_human.dna.species.species_traits)
-				var/new_mutantcolor = input(user, "Choose your skin color:", "Race change", amazed_human.dna.features["mcolor"]) as color|null
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", amazed_human.dna.features["mcolor"])
 				if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 					return TRUE
 				if(new_mutantcolor)
@@ -253,21 +269,21 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 			if(hairchoice == "Style") //So you just want to use a mirror then?
 				return ..()
 			else
-				var/new_hair_color = input(amazed_human, "Choose your hair color", "Hair Color",amazed_human.hair_color) as color|null
+				var/new_hair_color = tgui_color_picker(amazed_human, "Choose your hair color", "Hair Color", amazed_human.hair_color)
 				if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 					return TRUE
 				if(new_hair_color)
 					amazed_human.hair_color = sanitize_hexcolor(new_hair_color)
 					amazed_human.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(amazed_human.gender == "male")
-					var/new_face_color = input(amazed_human, "Choose your facial hair color", "Hair Color", amazed_human.facial_hair_color) as color|null
+					var/new_face_color = tgui_color_picker(amazed_human, "Choose your facial hair color", "Hair Color", amazed_human.facial_hair_color)
 					if(new_face_color)
 						amazed_human.facial_hair_color = sanitize_hexcolor(new_face_color)
 						amazed_human.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
 				amazed_human.update_body_parts()
 
 		if(BODY_ZONE_PRECISE_EYES)
-			var/new_eye_color = input(amazed_human, "Choose your eye color", "Eye Color", amazed_human.eye_color_left) as color|null
+			var/new_eye_color = tgui_color_picker(amazed_human, "Choose your eye color", "Eye Color", amazed_human.eye_color_left)
 			if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 				return TRUE
 			if(new_eye_color)

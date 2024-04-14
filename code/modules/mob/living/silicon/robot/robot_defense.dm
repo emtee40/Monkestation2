@@ -205,24 +205,6 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
-	if(..()) //successful slime shock
-		flash_act()
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustBruteLoss(M.powerlevel * rand(6,10))
-
-	var/damage = rand(1, 3)
-
-	if(M.is_adult)
-		damage = rand(20, 40)
-	else
-		damage = rand(5, 35)
-	damage = round(damage / 2) // borgs receive half damage
-	adjustBruteLoss(damage)
-
-	return
-
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	add_fingerprint(user)
 	if(!opened)
@@ -234,7 +216,6 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		cell.add_fingerprint(user)
 		user.put_in_active_hand(cell)
 		to_chat(user, span_notice("You remove \the [cell]."))
-		cell = null
 		update_icons()
 		diag_hud_set_borgcell()
 
@@ -306,9 +287,9 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		spark_system.start()
 		return
 	to_chat(user, span_notice("You start to unfasten [src]'s securing bolts..."))
-	if(tool.use_tool(src, user, 50, volume=50) && !cell)
+	if(tool.use_tool(src, user, 5 SECONDS, volume = 50) && !cell)
 		user.visible_message(span_notice("[user] deconstructs [src]!"), span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
-		deconstruct()
+		cyborg_deconstruct()
 		return
 
 /mob/living/silicon/robot/fire_act()

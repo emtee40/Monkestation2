@@ -65,10 +65,13 @@
 
 	if(!guarantees_roundstart_roleset && prob(roundstart_prob) && !roundstart_checks)
 		roundstart_checks = TRUE
+
+	if(SSgamemode.current_roundstart_event && !SSgamemode.ran_roundstart && (guarantees_roundstart_roleset || roundstart_checks))
+		buy_event(SSgamemode.current_roundstart_event, EVENT_TRACK_ROLESET, TRUE)
+		log_storyteller("Running SSgamemode.current_roundstart_event\[[SSgamemode.current_roundstart_event]\]")
+		SSgamemode.current_roundstart_event = null
 		if(!ignores_roundstart)
 			SSgamemode.ran_roundstart = TRUE
-		if(SSgamemode.current_roundstart_event)
-			buy_event(SSgamemode.current_roundstart_event, EVENT_TRACK_ROLESET)
 
 	add_points(delta_time)
 	handle_tracks()
@@ -150,7 +153,7 @@
 	var/total_cost = bought_event.cost * mode.point_thresholds[track]
 	if(!bought_event.roundstart)
 		total_cost *= (1 + (rand(-cost_variance, cost_variance)/100)) //Apply cost variance if not roundstart event
-	mode.event_track_points[track] -= total_cost
+	mode.event_track_points[track] = max(mode.event_track_points[track] - total_cost, 0)
 	message_admins("Storyteller purchased and triggered [bought_event] event, on [track] track, for [total_cost] cost.")
 	if(bought_event.roundstart)
 		if(!ignores_roundstart)
@@ -181,5 +184,5 @@
 /datum/storyteller/guide
 	name = "The Guide"
 	desc = "The Guide will provide a balanced and varied experience. Consider this the default experience."
-	weight = 8
+	weight = 6
 	always_votable = TRUE
