@@ -235,8 +235,12 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			group_overlay_state = LIQUID_STATE_SHOULDERS
 		if(LIQUID_FULLTILE_LEVEL_HEIGHT to INFINITY)
 			group_overlay_state = LIQUID_STATE_FULLTILE
+
 	if(old_overlay != group_overlay_state)
 		for(var/turf/member in members)
+			if(!member.liquids)
+				remove_from_group(member)
+
 			member.liquids.set_new_liquid_state(group_overlay_state)
 			member.liquid_height = expected_turf_height + member.turf_height
 
