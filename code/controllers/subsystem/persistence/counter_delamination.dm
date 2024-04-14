@@ -15,5 +15,7 @@
 	if((rounds_since_engine_exploded + 1) > delam_highscore)
 		aneri_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_HIGHSCORE_FILEPATH)
 
-//#undef DELAMINATION_COUNT_FILEPATH /* TODO: uncomment this whenever dreamchecker removes the outdated lint */
+/* TODO: uncomment these whenever dreamchecker removes the outdated lint
+#undef DELAMINATION_COUNT_FILEPATH
 #undef DELAMINATION_HIGHSCORE_FILEPATH
+*/
