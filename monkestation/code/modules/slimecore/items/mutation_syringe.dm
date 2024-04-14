@@ -5,6 +5,8 @@
 	icon = 'monkestation/code/modules/slimecore/icons/slimes.dmi'
 	icon_state = "mutation_syringe"
 
+	w_class = WEIGHT_CLASS_SMALL
+
 	/// Type path of the slime trait to infuse.
 	var/datum/slime_trait/infusing_trait_path
 	/// Amount of uses remaining.
