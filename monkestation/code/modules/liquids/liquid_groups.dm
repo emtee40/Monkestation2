@@ -636,6 +636,10 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			var/turf/directional_turf = get_step(cached_turf, direction)
 			if(isclosedturf(directional_turf))
 				continue
+			if(!(directional_turf in cached_turf.atmos_adjacent_turfs)) //i hate that this is needed
+				continue
+			if(!cached_turf.atmos_adjacent_turfs[directional_turf])
+				continue
 			if(spread_liquid(directional_turf, cached_turf))
 				cached_edge_turfs[cached_turf] -= direction
 				if(!length(cached_edge_turfs[cached_turf]))
