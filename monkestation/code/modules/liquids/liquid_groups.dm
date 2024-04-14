@@ -240,6 +240,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		for(var/turf/member in members)
 			if(!member.liquids)
 				remove_from_group(member)
+				continue
 
 			member.liquids.set_new_liquid_state(group_overlay_state)
 			member.liquid_height = expected_turf_height + member.turf_height
