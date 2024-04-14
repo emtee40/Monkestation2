@@ -7,19 +7,8 @@
 /* This comment bypasses grep checks */ /var/__aneri
 
 /proc/__detect_aneri()
-	if (world.system_type == UNIX)
-		if (fexists("./libaneri.so"))
-			// No need for LD_LIBRARY_PATH badness.
-			return __aneri = "./libaneri.so"
-		else if (fexists("./aneri"))
-			// Old dumb filename.
-			return __aneri = "./aneri"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/aneri"))
-			// Old dumb filename in `~/.byond/bin`.
-			return __aneri = "aneri"
-		else
-			// It's not in the current directory, so try others
-			return __aneri = "libaneri.so"
+	if(world.system_type == UNIX)
+		return __aneri = "libaneri"
 	else
 		return __aneri = "aneri"
 
