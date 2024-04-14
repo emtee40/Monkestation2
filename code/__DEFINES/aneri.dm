@@ -30,11 +30,11 @@
 #define aneri_hex_decode(input)			ANERI_CALL("hex_decode", input)
 
 
-/*#define aneri_url_encode(input) 		ANERI_CALL("url_encode", input)
+#define aneri_url_encode(input) 		ANERI_CALL("url_encode", input)
 #define aneri_url_decode(input) 		ANERI_CALL("url_decode", input)
 
 #define url_encode(text) aneri_url_encode("[text]")
-#define url_decode(text) aneri_url_decode("[text]")*/
+#define url_decode(text) aneri_url_decode("[text]")
 
 #define aneri_base64_encode(input)		ANERI_CALL("base64_encode", input)
 #define aneri_base64_decode(input)		ANERI_CALL("base64_decode", input)
@@ -42,11 +42,10 @@
 #define aneri_base64url_decode(input)	ANERI_CALL("base64url_decode", input)
 
 /proc/aneri_uuid()						return ANERI_CALL("uuid")
+/proc/aneri_cuid2(len = null)			return ANERI_CALL("cuid2", len)
 /proc/aneri_unix_timestamp()			return ANERI_CALL("unix_timestamp")
 
-#ifdef ANERI_OVERRIDE_SORT
 #define aneri_sort(value, sorter)			ANERI_CALL("sort", value, sorter)
-#endif
 
 #define aneri_file_exists(file)				ANERI_CALL("file_exists", "[file]")
 #define aneri_file_read(file)				ANERI_CALL("file_read", "[file]")
