@@ -105,6 +105,11 @@
 	var/__aneri_key_low
 	var/__aneri_key_high
 
+/datum/aneri/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, __aneri_key_low) || var_name == NAMEOF(src, __aneri_key_high))
+		return FALSE // DO. NOT. TOUCH.
+	return ..()
+
 /world/New()
 	aneri_startup_log()
 	aneri_cleanup()
