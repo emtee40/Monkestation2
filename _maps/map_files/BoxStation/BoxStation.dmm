@@ -5913,9 +5913,9 @@
 	name = "Isolation Cell";
 	id_tag = "iso_cell_hall_bolt"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/duct,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/prison/safe)
 "bZl" = (
@@ -52185,7 +52185,7 @@
 /obj/machinery/button/door/directional/west{
 	id = "visitation";
 	name = "Visitation Shutters";
-	req_access = list("brig")
+	req_one_access = list("brig", "permabrig")
 	},
 /obj/machinery/button/flasher{
 	id = "visitation_prisoner_flash";
@@ -57892,7 +57892,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Visitation"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/prison/visit)
 "tQa" = (
@@ -58783,11 +58783,11 @@
 	name = "Isolation Cell";
 	id_tag = "iso_cell_hall_bolt"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/duct,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/prison)
 "ugy" = (
@@ -66793,10 +66793,10 @@
 	id = "perma_lockdown";
 	name = "Lockdown Blast Door"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
 	cycle_id = "perma-entrance"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/transfer)
 "wPT" = (

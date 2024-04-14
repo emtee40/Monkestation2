@@ -10161,7 +10161,7 @@
 	cycle_id = "perma-entrance"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/transfer)
 "dhj" = (
@@ -16454,9 +16454,9 @@
 	name = "Permabrig Maintenance"
 	},
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/plating,
 /area/station/security/prison/safe)
 "fkX" = (
@@ -17440,21 +17440,21 @@
 	name = "Prison Wing Lockdown";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_access = list("brig")
+	req_access = list("brig", "permabrig")
 	},
 /obj/machinery/button/door{
 	id = "Trial Transfer";
 	name = "Trial Transfer Lockdown";
 	pixel_x = -7;
 	pixel_y = 8;
-	req_access = list("brig")
+	req_access = list("brig", "permabrig")
 	},
 /obj/machinery/button/door{
 	id = "Secure Gate";
 	name = "Cell Shutters";
 	pixel_x = -7;
 	pixel_y = -3;
-	req_access = list("brig")
+	req_access = list("brig", "permabrig")
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -24061,7 +24061,7 @@
 	name = "Visitation Shutters";
 	pixel_x = 6;
 	pixel_y = -24;
-	req_access = list("brig")
+	req_one_access = list("brig", "permabrig")
 	},
 /obj/machinery/button/flasher{
 	id = "visitorflash";
@@ -32170,7 +32170,7 @@
 	id_tag = "IsolationCell";
 	name = "Isolation Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/smooth,
 /area/station/security/prison/safe)
 "kvE" = (
@@ -51732,7 +51732,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/plating,
 /area/station/security/prison/safe)
 "qKk" = (
@@ -55555,7 +55555,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron/smooth,
 /area/station/security/execution/transfer)
 "rWW" = (
@@ -58497,7 +58497,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/iron,
 /area/station/security/prison/visit)
 "sUi" = (
@@ -71471,16 +71471,16 @@
 	name = "Inner Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
-	req_access = list("brig");
-	specialfunctions = 4
+	specialfunctions = 4;
+	req_one_access = list("brig", "permabrig")
 	},
 /obj/machinery/button/door/directional/north{
 	id = "permaouter";
 	name = "Outer Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 6;
-	req_access = list("brig");
-	specialfunctions = 4
+	specialfunctions = 4;
+	req_one_access = list("brig", "permabrig")
 	},
 /obj/item/paper/crumpled{
 	default_raw_text = "<i>Remember! Corporate spent a lot of money to create this state of the art fashion show. If we EVER even so much as HEAR a rumor that a news crew or corporate rep is coming by, this place needs to be in TIP TOP condition. It's all of our asses (and our pensions) if it's not.";
