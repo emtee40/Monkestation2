@@ -76,6 +76,7 @@ RUN apt-get install -y --no-install-recommends \
     pkg-config:i386 \
     libssl-dev:i386 \
     gcc-multilib \
+    clang \
     git \
     && git init \
     && git remote add origin https://github.com/Absolucy/aneri
