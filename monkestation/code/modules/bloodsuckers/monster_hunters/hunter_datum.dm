@@ -211,7 +211,6 @@
 
 	rabbits_spotted++
 	to_chat(owner.current, span_boldnotice("[description]"))
-	update_static_data_for_all_viewers()
 
 /datum/objective/assassinate/hunter
 	///has our target been discovered?
@@ -223,6 +222,7 @@
 	discovered = !discovered
 	src.update_explanation_text()
 	to_chat(owner.current, span_userdanger("You have identified a monster, your objective list has been updated!"))
+	update_static_data_for_all_viewers()
 
 /datum/antagonist/monsterhunter/proc/find_monster_targets()
 	var/list/possible_targets = list()
