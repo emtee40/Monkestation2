@@ -20,8 +20,9 @@
 
 
 /datum/action/cooldown/paradox/Activate()
-	if(!is_station_level(owner.loc.z))
-		to_chat(owner,span_warning("The pull of the ice moon isn't strong enough here.."))
+	var/turf/owner_turf = get_turf(owner)
+	if(!is_station_level(owner_turf.z))
+		to_chat(owner, span_warning("The pull of the ice moon isn't strong enough here.."))
 		return
 	StartCooldown(360 SECONDS, 360 SECONDS)
 	if(QDELETED(chessmark))
