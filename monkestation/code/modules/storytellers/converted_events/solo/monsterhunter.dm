@@ -35,10 +35,10 @@
 
 	var/count = 0
 	for(var/datum/antagonist/monster as anything in GLOB.antagonists)
-		if(!monster.owner || !monster.owner.current || monster.owner.current.stat == DEAD)
+		if(QDELETED(monster?.owner?.current) || monster.owner.current.stat == DEAD)
 			continue
 
-		if(GLOB.monster_antagonist_types.Find(monster.type))
+		if(is_type_in_typecache(monster, GLOB.monster_antagonist_typecache))
 			count++
 
 	if(MINIMUM_MONSTERS_REQUIRED > count)

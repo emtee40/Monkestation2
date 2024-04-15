@@ -36,12 +36,6 @@
 		/datum/action/changeling,
 		/datum/action/cooldown/bloodsucker
 	))
-	/// A typecache of antagonists that are considered "monsters".
-	var/static/list/monster_antags = typecacheof(list(
-		/datum/antagonist/bloodsucker,
-		/datum/antagonist/changeling,
-		/datum/antagonist/heretic
-	))
 
 /datum/antagonist/monsterhunter/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -242,7 +236,7 @@
 	for(var/datum/antagonist/victim as anything in GLOB.antagonists)
 		if(QDELETED(victim?.owner?.current) || victim.owner.current.stat == DEAD || victim.owner == owner)
 			continue
-		if(is_type_in_typecache(victim, monster_antags))
+		if(is_type_in_typecache(victim, GLOB.monster_antagonist_typecache))
 			possible_targets += victim.owner
 
 	for(var/i in 1 to 3) //we get 3 targets
