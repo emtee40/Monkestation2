@@ -17,20 +17,29 @@
 	var/apocalypse = FALSE
 	///a list of our prey
 	var/list/datum/mind/prey = list()
+	/// A list of traits innately granted to monster hunters.
+	var/static/list/granted_traits = list(
+		TRAIT_FEARLESS,
+		TRAIT_NOCRITDAMAGE,
+		TRAIT_NOSOFTCRIT,
+		TRAIT_NO_ZOMBIFY
+	)
+	/// A list of traits innately granted to the mind of monster hunters.
+	var/static/list/mind_traits = list(
+		TRAIT_BLOODSUCKER_HUNTER,
+		TRAIT_MADNESS_IMMUNE // You merely adopted the madness. I was born in it, molded by it.
+	)
 
 /datum/antagonist/monsterhunter/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	current_mob.add_traits(list(TRAIT_NOSOFTCRIT, TRAIT_NOCRITDAMAGE, TRAIT_NO_ZOMBIFY), HUNTER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_BLOODSUCKER_HUNTER, HUNTER_TRAIT)
+	current_mob.add_traits(granted_traits, HUNTER_TRAIT)
 	owner.unconvertable = TRUE
 
 /datum/antagonist/monsterhunter/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	REMOVE_TRAITS_IN(current_mob, HUNTER_TRAIT)
-	REMOVE_TRAITS_IN(owner, HUNTER_TRAIT)
-	owner.unconvertable = FALSE
 
 /datum/antagonist/monsterhunter/on_gain()
 	//Give Hunter Objective
@@ -39,7 +48,10 @@
 	var/datum/map_template/wonderland/wonder = new()
 	if(!wonder.load_new_z())
 		message_admins("The wonderland failed to load.")
-		CRASH("Failed to initialize wonderland!")
+		CRASH("Failed to initialize wonderlandmind_traits, !")
+
+	owner.add_traits(mind_traits, HUNTER_TRAIT)
+	owner.unconvertable = TRUE
 
 	//Teach Stake crafting
 	owner.teach_crafting_recipe(/datum/crafting_recipe/hardened_stake)
@@ -82,6 +94,8 @@
 /datum/antagonist/monsterhunter/on_removal()
 	UnregisterSignal(src, COMSIG_GAIN_INSIGHT)
 	UnregisterSignal(src, COMSIG_BEASTIFY)
+	REMOVE_TRAITS_IN(owner, HUNTER_TRAIT)
+	owner.unconvertable = FALSE
 	for(var/obj/effect/client_image_holder/white_rabbit/white as anything in rabbits)
 		rabbits -= white
 		qdel(white)

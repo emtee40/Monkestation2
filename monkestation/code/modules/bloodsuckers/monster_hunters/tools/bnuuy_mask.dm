@@ -38,12 +38,11 @@
 	id = "bnuuy_mask"
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
-	var/list/granted_traits = list(
+	var/static/list/granted_traits = list(
+		TRAIT_ANALGESIA,
 		TRAIT_BATON_RESISTANCE,
-		TRAIT_FEARLESS,
 		TRAIT_HARDLY_WOUNDED,
 		TRAIT_HEAR_THROUGH_DARKNESS,
-		TRAIT_MADNESS_IMMUNE, // You merely adopted the madness. I was born in it, molded by it.
 		TRAIT_NOBREATH,
 		TRAIT_NODISMEMBER,
 		TRAIT_PIERCEIMMUNE,
