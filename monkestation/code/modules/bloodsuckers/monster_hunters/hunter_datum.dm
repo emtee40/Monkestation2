@@ -34,7 +34,7 @@
 		/datum/action/changeling,
 		/datum/action/cooldown/bloodsucker
 	))
-	/// A list of antagonists that are considered "monsters".
+	/// A typecache of antagonists that are considered "monsters".
 	var/static/list/monster_antags = typecacheof(list(
 		/datum/antagonist/bloodsucker,
 		/datum/antagonist/changeling,
