@@ -29,6 +29,17 @@
 		TRAIT_BLOODSUCKER_HUNTER,
 		TRAIT_MADNESS_IMMUNE // You merely adopted the madness. I was born in it, molded by it.
 	)
+	/// A typecache of ability types that will be revealed to the monster hunter when they gain insight.
+	var/static/list/monster_abilities = typecacheof(list(
+		/datum/action/changeling,
+		/datum/action/cooldown/bloodsucker
+	))
+	/// A list of antagonists that are considered "monsters".
+	var/static/list/monster_antags = typecacheof(list(
+		/datum/antagonist/bloodsucker,
+		/datum/antagonist/changeling,
+		/datum/antagonist/heretic
+	))
 
 /datum/antagonist/monsterhunter/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -204,7 +215,7 @@
 			description = "O' hunter, your target [obj.target.current.real_name] bears these lethal abilities: "
 			var/list/abilities = list()
 			for(var/datum/action/ability as anything in obj.target.current.actions)
-				if(!istype(ability, /datum/action/changeling) && !istype(ability, /datum/action/cooldown/bloodsucker))
+				if(!is_type_in_typecache(ability, monster_abilities))
 					continue
 				abilities |= "[ability.name]"
 			description += english_list(abilities)
@@ -229,7 +240,7 @@
 	for(var/datum/antagonist/victim as anything in GLOB.antagonists)
 		if(QDELETED(victim?.owner?.current) || victim.owner.current.stat == DEAD || victim.owner == owner)
 			continue
-		if(istype(victim, /datum/antagonist/changeling) || istype(victim, /datum/antagonist/heretic) || istype(victim, /datum/antagonist/bloodsucker))
+		if(is_type_in_typecache(victim, monster_antags))
 			possible_targets += victim.owner
 
 	for(var/i in 1 to 3) //we get 3 targets
