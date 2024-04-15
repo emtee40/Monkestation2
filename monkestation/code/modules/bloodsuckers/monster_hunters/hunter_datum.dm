@@ -18,7 +18,7 @@
 	///have we triggered the apocalypse
 	var/apocalypse = FALSE
 	///a list of our prey
-	var/list/datum/mind/prey = list()a
+	var/list/datum/mind/prey = list()
 	/// A list of traits innately granted to monster hunters.
 	var/static/list/granted_traits = list(
 		TRAIT_FEARLESS,
