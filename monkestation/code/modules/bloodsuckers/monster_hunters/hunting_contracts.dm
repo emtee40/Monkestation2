@@ -100,7 +100,7 @@
 	recall.Grant(user)
 
 	podspawn(list(
-	"	target" = get_turf(user),
+		"target" = get_turf(user),
 		"style" = STYLE_SYNDICATE,
 		"spawn" = purchased
 	))
