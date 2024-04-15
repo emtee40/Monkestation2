@@ -67,6 +67,9 @@
 #define aneri_md5(input)		ANERI_CALL("hash", "md5", input)
 #define aneri_md5_file(fname)	ANERI_CALL("hash_file", "md5", fname)
 
+/proc/aneri_replace_chars_prob(input, replacement, probability = 25, skip_whitespace = FALSE)
+	return ANERI_CALL("replace_chars_prob", input, replacement, probability, skip_whitespace)
+
 #ifdef ANERI_OVERRIDE_PICK
 #define pick(list...)			_apick(list)
 #define pick_weight(list)		ANERI_CALL("pick_weighted", list)

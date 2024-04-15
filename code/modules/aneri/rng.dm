@@ -53,6 +53,9 @@
 /datum/rng/proc/string(length = 16)
 	return ANERI_CALL("instanced_random_string_alphanumeric", src, length)
 
+/datum/rng/proc/replace_chars_prob(input, replacement, probability = 25, skip_whitespace = FALSE)
+	return ANERI_CALL("instnaced_replace_chars_prob", src, input, replacement, probability, skip_whitespace)
+
 /// A cryptographic PRNG instance, using Blake3.
 /datum/rng/secure
 	secure = TRUE
