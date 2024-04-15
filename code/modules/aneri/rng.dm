@@ -38,11 +38,13 @@
 		CRASH("invalid arguments to /datum/rng/proc/ranged_int")
 	return ANERI_CALL("instanced_random_range_int_signed", src, min, max)
 
+/* i think these might be broken atm
 /datum/rng/proc/pick_from(list/choices)
 	return ANERI_CALL("instanced_pick", src, choices)
 
-/datum/rng/proc/pick_weighted(list/choices)
+/datum/rng/proc/pick_weighted(list/choices) broken atm
 	return ANERI_CALL("instanced_pick_weighted", src, choices)
+*/
 
 /datum/rng/proc/chance(percent) // "prob" is a reserved word, so we do "chance" instead
 	return ANERI_CALL("instanced_prob", src, percent)
