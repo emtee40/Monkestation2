@@ -1,5 +1,6 @@
 /datum/material_trait/stamina_draining
 	name = "Cumbersome"
+	desc = "Multiplies the stamina cost by 1.5 times."
 	reforges = 6
 
 /datum/material_trait/stamina_draining/on_trait_add(atom/movable/parent)

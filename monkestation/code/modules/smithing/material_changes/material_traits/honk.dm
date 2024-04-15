@@ -1,5 +1,6 @@
 /datum/material_trait/honk_blessed
 	name = "Honkmother's Blessing"
+	desc = "Injects mobs with laughter on hit (scales with liquid flow), and squeaks."
 
 /datum/material_trait/honk_blessed/on_trait_add(atom/movable/parent)
 	. = ..()

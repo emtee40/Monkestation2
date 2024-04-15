@@ -1,5 +1,6 @@
 /datum/material_trait/slow_attacks
 	name = "Bulky"
+	desc = "Multiplies the attack delay by 1.5."
 	reforges = 6
 
 /datum/material_trait/slow_attacks/on_trait_add(atom/movable/parent)

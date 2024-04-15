@@ -1,5 +1,6 @@
 /datum/material_trait/warping
 	name = "Warping"
+	desc = "Randomly teleports around, if you are holding it you also teleport."
 	reforges = 2
 	trait_flags = MATERIAL_TRACK_NO_STACK_PROCESS
 
