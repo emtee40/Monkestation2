@@ -3,8 +3,10 @@
 	roundend_category = "Monster Hunters"
 	antagpanel_category = "Monster Hunter"
 	job_rank = ROLE_MONSTERHUNTER
-	antag_hud_name = "obsessed"
+	antag_hud_name = "hunter"
 	preview_outfit = /datum/outfit/monsterhunter
+	antag_moodlet = /datum/mood_event/monster_hunter
+	show_to_ghosts = TRUE
 	var/list/datum/action/powers = list()
 	var/give_objectives = TRUE
 	///how many rabbits have we found
@@ -16,7 +18,7 @@
 	///have we triggered the apocalypse
 	var/apocalypse = FALSE
 	///a list of our prey
-	var/list/datum/mind/prey = list()
+	var/list/datum/mind/prey = list()a
 	/// A list of traits innately granted to monster hunters.
 	var/static/list/granted_traits = list(
 		TRAIT_FEARLESS,
