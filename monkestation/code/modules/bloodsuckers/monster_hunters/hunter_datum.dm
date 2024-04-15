@@ -210,7 +210,7 @@
 			description += english_list(abilities)
 
 	rabbits_spotted++
-	to_chat(owner.current, span_notice("[description]"))
+	to_chat(owner.current, span_boldnotice("[description]"))
 	update_static_data_for_all_viewers()
 
 /datum/objective/assassinate/hunter
