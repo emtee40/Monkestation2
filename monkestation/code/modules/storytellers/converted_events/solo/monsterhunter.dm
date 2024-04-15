@@ -4,7 +4,7 @@
 	name = "Monster Hunters"
 	track = EVENT_TRACK_MAJOR //being an anrtag event is for backend reasons, the event itself is major
 	antag_flag = ROLE_MONSTERHUNTER
-	tags = list(TAG_MAGICAL, TAG_TARGETED, TAG_COMBAT)
+	tags = list(TAG_MAGICAL, TAG_TARGETED, TAG_COMBAT, TAG_CREW_ANTAG, TAG_DESTRUCTIVE)
 	antag_datum = /datum/antagonist/monsterhunter
 	protected_roles = list(
 		JOB_CAPTAIN,
