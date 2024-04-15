@@ -19,20 +19,19 @@
 	. = ..()
 	force = base_force
 	AddComponent(/datum/component/two_handed, \
-		force_unwielded=base_force, \
+		force_unwielded = base_force, \
 		force_wielded= on_force, \
-		icon_wielded="[base_icon_state]1", \
+		icon_wielded = "[base_icon_state]1", \
 		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
 		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
 	)
 	RegisterSignal(src, WEAPON_UPGRADE, PROC_REF(upgrade_weapon))
 
 /obj/item/melee/trick_weapon/hunter_axe/upgrade_weapon()
-
 	upgrade_level++
 	var/datum/component/two_handed/handed = GetComponent(/datum/component/two_handed)
 	handed.force_wielded = upgraded_val(on_force, upgrade_level)
-	handed.force_unwielded = upgraded_val(base_force,upgrade_level)
+	handed.force_unwielded = upgraded_val(base_force, upgrade_level)
 	force = handed.force_unwielded
 
 /obj/item/melee/trick_weapon/hunter_axe/update_icon_state()

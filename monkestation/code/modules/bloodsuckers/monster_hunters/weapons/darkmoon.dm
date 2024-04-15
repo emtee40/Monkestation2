@@ -45,7 +45,6 @@
 	force = active ? upgraded_val(on_force, upgrade_level) : upgraded_val(base_force, upgrade_level)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
-
 /obj/item/melee/trick_weapon/darkmoon/attack_secondary(atom/target, mob/living/user, clickparams)
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
@@ -70,9 +69,8 @@
 	var/obj/projectile/moonbeam/moon = new(proj_turf)
 	moon.preparePixelProjectile(target, user, modifiers)
 	moon.firer = user
-	playsound(src, 'monkestation/sound/bloodsuckers/moonlightbeam.ogg',50)
+	playsound(src, 'monkestation/sound/bloodsuckers/moonlightbeam.ogg', vol = 50)
 	moon.fire()
-
 
 /obj/projectile/moonbeam
 	name = "Moonlight"

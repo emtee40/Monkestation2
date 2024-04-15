@@ -17,16 +17,14 @@
 
 /obj/item/melee/trick_weapon/proc/upgrade_weapon()
 	SIGNAL_HANDLER
-
 	upgrade_level++
 	force = upgraded_val(base_force,upgrade_level)
 	var/datum/component/transforming/transform = GetComponent(/datum/component/transforming)
 	transform.force_on = upgraded_val(on_force,upgrade_level)
 
-
 /obj/item/melee/trick_weapon/attack(mob/target, mob/living/user, params) //our weapon does 25% less damage on non monsters
 	var/old_force = force
 	if(!(target.mind?.has_antag_datum(/datum/antagonist/changeling)) && !IS_BLOODSUCKER(target) && !IS_HERETIC(target))
-		force = force * 0.75
+		force = round(force * 0.75)
 	. = ..()
 	force = old_force

@@ -32,6 +32,11 @@
 		ui = new(user, src, "HunterContract", name)
 		ui.open()
 
+/obj/item/hunting_contract/ui_status(mob/user)
+	if(isliving(user) && !IS_MONSTERHUNTER(user))
+		return UI_CLOSE
+	return ..()
+
 /obj/item/hunting_contract/ui_data(mob/user)
 	var/list/data = list()
 	data["bought"] = bought

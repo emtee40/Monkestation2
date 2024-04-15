@@ -32,7 +32,7 @@
 	balloon_alert(user, active ? "extended" : "collapsed")
 	inhand_icon_state = active ? "Claw" : "BoneClaw"
 	if(active)
-		playsound(src, 'sound/weapons/fwoosh.ogg',50)
+		playsound(src, 'sound/weapons/fwoosh.ogg', vol = 50)
 	enabled = active
 	active = wound_bonus ? 45 : initial(wound_bonus)
 	force = active ? upgraded_val(on_force, upgrade_level) : upgraded_val(base_force, upgrade_level)

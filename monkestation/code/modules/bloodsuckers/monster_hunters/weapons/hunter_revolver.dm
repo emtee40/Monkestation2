@@ -25,7 +25,6 @@
 	projectile_type = /obj/projectile/bullet/bloodsilver
 	caliber = CALIBER_BLOODSILVER
 
-
 /obj/projectile/bullet/bloodsilver
 	name = "Bloodsilver bullet"
 	damage = 3
