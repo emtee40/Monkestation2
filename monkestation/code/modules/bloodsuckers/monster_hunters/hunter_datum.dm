@@ -189,11 +189,11 @@
 
 	var/description
 	var/datum/objective/assassinate/hunter/obj
-	var/list/unchecked_objectives = list()
+	var/list/unchecked_objectives
 	for(var/datum/objective/assassinate/hunter/goal in objectives)
 		if(!goal.discovered)
-			unchecked_objectives += goal
-	if(length(unchecked_objectives))
+			LAZYADD(unchecked_objectives, goal)
+	if(unchecked_objectives)
 		obj = pick(unchecked_objectives)
 	if(obj)
 		obj.uncover_target()
@@ -226,23 +226,18 @@
 
 /datum/antagonist/monsterhunter/proc/find_monster_targets()
 	var/list/possible_targets = list()
-	for(var/datum/antagonist/victim in GLOB.antagonists)
-		if(!victim.owner)
-			continue
-		if(!victim.owner.current)
-			continue
-		if(victim.owner.current.stat == DEAD || victim.owner == owner)
+	for(var/datum/antagonist/victim as anything in GLOB.antagonists)
+		if(QDELETED(victim?.owner?.current) || victim.owner.current.stat == DEAD || victim.owner == owner)
 			continue
 		if(istype(victim, /datum/antagonist/changeling) || istype(victim, /datum/antagonist/heretic) || istype(victim, /datum/antagonist/bloodsucker))
 			possible_targets += victim.owner
 
 	for(var/i in 1 to 3) //we get 3 targets
-		if(!(possible_targets.len))
+		if(!length(possible_targets))
 			break
 		var/datum/objective/assassinate/hunter/kill_monster = new
 		kill_monster.owner = owner
-		var/datum/mind/target = pick(possible_targets)
-		possible_targets -= target
+		var/datum/mind/target = pick_n_take(possible_targets)
 		kill_monster.target = target
 		prey += target
 		kill_monster.explanation_text = "A monster target is aboard the station, identify and eliminate this threat."
@@ -253,7 +248,7 @@
 	SIGNAL_HANDLER
 
 	apocalypse = TRUE
-	force_event(/datum/round_event_control/wonderlandapocalypse, "a monsterhunter turning into a beast")
+	force_event(/datum/round_event_control/wonderlandapocalypse, "a monster hunter turning into a beast")
 
 /obj/item/clothing/mask/monster_preview_mask
 	name = "Monster Preview Mask"
@@ -291,7 +286,7 @@
 
 
 /datum/action/droppod_item
-	name = "Summon Monster Hunter tools"
+	name = "Summon Monster Hunter Tools"
 	desc = "Summon specific monster hunter tools that will aid us with our hunt."
 	button_icon = 'icons/obj/device.dmi'
 	button_icon_state = "beacon"
@@ -332,7 +327,6 @@
 
 /datum/action/cooldown/spell/track_monster/proc/remove_vision(mob/living/carbon/cast_on)
 	qdel(cast_on.GetComponent(/datum/component/echolocation))
-
 
 /datum/component/echolocation/monsterhunter
 
