@@ -31,7 +31,7 @@
 	name = "Thermo Electric Generator Circulators"
 	desc = "The circuit board for the thermo-electric generator circulator."
 	id = "teg-circ"
-	build_path = /obj/machinery/atmospherics/components/binary/circulator
+	build_path = /obj/item/circuitboard/machine/circulator
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
 	)
