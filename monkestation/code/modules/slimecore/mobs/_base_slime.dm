@@ -154,6 +154,7 @@
 	UnregisterSignal(src, COMSIG_MOB_OVERATE)
 
 	for(var/datum/slime_mutation_data/mutation as anything in possible_color_mutations)
+		possible_color_mutations -= mutation
 		qdel(mutation)
 
 	QDEL_NULL(current_color)
