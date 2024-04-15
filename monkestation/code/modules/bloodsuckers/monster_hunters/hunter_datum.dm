@@ -90,7 +90,6 @@
 		contract.owner = src
 	summon_contract.Grant(owner.current)
 
-
 /datum/antagonist/monsterhunter/on_removal()
 	UnregisterSignal(src, COMSIG_GAIN_INSIGHT)
 	UnregisterSignal(src, COMSIG_BEASTIFY)
@@ -182,7 +181,7 @@
 	to_chat(owner.current, span_announce("While we can kill anyone in our way to destroy the monsters lurking around, <b>causing property damage is unacceptable</b>."))
 	to_chat(owner.current, span_announce("However, security WILL detain us if they discover our mission."))
 	to_chat(owner.current, span_announce("In exchange for our services, it shouldn't matter if a few items are gone missing for our... personal collection."))
-	owner.current.playsound_local(null, 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE)
 	owner.announce_objectives()
 
 /datum/antagonist/monsterhunter/proc/insight_gained()
@@ -194,24 +193,25 @@
 	for(var/datum/objective/assassinate/hunter/goal in objectives)
 		if(!goal.discovered)
 			unchecked_objectives += goal
-	if(unchecked_objectives.len)
+	if(length(unchecked_objectives))
 		obj = pick(unchecked_objectives)
 	if(obj)
 		obj.uncover_target()
 		var/datum/antagonist/heretic/heretic_target = IS_HERETIC(obj.target.current)
 		if(heretic_target)
-			description = "your target [heretic_target.owner.current.real_name] follows the [heretic_target.heretic_path], dear hunter."
+			description = "Your target, [heretic_target.owner.current.real_name], follows the [heretic_target.heretic_path], dear hunter."
 		else
-			description = "O' hunter, your target [obj.target.current.real_name] bears these lethal abilities:  "
-			for(var/datum/action/ability in obj.target.current.actions)
-				if(!ability)
-					continue
+			description = "O' hunter, your target [obj.target.current.real_name] bears these lethal abilities: "
+			var/list/abilities = list()
+			for(var/datum/action/ability as anything in obj.target.current.actions)
 				if(!istype(ability, /datum/action/changeling) && !istype(ability, /datum/action/cooldown/bloodsucker))
 					continue
-				description += "[ability.name], "
+				abilities |= "[ability.name]"
+			description += english_list(abilities)
 
 	rabbits_spotted++
-	to_chat(owner.current,span_notice("[description]"))
+	to_chat(owner.current, span_notice("[description]"))
+	update_static_data_for_all_viewers()
 
 /datum/objective/assassinate/hunter
 	///has our target been discovered?
