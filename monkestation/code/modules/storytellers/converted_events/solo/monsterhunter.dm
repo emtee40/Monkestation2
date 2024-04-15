@@ -2,7 +2,7 @@
 
 /datum/round_event_control/antagonist/solo/monsterhunter
 	name = "Monster Hunters"
-	track = EVENT_TRACK_MAJOR //being an anrtag event is for backend reasons, the event itself is major
+	track = EVENT_TRACK_MAJOR
 	antag_flag = ROLE_MONSTERHUNTER
 	tags = list(TAG_MAGICAL, TAG_TARGETED, TAG_COMBAT, TAG_CREW_ANTAG, TAG_DESTRUCTIVE)
 	antag_datum = /datum/antagonist/monsterhunter
@@ -22,7 +22,7 @@
 		JOB_AI,
 		JOB_CYBORG,
 	)
-	min_players = 10 //no required enemies deu to instead needing enemy antags
+	min_players = 10 //no required enemies due to instead needing enemy antags
 	weight = 25 // high weight as its a threat
 	maximum_antags = 1
 	prompted_picking = TRUE
