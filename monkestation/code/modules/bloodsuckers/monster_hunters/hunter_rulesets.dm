@@ -53,11 +53,7 @@ GLOBAL_LIST_INIT(monster_antagonist_types, list(
 		return FALSE
 	var/count = 0
 	for(var/datum/antagonist/monster as anything in GLOB.antagonists)
-		if(!monster.owner)
-			continue
-		if(!monster.owner.current)
-			continue
-		if(monster.owner.current.stat == DEAD)
+		if(QDELETED(monster.owner) || QDELETED(monster.owner.current) || monster.owner.current.stat == DEAD)
 			continue
 		if(GLOB.monster_antagonist_types.Find(monster.type))
 			count++
