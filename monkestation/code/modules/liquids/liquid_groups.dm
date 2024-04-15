@@ -745,7 +745,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	var/obj/effect/abstract/liquid_turf/current_head
 
 	var/generated_key = "[world.time]_activemembers[members.len]"
-	var/adjacent_liquid_count = 0
+	var/adjacent_liquid_count = -1
 	for(var/turf/adjacent_turf in get_adjacent_open_turfs(head_turf))
 		if(!adjacent_turf.liquids || !members[adjacent_turf]) //empty turf or not our group just skip this
 			continue
@@ -754,7 +754,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		current_head.temporary_split_key = generated_key
 		adjacent_liquid_count++
 
-	if(adjacent_liquid_count <= 1) ///if there is only 1 adjacent liquid it physically can't split
+	if(adjacent_liquid_count > 0) ///if there is only 1 adjacent liquid it physically can't split
 		return FALSE
 
 	if(current_head)

@@ -96,7 +96,6 @@
 
 	/// Commands you can give this carp once it is tamed, not static because subtypes can modify it
 	var/friendship_commands = list(
-		/datum/pet_command/idle,
 		/datum/pet_command/free,
 		/datum/pet_command/follow,
 		/datum/pet_command/point_targeting/attack/latch,
