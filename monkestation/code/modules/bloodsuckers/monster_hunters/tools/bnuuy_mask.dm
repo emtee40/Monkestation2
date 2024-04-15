@@ -95,6 +95,7 @@
 	var/datum/physiology/physiology = hunter.physiology
 	if(QDELETED(physiology))
 		return
+	// Silly environmental hazards are nothing compared to the glory of the hunt.
 	physiology.damage_resistance += 5
 	physiology.pressure_mod *= 0.1
 	physiology.heat_mod *= 0.1
