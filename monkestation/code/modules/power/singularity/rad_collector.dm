@@ -234,7 +234,7 @@
 
 /obj/machinery/power/rad_collector/rad_act(intensity)
 	if(loaded_tank && active && intensity > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += ((intensity+power_coeff))-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
+		stored_energy += ((intensity+power_coeff)-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
