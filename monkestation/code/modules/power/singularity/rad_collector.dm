@@ -16,8 +16,8 @@
 /obj/projectile/energy/nuclear_particle/Initialize(mapload)
 	. = ..()
 	if(!stored_energy) //Will generate a random value on every initialise
-		stored_energy = rand(0,150) //SUPER lethal. Eeyikes!
-		damage = (stored_energy)/3 //OOPSIES.
+		stored_energy = rand(150,30000) //SUPER lethal. Eeyikes!
+		damage = max((stored_energy/10),80) //Yeowch-tier
 
 //replacing this dumbass machine with something more fun.
 
@@ -62,7 +62,8 @@
 /obj/machinery/power/rad_collector/proc/eat_some_bullets(datum/source, obj/projectile/projectile)
 	if(istype(projectile,/obj/projectile/energy/nuclear_particle))
 		var/obj/projectile/energy/nuclear_particle/proj = projectile
-		stored_energy += (proj.stored_energy*2.5) //yippiee!!!
+		var/final_output = (proj.stored_energy += power_coeff)
+		stored_energy += (final_output*2.5) //yippiee!!!
 		return
 
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
@@ -233,7 +234,7 @@
 
 /obj/machinery/power/rad_collector/rad_act(intensity)
 	if(loaded_tank && active && intensity > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (intensity-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
+		stored_energy += ((intensity+power_coeff))-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
