@@ -19,11 +19,11 @@
 	cached_clothing_resistance = null //I hate having to do this but it's the fastest and least painful way.
 
 //Handles coefficients and minimum amounts involving mobs and humans
-#define RADIATION_DAMAGE_COEFFICIENT 1.025 //Becquerel-based damage (immediate transfer)
-#define RADIATION_LINGER_DIVISOR 2.45 //Manages Grays (total absorbed dose)
+#define RADIATION_DAMAGE_COEFFICIENT 2.049 //Becquerel-based damage (immediate transfer)
+#define RADIATION_LINGER_DIVISOR 7 //Manages how fast radiation either lingers or dissapates.
 #define RADIATION_MINIMUM_BURN_AMOUNT 40 //Where the RADIATION_DAMAGE_COEFFICIENT will be utilised to determine how much burn you should recieve, unlucky sod.
 #define RADIATION_MINIMUM_MUTATION 60 //You've lost or gained chromies above this point, bud.
-#define RADIATION_CYCLE_COOLDOWN 25 //~25 seconds or TICKS depending on how its defined. Controls how fast radiation cycles in you.
+#define RADIATION_CYCLE_COOLDOWN 12 SECONDS //~12 seconds or TICKS depending on how its defined. Controls how fast radiation cycles in you. Use SECONDS to standardise it.
 
 //Handles exposure -> gray conversions and will be used to calculate the severity of effects
 #define RADIATION_LIGHT_SICKNESS_EXPOSURE 0.34 //Minor effects
@@ -67,9 +67,6 @@
 	// Hey fun fact (rad immunity will only prevent damage here)
 	if (HAS_TRAIT(parent, TRAIT_RADIMMUNE))
 		host_immunity = TRUE
-
-	if(isturf(parent)) // OH NO
-		qdel(src) //You should QDEL YOURSELF... NOW!
 
 	ADD_TRAIT(parent, TRAIT_IRRADIATED, REF(src))
 
@@ -116,22 +113,33 @@
 	return ..()
 
 /datum/component/irradiated/process(seconds_per_tick)
+	dosebefore = absorbed_energy //Keeps track of what the dose is BEFORE we process it.
 	if (COOLDOWN_FINISHED(src, radprocessing))
-		if(ishuman(parent))
-			process_human_effects(parent, seconds_per_tick) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
-		if(ismovable(parent) && (held_contamination >= RADIATION_GLOW_THRESHOLD || doseafter - dosebefore >= 30)) //If the doseafter && dosebefore subtracted is >= 30 that means there must have been atleast a rise of 30.
-			process_contamination_effects(parent)
+		if(absorbed_energy >= 1)
+			var/converted = absorbed_energy/RADIATION_LINGER_DIVISOR // 50/4 = 7.5 Sv absorbed per 50 dose per 12 seconds or so
+			doseafter = converted
+			var/converted_ratio = ((dosebefore - doseafter)/100)*8 //50-7.5/100*6 = 2.57* - Useful for calculating if we should do damage, and how much
+			if(ismovable(parent) && held_contamination >= RADIATION_GLOW_THRESHOLD || (dosebefore -= doseafter <= 35)) //If the doseafter && dosebefore subtracted is <= 30 that means there must have been atleast a rise of 30.
+				process_contamination_effects(parent, converted_ratio, converted)
+			if(COOLDOWN_FINISHED(src, absorbrads))
+				if(ishuman(parent))
+					process_human_effects(parent, converted_ratio, converted) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
+				if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT && absorbed_energy >= RADIATION_MINIMUM_BURN_AMOUNT)
+					absorbed_energy -= converted/8 //Lose a small amount of radiation per tick. Not a significant amount, but it helps.
+
 		COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
 	if (should_halt_effects(parent))
 		return
 
-/datum/component/irradiated/proc/process_contamination_effects(var/parent)
+/datum/component/irradiated/proc/process_contamination_effects(var/parent, var/converted_ratio, var/converted)
 	if(held_contamination >= RADIATION_GLOW_THRESHOLD)
 		var/atom/movable/parent_movable = parent
 		if(!parent_movable.get_filter("rad_glow"))
 			create_glow()
-		else if(parent_movable.get_filter("rad_glow"))
+		else if(parent_movable.get_filter("rad_glow") && held_contamination <= RADIATION_GLOW_THRESHOLD)
 			remove_glow()
+		if(held_contamination >= RADIATION_JUMP_THRESHOLD) //This is where the fun begins.
+			radiation_pulse(src, max_range = rand(1,max((1+absorbed_energy/4),20)), intensity = converted, threshold = 4) //This doesn't seem like much. Until you realise with an energy of 2000...
 
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
 	if (HAS_TRAIT(target, TRAIT_STASIS))
@@ -142,11 +150,12 @@
 
 	return FALSE
 
-/datum/component/irradiated/proc/process_human_effects(mob/living/carbon/human/target, seconds_per_tick)
-	if (!COOLDOWN_FINISHED(src, absorbrads))
+/datum/component/irradiated/proc/process_human_effects(mob/living/carbon/human/target, var/converted_ratio, var/converted)
+	if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT)
 		return
 
 /datum/component/irradiated/proc/fresh_exposure(var/exposure)
+	return
 
 /datum/component/irradiated/proc/start_burn_splotch_timer()
 //	addtimer(CALLBACK(src, PROC_REF(give_burn_splotches)), rand(RADIATION_BURN_INTERVAL_MIN, RADIATION_BURN_INTERVAL_MAX), TIMER_STOPPABLE)

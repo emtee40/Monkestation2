@@ -95,9 +95,9 @@ SUBSYSTEM_DEF(radiation)
 				target.investigate_log("was irradiated by [source].", INVESTIGATE_RADIATION)
 				if(target.GetComponent(/datum/component/irradiated))
 					var/datum/component/irradiated/comp = target.GetComponent(/datum/component/irradiated)
-					target.investigate_log("was further irradiated by [source], for a total of [intensity] absorbed energy.", INVESTIGATE_RADIATION)
-					comp.absorbed_energy += intensity //Scoobs. You may be fucked.
-					comp.fresh_exposure(intensity)
+					target.investigate_log("was further irradiated by [source], for a total of [perceived_intensity] absorbed energy.", INVESTIGATE_RADIATION)
+					comp.absorbed_energy += perceived_intensity //Scoobs. You may be fucked.
+					comp.fresh_exposure(perceived_intensity)
 		if(MC_TICK_CHECK)
 			break
 
@@ -106,6 +106,9 @@ SUBSYSTEM_DEF(radiation)
 /// Will attempt to irradiate the given target, limited through IC means, such as radiation protected clothing.
 /datum/controller/subsystem/radiation/proc/irradiate(atom/target)
 	if (can_irradiate_basic(target))
+		return FALSE
+
+	if (CANNOT_IRRADIATE(target))
 		return FALSE
 
 	irradiate_after_basic_checks(target)
