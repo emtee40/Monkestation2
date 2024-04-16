@@ -234,6 +234,10 @@
 	if(generator)
 		disconnectFromGenerator()
 	mode = !mode
+	if(mode)
+		flipped = TRUE
+	else
+		flipped = FALSE
 	balloon_alert(user, "set to [mode ? "cold" : "hot"]")
 	return TRUE
 

@@ -215,18 +215,6 @@
 /obj/machinery/power/thermoelectric_generator/ui_data(mob/user)
 	var/list/data = list()
 	data["error_message"] = null
-	if(!powernet)
-		data["error_message"] = "Unable to connect to the power network!"
-		return data
-	if(!cold_circ && !hot_circ)
-		data["error_message"] = "Unable to locate any parts! Multitool the machine to sync to nearby parts."
-		return data
-	if(!cold_circ)
-		data["error_message"] = "Unable to locate cold circulator!"
-		return data
-	if(!hot_circ)
-		data["error_message"] = "Unable to locate hot circulator!"
-		return data
 
 	var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
 	var/datum/gas_mixture/cold_circ_air2 = cold_circ.airs[2]
@@ -251,6 +239,19 @@
 	hot_data["pressure_inlet"] = round(hot_circ_air2.return_pressure(), 0.1)
 	hot_data["pressure_outlet"] = round(hot_circ_air1.return_pressure(), 0.1)
 	data["hot_data"] = list(hot_data)
+
+	if(!powernet)
+		data["error_message"] = "Unable to connect to the power network!"
+		return data
+	if(!cold_circ && !hot_circ)
+		data["error_message"] = "Unable to locate any parts! Multitool the machine to sync to nearby parts."
+		return data
+	if(!cold_circ)
+		data["error_message"] = "Unable to locate cold circulator!"
+		return data
+	if(!hot_circ)
+		data["error_message"] = "Unable to locate hot circulator!"
+		return data
 
 	return data
 
