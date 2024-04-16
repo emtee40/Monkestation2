@@ -70,7 +70,7 @@
 
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
 	if(loaded_tank)
-		if(!active)
+		if(active)
 			var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
 			for(var/id in tank_mix.gases)
 				if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
