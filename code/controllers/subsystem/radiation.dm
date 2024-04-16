@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(radiation)
 	for (var/turf/turf_to_irradiate as anything in cached_turfs_to_process)
 		turfs_iterated += 1
 		for (var/atom/movable/target in turf_to_irradiate)
-			if (!can_irradiate_basic(target))
+			if (can_irradiate_basic(target))
 				continue
 
 			var/current_insulation = 1
@@ -93,7 +93,10 @@ SUBSYSTEM_DEF(radiation)
 
 			if (irradiate_after_basic_checks(target))
 				target.investigate_log("was irradiated by [source].", INVESTIGATE_RADIATION)
-
+				if(target.GetComponent(/datum/component/irradiated))
+					var/comp = target.GetComponent(/datum/component/irradiated)
+					target.investigate_log("was further irradiated by [source], for a total of [intensity] absorbed energy.", INVESTIGATE_RADIATION)
+					comp.absorbed_energy += intensity //Scoobs. You may be fucked.
 		if(MC_TICK_CHECK)
 			break
 
@@ -101,7 +104,7 @@ SUBSYSTEM_DEF(radiation)
 
 /// Will attempt to irradiate the given target, limited through IC means, such as radiation protected clothing.
 /datum/controller/subsystem/radiation/proc/irradiate(atom/target)
-	if (!can_irradiate_basic(target))
+	if (can_irradiate_basic(target))
 		return FALSE
 
 	irradiate_after_basic_checks(target)
@@ -110,37 +113,31 @@ SUBSYSTEM_DEF(radiation)
 /datum/controller/subsystem/radiation/proc/irradiate_after_basic_checks(atom/target)
 	PRIVATE_PROC(TRUE)
 
-	if (ishuman(target) && wearing_rad_protected_clothing(target))
-		return FALSE
-
 	target.AddComponent(/datum/component/irradiated)
 	return TRUE
 
 /// Returns whether or not the target can be irradiated by any means.
 /// Does not check for clothing.
 /datum/controller/subsystem/radiation/proc/can_irradiate_basic(atom/target)
-	if (CANNOT_IRRADIATE(target)) // WE DO A LITTLE TROLLING - MONKEYSTATION EDIT (such a bad idea)
-		return FALSE
-
-	if (HAS_TRAIT(target, TRAIT_IRRADIATED) && !HAS_TRAIT(target, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK))
-		return FALSE
-
-	if (HAS_TRAIT(target, TRAIT_RADIMMUNE))
+	if (CANNOT_IRRADIATE(target))
 		return FALSE
 
 	return TRUE
 
 /// Returns whether or not the human is covered head to toe in rad-protected clothing.
 /datum/controller/subsystem/radiation/proc/wearing_rad_protected_clothing(mob/living/carbon/human/human)
-	for (var/obj/item/bodypart/limb as anything in human.bodyparts)
-		var/protected = FALSE
+	if(human.cached_clothing_resistance == null)
+		for (var/obj/item/bodypart/limb as anything in human.bodyparts)
+			var/protected = FALSE
 
-		for (var/obj/item/clothing as anything in human.get_clothing_on_part(limb))
-			if (HAS_TRAIT(clothing, TRAIT_RADIATION_PROTECTED_CLOTHING))
-				protected = TRUE
-				break
+			for (var/obj/item/clothing as anything in human.get_clothing_on_part(limb))
+				if (HAS_TRAIT(clothing, TRAIT_RADIATION_PROTECTED_CLOTHING))
+					protected = TRUE
+					human.cached_clothing_resistance = TRUE
+					break
 
-		if (!protected)
-			return FALSE
+			if (!protected)
+				human.cached_clothing_resistance = FALSE
+				return FALSE
 
-	return TRUE
+		return TRUE

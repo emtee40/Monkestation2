@@ -119,21 +119,18 @@
 	if (COOLDOWN_FINISHED(src, radprocessing))
 		if(ishuman(parent))
 			process_human_effects(parent, seconds_per_tick) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
-			COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
 		if(ismovable(parent) && (held_contamination >= RADIATION_GLOW_THRESHOLD || doseafter - dosebefore >= 30)) //If the doseafter && dosebefore subtracted is >= 30 that means there must have been atleast a rise of 30.
 			process_contamination_effects(parent)
+		COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
 	if (should_halt_effects(parent))
 		return
 
 /datum/component/irradiated/proc/process_contamination_effects(var/parent)
 	if(held_contamination >= RADIATION_GLOW_THRESHOLD)
-		if(ismovable(parent))
-			if(!parent.get_filter("rad_glow"))
-				create_glow()
-		if(ishuman(parent))
-			if(!parent.get_filter("rad_glow"))
-				create_glow()
-		else if(parent.get_filter("rad_glow"))
+		var/atom/movable/parent_movable = parent
+		if(!parent_movable.get_filter("rad_glow"))
+			create_glow()
+		else if(parent_movable.get_filter("rad_glow"))
 			remove_glow()
 
 /datum/component/irradiated/proc/spread_to_nearby()
