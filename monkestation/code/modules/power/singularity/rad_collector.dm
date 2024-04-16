@@ -48,6 +48,8 @@
 	//Multiplier for tanks and gases insidee
 	var/power_coeff = 1
 
+/obj/machinery/power/rad_collector/anchored
+
 /obj/machinery/power/rad_collector/Initialize(mapload) //all start anchored now. No more accidental mismaps.
 	. = ..()
 	set_anchored(TRUE)
