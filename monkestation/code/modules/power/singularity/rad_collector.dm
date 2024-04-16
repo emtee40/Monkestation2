@@ -23,7 +23,7 @@
 
 /obj/machinery/power/rad_collector //Still use this for compat reasons
 	name = "Particle Capture Array"
-	desc = "A device which uses a large plasma-glass sheet to 'catch' particles, harvesting their stored energy. Do not taunt. Can be loaded with plasma to produce additional power."
+	desc = "A device which uses a large plasma-glass sheet to 'catch' particles, harvesting their stored energy. Do not taunt. Can be loaded with a variety of gases to produce additional power."
 	icon = 'monkestation/icons/obj/engine/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
@@ -63,7 +63,7 @@
 	if(istype(projectile,/obj/projectile/energy/nuclear_particle))
 		var/obj/projectile/energy/nuclear_particle/proj = projectile
 		var/final_output = (proj.stored_energy += power_coeff)
-		stored_energy += (final_output*2.5) //yippiee!!!
+		stored_energy += (final_output*1.4) //2.5 yields ~145KW/s avg per collector.
 		return
 
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
@@ -71,7 +71,7 @@
 		power_coeff -= 0.5 //Half power
 	var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
 
-	if(!tank_mix)
+	if(!tank_mix && loaded_tank)
 		investigate_log("<font color='red'>out of gas.</font>.", INVESTIGATE_ENGINE)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		power_coeff = 0 //Should NEVER happen.
