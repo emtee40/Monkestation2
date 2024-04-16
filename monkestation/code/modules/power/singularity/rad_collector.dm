@@ -70,8 +70,8 @@
 
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
 	if(loaded_tank)
+		var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
 		if(active)
-			var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
 			for(var/id in tank_mix.gases)
 				if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
 					power_coeff += (GLOB.meta_gas_info[id][META_GAS_SPECIFIC_HEAT]) //250 (plasma), 2000 (hypernobi), etc etc
