@@ -17,7 +17,7 @@
 	. = ..()
 	if(!stored_energy) //Will generate a random value on every initialise
 		stored_energy = rand(150,30000) //SUPER lethal. Eeyikes!
-		damage = max((stored_energy/10),80) //Yeowch-tier
+		damage = max((stored_energy*0.1),80) //Yeowch-tier
 
 //replacing this dumbass machine with something more fun.
 
@@ -75,6 +75,7 @@
 		investigate_log("<font color='red'>out of gas.</font>.", INVESTIGATE_ENGINE)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		power_coeff = 0 //Should NEVER happen.
+		return //Immediately stop processing past this point to prevent atmos/MC crashes
 
 	for(var/id in tank_mix.gases)
 		if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
