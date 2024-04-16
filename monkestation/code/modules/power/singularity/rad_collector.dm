@@ -69,25 +69,23 @@
 		return
 
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
+	if(loaded_tank)
+		var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
+		for(var/id in tank_mix.gases)
+			if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
+				power_coeff += (GLOB.meta_gas_info[id][META_GAS_SPECIFIC_HEAT]) //250 (plasma), 2000 (hypernobi), etc etc
+				var/gasdrained = min(power_production_drain * drain_ratio * seconds_per_tick, tank_mix.gases[id][MOLES])
+				tank_mix.gases[id][MOLES] -= gasdrained
+				tank_mix.assert_gas(/datum/gas/hydrogen) //Produce Hydrogen. Mostly because it explodes.
+				tank_mix.gases[/datum/gas/hydrogen][MOLES] += gasdrained
+				tank_mix.garbage_collect()
+		if(!tank_mix && loaded_tank)
+			investigate_log("<font color='red'>out of gas.</font>.", INVESTIGATE_ENGINE)
+			playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
+			power_coeff = 0 //Should NEVER happen.
+			return //Immediately stop processing past this point to prevent atmos/MC crashes
 	if(!loaded_tank)
 		power_coeff -= 0.5 //Half power
-	var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
-
-	if(!tank_mix && loaded_tank)
-		investigate_log("<font color='red'>out of gas.</font>.", INVESTIGATE_ENGINE)
-		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
-		power_coeff = 0 //Should NEVER happen.
-		return //Immediately stop processing past this point to prevent atmos/MC crashes
-
-	for(var/id in tank_mix.gases)
-		if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
-			power_coeff += (GLOB.meta_gas_info[id][META_GAS_SPECIFIC_HEAT]) //250 (plasma), 2000 (hypernobi), etc etc
-			var/gasdrained = min(power_production_drain * drain_ratio * seconds_per_tick, tank_mix.gases[id][MOLES])
-			tank_mix.gases[id][MOLES] -= gasdrained
-			tank_mix.assert_gas(/datum/gas/hydrogen) //Produce Hydrogen. Mostly because it explodes.
-			tank_mix.gases[/datum/gas/hydrogen][MOLES] += gasdrained
-			tank_mix.garbage_collect()
-
 	var/power_produced = RAD_COLLECTOR_OUTPUT
 	add_avail(power_produced)
 	stored_energy -= power_produced
