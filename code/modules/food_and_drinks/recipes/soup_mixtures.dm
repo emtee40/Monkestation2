@@ -177,7 +177,7 @@
 /**
  * Cleans up the ingredients and adds whatever leftover reagents to the mixture
  *
- * * holder: The soup pot
+ * * holder: The sou ppot
  * * reaction: The reaction being cleaned up, note this CAN be null if being instant reacted
  * * react_vol: How much soup was produced
  */
