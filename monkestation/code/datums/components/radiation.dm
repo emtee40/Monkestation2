@@ -116,19 +116,21 @@
 
 /datum/component/irradiated/process(seconds_per_tick)
 	dosebefore = absorbed_energy //Keeps track of what the dose is BEFORE we process it.
-	if(!host_protected)
-		if(absorbed_energy >= 1)
-			converted = absorbed_energy/RADIATION_LINGER_DIVISOR // 50/4 = 7.5 Sv absorbed per 50 dose per 12 seconds or so
-			doseafter = converted
-			converted_ratio = ((dosebefore - doseafter)/100)*8 //50-7.5/100*6 = 2.57* - Useful for calculating if we should do damage, and how much
-			held_contamination += (converted)*RADIATION_HEAVY_SICKNESS_EXPOSURE //Makes contamination more likely than internal poisoning
-			if (COOLDOWN_FINISHED(src, radprocessing))
+	absorbed_energy -= (RADIATION_DAMAGE_COEFFICIENT)/2 //Passive loss here.
+	if (COOLDOWN_FINISHED(src, radprocessing))
+		if(!host_protected)
+			if(absorbed_energy >= 1)
+				converted = absorbed_energy/RADIATION_LINGER_DIVISOR // 50/4 = 7.5 Sv absorbed per 50 dose per 12 seconds or so
+				doseafter = converted
+				converted_ratio = ((dosebefore - doseafter)/100)*8 //50-7.5/100*6 = 2.57* - Useful for calculating if we should do damage, and how much
+				held_contamination += (converted)*RADIATION_HEAVY_SICKNESS_EXPOSURE //Makes contamination more likely than internal poisoning
 				if(COOLDOWN_FINISHED(src, absorbrads))
 					if(ishuman(parent))
 						process_human_effects(parent, converted_ratio, converted) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
 					if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT && absorbed_energy >= RADIATION_MINIMUM_BURN_AMOUNT)
 						absorbed_energy -= converted/8 //Lose a small amount of radiation per tick. Not a significant amount, but it helps.
-			COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
+
+		COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
 
 	if (COOLDOWN_FINISHED(src, radjumping))
 		if(ismovable(parent) && held_contamination >= RADIATION_GLOW_THRESHOLD || (dosebefore -= doseafter <= 35)) //If the doseafter && dosebefore subtracted is <= 30 that means there must have been atleast a rise of 30.
@@ -144,9 +146,9 @@
 		if(!parent_movable.get_filter("rad_glow"))
 			create_glow()
 		if(held_contamination >= RADIATION_JUMP_THRESHOLD) //This is where the fun begins.
-			var/pregen = rand(0,3)
-			radiation_pulse(src, max_range = pregen, intensity = converted, threshold = 50) //This doesn't seem like much. Until you realise with an energy of 2000...
-			held_contamination -= (converted*0.98) //Should entirely prevent infinite rad exploits. Will go negative at super high values, as intended
+			var/pregen = rand(0,4)
+			radiation_pulse(parent, max_range = pregen, intensity = converted, threshold = 50) //This doesn't seem like much. Until you realise with an energy of 2000...
+			held_contamination -= (converted*1.08) //Should entirely prevent infinite rad exploits.
 	else if(parent_movable.get_filter("rad_glow") && held_contamination <= RADIATION_GLOW_THRESHOLD)
 		remove_glow()
 
@@ -175,7 +177,7 @@
 	if (!istype(parent_movable))
 		return
 
-	parent_movable.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#36f81463", "size" = 2)) //Extremely difficult to notice (hopefully)
+	parent_movable.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#26ff0080", "size" = 2)) //Extremely difficult to notice (hopefully)
 	addtimer(CALLBACK(src, PROC_REF(start_glow_loop), parent_movable), rand(0.1 SECONDS, 1.9 SECONDS)) // Things should look uneven
 
 /datum/component/irradiated/proc/remove_glow()
@@ -210,7 +212,7 @@
 
 	if (isliving(source))
 		var/mob/living/living_source = source
-		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]."))
+		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]. Note: Victim appears to have [absorbed_energy] and appears to be radiating [converted_ratio] percent of it as ionizing radiation."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Target is irradiated."))
