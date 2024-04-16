@@ -1,6 +1,6 @@
 /datum/material_trait/chemical_injector
 	name = "Chemical Injector"
-	desc = "Based on the materials liquid flow injects chemicals into the wearer and those hit (scales with liquid flow)."
+	desc = "Based on the materials liquid flow injects chemicals into the wearer and those hit (scales with liquid flow), douse the item with atleast 100 units of a reagent."
 	///the reagent we are doused in
 	var/datum/reagent/doused_reagent
 	///have we doused
@@ -33,4 +33,5 @@
 	doused_reagent = pick(viable_reagents)
 	user.visible_message(span_notice("[user] douses the [source] in [initial(doused_reagent.name)]"))
 	doused = TRUE
+	container.reagents.remove_reagent(doused_reagent, 100)
 	UnregisterSignal(source, COMSIG_ATOM_ATTACKBY)
