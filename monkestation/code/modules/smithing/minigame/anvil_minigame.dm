@@ -32,6 +32,8 @@
 	var/failed_notes = 0
 	///do we debug?
 	var/debug = FALSE
+	///our clients average ping
+	var/average_ping = 0
 
 /datum/anvil_challenge/New(obj/structure/anvil/anvil, datum/anvil_recipe/end_product_recipe, mob/user, difficulty_modifier)
 	host_anvil = anvil
@@ -87,8 +89,12 @@
 
 /datum/anvil_challenge/proc/check_click(datum/source, atom/target, atom/location, control, params, mob/user)
 	var/atom/movable/screen/hud_note/choice = anvil_presses[1]
-	var/upper_range = anvil_presses[choice] + 0.2 SECONDS
-	var/lower_range = anvil_presses[choice] - 0.2 SECONDS
+	if(user.client)
+		average_ping = user.client.avgping * 0.01
+
+
+	var/upper_range = anvil_presses[choice] + 0.2 SECONDS + average_ping
+	var/lower_range = anvil_presses[choice] - 0.2 SECONDS - average_ping
 
 	var/list/modifiers = params2list(params)
 
@@ -115,12 +121,12 @@
 			playsound(host_anvil, 'monkestation/code/modules/smithing/sounds/forge.ogg', 25, TRUE, mixer_channel = CHANNEL_SOUND_EFFECTS)
 
 		else
-			if(REALTIMEOFDAY > anvil_presses[choice] + 0.2 SECONDS)
-				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.2 SECONDS)
+			if(REALTIMEOFDAY > anvil_presses[choice] + 0.2 SECONDS + average_ping)
+				off_time += REALTIMEOFDAY - (anvil_presses[choice] + 0.2 SECONDS + average_ping)
 				failed_notes++
 				good_hit = FALSE
-			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.2 SECONDS)
-				off_time += (anvil_presses[choice] + 0.2 SECONDS) - REALTIMEOFDAY
+			else if(REALTIMEOFDAY < anvil_presses[choice] - 0.2 SECONDS - average_ping)
+				off_time += (anvil_presses[choice] + 0.2 SECONDS + average_ping) - REALTIMEOFDAY
 				failed_notes++
 				good_hit = FALSE
 
