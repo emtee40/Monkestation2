@@ -16,7 +16,10 @@
 
 /datum/material_trait/chemical_injector/on_mob_attack(atom/movable/parent, datum/material_stats/host, mob/living/target, mob/living/attacker)
 	if(iscarbon(target) && doused)
-		target.reagents.add_reagent(doused_reagent, 5 * (0.01 * host.liquid_flow))
+		var/datum/reagents/reagents = new(1000)
+		reagents.add_reagent(doused_reagent, 7 * (0.01 * host.liquid_flow))
+		reagents.trans_to(target, reagents.total_volume, methods = PATCH)
+		qdel(reagents)
 
 /datum/material_trait/chemical_injector/proc/check_douse(datum/source, atom/movable/target, mob/living/user)
 	if(!is_reagent_container(target))
