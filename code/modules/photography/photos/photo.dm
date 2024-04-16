@@ -71,6 +71,8 @@
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(!user.can_write(P))
 			return
+		if(P.has_blueprints && user.mind?.has_antag_datum(/datum/antagonist/spy))
+			return
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing", max_length = 128)
 		if(txt && user.can_perform_action(src))
 			scribble = txt
