@@ -18,6 +18,7 @@
 	extra_access = list(
 		ACCESS_DETECTIVE,
 		ACCESS_MAINT_TUNNELS,
+		ACCESS_SURGERY,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
