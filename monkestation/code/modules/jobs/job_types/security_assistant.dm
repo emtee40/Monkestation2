@@ -1,12 +1,11 @@
 /datum/job/security_assistant
 	title = JOB_SECURITY_ASSISTANT
-	description = "Protect company assets, follow the Standard Operating \
-		Procedure, eat donuts."
+	description = "Fine people for trivial things. Be an glorified hall monitor.
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_HEAD_OF_SECURITY)
 	faction = FACTION_STATION
-	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
-	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
+	total_positions = 5
+	spawn_positions = 5
 	supervisors = "the Head of Security, the Warden, and any proper security officers"
 	minimal_player_age = 7
 	exp_requirements = 300
@@ -15,7 +14,7 @@
 	config_tag = "SECURITY_ASSISTANT"
 
 	outfit = /datum/outfit/job/security_assistant
-	plasmaman_outfit = /datum/outfit/plasmaman/security_assistant
+	plasmaman_outfit = /datum/outfit/plasmaman/security
 
 	paycheck = PAYCHECK_CREW
 	paycheck_department = ACCOUNT_SEC
@@ -42,29 +41,41 @@
 
 	id_trim = /datum/id_trim/job/security_assistant
 	uniform = /obj/item/clothing/under/rank/security/officer/grey
-	head = /obj/item/clothing/head/helmet/hat/cowboy //monkestation edit: cowboy sec
-	suit = /obj/item/clothing/suit/armor/secduster //monkestation edit: cowboy sec
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/paco/no_mag //monkestation edit: Paco sec
 	backpack_contents = list(
-		/obj/item/evidencebag = 1,
-		/obj/item/ammo_box/magazine/m35/rubber = 2, //monkestation edit: Paco sec
-		)
+		/obj/item/restraints/zipties = 1
+	)
 	belt = /obj/item/modular_computer/pda/security
-	ears = /obj/item/radio/headset/headset_sec/alt
-	gloves = /obj/item/clothing/gloves/color/black
+	ears = /obj/item/radio/headset/headset_sec
 	shoes = /obj/item/clothing/shoes/jackboots/sec
-	l_pocket = /obj/item/restraints/handcuffs
+	l_pocket = /obj/item/reagent_containers/spray/pepper
 	r_pocket = /obj/item/assembly/flash/handheld
+	glasses = /obj/item/clothing/glasses/hud/security
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 
 	box = /obj/item/storage/box/survival/security
-	chameleon_extras = list(
-		/obj/item/clothing/glasses/hud/security/sunglasses,
-		/obj/item/clothing/head/helmet,
-		/obj/item/gun/energy/disabler,
-		)
-		//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
-	implants = list(/obj/item/implant/mindshield)
+
+	implants = list(/obj/item/implant/mindshield) // i think this is stupid but this was apparently agreed upon ~lucy
+
+/datum/id_trim/job/security_assistant
+	assignment = "Security Assistant"
+	trim_state = "trim_securityofficer"
+	department_color = COLOR_SECURITY_RED
+	subdepartment_color = COLOR_SECURITY_RED
+	sechud_icon_state = SECHUD_SECURITY_OFFICER
+	minimal_access = list(
+		ACCESS_BRIG_ENTRANCE,
+		ACCESS_SECURITY,
+		ACCESS_PERMABRIG // monkestation edit: add permabrig-only access
+	)
+	extra_access = list(
+		ACCESS_MAINT_TUNNELS
+	)
+	template_access = list(
+		ACCESS_CAPTAIN,
+		ACCESS_CHANGE_IDS,
+		ACCESS_HOS
+	)
+	job = /datum/job/security_assistant
