@@ -94,9 +94,10 @@ SUBSYSTEM_DEF(radiation)
 			if (irradiate_after_basic_checks(target))
 				target.investigate_log("was irradiated by [source].", INVESTIGATE_RADIATION)
 				if(target.GetComponent(/datum/component/irradiated))
-					var/comp = target.GetComponent(/datum/component/irradiated)
+					var/datum/component/irradiated/comp = target.GetComponent(/datum/component/irradiated)
 					target.investigate_log("was further irradiated by [source], for a total of [intensity] absorbed energy.", INVESTIGATE_RADIATION)
 					comp.absorbed_energy += intensity //Scoobs. You may be fucked.
+					comp.fresh_exposure(intensity)
 		if(MC_TICK_CHECK)
 			break
 

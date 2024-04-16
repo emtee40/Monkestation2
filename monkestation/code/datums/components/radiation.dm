@@ -133,8 +133,6 @@
 		else if(parent_movable.get_filter("rad_glow"))
 			remove_glow()
 
-/datum/component/irradiated/proc/spread_to_nearby()
-
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
 	if (HAS_TRAIT(target, TRAIT_STASIS))
 		return TRUE
@@ -147,6 +145,8 @@
 /datum/component/irradiated/proc/process_human_effects(mob/living/carbon/human/target, seconds_per_tick)
 	if (!COOLDOWN_FINISHED(src, absorbrads))
 		return
+
+/datum/component/irradiated/proc/fresh_exposure(var/exposure)
 
 /datum/component/irradiated/proc/start_burn_splotch_timer()
 //	addtimer(CALLBACK(src, PROC_REF(give_burn_splotches)), rand(RADIATION_BURN_INTERVAL_MIN, RADIATION_BURN_INTERVAL_MAX), TIMER_STOPPABLE)
