@@ -1,3 +1,6 @@
+//Particle Catchers. Works by eating nuclear particles and singulo energy to produce power. Encourages fusion and more creative SM setups (like CO2 + BZ for mass particles)
+//Subject to heavy rebalancing as radiation as a whole is being adjusted ig
+
 //radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_EFFICIENCY 80
 #define RAD_COLLECTOR_COEFFICIENT 100
@@ -6,9 +9,21 @@
 //Produces at least 1000 watts if it has more than that stored
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy*RAD_COLLECTOR_STORED_OUT)+1000)
 
-/obj/machinery/power/rad_collector
-	name = "Radiation Collector Array"
-	desc = "A device which uses radiation and plasma to produce power."
+//FUSION PARTICLE "REWORK"... HERE. TODO: Make this actually subtract valid amounts of energy from the object firing them. Then again...
+/obj/projectile/energy/nuclear_particle
+	var/stored_energy
+
+/obj/projectile/energy/nuclear_particle/Initialize(mapload)
+	. = ..()
+	if(!stored_energy) //Will generate a random value on every initialise
+		stored_energy = rand(0,150) //SUPER lethal. Eeyikes!
+		damage = (stored_energy)/3 //OOPSIES.
+
+//replacing this dumbass machine with something more fun.
+
+/obj/machinery/power/rad_collector //Still use this for compat reasons
+	name = "Particle Capture Array"
+	desc = "A device which uses a large plasma-glass sheet to 'catch' particles, harvesting their stored energy. Do not taunt. Can be loaded with plasma to produce additional power."
 	icon = 'monkestation/icons/obj/engine/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
@@ -30,25 +45,13 @@
 	var/drain_ratio = 0.5
 	///Multiplier for the amount of gas removed per tick
 	var/power_production_drain = 0.001
-	//Handles the percieved radiation exposure to collectors. Should entirely fix some broken-ass mechanics.
-	var/last_perceived_radiation = null //literally just used so people don't kill themselves :clueless:
-	var/actual_intensity = null
+	//Multiplier for tanks and gases insidee
+	var/power_coeff = 1
 
 /obj/machinery/power/rad_collector/Initialize(mapload) //all start anchored now. No more accidental mismaps.
 	. = ..()
 	set_anchored(TRUE)
-	RegisterSignal(src, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation)) // Monkeyfix: We love rad collection
-
-/obj/machinery/power/rad_collector/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
-	SIGNAL_HANDLER
-
-	last_perceived_radiation = get_perceived_radiation_danger(pulse_information, insulation_to_target) //Useful for calculating the 0.5 rad resistance into the mix
-	actual_intensity = pulse_information.intensity
-	addtimer(CALLBACK(src, PROC_REF(reset_perceived_rads)), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/obj/machinery/power/rad_collector/proc/reset_perceived_rads()
-	last_perceived_radiation = null
-	actual_intensity = null
+	RegisterSignal(src, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(eat_some_bullets)) //Specifically handles the next part...
 
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
@@ -56,24 +59,32 @@
 /obj/machinery/power/rad_collector/should_have_node()
 	return anchored
 
+/obj/machinery/power/rad_collector/proc/eat_some_bullets(datum/source, obj/projectile/projectile)
+	if(istype(projectile,/obj/projectile/energy/nuclear_particle))
+		var/obj/projectile/energy/nuclear_particle/proj = projectile
+		stored_energy += (proj.stored_energy*2.5) //yippiee!!!
+		return
+
 /obj/machinery/power/rad_collector/process(seconds_per_tick)
 	if(!loaded_tank)
-		return
+		power_coeff -= 0.5 //Half power
 	var/datum/gas_mixture/tank_mix = loaded_tank.return_air()
-	if(!tank_mix.gases[/datum/gas/plasma])
-		investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINE)
+
+	if(!tank_mix)
+		investigate_log("<font color='red'>out of gas.</font>.", INVESTIGATE_ENGINE)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
-		eject()
-		return
-	var/gasdrained = min(power_production_drain * drain_ratio * seconds_per_tick, tank_mix.gases[/datum/gas/plasma][MOLES])
-	tank_mix.gases[/datum/gas/plasma][MOLES] -= gasdrained
-	tank_mix.assert_gas(/datum/gas/tritium)
-	tank_mix.gases[/datum/gas/tritium][MOLES] += gasdrained
-	tank_mix.garbage_collect()
+		power_coeff = 0 //Should NEVER happen.
+
+	for(var/id in tank_mix.gases)
+		if(tank_mix.gases[id][MOLES] >= 10) //Stops cheesing.
+			power_coeff += (GLOB.meta_gas_info[id][META_GAS_SPECIFIC_HEAT]) //250 (plasma), 2000 (hypernobi), etc etc
+			var/gasdrained = min(power_production_drain * drain_ratio * seconds_per_tick, tank_mix.gases[id][MOLES])
+			tank_mix.gases[id][MOLES] -= gasdrained
+			tank_mix.assert_gas(/datum/gas/hydrogen) //Produce Hydrogen. Mostly because it explodes.
+			tank_mix.gases[/datum/gas/hydrogen][MOLES] += gasdrained
+			tank_mix.garbage_collect()
 
 	var/power_produced = RAD_COLLECTOR_OUTPUT
-	if(loaded_tank && active && actual_intensity > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (actual_intensity-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 	add_avail(power_produced)
 	stored_energy -= power_produced
 
@@ -172,23 +183,12 @@
 /obj/machinery/power/rad_collector/examine(mob/user)
 	. = ..()
 	if(!active)
-		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
+		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma, Tritium, CO2 or Hypernobilium</b>.\"")
 	// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
 	// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 	// So joules = stored_energy * SSmachines.wait * 0.1
 	var/joules = stored_energy * SSmachines.wait * 0.1
 	. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
-	switch(last_perceived_radiation) //So people don't kill themselves without understanding the danger they're in.
-		if(null)
-			. += span_notice("Ambient radiation level count reports that all is well.")
-		if(PERCEIVED_RADIATION_DANGER_LOW)
-			. += span_alert("Ambient radiation levels slightly above average.")
-		if(PERCEIVED_RADIATION_DANGER_MEDIUM)
-			. += span_warning("Ambient radiation levels highly above average.")
-		if(PERCEIVED_RADIATION_DANGER_HIGH)
-			. += span_danger("Ambient radiation levels at extreme danger thresholds.")
-		if(PERCEIVED_RADIATION_DANGER_EXTREME)
-			. += span_suicide("Ambient radiation levels at fatal threshold!")
 
 /obj/machinery/power/rad_collector/atom_break(damage_flag)
 	. = ..()
