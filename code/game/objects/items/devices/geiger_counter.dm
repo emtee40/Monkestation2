@@ -74,7 +74,7 @@
 	if ((user.istate & ISTATE_HARM))
 		return
 
-	if (CANNOT_IRRADIATE(target))
+	if (!CAN_IRRADIATE(target))
 		return
 
 	user.visible_message(span_notice("[user] scans [target] with [src]."), span_notice("You scan [target]'s radiation levels with [src]..."))

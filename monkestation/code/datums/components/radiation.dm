@@ -35,7 +35,7 @@
 #define RADIATION_CONTAMINATION_THRESHOLD 90 //At what input energy does radiation cause contamination?
 #define RADIATION_GLOW_THRESHOLD 25 //Contam threshold to glow!
 #define RADIATION_JUMP_THRESHOLD 150 //This is where shit gets real. Handles when objects are irradiated so badly from a nearby source they ALSO become radioactive. Essentially inducing an isotope to form because a heavy particle (alpha/beta) collide with a nearby atom and knock a neutron or electron out of place, causing it to potentially form a radioactive isotope.
-#define RADIATION_JUMP_COOLDOWN 95 //This should stop lag from obliterating the server
+#define RADIATION_JUMP_COOLDOWN 4 SECONDS //This should stop lag from obliterating the server
 #define RADIATION_MIN_SPACE_PROCESS 25 //Radiation below this limit will NOT cross space tiles when trying to contaminate.
 
 /// This component will control the basic mechanics of applying damage to a majority of mobs, handling contamination and radiation injuries on humans.
@@ -54,6 +54,9 @@
 	var/absorbed_grays = 0 //Total absorbed Grays. Might also use seiverts if I'm feeling quirky
 	var/held_contamination = 1 //Any goopers chat?
 
+	var/converted
+	var/converted_ratio //temporary holding vars, don't get attached.
+
 	var/dosebefore //important
 	var/doseafter //doubly so
 	COOLDOWN_DECLARE(radprocessing)
@@ -61,11 +64,10 @@
 	COOLDOWN_DECLARE(radjumping)
 
 /datum/component/irradiated/Initialize()
-	if (CANNOT_IRRADIATE(parent)) //lol, lmao
+	if (!CAN_IRRADIATE(parent)) //lol, lmao
 		return COMPONENT_INCOMPATIBLE
-
 	// Hey fun fact (rad immunity will only prevent damage here)
-	if (HAS_TRAIT(parent, TRAIT_RADIMMUNE))
+	if (HAS_TRAIT(parent, TRAIT_RADIMMUNE)) // literally shouldn't be remotely possible btw
 		host_immunity = TRUE
 
 	ADD_TRAIT(parent, TRAIT_IRRADIATED, REF(src))
@@ -115,23 +117,29 @@
 /datum/component/irradiated/process(seconds_per_tick)
 	dosebefore = absorbed_energy //Keeps track of what the dose is BEFORE we process it.
 	if (COOLDOWN_FINISHED(src, radprocessing))
-		if(absorbed_energy >= 1)
-			var/converted = absorbed_energy/RADIATION_LINGER_DIVISOR // 50/4 = 7.5 Sv absorbed per 50 dose per 12 seconds or so
-			doseafter = converted
-			var/converted_ratio = ((dosebefore - doseafter)/100)*8 //50-7.5/100*6 = 2.57* - Useful for calculating if we should do damage, and how much
-			if(ismovable(parent) && held_contamination >= RADIATION_GLOW_THRESHOLD || (dosebefore -= doseafter <= 35)) //If the doseafter && dosebefore subtracted is <= 30 that means there must have been atleast a rise of 30.
-				process_contamination_effects(parent, converted_ratio, converted)
-			if(COOLDOWN_FINISHED(src, absorbrads))
-				if(ishuman(parent))
-					process_human_effects(parent, converted_ratio, converted) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
-				if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT && absorbed_energy >= RADIATION_MINIMUM_BURN_AMOUNT)
-					absorbed_energy -= converted/8 //Lose a small amount of radiation per tick. Not a significant amount, but it helps.
+		if(!host_protected)
+			if(absorbed_energy >= 1)
+				converted = absorbed_energy/RADIATION_LINGER_DIVISOR // 50/4 = 7.5 Sv absorbed per 50 dose per 12 seconds or so
+				doseafter = converted
+				converted_ratio = ((dosebefore - doseafter)/100)*8 //50-7.5/100*6 = 2.57* - Useful for calculating if we should do damage, and how much
+				held_contamination += (converted)*RADIATION_HEAVY_SICKNESS_EXPOSURE //Makes contamination more likely than internal poisoning
+				if(COOLDOWN_FINISHED(src, absorbrads))
+					if(ishuman(parent))
+						process_human_effects(parent, converted_ratio, converted) //No return post-call. It's a progressive condition and doesn't stop. Treat it or die.
+					if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT && absorbed_energy >= RADIATION_MINIMUM_BURN_AMOUNT)
+						absorbed_energy -= converted/8 //Lose a small amount of radiation per tick. Not a significant amount, but it helps.
 
 		COOLDOWN_START(src, radprocessing, RADIATION_CYCLE_COOLDOWN)
+
+	if (COOLDOWN_FINISHED(src, radjumping))
+		if(ismovable(parent) && held_contamination >= RADIATION_GLOW_THRESHOLD || (dosebefore -= doseafter <= 35)) //If the doseafter && dosebefore subtracted is <= 30 that means there must have been atleast a rise of 30.
+			process_contamination_effects(parent, converted_ratio, converted)
+
+		COOLDOWN_START(src, radjumping, RADIATION_JUMP_COOLDOWN)
 	if (should_halt_effects(parent))
 		return
 
-/datum/component/irradiated/proc/process_contamination_effects(var/parent, var/converted_ratio, var/converted)
+/datum/component/irradiated/proc/process_contamination_effects(var/parent)
 	if(held_contamination >= RADIATION_GLOW_THRESHOLD)
 		var/atom/movable/parent_movable = parent
 		if(!parent_movable.get_filter("rad_glow"))
@@ -140,6 +148,7 @@
 			remove_glow()
 		if(held_contamination >= RADIATION_JUMP_THRESHOLD) //This is where the fun begins.
 			radiation_pulse(src, max_range = rand(1,max((1+absorbed_energy/4),20)), intensity = converted, threshold = 4) //This doesn't seem like much. Until you realise with an energy of 2000...
+			held_contamination -= (converted*1.08) //Should entirely prevent infinite rad exploits.
 
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
 	if (HAS_TRAIT(target, TRAIT_STASIS))
@@ -150,7 +159,7 @@
 
 	return FALSE
 
-/datum/component/irradiated/proc/process_human_effects(mob/living/carbon/human/target, var/converted_ratio, var/converted)
+/datum/component/irradiated/proc/process_human_effects(mob/living/carbon/human/target)
 	if(converted_ratio >= RADIATION_DAMAGE_COEFFICIENT)
 		return
 

@@ -1,6 +1,5 @@
 /// Whether or not it's possible for this atom to be irradiated
-#define CAN_IRRADIATE(atom) (ishuman(##atom) || isitem(##atom)) //essentially deprecated but kept for posterity (and ease of reverting)
-#define CANNOT_IRRADIATE(atom) (isobserver(##atom) || issiliconoradminghost(##atom) || iscameramob(##atom)) //Nonmodular Monke edit. Oh god.
+#define CAN_IRRADIATE(atom) (ishuman(##atom) || isitem(##atom) || ismachinery(##atom) || isstructure(##atom) || isobj(##atom)) //isobj() will probably cause the server to explode. Lets do it.
 
 /// Sends out a pulse of radiation, eminating from the source.
 /// Radiation is performed by collecting all radiatables within the max range (0 means source only, 1 means adjacent, etc),
