@@ -11,7 +11,7 @@
 	config_tag = "BRIG_PHYSICIAN"
 
 	outfit = /datum/outfit/job/brig_physician
-	plasmaman_outfit = /datum/outfit/plasmaman/medical
+	plasmaman_outfit = /datum/outfit/plasmaman/security
 
 	paycheck = PAYCHECK_CREW
 	paycheck_department = ACCOUNT_SEC
@@ -35,7 +35,7 @@
 		/obj/effect/spawner/random/medical/organs = 5,
 		/obj/effect/spawner/random/medical/memeorgans = 1
 	)
-	rpg_title = "Cleric"
+	rpg_title = "Chirurgeon"
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
 
 
@@ -43,20 +43,29 @@
 	name = "Brig Physician"
 	jobtype = /datum/job/brig_physician
 
-	id_trim = /datum/id_trim/job/medical_doctor
-	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
-	suit = /obj/item/clothing/suit/toggle/labcoat
+	id_trim = /datum/id_trim/job/brig_physician
+	uniform = /obj/item/clothing/under/rank/security/scrubs/sec
+	suit = /obj/item/clothing/suit/toggle/labcoat/brig_physician
 	suit_store = /obj/item/flashlight/pen
 	belt = /obj/item/modular_computer/pda/security
 	ears = /obj/item/radio/headset/headset_secmed
-	head = /obj/item/clothing/head/utility/surgerycap
-	shoes = /obj/item/clothing/shoes/sneakers/white
+	head = /obj/item/clothing/head/utility/surgerycap/sec
+	shoes = /obj/item/clothing/shoes/sneakers/secred
 	l_hand = /obj/item/storage/medkit/surgery
 
-	backpack = /obj/item/storage/backpack/medic
-	satchel = /obj/item/storage/backpack/satchel/med
-	duffelbag = /obj/item/storage/backpack/duffelbag/med
+	backpack = /obj/item/storage/backpack/brig_physician
+	satchel = /obj/item/storage/backpack/satchel/brig_physician
+	duffelbag = /obj/item/storage/backpack/duffelbag/brig_physician
 
 	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe
 	skillchips = list(/obj/item/skillchip/entrails_reader)
+	implants = list(/obj/item/implant/mindshield)
+
+/datum/outfit/plasmaman/brig_physician
+	name = "Brig Physician Plasmaman"
+
+	uniform = /obj/item/clothing/under/plasmaman/brig_physician
+	gloves = /obj/item/clothing/gloves/color/plasmaman/brig_physician
+	head = /obj/item/clothing/head/helmet/space/plasmaman/brig_physician
+

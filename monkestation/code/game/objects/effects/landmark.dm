@@ -126,3 +126,9 @@
 /obj/effect/landmark/navigate_destination/centcom/dresser
 	location = "Dressing Room"
 
+//Brig Physician Spawn Location Marker - Dexee, 4/13/24
+
+/obj/effect/landmark/start/brig_physician
+	name = "Brig Physician"
+	icon = 'monkestation/icons/mob/landmarks.dmi'
+	icon_state = "Brig Physician"
