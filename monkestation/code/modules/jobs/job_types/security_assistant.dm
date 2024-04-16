@@ -68,7 +68,7 @@
 	minimal_access = list(
 		ACCESS_BRIG_ENTRANCE,
 		ACCESS_SECURITY,
-		ACCESS_PERMABRIG // monkestation edit: add permabrig-only access
+		ACCESS_PERMABRIG
 	)
 	extra_access = list(
 		ACCESS_MAINT_TUNNELS
