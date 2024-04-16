@@ -30,10 +30,25 @@
 	var/drain_ratio = 0.5
 	///Multiplier for the amount of gas removed per tick
 	var/power_production_drain = 0.001
+	//Handles the percieved radiation exposure to collectors. Should entirely fix some broken-ass mechanics.
+	var/last_perceived_radiation = null //literally just used so people don't kill themselves :clueless:
+	var/actual_intensity = null
 
-/obj/machinery/power/rad_collector/anchored/Initialize(mapload)
+/obj/machinery/power/rad_collector/Initialize(mapload) //all start anchored now. No more accidental mismaps.
 	. = ..()
 	set_anchored(TRUE)
+	RegisterSignal(src, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation)) // Monkeyfix: We love rad collection
+
+/obj/machinery/power/rad_collector/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
+	SIGNAL_HANDLER
+
+	last_perceived_radiation = get_perceived_radiation_danger(pulse_information, insulation_to_target) //Useful for calculating the 0.5 rad resistance into the mix
+	actual_intensity = pulse_information.intensity
+	addtimer(CALLBACK(src, PROC_REF(reset_perceived_rads)), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/obj/machinery/power/rad_collector/proc/reset_perceived_rads()
+	last_perceived_radiation = null
+	actual_intensity = null
 
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
@@ -57,6 +72,8 @@
 	tank_mix.garbage_collect()
 
 	var/power_produced = RAD_COLLECTOR_OUTPUT
+	if(loaded_tank && active && actual_intensity > RAD_COLLECTOR_EFFICIENCY)
+		stored_energy += (actual_intensity-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 	add_avail(power_produced)
 	stored_energy -= power_produced
 
@@ -161,6 +178,17 @@
 	// So joules = stored_energy * SSmachines.wait * 0.1
 	var/joules = stored_energy * SSmachines.wait * 0.1
 	. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
+	switch(last_perceived_radiation) //So people don't kill themselves without understanding the danger they're in.
+		if(null)
+			. += span_notice("Ambient radiation level count reports that all is well.")
+		if(PERCEIVED_RADIATION_DANGER_LOW)
+			. += span_alert("Ambient radiation levels slightly above average.")
+		if(PERCEIVED_RADIATION_DANGER_MEDIUM)
+			. += span_warning("Ambient radiation levels highly above average.")
+		if(PERCEIVED_RADIATION_DANGER_HIGH)
+			. += span_danger("Ambient radiation levels at extreme danger thresholds.")
+		if(PERCEIVED_RADIATION_DANGER_EXTREME)
+			. += span_suicide("Ambient radiation levels at fatal threshold!")
 
 /obj/machinery/power/rad_collector/atom_break(damage_flag)
 	. = ..()
@@ -181,10 +209,6 @@
 	else
 		update_appearance()
 
-/obj/machinery/power/rad_collector/rad_act(intensity)
-	if(loaded_tank && active && intensity > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (intensity-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
-
 /obj/machinery/power/rad_collector/update_overlays()
 	. = ..()
 	if(loaded_tank)
@@ -204,6 +228,12 @@
 		flick("ca_deactive", src)
 	update_appearance()
 	return
+
+//LEGACY RADIATION HANDLING CODE ! FOR SINGULO ONLY \\
+
+/obj/machinery/power/rad_collector/rad_act(intensity)
+	if(loaded_tank && active && intensity > RAD_COLLECTOR_EFFICIENCY)
+		stored_energy += (intensity-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
