@@ -1,5 +1,6 @@
 /// Whether or not it's possible for this atom to be irradiated
-#define CAN_IRRADIATE(atom) (ishuman(##atom) || isitem(##atom))
+#define CAN_IRRADIATE(atom) (ishuman(##atom) || isitem(##atom)) //essentially deprecated but kept for posterity (and ease of reverting)
+#define CANNOT_IRRADIATE(atom) (isturf(##atom) || isobserver(##atom)) //Nonmodular Monke edit. Oh god.
 
 /// Sends out a pulse of radiation, eminating from the source.
 /// Radiation is performed by collecting all radiatables within the max range (0 means source only, 1 means adjacent, etc),

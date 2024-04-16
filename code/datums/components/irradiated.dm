@@ -1,3 +1,8 @@
+/*
+
+//Not even going to try and modularise this.
+//File moved to radiation.dm in respective Monkestation folder.
+
 #define RADIATION_IMMEDIATE_TOX_DAMAGE 10
 
 #define RADIATION_TOX_DAMAGE_PER_INTERVAL 2
@@ -198,3 +203,4 @@
 #undef RADIATION_IMMEDIATE_TOX_DAMAGE
 #undef RADIATION_TOX_INTERVAL
 #undef RADIATION_TOX_DAMAGE_PER_INTERVAL
+*/

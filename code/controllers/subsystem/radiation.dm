@@ -119,7 +119,7 @@ SUBSYSTEM_DEF(radiation)
 /// Returns whether or not the target can be irradiated by any means.
 /// Does not check for clothing.
 /datum/controller/subsystem/radiation/proc/can_irradiate_basic(atom/target)
-	if (!CAN_IRRADIATE(target))
+	if (CANNOT_IRRADIATE(target)) // WE DO A LITTLE TROLLING - MONKEYSTATION EDIT (such a bad idea)
 		return FALSE
 
 	if (HAS_TRAIT(target, TRAIT_IRRADIATED) && !HAS_TRAIT(target, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK))
