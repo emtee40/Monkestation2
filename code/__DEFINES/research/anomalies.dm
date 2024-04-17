@@ -25,11 +25,13 @@ GLOBAL_LIST_INIT(bioscrambler_parts_blacklist, typecacheof(list(
 	/obj/item/bodypart/leg/right/monkey,
 	/obj/item/bodypart/leg/left/tallboy,
 	/obj/item/bodypart/leg/right/tallboy,
+	// monkestation additions
+	/obj/item/bodypart/head/psyker
 )))
 
 /// Blacklist of organs which should not appear when bioscrambled.
 /// Either will look terrible outside of intended host, give you magical powers, are irreversible, or kill you
-GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list (
+GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list(
 	/obj/item/organ/external/pod_hair,
 	/obj/item/organ/external/spines,
 	/obj/item/organ/external/wings,
@@ -44,7 +46,14 @@ GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list (
 	/obj/item/organ/internal/monster_core,
 	/obj/item/organ/internal/vocal_cords/colossus,
 	/obj/item/organ/internal/zombie_infection,
-)))
+	// monkestation additions
+	/obj/item/organ/internal/heart/gland,
+	/obj/item/organ/external/anime_head,
+	/obj/item/organ/external/anime_middle,
+	/obj/item/organ/external/anime_bottom,
+	/obj/item/organ/internal/tongue/fly,
+	/obj/item/organ/internal/stomach/fly
+)) - (subtypesof(/obj/item/organ/external/wings/functional) + typesof(/obj/item/organ/external/wings/moth)))
 
 /// List of body parts we can apply to people
 GLOBAL_LIST_EMPTY(bioscrambler_valid_parts)
