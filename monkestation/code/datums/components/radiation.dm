@@ -146,9 +146,10 @@
 		if(!parent_movable.get_filter("rad_glow"))
 			create_glow()
 		if(held_contamination >= RADIATION_JUMP_THRESHOLD) //This is where the fun begins.
-			var/pregen = rand(0,4)
-			radiation_pulse(parent, max_range = pregen, intensity = converted, threshold = 50) //This doesn't seem like much. Until you realise with an energy of 2000...
-			held_contamination -= (converted*1.08) //Should entirely prevent infinite rad exploits.
+			var/pregen = rand(1,4)
+			var/maxloss = (converted*0.430) //cursed
+			radiation_pulse(parent, max_range = pregen, intensity = maxloss*5, threshold = 0, should_rad_act = TRUE, chance = 100, minimum_exposure_time = 1.5) //This doesn't seem like much. Until you realise with an energy of 5000... It can get real nasty.
+			held_contamination -= maxloss //Should entirely prevent infinite rad exploits.
 	else if(parent_movable.get_filter("rad_glow") && held_contamination <= RADIATION_GLOW_THRESHOLD)
 		remove_glow()
 
@@ -212,7 +213,7 @@
 
 	if (isliving(source))
 		var/mob/living/living_source = source
-		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]. Note: Victim appears to have [absorbed_energy] and appears to be radiating [converted_ratio] percent of it as ionizing radiation."))
+		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current toxin levels: [living_source.getToxLoss()]. Note: Victim appears to have [absorbed_energy] MSv and appears to be radiating [converted_ratio]% of it as ionizing radiation every few moments."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_boldannounce("[icon2html(geiger_counter, user)] Target is irradiated."))
