@@ -1,7 +1,6 @@
 /datum/antagonist/abductor
 	/// A list of surgeries that abductors can't do, to prevent bullshittery.
-	var/static/list/forbidden_surgeries = typecacheof(list(
-		/datum/surgery/advanced/brainwashing,
+	var/static/list/always_forbidden_surgeries = typecacheof(list(
 		/datum/surgery/advanced/brainwashing_sleeper,
 		/datum/surgery/advanced/necrotic_revival
 	))
@@ -15,6 +14,14 @@
 	UnregisterSignal(owner.current, COMSIG_SURGERY_STARTING)
 
 /datum/antagonist/abductor/proc/prevent_forbidden_surgeries(mob/user, datum/surgery/surgery, mob/patient)
-	if(is_type_in_typecache(surgery, forbidden_surgeries))
+	if(is_type_in_typecache(surgery, always_forbidden_surgeries))
 		return COMPONENT_CANCEL_SURGERY
+	if(istype(surgery, /datum/surgery/advanced/brainwashing))
+		var/objectives_complete = TRUE
+		for(var/datum/objective/objective in objectives)
+			if(!objective.check_completion())
+				objectives_complete = FALSE
+				break
+		if(objectives_complete)
+			return COMPONENT_CANCEL_SURGERY
 	return NONE
