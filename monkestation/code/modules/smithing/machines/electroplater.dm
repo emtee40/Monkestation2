@@ -98,6 +98,14 @@
 	plating_item.forceMove(get_turf(src))
 	plating_item.name = "[stored_material.material_stats.material_name] plated [plating_item.name]"
 
+	if(istype(plating_item, /obj/item/clothing/head/mob_holder))
+		var/obj/item/clothing/head/mob_holder/holder = plating_item
+		if(!holder.held_mob.material_stats)
+			holder.held_mob.create_stats_from_material_stats(holder.material_stats)
+		else
+			holder.held_mob.material_stats.apply_traits_from(holder.material_stats)
+		holder.held_mob.name = "[stored_material.material_stats.material_name] plated [holder.held_mob.name]"
+
 	QDEL_NULL(stored_material)
 	plating_item = null
 	plating = FALSE

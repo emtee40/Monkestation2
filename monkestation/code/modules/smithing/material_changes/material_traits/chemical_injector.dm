@@ -14,6 +14,17 @@
 	if(!doused)
 		UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
 
+/datum/material_trait/chemical_injector/on_process(atom/movable/parent, datum/material_stats/host)
+	if(!isclothing(parent) || !doused || !doused_reagent)
+		return
+	if(!iscarbon(parent.loc))
+		return
+	var/mob/living/carbon/mob = parent.loc
+	var/datum/reagents/reagents = new(1000)
+	reagents.add_reagent(doused_reagent, 3 * (0.01 * host.liquid_flow))
+	reagents.trans_to(mob, reagents.total_volume, methods = PATCH)
+	qdel(reagents)
+
 /datum/material_trait/chemical_injector/on_mob_attack(atom/movable/parent, datum/material_stats/host, mob/living/target, mob/living/attacker)
 	if(iscarbon(target) && doused)
 		var/datum/reagents/reagents = new(1000)
