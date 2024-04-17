@@ -16,7 +16,6 @@
 /datum/antagonist/abductor/proc/prevent_forbidden_surgeries(mob/user, datum/surgery/surgery, mob/patient)
 	if(is_type_in_typecache(surgery, always_forbidden_surgeries))
 		return COMPONENT_CANCEL_SURGERY
-	if(istype(surgery, /datum/surgery/advanced/brainwashing))
-		if(length(team?.abductees) <= 3)
-			return COMPONENT_CANCEL_SURGERY
+	if(istype(surgery, /datum/surgery/advanced/brainwashing) && length(team?.abductees) <= 3)
+		return COMPONENT_CANCEL_SURGERY
 	return NONE
