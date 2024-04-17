@@ -173,6 +173,8 @@ SUBSYSTEM_DEF(liquids)
 				var/datum/liquid_group/LG = g
 				if(!LG)
 					active_turf_group_queue -= g
+					continue
+
 				LG.build_turf_reagent()
 				active_turf_group_queue -= g
 				if(!LG.exposure)
@@ -195,6 +197,7 @@ SUBSYSTEM_DEF(liquids)
 				var/datum/liquid_group/LG = g
 				if(!LG)
 					cached_edge_work_queue -= g
+					continue
 
 				LG.build_turf_reagent()
 				if(LG.reagents_per_turf > LIQUID_HEIGHT_DIVISOR)
