@@ -42,12 +42,13 @@
 	id_trim = /datum/id_trim/job/security_assistant
 	uniform = /obj/item/clothing/under/rank/security/officer/grey
 	backpack_contents = list(
-		/obj/item/restraints/zipties = 1
+		/obj/item/restraints/handcuffs/cable/zipties = 1,
+		/obj/item/reagent_containers/spray/pepper = 1
 	)
 	belt = /obj/item/modular_computer/pda/security
 	ears = /obj/item/radio/headset/headset_sec
 	shoes = /obj/item/clothing/shoes/jackboots/sec
-	l_pocket = /obj/item/reagent_containers/spray/pepper
+	l_pocket = /obj/item/citationinator
 	r_pocket = /obj/item/assembly/flash/handheld
 	glasses = /obj/item/clothing/glasses/hud/security
 
