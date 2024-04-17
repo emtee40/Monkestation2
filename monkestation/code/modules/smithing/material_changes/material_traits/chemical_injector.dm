@@ -5,12 +5,15 @@
 	var/datum/reagent/doused_reagent
 	///have we doused
 	var/doused = FALSE
+	///our processing_reagents
+	var/datum/reagents/processing_reagents
 
 /datum/material_trait/chemical_injector/on_trait_add(atom/movable/parent)
 	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(check_douse))
 
 /datum/material_trait/chemical_injector/on_remove(atom/movable/parent)
+	qdel(processing_reagents)
 	if(!doused)
 		UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
 
@@ -20,10 +23,10 @@
 	if(!iscarbon(parent.loc))
 		return
 	var/mob/living/carbon/mob = parent.loc
-	var/datum/reagents/reagents = new(1000)
-	reagents.add_reagent(doused_reagent, 3 * (0.01 * host.liquid_flow))
-	reagents.trans_to(mob, reagents.total_volume, methods = PATCH)
-	qdel(reagents)
+	if(!processing_reagents)
+		processing_reagents = new(1000)
+	processing_reagents.add_reagent(doused_reagent, 3 * (0.01 * host.liquid_flow))
+	processing_reagents.trans_to(mob, processing_reagents.total_volume, methods = PATCH)
 
 /datum/material_trait/chemical_injector/on_mob_attack(atom/movable/parent, datum/material_stats/host, mob/living/target, mob/living/attacker)
 	if(iscarbon(target) && doused)
