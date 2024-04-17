@@ -5581,14 +5581,14 @@
 	id = "visitorflash";
 	pixel_x = -6;
 	pixel_y = 24;
-	req_one_access = list("brig", "permabrig")
+	req_access = list("brig")
 	},
 /obj/machinery/holopad,
 /obj/machinery/button/door/directional/north{
 	id = "visitation";
 	name = "Visitation Shutters";
 	pixel_x = 8;
-	req_one_access = list("brig", "permabrig")
+	req_access = list("brig")
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/execution/transfer)
@@ -17517,7 +17517,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/iron/grimy,
 /area/station/security/prison/safe)
 "fRf" = (
@@ -18450,11 +18450,13 @@
 /turf/open/floor/engine,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "gij" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing"
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
 	cycle_id = "brig-entrance-left"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
 /turf/open/floor/plating,
 /area/station/security/execution/transfer)
 "gin" = (
@@ -37158,7 +37160,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/plating,
 /area/station/security/execution/transfer)
 "mjc" = (
@@ -37377,16 +37379,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
-"mlN" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "brig-entrance-left"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/permabrig,
-/turf/open/floor/plating,
-/area/station/security/execution/transfer)
 "mma" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -88172,7 +88164,7 @@ adf
 iza
 llh
 wDz
-mlN
+gij
 miS
 iVj
 lFS
