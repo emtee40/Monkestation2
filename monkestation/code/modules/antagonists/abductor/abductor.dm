@@ -17,11 +17,6 @@
 	if(is_type_in_typecache(surgery, always_forbidden_surgeries))
 		return COMPONENT_CANCEL_SURGERY
 	if(istype(surgery, /datum/surgery/advanced/brainwashing))
-		var/objectives_complete = TRUE
-		for(var/datum/objective/objective in objectives)
-			if(!objective.check_completion())
-				objectives_complete = FALSE
-				break
-		if(objectives_complete)
+		if(length(team?.abductees) <= 3)
 			return COMPONENT_CANCEL_SURGERY
 	return NONE
