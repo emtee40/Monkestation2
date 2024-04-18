@@ -32,6 +32,8 @@
 	var/pest_level = 0
 	var/weed_level = 0
 
+	var/pollinated = FALSE
+
 /datum/component/plant_growing/Initialize(max_reagents = 40, maximum_seeds = 1)
 	. = ..()
 
@@ -52,6 +54,7 @@
 	RegisterSignal(parent, COMSIG_GROWER_ADJUST_SELFGROW, PROC_REF(adjust_selfgrow))
 	RegisterSignal(parent, COMSIG_GROWER_INCREASE_WORK_PROCESSES, PROC_REF(increase_work_processes))
 	RegisterSignal(parent, COMSIG_REMOVE_PLANT, PROC_REF(remove_plant))
+	RegisterSignal(parent, COMSIG_GROWER_CHECK_POLLINATED, PROC_REF(check_pollinated))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -124,6 +127,8 @@
 	if(!length(managed_seeds))
 		return
 
+	pollinated = TRUE
+
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_POLLINATE, parent)
 
@@ -163,8 +168,8 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 
-	examine_list += span_info("Water: [water_precent].")
-	examine_list += span_info("Nutrients: [movable_parent.reagents.total_volume].")
+	examine_list += span_info("Water: [water_precent]%")
+	examine_list += span_info("Nutrients: [movable_parent.reagents.total_volume] units")
 
 	if(bio_boosted)
 		examine_list += span_boldnotice("It's currently being bio boosted, plants will grow incredibly quickly.")
@@ -181,3 +186,7 @@
 /datum/component/plant_growing/proc/remove_plant(datum/source, obj/item/seeds/seed)
 	managed_seeds -= seed
 	qdel(seed)
+	SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS)
+
+/datum/component/plant_growing/proc/check_pollinated(datum/source)
+	return pollinated

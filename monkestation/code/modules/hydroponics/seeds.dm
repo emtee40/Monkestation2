@@ -31,7 +31,7 @@
 	special_mutations = return_viable_mutations()
 
 /obj/item/seeds/spliced/harvest(mob/user)
-	var/obj/machinery/hydroponics/parent = loc //for ease of access
+	var/atom/movable/parent = loc //for ease of access
 	var/t_amount = 0
 	var/list/result = list()
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
@@ -66,7 +66,6 @@
 			product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
-	parent.update_tray(user, t_amount)
 
 	return result
 

@@ -233,10 +233,6 @@
 /obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/projectile/energy/flora/yield))
 		var/rating = 1
-		if(istype(loc, /obj/machinery/hydroponics))
-			var/obj/machinery/hydroponics/H = loc
-			rating = H.rating
-
 		if(yield == 0)//Oh god don't divide by zero you'll doom us all.
 			adjust_yield(1 * rating)
 		else if(prob(1/(yield * yield) * 100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
@@ -247,16 +243,7 @@
 
 // Harvest procs
 /obj/item/seeds/proc/getYield()
-	var/return_yield = yield
-
-	var/obj/machinery/hydroponics/parent = loc
-	if(istype(loc, /obj/machinery/hydroponics))
-		if(parent.yieldmod == 0)
-			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
-		else
-			return_yield *= (parent.yieldmod)
-
-	return return_yield
+	return yield
 
 
 /obj/item/seeds/proc/harvest(mob/user)

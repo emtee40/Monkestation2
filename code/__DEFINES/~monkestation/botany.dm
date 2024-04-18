@@ -23,7 +23,8 @@
 #define COMSIG_WEEDS_UPDATE "weeds_update"
 #define COMSIG_GROWER_SET_HARVESTABLE "set_harvestable_grower"
 #define COMSIG_REMOVE_PLANT "remove_plant_grower"
-
+#define REMOVE_PLANT_VISUALS "remove_plant_visuals"
+#define COMSIG_GROWER_CHECK_POLLINATED "check_grower_pollinated"
 
 #define SHOW_WATER (1<<0)
 #define SHOW_HEALTH (1<<1)

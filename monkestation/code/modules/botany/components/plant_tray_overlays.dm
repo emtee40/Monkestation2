@@ -53,6 +53,7 @@
 	RegisterSignal(parent, COMSIG_TOXICITY_UPDATE, PROC_REF(toxic_update))
 	RegisterSignal(parent, COMSIG_NUTRIENT_UPDATE, PROC_REF(nutrient_update))
 	RegisterSignal(parent, COMSIG_GROWER_SET_HARVESTABLE, PROC_REF(update_harvestable))
+	RegisterSignal(parent, REMOVE_PLANT_VISUALS, PROC_REF(remove_plant_visuals))
 
 
 /datum/component/plant_tray_overlay/proc/get_water_state(datum/source, precent)
@@ -74,7 +75,16 @@
 	overlay_flags |= SHOW_WATER
 
 /datum/component/plant_tray_overlay/proc/update_plant(datum/source, mutable_appearance/plant, x = 0, y = 0)
+	var/atom/movable/movable = parent
+	if(plant_visuals)
+		qdel(plant_visuals)
+	if(!plant)
+		movable.update_overlays()
+		return
 	plant_visuals = new(plant)
+
+	plant_visuals.layer = ABOVE_MOB_LAYER
+	plant_visuals.plane = GAME_PLANE_FOV_HIDDEN
 
 	plant_offset_x = x + base_offset_x
 	plant_offset_y = y + base_offset_y
@@ -141,3 +151,8 @@
 		overlay_flags |= SHOW_HARVEST
 	else
 		overlay_flags &= ~SHOW_HARVEST
+
+/datum/component/plant_tray_overlay/proc/remove_plant_visuals(datum/source)
+	QDEL_NULL(plant_visuals)
+	var/atom/movable/movable = parent
+	movable.update_appearance()
