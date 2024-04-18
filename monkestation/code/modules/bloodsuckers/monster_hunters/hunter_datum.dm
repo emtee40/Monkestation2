@@ -22,6 +22,7 @@
 	/// A list of traits innately granted to monster hunters.
 	var/static/list/granted_traits = list(
 		TRAIT_FEARLESS,
+		TRAIT_HARDLY_WOUNDED,
 		TRAIT_NOCRITDAMAGE,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NO_ZOMBIFY
