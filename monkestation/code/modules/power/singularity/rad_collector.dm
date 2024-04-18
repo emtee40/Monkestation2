@@ -52,7 +52,7 @@
 	. = ..()
 	set_anchored(TRUE)
 
-/obj/machinery/power/rad_collector/Initialize(mapload) //all start anchored now. No more accidental mismaps.
+/obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(eat_some_bullets)) //Specifically handles the next part...
 
