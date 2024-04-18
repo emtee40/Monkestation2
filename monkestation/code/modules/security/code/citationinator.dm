@@ -2,11 +2,11 @@
 	name = "Citationinator"
 	desc = "A cheaply made plastic handheld doohickey, capable of issuing fines to ner-do-wells, and printing out a slip of paper with the details of the fine."
 	icon = 'monkestation/icons/obj/items/secass.dmi'
-	icon_state = "doohickey"
-	inhand_icon_state = "electronic"
+	icon_state = "doohickey_closed"
+	inhand_icon_state = "doohicket"
 	worn_icon_state = "electronic"
-	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
+	lefthand_file = 'monkestation/icons/mob/inhands/equipment/secass_lefthand.dmi'
+	righthand_file = 'monkestation/icons/mob/inhands/equipment/secass_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON | NO_MAT_REDEMPTION
@@ -17,7 +17,9 @@
 	if(!isliving(user))
 		return
 	add_fingerprint(user)
-	INVOKE_ASYNC(src, PROC_REF(issue_fine), user)
+	icon_state = "doohickey_open"
+	issue_fine(user)
+	icon_state = initial(icon_state)
 
 /obj/item/citationinator/proc/issue_fine(mob/living/user)
 	var/obj/item/card/id/using_id = user.get_idcard()
