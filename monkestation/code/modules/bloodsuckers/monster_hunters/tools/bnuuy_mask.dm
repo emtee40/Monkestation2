@@ -5,7 +5,7 @@
 	icon_state = "rabbit_mask"
 	worn_icon = 'monkestation/icons/bloodsuckers/worn_mask.dmi'
 	worn_icon_state = "rabbit_mask"
-	clothing_flags = SNUG_FIT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | GAS_FILTERING | SNUG_FIT
 	flags_inv = HIDEFACE | HIDEFACIALHAIR | HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER
