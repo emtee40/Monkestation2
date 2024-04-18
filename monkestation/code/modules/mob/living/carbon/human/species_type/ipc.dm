@@ -40,6 +40,7 @@
 	mutantstomach = /obj/item/organ/internal/stomach/ethereal/battery/ipc
 	mutantears = /obj/item/organ/internal/ears/robot
 	mutantheart = /obj/item/organ/internal/heart/cybernetic/ipc
+	wing_types = /obj/item/organ/external/wings/functional/robotic
 
 	mutant_organs = list(
 		/obj/item/organ/internal/cyberimp/arm/power_cord,
