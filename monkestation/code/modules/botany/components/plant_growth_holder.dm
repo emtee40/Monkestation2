@@ -13,9 +13,103 @@
 	var/health_value
 	///our modifier to yield
 	var/yield_modifier = 1
-	///our current plant state
-	var/plant_state = NONE
 	///the mutable appearance we have created
 	var/mutable_appearance/current_looks
 	///our current planter host
 	var/atom/movable/planter
+	///our current plant state
+	var/plant_state
+
+/datum/component/growth_information/Initialize(planter)
+	. = ..()
+	src.planter = planter
+
+	RegisterSignal(parent, COMSIG_PLANT_CHANGE_PLANTER, PROC_REF(change_planter))
+	RegisterSignal(parent, COMSIG_PLANT_GROWTH_PROCESS, PROC_REF(process_growth))
+	RegisterSignal(parent, COMSIG_PLANT_BUILD_IMAGE, PROC_REF(update_plant_visuals))
+	RegisterSignal(parent, COMSIG_ADJUST_PLANT_HEALTH, PROC_REF(adjust_health))
+	RegisterSignal(parent, COMSIG_PLANT_TRY_HARVEST, PROC_REF(try_harvest))
+
+	var/obj/item/seeds/seed = parent
+	if(seed.get_gene(/datum/plant_gene/trait/repeated_harvest))
+		repeated_harvest = TRUE
+
+	health_value = seed.endurance
+
+/datum/component/growth_information/proc/update_plant_visuals(datum/source)
+	var/obj/item/seeds/seed = parent
+	update_growth_information()
+	var/t_growthstate = clamp(round(((growth_cycle / (seed.harvest_age * (1.01 ** -seed.maturation))) * 10) * seed.growthstages, 1),1, seed.growthstages)
+
+	if(!current_looks)
+		current_looks = mutable_appearance(seed.growing_icon, "[seed.icon_grow][t_growthstate]", offset_spokesman = planter)
+
+	current_looks.icon_state =  "[seed.icon_grow][t_growthstate]"
+
+	if((plant_state == HYDROTRAY_PLANT_HARVESTABLE) && seed.icon_harvest)
+		current_looks.icon_state = seed.icon_harvest
+
+	if(plant_state == HYDROTRAY_PLANT_DEAD)
+		current_looks.icon_state = seed.icon_dead
+	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks)
+
+/datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents)
+
+	growth_cycle++
+	for(var/datum/reagent/reagent as anything in planter_reagents.reagent_list)
+		reagent.on_plant_apply(parent)
+
+	update_plant_visuals()
+
+/datum/component/growth_information/proc/update_growth_information()
+	var/obj/item/seeds/seed = parent
+	var/growth_mult = (1.01 ** -seed.maturation)
+	var/growth_cycles_needed = round(seed.harvest_age * growth_mult)
+
+	growth_precent = round((growth_cycle / growth_cycles_needed) * 100)
+
+	plant_state = HYDROTRAY_PLANT_GROWING
+
+	if(growth_precent >= 100)
+		plant_state = HYDROTRAY_PLANT_HARVESTABLE
+		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, TRUE)
+
+	if(health_value <= 0)
+		plant_state = HYDROTRAY_PLANT_DEAD
+		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
+
+/datum/component/growth_information/proc/change_planter(datum/source, atom/movable/new_planter)
+	planter = new_planter
+
+/datum/component/growth_information/proc/adjust_health(datum/source, amount)
+	health_value = max(0, health_value + amount)
+
+	update_and_send_health_color()
+
+/datum/component/growth_information/proc/update_and_send_health_color()
+	var/obj/item/seeds/seed = parent
+	var/health_color
+	if(health_value < (seed.endurance * 0.3))
+		health_color = "#FF3300"
+	else if(health_value < (seed.endurance * 0.5))
+		health_color = "#FFFF00"
+	else if(health_value < (seed.endurance * 0.7))
+		health_color = "#99FF66"
+	else
+		health_color = "#66FFFA"
+
+	SEND_SIGNAL(planter, COMSIG_PLANT_UPDATE_HEALTH_COLOR, health_color)
+
+/datum/component/growth_information/proc/try_harvest(datum/source, mob/user)
+	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)
+		return
+	var/obj/item/seeds/seed = parent
+	seed.harvest(user)
+	if(repeated_harvest)
+		growth_cycle = 0
+		return
+	var/atom/movable/to_send = planter
+	qdel(current_looks)
+	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks)
+	planter = null
+	SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, parent)

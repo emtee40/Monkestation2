@@ -1,0 +1,34 @@
+#define COMSIG_GROWING_WATER_UPDATE "growing_water_update"
+#define COMSIG_PLANT_TRY_POLLINATE "try_pollinate"
+#define COMSIG_PLANT_TRY_HARVEST "plant_try_harvest"
+#define COMSIG_PLANT_BUILD_IMAGE "plant_build_image"
+#define COMSIG_PLANT_ADJUST_WEED "plant_adjust_weeds"
+#define COMSIG_PLANT_GROWTH_PROCESS "process_plant_growth"
+#define COMSIG_PLANT_ADJUST_HEALTH "adjust_plant_health"
+#define COMSIG_TRY_HARVEST_SEEDS "try_harvest_seeds"
+#define COMSIG_TRY_PLANT_SEED "try_plant_seeds"
+#define COMSIG_PLANT_CHANGE_PLANTER "plant_change_planter"
+#define COMSIG_PLANT_SENDING_IMAGE "plant_sending_image"
+#define COMSIG_TRY_POLLINATE "try_pollinate_grower"
+#define COMSIG_ADJUST_PLANT_HEALTH "adjust_plant_health"
+#define COMSIG_GROWING_ADJUST_TOXIN "adjust_growing_toxicity"
+#define COMSIG_GROWING_ADJUST_PEST "adjust_growing_pests"
+#define COMSIG_PLANT_UPDATE_HEALTH_COLOR "update_health_color"
+#define COMSIG_GROWING_ADJUST_WEED "adjust_growing_weed"
+#define COMSIG_GROWER_ADJUST_SELFGROW "adjust_grower_selfgrow"
+#define COMSIG_GROWER_INCREASE_WORK_PROCESSES "increase_work_process_grower"
+#define COMSIG_NUTRIENT_UPDATE "nutrient_update"
+#define COMSIG_TOXICITY_UPDATE "toxicity_update"
+#define COMSIG_PEST_UPDATE "pest_update"
+#define COMSIG_WEEDS_UPDATE "weeds_update"
+#define COMSIG_GROWER_SET_HARVESTABLE "set_harvestable_grower"
+#define COMSIG_REMOVE_PLANT "remove_plant_grower"
+
+
+#define SHOW_WATER (1<<0)
+#define SHOW_HEALTH (1<<1)
+#define SHOW_WEED (1<<2)
+#define SHOW_PEST (1<<3)
+#define SHOW_TOXIC (1<<4)
+#define SHOW_NUTRIENT (1<<5)
+#define SHOW_HARVEST (1<<6)

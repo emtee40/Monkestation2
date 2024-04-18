@@ -261,7 +261,7 @@
 
 /obj/item/seeds/proc/harvest(mob/user)
 	///Reference to the tray/soil the seeds are planted in.
-	var/obj/machinery/hydroponics/parent = loc //for ease of access
+	var/atom/movable/parent = loc //for ease of access
 	///Count used for creating the correct amount of results to the harvest.
 	var/t_amount = 0
 	///List of plants all harvested from the same batch.
@@ -298,11 +298,11 @@
 					t_amount++
 					continue
 				t_prod = new product(output_loc, src)
-				if(parent.myseed.plantname != initial(parent.myseed.plantname))
-					t_prod.name = parent.myseed.plantname
-				t_prod.seed.name = parent.myseed.name
-				t_prod.seed.desc = parent.myseed.desc
-				t_prod.seed.plantname = parent.myseed.plantname
+				if(plantname != initial(plantname))
+					t_prod.name = plantname
+				t_prod.seed.name = name
+				t_prod.seed.desc = desc
+				t_prod.seed.plantname = plantname
 			result.Add(t_prod) // User gets a consumable
 			if(!t_prod)
 				return
@@ -310,8 +310,6 @@
 			product_name = t_prod.seed.plantname
 	if(product_count >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", product_count, product_name)
-	parent.update_tray(user, product_count)
-	parent.update_overlays()
 	return result
 
 /**

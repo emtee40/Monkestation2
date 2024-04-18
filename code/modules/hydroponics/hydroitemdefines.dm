@@ -638,7 +638,7 @@
 
 /obj/item/reagent_containers/cup/bottle/nutrient/l4z
 	name = "bottle of Left 4 Zed"
-	desc = "Contains a fertilizer that lightly heals the plant but causes significant mutations in plants over generations."
+	desc = "Contains a fertilizer that quickly wilts the plant in exchange for the plant gaining all stats."
 	list_reagents = list(/datum/reagent/plantnutriment/left4zednutriment = 50)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/rh
