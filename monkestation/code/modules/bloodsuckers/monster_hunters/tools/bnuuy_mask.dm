@@ -86,7 +86,7 @@
 		owner.adjustOxyLoss(-2 * seconds_per_tick)
 
 /datum/status_effect/bnuuy_mask/get_examine_text()
-	return span_warning("[owner.p_their(TRUE)] seems to radiate an intimidating, determined aura.")
+	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] out-of-place, as if [owner.p_they()] were partially detached from reality.")
 
 /datum/status_effect/bnuuy_mask/proc/on_attacked(datum/source, atom/attacker, attack_flags)
 	SIGNAL_HANDLER
