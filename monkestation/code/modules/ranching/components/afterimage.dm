@@ -71,10 +71,6 @@
 		listed_image.sync_with_parent(targeted_image, target_loc)
 	qdel(targeted_image)
 
-
-
-
-
 /obj/after_image
 	mouse_opacity = FALSE
 	anchored = 2
@@ -82,28 +78,27 @@
 	var/appearance_ref = null
 	var/active = FALSE
 
-/obj/after_image/New()
+/obj/after_image/New(_loc, min_x = -3, max_x = 3, min_y = -3, max_y = 3, time_a = 0.5 SECONDS, time_b = 3 SECONDS, finalized_alpha = 100)
 	. = ..()
-	animate(src, pixel_x=0, time=1, loop=-1)
+	src.finalized_alpha = finalized_alpha
+	animate(src, pixel_x=0, time=1, loop= -1)
 	var/count = rand(5, 10)
 	for(var/number = 1 to count)
-		var/time = 0.5 SECONDS + rand() * 3 SECONDS
-		var/pixel_x = number == count ? 0 : rand(-2, 2)
-		var/pixel_y = number == count ? 0 : rand(-2, 2)
-		animate(time = time, easing = pick(LINEAR_EASING, SINE_EASING, CIRCULAR_EASING, CUBIC_EASING), flags = ANIMATION_PARALLEL, pixel_x = pixel_x, pixel_y = pixel_y, loop =- 1)
+		var/time = time_a + rand() * time_b
+		var/pixel_x = number == count ? 0 : rand(min_x, max_y)
+		var/pixel_y = number == count ? 0 : rand(min_y, max_y)
+		animate(time = time, easing = pick(LINEAR_EASING, SINE_EASING, CIRCULAR_EASING, CUBIC_EASING), pixel_x = pixel_x, pixel_y = pixel_y, loop = -1)
 
-/obj/after_image/proc/sync_with_parent(atom/movable/parent, loc_override=null)
+/obj/after_image/proc/sync_with_parent(atom/movable/parent, loc_override = null, actual_loc = TRUE, dir_override = null)
 	if(!src.active)
 		return
 	src.name = parent.name
 	src.desc = parent.desc
 	src.glide_size = parent.glide_size
-
 	var/parent_appearance_ref = ref(parent.appearance)
 	if(istype(parent, /obj/after_image))
 		var/obj/after_image/parent_after_image = parent
 		parent_appearance_ref = parent_after_image.appearance_ref
-
 	if(src.appearance_ref != parent_appearance_ref)
 		src.appearance_ref = parent_appearance_ref
 		src.appearance = parent.appearance
@@ -111,15 +106,13 @@
 		src.plane = initial(src.plane)
 		src.mouse_opacity = initial(src.mouse_opacity)
 		src.anchored = initial(src.anchored)
-
 	var/atom/target_loc = loc_override ? loc_override : parent.loc
-
-	if(target_loc != src.loc)
+	if(target_loc != src.loc && actual_loc)
 		src.loc = target_loc
-
-	if(src.dir != parent.dir)
-		src.setDir(parent.dir)
+	var/target_dir = isnull(dir_override) ? parent.dir : dir_override
+	if(src.dir != target_dir)
+		src.setDir(target_dir)
 
 /obj/after_image/Destroy()
 	src.active = FALSE
-	. = ..()
+	return ..()
