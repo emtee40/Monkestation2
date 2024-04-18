@@ -797,7 +797,7 @@ SUBSYSTEM_DEF(gamemode)
 /datum/controller/subsystem/gamemode/proc/handle_picking_stroyteller()
 	if(length(GLOB.clients) > MAX_POP_FOR_STORYTELLER_VOTE)
 		secret_storyteller = TRUE
-		selected_storyteller = pick_weight(get_valid_storytellers(TRUE))
+		selected_storyteller = rng.pick_weighted(get_valid_storytellers(TRUE))
 		return
 	SSvote.initiate_vote(/datum/vote/storyteller, "pick round storyteller", forced = TRUE)
 
@@ -813,7 +813,7 @@ SUBSYSTEM_DEF(gamemode)
 	var/added_storytellers = 0
 	while(added_storytellers < DEFAULT_STORYTELLER_VOTE_OPTIONS && length(pick_from))
 		added_storytellers++
-		var/picked_storyteller = pick_weight(pick_from)
+		var/picked_storyteller = rng.pick_weighted(pick_from)
 		final_choices[picked_storyteller] = 0
 		pick_from -= picked_storyteller
 	return final_choices
@@ -1209,7 +1209,7 @@ SUBSYSTEM_DEF(gamemode)
 /// The same as the global proc, except it uses the SSgamemode rng.
 /datum/controller/subsystem/gamemode/proc/pick_n_take_weighted(list/list_to_pick)
 	if(length(list_to_pick))
-		var/picked = pick_weight(list_to_pick)
+		var/picked = rng.pick_weighted(list_to_pick)
 		list_to_pick -= picked
 		return picked
 
