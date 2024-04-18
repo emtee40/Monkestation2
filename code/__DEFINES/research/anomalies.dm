@@ -35,19 +35,6 @@ GLOBAL_LIST_INIT(bioscrambler_limb_id_blacklist, list(
 	SPECIES_GOBLIN
 ))
 
-GLOBAL_LIST_INIT(bioscrambler_blacklist_exemptions, typecacheof(
-	subtypesof(/obj/item/organ/external/wings/functional)
-	+ typesof(/obj/item/organ/external/wings/moth)
-	+ list(
-		/obj/item/organ/internal/heart/gland/access,
-		/obj/item/organ/internal/heart/gland/ventcrawling,
-		/obj/item/organ/internal/heart/gland/heal,
-		/obj/item/organ/internal/heart/gland/blood,
-		/obj/item/organ/internal/heart/gland/chem
-	)
-), only_root_path = TRUE)
-
-
 /// Blacklist of organs which should not appear when bioscrambled.
 /// Either will look terrible outside of intended host, give you magical powers, are irreversible, or kill you
 GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list(
@@ -66,14 +53,23 @@ GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list(
 	/obj/item/organ/internal/vocal_cords/colossus,
 	/obj/item/organ/internal/zombie_infection,
 	// monkestation additions
-	/obj/item/organ/internal/heart/gland,
+	/obj/item/organ/internal/heart/gland/egg,
+	/obj/item/organ/internal/heart/gland/electric,
+	/obj/item/organ/internal/heart/gland/mindshock,
+	/obj/item/organ/internal/heart/gland/plasma,
+	/obj/item/organ/internal/heart/gland/quantum,
+	/obj/item/organ/internal/heart/gland/slime,
+	/obj/item/organ/internal/heart/gland/spiderman,
+	/obj/item/organ/internal/heart/gland/transform,
+	/obj/item/organ/internal/heart/gland/trauma,
+	/obj/item/organ/internal/heart/gland/viral,
 	/obj/item/organ/external/anime_head,
 	/obj/item/organ/external/anime_middle,
 	/obj/item/organ/external/anime_bottom,
 	/obj/item/organ/internal/tongue/fly,
 	/obj/item/organ/internal/stomach/fly,
 	/obj/item/organ/internal/legion_tumour
-)))
+)) - subtypesof(/obj/item/organ/external/wings/functional) - typesof(/obj/item/organ/external/wings/moth))
 
 /// List of body parts we can apply to people
 GLOBAL_LIST_EMPTY(bioscrambler_valid_parts)
