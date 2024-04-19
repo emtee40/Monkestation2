@@ -178,3 +178,24 @@
 	icon_harvest = "Bumpkin-G4"
 	icon_dead = "Bumpkin-G0"
 	icon_grow = "Bumpkin-G"
+
+/obj/item/seeds/eggplant
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Eggplant-G4"
+	icon_dead = "Eggplant-G0"
+	icon_grow = "Eggplant-G"
+
+/obj/item/seeds/eggplant/eggy
+	icon_harvest = "EggplantEggs-G4"
+	icon_dead = "EggplantEggs-G0"
+	icon_grow = "EggplantEggs-G"
+
+/obj/item/seeds/pineapple
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Pineapple-G4"
+	icon_dead = "Pineapple-G0"
+	icon_grow = "Pineapple-G"
