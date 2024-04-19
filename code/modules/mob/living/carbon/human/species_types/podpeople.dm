@@ -15,17 +15,15 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
-
 	burnmod = 1.25
 	heatmod = 1.5
 	payday_modifier = 0.75
 	meat = /obj/item/food/meat/slab/human/mutant/plant
 	exotic_blood = /datum/reagent/water
-	disliked_food = MEAT | DAIRY | SEAFOOD | BUGS
-	liked_food = VEGETABLES | FRUIT | GRAIN
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
 
+	mutanttongue = /obj/item/organ/internal/tongue/pod
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/pod,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/pod,

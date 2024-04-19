@@ -16,6 +16,8 @@
 	desc = "The tongue of an Arachnid. Mostly used for lying."
 	say_mod = "chitters"
 	modifies_speech = TRUE
+	disliked_food = NONE // Okay listen, i don't actually know what irl spiders don't like to eat and i'm pretty tired of looking for answers.
+	liked_food = GORE | MEAT | BUGS | GROSS
 
 /obj/item/organ/internal/tongue/arachnid/modify_speech(datum/source, list/speech_args) //This is flypeople speech
 	var/static/regex/fly_buzz = new("z+", "g")
@@ -38,7 +40,19 @@
 	icon_state = "tongue_oozeling"
 	say_mod = "blurbles"
 	alpha = 200
+	toxic_food = NONE
+	disliked_food = NONE
 
 // Oozeling tongues can speak all default + slime
 /obj/item/organ/internal/tongue/oozeling/get_possible_languages()
 	return ..() + /datum/language/slime
+
+/obj/item/organ/internal/tongue/lizard/floran
+	//disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | BUGS | GORE
+
+/obj/item/organ/internal/tongue/goblin
+	name = "goblin tongue"
+	desc = "A organ used for speaking and eating."
+	disliked_food = VEGETABLES
+	liked_food = GORE | MEAT | GROSS

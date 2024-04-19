@@ -38,6 +38,7 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/goblin,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/goblin,
 	)
+	mutanttongue = /obj/item/organ/internal/tongue/goblin
 
 /mob/living/carbon/human/species/goblin
     race = /datum/species/goblin

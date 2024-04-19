@@ -26,8 +26,6 @@
 	speedmod = -0.1 //Same as arachnids
 	meat = /obj/item/food/meat/slab/human/mutant/plant
 	exotic_blood = /datum/reagent/water
-	// disliked_food = VEGETABLES | FRUIT | GRAIN
-	liked_food = MEAT | BUGS | GORE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
 
@@ -39,7 +37,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/floran,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/floran,
 	)
-	mutanttongue = /obj/item/organ/internal/tongue/lizard
+	mutanttongue = /obj/item/organ/internal/tongue/lizard/floran
 	mutanteyes = /obj/item/organ/internal/eyes/floran
 
 	ass_image = 'icons/ass/asspodperson.png'
