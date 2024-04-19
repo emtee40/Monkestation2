@@ -26,6 +26,9 @@
 
 /mob/living/basic/pet/potty/Initialize(mapload)
 	. = ..()
+
+	create_mob_hud()
+
 	AddComponent(/datum/component/plant_tray_overlay, icon, null, null, null, null, null, null, 3, 8)
 	AddComponent(/datum/component/plant_growing)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
