@@ -337,7 +337,7 @@
 
 			new /obj/effect/temp_visual/heal(target_turf, COLOR_HEALING_CYAN)
 
-		if(!isliving(target_atom))
+		if(!isliving(target_atom) || istype(target_atom, /mob/living/basic/pet/potty))
 			continue
 
 		var/mob/living/living_target = target_atom
