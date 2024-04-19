@@ -91,6 +91,9 @@
 	planter = new_planter
 
 /datum/component/growth_information/proc/adjust_health(datum/source, amount)
+	if(plant_state == HYDROTRAY_PLANT_DEAD)
+		update_and_send_health_color()
+		return
 	var/obj/item/seeds/seed = parent
 	health_value = clamp(health_value + amount, 0, seed.endurance)
 
