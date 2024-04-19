@@ -126,6 +126,14 @@
 	. = ..()
 	desc = "A cube made of pure biomatter, it seems to be denser than normal making it last [DisplayTimeText(total_duration)]. Does wonders on plant trays."
 
+/obj/item/bio_cube/pre_attack(atom/A, mob/living/user, params)
+	if(SEND_SIGNAL(A, COMSIG_ATTEMPT_BIOBOOST, total_duration))
+		qdel(src)
+		return FALSE
+	. = ..()
+
+
+
 /obj/item/bio_cube/attackby(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(istype(attacking_item, /obj/item/bio_cube))

@@ -167,7 +167,7 @@
 	add_overlay("[icon_base]_wings")
 
 /mob/living/basic/bee/proc/pollinate(atom/movable/hydro)
-	SEND_SIGNAL(hydro, COMSIG_TRY_POLLINATE, rand(60, 90))
+	SEND_SIGNAL(hydro, COMSIG_TRY_POLLINATE)
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + health, 100)

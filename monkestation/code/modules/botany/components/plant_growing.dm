@@ -55,6 +55,7 @@
 	RegisterSignal(parent, COMSIG_GROWER_INCREASE_WORK_PROCESSES, PROC_REF(increase_work_processes))
 	RegisterSignal(parent, COMSIG_REMOVE_PLANT, PROC_REF(remove_plant))
 	RegisterSignal(parent, COMSIG_GROWER_CHECK_POLLINATED, PROC_REF(check_pollinated))
+	RegisterSignal(parent, COMSIG_ATTEMPT_BIOBOOST, PROC_REF(try_bioboost))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -122,6 +123,12 @@
 
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_HARVEST, user)
+		if(pollinated)
+			seed.adjust_potency(rand(1,2))
+			seed.adjust_yield(rand(1,2))
+			seed.adjust_endurance(rand(1,2))
+			seed.adjust_lifespan(rand(1,2))
+
 
 /datum/component/plant_growing/proc/try_pollinate(datum/source)
 	if(!length(managed_seeds))
@@ -131,6 +138,8 @@
 
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_POLLINATE, parent)
+
+	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), rand(60, 90))
 
 ///here we just remove any water added and increase the water precent, add other things you want done once.
 /datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)
@@ -190,3 +199,10 @@
 
 /datum/component/plant_growing/proc/check_pollinated(datum/source)
 	return pollinated
+
+/datum/component/plant_growing/proc/try_bioboost(datum/source, duration)
+	if(bio_boosted)
+		return FALSE
+	bio_boosted = TRUE
+	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), duration)
+	return TRUE

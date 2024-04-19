@@ -83,7 +83,7 @@
 
 /datum/component/growth_information/proc/adjust_health(datum/source, amount)
 	var/obj/item/seeds/seed = parent
-	health_value = clamp(health_value + amount, seed.endurance)
+	health_value = clamp(health_value + amount, 0, seed.endurance)
 
 	update_and_send_health_color()
 
