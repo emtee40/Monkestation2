@@ -82,7 +82,8 @@
 	planter = new_planter
 
 /datum/component/growth_information/proc/adjust_health(datum/source, amount)
-	health_value = max(0, health_value + amount)
+	var/obj/item/seeds/seed = parent
+	health_value = clamp(health_value + amount, seed.endurance)
 
 	update_and_send_health_color()
 
