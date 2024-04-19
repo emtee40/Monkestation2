@@ -333,7 +333,7 @@
 		if(target_atom.GetComponent(/datum/component/plant_growing))
 			var/datum/component/plant_growing/growing = target_atom.GetComponent(/datum/component/plant_growing)
 			for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
-				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, 10)
+				SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, 10)
 
 			new /obj/effect/temp_visual/heal(target_turf, COLOR_HEALING_CYAN)
 

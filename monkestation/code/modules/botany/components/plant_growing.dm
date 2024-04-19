@@ -86,10 +86,10 @@
 			if(work_cycle >= 2)
 				adjust_water(-rand(1, 6))
 				if(water_precent <= 0 || weed_level >= 10)
-					SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
+					SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -rand(0, 2))
 					continue
 				if(movable_parent.reagents.total_volume <= 5)
-					SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
+					SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -rand(0, 2))
 
 		if(pollinated)
 			seed.adjust_potency(rand(1,2))
@@ -98,7 +98,7 @@
 			seed.adjust_lifespan(rand(1,2))
 
 		if(water_precent >= 10)
-			SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, rand(1, 2))
+			SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, rand(1, 2))
 		SEND_SIGNAL(seed, COMSIG_PLANT_GROWTH_PROCESS, movable_parent.reagents)
 		if((self_sustaining_precent >= 100) || bio_boosted)
 			continue

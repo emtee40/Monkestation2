@@ -4,7 +4,6 @@
 #define COMSIG_PLANT_BUILD_IMAGE "plant_build_image"
 #define COMSIG_PLANT_ADJUST_WEED "plant_adjust_weeds"
 #define COMSIG_PLANT_GROWTH_PROCESS "process_plant_growth"
-#define COMSIG_PLANT_ADJUST_HEALTH "adjust_plant_health"
 #define COMSIG_TRY_HARVEST_SEEDS "try_harvest_seeds"
 #define COMSIG_TRY_PLANT_SEED "try_plant_seeds"
 #define COMSIG_PLANT_CHANGE_PLANTER "plant_change_planter"

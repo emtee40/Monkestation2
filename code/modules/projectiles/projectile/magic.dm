@@ -76,7 +76,7 @@
 		var/datum/component/plant_growing/growing = target.GetComponent(/datum/component/plant_growing)
 
 		for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
-			SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, 1000)
+			SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, 1000)
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
