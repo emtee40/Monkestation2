@@ -159,11 +159,11 @@
 
 		var/water_transfer = min(water_volume, water_needed)
 		adjust_water(water_transfer)
-		coming_from.remove_reagent(/datum/reagent/water, water_transfer)
 		var/image/splash_animation = image('icons/effects/effects.dmi', movable_parent, "splash_hydroponics")
 		splash_animation.color = mix_color_from_reagents(coming_from.reagent_list)
 		flick_overlay_global(splash_animation, GLOB.clients, 1.1 SECONDS)
 		playsound(movable_parent, 'sound/effects/slosh.ogg', 25, TRUE)
+		coming_from.remove_reagent(/datum/reagent/water, water_transfer)
 		return TRUE
 
 /datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)

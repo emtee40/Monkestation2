@@ -55,7 +55,7 @@
 	seed.adjust_yield(round(volume * 0.1))
 
 /datum/reagent/plantnutriment/left4zednutriment/on_plant_apply(obj/item/seeds/seed)
-	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -round(volume * 2))
+	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -1)
 	seed.adjust_lifespan(-round(volume * 0.2))
 
 	seed.adjust_endurance(round(volume * 0.1))
