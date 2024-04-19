@@ -19,6 +19,8 @@
 	var/atom/movable/planter
 	///our current plant state
 	var/plant_state
+	///how much lifespan is lost to repeated harvest
+	var/repeated_harvest_value = 0
 
 /datum/component/growth_information/Initialize(planter)
 	. = ..()
@@ -62,7 +64,7 @@
 	if(!(age > max(seed.maturation, seed.production) && (growth_cycle >= seed.harvest_age * growth_mult)))
 		age++
 
-	if(age >= seed.lifespan)
+	if(age > (seed.lifespan + repeated_harvest_value))
 		adjust_health(src, -rand(1, 5))
 
 	for(var/datum/reagent/reagent as anything in planter_reagents.reagent_list)
@@ -129,6 +131,7 @@
 	seed.harvest(user)
 	if(repeated_harvest)
 		growth_cycle = 0
+		repeated_harvest_value += (seed.lifespan * 0.1) //20% of lifespan is added to the value so that it won't start dying right away
 		update_plant_visuals()
 		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
 		return
