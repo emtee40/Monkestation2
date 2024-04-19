@@ -44,6 +44,16 @@
 	icon_dead = "CherryBlue-G0"
 	icon_grow = "CherryBlue-G"
 
+/obj/item/seeds/cherry/bulb
+	icon_harvest = "CherryBulb-G4"
+	icon_dead = "CherryBulb-G0"
+	icon_grow = "CherryBulb-G"
+
+/obj/item/seeds/cherry/bomb
+	icon_harvest = "CherryBomb-G4"
+	icon_dead = "CherryBomb-G0"
+	icon_grow = "CherryBomb-G"
+
 /obj/item/seeds/watermelon
 	plant_icon_offset = 0
 	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
@@ -110,3 +120,61 @@
 	icon_harvest = "BananaBluespace-G4"
 	icon_dead = "BananaBluespace-G0"
 	icon_grow = "BananaBluespace-G"
+
+/obj/item/seeds/banana/bombanana
+	icon_harvest = "BananaBomb-G4"
+	icon_dead = "BananaBomb-G0"
+	icon_grow = "BananaBomb-G"
+
+/obj/item/seeds/lime
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Lime-G4"
+	icon_dead = "Lime-G0"
+	icon_grow = "Lime-G"
+
+/obj/item/seeds/orange
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Orange-G4"
+	icon_dead = "Orange-G0"
+	icon_grow = "Orange-G"
+
+/obj/item/seeds/lemon
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Lemon-G4"
+	icon_dead = "Lemon-G0"
+	icon_grow = "Lemon-G"
+
+/obj/item/seeds/firelemon
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "FireLemon-G4"
+	icon_dead = "FireLemon-G0"
+	icon_grow = "FireLemon-G"
+
+/obj/item/seeds/orange_3d
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Orange-G4"
+	icon_dead = "Orange-G0"
+	icon_grow = "Orange-G"
+
+/obj/item/seeds/pumpkin
+	plant_icon_offset = 0
+	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
+	growthstages = 3
+	icon_harvest = "Pumpkin-G4"
+	icon_dead = "Pumpkin-G0"
+	icon_grow = "Pumpkin-G"
+
+/obj/item/seeds/pumpkin/blumpkin
+	icon_harvest = "Bumpkin-G4"
+	icon_dead = "Bumpkin-G0"
+	icon_grow = "Bumpkin-G"
