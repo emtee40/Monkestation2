@@ -57,6 +57,7 @@
 	RegisterSignal(parent, COMSIG_GROWER_CHECK_POLLINATED, PROC_REF(check_pollinated))
 	RegisterSignal(parent, COMSIG_ATTEMPT_BIOBOOST, PROC_REF(try_bioboost))
 	RegisterSignal(parent, COMSIG_PLANTER_REMOVE_PLANTS, PROC_REF(remove_all_plants))
+	RegisterSignal(parent, COMSIG_TOGGLE_BIOBOOST, PROC_REF(toggle_bioboost))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -84,6 +85,12 @@
 			if(movable_parent.reagents.total_volume <= 5)
 				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
 				continue
+
+		if(pollinated)
+			seed.adjust_potency(rand(1,2))
+			seed.adjust_yield(rand(1,2))
+			seed.adjust_endurance(rand(1,2))
+			seed.adjust_lifespan(rand(1,2))
 
 		if(water_precent >= 10)
 			SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, rand(1, 2))
@@ -124,11 +131,6 @@
 
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_HARVEST, user)
-		if(pollinated)
-			seed.adjust_potency(rand(1,2))
-			seed.adjust_yield(rand(1,2))
-			seed.adjust_endurance(rand(1,2))
-			seed.adjust_lifespan(rand(1,2))
 
 
 /datum/component/plant_growing/proc/try_pollinate(datum/source)
@@ -213,3 +215,6 @@
 		managed_seeds -= seed
 		qdel(seed)
 		SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS)
+
+/datum/component/plant_growing/proc/toggle_bioboost(datum/source)
+	bio_boosted = !bio_boosted

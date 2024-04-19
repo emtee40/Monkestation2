@@ -314,6 +314,9 @@
 
 /// Remove an amount of reagents without caring about what they are
 /datum/reagents/proc/remove_any(amount = 1)
+	if(!amount)
+		return
+
 	var/list/cached_reagents = reagent_list
 	var/total_removed = 0
 	var/current_list_element = 1
