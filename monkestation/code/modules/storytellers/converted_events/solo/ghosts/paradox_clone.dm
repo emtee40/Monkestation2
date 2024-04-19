@@ -66,7 +66,7 @@
 			candidate.mind = new /datum/mind(candidate.key)
 
 		clone_victim = find_original()
-		new_human = duplicate_object(clone_victim, SSgamemode.rng.pick_from(possible_spawns))
+		new_human = duplicate_object(clone_victim, pick(possible_spawns))
 		new_human.key = candidate.key
 		new_human.mind.special_role = antag_flag
 		new_human.mind.restricted_roles = restricted_roles
@@ -100,5 +100,5 @@
 		possible_targets += player
 
 	if(length(possible_targets))
-		return SSgamemode.rng.pick_from(possible_targets)
+		return pick(possible_targets)
 	return FALSE
