@@ -49,7 +49,7 @@
 
 /obj/item/organ/internal/tongue/lizard/floran
 	//disliked_food = VEGETABLES | FRUIT | GRAIN
-	liked_food = MEAT | BUGS | GORE
+	liked_foodtypes = MEAT | BUGS | GORE
 
 /obj/item/organ/internal/tongue/goblin
 	name = "goblin tongue"
