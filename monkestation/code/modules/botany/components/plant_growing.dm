@@ -150,6 +150,7 @@
 ///here we just remove any water added and increase the water precent, add other things you want done once.
 /datum/component/plant_growing/proc/on_reagent_cache_pre(datum/reagents/holder, datum/reagent/reagent, datum/reagents/coming_from, amount)
 	///restocks water
+	var/atom/movable/movable_parent = parent
 	if(reagent.type == /datum/reagent/water)
 		var/water_pre_precent = max_water / 100
 		var/water_needed = round(water_pre_precent * (100 - water_precent))
@@ -159,6 +160,10 @@
 		var/water_transfer = min(water_volume, water_needed)
 		adjust_water(water_transfer)
 		coming_from.remove_reagent(/datum/reagent/water, water_transfer)
+		var/image/splash_animation = image('icons/effects/effects.dmi', movable_parent, "splash_hydroponics")
+		splash_animation.color = mix_color_from_reagents(coming_from.reagent_list)
+		flick_overlay_global(splash_animation, GLOB.clients, 1.1 SECONDS)
+		playsound(movable_parent, 'sound/effects/slosh.ogg', 25, TRUE)
 		return TRUE
 
 /datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)
