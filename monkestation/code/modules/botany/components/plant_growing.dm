@@ -18,6 +18,8 @@
 	var/work_processes = 10
 	///how many processes we've done
 	var/work_stage = 0
+	///what cycle are we one
+	var/work_cycle = 0
 
 	///how toxic our tray currently is % wise
 	var/toxicity_contents = 0
@@ -74,20 +76,20 @@
 	if((work_stage < work_processes) && !bio_boosted)
 		return
 	work_stage = 0
+	work_cycle++
 
 	for(var/datum/reagent/reagent as anything in movable_parent.reagents.reagent_list)
 		reagent.on_plant_grower_apply(parent)
 
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		if(!bio_boosted)
-			adjust_water(-rand(1, 6))
-			if(prob(seed.weed_chance))
-				weed_level += seed.weed_rate
-			if(water_precent <= 0 || weed_level >= 10)
-				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
-			if(movable_parent.reagents.total_volume <= 5)
-				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
-				continue
+			if(work_cycle >= 2)
+				adjust_water(-rand(1, 6))
+				if(water_precent <= 0 || weed_level >= 10)
+					SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
+					continue
+				if(movable_parent.reagents.total_volume <= 5)
+					SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
 
 		if(pollinated)
 			seed.adjust_potency(rand(1,2))
@@ -101,8 +103,13 @@
 		if((self_sustaining_precent >= 100) || bio_boosted)
 			continue
 
-		if(prob(seed.weed_chance))
-			SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_WEED, seed.weed_rate)
+		if(work_cycle >= 2)
+			if(prob(seed.weed_chance))
+				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_WEED, seed.weed_rate)
+
+	if(work_cycle >= 2)
+		work_cycle = 0
+
 	movable_parent.reagents.remove_any(movable_parent.reagents.total_volume * 0.05)
 	SEND_SIGNAL(movable_parent, COMSIG_NUTRIENT_UPDATE, movable_parent.reagents.total_volume / movable_parent.reagents.maximum_volume)
 
