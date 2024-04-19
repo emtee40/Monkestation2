@@ -54,8 +54,12 @@
 	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset)
 
 /datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents)
-
+	var/obj/item/seeds/seed = parent
 	growth_cycle++
+	age++
+	if(age >= seed.lifespan)
+		adjust_health(src, -rand(1, 5))
+
 	for(var/datum/reagent/reagent as anything in planter_reagents.reagent_list)
 		reagent.on_plant_apply(parent)
 
@@ -102,6 +106,15 @@
 	SEND_SIGNAL(planter, COMSIG_PLANT_UPDATE_HEALTH_COLOR, health_color)
 
 /datum/component/growth_information/proc/try_harvest(datum/source, mob/user)
+	if(plant_state == HYDROTRAY_PLANT_DEAD)
+		var/atom/movable/to_send = planter
+		qdel(current_looks)
+		SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks)
+		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
+		planter = null
+		SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, parent)
+		return
+
 	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)
 		return
 	var/obj/item/seeds/seed = parent

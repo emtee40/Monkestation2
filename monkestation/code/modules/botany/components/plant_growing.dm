@@ -80,7 +80,9 @@
 	for(var/obj/item/seeds/seed as anything in managed_seeds)
 		if(!bio_boosted)
 			adjust_water(-rand(1, 6))
-			if(water_precent <= 0)
+			if(prob(seed.weed_chance))
+				weed_level += seed.weed_rate
+			if(water_precent <= 0 || weed_level >= 10)
 				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
 			if(movable_parent.reagents.total_volume <= 5)
 				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_HEALTH, -rand(0, 2))
