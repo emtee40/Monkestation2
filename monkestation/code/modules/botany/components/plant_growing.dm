@@ -56,6 +56,7 @@
 	RegisterSignal(parent, COMSIG_REMOVE_PLANT, PROC_REF(remove_plant))
 	RegisterSignal(parent, COMSIG_GROWER_CHECK_POLLINATED, PROC_REF(check_pollinated))
 	RegisterSignal(parent, COMSIG_ATTEMPT_BIOBOOST, PROC_REF(try_bioboost))
+	RegisterSignal(parent, COMSIG_PLANTER_REMOVE_PLANTS, PROC_REF(remove_all_plants))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -206,3 +207,9 @@
 	bio_boosted = TRUE
 	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), duration)
 	return TRUE
+
+/datum/component/plant_growing/proc/remove_all_plants(datum/source)
+	for(var/obj/item/seeds/seed as anything in managed_seeds)
+		managed_seeds -= seed
+		qdel(seed)
+		SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS)
