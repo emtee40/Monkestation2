@@ -27,8 +27,6 @@
 /mob/living/basic/pet/potty/Initialize(mapload)
 	. = ..()
 
-	create_mob_hud()
-
 	AddComponent(/datum/component/plant_tray_overlay, icon, null, null, null, null, null, null, 3, 8)
 	AddComponent(/datum/component/plant_growing)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
@@ -37,7 +35,6 @@
 	AddElement(/datum/element/waddling)
 
 	SEND_SIGNAL(src, COMSIG_TOGGLE_BIOBOOST)
-	adjust_hand_count(2)
 
 /mob/living/basic/pet/potty/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
