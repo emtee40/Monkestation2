@@ -528,6 +528,10 @@
 				trans_data = copy_data(reagent)
 			if(reagent.intercept_reagents_transfer(R, cached_amount))//Use input amount instead.
 				continue
+			if(is_reagent_container(my_atom))
+				var/obj/item/reagent_containers/container = my_atom
+				if(SEND_SIGNAL(R, COMSIG_REAGENT_CACHE_ADD_ATTEMPT, reagent, src, container.amount_per_transfer_from_this))
+					return
 			if(!R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, reagent.purity, reagent.ph, no_react = TRUE, ignore_splitting = reagent.chemical_flags & REAGENT_DONOTSPLIT)) //we only handle reaction after every reagent has been transfered.
 				continue
 			if(methods)
@@ -560,10 +564,14 @@
 			var/transfer_amount = amount
 			if(amount > reagent.volume)
 				transfer_amount = reagent.volume
-			if(reagent.intercept_reagents_transfer(R, cached_amount))//Use input amount instead.
+			if(is_reagent_container(my_atom))
+				var/obj/item/reagent_containers/container = my_atom
+				if(SEND_SIGNAL(R, COMSIG_REAGENT_CACHE_ADD_ATTEMPT, reagent, src, container.amount_per_transfer_from_this))
+					return
+			if(SEND_SIGNAL(R, COMSIG_REAGENT_CACHE_ADD_ATTEMPT, reagent, src, amount))
 				continue
 			if(!R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, reagent.purity, reagent.ph, no_react = TRUE, ignore_splitting = reagent.chemical_flags & REAGENT_DONOTSPLIT)) //we only handle reaction after every reagent has been transfered.
-				continue
+				return
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(methods)
 				if(isorgan(target_atom))

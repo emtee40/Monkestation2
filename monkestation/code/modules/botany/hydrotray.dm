@@ -23,6 +23,7 @@
 	desc = "A patch of dirt."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
+	density = FALSE
 
 /obj/machinery/growing/soil/Initialize(mapload)
 	AddComponent(/datum/component/plant_tray_overlay, icon, null, null, null, null, null, null, 0, 0)

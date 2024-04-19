@@ -47,6 +47,7 @@
 
 	RegisterSignals(parent, list(COMSIG_TRY_HARVEST_SEEDS, COMSIG_ATOM_ATTACK_HAND), PROC_REF(try_harvest))
 	RegisterSignals(movable_parent.reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_change))
+	RegisterSignals(movable_parent.reagents, list(COMSIG_REAGENT_CACHE_ADD_ATTEMPT), PROC_REF(on_reagent_cache_pre))
 
 	RegisterSignal(parent, COMSIG_GROWING_ADJUST_TOXIN, PROC_REF(adjust_toxin))
 	RegisterSignal(parent, COMSIG_GROWING_ADJUST_PEST, PROC_REF(adjust_pests))
@@ -147,12 +148,20 @@
 	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), rand(60, 90))
 
 ///here we just remove any water added and increase the water precent, add other things you want done once.
-/datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)
+/datum/component/plant_growing/proc/on_reagent_cache_pre(datum/reagents/holder, datum/reagent/reagent, datum/reagents/coming_from, amount)
 	///restocks water
-	if(holder.has_reagent(/datum/reagent/water))
-		var/water_volume = holder.get_reagent_amount(/datum/reagent/water)
-		adjust_water(water_volume)
-		holder.remove_reagent(/datum/reagent/water, water_volume)
+	if(reagent.type == /datum/reagent/water)
+		var/water_pre_precent = max_water / 100
+		var/water_needed = round(water_pre_precent * (100 - water_precent))
+		var/water_volume = min(reagent.volume, amount)
+
+
+		var/water_transfer = min(water_volume, water_needed)
+		adjust_water(water_transfer)
+		coming_from.remove_reagent(/datum/reagent/water, water_transfer)
+		return TRUE
+
+/datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)
 	SEND_SIGNAL(parent, COMSIG_NUTRIENT_UPDATE, holder.total_volume / holder.maximum_volume)
 
 /datum/component/plant_growing/proc/adjust_water(amount)
@@ -171,6 +180,7 @@
 /datum/component/plant_growing/proc/adjust_weeds(datum/source, amount)
 	weed_level = clamp(weed_level + amount, 0, 10)
 	SEND_SIGNAL(parent, COMSIG_WEEDS_UPDATE, weed_level)
+	return TRUE
 
 /datum/component/plant_growing/proc/adjust_selfgrow(datum/source, amount)
 	self_sustaining_precent = clamp(self_sustaining_precent + amount, 0, 10)

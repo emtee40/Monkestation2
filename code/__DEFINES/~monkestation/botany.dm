@@ -28,6 +28,7 @@
 #define COMSIG_ATTEMPT_BIOBOOST "attempt_bioboost"
 #define COMSIG_PLANTER_REMOVE_PLANTS "remove_all_plants"
 #define COMSIG_TOGGLE_BIOBOOST "toggle_bioboost"
+#define COMSIG_REAGENT_CACHE_ADD_ATTEMPT "reagent_cache_attempt"
 
 #define SHOW_WATER (1<<0)
 #define SHOW_HEALTH (1<<1)

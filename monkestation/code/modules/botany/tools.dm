@@ -7,5 +7,6 @@
 	. = ..()
 
 /obj/item/cultivator/pre_attack(atom/A, mob/living/user, params)
+	if(SEND_SIGNAL(A, COMSIG_GROWING_ADJUST_WEED, -10))
+		return TRUE
 	. = ..()
-	SEND_SIGNAL(A, COMSIG_GROWING_ADJUST_WEED, -10)

@@ -84,7 +84,7 @@
 	plant_visuals = new(plant)
 
 	plant_visuals.layer = ABOVE_MOB_LAYER
-	plant_visuals.plane = GAME_PLANE_FOV_HIDDEN
+	SET_PLANE_EXPLICIT(plant_visuals, GAME_PLANE_FOV_HIDDEN, movable)
 
 	plant_offset_x = x + base_offset_x
 	plant_offset_y = y + base_offset_y

@@ -108,7 +108,7 @@
  */
 /obj/item/plant_analyzer/proc/do_plant_chem_scan(atom/scan_target, mob/user)
 	if(scan_target.GetComponent(/datum/component/plant_growing))
-		var/obj/item/seeds/seed = locate(/obj/item/seeds) in contents
+		var/obj/item/seeds/seed = locate(/obj/item/seeds) in scan_target.contents
 		to_chat(user, examine_block(scan_tray_chems(scan_target, seed)))
 		return TRUE
 	if(istype(scan_target, /obj/structure/glowshroom))
@@ -196,8 +196,8 @@
  */
 /obj/item/plant_analyzer/proc/scan_tray_chems(atom/movable/scanned_tray, obj/item/seeds/seed)
 	var/returned_message = ""
-	var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 	if(seed)
+		var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 		returned_message += "[span_bold("[seed.plantname]")]"
 		returned_message += "\nPlant Age: [span_notice("[info.age]")]"
 		returned_message += "\nPlant Growth: [round(((info.growth_cycle * (1.01 ** -seed.maturation)) / seed.harvest_age) * 100, 0.1)]%"
