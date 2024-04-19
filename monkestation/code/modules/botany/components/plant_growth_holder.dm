@@ -34,7 +34,7 @@
 	if(seed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		repeated_harvest = TRUE
 
-	health_value = seed.endurance
+	health_value = seed.endurance * 3
 
 /datum/component/growth_information/proc/update_plant_visuals(datum/source)
 	var/obj/item/seeds/seed = parent
@@ -95,18 +95,18 @@
 		update_and_send_health_color()
 		return
 	var/obj/item/seeds/seed = parent
-	health_value = clamp(health_value + amount, 0, seed.endurance)
+	health_value = clamp(health_value + amount, 0, seed.endurance * 3)
 
 	update_and_send_health_color()
 
 /datum/component/growth_information/proc/update_and_send_health_color()
 	var/obj/item/seeds/seed = parent
 	var/health_color
-	if(health_value < (seed.endurance * 0.3))
+	if(health_value < (seed.endurance * 0.9))
 		health_color = "#FF3300"
-	else if(health_value < (seed.endurance * 0.5))
+	else if(health_value < (seed.endurance * 1.5))
 		health_color = "#FFFF00"
-	else if(health_value < (seed.endurance * 0.7))
+	else if(health_value < (seed.endurance * 2.1))
 		health_color = "#99FF66"
 	else
 		health_color = "#66FFFA"
