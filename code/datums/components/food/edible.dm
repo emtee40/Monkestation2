@@ -513,7 +513,7 @@ Behavior that's still missing from this component that original food items had t
 		food_taste_reaction = gourmand.get_food_taste_reaction(parent, foodtypes)
 
 	if(!food_taste_reaction)
-		food_taste_reaction = isjellyperson(H) ? FOOD_LIKED : FOOD_TOXIC
+		food_taste_reaction = isjellyperson(gourmand) ? FOOD_LIKED : FOOD_TOXIC
 
 	switch(food_taste_reaction)
 		if(FOOD_TOXIC)

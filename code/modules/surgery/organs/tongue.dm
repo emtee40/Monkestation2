@@ -470,8 +470,8 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	attack_verb_simple = list("beep", "boop")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
-	disliked_food = GROSS
-	liked_food = FRUIT | MEAT
+	disliked_foodtypes = GROSS
+	liked_foodtypes = FRUIT | MEAT
 
 /obj/item/organ/internal/tongue/robot/can_speak_language(language)
 	return TRUE // THE MAGIC OF ELECTRONICS
@@ -582,6 +582,5 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	status = ORGAN_MINERAL
 	say_mod = "rumbles"
 	sense_of_taste = FALSE
-	liked_foodtypes = STONE
 	disliked_foodtypes = NONE //you don't care for much else besides stone
 	toxic_foodtypes = NONE //you can eat fucking uranium

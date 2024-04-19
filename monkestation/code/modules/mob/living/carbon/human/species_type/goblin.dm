@@ -23,8 +23,6 @@
 		/obj/item/organ/external/goblin_ears = "long",
 		)
 	meat = /obj/item/food/meat/steak
-	disliked_food = VEGETABLES
-	liked_food = GORE | MEAT | GROSS
 	species_language_holder = /datum/language_holder/goblin
 	maxhealthmod = 0.75
 	stunmod = 0.75
