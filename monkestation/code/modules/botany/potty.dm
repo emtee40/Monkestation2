@@ -7,7 +7,10 @@
 	icon_living = "potty_living"
 	icon_dead = "potty_dead"
 
-	ai_controller = /datum/ai_controller/basic_controller/dog
+	dexterous = TRUE
+	held_items = list(null, null)
+
+	ai_controller = /datum/ai_controller/basic_controller/craig
 
 	/// Instructions you can give to dogs
 	var/static/list/pet_commands = list(
@@ -31,6 +34,36 @@
 	AddElement(/datum/element/waddling)
 
 	SEND_SIGNAL(src, COMSIG_TOGGLE_BIOBOOST)
+	adjust_hand_count(2)
+
+/mob/living/basic/pet/potty/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
+	face_atom(target)
+	if (!ignore_cooldown)
+		changeNext_move(melee_attack_cooldown)
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
+	var/result
+	if(held_items[active_hand_index])
+		var/obj/item/W = get_active_held_item()
+		result = W.melee_attack_chain(src, target)
+		SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+		return result
+	result = target.attack_basic_mob(src, modifiers)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+	return result
+
+/mob/living/basic/pet/potty/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	. = ..()
+
+	if(!. || !proximity_flag || (locate(/obj/item/reagent_containers/cup/watering_can) in contents))
+		return
+
+	if(!istype(attack_target, /obj/item/reagent_containers/cup/watering_can))
+		return
+
+	var/obj/item/can_target = attack_target
+	can_target.pickup(src)
+
 /datum/pet_command/craig_harvest
 	command_name = "Shake"
 	command_desc = "Command your pet to stay idle in this location."
@@ -44,3 +77,20 @@
 	pawn.Shake(2, 2, 3 SECONDS)
 	SEND_SIGNAL(pawn, COMSIG_TRY_HARVEST_SEEDS, pawn)
 	return SUBTREE_RETURN_FINISH_PLANNING // This cancels further AI planning
+
+/datum/ai_controller/basic_controller/craig
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
+		BB_WEEDLEVEL_THRESHOLD = 3,
+		BB_WATERLEVEL_THRESHOLD = 90,
+	)
+
+	ai_movement = /datum/ai_movement/basic_avoidance
+	idle_behavior = /datum/idle_behavior/idle_random_walk
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/pet_planning,
+		/datum/ai_planning_subtree/find_and_hunt_target/watering_can,
+		/datum/ai_planning_subtree/find_and_hunt_target/fill_watercan,
+		/datum/ai_planning_subtree/find_and_hunt_target/treat_hydroplants,
+	)
