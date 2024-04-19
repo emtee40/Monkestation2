@@ -154,9 +154,9 @@
 	plant_icon_offset = 0
 	growing_icon = 'goon/icons/obj/hydroponics/plants_fruit.dmi'
 	growthstages = 3
-	icon_harvest = "FireLemon-G4"
-	icon_dead = "FireLemon-G0"
-	icon_grow = "FireLemon-G"
+	icon_harvest = "LemonFire-G4"
+	icon_dead = "LemonFire-G0"
+	icon_grow = "LemonFire-G"
 
 /obj/item/seeds/orange_3d
 	plant_icon_offset = 0
