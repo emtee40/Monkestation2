@@ -56,7 +56,10 @@
 /datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents)
 	var/obj/item/seeds/seed = parent
 	growth_cycle++
-	age++
+	var/growth_mult = (1.01 ** -myseed.maturation)
+	//Checks if a self sustaining tray is fully grown and fully "functional" (corpse flowers require a specific age to produce miasma)
+	if(!(age > max(seed.maturation, seed.production) && (growth_cycle >= seed.harvest_age * growth_mult)))
+		age++
 	if(age >= seed.lifespan)
 		adjust_health(src, -rand(1, 5))
 
