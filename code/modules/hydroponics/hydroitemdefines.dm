@@ -49,15 +49,20 @@
 	return NONE
 
 /// When we attack something, first - try to scan something we hit with left click. Left-clicking uses scans for stats
-/obj/item/plant_analyzer/pre_attack(atom/target, mob/living/user)
+/obj/item/plant_analyzer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!can_see(user, target, 7))
+		return
 	if((user.istate & ISTATE_HARM) || !user.can_read(src))
 		return
 
 	return do_plant_stats_scan(target, user)
 
 /// Same as above, but with right click. Right-clicking scans for chemicals.
-/obj/item/plant_analyzer/pre_attack_secondary(atom/target, mob/living/user)
+/obj/item/plant_analyzer/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!can_see(user, target, 7))
+		return
+
 	if((user.istate & ISTATE_HARM) || !user.can_read(src))
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 

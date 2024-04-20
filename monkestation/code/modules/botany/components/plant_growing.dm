@@ -99,7 +99,7 @@
 
 		if(water_precent >= 10)
 			SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, rand(1, 2))
-		SEND_SIGNAL(seed, COMSIG_PLANT_GROWTH_PROCESS, movable_parent.reagents)
+		SEND_SIGNAL(seed, COMSIG_PLANT_GROWTH_PROCESS, movable_parent.reagents, bio_boosted)
 		if((self_sustaining_precent >= 100) || bio_boosted)
 			continue
 

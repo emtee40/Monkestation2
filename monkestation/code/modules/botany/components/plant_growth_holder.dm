@@ -55,7 +55,7 @@
 		current_looks.icon_state = seed.icon_dead
 	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset)
 
-/datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents)
+/datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents, bio_boosted)
 	var/obj/item/seeds/seed = parent
 	growth_cycle++
 	var/growth_mult = (1.01 ** -seed.maturation)
@@ -64,7 +64,7 @@
 	if(!(age > max(seed.maturation, seed.production) && (growth_cycle >= seed.harvest_age * growth_mult)))
 		age++
 
-	if(age > (seed.lifespan + repeated_harvest_value))
+	if(age > (seed.lifespan + repeated_harvest_value) && !bio_boosted)
 		adjust_health(src, -rand(1, 5))
 
 	for(var/datum/reagent/reagent as anything in planter_reagents.reagent_list)
