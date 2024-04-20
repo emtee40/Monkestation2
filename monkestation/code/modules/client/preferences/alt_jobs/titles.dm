@@ -47,16 +47,6 @@
 		"Barista",
 	)
 
-/datum/job/bitrunner
-	alt_titles = list(
-		"Bitrunner",
-		"Bitdomain Technician",
-		"Data Retrieval Specialist",
-		"Netdiver",
-		"Pod Jockey",
-		"Union Bitrunner",
-	)
-
 /datum/job/botanist
 	alt_titles = list(
 		"Botanist",
@@ -247,6 +237,7 @@
 		"Convict",
 		"Felon",
 		"Inmate",
+		"Gamer",
 	)
 
 /datum/job/psychologist
