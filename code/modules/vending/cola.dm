@@ -17,6 +17,7 @@
 		/obj/item/reagent_containers/cup/soda_cans/sol_dry = 10,
 		/obj/item/reagent_containers/cup/glass/waterbottle = 10,
 		/obj/item/reagent_containers/cup/glass/bottle/mushi_kombucha = 3,
+		/obj/item/reagent_containers/cup/soda_cans/volt_energy = 3,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/cup/soda_cans/thirteenloko = 6,
@@ -25,6 +26,7 @@
 	)
 	premium = list(
 		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/nuka_cola = 1,
+		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/sunset_sarsaparilla = 1, // monkestation edit
 		/obj/item/reagent_containers/cup/soda_cans/air = 1,
 		/obj/item/reagent_containers/cup/soda_cans/monkey_energy = 1,
 		/obj/item/reagent_containers/cup/soda_cans/grey_bull = 1,
