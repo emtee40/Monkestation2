@@ -126,8 +126,8 @@
 		SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset, planter_id)
 		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
 		planter = null
-		planter_id = null
 		SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, planter_id)
+		planter_id = null
 		return
 
 	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)

@@ -51,7 +51,7 @@
 	icon_grow = "TreeCash-G"
 
 	possible_mutations = list()
-	product = /obj/item/stack/spacecash
+	product = /obj/item/stack/spacecash/c10
 
 /obj/item/seeds/tree/steel
 	name = "pack of steel tree seeds"
