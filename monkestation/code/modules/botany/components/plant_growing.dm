@@ -103,7 +103,7 @@
 		if((self_sustaining_precent >= 100) || bio_boosted)
 			continue
 
-		if(work_cycle >= 2)
+		if(work_cycle >= 2 && !bio_boosted)
 			if(prob(seed.weed_chance))
 				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_WEED, seed.weed_rate)
 
