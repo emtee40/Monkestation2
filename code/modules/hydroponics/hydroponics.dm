@@ -656,7 +656,7 @@
 		if(8 to 9)
 			new_seed = new /obj/item/seeds/chanter(src)
 		if(6 to 7)
-			new_seed = new /obj/item/seeds/tower(src)
+			new_seed = new /obj/item/seeds/tree(src)
 		if(4 to 5)
 			new_seed = new /obj/item/seeds/plump(src)
 		else
