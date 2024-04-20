@@ -518,6 +518,7 @@
 	var/transfer_log = list()
 	var/r_to_send = list()	// Validated list of reagents to be exposed
 	var/reagents_to_remove = list()
+	SEND_SIGNAL(R, COMSIG_REAGENT_PRE_TRANS_TO, src)
 	if(!round_robin)
 		var/part = amount / src.total_volume
 		for(var/datum/reagent/reagent as anything in cached_reagents)

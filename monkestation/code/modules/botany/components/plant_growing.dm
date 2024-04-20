@@ -64,6 +64,7 @@
 	RegisterSignal(parent, COMSIG_ATTEMPT_BIOBOOST, PROC_REF(try_bioboost))
 	RegisterSignal(parent, COMSIG_PLANTER_REMOVE_PLANTS, PROC_REF(remove_all_plants))
 	RegisterSignal(parent, COMSIG_TOGGLE_BIOBOOST, PROC_REF(toggle_bioboost))
+	RegisterSignal(movable_parent.reagents, COMSIG_REAGENT_PRE_TRANS_TO, PROC_REF(pre_trans))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -199,10 +200,19 @@
 		adjust_water(water_transfer)
 		var/image/splash_animation = image('icons/effects/effects.dmi', movable_parent, "splash_hydroponics")
 		splash_animation.color = mix_color_from_reagents(coming_from.reagent_list)
+		splash_animation.layer += 5
 		flick_overlay_global(splash_animation, GLOB.clients, 1.1 SECONDS)
 		playsound(movable_parent, 'sound/effects/slosh.ogg', 25, TRUE)
 		coming_from.remove_reagent(/datum/reagent/water, water_transfer)
 		return TRUE
+
+/datum/component/plant_growing/proc/pre_trans(datum/reagents/main, datum/reagents/incoming)
+	var/atom/movable/movable_parent = parent
+	var/image/splash_animation = image('icons/effects/effects.dmi', movable_parent, "splash_hydroponics")
+	splash_animation.color = mix_color_from_reagents(incoming.reagent_list)
+	splash_animation.layer += 5
+	flick_overlay_global(splash_animation, GLOB.clients, 1.1 SECONDS)
+	playsound(movable_parent, 'sound/effects/slosh.ogg', 25, TRUE)
 
 /datum/component/plant_growing/proc/on_reagent_change(datum/reagents/holder, ...)
 	SEND_SIGNAL(parent, COMSIG_NUTRIENT_UPDATE, holder.total_volume / holder.maximum_volume)
