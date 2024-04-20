@@ -69,3 +69,4 @@
 /datum/bounty/virus/transmit/accepts_virus(V)
 	var/datum/disease/advance/A = V
 	return A.totalTransmittable() == stat_value
+
