@@ -122,6 +122,17 @@
 
 /datum/component/plant_growing/proc/try_plant_seed(datum/source, obj/item/seeds/seed, mob/living/user)
 	SIGNAL_HANDLER
+	if(istype(seed, /obj/item/storage/bag/plants))
+		for(var/id as anything in managed_seeds)
+			var/obj/item/seeds/harvest = managed_seeds[id]
+			if(!harvest)
+				continue
+			SEND_SIGNAL(harvest, COMSIG_PLANT_TRY_HARVEST, user)
+
+		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
+			seed.atom_storage?.attempt_insert(G, user, TRUE)
+		return COMPONENT_NO_AFTERATTACK
+
 	var/atom/movable/movable_parent = parent
 	if(!istype(seed))
 		return FALSE
@@ -142,12 +153,12 @@
 	if(seed.GetComponent(/datum/component/growth_information))
 		SEND_SIGNAL(seed, COMSIG_PLANT_BUILD_IMAGE)
 		SEND_SIGNAL(seed, COMSIG_PLANT_CHANGE_PLANTER, parent, "[slot_number]")
-		return TRUE
+		return COMPONENT_NO_AFTERATTACK
 
 	seed.AddComponent(/datum/component/growth_information, parent, "[slot_number]")
 	SEND_SIGNAL(seed, COMSIG_PLANT_BUILD_IMAGE)
 	movable_parent.update_appearance()
-	return TRUE
+	return COMPONENT_NO_AFTERATTACK
 
 /datum/component/plant_growing/proc/try_harvest(datum/source, mob/living/user)
 	if(!length(managed_seeds))
