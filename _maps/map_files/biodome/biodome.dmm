@@ -1028,7 +1028,7 @@
 /turf/open/floor/iron/herringbone,
 /area/station/engineering/atmos/mix)
 "asX" = (
-/obj/machinery/modular_computer/console/preset/id{
+/obj/machinery/modular_computer/preset/id{
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -1387,7 +1387,7 @@
 /turf/open/floor/eighties,
 /area/station/hallway/secondary/exit/departure_lounge)
 "azL" = (
-/obj/machinery/modular_computer/console/preset/id{
+/obj/machinery/modular_computer/preset/id{
 	dir = 8
 	},
 /obj/machinery/requests_console/directional/north{
@@ -1948,13 +1948,14 @@
 /turf/closed/wall/r_wall,
 /area/station/science/ordnance/office)
 "aKi" = (
-/obj/machinery/button/door/directional/east{
-	id = "xenobio6";
-	layer = 4;
-	name = "Xenobio Pen 6 Blast DOors";
-	req_access = list("xenobiology")
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 8
 	},
-/turf/open/floor/glass/reinforced,
+/obj/machinery/duct,
+/obj/machinery/light/neon_lining{
+	dir = 4
+	},
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "aKp" = (
 /obj/structure/cable,
@@ -2364,7 +2365,7 @@
 "aRm" = (
 /obj/machinery/newscaster/directional/west,
 /obj/effect/turf_decal/tile/yellow/diagonal_centre,
-/obj/machinery/modular_computer/console/preset/cargochat/engineering{
+/obj/machinery/modular_computer/preset/cargochat/engineering{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
@@ -3755,13 +3756,11 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/aft)
 "bvV" = (
-/obj/machinery/button/door/directional/east{
-	id = "xenobio8";
-	layer = 4;
-	name = "Xenobio Pen 8 Blast DOors";
-	req_access = list("xenobiology")
+/obj/machinery/duct,
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
-/turf/open/floor/glass/reinforced,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "bvY" = (
 /obj/item/radio/intercom/directional/south,
@@ -4207,7 +4206,7 @@
 /turf/closed/wall,
 /area/station/security/checkpoint/escape)
 "bEG" = (
-/obj/machinery/modular_computer/console/preset/id{
+/obj/machinery/modular_computer/preset/id{
 	dir = 4
 	},
 /obj/machinery/requests_console/directional/west{
@@ -4797,11 +4796,13 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "bQo" = (
-/obj/machinery/camera/directional/east{
-	c_tag = "Research - Xenobio Slime Chambers Starboard";
-	network = list("ss13","rd","xeno")
-	},
-/turf/open/floor/engine,
+/obj/machinery/biomass_recycler,
+/obj/item/stack/biomass,
+/obj/item/stack/biomass,
+/obj/item/stack/biomass,
+/obj/item/stack/biomass,
+/obj/item/stack/biomass,
+/turf/open/floor/glass/reinforced,
 /area/station/science/xenobiology)
 "bQv" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -4936,7 +4937,7 @@
 /turf/open/floor/plating,
 /area/station/construction)
 "bTg" = (
-/obj/machinery/modular_computer/console/preset/id,
+/obj/machinery/modular_computer/preset/id,
 /obj/structure/cable,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hop)
@@ -5226,7 +5227,7 @@
 /turf/closed/wall/r_wall,
 /area/station/security/prison/garden)
 "bYQ" = (
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/modular_computer/preset/civilian{
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
@@ -5252,7 +5253,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "bZh" = (
 /obj/effect/spawner/random/trash/mess,
@@ -5773,8 +5774,13 @@
 /turf/open/water/jungle/biodome,
 /area/station/maintenance/central/greater)
 "ciW" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
-/turf/open/floor/iron,
+/obj/machinery/corral_corner{
+	mapping_id = "3"
+	},
+/obj/machinery/light/neon_lining{
+	dir = 8
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "cju" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -6535,6 +6541,12 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/glass,
 /area/station/hallway/secondary/service)
+"cxM" = (
+/obj/machinery/corral_corner{
+	mapping_id = "2"
+	},
+/turf/open/floor/engine,
+/area/station/science/xenobiology)
 "cxT" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -8173,23 +8185,8 @@
 /turf/open/floor/plating,
 /area/station/hallway/primary/central/fore)
 "ddI" = (
-/obj/machinery/door/window/left/directional/north{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen 8";
-	req_access = list("xenobiology")
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio8";
-	name = "Xenobio Pen 8 Blast Door"
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/science/xenobiology)
+/turf/open/floor/plating/airless,
+/area/space)
 "deo" = (
 /obj/structure/sign/warning/gas_mask/directional/north,
 /turf/open/misc/sandy_dirt,
@@ -8233,7 +8230,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "deR" = (
-/obj/machinery/modular_computer/console/preset/civilian,
+/obj/machinery/modular_computer/preset/civilian,
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron,
 /area/station/science/circuits)
@@ -8937,8 +8934,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "dsE" = (
 /obj/machinery/firealarm/directional/north,
@@ -9200,7 +9196,7 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "dxP" = (
-/obj/machinery/modular_computer/console/preset/cargochat/cargo{
+/obj/machinery/modular_computer/preset/cargochat/cargo{
 	dir = 8
 	},
 /obj/machinery/light/directional/east,
@@ -9217,9 +9213,14 @@
 /turf/open/floor/iron/cafeteria,
 /area/station/commons/dorms/laundry)
 "dya" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/structure/cable,
-/turf/open/floor/iron,
+/obj/structure/table/reinforced/plasmarglass,
+/obj/item/disk/vacuum_upgrade/biomass,
+/obj/item/disk/vacuum_upgrade/biomass,
+/obj/item/disk/vacuum_upgrade/biomass,
+/obj/item/vacuum_pack,
+/obj/item/vacuum_pack,
+/obj/item/vacuum_pack,
+/turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "dys" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -9775,11 +9776,11 @@
 /area/station/engineering/atmos/pumproom)
 "dIx" = (
 /obj/machinery/light/directional/north,
-/obj/machinery/atmospherics/components/unary/passive_vent,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/iron/freezer,
+/obj/machinery/slime_market_pad,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "dIE" = (
 /turf/closed/wall/r_wall,
@@ -9860,13 +9861,9 @@
 /turf/closed/wall/r_wall,
 /area/station/maintenance/department/science)
 "dKh" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio1";
-	name = "Xenobio Pen 1 Blast Door"
-	},
-/turf/open/floor/plating,
+/obj/machinery/duct,
+/turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "dKi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -10171,7 +10168,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/lobby)
 "dRn" = (
-/obj/machinery/modular_computer/console/preset/cargochat/service{
+/obj/machinery/modular_computer/preset/cargochat/service{
 	dir = 8
 	},
 /obj/structure/sign/painting/library{
@@ -11365,6 +11362,15 @@
 	},
 /turf/open/misc/asteroid,
 /area/station/cargo/miningdock)
+"erh" = (
+/obj/machinery/corral_corner{
+	mapping_id = "4"
+	},
+/obj/machinery/slime_pen_controller{
+	mapping_id = "4"
+	},
+/turf/open/floor/engine,
+/area/station/science/xenobiology)
 "erE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/south,
@@ -11793,9 +11799,13 @@
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "ezb" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/structure/cable,
-/turf/open/floor/iron,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 8
+	},
+/obj/machinery/light/neon_lining{
+	dir = 4
+	},
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "eze" = (
 /obj/structure/chair/stool/bar/directional/north,
@@ -12015,7 +12025,7 @@
 /turf/open/floor/grass,
 /area/station/science/research)
 "eEl" = (
-/obj/machinery/modular_computer/console/preset/cargochat/security{
+/obj/machinery/modular_computer/preset/cargochat/security{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/filled/line,
@@ -12758,16 +12768,14 @@
 /turf/open/floor/wood/parquet,
 /area/station/hallway/primary/central)
 "ePP" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio8";
-	name = "Xenobio Pen 8 Blast Door"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/carpet/neon/simple/green,
 /area/station/science/xenobiology)
 "ePT" = (
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -14366,10 +14374,12 @@
 /turf/open/floor/grass,
 /area/station/biodome/aft)
 "fwC" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 8
+/obj/machinery/corral_corner{
+	mapping_id = "6"
 	},
-/obj/structure/disposaloutlet,
+/obj/machinery/slime_pen_controller{
+	mapping_id = "6"
+	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "fwG" = (
@@ -14695,9 +14705,8 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "fCL" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
 "fCM" = (
@@ -15391,13 +15400,7 @@
 /turf/open/floor/wood,
 /area/station/cargo/lobby)
 "fRd" = (
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 2
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/structure/disposaloutlet,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "fRk" = (
@@ -17015,7 +17018,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "gxl" = (
-/obj/machinery/modular_computer/console/preset/engineering,
+/obj/machinery/modular_computer/preset/engineering,
 /obj/effect/turf_decal/tile/yellow/half{
 	dir = 1
 	},
@@ -17172,13 +17175,12 @@
 /turf/open/floor/iron/terracotta/small,
 /area/station/biodome/aft)
 "gzR" = (
-/obj/machinery/button/door/directional/west{
-	id = "xenobio3";
-	layer = 4;
-	name = "Xenobio Pen 3 Blast Door";
-	req_access = list("xenobiology")
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "5";
+	dir = 2
 	},
-/turf/open/floor/glass/reinforced,
+/obj/machinery/light/floor/has_bulb,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "gAa" = (
 /obj/structure/cable,
@@ -17944,7 +17946,7 @@
 /turf/closed/wall/mineral/wood,
 /area/station/biodome/fore)
 "gQU" = (
-/obj/machinery/modular_computer/console/preset/id,
+/obj/machinery/modular_computer/preset/id,
 /obj/effect/turf_decal/tile/purple/half{
 	dir = 1
 	},
@@ -18874,8 +18876,13 @@
 /turf/open/misc/asteroid,
 /area/station/maintenance/central/greater)
 "hkq" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
-/turf/open/floor/iron/white,
+/obj/machinery/corral_corner{
+	mapping_id = "3"
+	},
+/obj/machinery/slime_pen_controller{
+	mapping_id = "3"
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "hky" = (
 /mob/living/carbon/human/species/monkey,
@@ -19591,13 +19598,13 @@
 /turf/open/misc/sandy_dirt,
 /area/station/service/hydroponics)
 "hAi" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio8";
-	name = "Xenobio Pen 8 Blast Door"
+/obj/machinery/corral_corner{
+	mapping_id = "2"
 	},
-/turf/open/floor/plating,
+/obj/machinery/light/neon_lining{
+	dir = 4
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "hAk" = (
 /obj/machinery/door/airlock/security/glass{
@@ -20030,18 +20037,11 @@
 /turf/open/floor/plating,
 /area/station/maintenance/central/greater)
 "hJs" = (
-/obj/machinery/door/window/left/directional/north{
-	dir = 4;
-	name = "Containment Pen 4";
-	req_access = list("xenobiology")
+/obj/machinery/corral_corner{
+	mapping_id = "4"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio4";
-	name = "Xenobio Pen 4 Blast Door"
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
@@ -20676,13 +20676,10 @@
 /turf/open/floor/iron/grimy,
 /area/station/commons/vacant_room/commissary)
 "hXj" = (
-/obj/machinery/button/door/directional/east{
-	id = "xenobio5";
-	layer = 4;
-	name = "Xenobio Pen 5 Blast DOors";
-	req_access = list("xenobiology")
+/obj/machinery/corral_corner{
+	mapping_id = "3"
 	},
-/turf/open/floor/iron/white,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "hXp" = (
 /obj/structure/flora/bush/jungle/c/style_random,
@@ -20710,13 +20707,10 @@
 /turf/open/misc/asteroid,
 /area/station/maintenance/starboard/central)
 "hXT" = (
-/obj/machinery/button/door/directional/west{
-	id = "xenobio2";
-	layer = 4;
-	name = "Xenobio Pen 2 Blast Door";
-	req_access = list("xenobiology")
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
-/turf/open/floor/glass/reinforced,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "hYa" = (
 /obj/effect/turf_decal/sand/plating,
@@ -20777,18 +20771,13 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "hZk" = (
-/obj/machinery/door/window/left/directional/north{
-	dir = 4;
-	name = "Containment Pen 1";
-	req_access = list("xenobiology")
+/obj/machinery/camera/directional/west{
+	c_tag = "Science - Xenobiology, Pen 5";
+	network = list("ss13","rd","xeno");
+	name = "science camera"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio1";
-	name = "Xenobio Pen 1 Blast Door"
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
@@ -21294,22 +21283,12 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "ijq" = (
-/obj/machinery/door/window/left/directional/north{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen 6";
-	req_access = list("xenobiology")
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio6";
-	name = "Xenobio Pen 6 Blast Door"
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
-	},
-/turf/open/floor/engine,
+/obj/machinery/light/floor/has_bulb,
+/obj/machinery/duct,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "ijv" = (
 /obj/structure/cable,
@@ -21507,13 +21486,12 @@
 /turf/open/floor/wood/parquet,
 /area/station/cargo/sorting)
 "iof" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio4";
-	name = "Xenobio Pen 4 Blast Door"
+/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron,
 /area/station/science/xenobiology)
 "ion" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
@@ -22432,7 +22410,9 @@
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/cargo)
 "iHC" = (
-/mob/living/simple_animal/slime,
+/obj/machinery/corral_corner{
+	mapping_id = "1"
+	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "iHH" = (
@@ -22661,7 +22641,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos/storage/gas)
 "iLN" = (
-/obj/machinery/modular_computer/console/preset/id,
+/obj/machinery/modular_computer/preset/id,
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/dark_blue/half{
 	dir = 1
@@ -22755,9 +22735,12 @@
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "iOk" = (
-/obj/machinery/light/directional/east,
-/turf/open/floor/engine,
-/area/station/science/xenobiology)
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/slime_extract_requestor,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central/fore)
 "iOH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
@@ -23191,22 +23174,13 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "iYV" = (
-/obj/machinery/door/window/left/directional/north{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen 7";
-	req_access = list("xenobiology")
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio7";
-	name = "Xenobio Pen 7 Blast Door"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
-	},
-/turf/open/floor/engine,
+/turf/open/floor/carpet/neon/simple/green,
 /area/station/science/xenobiology)
 "iZj" = (
 /obj/machinery/light/directional/south,
@@ -24172,7 +24146,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
 "jtp" = (
-/obj/machinery/modular_computer/console/preset/id,
+/obj/machinery/modular_computer/preset/id,
 /obj/structure/reagent_dispensers/wall/peppertank/directional/north,
 /obj/machinery/light/directional/north,
 /obj/machinery/camera/directional/north{
@@ -24704,13 +24678,10 @@
 /turf/open/floor/carpet,
 /area/station/commons/vacant_room/office)
 "jEd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio3";
-	name = "Xenobio Pen 3 Blast Door"
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "jED" = (
 /turf/open/floor/circuit/green{
@@ -25041,7 +25012,6 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos/project)
 "jLx" = (
-/obj/machinery/processor/slime,
 /obj/structure/sign/xenobio_guide/directional/west,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
@@ -27433,7 +27403,6 @@
 /turf/open/floor/carpet,
 /area/station/cargo/office)
 "kEl" = (
-/obj/machinery/processor/slime,
 /obj/structure/sign/xenobio_guide/directional/east,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
@@ -27749,7 +27718,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/station/service/library/lounge)
 "kKA" = (
-/obj/machinery/modular_computer/console/preset/cargochat/medical{
+/obj/machinery/modular_computer/preset/cargochat/medical{
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/south,
@@ -29037,13 +29006,14 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "ljw" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio2";
-	name = "Xenobio Pen 2 Blast Door"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/machinery/duct,
+/obj/machinery/light/neon_lining{
+	dir = 8
+	},
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "ljB" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -29812,7 +29782,11 @@
 /turf/open/floor/circuit/green,
 /area/station/ai_monitored/turret_protected/ai)
 "lxF" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "3";
+	dir = 1
+	},
+/obj/machinery/light/floor/has_bulb,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "lxS" = (
@@ -30937,12 +30911,11 @@
 /turf/open/floor/glass/reinforced,
 /area/station/maintenance/port/central)
 "lSf" = (
-/obj/effect/landmark/event_spawn,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 2
+/obj/machinery/corral_corner{
+	mapping_id = "1"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/slime_pen_controller{
+	mapping_id = "1"
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
@@ -31070,10 +31043,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "lUG" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/disposaloutlet,
+/obj/machinery/duct,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "lUH" = (
@@ -31755,8 +31725,15 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "mfx" = (
-/obj/machinery/monkey_recycler,
-/turf/open/floor/iron,
+/obj/machinery/camera/directional/west{
+	c_tag = "Xenobiology - Secure Cell Interior";
+	name = "xenobiology camera";
+	network = list("ss13","xeno","rd")
+	},
+/obj/machinery/light/neon_lining{
+	dir = 8
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "mfE" = (
 /obj/effect/turf_decal/trimline/dark_blue/corner{
@@ -31825,6 +31802,8 @@
 "mhf" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot_red,
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
 "mhJ" = (
@@ -32884,16 +32863,8 @@
 	},
 /area/station/ai_monitored/command/nuke_storage)
 "mEp" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio1";
-	name = "Xenobio Pen 1 Blast Door"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/plating,
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
 /area/station/science/xenobiology)
 "mEJ" = (
 /obj/structure/cable,
@@ -35451,16 +35422,11 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hos)
 "nDX" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio3";
-	name = "Xenobio Pen 3 Blast Door"
+/obj/machinery/duct,
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/plating,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "nEg" = (
 /obj/machinery/door/airlock/grunge{
@@ -35813,7 +35779,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos/storage/gas)
 "nLf" = (
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/modular_computer/preset/civilian{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/diagonal_centre,
@@ -36165,16 +36131,15 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "nRU" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio7";
-	name = "Xenobio Pen 7 Blast Door"
+/obj/machinery/camera/directional/east{
+	c_tag = "Xeniobiology - Xenobiology Computers";
+	name = "xenobiology camera";
+	network = list("ss13","xeno","rd")
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "nRY" = (
 /obj/structure/chair{
@@ -36429,16 +36394,13 @@
 /turf/open/floor/plating,
 /area/station/maintenance/central/greater)
 "nWX" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio6";
-	name = "Xenobio Pen 6 Blast Door"
+/obj/machinery/corral_corner{
+	mapping_id = "5"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "nXh" = (
 /obj/structure/falsewall,
@@ -36876,13 +36838,14 @@
 /turf/open/floor/iron/white,
 /area/station/maintenance/port/greater)
 "oeQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio5";
-	name = "Xenobio Pen 5 Blast Door"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/carpet/neon/simple/green,
 /area/station/science/xenobiology)
 "oeS" = (
 /obj/machinery/disposal/bin,
@@ -37146,7 +37109,7 @@
 /turf/open/floor/light/colour_cycle,
 /area/station/maintenance/starboard/central)
 "ojd" = (
-/obj/machinery/modular_computer/console/preset/id,
+/obj/machinery/modular_computer/preset/id,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "ojn" = (
@@ -38034,6 +37997,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/machinery/plumbing/ooze_compressor,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "oAv" = (
@@ -39297,22 +39261,17 @@
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
 "paV" = (
-/obj/machinery/door/window/left/directional/north{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen 5";
-	req_access = list("xenobiology")
+/obj/structure/table/reinforced/plasmarglass,
+/obj/item/reagent_containers/cup/beaker/large,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = -6;
+	pixel_y = 6
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio5";
-	name = "Xenobio Pen 5 Blast Door"
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = -6;
+	pixel_y = 6
 	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
-	},
-/turf/open/floor/engine,
+/turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "paY" = (
 /obj/machinery/electrolyzer,
@@ -39756,9 +39715,7 @@
 /turf/open/floor/fakebasalt,
 /area/station/hallway/primary/aft)
 "piS" = (
-/obj/machinery/computer/camera_advanced/xenobio{
-	dir = 4
-	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
 "pje" = (
@@ -39766,16 +39723,13 @@
 /turf/open/floor/carpet,
 /area/station/command/heads_quarters/hos)
 "pjo" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio4";
-	name = "Xenobio Pen 4 Blast Door"
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "pjp" = (
 /obj/structure/dresser,
@@ -40221,11 +40175,11 @@
 /turf/open/misc/asteroid,
 /area/station/security/prison/garden)
 "ptc" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio7";
-	name = "Xenobio Pen 7 Blast Door"
+/obj/machinery/corral_corner{
+	mapping_id = "2"
+	},
+/obj/machinery/slime_pen_controller{
+	mapping_id = "2"
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
@@ -40524,10 +40478,13 @@
 /turf/open/floor/iron/dark,
 /area/station/service/chapel/office)
 "pAc" = (
-/obj/structure/disposalpipe/segment{
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/carpet/neon/simple/green,
 /area/station/science/xenobiology)
 "pAd" = (
 /obj/structure/disposalpipe/segment,
@@ -40714,13 +40671,14 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central/fore)
 "pEs" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio6";
-	name = "Xenobio Pen 6 Blast Door"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/duct,
+/turf/open/floor/carpet/neon/simple/green,
 /area/station/science/xenobiology)
 "pEA" = (
 /obj/structure/table/reinforced,
@@ -41944,7 +41902,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/central)
 "qdZ" = (
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/modular_computer/preset/civilian{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/dark_red{
@@ -42153,7 +42111,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/security/prison/shower)
 "qil" = (
-/obj/machinery/modular_computer/console/preset/cargochat/science{
+/obj/machinery/modular_computer/preset/cargochat/science{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/purple{
@@ -44265,6 +44223,7 @@
 	dir = 6
 	},
 /obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
 /area/station/science/xenobiology)
 "qVW" = (
@@ -44319,18 +44278,11 @@
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "qWB" = (
-/obj/machinery/door/window/left/directional/north{
-	dir = 4;
-	name = "Containment Pen 2";
-	req_access = list("xenobiology")
+/obj/machinery/corral_corner{
+	mapping_id = "6"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio2";
-	name = "Xenobio Pen 2 Blast Door"
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
@@ -44939,13 +44891,10 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
 "ris" = (
-/obj/machinery/button/door/directional/east{
-	id = "xenobio7";
-	layer = 4;
-	name = "Xenobio Pen 7 Blast DOors";
-	req_access = list("xenobiology")
+/obj/machinery/light/neon_lining{
+	dir = 4
 	},
-/turf/open/floor/glass/reinforced,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "riD" = (
 /obj/machinery/hydroponics/constructable,
@@ -45595,7 +45544,9 @@
 /area/station/engineering/storage/tech)
 "rtR" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/duct,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "ruq" = (
@@ -46346,7 +46297,7 @@
 /turf/open/floor/carpet,
 /area/station/hallway/primary/aft)
 "rKc" = (
-/obj/machinery/modular_computer/console/preset/research,
+/obj/machinery/modular_computer/preset/research,
 /obj/effect/turf_decal/tile/purple/anticorner{
 	dir = 4
 	},
@@ -46754,7 +46705,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "rSO" = (
 /obj/item/mod/core/standard{
@@ -48216,11 +48167,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "swI" = (
-/obj/machinery/atmospherics/components/unary/passive_vent{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "swX" = (
 /obj/structure/cable,
@@ -50471,16 +50419,10 @@
 /turf/open/floor/grass,
 /area/station/science/research)
 "toN" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio2";
-	name = "Xenobio Pen 2 Blast Door"
+/obj/machinery/corral_corner{
+	mapping_id = "6"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "toO" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
@@ -51432,7 +51374,7 @@
 /turf/open/openspace,
 /area/station/cargo/storage)
 "tHz" = (
-/obj/machinery/modular_computer/console/preset/engineering{
+/obj/machinery/modular_computer/preset/engineering{
 	dir = 8
 	},
 /obj/structure/cable,
@@ -51540,20 +51482,10 @@
 /turf/open/floor/plating,
 /area/station/construction/mining/aux_base)
 "tKd" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio3";
-	name = "Xenobio Pen 3 Blast Door"
+/obj/machinery/light/neon_lining{
+	dir = 8
 	},
-/obj/machinery/door/window/left/directional/north{
-	dir = 4;
-	name = "Containment Pen 3";
-	req_access = list("xenobiology")
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
-	},
-/turf/open/floor/engine,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "tKg" = (
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
@@ -52340,13 +52272,13 @@
 /turf/open/floor/wood/tile,
 /area/station/service/janitor)
 "ucQ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
-/obj/machinery/door/airlock/research/glass{
-	name = "Kill Chamber";
-	normalspeed = 0
+/obj/machinery/corral_corner{
+	mapping_id = "5"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
-/turf/open/floor/iron/freezer,
+/obj/machinery/slime_pen_controller{
+	mapping_id = "5"
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "udd" = (
 /turf/open/floor/iron/dark,
@@ -52611,7 +52543,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "ukV" = (
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -53081,16 +53013,10 @@
 /turf/open/floor/iron/herringbone,
 /area/station/engineering/atmos/mix)
 "uud" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio5";
-	name = "Xenobio Pen 5 Blast Door"
+/obj/machinery/corral_corner{
+	mapping_id = "5"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "uul" = (
 /obj/structure/railing,
@@ -53589,14 +53515,13 @@
 /turf/open/floor/fakepit,
 /area/station/hallway/primary/aft)
 "uFX" = (
-/obj/machinery/button/door/directional/west{
-	id = "xenobio1";
-	layer = 4;
-	name = "Xenobio Pen 1 Blast Door";
-	req_access = list("xenobiology")
+/obj/machinery/corral_corner{
+	mapping_id = "1"
 	},
-/obj/structure/cable,
-/turf/open/floor/iron/white,
+/obj/machinery/light/neon_lining{
+	dir = 8
+	},
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "uGn" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -53856,7 +53781,7 @@
 /turf/open/misc/asteroid,
 /area/station/maintenance/department/electrical)
 "uLu" = (
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/modular_computer/preset/civilian{
 	dir = 8
 	},
 /turf/open/floor/bamboo,
@@ -55158,13 +55083,11 @@
 /turf/open/water/jungle/biodome,
 /area/station/biodome/fore)
 "vmJ" = (
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 2
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "1";
+	dir = 1
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/disposaloutlet,
+/obj/machinery/light/floor/has_bulb,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "vmL" = (
@@ -55201,7 +55124,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/iron/freezer,
+/obj/machinery/computer/slime_market,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "vnh" = (
 /obj/structure/sign/warning/electric_shock,
@@ -55371,6 +55295,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor/border_only,
+/obj/machinery/plumbing/ooze_compressor,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "vqc" = (
@@ -55728,7 +55653,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/central/greater)
 "vyw" = (
-/obj/machinery/modular_computer/console/preset/curator{
+/obj/machinery/modular_computer/preset/curator{
 	dir = 1
 	},
 /turf/open/floor/carpet/royalblack,
@@ -55811,7 +55736,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/iron/freezer,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "vzY" = (
 /obj/effect/turf_decal/trimline/blue/warning{
@@ -56493,6 +56418,7 @@
 /area/station/security/brig)
 "vMN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "vMQ" = (
@@ -56864,10 +56790,12 @@
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
 "vUu" = (
-/obj/machinery/camera/directional/west{
-	c_tag = "Research - Xenobio Slime Chambers Port";
-	network = list("ss13","rd","xeno")
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "4";
+	dir = 1;
+	pixel_y = 0
 	},
+/obj/machinery/light/floor/has_bulb,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "vUI" = (
@@ -58318,12 +58246,11 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft/upper)
 "wup" = (
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 2
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "2";
+	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/machinery/light/floor/has_bulb,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "wus" = (
@@ -59580,8 +59507,8 @@
 /turf/open/floor/fakebasalt,
 /area/station/hallway/primary/aft)
 "wRE" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
-/turf/open/floor/iron/freezer,
+/obj/structure/table/reinforced/plasmarglass,
+/turf/open/floor/iron/white,
 /area/station/science/xenobiology)
 "wRR" = (
 /obj/structure/table/wood,
@@ -59649,6 +59576,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
+"wSS" = (
+/obj/machinery/plumbing/ooze_sucker{
+	mapping_id = "6";
+	dir = 2
+	},
+/obj/machinery/light/floor/has_bulb,
+/turf/open/floor/engine,
+/area/station/science/xenobiology)
 "wTa" = (
 /obj/effect/turf_decal/trimline/dark_blue/arrow_ccw{
 	dir = 4
@@ -60261,13 +60196,11 @@
 /turf/open/misc/sandy_dirt,
 /area/station/service/hydroponics)
 "xeN" = (
-/obj/machinery/button/door/directional/west{
-	id = "xenobio4";
-	layer = 4;
-	name = "Xenobio Pen 4 Blast Door";
-	req_access = list("xenobiology")
-	},
-/turf/open/floor/glass/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/duct,
+/turf/open/floor/stone,
 /area/station/science/xenobiology)
 "xeU" = (
 /obj/structure/chair/stool/directional/south,
@@ -61061,10 +60994,10 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/maintenance/fore/greater)
 "xwT" = (
-/obj/machinery/computer/camera_advanced/xenobio{
-	dir = 8
+/obj/machinery/corral_corner{
+	mapping_id = "4"
 	},
-/turf/open/floor/iron,
+/turf/open/floor/engine,
 /area/station/science/xenobiology)
 "xxh" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -92694,21 +92627,21 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-hNy
-hNy
-vtU
-cCZ
-vtU
-hNy
-rRv
-vtU
-vtU
-vtU
-vtU
-vtU
-vtU
-vtU
+oYs
+oYs
+oYs
+mEp
+oYs
+mEp
+oYs
+oYs
+mEp
+mEp
+mEp
+mEp
+mEp
+mEp
+mEp
 oYs
 cAp
 rLZ
@@ -92951,28 +92884,28 @@ cCZ
 cCZ
 cCZ
 cCZ
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-cCZ
-cCZ
-cCZ
-cCZ
-cCZ
-cCZ
 oYs
+nWX
+hXT
+mfx
+hXT
+nWX
+ciW
+hXT
+hXT
+hZk
+ciW
+uFX
+hXT
+mfx
+hXT
+uFX
 hpf
-ens
+iof
 pdL
 dSh
 qVP
-xJH
+piS
 xJH
 oYs
 cCZ
@@ -93208,24 +93141,24 @@ cCZ
 cCZ
 cCZ
 cCZ
-hNy
-rRv
-hNy
 oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-ens
+tkz
+tkz
+fRd
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+fRd
+tkz
+tkz
+rsj
+fCL
 rlY
 ouZ
 rlY
@@ -93465,23 +93398,23 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-cCZ
-hNy
 oYs
+tkz
+tkz
+gzR
 lUG
-tkz
-tkz
-vmJ
-lxF
-vUu
-vmJ
-tkz
-tkz
-vmJ
+lUG
+lUG
+lUG
 lxF
 tkz
-oYs
+tkz
+tkz
+lUG
+vmJ
+tkz
+tkz
+dya
 fCL
 vdV
 ouZ
@@ -93722,27 +93655,27 @@ cCZ
 cCZ
 cCZ
 cCZ
-rRv
-hNy
-hNy
 oYs
-pAc
+uud
+tkz
+tkz
+tkz
+ucQ
+hXj
+lUG
+tkz
+tkz
+hkq
 iHC
-tkz
-wup
-tkz
-tkz
-wup
-iHC
-tkz
-wup
+lUG
 tkz
 tkz
-oYs
-ezb
+lSf
+wRE
+ens
 rlY
 rlY
-rlY
+bQo
 jlt
 orQ
 gbs
@@ -93979,24 +93912,24 @@ cCZ
 cCZ
 cCZ
 cCZ
-hNy
-hNy
-hNy
 oYs
 pAc
-tkz
-tkz
-wup
-tkz
-tkz
-wup
-tkz
-tkz
-lSf
-tkz
-tkz
-oYs
-dya
+pAc
+pAc
+pAc
+pAc
+pAc
+pEs
+iYV
+pAc
+pAc
+pAc
+pEs
+pAc
+pAc
+pAc
+paV
+ens
 ixB
 rsj
 deH
@@ -94236,25 +94169,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-hNy
-hNy
-hNy
 oYs
+tKd
+tKd
+tKd
 pjo
-hJs
-iof
+tKd
+tKd
 nDX
 tKd
-jEd
-toN
-qWB
+tKd
+tKd
+tKd
 ljw
-mEp
-hZk
+tKd
+tKd
+tKd
+rsj
+xJH
 dKh
-oYs
-gAc
-ixB
 oAp
 jGl
 jlt
@@ -94493,25 +94426,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-hNy
-hNy
 oYs
-rlY
-rlY
 xeN
-rlY
-rlY
-gzR
-rlY
-rlY
-hXT
-rlY
-ixB
-uFX
+ijq
+xeN
+xeN
+ijq
+xeN
+xeN
+ijq
+xeN
+xeN
+ijq
+xeN
+xeN
+ijq
+xeN
 rtR
-ixB
-ixB
+rtR
+rtR
 vMN
 xOJ
 jlt
@@ -94750,25 +94683,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-hNy
-hNy
 oYs
-rlY
-rlY
-bvV
-rlY
-rlY
 ris
-rlY
-rlY
+ris
+ris
+ezb
+ris
+ris
+bvV
+ris
+ris
+ris
+ris
 aKi
-rlY
-ixB
-hXj
+ris
+ris
+ris
 bTm
 rsj
-ixB
+dKh
 ryZ
 aAW
 uZM
@@ -95007,25 +94940,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-hNy
-hNy
 oYs
 ePP
-ddI
-hAi
-nRU
-iYV
-ptc
-nWX
-ijq
+pAc
+pAc
+pAc
+pAc
+pAc
 pEs
-uud
-paV
+iYV
+pAc
+pAc
+pAc
+pEs
+pAc
+pAc
 oeQ
 oYs
 gAc
-rsj
+dKh
 vpU
 hiv
 jlt
@@ -95264,25 +95197,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-cCZ
-hNy
 oYs
-pAc
+toN
 tkz
 tkz
-wup
+tkz
+fwC
+xwT
+lUG
 tkz
 tkz
-wup
+erh
+cxM
+lUG
 tkz
 tkz
-wup
-tkz
-tkz
+ptc
 oYs
 mhf
-rsj
+ixB
 rsj
 xvD
 dJN
@@ -95521,25 +95454,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-rRv
-rRv
 oYs
-pAc
 tkz
 tkz
-wup
+wSS
+lUG
+lUG
+lUG
+lUG
+vUu
 tkz
 tkz
-wup
-iHC
 tkz
+lUG
 wup
 tkz
 tkz
 oYs
-ciW
-hkq
+xJH
+rsj
 rsj
 lfp
 dJN
@@ -95778,25 +95711,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-rRv
-rRv
-hNy
 oYs
-fwC
 tkz
 tkz
 fRd
-iOk
-bQo
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
+tkz
 fRd
 tkz
 tkz
-fRd
-iOk
-tkz
 oYs
 oYs
-ucQ
+rsj
 oYs
 dJN
 dJN
@@ -96035,22 +95968,22 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-rRv
-rRv
 oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
-oYs
+qWB
+jEd
+nRU
+jEd
+qWB
+hJs
+jEd
+nRU
+jEd
+hJs
+hAi
+jEd
+nRU
+jEd
+hAi
 oYs
 vnd
 dsy
@@ -96292,25 +96225,25 @@ cCZ
 cCZ
 cCZ
 cCZ
-cCZ
-cCZ
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
-hNy
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
+oYs
 oYs
 dIx
-wRE
+tkz
 swI
 dJN
 edT
@@ -158232,15 +158165,15 @@ hHc
 hNy
 hNy
 hNy
-hHc
+ddI
 rgm
 rgm
-hHc
+ddI
 oIv
 rRv
-hHc
+ddI
 oIv
-hHc
+ddI
 vKY
 oIv
 rRv
@@ -158760,7 +158693,7 @@ rRv
 rRv
 rRv
 oYs
-mfx
+xJH
 rlY
 rlY
 rlY
@@ -159002,7 +158935,7 @@ hNy
 hNy
 hNy
 hNy
-hHc
+ddI
 oIv
 oYs
 oYs
@@ -159788,7 +159721,7 @@ rsj
 gyR
 gwk
 dfx
-xwT
+xJH
 xJH
 eGS
 vCD
@@ -160559,7 +160492,7 @@ rsj
 gyR
 gwk
 dfx
-piS
+xJH
 xJH
 hoP
 gRK
@@ -165469,7 +165402,7 @@ duh
 hHD
 uGP
 qpK
-nSZ
+iOk
 jzd
 nyC
 fxn
