@@ -38,7 +38,6 @@
 /datum/status_effect/bnuuy_mask
 	id = "bnuuy_mask"
 	alert_type = null
-	on_remove_on_mob_delete = TRUE
 	var/datum/component/glitching_state/wondershift
 	var/static/list/granted_traits = list(
 		TRAIT_ANALGESIA,
@@ -78,7 +77,7 @@
 
 /datum/status_effect/bnuuy_mask/tick(seconds_per_tick, times_fired)
 	. = ..()
-	if(!IS_MONSTERHUNTER(owner) || !istype(owner.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/cursed_rabbit))
+	if(!istype(owner.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/cursed_rabbit))
 		qdel(src)
 		return
 	if(COOLDOWN_FINISHED(src, regen_start))
