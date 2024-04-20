@@ -256,7 +256,7 @@
 	/* Monkestation Removal: Pathology Bounties
 	if(istype(civilian_bounty, /datum/bounty/virus))
 		return "At least 1u"
-	 End Monkestation Removal */
+	End Monkestation Removal */
 
 /**
  * Produces the value of the account's civilian bounty reward, if able.
