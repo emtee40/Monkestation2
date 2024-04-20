@@ -58,7 +58,7 @@
 		can_be_cancelled = FALSE,
 	)
 	say("Thank you for your purchase! It will arrive on the next cargo shuttle!")
-	radio.talk_into(src, "A bitrunner has ordered equipment which will arrive on the cargo shuttle! Please make sure it gets to them as soon as possible!", radio_channel)
+	radio.talk_into(src, "A prisoner has ordered equipment which will arrive on the cargo shuttle! Please make sure it gets to them as soon as possible!", radio_channel)
 	SSshuttle.shopping_list += new_order
 
 /obj/machinery/computer/order_console/bitrunning/retrive_points(obj/item/card/id/id_card)
@@ -74,14 +74,14 @@
 	return ..()
 
 /datum/supply_pack/bitrunning
-	name = "bitrunning order"
+	name = "prisoner bitrunning order"
 	hidden = TRUE
-	crate_name = "bitrunning delivery crate"
+	crate_name = "prisoner bitrunning delivery crate"
 	access = list(ACCESS_BIT_DEN)
 
 /datum/supply_pack/bitrunning/New(purchaser, cost, list/contains)
 	. = ..()
-	name = "[purchaser]'s Bitrunning Order"
+	name = "[purchaser]'s Prisoner Bitrunning Order"
 	src.cost = cost
 	src.contains = contains
 

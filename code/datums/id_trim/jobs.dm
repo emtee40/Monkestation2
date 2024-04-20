@@ -735,6 +735,9 @@
 	department_color = COLOR_PRISONER_BLACK
 	subdepartment_color = COLOR_PRISONER_ORANGE
 	sechud_icon_state = SECHUD_PRISONER
+	minimal_access = list(
+		ACCESS_BIT_DEN,
+	)
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
