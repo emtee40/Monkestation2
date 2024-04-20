@@ -175,8 +175,8 @@
  */
 /obj/item/plant_analyzer/proc/scan_tray_stats(obj/item/seeds/seed, datum/component/plant_growing/growing)
 	var/returned_message = ""
-	var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 	if(seed)
+		var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 		returned_message += "[span_bold("[seed.plantname]")]"
 		returned_message += "\nPlant Age: [span_notice("[info.age]")]"
 		returned_message += "\nPlant Health: [span_notice("[info.health_value]")]"
