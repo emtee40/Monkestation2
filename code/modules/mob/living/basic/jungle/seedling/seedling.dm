@@ -104,12 +104,15 @@
 	if(!growing)
 		return
 
-	for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+	for(var/item as anything in growing.managed_seeds)
+		var/obj/item/seeds/seed = growing.managed_seeds[item]
+		if(!seed)
+			continue
 		var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 
 		if(info.plant_state == HYDROTRAY_PLANT_DEAD)
 			balloon_alert(src, "dead plant removed")
-			SEND_SIGNAL(hydro, COMSIG_REMOVE_PLANT, seed)
+			SEND_SIGNAL(hydro, COMSIG_REMOVE_PLANT, item)
 			return
 
 		if(growing.weed_level > 0)
@@ -332,7 +335,10 @@
 
 		if(target_atom.GetComponent(/datum/component/plant_growing))
 			var/datum/component/plant_growing/growing = target_atom.GetComponent(/datum/component/plant_growing)
-			for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+			for(var/item as anything in growing.managed_seeds)
+				var/obj/item/seeds/seed = growing.managed_seeds[item]
+				if(!seed)
+					continue
 				SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, 10)
 
 			new /obj/effect/temp_visual/heal(target_turf, COLOR_HEALING_CYAN)

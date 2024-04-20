@@ -71,10 +71,13 @@
 	if(!growing)
 		return
 
-	if(QDELETED(hydro_target) || !length(growing.managed_seeds))
+	if(QDELETED(hydro_target))
 		return
 
-	for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+	for(var/item as anything in growing.managed_seeds)
+		var/obj/item/seeds/seed = growing.managed_seeds[item]
+		if(!seed)
+			continue
 		var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 		if(info.plant_state == HYDROTRAY_PLANT_DEAD)
 			living_pawn.manual_emote("weeps...") //weep over the dead plants
@@ -117,7 +120,10 @@
 			continue
 
 		var/datum/component/plant_growing/growing = hydro.GetComponent(/datum/component/plant_growing)
-		for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+		for(var/item as anything in growing.managed_seeds)
+			var/obj/item/seeds/seed = growing.managed_seeds[item]
+			if(!seed)
+				continue
 			var/datum/component/growth_information/info = seed.GetComponent(/datum/component/growth_information)
 			if(info.health_value < seed.endurance)
 				possible_trays |= hydro

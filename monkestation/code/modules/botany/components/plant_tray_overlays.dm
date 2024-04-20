@@ -21,15 +21,15 @@
 	var/health_color
 
 	///the visuals we have stored from the seed
-	var/mutable_appearance/plant_visuals
-	var/plant_offset_x = 0
+	var/list/plant_visual_list = list()
 	var/base_offset_x = 0
-	var/plant_offset_y = 0
 	var/base_offset_y = 0
 
 	var/overlay_flags = NONE
 
-/datum/component/plant_tray_overlay/Initialize(overlay_icon, self_growing_state, base_water_state, pest_overlay, harvest_overlay, nutriment_overlay, health_overlay, plant_x, plant_y)
+	var/list/offsets = list()
+
+/datum/component/plant_tray_overlay/Initialize(overlay_icon, self_growing_state, base_water_state, pest_overlay, harvest_overlay, nutriment_overlay, health_overlay, plant_x, plant_y, maximum_seeds = 1, offsets = list(list(0,0)))
 	. = ..()
 	src.overlay_icon = overlay_icon
 	src.self_growing_state = self_growing_state
@@ -42,6 +42,10 @@
 	base_offset_x = plant_x
 	base_offset_y = plant_y
 
+	for(var/i = 1 to maximum_seeds)
+		plant_visual_list["[i]"] = null
+
+	src.offsets = offsets
 /datum/component/plant_tray_overlay/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_GROWING_WATER_UPDATE, PROC_REF(get_water_state))
@@ -74,23 +78,32 @@
 			current_water_state = "[base_water_state]1"
 	overlay_flags |= SHOW_WATER
 
-/datum/component/plant_tray_overlay/proc/update_plant(datum/source, mutable_appearance/plant, x = 0, y = 0)
+/datum/component/plant_tray_overlay/proc/update_plant(datum/source, mutable_appearance/plant, x = 0, y = 0, id)
 	var/atom/movable/movable = parent
-	if(plant_visuals)
-		qdel(plant_visuals)
+	var/mutable_appearance/visuals = plant_visual_list[id]
+	if(visuals)
+		plant_visual_list[id] = null
+		qdel(visuals)
 	if(!plant)
 		movable.update_overlays()
 		return
-	plant_visuals = new(plant)
 
-	plant_visuals.layer = ABOVE_MOB_LAYER
-	SET_PLANE_EXPLICIT(plant_visuals, GAME_PLANE_FOV_HIDDEN, movable)
+	visuals = new(plant)
 
-	plant_offset_x = x + base_offset_x
-	plant_offset_y = y + base_offset_y
+	var/list/current_offsets = offsets[text2num(id)]
 
-	plant_visuals.pixel_x = plant_offset_x
-	plant_visuals.pixel_y = plant_offset_y
+	visuals.layer = ABOVE_MOB_LAYER
+	SET_PLANE_EXPLICIT(visuals, GAME_PLANE_FOV_HIDDEN, movable)
+	if(current_offsets[2] > 0)
+		visuals.layer -= 0.01
+
+	var/plant_offset_x = x + base_offset_x + current_offsets[1]
+	var/plant_offset_y = y + base_offset_y + current_offsets[2]
+
+	visuals.pixel_x = plant_offset_x
+	visuals.pixel_y = plant_offset_y
+
+	plant_visual_list[id] = visuals
 
 /datum/component/plant_tray_overlay/proc/apply_overlays(atom/source, list/overlays)
 	SIGNAL_HANDLER
@@ -114,8 +127,9 @@
 	if(overlay_flags & SHOW_HARVEST)
 		overlays += mutable_appearance(overlay_icon, harvest_overlay, offset_spokesman = parent)
 
-	if(plant_visuals)
-		overlays += plant_visuals
+	for(var/item in plant_visual_list)
+		if(!isnull(plant_visual_list[item]))
+			overlays += plant_visual_list[item]
 
 /datum/component/plant_tray_overlay/proc/update_health_color(datum/source, color)
 	health_color = color
@@ -152,7 +166,7 @@
 	else
 		overlay_flags &= ~SHOW_HARVEST
 
-/datum/component/plant_tray_overlay/proc/remove_plant_visuals(datum/source)
-	QDEL_NULL(plant_visuals)
+/datum/component/plant_tray_overlay/proc/remove_plant_visuals(datum/source, id)
+	plant_visual_list[id] = null
 	var/atom/movable/movable = parent
 	movable.update_appearance()

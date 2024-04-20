@@ -22,7 +22,10 @@
 	if(target.GetComponent(/datum/component/plant_growing)) // even plants can block antimagic
 		var/datum/component/plant_growing/growing = target.GetComponent(/datum/component/plant_growing)
 
-		for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+		for(var/item as anything in growing.managed_seeds)
+			var/obj/item/seeds/seed = growing.managed_seeds[item]
+			if(!seed)
+				continue
 			if(seed.get_gene(/datum/plant_gene/trait/anti_magic))
 				visible_message(span_warning("[src] fizzles on contact with [target]!"))
 				return PROJECTILE_DELETE_WITHOUT_HITTING
@@ -49,7 +52,10 @@
 	if(target.GetComponent(/datum/component/plant_growing)) // even plants can block antimagic
 		var/datum/component/plant_growing/growing = target.GetComponent(/datum/component/plant_growing)
 
-		for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+		for(var/item as anything in growing.managed_seeds)
+			var/obj/item/seeds/seed = growing.managed_seeds[item]
+			if(!seed)
+				continue
 			SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -300)
 
 /obj/projectile/magic/resurrection
@@ -75,7 +81,10 @@
 	if(target.GetComponent(/datum/component/plant_growing)) // even plants can block antimagic
 		var/datum/component/plant_growing/growing = target.GetComponent(/datum/component/plant_growing)
 
-		for(var/obj/item/seeds/seed as anything in growing.managed_seeds)
+		for(var/item as anything in growing.managed_seeds)
+			var/obj/item/seeds/seed = growing.managed_seeds[item]
+			if(!seed)
+				continue
 			SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, 1000)
 
 /obj/projectile/magic/teleport

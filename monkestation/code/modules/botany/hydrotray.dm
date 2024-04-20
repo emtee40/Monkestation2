@@ -6,10 +6,11 @@
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
+	var/maximum_seeds = 1
 
 /obj/machinery/growing/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/plant_growing)
+	AddComponent(/datum/component/plant_growing, 40, maximum_seeds)
 
 /obj/machinery/growing/tray
 	circuit = /obj/item/circuitboard/machine/hydroponics
@@ -27,4 +28,15 @@
 
 /obj/machinery/growing/soil/Initialize(mapload)
 	AddComponent(/datum/component/plant_tray_overlay, icon, null, null, null, null, null, null, 0, 0)
+	. = ..()
+
+/obj/machinery/growing/multi
+	name = "soil"
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "soil"
+	maximum_seeds = 4
+	density = FALSE
+
+/obj/machinery/growing/multi/Initialize(mapload)
+	AddComponent(/datum/component/plant_tray_overlay, icon, null, null, null, null, null, null, 0, 0, maximum_seeds, list(list(-4,-4), list(8,-4), list(-4, 4), list(8, 4)))
 	. = ..()

@@ -41,6 +41,9 @@
 
 	var/atom/movable/movable_parent = parent
 	src.maximum_seeds = maximum_seeds
+	for(var/i = 1 to maximum_seeds)
+		managed_seeds["[i]"] = null
+
 	///we create reagents using max_reagents, then make it visible and an open container
 	movable_parent.create_reagents(max_reagents, (OPENCONTAINER | AMOUNT_VISIBLE))
 
@@ -81,7 +84,10 @@
 	for(var/datum/reagent/reagent as anything in movable_parent.reagents.reagent_list)
 		reagent.on_plant_grower_apply(parent)
 
-	for(var/obj/item/seeds/seed as anything in managed_seeds)
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		if(!seed)
+			continue
 		if(!bio_boosted)
 			if(work_cycle >= 2)
 				adjust_water(-rand(1, 6))
@@ -120,17 +126,25 @@
 	if(!istype(seed))
 		return FALSE
 
-	if(length(managed_seeds) >= maximum_seeds)
+	var/slot_number = 0
+	var/free_slot = FALSE
+	for(var/item as anything in managed_seeds)
+		slot_number++
+		if(isnull(managed_seeds[item]))
+			free_slot = TRUE
+			break
+
+	if(!free_slot)
 		return FALSE
 
-	managed_seeds += seed
+	managed_seeds["[slot_number]"] = seed
 	seed.forceMove(parent)
 	if(seed.GetComponent(/datum/component/growth_information))
 		SEND_SIGNAL(seed, COMSIG_PLANT_BUILD_IMAGE)
-		SEND_SIGNAL(seed, COMSIG_PLANT_CHANGE_PLANTER, parent)
+		SEND_SIGNAL(seed, COMSIG_PLANT_CHANGE_PLANTER, parent, "[slot_number]")
 		return TRUE
 
-	seed.AddComponent(/datum/component/growth_information, parent)
+	seed.AddComponent(/datum/component/growth_information, parent, "[slot_number]")
 	SEND_SIGNAL(seed, COMSIG_PLANT_BUILD_IMAGE)
 	movable_parent.update_appearance()
 	return TRUE
@@ -139,7 +153,10 @@
 	if(!length(managed_seeds))
 		return
 
-	for(var/obj/item/seeds/seed as anything in managed_seeds)
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		if(!seed)
+			continue
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_HARVEST, user)
 
 
@@ -149,7 +166,10 @@
 
 	pollinated = TRUE
 
-	for(var/obj/item/seeds/seed as anything in managed_seeds)
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		if(!seed)
+			continue
 		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_POLLINATE, parent)
 
 	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), rand(60, 90))
@@ -219,10 +239,11 @@
 	if(pest_level >= 5)
 		examine_list += span_warning("It's filled with tiny worms!")
 
-/datum/component/plant_growing/proc/remove_plant(datum/source, obj/item/seeds/seed)
-	managed_seeds -= seed
+/datum/component/plant_growing/proc/remove_plant(datum/source, id)
+	var/obj/item/seeds/seed = managed_seeds[id]
+	managed_seeds[id] = null
 	qdel(seed)
-	SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS)
+	SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS, id)
 
 /datum/component/plant_growing/proc/check_pollinated(datum/source)
 	return pollinated
@@ -235,10 +256,11 @@
 	return TRUE
 
 /datum/component/plant_growing/proc/remove_all_plants(datum/source)
-	for(var/obj/item/seeds/seed as anything in managed_seeds)
-		managed_seeds -= seed
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		managed_seeds[item] = null
 		qdel(seed)
-		SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS)
+		SEND_SIGNAL(parent, REMOVE_PLANT_VISUALS, item)
 
 /datum/component/plant_growing/proc/toggle_bioboost(datum/source)
 	bio_boosted = !bio_boosted

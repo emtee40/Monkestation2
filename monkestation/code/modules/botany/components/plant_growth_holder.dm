@@ -21,10 +21,12 @@
 	var/plant_state
 	///how much lifespan is lost to repeated harvest
 	var/repeated_harvest_value = 0
+	var/planter_id
 
-/datum/component/growth_information/Initialize(planter)
+/datum/component/growth_information/Initialize(planter, id)
 	. = ..()
 	src.planter = planter
+	planter_id = id
 
 	RegisterSignal(parent, COMSIG_PLANT_CHANGE_PLANTER, PROC_REF(change_planter))
 	RegisterSignal(parent, COMSIG_PLANT_GROWTH_PROCESS, PROC_REF(process_growth))
@@ -53,7 +55,7 @@
 
 	if(plant_state == HYDROTRAY_PLANT_DEAD)
 		current_looks.icon_state = seed.icon_dead
-	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset)
+	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset, planter_id)
 
 /datum/component/growth_information/proc/process_growth(datum/source, datum/reagents/planter_reagents, bio_boosted)
 	var/obj/item/seeds/seed = parent
@@ -89,8 +91,9 @@
 		plant_state = HYDROTRAY_PLANT_DEAD
 		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
 
-/datum/component/growth_information/proc/change_planter(datum/source, atom/movable/new_planter)
+/datum/component/growth_information/proc/change_planter(datum/source, atom/movable/new_planter, id)
 	planter = new_planter
+	planter_id = id
 
 /datum/component/growth_information/proc/adjust_health(datum/source, amount)
 	if(plant_state == HYDROTRAY_PLANT_DEAD)
@@ -117,12 +120,14 @@
 
 /datum/component/growth_information/proc/try_harvest(datum/source, mob/user)
 	if(plant_state == HYDROTRAY_PLANT_DEAD)
+		var/obj/item/seeds/seed = parent
 		var/atom/movable/to_send = planter
 		qdel(current_looks)
-		SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks)
+		SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset, planter_id)
 		SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
 		planter = null
-		SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, parent)
+		planter_id = null
+		SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, planter_id)
 		return
 
 	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)
@@ -137,7 +142,8 @@
 		return
 	var/atom/movable/to_send = planter
 	qdel(current_looks)
-	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks)
+	SEND_SIGNAL(planter, COMSIG_PLANT_SENDING_IMAGE, current_looks, 0, seed.plant_icon_offset, planter_id)
 	SEND_SIGNAL(planter, COMSIG_GROWER_SET_HARVESTABLE, FALSE)
 	planter = null
-	SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, parent)
+	SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, planter_id)
+	planter_id = null
