@@ -40,6 +40,18 @@
 			modify_index_value(params["index"], changes)
 			. = TRUE
 
+		if("modify_transform")
+			var/matrix/transform
+			switch(params["matrix_type"])
+				if("rotate")
+					transform = matrix(params["value1"], MATRIX_ROTATE)
+				if("scale")
+					transform = matrix(params["value1"], params["value2"], MATRIX_SCALE)
+				if("translate")
+					transform = matrix(params["value1"], params["value2"], MATRIX_TRANSLATE)
+			steps[params["index"]] |= "transform"
+			steps[params["index"]]["transform"] = transform
+
 		if("add_blank_step")
 			add_blank_step()
 			. = TRUE

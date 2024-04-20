@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Button, Input, Section, Collapsible, LabeledList, NumberInput } from '../components';
+import { Button, Input, Section, Collapsible, LabeledList, NumberInput, Dropdown } from '../components';
 import { ButtonCheckbox } from '../components/Button';
 
 export const AnimateHolder = (props, context) => {
@@ -83,6 +83,9 @@ const AnimateSteps = (props, context) => {
                   })
                 }
               />
+            </LabeledList.Item>
+            <LabeledList.Item label="Transform">
+              <Transform step={steps.indexOf(step) + 1} />
             </LabeledList.Item>
             <LabeledList.Item label="Color">
               <Input
@@ -349,6 +352,58 @@ const AnimateSteps = (props, context) => {
         width="100%"
         onClick={() => act('add_blank_step')}>
         Create New Step
+      </Button>
+    </Section>
+  );
+};
+
+export const Transform = (props, context) => {
+  const { step } = props;
+  const { act, data } = useBackend(context);
+  const { steps, easings } = data;
+  let [type, setType] = useLocalState(context, 'type', '');
+  let [val1, setVal1] = useLocalState(context, 'val1', 1);
+  let [val2, setVal2] = useLocalState(context, 'val2', 1);
+  const types = ['rotate', 'scale'];
+
+  return (
+    <Section>
+      <Dropdown
+        options={types}
+        displayText={type}
+        color="black"
+        width="100%"
+        onSelected={(selectedVal) => setType(selectedVal)}
+      />
+      <NumberInput
+        width="45px"
+        minValue={-1000}
+        maxValue={1000}
+        value={val1}
+        onChange={(_, value) => setVal1(value)}
+      />
+      {type === 'scale' && (
+        <NumberInput
+          width="45px"
+          minValue={-1000}
+          maxValue={1000}
+          value={val2}
+          onChange={(_, value) => setVal2(value)}
+        />
+      )}
+      <Button
+        color="red"
+        icon="sync"
+        width="100%"
+        onClick={() =>
+          act('modify_transform', {
+            matrix_type: type,
+            value1: val1,
+            value2: val2,
+            index: step,
+          })
+        }>
+        Confirm
       </Button>
     </Section>
   );
