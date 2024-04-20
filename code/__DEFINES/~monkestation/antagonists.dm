@@ -17,9 +17,3 @@
 #define iscogscarab(checked) (istype(checked, /mob/living/basic/drone/cogscarab))
 /// is something an eminence
 #define iseminence(checked) (istype(checked, /mob/living/eminence))
-
-
-// Monster Hunter stuff
-#define upgraded_val(x,y) ( CEILING((x * (1.07 ** y)), 1) )
-#define CALIBER_BLOODSILVER "bloodsilver"
-#define WEAPON_UPGRADE "weapon_upgrade"
