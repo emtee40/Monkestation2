@@ -253,8 +253,10 @@
 	if(istype(civilian_bounty, /datum/bounty/reagent))
 		var/datum/bounty/reagent/chemical = civilian_bounty
 		return "[chemical.shipped_volume]/[chemical.required_volume] u"
+	/* Monkestation Removal: Pathology Bounties
 	if(istype(civilian_bounty, /datum/bounty/virus))
 		return "At least 1u"
+	 End Monkestation Removal */
 
 /**
  * Produces the value of the account's civilian bounty reward, if able.
