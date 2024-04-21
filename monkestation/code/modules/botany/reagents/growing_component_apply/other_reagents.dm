@@ -21,6 +21,3 @@
 /datum/reagent/brimdust/on_plant_grower_apply(atom/movable/parent)
 	SEND_SIGNAL(parent, COMSIG_GROWING_ADJUST_WEED, -1)
 	SEND_SIGNAL(parent, COMSIG_GROWING_ADJUST_PEST, -1)
-
-/datum/reagent/medicine/earthsblood/on_plant_grower_apply(atom/movable/parent)
-	SEND_SIGNAL(parent, COMSIG_GROWING_ADJUST_WEED, -rand(1, 2))
