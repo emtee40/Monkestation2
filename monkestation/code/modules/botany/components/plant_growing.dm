@@ -90,6 +90,11 @@
 		var/obj/item/seeds/seed = managed_seeds[item]
 		if(!seed)
 			continue
+
+		if(seed.get_gene(/datum/plant_gene/trait/glow))
+			var/datum/plant_gene/trait/glow/G = seed.get_gene(/datum/plant_gene/trait/glow)
+			movable_parent.set_light(l_outer_range = G.glow_range(seed), l_power = G.glow_power(seed), l_color = G.glow_color)
+
 		if(!bio_boosted)
 			if(work_cycle >= 2)
 				adjust_water(-rand(1, 6))
