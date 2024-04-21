@@ -53,6 +53,14 @@
 
 	return ..()
 
+/obj/machinery/growing/tray/can_be_unfasten_wrench(mob/user, silent)
+	return ..()
+
+/obj/machinery/growing/tray/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/growing/soil
 	name = "soil"
 	desc = "A patch of dirt."
