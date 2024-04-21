@@ -113,7 +113,7 @@
 
 		if(work_cycle >= 2 && !bio_boosted)
 			if(prob(seed.weed_chance))
-				SEND_SIGNAL(seed, COMSIG_PLANT_ADJUST_WEED, seed.weed_rate)
+				SEND_SIGNAL(seed, COMSIG_GROWING_ADJUST_WEED, seed.weed_rate)
 
 	if(work_cycle >= 2)
 		work_cycle = 0
