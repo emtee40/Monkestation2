@@ -79,8 +79,10 @@
 	var/obj/item/seeds/seed = parent
 	var/growth_mult = (1.01 ** -seed.maturation)
 	var/growth_cycles_needed = round(seed.harvest_age * growth_mult)
-
-	growth_precent = round((growth_cycle / growth_cycles_needed) * 100)
+	if(growth_cycles_needed == 0)
+		growth_precent = 100
+	else
+		growth_precent = round((growth_cycle / growth_cycles_needed) * 100)
 
 	plant_state = HYDROTRAY_PLANT_GROWING
 

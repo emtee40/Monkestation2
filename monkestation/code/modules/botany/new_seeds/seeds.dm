@@ -38,6 +38,7 @@
 
 	product = /obj/item/paper
 	possible_mutations = list(/datum/hydroponics/plant_mutation/money)
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/seeds/tree/money
 	name = "pack of money tree seeds"
@@ -51,6 +52,7 @@
 	icon_grow = "TreeCash-G"
 
 	possible_mutations = list()
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	product = /obj/item/stack/spacecash/c10
 
 /obj/item/seeds/tree/steel
