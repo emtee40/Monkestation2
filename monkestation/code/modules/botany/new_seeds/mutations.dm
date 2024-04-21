@@ -12,7 +12,7 @@
 	created_seed = /obj/item/seeds/tree/money
 
 /datum/hydroponics/plant_mutation/steel
-	mutates_from = list(/obj/item/seeds/tree/steel)
+	mutates_from = list(/obj/item/seeds/tree)
 	required_lifespan = list(150, INFINITY)
 	created_product = /obj/item/grown/log/steel
 	created_seed = /obj/item/seeds/tree/steel

@@ -320,7 +320,9 @@
 	var/list/cached_reagents = reagent_list
 	var/total_removed = 0
 	var/current_list_element = 1
-	var/initial_list_length = cached_reagents.len //stored here because removing can cause some reagents to be deleted, ergo length change.
+	var/initial_list_length = length(cached_reagents) //stored here because removing can cause some reagents to be deleted, ergo length change.
+	if(!initial_list_length)
+		return
 
 	current_list_element = rand(1, cached_reagents.len)
 
