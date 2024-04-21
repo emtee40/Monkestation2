@@ -10,7 +10,7 @@
 
 /obj/machinery/growing/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/plant_growing, 40, maximum_seeds)
+	AddComponent(/datum/component/plant_growing, 120, maximum_seeds)
 
 /obj/machinery/growing/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()

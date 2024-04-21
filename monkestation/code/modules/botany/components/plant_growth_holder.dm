@@ -33,6 +33,7 @@
 	RegisterSignal(parent, COMSIG_PLANT_BUILD_IMAGE, PROC_REF(update_plant_visuals))
 	RegisterSignal(parent, COMSIG_ADJUST_PLANT_HEALTH, PROC_REF(adjust_health))
 	RegisterSignal(parent, COMSIG_PLANT_TRY_HARVEST, PROC_REF(try_harvest))
+	RegisterSignal(parent, COMSIG_PLANT_TRY_SECATEUR, PROC_REF(try_secateur))
 
 	var/obj/item/seeds/seed = parent
 	if(seed.get_gene(/datum/plant_gene/trait/repeated_harvest))
@@ -147,3 +148,20 @@
 	planter = null
 	SEND_SIGNAL(to_send, COMSIG_REMOVE_PLANT, planter_id)
 	planter_id = null
+
+/datum/component/growth_information/proc/try_secateur(datum/source, mob/user)
+	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)
+		return
+	var/obj/item/seeds/seed = parent
+	if(seed.grafted)
+		return
+
+	user.visible_message(span_notice("[user] grafts off a limb from [seed.plantname]."), span_notice("You carefully graft off a portion of [seed.plantname]."))
+	var/obj/item/graft/snip = seed.create_graft()
+
+	if(!snip)
+		return // The plant did not return a graft.
+
+	snip.forceMove(planter.drop_location())
+	seed.grafted = TRUE
+	adjust_health(src, -5)

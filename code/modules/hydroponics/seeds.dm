@@ -285,14 +285,16 @@
 				t_prod = new product(output_loc, src)
 				if(plantname != initial(plantname))
 					t_prod.name = plantname
-				t_prod.seed.name = name
-				t_prod.seed.desc = desc
-				t_prod.seed.plantname = plantname
+				if(istype(t_prod))
+					t_prod.seed.name = name
+					t_prod.seed.desc = desc
+					t_prod.seed.plantname = plantname
 			result.Add(t_prod) // User gets a consumable
 			if(!t_prod)
 				return
 			t_amount++
-			product_name = t_prod.seed.plantname
+			if(istype(t_prod))
+				product_name = t_prod.seed.plantname
 	if(product_count >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", product_count, product_name)
 	return result

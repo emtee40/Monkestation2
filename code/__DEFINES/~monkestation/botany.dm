@@ -29,6 +29,9 @@
 #define COMSIG_TOGGLE_BIOBOOST "toggle_bioboost"
 #define COMSIG_REAGENT_CACHE_ADD_ATTEMPT "reagent_cache_attempt"
 #define COMSIG_REAGENT_PRE_TRANS_TO "reagent_pre_trans"
+#define COMSIG_GROWING_TRY_SECATEUR "try_secateur"
+#define COMSIG_PLANT_TRY_SECATEUR "plant_try_secateur"
+#define COMSIG_GROWER_TRY_GRAFT "plant_grower_try_graft"
 
 #define SHOW_WATER (1<<0)
 #define SHOW_HEALTH (1<<1)

@@ -15,10 +15,10 @@
 
 	///how many processes we need to work
 
-	var/work_processes = 10
-	///how many processes we've done
-	var/work_stage = 0
-	///what cycle are we one
+	var/work_processes = 10 SECONDS
+	///what work time we are at
+	var/next_work = 0
+	///what stage are we one
 	var/work_cycle = 0
 
 	///how toxic our tray currently is % wise
@@ -65,6 +65,8 @@
 	RegisterSignal(parent, COMSIG_PLANTER_REMOVE_PLANTS, PROC_REF(remove_all_plants))
 	RegisterSignal(parent, COMSIG_TOGGLE_BIOBOOST, PROC_REF(toggle_bioboost))
 	RegisterSignal(movable_parent.reagents, COMSIG_REAGENT_PRE_TRANS_TO, PROC_REF(pre_trans))
+	RegisterSignal(parent, COMSIG_GROWING_TRY_SECATEUR, PROC_REF(try_secateur))
+	RegisterSignal(parent, COMSIG_GROWER_TRY_GRAFT, PROC_REF(try_graft))
 
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
@@ -74,12 +76,11 @@
 /datum/component/plant_growing/process(seconds_per_tick)
 	if(!length(managed_seeds))
 		return
-	work_stage++
 	var/atom/movable/movable_parent = parent
 	movable_parent.update_appearance()
-	if((work_stage < work_processes) && !bio_boosted)
+	if((world.time < next_work) && !bio_boosted)
 		return
-	work_stage = 0
+	next_work = world.time + work_processes
 	work_cycle++
 
 	for(var/datum/reagent/reagent as anything in movable_parent.reagents.reagent_list)
@@ -117,7 +118,7 @@
 	if(work_cycle >= 2)
 		work_cycle = 0
 
-	movable_parent.reagents.remove_any(movable_parent.reagents.total_volume * 0.05)
+	movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.05, CHEMICAL_QUANTISATION_LEVEL))
 	SEND_SIGNAL(movable_parent, COMSIG_NUTRIENT_UPDATE, movable_parent.reagents.total_volume / movable_parent.reagents.maximum_volume)
 
 
@@ -239,7 +240,7 @@
 	self_sustaining_precent = clamp(self_sustaining_precent + amount, 0, 10)
 
 /datum/component/plant_growing/proc/increase_work_processes(datum/source, amount)
-	work_stage += amount
+	next_work -= amount
 
 /datum/component/plant_growing/proc/on_examine(atom/A, mob/user, list/examine_list)
 	SIGNAL_HANDLER
@@ -285,3 +286,23 @@
 
 /datum/component/plant_growing/proc/toggle_bioboost(datum/source)
 	bio_boosted = !bio_boosted
+
+/datum/component/plant_growing/proc/try_secateur(datum/source, mob/user)
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		if(!seed)
+			continue
+		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_SECATEUR, user)
+	return TRUE
+
+/datum/component/plant_growing/proc/try_graft(datum/source, mob/user, obj/item/graft/snip)
+	for(var/item as anything in managed_seeds)
+		var/obj/item/seeds/seed = managed_seeds[item]
+		if(!seed)
+			continue
+		if(seed.apply_graft(snip))
+			to_chat(user, span_notice("You carefully integrate the grafted plant limb onto [seed.plantname], granting it [snip.stored_trait.get_name()]."))
+		else
+			to_chat(user, span_notice("You integrate the grafted plant limb onto [seed.plantname], but it does not accept the [snip.stored_trait.get_name()] trait from the [snip]."))
+		qdel(snip)
+		return TRUE
