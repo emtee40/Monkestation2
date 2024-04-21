@@ -71,8 +71,6 @@
 	var/list/infusion_mutations = list()
 	///infusion damage
 	var/infusion_damage = 0
-	/// How many pixels on the Y axis this plant should be shifted.
-	var/seed_offset = 0
 
 /obj/item/seeds/Initialize(mapload, nogenes = FALSE)
 	. = ..()
@@ -184,7 +182,7 @@
 	copy_seed.icon_dead = icon_dead
 	copy_seed.growthstages = growthstages
 	copy_seed.growing_icon = growing_icon
-	copy_seed.seed_offset = seed_offset
+	copy_seed.plant_icon_offset = plant_icon_offset
 	copy_seed.traits_in_progress = traits_in_progress
 
 	if(istype(src, /obj/item/seeds/spliced))

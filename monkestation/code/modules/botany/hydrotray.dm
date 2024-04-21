@@ -12,12 +12,46 @@
 	. = ..()
 	AddComponent(/datum/component/plant_growing, 40, maximum_seeds)
 
+/obj/machinery/growing/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(issilicon(user))
+		return
+
+	if(reagents.total_volume)
+		to_chat(user, span_notice("You begin to dump out the tray's nutrient mix."))
+		if(do_after(user, 4 SECONDS, target = src))
+			playsound(user.loc, 'sound/effects/slosh.ogg', 50, TRUE, -1)
+			//dump everything on the floor
+			var/turf/user_loc = user.loc
+			if(istype(user_loc, /turf/open))
+				user_loc.add_liquid_from_reagents(reagents)
+			else
+				user_loc = get_step_towards(user_loc, src)
+				user_loc.add_liquid_from_reagents(reagents)
+	else
+		to_chat(user, span_warning("The tray's nutrient mix is already empty!"))
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+
 /obj/machinery/growing/tray
 	circuit = /obj/item/circuitboard/machine/hydroponics
 
 /obj/machinery/growing/tray/Initialize(mapload)
 	AddComponent(/datum/component/plant_tray_overlay, icon, "hydrotray_gaia", "hydrotray_water_", "hydrotray_pests", "hydrotray_harvest", "hydrotray_nutriment", "hydrotray_health", 0, 0)
 	. = ..()
+
+/obj/machinery/growing/tray/attackby(obj/item/I, mob/living/user, params)
+	if (!(user.istate & ISTATE_HARM))
+		// handle opening the panel
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+			return
+		if(default_deconstruction_crowbar(I))
+			return
+
+	return ..()
 
 /obj/machinery/growing/soil
 	name = "soil"
