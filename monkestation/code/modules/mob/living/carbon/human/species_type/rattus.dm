@@ -160,7 +160,7 @@
 /datum/language/rattus
 	name = "Rattus ''traditional'' French"
 	desc = "The traditional lanugage of the Rattus peoples."
-	key = "r"
+	key = "f"
 	space_chance = 100
 	default_priority = 90
 	syllables = list(
