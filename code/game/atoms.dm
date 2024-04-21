@@ -337,6 +337,9 @@
 	if(smoothing_flags & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
 
+	if(animate_holder)
+		QDEL_NULL(animate_holder)
+
 	return ..()
 
 /// A quick and easy way to create a storage datum for an atom
@@ -1342,6 +1345,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
+	VV_DROPDOWN_OPTION(VV_HK_ADJUST_ANIMATIONS, "Adjust Animations")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
@@ -1488,6 +1492,13 @@
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_color_matrix_editor(src)
+
+	//monke edit start: BIODOME
+	if(href_list[VV_HK_ADJUST_ANIMATIONS] && check_rights(R_VAREDIT))
+		if(!animate_holder)
+			animate_holder = new(src)
+		animate_holder.ui_interact(usr)
+	//monke edit end: BIODOME
 
 /atom/vv_get_header()
 	. = ..()

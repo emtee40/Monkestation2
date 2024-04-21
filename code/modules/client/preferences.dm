@@ -372,7 +372,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	src.preferences = preferences
 
 /atom/movable/screen/map_view/char_preview/Destroy()
-	QDEL_NULL(body)
+	if(body)
+		body.char_viewer = null
+		QDEL_NULL(body)
 	preferences?.character_preview_view = null
 	preferences = null
 	return ..()
@@ -391,6 +393,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	QDEL_NULL(body)
 
 	body = new
+
+	body.char_viewer = src
 
 	// Without this, it doesn't show up in the menu
 	body.appearance_flags &= ~TILE_BOUND
