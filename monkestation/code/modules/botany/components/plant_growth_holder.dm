@@ -136,10 +136,11 @@
 	if(plant_state != HYDROTRAY_PLANT_HARVESTABLE)
 		return
 
+	var/obj/item/seeds/seed = parent
+
 	if(seed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		repeated_harvest = TRUE
 
-	var/obj/item/seeds/seed = parent
 	seed.harvest(user)
 	if(repeated_harvest)
 		growth_cycle = 0
