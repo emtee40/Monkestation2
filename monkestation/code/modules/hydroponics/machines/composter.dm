@@ -129,7 +129,7 @@
 /obj/item/bio_cube/pre_attack(atom/A, mob/living/user, params)
 	if(SEND_SIGNAL(A, COMSIG_ATTEMPT_BIOBOOST, total_duration))
 		qdel(src)
-		return FALSE
+		return TRUE
 	. = ..()
 
 
