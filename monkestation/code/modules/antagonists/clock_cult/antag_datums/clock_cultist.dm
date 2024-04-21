@@ -208,51 +208,47 @@
 	name = "Eminence"
 	give_slab = FALSE
 	antag_moodlet = null
-	show_to_ghosts = TRUE
 	communicate = null
 	recall = null
-	//all our innate actions
-	var/datum/action/innate/clockcult/space_fold/trigger_events = new
-	var/datum/action/cooldown/eminence/purge_reagents/remove_water = new
-	var/datum/action/cooldown/eminence/linked_abscond/recall_servant = new
-	var/datum/action/innate/clockcult/teleport_to_servant/find_servant = new
-	var/datum/action/innate/clockcult/teleport_to_station/to_station = new
-	var/datum/action/innate/clockcult/eminence_abscond/return_home = new
+	///The list of our actions
+	var/list/action_list = list(
+		/datum/action/innate/clockcult/space_fold,
+		/datum/action/cooldown/eminence/purge_reagents,
+		/datum/action/cooldown/eminence/linked_abscond,
+		/datum/action/innate/clockcult/teleport_to_servant,
+		/datum/action/innate/clockcult/teleport_to_station,
+		/datum/action/innate/clockcult/eminence_abscond,
+		/datum/action/innate/clockcult/show_warpable_areas,
+		/datum/action/innate/clockcult/add_warp_area,
+	)
 
 /datum/antagonist/clock_cultist/eminence/Destroy()
-	QDEL_NULL(trigger_events)
+	QDEL_LIST(action_list)
 	return ..()
 
 /datum/antagonist/clock_cultist/eminence/greet()
-	to_chat(owner.current, span_bigbrass("You are the Eminence, a being bound to Rat'var. By his light you are able to influence nearby space and time."))
-	to_chat(owner.current, span_brass("Your abilities: As the Eminence you have access to various abilities, they are as follows. \
-									   You may click on various machines to interface with them or a servant to mark them."))
-	to_chat(owner.current, span_brass("Purge Reagents: Remove all reagents from the bloodstream of a marked servant, this is useful for a servant who is being deconverted by holy water."))
-	to_chat(owner.current, span_brass("Linked Abscond: Return a marked servant and anything they are pulling to reebe, this has a lengthy cooldown and they must remain still for 7 seconds."))
-	to_chat(owner.current, span_brass("Space Fold: Fold local spacetime to ensure certain \"events\" are inflicted upon the station, while doing this will cost cogs, \
-									   these cogs are not taken from the cult itself. The cooldown is based on the cog cost of the event."))
-	to_chat(owner.current, span_brass("You can also teleport yourself to any other servant, useful for servants who need to be absconded like those which are dead or being deconverted."))
+	to_chat(owner.current, examine_block("[span_bigbrass("You are the Eminence, a being bound to Rat'var. By his light you are able to influence nearby space and time.")] <br/>\
+								[span_brass("As the Eminence you have access to various abilities, they are as follows. <br/>\
+								You may click on various machines to interface with them or a servant to mark them. <br/>\
+								Purge Reagents: Remove all reagents from the bloodstream of a marked servant, this is useful for a servant who is being deconverted by holy water. <br/>\
+								Linked Abscond: Return a marked servant and anything they are pulling to reebe, this has a lengthy cooldown and they must remain still for 7 seconds. <br/>\
+								Space Fold: Fold local spacetime to ensure certain \"events\" are inflicted upon the station, while doing this will cost cogs, \
+								these cogs are not taken from the cult itself. The cooldown is based on the cog cost of the event. <br/>\
+								You can also teleport yourself to any other servant, useful for servants who need to be absconded like those which are dead or being deconverted.")]"))
 
 /datum/antagonist/clock_cultist/eminence/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = owner.current
 	add_team_hud(current, /datum/antagonist/clock_cultist)
-	trigger_events.Grant(current)
-	remove_water.Grant(current)
-	recall_servant.Grant(current)
-	find_servant.Grant(current)
-	to_station.Grant(current)
-	return_home.Grant(current)
+	for(var/datum/action/our_action as anything in action_list)
+		if(ispath(our_action))
+			our_action = new our_action()
+		our_action.Grant(current)
 
 /datum/antagonist/clock_cultist/eminence/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	trigger_events.Remove(current)
-	remove_water.Remove(current)
-	recall_servant.Remove(current)
-	find_servant.Remove(current)
-	to_station.Remove(current)
-	return_home.Remove(current)
+	for(var/datum/action/removed_action in action_list)
+		removed_action.Remove(owner.current)
 
 /datum/antagonist/clock_cultist/eminence/on_removal() //this should never happen without an admin being involved, something has gone wrong
 	to_chat(owner.current, span_userdanger("You lost your eminence antagonist status! This should not happen and you should ahelp(f1) unless you are already talking to an admin."))

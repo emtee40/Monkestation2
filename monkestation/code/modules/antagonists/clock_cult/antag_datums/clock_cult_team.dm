@@ -69,8 +69,8 @@ GLOBAL_DATUM(main_clock_cult, /datum/team/clock_cult)
 	check_member_distribution()
 	max_human_servants = round(max((get_active_player_count() / 8) + 6, max_human_servants))
 	var/human_servant_count = length(human_servants)
-	var/main_message = "The Ark will be torn open if [max_human_servants - human_servant_count] more minds are converted to the faith of Rat'var\
-						[get_charged_anchor_crystals() >= 2 ? "." : "and two Anchoring Crystals are summoned and protected on the station."]"
+	var/main_message = "The Ark will be torn open if [max_human_servants - human_servant_count] more minds are converted to the faith of Rat'var \
+						[get_charged_anchor_crystals() >= 2 ? "." : "and two Anchoring Crystals are summoned and protected on the station."]" //make amount dynamic
 
 	if((human_servant_count * 2) > max_human_servants && warning_stage < CONVERSION_WARNING_HALFWAY)
 		send_clock_message(null, span_bigbrass("Rat'var's influence is growing. [main_message]"), sent_sound = 'sound/magic/clockwork/scripture_tier_up.ogg')

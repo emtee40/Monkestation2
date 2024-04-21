@@ -1,5 +1,7 @@
-///how damage damage do we heal when reviving someone before costing vitality
+///how much damage do we heal when reviving someone before costing vitality
 #define FREE_DAMAGE_HEALED 20
+///how much do we reduce drained mobs health health by each siphon
+#define HEALTH_DRAINED 20
 /obj/structure/destructible/clockwork/sigil/vitality
 	name = "vitality matrix"
 	desc = "A twisting, confusing artifact that drains the unenlightended on contact."
@@ -36,7 +38,7 @@
 		active_timer = null
 		var/revived = FALSE
 		if(affected_mob.stat == DEAD)
-			var/damage_healed = FREE_DAMAGE_HEALED + ((affected_mob.maxHealth - affected_mob.health) * 0.6)
+			var/damage_healed = FREE_DAMAGE_HEALED + ((affected_mob.getMaxHealth() - affected_mob.health) * 0.6)
 			if(GLOB.clock_vitality >= damage_healed)
 				GLOB.clock_vitality -= damage_healed
 				affected_mob.revive(ADMIN_HEAL_ALL)
@@ -71,20 +73,17 @@
 		return
 
 	affected_mob.Paralyze(1 SECONDS)
+	var/before_drain = affected_mob.getMaxHealth()
+	affected_mob.setMaxHealth(before_drain - HEALTH_DRAINED)
+	var/after_drain = affected_mob.getMaxHealth()
 
-	var/before_cloneloss = affected_mob.getCloneLoss()
-	affected_mob.adjustCloneLoss(19, TRUE, TRUE)
-	var/after_cloneloss = affected_mob.getCloneLoss()
-
-	if(before_cloneloss == after_cloneloss)
+	if(before_drain == after_drain)
 		visible_message(span_clockred("[src] fails to siphon [affected_mob]'s spirit!"))
 		return
 
 	playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
-	if((affected_mob.stat == DEAD) || (affected_mob.getCloneLoss() >= affected_mob.maxHealth))
-		affected_mob.do_jitter_animation()
-		affected_mob.become_husk(src)
-		affected_mob.death()
+	if((affected_mob.stat == DEAD) || affected_mob.getMaxHealth() <= 0)
+		affected_mob.dust(TRUE, TRUE)
 		playsound(loc, 'sound/magic/exit_blood.ogg', 60)
 		to_chat(affected_mob, span_clockred("The last of your life is drained away..."))
 		check_special_role(affected_mob)
@@ -113,3 +112,4 @@
 		send_clock_message(null, span_clockred("[affected_mob] has had their vitality drained by [src], rejoice!"))
 
 #undef FREE_DAMAGE_HEALED
+#undef HEALTH_DRAINED

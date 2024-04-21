@@ -18,3 +18,6 @@
 
 ///max damage taken per hit by "important" clock structures
 #define MAX_IMPORTANT_CLOCK_DAMAGE 30
+
+///how many anchoring crystals need to be active before the ark can open
+#define ANCHORING_CRYSTALS_TO_SUMMON 2
