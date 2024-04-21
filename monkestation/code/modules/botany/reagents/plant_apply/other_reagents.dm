@@ -1,4 +1,5 @@
 /datum/reagent/plantnutriment/eznutriment/on_plant_apply(obj/item/seeds/seed)
+	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, round(volume * 0.15))
 	seed.adjust_lifespan(round(volume * 0.15))
 	seed.adjust_potency(round(volume * 0.1))
 	seed.adjust_yield(round(volume * 0.1))
@@ -48,11 +49,6 @@
 /datum/reagent/diethylamine/on_plant_apply(obj/item/seeds/seed)
 	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, round(volume * 1))
 	seed.adjust_yield(round(volume * 0.2))
-
-/datum/reagent/plantnutriment/eznutriment/on_plant_apply(obj/item/seeds/seed)
-	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, round(volume * 0.15))
-	seed.adjust_potency(round(volume * 0.1))
-	seed.adjust_yield(round(volume * 0.1))
 
 /datum/reagent/plantnutriment/left4zednutriment/on_plant_apply(obj/item/seeds/seed)
 	SEND_SIGNAL(seed, COMSIG_ADJUST_PLANT_HEALTH, -1)
