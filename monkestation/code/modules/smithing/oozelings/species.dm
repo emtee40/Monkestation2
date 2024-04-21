@@ -20,6 +20,7 @@
 	mutantstomach = /obj/item/organ/internal/stomach/slime
 	mutantbrain = /obj/item/organ/internal/brain/slime
 	mutantears = /obj/item/organ/internal/ears/jelly
+	mutantlungs = /obj/item/organ/internal/lungs/slime
 	//mutanttongue = /obj/item/organ/interal/tongue/oozeling
 
 	inherent_traits = list(
