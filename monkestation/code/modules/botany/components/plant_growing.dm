@@ -118,7 +118,10 @@
 	if(work_cycle >= 2)
 		work_cycle = 0
 
-	movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.05, CHEMICAL_QUANTISATION_LEVEL))
+	if(bio_boosted)
+		movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.0025, CHEMICAL_QUANTISATION_LEVEL))
+	else
+		movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.025, CHEMICAL_QUANTISATION_LEVEL))
 	SEND_SIGNAL(movable_parent, COMSIG_NUTRIENT_UPDATE, movable_parent.reagents.total_volume / movable_parent.reagents.maximum_volume)
 
 
