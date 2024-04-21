@@ -28,7 +28,7 @@
 
 /obj/item/clothing/head/utility/surgerycap/sec
 	name = "security surgical cap"
-	desc = "A blue medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+	desc = "A security red medical surgery cap to prevent suspects from grabbing their doctor."
 	icon = 'monkestation/icons/obj/clothing/jobs/brig_physician.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/jobs/brig_physician.dmi'
 	icon_state = "surgicalcapsec"
