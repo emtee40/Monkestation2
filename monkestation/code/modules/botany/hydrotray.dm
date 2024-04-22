@@ -12,29 +12,6 @@
 	. = ..()
 	AddComponent(/datum/component/plant_growing, 60, maximum_seeds)
 
-/obj/machinery/growing/attack_hand_secondary(mob/user, list/modifiers)
-	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
-		return
-	if(issilicon(user))
-		return
-
-	if(reagents.total_volume)
-		to_chat(user, span_notice("You begin to dump out the tray's nutrient mix."))
-		if(do_after(user, 4 SECONDS, target = src))
-			playsound(user.loc, 'sound/effects/slosh.ogg', 50, TRUE, -1)
-			//dump everything on the floor
-			var/turf/user_loc = user.loc
-			if(istype(user_loc, /turf/open))
-				user_loc.add_liquid_from_reagents(reagents)
-			else
-				user_loc = get_step_towards(user_loc, src)
-				user_loc.add_liquid_from_reagents(reagents)
-	else
-		to_chat(user, span_warning("The tray's nutrient mix is already empty!"))
-
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 
 /obj/machinery/growing/tray
 	circuit = /obj/item/circuitboard/machine/hydroponics

@@ -49,6 +49,7 @@
 
 	RegisterSignals(parent, list(COMSIG_TRY_PLANT_SEED, COMSIG_ATOM_ATTACKBY), PROC_REF(try_plant_seed))
 	RegisterSignal(parent, COMSIG_TRY_POLLINATE, PROC_REF(try_pollinate))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(try_drain))
 
 	RegisterSignals(parent, list(COMSIG_TRY_HARVEST_SEEDS, COMSIG_ATOM_ATTACK_HAND), PROC_REF(try_harvest))
 	RegisterSignals(movable_parent.reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), PROC_REF(on_reagent_change))
@@ -123,10 +124,12 @@
 	if(work_cycle >= 2)
 		work_cycle = 0
 
-	if(bio_boosted)
-		movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.01, CHEMICAL_QUANTISATION_LEVEL))
-	else
-		movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.025, CHEMICAL_QUANTISATION_LEVEL))
+	if(movable_parent.reagents.total_volume > 1)
+		if(bio_boosted)
+			movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.01, CHEMICAL_QUANTISATION_LEVEL))
+		else
+			movable_parent.reagents.remove_any(round(movable_parent.reagents.total_volume * 0.025, CHEMICAL_QUANTISATION_LEVEL))
+
 	SEND_SIGNAL(movable_parent, COMSIG_NUTRIENT_UPDATE, movable_parent.reagents.total_volume / movable_parent.reagents.maximum_volume)
 
 
@@ -314,3 +317,24 @@
 			to_chat(user, span_notice("You integrate the grafted plant limb onto [seed.plantname], but it does not accept the [snip.stored_trait.get_name()] trait from the [snip]."))
 		qdel(snip)
 		return TRUE
+
+/datum/component/plant_growing/proc/try_drain(datum/source, mob/user)
+	INVOKE_ASYNC(src, PROC_REF(start_drain), user)
+
+/datum/component/plant_growing/proc/start_drain(mob/user)
+	var/atom/movable/movable = parent
+	if(movable.reagents.total_volume)
+		to_chat(user, span_notice("You begin to dump out the tray's nutrient mix."))
+		if(do_after(user, 4 SECONDS, target = movable))
+			playsound(user.loc, 'sound/effects/slosh.ogg', 50, TRUE, -1)
+			//dump everything on the floor
+			var/turf/user_loc = user.loc
+			if(istype(user_loc, /turf/open))
+				user_loc.add_liquid_from_reagents(movable.reagents)
+			else
+				user_loc = get_step_towards(user_loc, movable)
+				user_loc.add_liquid_from_reagents(movable.reagents)
+			movable.reagents.remove_all(movable.reagents.total_volume)
+	else
+		to_chat(user, span_warning("The tray's nutrient mix is already empty!"))
+
