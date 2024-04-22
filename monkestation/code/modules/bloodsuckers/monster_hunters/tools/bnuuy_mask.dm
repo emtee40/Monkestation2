@@ -48,6 +48,10 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_PUSHIMMUNE,
 		TRAIT_RADIMMUNE,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHEAT,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_STABLEHEART,
 		TRAIT_THERMAL_VISION
 	)
@@ -109,9 +113,7 @@
 		return
 	// Silly environmental hazards are nothing compared to the glory of the hunt.
 	physiology.damage_resistance += 5
-	physiology.pressure_mod *= 0.1
-	physiology.heat_mod *= 0.1
-	physiology.cold_mod *= 0.1
+	physiology.stun_mod *= 0.5
 	physiology.bleed_mod *= 0.25
 
 /datum/status_effect/bnuuy_mask/proc/take_physiology_buff(mob/living/carbon/human/hunter)
@@ -119,7 +121,5 @@
 	if(QDELETED(physiology))
 		return
 	physiology.damage_resistance -= 5
-	physiology.pressure_mod /= 0.1
-	physiology.heat_mod /= 0.1
-	physiology.cold_mod /= 0.1
+	physiology.stun_mod /= 0.5
 	physiology.bleed_mod /= 0.25
