@@ -53,6 +53,7 @@
 		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_SLEEPIMMUNE,
 		TRAIT_STABLEHEART,
 		TRAIT_THERMAL_VISION
 	)
@@ -88,17 +89,17 @@
 	if(COOLDOWN_FINISHED(src, regen_start))
 		var/mob/living/carbon/human/human_owner = owner
 		// heal basic damages
-		human_owner.heal_overall_damage(brute = 2 * seconds_per_tick, burn = 2 * seconds_per_tick, updating_health = FALSE)
-		human_owner.adjustToxLoss(-2 * seconds_per_tick, updating_health = FALSE, forced = TRUE)
-		human_owner.adjustOxyLoss(-2 * seconds_per_tick)
+		human_owner.heal_overall_damage(brute = 5 * seconds_per_tick, burn = 5 * seconds_per_tick, updating_health = FALSE)
+		human_owner.adjustToxLoss(-5 * seconds_per_tick, updating_health = FALSE, forced = TRUE)
+		human_owner.adjustOxyLoss(-5 * seconds_per_tick)
 		// heal blood / bleeding
 		if(human_owner.blood_volume < BLOOD_VOLUME_SAFE)
-			human_owner.blood_volume += 2 * seconds_per_tick
+			human_owner.blood_volume += 5 * seconds_per_tick
 		var/datum/wound/bloodiest_wound
 		for(var/datum/wound/iter_wound as anything in human_owner.all_wounds)
 			if(iter_wound.blood_flow && iter_wound.blood_flow > bloodiest_wound?.blood_flow)
 				bloodiest_wound = iter_wound
-		bloodiest_wound?.adjust_blood_flow(-1 * seconds_per_tick)
+		bloodiest_wound?.adjust_blood_flow(-3 * seconds_per_tick)
 
 /datum/status_effect/bnuuy_mask/get_examine_text()
 	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] out-of-place, as if [owner.p_they()] were partially detached from reality.")
