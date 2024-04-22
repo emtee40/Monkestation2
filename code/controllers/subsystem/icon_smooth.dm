@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	// this causes runtimes.
 	// Icon smoothing SS runs after atoms, so this only happens for something like shuttles.
 	// This kind of map loading shouldn't take too long, so the delay is not a problem.
-	if (SSatoms.initializing_something())
+	if(SSatoms.initializing_something())
 		return
 
 	var/list/smooth_queue_cache = smooth_queue

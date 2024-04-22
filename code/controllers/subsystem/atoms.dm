@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(atoms)
 
 /// Returns TRUE if anything is currently being initialized
 /datum/controller/subsystem/atoms/proc/initializing_something()
-	return initialized_changed > 0
+	return length(initialized_state) > 1
 
 /datum/controller/subsystem/atoms/Recover()
 	initialized = SSatoms.initialized
