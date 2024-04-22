@@ -8,9 +8,3 @@
 		oh_god = TRUE
 		stack_trace("ANERI DEBUG: [type] ([src]) is a managed event that's being deleted!!! this is bad!!!")
 		message_admins("ANERI DEBUG: [type] ([src]) is a managed event that's being deleted!!! this is bad!!! tell borbop and/or absolucy ASAP!!! tell borbop and/or absolucy ASAP!!!")
-
-/datum/round_event_control/Del()
-	if(!oh_god && managed)
-		stack_trace("ANERI DEBUG: [type] ([src]) is a managed event that's being deleted!!! AND IT'S NOT EVEN BEING QDELED! THIS IS SUPER DUPER BAD!!! tell borbop and/or absolucy ASAP!!!")
-		message_admins("ANERI DEBUG: [type] ([src]) is a managed event that's being deleted!!! AND IT'S NOT EVEN BEING QDELED! this is bad!!! tell borbop and/or absolucy ASAP!!!")
-	return ..()
