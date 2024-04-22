@@ -27,20 +27,21 @@
 /* PLANS
 	* Make tiles that turn people into thralls
 */
-/turf/open/floor/bloodling
+/turf/open/floor/misc/bloodling
 	name = "nerve threads"
-	icon_state = "materialfloor"
-	baseturfs = /turf/open/plating
+	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
+	icon_state = "flesh_tile"
+	baseturfs = /turf/open/floor/plating
 
 /datum/dimension_theme/bloodling
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meat"
-	material = /datum/material/meat
 	sound = 'sound/items/eatfood.ogg'
+	replace_floors = list(/turf/open/floor/misc/bloodling = 1)
+	replace_walls = /turf/closed/wall/material/meat
 	replace_objs = list(\
 		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
-		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1), \
-		/turf/open/floor = list(/turf/open/floor/bloodling),)
+		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
 
 /* PLANS
 	* Make this call the shuttle
