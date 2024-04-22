@@ -5,7 +5,7 @@
 /obj/machinery/quantum_server/proc/cool_off()
 	is_ready = TRUE
 	update_appearance()
-	radio.talk_into(src, "Thermal systems within operational parameters. Proceeding to domain configuration.", RADIO_CHANNEL_SUPPLY)
+	//radio.talk_into(src, "Thermal systems within operational parameters. Proceeding to domain configuration.", RADIO_CHANNEL_SUPPLY) MONKESTATION REMOVAL: prisoners don't have headsets atm, edit this if that's to change
 
 /// Compiles a list of available domains.
 /obj/machinery/quantum_server/proc/get_available_domains()
