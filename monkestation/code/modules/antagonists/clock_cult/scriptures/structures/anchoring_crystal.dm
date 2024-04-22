@@ -35,7 +35,7 @@
 		return FALSE
 
 	var/datum/objective/anchoring_crystals/crystals_objective = locate() in GLOB.main_clock_cult?.objectives
-	if(!crystals_objective || !crystals_objective?.valid_areas.len)
+	if(!crystals_objective?.valid_areas.len)
 		return FALSE
 
 	if(get_charged_anchor_crystals() && !(get_area(invoker) in crystals_objective.valid_areas))
