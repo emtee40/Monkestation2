@@ -23,19 +23,22 @@
 	category = EVENT_CATEGORY_SPACE
 
 /datum/round_event/wonderlandapocalypse/announce(fake)
-
-	priority_announce("What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!","?????????", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
+	if(!fake && SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_DELTA)
+		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	priority_announce("What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!", "?????????", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
 
 /datum/round_event/wonderlandapocalypse/start()
-	for(var/i = 1, i < 16, i++)
+	SSshuttle.emergency_no_recall = TRUE
+	for(var/i = 1 to 16)
 		new /obj/effect/anomaly/dimensional/wonderland(get_safe_random_station_turf(), null, FALSE)
-	for(var/i = 1, i < 4, i++)
+	for(var/i = 1 to 4)
 		var/obj/structure/wonderland_rift/rift = new(get_safe_random_station_turf())
 		notify_ghosts("A doorway to the wonderland has been opened!", source = rift, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Wonderland rift Opened")
 
 
 
 /obj/effect/anomaly/dimensional/wonderland
+	aSignal = null
 	range = 5
 	immortal = TRUE
 	drops_core = FALSE
