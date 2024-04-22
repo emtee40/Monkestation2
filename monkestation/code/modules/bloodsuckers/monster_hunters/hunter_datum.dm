@@ -25,7 +25,8 @@
 		TRAIT_HARDLY_WOUNDED,
 		TRAIT_NOCRITDAMAGE,
 		TRAIT_NOSOFTCRIT,
-		TRAIT_NO_ZOMBIFY
+		TRAIT_NO_ZOMBIFY,
+		TRAIT_TRUE_NIGHT_VISION
 	)
 	/// A list of traits innately granted to the mind of monster hunters.
 	var/static/list/mind_traits = list(
@@ -42,12 +43,14 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.add_traits(granted_traits, HUNTER_TRAIT)
+	current_mob.update_sight()
 	owner.unconvertable = TRUE
 
 /datum/antagonist/monsterhunter/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	REMOVE_TRAITS_IN(current_mob, HUNTER_TRAIT)
+	current_mob.update_sight()
 
 /datum/antagonist/monsterhunter/on_gain()
 	//Give Hunter Objective
