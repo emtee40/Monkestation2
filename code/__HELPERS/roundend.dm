@@ -678,9 +678,11 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		//check if we should show the team
 		if(!active_teams.show_roundend_report)
 			continue
-
 		//remove the team's individual antag reports, if the team actually shows up in the report.
 		for(var/datum/mind/team_minds as anything in active_teams.members)
+			if(!istype(team_minds))
+				stack_trace("Non-mind ([team_minds?.type]) found in team.members!")
+				continue
 			if(!isnull(team_minds.antag_datums)) // is_special_character passes if they have a special role instead of an antag
 				all_antagonists -= team_minds.antag_datums
 
