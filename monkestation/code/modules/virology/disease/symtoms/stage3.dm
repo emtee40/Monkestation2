@@ -730,7 +730,7 @@ GLOBAL_LIST_INIT(disease_hivemind_users, list())
 
 /datum/symptom/mind_restoration
 	name = "Mind Restoration"
-	desc = "The virus strengthens the bonds between neurons, reducing the duration of any ailments of the mind."
+	desc = "The virus repairs the bonds between neurons, reversing some damage to the mind."
 	stage = 3
 	max_multiplier = 3
 	badness = EFFECT_DANGER_HELPFUL
