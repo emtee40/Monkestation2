@@ -21,3 +21,6 @@
 
 ///how many anchoring crystals need to be active before the ark can open
 #define ANCHORING_CRYSTALS_TO_SUMMON 2
+
+///the map path of the reebe map
+#define REEBE_MAP_PATH "_maps/~monkestation/templates/reebe.dmm"
