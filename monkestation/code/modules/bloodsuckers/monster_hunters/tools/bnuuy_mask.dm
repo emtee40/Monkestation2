@@ -41,6 +41,7 @@
 	var/static/list/granted_traits = list(
 		TRAIT_ANALGESIA,
 		TRAIT_BATON_RESISTANCE,
+		TRAIT_CANT_STAMCRIT,
 		TRAIT_HEAR_THROUGH_DARKNESS,
 		TRAIT_IGNORESLOWDOWN,
 		TRAIT_NOBREATH,
@@ -85,11 +86,17 @@
 		qdel(src)
 		return
 	var/mob/living/carbon/human/human_owner = owner
-	var/heal_amt = (COOLDOWN_FINISHED(src, full_regen_cooldown) ? 5 : 2) * seconds_per_tick
+	var/full_effect = COOLDOWN_FINISHED(src, full_regen_cooldown)
+	var/basic_heal_amt = (full_effect ? 5 : 2) * seconds_per_tick
+	// stamina/stuns regens more mid-battle, adrenaline from the thrill of the fight empowers you
+	var/stamina_regen_amt = (full_effect ? 2 : 15) * seconds_per_tick
+	var/immobility_regen_amt = (full_effect ? (0.2 SECONDS) : (0.75 SECONDS)) * seconds_per_tick
 	// heal basic damages
-	human_owner.heal_overall_damage(brute = heal_amt, burn = heal_amt, updating_health = FALSE)
-	human_owner.adjustToxLoss(-heal_amt, updating_health = FALSE, forced = TRUE)
-	human_owner.adjustOxyLoss(-heal_amt)
+	human_owner.heal_overall_damage(brute = basic_heal_amt, burn = basic_heal_amt, updating_health = FALSE)
+	human_owner.adjustToxLoss(-basic_heal_amt, updating_health = FALSE, forced = TRUE)
+	human_owner.adjustOxyLoss(-basic_heal_amt)
+	human_owner.AdjustAllImmobility(-stamina_regen_amt)
+	human_owner.stamina?.adjust(stamina_regen_amt, forced = TRUE)
 	// heal blood / bleeding
 	if(human_owner.blood_volume < BLOOD_VOLUME_SAFE)
 		human_owner.blood_volume += heal_amt
