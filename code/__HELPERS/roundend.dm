@@ -668,7 +668,7 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 
 	for(var/datum/team/team as anything in GLOB.antagonist_teams)
 		if(!istype(team))
-			stack_trace("Non-mind ([team?.type]) found in GLOB.antagonist_teams!")
+			stack_trace("Non-team ([team?.type]) found in GLOB.antagonist_teams!")
 			continue
 		all_teams |= team
 
