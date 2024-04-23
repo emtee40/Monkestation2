@@ -667,9 +667,15 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	var/list/all_antagonists = list()
 
 	for(var/datum/team/team as anything in GLOB.antagonist_teams)
+		if(!istype(team))
+			stack_trace("Non-mind ([team?.type]) found in GLOB.antagonist_teams!")
+			continue
 		all_teams |= team
 
 	for(var/datum/antagonist/antagonists as anything in GLOB.antagonists)
+		if(!istype(antagonists))
+			stack_trace("Non-mind ([antagonists?.type]) found in GLOB.antagonists!")
+			continue
 		if(!antagonists.owner)
 			continue
 		all_antagonists |= antagonists
@@ -710,8 +716,8 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		result += "<br><br>"
 		CHECK_TICK
 
-	if(all_antagonists.len)
-		var/datum/antagonist/last = all_antagonists[all_antagonists.len]
+	if(length(all_antagonists))
+		var/datum/antagonist/last = all_antagonists[length(all_antagonists)]
 		result += last.roundend_report_footer()
 		result += "</div>"
 
