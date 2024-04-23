@@ -735,7 +735,7 @@ GLOBAL_LIST_INIT(disease_hivemind_users, list())
 	max_multiplier = 3
 	badness = EFFECT_DANGER_HELPFUL
 
-/datum/symptom/metabolism/activate(mob/living/carbon/mob)
+/datum/symptom/mind_restoration/activate(mob/living/carbon/mob)
 	if(!iscarbon(mob))
 		return
 
