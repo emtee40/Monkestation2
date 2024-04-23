@@ -9,7 +9,6 @@
 	var/datum/antagonist/monsterhunter/hunter
 	COOLDOWN_DECLARE(locator_timer)
 
-
 /obj/item/rabbit_locator/Initialize(mapload, datum/antagonist/monsterhunter/owner)
 	. = ..()
 	if(!QDELETED(owner))
@@ -34,7 +33,12 @@
 	if(QDELETED(user_turf) || !is_station_level(user_turf.z))
 		to_chat(user, span_warning("The card cannot be used here..."))
 		return
-	var/distance = get_minimum_distance(user)
+	var/obj/effect/bnuuy = get_nearest_rabbit(user)
+	if(QDELETED(bnuuy))
+		to_chat(user, span_warning("Can't feel any hints..."))
+		return
+	var/turf/bnuuy_turf = get_turf(bnuuy)
+	var/distance = get_dist(user_turf, bnuuy_turf)
 	var/sound_value
 	if(distance >= 50)
 		sound_value = 0
@@ -54,10 +58,10 @@
 	if(distance < 10)
 		sound_value = 100
 		to_chat(user,span_warning("Here...its definitely here!"))
-	user.playsound_local(src, 'monkestation/sound/bloodsuckers/rabbitlocator.ogg', vol = sound_value)
+	user.playsound_local(bnuuy_turf, 'monkestation/sound/bloodsuckers/rabbitlocator.ogg', vol = sound_value, pressure_affected = FALSE)
 	COOLDOWN_START(src, locator_timer, 7 SECONDS)
 
-/obj/item/rabbit_locator/proc/get_minimum_distance(mob/user)
+/obj/item/rabbit_locator/proc/get_nearest_rabbit(mob/user)
 	var/dist = 1000
 	if(!length(hunter?.rabbits))
 		return
@@ -68,5 +72,5 @@
 			selected_bunny = located
 	var/z_difference = abs(selected_bunny.z - user.z)
 	if(dist < 50 && z_difference != 0)
-		to_chat(user,span_warning("[z_difference] [z_difference == 1 ? "floor" : "floors"] [selected_bunny.z > user.z ? "above" : "below"]..."))
-	return dist
+		to_chat(user, span_warning("[z_difference] [z_difference == 1 ? "floor" : "floors"] [selected_bunny.z > user.z ? "above" : "below"]..."))
+	return selected_bunny

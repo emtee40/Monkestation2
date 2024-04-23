@@ -8,7 +8,7 @@
 	block_chance = 20
 	on_force = 20
 	base_force = 17
-	light_system = MOVABLE_LIGHT
+	light_system = MH_TESTMERGE_LIGHT_WORKAROUND
 	light_color = "#59b3c9"
 	light_outer_range = 2
 	light_power = 2
@@ -38,7 +38,7 @@
 	SIGNAL_HANDLER
 	balloon_alert(user, active ? "extended" : "collapsed")
 	if(active)
-		playsound(src, 'monkestation/sound/bloodsuckers/moonlightsword.ogg',50)
+		playsound(src, 'monkestation/sound/bloodsuckers/moonlightsword.ogg', vol = 50)
 	inhand_icon_state = active ? "darkmoon" : "darkmoon_hilt"
 	enabled = active
 	set_light_on(active)
@@ -77,7 +77,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "plasmasoul"
 	damage = 25
-	light_system = MOVABLE_LIGHT
+	light_system = MH_TESTMERGE_LIGHT_WORKAROUND
 	light_outer_range = 2
 	light_power = 1
 	light_color = "#44acb1"

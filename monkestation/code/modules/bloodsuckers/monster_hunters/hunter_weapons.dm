@@ -1,9 +1,8 @@
-//#define upgraded_val(x,y) ( CEILING((x * (1.07 ** y)), 1) )
-//#define CALIBER_BLOODSILVER "bloodsilver"
-//#define WEAPON_UPGRADE "weapon_upgrade"
+#define upgraded_val(x,y) ( CEILING((x * (1.07 ** y)), 1) )
+#define CALIBER_BLOODSILVER "bloodsilver"
+#define WEAPON_UPGRADE "weapon_upgrade"
 
 /obj/item/melee/trick_weapon
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'monkestation/icons/bloodsuckers/weapons.dmi'
 	lefthand_file = 'monkestation/icons/bloodsuckers/weapons_lefthand.dmi'
 	righthand_file = 'monkestation/icons/bloodsuckers/weapons_righthand.dmi'
@@ -339,7 +338,7 @@
 	desc = "Fueled by the tears of rabbits."
 	icon = 'icons/obj/cult/structures.dmi'
 	icon_state = "altar"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/structure/rack/weaponsmith/attackby(obj/item/organ, mob/living/user, params)
 	if(!istype(organ, /obj/item/rabbit_eye))
@@ -365,10 +364,9 @@
 	worn_icon = 'monkestation/icons/bloodsuckers/worn_mask.dmi'
 	worn_icon_state = "rabbit_mask"
 	clothing_flags = SNUG_FIT
-	flags_inv = HIDEFACE | HIDEFACIALHAIR | HIDESNOUT
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///the paradox rabbit ability
 	var/datum/action/cooldown/paradox/paradox
 	///teleporting to the wonderland
@@ -403,10 +401,9 @@
 		return
 	paradox.Grant(user)
 	wonderland.Grant(user)
-	user.apply_status_effect(/datum/status_effect/bnuuy_mask)
 
 
-/obj/item/clothing/mask/cursed_rabbit/dropped(mob/living/user)
+/obj/item/clothing/mask/cursed_rabbit/dropped(mob/user)
 	. = ..()
 	if(!paradox)
 		return
@@ -418,7 +415,6 @@
 	if(wonderland.owner != user)
 		return
 	wonderland.Remove(user)
-	user.remove_status_effect(/datum/status_effect/bnuuy_mask)
 
 /obj/item/rabbit_locator
 	name = "Accursed Red Queen card"
@@ -426,7 +422,6 @@
 	icon = 'monkestation/icons/bloodsuckers/weapons.dmi'
 	icon_state = "locator"
 	w_class = WEIGHT_CLASS_SMALL
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///the hunter the card is tied too
 	var/datum/antagonist/monsterhunter/hunter
 	///cooldown for the locator
@@ -443,7 +438,7 @@
 	hunter.locator = src
 
 /obj/item/rabbit_locator/attack_self(mob/user, modifiers)
-	if(!COOLDOWN_FINISHED(src, locator_timer))
+	if (!COOLDOWN_FINISHED(src, locator_timer))
 		return
 	if(!cooldown)
 		return
@@ -456,12 +451,7 @@
 	if(!is_station_level(user.loc.z))
 		to_chat(user,span_warning("The card cannot be used here..."))
 		return
-	var/obj/effect/bnuuy = get_nearest_rabbit(user)
-	if(QDELETED(bnuuy))
-		to_chat(user, span_warning("Can't feel any hints..."))
-		return
-	var/turf/bnuuy_turf = get_turf(bnuuy)
-	var/distance = get_dist(user, bnuuy)
+	var/distance = get_minimum_distance(user)
 	var/sound_value
 	if(distance >= 50)
 		sound_value = 0
@@ -481,12 +471,14 @@
 	if(distance < 10)
 		sound_value = 100
 		to_chat(user,span_warning("Here...its definitely here!"))
-	user.playsound_local(bnuuy_turf, 'monkestation/sound/bloodsuckers/rabbitlocator.ogg', vol = sound_value, pressure_affected = FALSE)
+	user.playsound_local(src, 'monkestation/sound/bloodsuckers/rabbitlocator.ogg',sound_value)
 	COOLDOWN_START(src, locator_timer, 7 SECONDS)
 
-/obj/item/rabbit_locator/proc/get_nearest_rabbit(mob/user)
-	var/dist = 1000
-	if(!length(hunter?.rabbits))
+/obj/item/rabbit_locator/proc/get_minimum_distance(mob/user)
+	var/dist=1000
+	if(!hunter)
+		return
+	if(!hunter.rabbits.len)
 		return
 	var/obj/effect/selected_bunny
 	for(var/obj/effect/located as anything in hunter.rabbits)
@@ -495,8 +487,8 @@
 			selected_bunny = located
 	var/z_difference = abs(selected_bunny.z - user.z)
 	if(dist < 50 && z_difference != 0)
-		to_chat(user, span_warning("[z_difference] [z_difference == 1 ? "floor" : "floors"] [selected_bunny.z > user.z ? "above" : "below"]..."))
-	return selected_bunny
+		to_chat(user,span_warning("[z_difference] [z_difference == 1 ? "floor" : "floors"] [selected_bunny.z > user.z ? "above" : "below"]..."))
+	return dist
 
 /obj/item/rabbit_locator/Destroy()
 	if(hunter)

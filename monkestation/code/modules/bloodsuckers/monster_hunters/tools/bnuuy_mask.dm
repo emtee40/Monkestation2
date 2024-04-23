@@ -1,4 +1,4 @@
-/*/obj/item/clothing/mask/cursed_rabbit
+/obj/item/clothing/mask/cursed_rabbit
 	name = "Damned Rabbit Mask"
 	desc = "Slip into the wonderland."
 	icon =  'monkestation/icons/bloodsuckers/weapons.dmi'
@@ -33,7 +33,6 @@
 	paradox?.Remove(user)
 	wonderland?.Remove(user)
 	user.remove_status_effect(/datum/status_effect/bnuuy_mask)
-*/
 
 /datum/status_effect/bnuuy_mask
 	id = "bnuuy_mask"
