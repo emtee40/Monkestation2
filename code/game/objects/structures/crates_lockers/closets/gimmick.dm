@@ -36,7 +36,7 @@
 	name = "tacticool gear closet"
 	desc = "It's a storage unit for Tacticool gear."
 
-/obj/structure/closet/gimmick/tacticool/PopulateContents()
+/obj/structure/closet/gimmick/tacticool/populate_contents_immediate()
 	..()
 	new /obj/item/clothing/glasses/eyepatch(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
