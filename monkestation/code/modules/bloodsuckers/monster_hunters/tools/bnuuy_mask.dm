@@ -99,7 +99,7 @@
 	human_owner.stamina?.adjust(stamina_regen_amt, forced = TRUE)
 	// heal blood / bleeding
 	if(human_owner.blood_volume < BLOOD_VOLUME_SAFE)
-		human_owner.blood_volume += heal_amt
+		human_owner.blood_volume += basic_heal_amt
 	var/datum/wound/bloodiest_wound
 	for(var/datum/wound/iter_wound as anything in human_owner.all_wounds)
 		if(iter_wound.blood_flow && iter_wound.blood_flow > bloodiest_wound?.blood_flow)
