@@ -100,11 +100,15 @@
 	// heal blood / bleeding
 	if(human_owner.blood_volume < BLOOD_VOLUME_SAFE)
 		human_owner.blood_volume += basic_heal_amt
-	var/datum/wound/bloodiest_wound
-	for(var/datum/wound/iter_wound as anything in human_owner.all_wounds)
-		if(iter_wound.blood_flow && iter_wound.blood_flow > bloodiest_wound?.blood_flow)
-			bloodiest_wound = iter_wound
-	bloodiest_wound?.adjust_blood_flow(-3 * seconds_per_tick)
+	var/list/datum/wound/bloody_wounds
+	for(var/datum/wound/wound as anything in human_owner.all_wounds)
+		if(!istype(wound) || QDELING(wound) || !wound.blood_flow)
+			continue
+		LAZYADD(bloody_wounds, wound)
+	if(LAZYLEN(bloody_wounds))
+		var/bleed_heal_amt = max(round((full_effect ? 5 : 2) / length(bloody_wounds), 0.5), 1) // blood loss is less of an issue mid-battle.
+		for(var/datum/wound/wound as anything in bloody_wounds)
+			wound.adjust_blood_flow(-bleed_heal_amt)
 
 /datum/status_effect/bnuuy_mask/get_examine_text()
 	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] out-of-place, as if [owner.p_they()] were partially detached from reality.")
