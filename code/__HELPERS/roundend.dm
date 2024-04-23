@@ -674,7 +674,7 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 
 	for(var/datum/antagonist/antagonists as anything in GLOB.antagonists)
 		if(!istype(antagonists))
-			stack_trace("Non-mind ([antagonists?.type]) found in GLOB.antagonists!")
+			stack_trace("Non-antagonist ([antagonists?.type]) found in GLOB.antagonists!")
 			continue
 		if(!antagonists.owner)
 			continue
