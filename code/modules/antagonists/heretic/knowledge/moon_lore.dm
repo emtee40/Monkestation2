@@ -206,7 +206,6 @@
 
 	user.client?.give_award(/datum/award/achievement/misc/moon_ascension, user)
 	ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, REF(src))
-	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
