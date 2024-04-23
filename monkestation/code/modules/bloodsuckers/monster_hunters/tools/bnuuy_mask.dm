@@ -38,8 +38,10 @@
 	id = "bnuuy_mask"
 	alert_type = null
 	var/datum/component/glitching_state/wondershift
+	var/datum/component/anti_magic/breaker
 	var/static/list/granted_traits = list(
 		TRAIT_ANALGESIA,
+		TRAIT_ANTIMAGIC_NO_SELFBLOCK,
 		TRAIT_BATON_RESISTANCE,
 		TRAIT_CANT_STAMCRIT,
 		TRAIT_HEAR_THROUGH_DARKNESS,
@@ -64,6 +66,7 @@
 	if(!ishuman(owner) || !IS_MONSTERHUNTER(owner) || !istype(owner.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/cursed_rabbit))
 		return FALSE
 	wondershift = owner.AddComponent(/datum/component/glitching_state)
+	breaker = owner.AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND | MAGIC_RESISTANCE_HOLY)
 	if(!HAS_TRAIT(owner, TRAIT_RELAYING_ATTACKER))
 		owner.AddElement(/datum/element/relay_attackers)
 	RegisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked))
@@ -75,6 +78,7 @@
 /datum/status_effect/bnuuy_mask/on_remove()
 	. = ..()
 	QDEL_NULL(wondershift)
+	QDEL_NULL(breaker)
 	UnregisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED)
 	take_physiology_buff(owner)
 	REMOVE_TRAITS_IN(owner, id)

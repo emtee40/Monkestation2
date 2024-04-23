@@ -80,9 +80,8 @@
 		grant_drop_ability(droppod_contract)
 	RegisterSignal(src, COMSIG_GAIN_INSIGHT, PROC_REF(insight_gained))
 	RegisterSignal(src, COMSIG_BEASTIFY, PROC_REF(turn_beast))
-	var/static/list/valid_areas = GLOB.the_station_areas.Copy() - subtypesof(/area/station/ai_monitored)
 	for(var/i in 1 to 5)
-		var/turf/rabbit_hole = get_safe_random_station_turf(valid_areas)
+		var/turf/rabbit_hole = get_safe_random_station_turf()
 		var/obj/effect/client_image_holder/white_rabbit/cretin =  new(rabbit_hole, owner.current)
 		cretin.hunter = src
 		rabbits += cretin
