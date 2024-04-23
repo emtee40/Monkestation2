@@ -20,3 +20,21 @@
 	drinker.heal_bodypart_damage(brute = 2.5)
 	drinker.heal_bodypart_damage(burn = 2.5)
 
+/datum/reagent/consumable/nuka_cola_dark
+	name = "Nuka Cola Dark"
+	description = "A rum and coke but more radioactive"
+	color = "#412202"
+	quality = DRINK_VERYGOOD
+	var/boozepwr = 45
+	taste_description = "a hangover"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/nuka_cola_dark/on_mob_life(mob/living/carbon/drinker)
+	. = ..()
+	var/flash_protect = FLASH_PROTECTION_WELDER
+
+/datum/reagent/consumable/nuka_cola_quantum
+	name = "Nuka Cola Quantum"
+	description = "the glow is healthy we promise"
+	color = "#12eccf"
+	quality = DRINK_FANTASTIC
