@@ -55,10 +55,11 @@
 	)
 	belt = /obj/item/modular_computer/pda/security
 	ears = /obj/item/radio/headset/headset_sec
-	shoes = /obj/item/clothing/shoes/jackboots/sec
+	shoes = /obj/item/clothing/shoes/sneakers/black
 	l_pocket = /obj/item/citationinator
 	r_pocket = /obj/item/assembly/flash/handheld
 	glasses = /obj/item/clothing/glasses/hud/security
+	gloves = /obj/item/clothing/gloves/tackler/dolphin
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
