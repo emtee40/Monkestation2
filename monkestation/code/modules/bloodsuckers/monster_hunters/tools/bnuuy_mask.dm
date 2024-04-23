@@ -90,7 +90,7 @@
 	var/basic_heal_amt = (full_effect ? 5 : 2) * seconds_per_tick
 	// stamina/stuns regens more mid-battle, adrenaline from the thrill of the fight empowers you
 	var/stamina_regen_amt = (full_effect ? 5 : 15) * seconds_per_tick
-	var/immobility_regen_amt = (full_effect ? (0.2 SECONDS) : (0.75 SECONDS)) * seconds_per_tick
+	var/immobility_regen_amt = (full_effect ? (0.2 SECONDS) : (0.8 SECONDS)) * seconds_per_tick
 	// heal basic damages
 	human_owner.heal_overall_damage(brute = basic_heal_amt, burn = basic_heal_amt, updating_health = FALSE)
 	human_owner.adjustToxLoss(-basic_heal_amt, updating_health = FALSE, forced = TRUE)
