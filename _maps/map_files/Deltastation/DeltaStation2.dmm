@@ -11329,7 +11329,8 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "cFx" = (
 /obj/structure/disposalpipe/segment{
@@ -16660,7 +16661,7 @@
 	c_tag = "Permabrig - Cell 4";
 	network = list("ss13","prison")
 	},
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "dZi" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -17095,7 +17096,11 @@
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
 "edO" = (
-/obj/machinery/door/poddoor/shuttledock,
+/obj/machinery/door/poddoor/atmos_test_room_mainvent_1{
+	dir = 8;
+	id = "FuckOffDontReUseID";
+	name = "Blast Door"
+	},
 /turf/open/floor/plating,
 /area/station/bitrunning/den)
 "edS" = (
@@ -23222,6 +23227,15 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/maintenance/port)
+"fBs" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch"
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/catwalk_floor,
+/area/station/bitrunning/den)
 "fBG" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
@@ -25501,7 +25515,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "gfp" = (
 /obj/structure/table/wood,
@@ -31347,7 +31361,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "hCX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -38448,7 +38462,8 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "jnY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
@@ -38561,7 +38576,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "jpA" = (
 /turf/open/floor/iron/grimy,
@@ -49936,10 +49951,6 @@
 	},
 /turf/open/floor/stone,
 /area/station/science/xenobiology)
-"mch" = (
-/obj/structure/cable,
-/turf/closed/wall/r_wall,
-/area/station/bitrunning/den)
 "mck" = (
 /obj/structure/chair/office,
 /obj/effect/landmark/start/depsec/medical,
@@ -54649,6 +54660,11 @@
 	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
+"nkh" = (
+/obj/structure/lattice,
+/obj/structure/frame,
+/turf/open/space/basic,
+/area/space/nearstation)
 "nkn" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
@@ -60249,7 +60265,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "oGV" = (
 /obj/structure/rack,
@@ -60534,7 +60550,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "oKD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65478,7 +65494,8 @@
 "pUa" = (
 /obj/machinery/light/dim/directional/south,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "pUd" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -72927,11 +72944,10 @@
 /turf/open/floor/iron/large,
 /area/station/hallway/secondary/exit/departure_lounge)
 "rLA" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
-/turf/open/floor/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "rLL" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -78689,7 +78705,7 @@
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "tgl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -78914,7 +78930,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "tjI" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
@@ -85658,7 +85674,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "uQh" = (
 /obj/machinery/power/apc/auto_name/directional/south,
@@ -88173,10 +88190,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit)
 "vvj" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
 /obj/structure/sign/poster/contraband/gorlex_recruitment/directional/north,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/station/bitrunning/den)
@@ -89416,6 +89431,11 @@
 /obj/structure/cable/layer3,
 /turf/open/floor/circuit/green,
 /area/station/ai_monitored/turret_protected/ai)
+"vKe" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/space/nearstation)
 "vKn" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -93460,7 +93480,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/navigate_destination/common/bitrunner,
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "wEX" = (
 /obj/machinery/computer/atmos_alert{
@@ -93532,7 +93552,7 @@
 	c_tag = "Permabrig - Cell 4";
 	network = list("ss13","prison")
 	},
-/turf/open/floor/plating,
+/turf/open/floor/catwalk_floor,
 /area/station/bitrunning/den)
 "wFE" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -159522,12 +159542,12 @@ adT
 fmq
 kRr
 rfj
-hfc
+fBs
 rfj
 rfj
 rfj
 jnK
-mch
+rfj
 rfj
 rfj
 rfj
@@ -160047,9 +160067,9 @@ hfc
 rfj
 rfj
 rLA
+vKe
 ajQ
-ajQ
-qYo
+nkh
 aaa
 aaa
 aaa
@@ -160304,8 +160324,8 @@ qnq
 mvg
 rfj
 vvj
-ajQ
-qYo
+vKe
+nkh
 qYo
 aaa
 aaa
