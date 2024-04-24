@@ -308,6 +308,7 @@
 		"IPC" = /datum/species/ipc,
 		"Simian" = /datum/species/simian,
 		"Zombie" = /datum/species/zombie,
+		"Shadow" = /datum/species/shadow,
 	)
 
 /datum/nanite_program/sensor/species/register_extra_settings()
