@@ -181,12 +181,10 @@
 	if(timer_trigger && world.time > timer_trigger_next)
 		trigger()
 		timer_trigger_next = world.time + timer_trigger
-		return
 
 	if(timer_trigger_delay_next && world.time > timer_trigger_delay_next)
 		trigger(delayed = TRUE)
 		timer_trigger_delay_next = 0
-		return
 
 	if(check_conditions() && consume_nanites(use_rate))
 		if(!passive_enabled)

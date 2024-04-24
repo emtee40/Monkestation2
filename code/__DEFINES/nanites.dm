@@ -29,6 +29,9 @@
 
 ///Nanite Extra Settings - Note that these will also be the names displayed in the UI
 #define NES_SENT_CODE "Sent Code"
+#define NES_SENT_CODE_INVERTED "Sent Code (Inverted)"
+#define NES_SENT_CODE_TRIGGER "Sent Code (Trigger)"
+#define NES_SENT_CODE_TRIGGER_INVERTED "Sent Code (Trigger, Inverted)"
 #define NES_DELAY "Delay"
 #define NES_MODE "Mode"
 #define NES_COMM_CODE "Comm Code"

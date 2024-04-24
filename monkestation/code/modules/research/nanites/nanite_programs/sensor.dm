@@ -2,35 +2,79 @@
 	name = "Sensor Nanites"
 	desc = "These nanites send a signal code when a certain condition is met."
 	unique = FALSE
+	can_trigger = TRUE
+	trigger_cost = 0
+	trigger_cooldown = 0.5 SECONDS
+
 	var/can_rule = FALSE
 	var/spent = FALSE
+	var/spent_inverted = FALSE
 	var/spendable = TRUE
 
 /datum/nanite_program/sensor/register_extra_settings()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+	extra_settings[NES_SENT_CODE_INVERTED] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+
+	if (can_trigger)
+		extra_settings[NES_SENT_CODE_TRIGGER] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+		extra_settings[NES_SENT_CODE_TRIGGER_INVERTED] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 
 /datum/nanite_program/sensor/proc/check_event()
 	return FALSE
 
+/datum/nanite_program/sensor/proc/send_code_any(setting)
+	if (!activated)
+		return
+
+	var/datum/nanite_extra_setting/code_setting = extra_settings[setting]
+	SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, code_setting.get_value(), "a [name] program")
+
 /datum/nanite_program/sensor/proc/send_code()
-	if(activated)
-		var/datum/nanite_extra_setting/ES = extra_settings[NES_SENT_CODE]
-		SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, ES.value, "a [name] program")
+	send_code_any(NES_SENT_CODE)
+
+/datum/nanite_program/sensor/proc/send_code_inverted()
+	send_code_any(NES_SENT_CODE_INVERTED)
+
+/datum/nanite_program/sensor/proc/send_trigger_code()
+	send_code_any(NES_SENT_CODE_TRIGGER)
+
+/datum/nanite_program/sensor/proc/send_trigger_code_inverted()
+	send_code_any(NES_SENT_CODE_TRIGGER_INVERTED)
 
 /datum/nanite_program/sensor/active_effect()
-	if(spendable ? check_spent() : check_event())
+	var/event_result = check_event()
+
+	if (spendable ? check_spent(event_result) : event_result)
 		send_code()
+
+	if (spendable && check_spent_inverted(event_result))
+		send_code_inverted()
+
+/datum/nanite_program/sensor/on_trigger(comm_message)
+	if (check_event())
+		send_trigger_code()
+	else
+		send_trigger_code_inverted()
 
 /datum/nanite_program/sensor/proc/make_rule(datum/nanite_program/target)
 	return
 
-/datum/nanite_program/sensor/proc/check_spent()
+/datum/nanite_program/sensor/proc/check_spent(event_result)
 	if(check_event())
 		if(!spent)
 			spent = TRUE
 			return TRUE
 		return FALSE
 	spent = FALSE
+	return FALSE
+
+/datum/nanite_program/sensor/proc/check_spent_inverted(event_result)
+	if(!check_event())
+		if(!spent_inverted)
+			spent_inverted = TRUE
+			return TRUE
+		return FALSE
+	spent_inverted = FALSE
 	return FALSE
 
 /datum/nanite_program/sensor/repeat
@@ -127,17 +171,10 @@
 
 	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Death", "Revival")
 
-/datum/nanite_program/sensor/death/on_death(gibbed)
+/datum/nanite_program/sensor/death/check_event()
 	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
 
-	if (mode.get_value())
-		send_code()
-
-/datum/nanite_program/sensor/death/on_revive(full_heal, admin_revive)
-	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
-
-	if (!mode.get_value())
-		send_code()
+	return mode.get_value() == (host_mob.stat == DEAD)
 
 /datum/nanite_program/sensor/death/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/death/rule = new(target)
@@ -278,6 +315,7 @@
 	name = "Voice Sensor"
 	desc = "The nanites receive a signal when they detect a specific, preprogrammed word or phrase being said."
 	spendable = FALSE
+	can_trigger = FALSE
 
 /datum/nanite_program/sensor/voice/register_extra_settings()
 	. = ..()
