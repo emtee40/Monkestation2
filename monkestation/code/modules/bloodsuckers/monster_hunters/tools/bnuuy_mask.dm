@@ -99,7 +99,7 @@
 	human_owner.heal_overall_damage(brute = basic_heal_amt, burn = basic_heal_amt, updating_health = FALSE)
 	human_owner.adjustToxLoss(-basic_heal_amt, updating_health = FALSE, forced = TRUE)
 	human_owner.adjustOxyLoss(-basic_heal_amt)
-	human_owner.AdjustAllImmobility(-stamina_regen_amt)
+	human_owner.AdjustAllImmobility(-immobility_regen_amt)
 	human_owner.stamina?.adjust(stamina_regen_amt, forced = TRUE)
 	// heal blood / bleeding
 	if(human_owner.blood_volume < BLOOD_VOLUME_SAFE)
