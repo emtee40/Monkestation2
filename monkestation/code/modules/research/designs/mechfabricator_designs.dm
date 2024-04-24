@@ -14,7 +14,7 @@
 /datum/design/ipc_part_head
 	name = "IPC Replacement Head"
 	id = "ipc_head"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 500)
 	build_path = /obj/item/bodypart/head/robot/ipc
@@ -26,7 +26,7 @@
 /datum/design/ipc_part_chest
 	name = "IPC Replacement Chest"
 	id = "ipc_chest"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 5000)
 	build_path = /obj/item/bodypart/chest/robot/ipc
@@ -38,7 +38,7 @@
 /datum/design/ipc_part_arm_left
 	name = "IPC Replacement Left Arm"
 	id = "ipc_arm_left"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/bodypart/arm/left/robot/ipc
@@ -50,7 +50,7 @@
 /datum/design/ipc_part_arm_right
 	name = "IPC Replacement Right Arm"
 	id = "ipc_arm_right"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/bodypart/arm/right/robot/ipc
@@ -62,7 +62,7 @@
 /datum/design/ipc_part_leg_left
 	name = "IPC Replacement Left Leg"
 	id = "ipc_leg_left"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/bodypart/leg/left/robot/ipc
@@ -74,7 +74,7 @@
 /datum/design/ipc_part_leg_right
 	name = "IPC Replacement Right Leg"
 	id = "ipc_leg_right"
-	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	build_type = MECHFAB
 	construction_time = 15 SECONDS
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/bodypart/leg/right/robot/ipc
