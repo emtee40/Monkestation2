@@ -338,9 +338,13 @@
 	if(match.get_value())
 		if(findtext(hearing_args[HEARING_RAW_MESSAGE], sentence.get_value()))
 			send_code()
+		else
+			send_code_inverted()
 	else
 		if(lowertext(hearing_args[HEARING_RAW_MESSAGE]) == lowertext(sentence.get_value()))
 			send_code()
+		else
+			send_code_inverted()
 
 /datum/nanite_program/sensor/species
 	name = "Species Sensor"
