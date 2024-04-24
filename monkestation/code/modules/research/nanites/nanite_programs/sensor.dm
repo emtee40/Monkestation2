@@ -150,7 +150,7 @@
 
 /datum/nanite_program/sensor/crit/register_extra_settings()
 	. = ..()
-	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Enters", "Leaves")
+	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Crit", "Stable")
 
 /datum/nanite_program/sensor/crit/check_event()
 	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
@@ -169,7 +169,7 @@
 /datum/nanite_program/sensor/death/register_extra_settings()
 	. = ..()
 
-	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Death", "Revival")
+	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Death", "Life")
 
 /datum/nanite_program/sensor/death/check_event()
 	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]

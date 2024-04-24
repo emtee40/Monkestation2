@@ -121,7 +121,8 @@
 
 /datum/nanite_rule/damage/check_rule()
 	var/damage_amt = 0
-	switch(damage_type)
+
+	switch(lowertext(damage_type))
 		if(BRUTE)
 			damage_amt = program.host_mob.getBruteLoss()
 		if(BURN)
@@ -132,6 +133,8 @@
 			damage_amt = program.host_mob.getOxyLoss()
 		if(CLONE)
 			damage_amt = program.host_mob.getCloneLoss()
+		if(BRAIN)
+			damage_amt = program.host_mob.get_organ_loss(ORGAN_SLOT_BRAIN)
 
 	return above == damage_amt >= threshold
 
