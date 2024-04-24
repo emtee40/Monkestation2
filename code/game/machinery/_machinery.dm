@@ -760,7 +760,22 @@
 /obj/machinery/proc/RefreshParts()
 	SHOULD_CALL_PARENT(TRUE)
 	//reset to baseline
+	/*
+		idle_power_usage = initial(idle_power_usage)
+		active_power_usage = initial(active_power_usage)
+		if(!component_parts || !component_parts.len)
+			return
+		var/parts_energy_rating = 0
 
+		for(var/datum/stock_part/part in component_parts)
+			parts_energy_rating += part.energy_rating()
+
+		for(var/obj/item/stock_parts/part in component_parts)
+			parts_energy_rating += part.energy_rating
+
+		idle_power_usage = initial(idle_power_usage) * (1 + parts_energy_rating)
+		active_power_usage = initial(active_power_usage) * (1 + parts_energy_rating)
+	*/
 	update_current_power_usage()
 	SEND_SIGNAL(src, COMSIG_MACHINERY_REFRESH_PARTS)
 
