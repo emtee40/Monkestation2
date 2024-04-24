@@ -8,7 +8,8 @@
 		TRAIT_NOHUNGER,
 		TRAIT_QUICKER_CARRY,
 		TRAIT_TRUE_NIGHT_VISION,
-		TRAIT_VIRUSIMMUNE
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_CHUNKYFINGERS_IGNORE_BATON
 	)
 	species_language_holder = /datum/language_holder/universal
 	coldmod = 0.5
