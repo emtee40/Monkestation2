@@ -219,11 +219,6 @@
 		"ipc_arm_left",
 		"ipc_arm_right",
 		"ipc_leg_left",
-		"ipc_leg_right",
-		"ipc_heart",
-		"ipc_liver",
-		"ipc_stomach",
-		"ipc_ears",
-		"ipc_butt"
+		"ipc_leg_right"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
