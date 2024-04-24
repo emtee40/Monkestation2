@@ -8,7 +8,7 @@
 	show_in_antagpanel = FALSE
 	suicide_cry = "PRAISE THE RINGLEADER!!"
 	antag_moodlet = /datum/mood_event/heretics/lunatic
-	hud_icon = 'icons/mob/huds/antags/moon_lunatic_hud.dmi'
+	hud_icon = 'monkestation/icons/mob/huds/antags/moon_lunatic_hud.dmi'
 	antag_hud_name = "lunatic"
 	can_assign_self_objectives = FALSE
 	// The mind of the ascended heretic who created us
