@@ -45,8 +45,8 @@
 		if(teleported_living.client)
 			var/client_color = teleported_living.client.color
 			teleported_living.client.color = "#BE8700"
-			animate(teleported_living.client, color = client_color, time = 25)
+			animate(teleported_living.client, color = client_color, time = 2.5 SECONDS)
 		var/prev_alpha = teleported_atom.alpha
 		teleported_atom.alpha = 0
-		animate(teleported_atom, alpha=prev_alpha, time=10)
+		animate(teleported_atom, alpha = prev_alpha, time = 1 SECONDS)
 	. = ..()
