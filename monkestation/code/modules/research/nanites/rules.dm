@@ -34,7 +34,7 @@
 /datum/nanite_rule/health/check_rule()
 	var/health_percent = program.host_mob.health / program.host_mob.maxHealth * 100
 
-	return above == health_percent >= health_percent
+	return above == health_percent >= threshold
 
 /datum/nanite_rule/health/display()
 	return "[name] [above ? ">" : "<"] [threshold]%"
