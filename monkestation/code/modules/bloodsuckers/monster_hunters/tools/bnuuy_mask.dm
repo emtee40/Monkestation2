@@ -65,14 +65,14 @@
 	. = ..()
 	if(!ishuman(owner) || !IS_MONSTERHUNTER(owner) || !istype(owner.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/cursed_rabbit))
 		return FALSE
-	wondershift = owner.AddComponent(/datum/component/glitching_state)
-	breaker = owner.AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND | MAGIC_RESISTANCE_HOLY)
 	if(!HAS_TRAIT(owner, TRAIT_RELAYING_ATTACKER))
 		owner.AddElement(/datum/element/relay_attackers)
 	RegisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked))
 	give_physiology_buff(owner)
 	owner.add_traits(granted_traits, id)
 	owner.update_sight()
+	wondershift = owner.AddComponent(/datum/component/glitching_state)
+	breaker = owner.AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND | MAGIC_RESISTANCE_HOLY)
 	COOLDOWN_START(src, full_regen_cooldown, 10 SECONDS)
 
 /datum/status_effect/bnuuy_mask/on_remove()
