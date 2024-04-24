@@ -83,17 +83,16 @@
 
 	playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
 	if((affected_mob.stat == DEAD) || affected_mob.getMaxHealth() <= 0)
-		affected_mob.dust(TRUE, TRUE)
 		playsound(loc, 'sound/magic/exit_blood.ogg', 60)
 		to_chat(affected_mob, span_clockred("The last of your life is drained away..."))
 		check_special_role(affected_mob)
 		GLOB.clock_vitality = min(GLOB.clock_vitality + 40, GLOB.max_clock_vitality) // 100 (for clients) total in the ideal situation, since it'll take 6 pulses to go from full to crit
-		ADD_TRAIT(affected_mob, TRAIT_NO_SOUL, CULT_TRAIT)
 		if(affected_mob.client)
 			new /obj/item/robot_suit/prebuilt/clockwork(get_turf(src))
 			var/obj/item/mmi/posibrain/soul_vessel/new_vessel = new(get_turf(src))
 			if(!is_banned_from(affected_mob.ckey, list(JOB_CYBORG, ROLE_CLOCK_CULTIST)))
 				new_vessel.transfer_personality(affected_mob)
+		affected_mob.dust(TRUE, TRUE)
 		return
 
 	affected_mob.visible_message(span_clockred("[affected_mob] looks weak as the color fades from their body."), span_clockred("You feel your soul faltering..."))

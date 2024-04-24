@@ -131,8 +131,6 @@ GLOBAL_LIST_EMPTY(anchoring_crystals) //list of all anchoring crystals
 /obj/structure/destructible/clockwork/anchoring_crystal/proc/start_turf_conversion()
 	var/timer_counter = 1 //used by the addtimer()
 	for(var/turf/turf_to_transform in crystal_area)
-		if(istype(turf_to_transform, /turf/closed) && !(GLOB.anchoring_crystals.len >= 2)) //dont transform walls if its our first crystal, so we can hopefully maintain some stealth
-			continue
 		if(!clock_theme.can_convert(turf_to_transform))
 			continue
 		addtimer(CALLBACK(src, PROC_REF(do_turf_conversion), turf_to_transform), 3 * timer_counter)
