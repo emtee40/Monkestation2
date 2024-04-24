@@ -300,6 +300,8 @@
 			qdel(src)
 
 /datum/nanite_program/proc/receive_signal(code, source)
+	if (!code) // makes code 0 invalid
+		return
 	if(activation_code && code == activation_code && !activated)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code].", INVESTIGATE_NANITES)
