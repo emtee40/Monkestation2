@@ -218,4 +218,4 @@
 	return rule
 
 /datum/nanite_rule/species/display()
-	return when_is_species ? species_name : "Not [species_name]"
+	return "Species [when_is_species ? "Is" : "Isn't"] [species_name]"
