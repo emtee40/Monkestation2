@@ -478,16 +478,30 @@
 	program_type = /datum/nanite_program/sensor/damage
 	category = list("Sensor Nanites")
 
+/datum/design/nanites/sensor_blood
+	name = "Blood Sensor"
+	desc = "The nanites receive a signal when the host's blood volume is above/below a target percentage."
+	id = "sensor_blood_nanites"
+	program_type = /datum/nanite_program/sensor/blood
+	category = list("Sensor Nanites")
+
+/datum/design/nanites/sensor_nutrition
+	name = "Nutrition Sensor"
+	desc = "The nanites receive a signal when the host's nutrition level is above/below a target percentage."
+	id = "sensor_nutrition_nanites"
+	program_type = /datum/nanite_program/sensor/nutrition
+	category = list("Sensor Nanites")
+
 /datum/design/nanites/sensor_crit
 	name = "Critical Health Sensor"
-	desc = "The nanites receive a signal when the host first reaches critical health."
+	desc = "The nanites receive a signal when the host enters/leaves critical condition."
 	id = "sensor_crit_nanites"
 	program_type = /datum/nanite_program/sensor/crit
 	category = list("Sensor Nanites")
 
 /datum/design/nanites/sensor_death
 	name = "Death Sensor"
-	desc = "The nanites receive a signal when they detect the host is dead."
+	desc = "The nanites receive a signal when the host dies/revives."
 	id = "sensor_death_nanites"
 	program_type = /datum/nanite_program/sensor/death
 	category = list("Sensor Nanites")
@@ -508,7 +522,7 @@
 
 /datum/design/nanites/sensor_species
 	name = "Species Sensor"
-	desc = "When triggered, the nanites scan the host to determine their species and output a signal depending on the conditions set in the settings."
+	desc = "The nanites receive a singal when they detect that the host is/isn't the target species."
 	id = "sensor_species_nanites"
 	program_type = /datum/nanite_program/sensor/species
 	category = list("Sensor Nanites")
