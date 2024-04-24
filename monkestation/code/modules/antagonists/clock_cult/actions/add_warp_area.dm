@@ -35,7 +35,7 @@
 	if(!input_area)
 		return
 
-	var/cost = max(length(GLOB.clock_warp_areas) - STARTING_WARP_AREAS, 0)
+	var/cost = max((length(GLOB.clock_warp_areas) * 3) - STARTING_WARP_AREAS, 0)
 	if(tgui_alert(owner, "Are you sure you want to add [input_area]? It will cost [cost] vitality.", "Add Area", list("Yes", "No")) == "Yes")
 		if(GLOB.clock_vitality < cost)
 			to_chat(span_brass("Not enough vitality."))
