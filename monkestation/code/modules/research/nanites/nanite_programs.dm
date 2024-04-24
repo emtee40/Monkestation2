@@ -268,7 +268,10 @@
 			host_mob.investigate_log("[src] nanite program received a software error due to minor shock.", INVESTIGATE_NANITES)
 			software_error()
 
-/datum/nanite_program/proc/on_death()
+/datum/nanite_program/proc/on_death(gibbed)
+	return
+
+/datum/nanite_program/proc/on_revive(full_heal, admin_revive)
 	return
 
 /datum/nanite_program/proc/software_error(type)

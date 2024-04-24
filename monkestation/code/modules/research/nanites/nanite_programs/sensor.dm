@@ -122,8 +122,22 @@
 	desc = "The nanites receive a signal when the host dies/revives."
 	can_rule = TRUE
 
-/datum/nanite_program/sensor/death/on_death()
-	send_code()
+/datum/nanite_program/sensor/death/register_extra_settings()
+	. = ..()
+
+	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Death", "Revival")
+
+/datum/nanite_program/sensor/death/on_death(gibbed)
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+
+	if (mode.get_value())
+		send_code()
+
+/datum/nanite_program/sensor/death/on_revive(full_heal, admin_revive)
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+
+	if (!mode.get_value())
+		send_code()
 
 /datum/nanite_program/sensor/death/make_rule(datum/nanite_program/target)
 	var/datum/nanite_rule/death/rule = new(target)
