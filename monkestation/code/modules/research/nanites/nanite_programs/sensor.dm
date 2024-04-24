@@ -214,7 +214,13 @@
 
 /datum/nanite_program/sensor/damage/register_extra_settings()
 	. = ..()
-	extra_settings[NES_DAMAGE_TYPE] = new /datum/nanite_extra_setting/type(BRUTE, list(BRUTE, BURN, TOX, OXY, CLONE))
+
+	var/list/damage_list = list()
+
+	for (var/damage_type in list(BRUTE, BURN, TOX, OXY, CLONE, BRAIN))
+		damage_list += capitalize(damage_type)
+
+	extra_settings[NES_DAMAGE_TYPE] = new /datum/nanite_extra_setting/type(damage_list[1], damage_list)
 	extra_settings[NES_DAMAGE] = new /datum/nanite_extra_setting/number(50, 0, 500)
 	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
 
@@ -225,7 +231,7 @@
 	var/check_above = direction.get_value()
 	var/damage_amt = 0
 
-	switch(type.get_value())
+	switch(lowertext(type.get_value()))
 		if(BRUTE)
 			damage_amt = host_mob.getBruteLoss()
 		if(BURN)
@@ -236,6 +242,8 @@
 			damage_amt = host_mob.getOxyLoss()
 		if(CLONE)
 			damage_amt = host_mob.getCloneLoss()
+		if(BRAIN)
+			damage_amt = host_mob.get_organ_loss(ORGAN_SLOT_BRAIN)
 
 	return check_above == damage_amt >= damage.get_value()
 
