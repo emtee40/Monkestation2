@@ -104,6 +104,33 @@
 	icon_state = "guardman_vest"
 
 
+//START of blood cult screams/laughs
+/obj/item/clothing/suit/hooded/cultrobes
+	alternative_screams = list(	'monkestation/sound/voice/bloodcultist/bloodcult_scream_1.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_scream_2.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_scream_3.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_scream_4.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_scream_5.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_scream_6.WAV')
+	alternative_laughs = list(	'monkestation/sound/voice/bloodcultist/bloodcult_laugh_1.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_2.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_3.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_4.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_5.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_6.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_7.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_8.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_9.WAV',
+								'monkestation/sound/voice/bloodcultist/bloodcult_laugh_10.WAV')
+//heretics should not get cool screams from blood
+/obj/item/clothing/suit/hooded/cultrobes/void
+	alternative_screams = list()
+	alternative_laughs = list()
+/obj/item/clothing/suit/hooded/cultrobes/eldritch
+	alternative_screams = list()
+	alternative_laughs = list()
+//END of blood cult screams/laughs
+
 //Only basic and scientist labcoats get to STAPH
 
 /obj/item/clothing/suit/toggle/labcoat/cmo
