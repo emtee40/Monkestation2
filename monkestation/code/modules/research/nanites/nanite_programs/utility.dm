@@ -121,6 +121,22 @@
 	SSresearch.science_tech.nanite_bonus -= research_speed
 	host_mob.remove_body_temperature_change(NANITE_RESEARCH_CHANGE)
 
+/datum/nanite_program/research/set_extra_setting(setting, value)
+	. = ..()
+
+	if (setting != NES_MODE)
+		return
+
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+	switch (mode.get_value())
+		if (NANITE_RESEARCH_SLOW)
+			research_speed = 1
+		if (NANITE_RESEARCH_FAST)
+			research_speed = 2
+		if (NANITE_RESEARCH_SUPERFAST)
+			research_speed = 10 // oh god
+	use_rate = initial(use_rate) * research_speed
+
 #undef NANITE_RESEARCH_CHANGE
 #undef NANITE_RESEARCH_SLOW
 #undef NANITE_RESEARCH_FAST
