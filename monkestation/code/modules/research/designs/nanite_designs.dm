@@ -33,6 +33,13 @@
 	program_type = /datum/nanite_program/monitoring
 	category = list("Utility Nanites")
 
+/datum/design/nanites/research
+	name = "Research Network Integration"
+	desc = "The nanites form a data processing unit that actively contributes processing power to the main research network. Higher usage rates may cause unwanted thermal effects."
+	id = "research_nanites"
+	program_type = /datum/nanite_program/research
+	category = list("Utility Nanites")
+
 /datum/design/nanites/self_scan
 	name = "Host Scan"
 	desc = "The nanites display a detailed readout of a body scan to the host."

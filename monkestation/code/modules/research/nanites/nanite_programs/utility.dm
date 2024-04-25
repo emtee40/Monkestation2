@@ -46,6 +46,62 @@
 
 	host_mob.hud_set_nanite_indicator()
 
+#define NANITE_RESEARCH_CHANGE "nanite_research_change"
+
+/datum/nanite_program/research
+	name = "Research Network Integration"
+	desc = "The nanites form a data processing unit that actively contributes processing power to the main research network. Higher usage rates may cause unwanted thermal effects and increase nanite consumption."
+	rogue_types = list(/datum/nanite_program/spreading, /datum/nanite_program/mitosis) // it researches itself into oblivion
+	use_rate = 0.5
+
+	var/research_speed = 0
+
+/datum/nanite_program/research/register_extra_settings()
+	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type("Slow", list("Slow (1x)", "Fast (2x)", "Bitcoin Miner (10x)"))
+
+/datum/nanite_program/research/enable_passive_effect()
+	. = ..()
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+
+	var/message
+
+	switch (mode.get_value())
+		if ("Slow")
+			message = span_notice("You feel slightly warmer than usual.")
+			research_speed = 0.5
+		if ("Fast")
+			message = span_warning("You feel a lot warmer than usual.")
+			research_speed = 1
+		if ("Bitcoin Miner")
+			message = span_userdanger("You feel your insides radiate with dizzying heat!")
+			research_speed = 5 // oh god
+
+	SSresearch.science_tech.nanite_bonus += research_speed
+	host_mob.add_body_temperature_change(NANITE_RESEARCH_CHANGE, research_speed * 30)
+	use_rate = research_speed
+
+	to_chat(host_mob, message)
+
+/datum/nanite_program/research/disable_passive_effect()
+	. = ..()
+	SSresearch.science_tech.nanite_bonus -= research_speed
+	host_mob.remove_body_temperature_change(NANITE_RESEARCH_CHANGE)
+
+/datum/nanite_program/research/copy_extra_settings_to(datum/nanite_program/target) // makes cloud sync and such update mode
+	if (!target.passive_enabled)
+		return ..()
+
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+	var/datum/nanite_extra_setting/target_mode = target.extra_settings[NES_MODE]
+
+	if (mode.get_value() != target_mode.get_value())
+		. = ..()
+		target.disable_passive_effect() // quick toggle
+		target.enable_passive_effect()
+		return
+
+	return ..()
+
 /datum/nanite_program/self_scan
 	name = "Host Scan"
 	desc = "The nanites display a detailed readout of a body scan to the host."
