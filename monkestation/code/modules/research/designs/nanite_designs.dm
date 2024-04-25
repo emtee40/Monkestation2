@@ -80,14 +80,14 @@
 	name = "Signal Repeater"
 	desc = "When triggered, sends another signal to the nanites, optionally with a delay."
 	id = "repeater_nanites"
-	program_type = /datum/nanite_program/sensor/repeat
+	program_type = /datum/nanite_program/repeat
 	category = list("Utility Nanites")
 
 /datum/design/nanites/relay_repeater
 	name = "Relay Signal Repeater"
 	desc = "When triggered, sends another signal to a relay channel, optionally with a delay."
 	id = "relay_repeater_nanites"
-	program_type = /datum/nanite_program/sensor/relay_repeat
+	program_type = /datum/nanite_program/relay_repeat
 	category = list("Utility Nanites")
 
 /datum/design/nanites/emp

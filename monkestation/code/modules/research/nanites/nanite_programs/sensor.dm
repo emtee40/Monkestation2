@@ -22,25 +22,6 @@
 /datum/nanite_program/sensor/proc/check_event()
 	return FALSE
 
-/datum/nanite_program/sensor/proc/send_code_any(setting)
-	if (!activated)
-		return
-
-	var/datum/nanite_extra_setting/code_setting = extra_settings[setting]
-	SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, code_setting.get_value(), "a [name] program")
-
-/datum/nanite_program/sensor/proc/send_code()
-	send_code_any(NES_SENT_CODE)
-
-/datum/nanite_program/sensor/proc/send_code_inverted()
-	send_code_any(NES_SENT_CODE_INVERTED)
-
-/datum/nanite_program/sensor/proc/send_trigger_code()
-	send_code_any(NES_SENT_CODE_TRIGGER)
-
-/datum/nanite_program/sensor/proc/send_trigger_code_inverted()
-	send_code_any(NES_SENT_CODE_TRIGGER_INVERTED)
-
 /datum/nanite_program/sensor/active_effect()
 	var/event_result = check_event()
 
@@ -76,47 +57,6 @@
 		return FALSE
 	spent_inverted = FALSE
 	return FALSE
-
-/datum/nanite_program/sensor/repeat
-	name = "Signal Repeater"
-	desc = "When triggered, sends another signal to the nanites, optionally with a delay."
-	can_trigger = TRUE
-	trigger_cost = 0
-	trigger_cooldown = 10
-	spendable = FALSE
-
-/datum/nanite_program/sensor/repeat/register_extra_settings()
-	. = ..()
-	extra_settings[NES_DELAY] = new /datum/nanite_extra_setting/number(0, 0, 3600, "s")
-
-/datum/nanite_program/sensor/repeat/on_trigger(comm_message)
-	var/datum/nanite_extra_setting/ES = extra_settings[NES_DELAY]
-	addtimer(CALLBACK(src, PROC_REF(send_code)), ES.get_value() * 10)
-
-/datum/nanite_program/sensor/relay_repeat
-	name = "Relay Signal Repeater"
-	desc = "When triggered, sends another signal to a relay channel, optionally with a delay."
-	can_trigger = TRUE
-	trigger_cost = 0
-	trigger_cooldown = 10
-	spendable = FALSE
-
-/datum/nanite_program/sensor/relay_repeat/register_extra_settings()
-	. = ..()
-	extra_settings[NES_RELAY_CHANNEL] = new /datum/nanite_extra_setting/number(1, 1, 9999)
-	extra_settings[NES_DELAY] = new /datum/nanite_extra_setting/number(0, 0, 3600, "s")
-
-/datum/nanite_program/sensor/relay_repeat/on_trigger(comm_message)
-	var/datum/nanite_extra_setting/ES = extra_settings[NES_DELAY]
-	addtimer(CALLBACK(src, PROC_REF(send_code)), ES.get_value() * 10)
-
-/datum/nanite_program/sensor/relay_repeat/send_code()
-	var/datum/nanite_extra_setting/relay = extra_settings[NES_RELAY_CHANNEL]
-	if(activated && relay.get_value())
-		for(var/X in SSnanites.nanite_relays)
-			var/datum/nanite_program/relay/N = X
-			var/datum/nanite_extra_setting/code = extra_settings[NES_SENT_CODE]
-			N.relay_signal(code.get_value(), relay.get_value(), "a [name] program")
 
 /datum/nanite_program/sensor/health
 	name = "Health Sensor"
