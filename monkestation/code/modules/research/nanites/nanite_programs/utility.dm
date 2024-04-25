@@ -47,6 +47,9 @@
 	host_mob.hud_set_nanite_indicator()
 
 #define NANITE_RESEARCH_CHANGE "nanite_research_change"
+#define NANITE_RESEARCH_SLOW "Slow (1x)"
+#define NANITE_RESEARCH_FAST "Fast (2x)"
+#define NANITE_RESEARCH_SUPERFAST "Bitcoin Miner (10x)"
 
 /datum/nanite_program/research
 	name = "Research Network Integration"
@@ -54,56 +57,74 @@
 	rogue_types = list(/datum/nanite_program/spreading, /datum/nanite_program/mitosis) // it researches itself into oblivion
 	use_rate = 0.5
 
-	var/research_speed = 0
+	var/research_speed
+	var/current_mode
+	var/next_warning_time
 
 /datum/nanite_program/research/register_extra_settings()
-	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type("Slow", list("Slow (1x)", "Fast (2x)", "Bitcoin Miner (10x)"))
+	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type(NANITE_RESEARCH_SLOW, list(NANITE_RESEARCH_SLOW, NANITE_RESEARCH_FAST, NANITE_RESEARCH_SUPERFAST))
 
 /datum/nanite_program/research/check_conditions()
 	return host_mob.stat != DEAD && ..()
 
-/datum/nanite_program/research/enable_passive_effect()
+/datum/nanite_program/research/active_effect() // yep it's basically a space heater
 	. = ..()
 	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
 
+	if (current_mode != mode.get_value() && passive_enabled)
+		disable_passive_effect() // toggles it so that it updates
+		enable_passive_effect()
+
+	var/turf/turf = get_turf(host_mob)
+	if (!istype(turf))
+		return
+
+	var/datum/gas_mixture/enviroment = turf.return_air()
+	if (host_mob.bodytemperature < enviroment.temperature) // sadly our bitcoin mining operations just aren't cool enough
+		return
+
+	var/difference = host_mob.bodytemperature - enviroment.temperature
+	var/heat_capacity = enviroment.heat_capacity()
+	var/required_energy = difference * heat_capacity
+	var/delta_temperature = min(required_energy, research_speed * 500) / heat_capacity
+
+	enviroment.temperature += delta_temperature
+	turf.air_update_turf()
+
+/datum/nanite_program/research/enable_passive_effect()
+	. = ..()
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+	current_mode = mode.get_value()
+
 	var/message
-
-	switch (mode.get_value())
-		if ("Slow")
+	switch (current_mode)
+		if (NANITE_RESEARCH_SLOW)
 			message = span_notice("You feel slightly warmer than usual.")
-			research_speed = 0.5
-		if ("Fast")
-			message = span_warning("You feel a lot warmer than usual.")
 			research_speed = 1
-		if ("Bitcoin Miner")
+		if (NANITE_RESEARCH_FAST)
+			message = span_warning("You feel a lot warmer than usual.")
+			research_speed = 2
+		if (NANITE_RESEARCH_SUPERFAST)
 			message = span_userdanger("You feel your insides radiate with dizzying heat!")
-			research_speed = 5 // oh god
+			research_speed = 10 // oh god
 
-	SSresearch.science_tech.nanite_bonus += research_speed
-	host_mob.add_body_temperature_change(NANITE_RESEARCH_CHANGE, research_speed * 30)
-	use_rate = research_speed
+	host_mob.add_body_temperature_change(NANITE_RESEARCH_CHANGE, research_speed * 15)
+	use_rate = initial(use_rate) * research_speed
+	SSresearch.science_tech.nanite_bonus += use_rate
 
-	to_chat(host_mob, message)
+	if (world.time < next_warning_time)
+		to_chat(host_mob, message)
+		next_warning_time = world.time + 10 SECONDS
 
 /datum/nanite_program/research/disable_passive_effect()
 	. = ..()
 	SSresearch.science_tech.nanite_bonus -= research_speed
 	host_mob.remove_body_temperature_change(NANITE_RESEARCH_CHANGE)
 
-/datum/nanite_program/research/copy_extra_settings_to(datum/nanite_program/target) // makes cloud sync and such update mode
-	if (!target.passive_enabled)
-		return ..()
-
-	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
-	var/datum/nanite_extra_setting/target_mode = target.extra_settings[NES_MODE]
-
-	if (mode.get_value() != target_mode.get_value())
-		. = ..()
-		target.disable_passive_effect() // quick toggle
-		target.enable_passive_effect()
-		return
-
-	return ..()
+#undef NANITE_RESEARCH_CHANGE
+#undef NANITE_RESEARCH_SLOW
+#undef NANITE_RESEARCH_FAST
+#undef NANITE_RESEARCH_SUPERFAST
 
 /datum/nanite_program/self_scan
 	name = "Host Scan"
