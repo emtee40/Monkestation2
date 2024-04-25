@@ -43,8 +43,103 @@
 
 /* --------------------------------------- */
 // VVVV THIS CODE IS FUCKING ASS BUT MODULAR. VVVV
+// REMEMBER THIS IS THE LESSER OF TWO EVILS. IT WAS THIS OR DOING A NOVA SECTOR AND REPLACING THE BASE PROCS
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
+/mob/living/carbon/human/update_worn_back(update_obscured = TRUE) //We're going to the fucking asylum with this one boys. This is how you should handle all future update_ if you wish to add more than custom backpack positions.
+	. = ..()
+	var/obj/item/worn_item = back
+	var/mutable_appearance/back_overlay
+	update_hud_back(worn_item)
+	var/icon_file = 'icons/mob/clothing/back.dmi'
+
+	var/mutant_override = FALSE
+	if(dna.species.bodytype & BODYTYPE_CUSTOM)
+		var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_MISC, back)
+		if(species_icon_file)
+			icon_file = species_icon_file
+			mutant_override = TRUE
+
+	back_overlay = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = icon_file , override_file = mutant_override ? icon_file : null)
+	var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
+	my_chest?.worn_back_offset?.apply_offset(back_overlay)
+
+	if(!back_overlay)
+		return
+	if(!mutant_override &&(OFFSET_BACK in dna.species.offset_features))
+		back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK][1]
+		back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK][2]
+	overlays_standing[BACK_LAYER] = back_overlay
+	apply_overlay(BACK_LAYER)
+
+/mob/living/carbon/human/update_worn_head(update_obscured = TRUE)
+	. = ..()
+	if(src.dna.species.uses_offsets == FALSE)
+		return
+	remove_overlay(HEAD_LAYER)
+	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
+		inv.update_icon()
+
+	if(head)
+		var/obj/item/worn_item = head
+		update_hud_head(worn_item)
+
+		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_HEAD)
+			return
+
+		var/icon_file = 'icons/mob/clothing/head/default.dmi' // billions must ignore checks
+
+		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = icon_file)
+		var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+		my_head?.worn_head_offset?.apply_offset(head_overlay)
+		if((OFFSET_HEAD in dna.species.offset_features))
+			head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD][1]
+			head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD][2]
+		overlays_standing[HEAD_LAYER] = head_overlay
+
+	update_mutant_bodyparts()
+	apply_overlay(HEAD_LAYER) // you should overwrite, NOW
+
+
+/mob/living/carbon/human/update_worn_belt(update_obscured = TRUE)
+	. = ..() //This technically doubles processing needed for nabbers but honestly I do not know how to do this any better.
+	if(src.dna.species.uses_offsets == FALSE) //make sure there's no chance of a runtime on species this shouldn't be running on.
+		return
+	remove_overlay(BELT_LAYER)
+
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
+		inv.update_icon()
+
+	if(belt)
+		var/obj/item/worn_item = belt
+		update_hud_belt(worn_item)
+
+		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_BELT)
+			return
+
+		var/icon_file = 'icons/mob/clothing/belt.dmi'
+
+		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_CUSTOM)
+			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_BELT, belt)
+			if(species_icon_file)
+				icon_file = species_icon_file
+				mutant_override = TRUE
+
+		var/mutable_appearance/belt_overlay = belt.build_worn_icon(default_layer = BELT_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null)
+		var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
+		my_chest?.worn_belt_offset?.apply_offset(belt_overlay)
+		if(!mutant_override &&(OFFSET_BELT in dna.species.offset_features))
+			belt_overlay.pixel_x += dna.species.offset_features[OFFSET_BELT][1]
+			belt_overlay.pixel_y += dna.species.offset_features[OFFSET_BELT][2]
+		overlays_standing[BELT_LAYER] = belt_overlay
+
+	apply_overlay(BELT_LAYER)
+
+
+/*
 /mob/living/carbon/human/update_worn_id(update_obscured = TRUE)
 	. = ..()
 	if(src.dna.species.uses_offsets == FALSE)
@@ -77,26 +172,4 @@
 	var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
 	my_chest?.worn_belt_offset?.apply_offset(neck_overlay)
 
-/mob/living/carbon/human/update_worn_head(update_obscured = TRUE)
-	. = ..()
-	if(src.dna.species.uses_offsets == FALSE)
-		return
-	var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = HEAD_LAYER)
-	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
-	my_head?.worn_head_offset?.apply_offset(head_overlay)
-
-/mob/living/carbon/human/update_worn_belt(update_obscured = TRUE)
-	. = ..()
-	if(src.dna.species.uses_offsets == FALSE)
-		return
-	var/mutable_appearance/belt_overlay = belt.build_worn_icon(default_layer = BELT_LAYER)
-	var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
-	my_chest?.worn_belt_offset?.apply_offset(belt_overlay)
-
-/mob/living/carbon/human/update_worn_back(update_obscured = TRUE)
-	. = ..()
-	if(src.dna.species.uses_offsets == FALSE)
-		return
-	var/mutable_appearance/back_overlay = back.build_worn_icon(default_layer = BACK_LAYER)
-	var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
-	my_chest?.worn_back_offset?.apply_offset(back_overlay)
+*/

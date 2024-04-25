@@ -14,7 +14,18 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE //Flavor
 	)
-	species_traits = NO_UNDERWEAR | NO_DNA_COPY | NOZOMBIE | MUTCOLORS //Cannot be cloned, DNA scanned, or zombified due to the difference in biology
+	visual_gender = FALSE
+	species_traits = list(
+		MUTCOLORS,
+		MUTCOLORS_SECONDARY,
+		EYECOLOR,
+		NO_UNDERWEAR,
+		NOZOMBIE, //Breaks things majorly if they get zombified
+		NO_DNA_COPY //Cannot be cloned, body too big.
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_TAILED_DEFENDER,
+	)
 	digitigrade_customization = DIGITIGRADE_NEVER
 	no_equip_flags = ITEM_SLOT_FEET | ITEM_SLOT_OCLOTHING | ITEM_SLOT_SUITSTORE | ITEM_SLOT_EYES
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
@@ -82,6 +93,12 @@
 	nabber.dna.features["mcolor3"] = nabber_color
 	regenerate_organs(nabber, src, visual_only = TRUE)
 	nabber.update_body(TRUE)
+
+/datum/species/nabber/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
+	if(job?.plasmaman_outfit)
+		equipping.equipOutfit(job.plasmaman_outfit, visuals_only)
+	else
+		give_important_for_life(equipping)
 
 /datum/species/nabber/create_pref_unique_perks()
 	var/list/perk_descriptions = list()
