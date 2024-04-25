@@ -12,7 +12,8 @@
 	cargo_cost_multiplier = 0.65
 	express_cost_multiplier = 1
 	purchase_tooltip = @{"Your purchases will arrive at cargo,
-	and hopefully gets delivered to you by the security."}
+	and hopefully gets delivered to you by the security.
+	35% cheaper than express delivery."}
 	express_tooltip = @{"Sends your purchases instantly."}
 	credit_type = CREDIT_TYPE_BITRUNNING
 
@@ -56,8 +57,8 @@
 		cost_type = credit_type,
 		can_be_cancelled = FALSE,
 	)
-	say("Thank you for your purchase! It will arrive on the next cargo shuttle!")
-	radio.talk_into(src, "A prisoner has ordered equipment which will arrive on the cargo shuttle! Please make sure it gets to them as soon as possible!", radio_channel)
+	say("Thank you for your purchase! It will arrive on the next cargo shuttle! ")
+	radio.talk_into(src, "A prisoner has ordered equipment which will arrive on the cargo shuttle! Please make sure it gets to them as soon as possible!", radio_channel) //MONKESTATION EDIT
 	SSshuttle.shopping_list += new_order
 
 /obj/machinery/computer/order_console/bitrunning/retrive_points(obj/item/card/id/id_card)
@@ -72,6 +73,7 @@
 	icon_state = "[initial(icon_state)][powered() ? null : "_off"]"
 	return ..()
 
+//MONKESTATION EDIT START
 /datum/supply_pack/bitrunning
 	name = "prisoner bitrunning order"
 	hidden = TRUE
@@ -84,4 +86,5 @@
 	src.cost = cost
 	src.contains = contains
 
+//MONKESTATION EDIT END
 #undef CREDIT_TYPE_BITRUNNING
