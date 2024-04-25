@@ -48,29 +48,38 @@
 
 /mob/living/carbon/human/update_worn_back(update_obscured = TRUE) //We're going to the fucking asylum with this one boys. This is how you should handle all future update_ if you wish to add more than custom backpack positions.
 	. = ..()
-	var/obj/item/worn_item = back
-	var/mutable_appearance/back_overlay
-	update_hud_back(worn_item)
-	var/icon_file = 'icons/mob/clothing/back.dmi'
-
-	var/mutant_override = FALSE
-	if(dna.species.bodytype & BODYTYPE_CUSTOM)
-		var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_MISC, back)
-		if(species_icon_file)
-			icon_file = species_icon_file
-			mutant_override = TRUE
-
-	back_overlay = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = icon_file , override_file = mutant_override ? icon_file : null)
-	var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
-	my_chest?.worn_back_offset?.apply_offset(back_overlay)
-
-	if(!back_overlay)
+	if(src.dna.species.uses_offsets == FALSE)
 		return
-	if(!mutant_override &&(OFFSET_BACK in dna.species.offset_features))
-		back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK][1]
-		back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK][2]
-	overlays_standing[BACK_LAYER] = back_overlay
+	remove_overlay(BACK_LAYER)
+
+	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
+		inv.update_icon()
+
+	if(back)
+		var/obj/item/worn_item = back
+		var/mutable_appearance/back_overlay
+		update_hud_back(worn_item)
+		var/icon_file = 'icons/mob/clothing/back.dmi'
+
+		var/mutant_override = FALSE
+		if(dna.species.bodytype & BODYTYPE_CUSTOM)
+			var/species_icon_file = dna.species.generate_custom_worn_icon(LOADOUT_ITEM_MISC, back)
+			if(species_icon_file)
+				icon_file = species_icon_file
+				mutant_override = TRUE
+
+		back_overlay = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = icon_file , override_file = mutant_override ? icon_file : null)
+		var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
+		my_chest?.worn_back_offset?.apply_offset(back_overlay) // BILLIONS MUST ..()
+		if(!back_overlay)
+			return
+		if(!mutant_override &&(OFFSET_BACK in dna.species.offset_features))
+			back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK][1]
+			back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK][2]
+		overlays_standing[BACK_LAYER] = back_overlay
 	apply_overlay(BACK_LAYER)
+
 
 /mob/living/carbon/human/update_worn_head(update_obscured = TRUE)
 	. = ..()
@@ -137,6 +146,39 @@
 		overlays_standing[BELT_LAYER] = belt_overlay
 
 	apply_overlay(BELT_LAYER)
+
+/mob/living/carbon/human/update_worn_mask()
+	. = ..() //This technically doubles processing needed for nabbers but honestly I do not know how to do this any better.
+	if(src.dna.species.uses_offsets == FALSE) //make sure there's no chance of a runtime on species this shouldn't be running on.
+		return
+	remove_overlay(FACEMASK_LAYER)
+
+	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
+		return
+
+	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
+		inv.update_icon()
+
+	if(wear_mask)
+		var/obj/item/worn_item = wear_mask
+		update_hud_wear_mask(worn_item)
+
+		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_MASK)
+			return
+
+		var/icon_file = 'icons/mob/clothing/mask.dmi'
+
+		var/mutable_appearance/mask_overlay = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = icon_file)
+		var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+		my_head?.worn_mask_offset?.apply_offset(mask_overlay)
+		if((OFFSET_FACEMASK in dna.species.offset_features))
+			mask_overlay.pixel_x += dna.species.offset_features[OFFSET_FACEMASK][1]
+			mask_overlay.pixel_y += dna.species.offset_features[OFFSET_FACEMASK][2]
+		overlays_standing[FACEMASK_LAYER] = mask_overlay
+
+	apply_overlay(FACEMASK_LAYER)
+	update_mutant_bodyparts() //e.g. upgate needed because mask now hides lizard snout
 
 
 /*

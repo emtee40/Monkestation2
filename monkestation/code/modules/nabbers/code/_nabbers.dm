@@ -1,5 +1,24 @@
 #define NABBER_DAMAGE_ONBURNING 5
+//handles gear harnesses, GAS unique, but can be worn by any species.
+/obj/item/clothing/under/gearharness
+	name = "gear harness"
+	desc = "A thin, rough-and tough gear harness. For those with scales and chitin."
+	icon_state = "uniform"
+	icon = 'monkestation/code/modules/nabbers/icons/mob/clothing/uniform.dmi'
+	inhand_icon_state = "uniform"
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
+	can_adjust = FALSE
+	flags_1 = NONE
 
+//Handles outfit define
+/datum/outfit/nabber
+	name = "Nabber Default"
+	uniform = /obj/item/clothing/under/gearharness //rest should fail to equip naturally
+
+//Handles species
 /datum/species/nabber
 	name = "Giant Armored Serpentid"
 	id = SPECIES_NABBER
@@ -7,11 +26,10 @@
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CHUNKYFINGERS, //We absolutely don't want them using batons, guns, or computers here.
-		TRAIT_PUSHIMMUNE,
+		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
 		TRAIT_LIGHT_STEP,	//Can't wear shoes
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE //Flavor
 	)
 	visual_gender = FALSE
@@ -72,6 +90,12 @@
 	//threat_mod = new(C)
 	//threat_mod.Grant(C)
 
+/datum/species/nabber/get_species_description()
+	return "Large and in-charge, these large mantid-insect-snake hybrids stand at a massive height, easily towering over all but the tallest of Saurian races, and equipped with two deadly blade-arms and the ability to lift massive weights, these insectoids are valuable workers to Nanotrasen; if also appended with 'TERMINATE ON VIOLENT ACTION' tags."
+
+/datum/species/nabber/get_species_lore()
+	return "Giant Armoured Serpentids are a large, seemingly hybrid race that originated from a Radioactive Hellworld. Prior to colonisation by NanoTrasen, the world was of little interest; and the otherwise barely-sapient insects would have been left alone. However, since colonisation, Nanotrasen has realised the value in these strong-bodied, weak-minded workers - putting them to all manners of labor; fitting them with basic translators that leave their voices strange and tinny, and their speech trailing on and on."
+
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	arms.Destroy()
@@ -95,10 +119,7 @@
 	nabber.update_body(TRUE)
 
 /datum/species/nabber/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
-	if(job?.plasmaman_outfit)
-		equipping.equipOutfit(job.plasmaman_outfit, visuals_only)
-	else
-		give_important_for_life(equipping)
+	equipping.equipOutfit(/datum/outfit/nabber, visuals_only)
 
 /datum/species/nabber/create_pref_unique_perks()
 	var/list/perk_descriptions = list()
@@ -152,7 +173,7 @@
 		return random_unique_name(gender)
 
 	var/random_name
-	random_name += (pick("Alpha","Delta","Dzetta","Phi","Epsilon","Gamma","Tau","Omega") + " [rand(1, 199)]")
+	random_name += (pick("Alpha","Delta","Dzetta","Phi","Epsilon","Gamma","Tau","Omega") + " [rand(1, 199)]") //Stolen from elsewhere.
 	return random_name
 
 /datum/species/nabber/randomize_features(mob/living/carbon/human_mob) //NEVER randomise features. This causes runtimes.
