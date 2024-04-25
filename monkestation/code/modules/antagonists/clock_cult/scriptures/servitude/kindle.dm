@@ -89,8 +89,8 @@
 
 		carbon_hit.adjust_silence(EFFECT_TIME * 2) //enough time to cuff and remove their radio, or just go back to reebe where their comms wont work
 		carbon_hit.AdjustKnockdown(EFFECT_TIME * (has_mindshield ? 1 : 1.5))
-		//pretty much 0 stun if your on reebe, still good for knockdown though, also half effect on mindshielded people
-		carbon_hit.Stun(EFFECT_TIME * (has_mindshield ? 0.5 : 1) * ((on_reebe(carbon_hit) && GLOB.clock_ark?.current_state) ? 0.1 : 1))
+		//pretty much 0 stun if your on reebe, still good for knockdown though, also only a 1 second stun on mindshielded people
+		carbon_hit.Stun((has_mindshield ? 1 SECONDS : EFFECT_TIME) * ((on_reebe(carbon_hit) && GLOB.clock_ark?.current_state) ? 0.1 : 1))
 
 	if(hit_mob.client)
 		var/client_color = hit_mob.client.color
