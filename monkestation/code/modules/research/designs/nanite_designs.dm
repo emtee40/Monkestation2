@@ -35,7 +35,7 @@
 
 /datum/design/nanites/research
 	name = "Research Network Integration"
-	desc = "The nanites form a data processing unit that actively contributes processing power to the main research network. Higher usage rates may cause unwanted thermal effects."
+	desc = "The nanites contribute processing power to the research network, generating useful data and heat while consuming nanites. Requires a live host."
 	id = "research_nanites"
 	program_type = /datum/nanite_program/research
 	category = list("Utility Nanites")
