@@ -56,24 +56,24 @@
 /datum/greyscale_config/nabber
 	name = "Nabber clothing"
 	icon_file = 'monkestation/code/modules/nabbers/icons/nabber_fallbacks.dmi'
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/uniform.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/uniform.json'
 
 /datum/greyscale_config/nabber/cloak
 	name = "Nabber Poncho"
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/neck.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/neck.json'
 
 /datum/greyscale_config/nabber/tie
 	name = "Nabber Tie"
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/neck.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/neck.json'
 
 /datum/greyscale_config/nabber/scarf
 	name = "Nabber Scarf"
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/neck.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/neck.json'
 
 /datum/greyscale_config/nabber/gloves
 	name = "Nabber Gloves"
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/gloves.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/gloves.json'
 
 /datum/greyscale_config/nabber/belt
 	name = "Nabber Belt"
-	json_config = 'monkestation/code/modules/nabbers/code/GAGS/nabber_fallbacks/belt.json'
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/belt.json'

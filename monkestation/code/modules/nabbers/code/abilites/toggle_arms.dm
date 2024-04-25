@@ -1,5 +1,5 @@
 /obj/item/melee/nabber_blade
-	name = "Mantis arm"
+	name = "Hunting arm"
 	desc = "A grotesque, sharpened blade-limb. You feel as if you had to get this from a living creature to hold it. You monster."
 	icon = 'monkestation/code/modules/nabbers/icons/items.dmi'
 	icon_state = "mantis_arm_r"

@@ -42,7 +42,7 @@
 	remove_camouflage()
 
 /datum/action/cooldown/optical_camouflage/proc/enter_camouflage()
-	owner.visible_message(span_notice("[owner] starts shifting colors and becomes transparent."), span_notice("You blend it with your surroundings."), span_hear("You hear a low hiss."))
+	owner.visible_message(span_notice("[owner] starts hypnotically shifting colours, before eventually blending in with their surroundings"), span_notice("You blend in with your surroundings."), span_hear("You hear a low hiss as [owner] begins to shimmer."))
 
 	animate(owner, alpha = camouflage_alpha, time = cooldown_time)
 
@@ -52,7 +52,7 @@
 	active = TRUE
 
 /datum/action/cooldown/optical_camouflage/proc/remove_camouflage()
-	owner.visible_message(span_notice("[owner] stops blending in with surroundings."), span_notice("You become visible again."), span_hear("You hear a low hiss."))
+	owner.visible_message(span_notice("[owner] stops blending in with their surroundings."), span_notice("You become visible again."), span_hear("You hear a low hiss as [owner] shimmers into visibility."))
 	animate(owner, alpha = 255, time = 1.5 SECONDS)
 
 	UnregisterSignal(owner, list(COMSIG_HUMAN_EARLY_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_LIVING_MOB_BUMP, COMSIG_HUMAN_BURNING))
