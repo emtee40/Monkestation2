@@ -59,7 +59,7 @@
 
 	var/research_speed
 	var/current_mode
-	var/next_warning_time
+	var/next_warning_time = 0
 
 /datum/nanite_program/research/register_extra_settings()
 	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type(NANITE_RESEARCH_SLOW, list(NANITE_RESEARCH_SLOW, NANITE_RESEARCH_FAST, NANITE_RESEARCH_SUPERFAST))
@@ -100,19 +100,18 @@
 	switch (current_mode)
 		if (NANITE_RESEARCH_SLOW)
 			message = span_notice("You feel slightly warmer than usual.")
-			research_speed = 1
 		if (NANITE_RESEARCH_FAST)
 			message = span_warning("You feel a lot warmer than usual.")
-			research_speed = 2
 		if (NANITE_RESEARCH_SUPERFAST)
 			message = span_userdanger("You feel your insides radiate with dizzying heat!")
-			research_speed = 10 // oh god
+
+	update_research_speed()
 
 	host_mob.add_body_temperature_change(NANITE_RESEARCH_CHANGE, research_speed * 15)
 	use_rate = initial(use_rate) * research_speed
 	SSresearch.science_tech.nanite_bonus += use_rate
 
-	if (world.time < next_warning_time)
+	if (world.time > next_warning_time)
 		to_chat(host_mob, message)
 		next_warning_time = world.time + 10 SECONDS
 
@@ -123,10 +122,16 @@
 
 /datum/nanite_program/research/set_extra_setting(setting, value)
 	. = ..()
+	update_research_speed()
 
-	if (setting != NES_MODE)
+/datum/nanite_program/research/copy_programming(datum/nanite_program/target, copy_activated)
+	. = ..()
+	var/datum/nanite_program/research/research = target
+	if (!istype(research))
 		return
+	research.update_research_speed()
 
+/datum/nanite_program/research/proc/update_research_speed()
 	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
 	switch (mode.get_value())
 		if (NANITE_RESEARCH_SLOW)
