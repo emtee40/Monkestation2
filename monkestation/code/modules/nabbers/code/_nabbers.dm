@@ -1,23 +1,4 @@
 #define NABBER_DAMAGE_ONBURNING 5
-//handles gear harnesses, GAS unique, but can be worn by any species.
-/obj/item/clothing/under/gearharness
-	name = "gear harness"
-	desc = "A thin, rough-and tough gear harness. For those with scales and chitin."
-	icon_state = "uniform"
-	icon = 'monkestation/code/modules/nabbers/icons/mob/clothing/uniform.dmi'
-	inhand_icon_state = "uniform"
-	greyscale_config = null
-	greyscale_config_inhand_left = null
-	greyscale_config_inhand_right = null
-	greyscale_config_worn = null
-	can_adjust = FALSE
-	flags_1 = NONE
-
-//Handles outfit define
-/datum/outfit/nabber
-	name = "Nabber Default"
-	uniform = /obj/item/clothing/under/gearharness //rest should fail to equip naturally
-
 //Handles species
 /datum/species/nabber
 	name = "Giant Armored Serpentid"
@@ -53,6 +34,7 @@
 	payday_modifier = 0.50 //Lore accurate.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 10)
+	bodytype = BODYTYPE_CUSTOM
 	mutantbrain = /obj/item/organ/internal/brain/nabber
 	mutanteyes = /obj/item/organ/internal/eyes/robotic/nabber
 	mutantlungs = /obj/item/organ/internal/lungs/nabber
@@ -93,9 +75,6 @@
 /datum/species/nabber/get_species_description()
 	return "Large and in-charge, these large mantid-insect-snake hybrids stand at a massive height, easily towering over all but the tallest of Saurian races, and equipped with two deadly blade-arms and the ability to lift massive weights, these insectoids are valuable workers to Nanotrasen; if also appended with 'TERMINATE ON VIOLENT ACTION' tags."
 
-/datum/species/nabber/get_species_lore()
-	return "Giant Armoured Serpentids are a large, seemingly hybrid race that originated from a Radioactive Hellworld. Prior to colonisation by NanoTrasen, the world was of little interest; and the otherwise barely-sapient insects would have been left alone. However, since colonisation, Nanotrasen has realised the value in these strong-bodied, weak-minded workers - putting them to all manners of labor; fitting them with basic translators that leave their voices strange and tinny, and their speech trailing on and on."
-
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	arms.Destroy()
@@ -117,9 +96,6 @@
 	nabber.dna.features["mcolor3"] = nabber_color
 	regenerate_organs(nabber, src, visual_only = TRUE)
 	nabber.update_body(TRUE)
-
-/datum/species/nabber/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
-	equipping.equipOutfit(/datum/outfit/nabber, visuals_only)
 
 /datum/species/nabber/create_pref_unique_perks()
 	var/list/perk_descriptions = list()
