@@ -50,7 +50,7 @@
 
 /datum/nanite_program/research
 	name = "Research Network Integration"
-	desc = "The nanites form a data processing unit that actively contributes processing power to the main research network. Higher usage rates may cause unwanted thermal effects and increase nanite consumption."
+	desc = "The nanites contribute processing power to the research network, generating useful data and heat. Higher usage rates will consume more nanites. Requires a live host."
 	rogue_types = list(/datum/nanite_program/spreading, /datum/nanite_program/mitosis) // it researches itself into oblivion
 	use_rate = 0.5
 
@@ -58,6 +58,9 @@
 
 /datum/nanite_program/research/register_extra_settings()
 	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type("Slow", list("Slow (1x)", "Fast (2x)", "Bitcoin Miner (10x)"))
+
+/datum/nanite_program/research/check_conditions()
+	return host_mob.stat != DEAD && ..()
 
 /datum/nanite_program/research/enable_passive_effect()
 	. = ..()
