@@ -310,6 +310,7 @@
 		"Jelly" = /datum/species/jelly,
 		"Oozeling" = /datum/species/oozeling,
 		"IPC" = /datum/species/ipc,
+		"Monkey" = /datum/species/monkey,
 		"Simian" = /datum/species/simian,
 		"Zombie" = /datum/species/zombie,
 		"Shadow" = /datum/species/shadow,
