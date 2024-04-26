@@ -10,9 +10,10 @@ GLOBAL_LIST_INIT(hive_exits, list())
 	var/obj/structure/hive_exit/linked_exit
 	var/stored_honey = 0
 
-/obj/structure/beebox/hive/Initialize(mapload)
+/obj/structure/beebox/hive/Initialize(mapload, created_name)
 	. = ..()
 
+	name = "[created_name]'s hive"
 	for(var/i = 1 to 3)
 		var/obj/item/honey_frame/HF = new(src)
 		honey_frames += HF
@@ -22,6 +23,7 @@ GLOBAL_LIST_INIT(hive_exits, list())
 			continue
 		exit.linked_hive = src
 		linked_exit = exit
+		linked_exit.name = "[created_name]'s hive exit"
 		break
 
 	if(!linked_exit)
@@ -37,6 +39,14 @@ GLOBAL_LIST_INIT(hive_exits, list())
 			exit.linked_hive = src
 			linked_exit = exit
 			break
+
+/obj/structure/beebox/hive/Destroy()
+	. = ..()
+	for(var/atom/movable/listed in linked_exit?.atoms_inside)
+		listed.forceMove(get_turf(src))
+	linked_exit?.linked_hive = null
+	linked_exit.name = "generic hive exit"
+	linked_exit = null
 
 /obj/structure/beebox/hive/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
