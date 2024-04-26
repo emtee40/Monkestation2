@@ -4,7 +4,7 @@
 	var/blood_colours //leave null by default, handles special blood colours for lizards, Nabbers, ETC
 
 /datum/species/lizard
-	blood_colours = "#b8f754"
+	blood_colours = "#476d0a"
 
 /// Updates features and clothing attached to a specific limb with limb-specific offsets
 

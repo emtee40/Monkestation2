@@ -335,7 +335,6 @@
 	var/datum/reagent/blood_type = get_blood_id()
 	var/list/temp_blood_DNA
 	if(small_drip)
-
 		if(T.liquids)
 			var/list/blood_drop = list(get_blood_id() = 0.1)
 			T.add_liquid_list(blood_drop, FALSE, 300)
