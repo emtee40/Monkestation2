@@ -22,7 +22,7 @@
 	icon_state = "ears"
 
 /obj/item/organ/internal/heart/nabber
-	name = "nabber heart"
+	name = "haemolyph pump"
 	icon = ORGAN_ICON_NABBER
 	icon_state = "heart"
 
@@ -32,14 +32,14 @@
 	icon_state = "brain"
 
 /obj/item/organ/internal/eyes/nabber
-	name = "nabber eyes"
+	name = "nictating eyes"
 	desc = "Small orange orbs."
 	icon = ORGAN_ICON_NABBER
 	icon_state = "eyes"
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 /obj/item/organ/internal/eyes/robotic/nabber
-	name = "nabber eyes"
+	name = "nictating eyes"
 	desc = "Small orange orbs. With pair welding shield linses."
 	icon = ORGAN_ICON_NABBER
 	icon_state = "eyes"
@@ -81,7 +81,7 @@
 	toggle_shielding()
 
 /obj/item/organ/internal/lungs/nabber
-	name = "nabber lungs"
+	name = "spiracle lungs" //Insects breathe differently
 	icon = ORGAN_ICON_NABBER
 	icon_state = "lungs"
 
@@ -105,7 +105,7 @@
 	heat_damage_type = BURN
 
 /obj/item/organ/internal/liver/nabber
-	name = "nabber liver"
+	name = "catalytic processor" //Nabbers convert oxygen -> plasma lorewise in their blood
 	icon_state = "liver"
 	icon = ORGAN_ICON_NABBER
 	liver_resistance = 0.8 //Weaker livers

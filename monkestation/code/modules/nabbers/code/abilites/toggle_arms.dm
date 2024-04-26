@@ -1,12 +1,12 @@
 /obj/item/melee/nabber_blade
-	name = "a hunting arm"
+	name = "Hunting arm"
 	desc = "A grotesque, sharpened blade-limb. You feel as if you had to get this from a living creature to hold it. You monster."
 	icon = 'monkestation/code/modules/nabbers/icons/items.dmi'
 	icon_state = "mantis_arm_r"
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 15 //These still hurt.
-	armour_penetration = 10 //Hydraulic muscle-driven arms.
+	force = 17 //These still hurt.
+	armour_penetration = 7 //Hydraulic muscle-driven arms.
 	throwforce = 0 //Buggy.
 	throw_range = 0
 	throw_speed = 0
@@ -87,7 +87,7 @@
 	var/mob/living/carbon/human/nabber = owner
 
 	nabber.balloon_alert(nabber, "Begin pumping blood in!")
-	nabber.visible_message(span_danger("[nabber] starts to pump blood into their hunting arms!"), span_warning("You let out a defensive screech, raising your blade-arms!"), span_hear("You hear a sharp screech of an agitated creature!"))
+	nabber.visible_message(span_danger("[nabber] starts to pump blood into their hunting arms!"), span_warning("You let out a aggressive screech, raising your blade-arms!"), span_hear("You hear a sharp screech of an agitated creature!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 
 	if(!do_after(nabber, 5 SECONDS, nabber))
