@@ -117,7 +117,7 @@
 
 /datum/nanite_program/research/disable_passive_effect()
 	. = ..()
-	SSresearch.science_tech.nanite_bonus -= research_speed
+	SSresearch.science_tech.nanite_bonus -= use_rate
 	host_mob.remove_body_temperature_change(NANITE_RESEARCH_CHANGE)
 
 /datum/nanite_program/research/set_extra_setting(setting, value)
