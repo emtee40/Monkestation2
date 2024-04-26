@@ -33,3 +33,15 @@
 	var/datum/worn_feature_offset/worn_head_offset
 	/// Offset to apply to overlays placed on the face
 	var/datum/worn_feature_offset/worn_face_offset
+
+/obj/item/bodypart/head/Destroy()
+	. = ..()
+	for(var/datum/worn_feature_offset/i in src)
+		i = null
+		QDEL_NULL(i)
+
+/obj/item/bodypart/chest/Destroy()
+	. = ..()
+	for(var/datum/worn_feature_offset/i in src)
+		i = null
+		QDEL_NULL(i)
