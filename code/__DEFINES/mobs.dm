@@ -124,7 +124,7 @@
 #define SPECIES_TALLBOY "tallboy"
 #define SPECIES_VAMPIRE "vampire"
 #define SPECIES_ZOMBIE "zombie"
-#define SPECIES_ "satyr" //Monkestation Addition
+#define SPECIES_SATYR "satyr" //Monkestation Addition
 #define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
 #define SPECIES_ZOMBIE_KROKODIL "krokodil_zombie"
 #define SPECIES_OOZELING "oozeling"
