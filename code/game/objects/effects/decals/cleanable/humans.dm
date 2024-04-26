@@ -49,7 +49,7 @@
 		name = dryname
 		desc = drydesc
 		bloodiness = 0
-		color = COLOR_GRAY //not all blood splatters have their own sprites... It still looks pretty nice
+		color = "#6b0000" //Monkeystation edit. Fallback for blood drying.
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
