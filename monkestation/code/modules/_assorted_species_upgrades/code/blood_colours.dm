@@ -12,4 +12,3 @@
 	..()
 	if(src.color == null) //uncoloured
 		src.color = "#ac0e0e" //Fallback to ensure mapped blood will ALWAYS be red, without potentially causing problems for species-based blood
-

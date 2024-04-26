@@ -85,12 +85,22 @@
 	transfer_blood = rand(2, 4)
 	return ..()
 
-/turf/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
+//MONKEYSTATION EDIT - PRESERVES BLOOD COLOURS - Pretty messy but necessary
+
+/turf/add_blood_DNA(list/blood_dna, list/datum/disease/diseases, var/colour)
 	var/obj/effect/decal/cleanable/blood/splatter/blood_splatter = locate() in src
 	if(!blood_splatter)
 		blood_splatter = new /obj/effect/decal/cleanable/blood/splatter(src, diseases)
+		if(colour != null)
+			blood_splatter.color = colour
+		else
+			blood_splatter.color = "#b60a0a"
 	if(!QDELETED(blood_splatter))
 		blood_splatter.add_blood_DNA(blood_dna) //give blood info to the blood decal.
+		if(colour != null)
+			blood_splatter.color = colour
+		else
+			blood_splatter.color = "#b60a0a"
 		return TRUE //we bloodied the floor
 	return FALSE
 
