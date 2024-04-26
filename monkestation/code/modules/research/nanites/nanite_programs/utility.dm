@@ -111,7 +111,7 @@
 	use_rate = initial(use_rate) * research_speed
 	SSresearch.science_tech.nanite_bonus += use_rate
 
-	if (world.time > next_warning_time)
+	if (COOLDOWN_FINISHED(src, next_warning_time))
 		to_chat(host_mob, message)
 		next_warning_time = world.time + 10 SECONDS
 
