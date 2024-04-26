@@ -378,7 +378,8 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 	if(isturf(loc) && !skip)
 		playsound(src, 'sound/effects/wounds/splatter.ogg', 60, TRUE, -1)
 		if(blood_dna_info)
-			loc.add_blood_DNA(blood_dna_info) //Monkeystation edit. Preserves blood colour.
+			var/turf/land = loc
+			land.add_blood_DNA_special(blood_dna_info, colour = held_color) //Monkeystation edit. Preserves blood colour.
 	return ..()
 
 /// Set the splatter up to fly through the air until it rounds out of steam or hits something
@@ -402,7 +403,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			break
 
 		if(isitem(iter_atom))
-			iter_atom.add_blood_DNA(blood_dna_info) ////Monkeystation edit. Preserves blood colour.
+			iter_atom.add_blood_DNA(blood_dna_info)
 			splatter_strength--
 		else if(ishuman(iter_atom))
 			var/mob/living/carbon/human/splashed_human = iter_atom
