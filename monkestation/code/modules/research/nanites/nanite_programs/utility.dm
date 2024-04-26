@@ -59,7 +59,7 @@
 
 	var/research_speed
 	var/current_mode
-	var/next_warning_time = 0
+	COOLDOWN_DECLARE(next_warning_time)
 
 /datum/nanite_program/research/register_extra_settings()
 	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/type(NANITE_RESEARCH_SLOW, list(NANITE_RESEARCH_SLOW, NANITE_RESEARCH_FAST, NANITE_RESEARCH_SUPERFAST))
