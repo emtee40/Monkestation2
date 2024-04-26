@@ -58,6 +58,7 @@
 	use_rate = 0.5
 
 	var/research_speed
+	var/current_research_bonus
 	var/current_mode
 	COOLDOWN_DECLARE(next_warning_time)
 
@@ -109,7 +110,8 @@
 
 	host_mob.add_body_temperature_change(NANITE_RESEARCH_CHANGE, research_speed * 15)
 	use_rate = initial(use_rate) * research_speed
-	SSresearch.science_tech.nanite_bonus += use_rate
+	current_research_bonus = use_rate
+	SSresearch.science_tech.nanite_bonus += current_research_bonus
 
 	if (COOLDOWN_FINISHED(src, next_warning_time))
 		to_chat(host_mob, message)
@@ -117,7 +119,7 @@
 
 /datum/nanite_program/research/disable_passive_effect()
 	. = ..()
-	SSresearch.science_tech.nanite_bonus -= use_rate
+	SSresearch.science_tech.nanite_bonus -= current_research_bonus
 	host_mob.remove_body_temperature_change(NANITE_RESEARCH_CHANGE)
 
 /datum/nanite_program/research/set_extra_setting(setting, value)
