@@ -124,6 +124,7 @@
 #define SPECIES_TALLBOY "tallboy"
 #define SPECIES_VAMPIRE "vampire"
 #define SPECIES_ZOMBIE "zombie"
+#define SPECIES_ "satyr" //Monkestation Addition
 #define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
 #define SPECIES_ZOMBIE_KROKODIL "krokodil_zombie"
 #define SPECIES_OOZELING "oozeling"
@@ -131,7 +132,6 @@
 #define SPECIES_SIMIAN "simian" //Monkestation Addition
 #define SPECIES_GOBLIN "goblin" //Monkestation Addition
 #define SPECIES_FLORAN "floran" //Monkestation Addition
-#define SPECIES_SATYR "satyr" //Monkestation Addition
 // Like species IDs, but not specifically attached a species.
 #define BODYPART_ID_ALIEN "alien"
 #define BODYPART_ID_ROBOTIC "robotic"
