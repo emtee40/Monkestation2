@@ -1,5 +1,3 @@
-#warn Temp dmi file change to prevent dmi conflicts well testmerged
-
 // A type of antagonist created by the moon ascension
 /datum/antagonist/lunatic
 	name = "\improper Lunatic"
