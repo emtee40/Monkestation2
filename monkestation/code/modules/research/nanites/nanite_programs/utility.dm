@@ -113,7 +113,7 @@
 
 	if (COOLDOWN_FINISHED(src, next_warning_time))
 		to_chat(host_mob, message)
-		next_warning_time = world.time + 10 SECONDS
+		COOLDOWN_START(src, next_warning_time, 10 SECONDS)
 
 /datum/nanite_program/research/disable_passive_effect()
 	. = ..()
