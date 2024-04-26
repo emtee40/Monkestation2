@@ -1,11 +1,12 @@
 /obj/item/melee/nabber_blade
-	name = "Hunting arm"
+	name = "a hunting arm"
 	desc = "A grotesque, sharpened blade-limb. You feel as if you had to get this from a living creature to hold it. You monster."
 	icon = 'monkestation/code/modules/nabbers/icons/items.dmi'
 	icon_state = "mantis_arm_r"
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 15 //These still hurt.
+	armour_penetration = 10 //Hydraulic muscle-driven arms.
 	throwforce = 0 //Buggy.
 	throw_range = 0
 	throw_speed = 0
@@ -13,8 +14,8 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
-	wound_bonus = 15
-	bare_wound_bonus = 25
+	wound_bonus = 5 //dropped from 25
+	bare_wound_bonus = 15 //dropped from 25
 
 /obj/item/melee/nabber_blade/alt
 	icon_state = "mantis_arm_l"

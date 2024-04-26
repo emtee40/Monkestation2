@@ -9,14 +9,12 @@
 		TRAIT_CHUNKYFINGERS, //We absolutely don't want them using batons, guns, or computers here.
 		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
 		TRAIT_LIGHT_STEP,	//Can't wear shoes
-		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RADIMMUNE //Flavor
 	)
 	visual_gender = FALSE
 	species_traits = list(
 		MUTCOLORS,
-		MUTCOLORS_SECONDARY,
 		EYECOLOR,
 		NO_UNDERWEAR,
 		NOZOMBIE, //Breaks things majorly if they get zombified
@@ -26,6 +24,7 @@
 		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
 	digitigrade_customization = DIGITIGRADE_NEVER
+	blood_colours = "#2c4485"
 	no_equip_flags = ITEM_SLOT_FEET | ITEM_SLOT_OCLOTHING | ITEM_SLOT_SUITSTORE | ITEM_SLOT_EYES
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	uses_offsets = TRUE

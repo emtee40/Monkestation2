@@ -1,6 +1,10 @@
 //handles species upgrades
 /datum/species
 	var/uses_offsets = FALSE //This will determine if the offset system is active or not.
+	var/blood_colours //leave null by default, handles special blood colours for lizards, Nabbers, ETC
+
+/datum/species/lizard
+	blood_colours = "#b8f754"
 
 /// Updates features and clothing attached to a specific limb with limb-specific offsets
 

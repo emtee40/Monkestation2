@@ -1,8 +1,8 @@
 #define NABBER_PUNCH_LOW 3 // Base punch damage.
 #define NABBER_PUNCH_HIGH 5
 #define BODYPART_ICON_NABBER 'monkestation/code/modules/nabbers/icons/bodyparts/nabber_parts_greyscale.dmi'
-#define NABBER_BRUTE_MODIFIER 0.7 // Handles the total damage incoming
-#define NABBER_BURN_MODIFIER 1.2
+#define NABBER_BRUTE_MODIFIER 0.65 // Handles the total damage incoming
+#define NABBER_BURN_MODIFIER 1.4 // 0.65x incoming brute, 1.4x burn. Keep in mind, they also suffocate while on fire.
 //Nabbers
 
 /obj/item/bodypart/head/mutant/nabber
