@@ -6,7 +6,6 @@
 	eyes_icon = 'monkestation/code/modules/nabbers/icons/organs/nabber_eyes.dmi'
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
-		TRAIT_CHUNKYFINGERS, //We absolutely don't want them using batons, guns, or computers here.
 		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
 		TRAIT_LIGHT_STEP,	//Can't wear shoes
 		TRAIT_RESISTLOWPRESSURE,
@@ -20,9 +19,6 @@
 		NOZOMBIE, //Breaks things majorly if they get zombified
 		NO_DNA_COPY //Cannot be cloned, body too big.
 	)
-	inherent_traits = list(
-		TRAIT_TACKLING_TAILED_DEFENDER,
-	)
 	digitigrade_customization = DIGITIGRADE_NEVER
 	blood_colours = "#30498f" //Haemolyph is typically a deep blue.
 	no_equip_flags = ITEM_SLOT_FEET | ITEM_SLOT_OCLOTHING | ITEM_SLOT_SUITSTORE | ITEM_SLOT_EYES
@@ -31,6 +27,8 @@
 	mutanttongue = /obj/item/organ/internal/tongue/nabber
 	hair_alpha = 0
 	payday_modifier = 0.50 //Lore accurate.
+	coldmod = 0.3 //Very very resistant to cold
+	heatmod = 2.5 // IT BURNS
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 10)
 	bodytype = BODYTYPE_CUSTOM

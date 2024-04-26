@@ -33,6 +33,7 @@
 
 /obj/item/bodypart/chest/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
+	biological_state = BIO_STANDARD_UNJOINTED
 	limb_id = SPECIES_NABBER
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
@@ -60,6 +61,8 @@
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
 	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	biological_state = BIO_STANDARD_UNJOINTED
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 
 /obj/item/bodypart/arm/right/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
@@ -69,12 +72,15 @@
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
 	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	biological_state = BIO_STANDARD_UNJOINTED
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 
 /obj/item/bodypart/leg/left/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
 	limb_id = SPECIES_NABBER
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
+	biological_state = BIO_STANDARD_UNJOINTED
 	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 
 /obj/item/bodypart/leg/right/mutant/nabber
@@ -83,6 +89,7 @@
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
 	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	biological_state = BIO_STANDARD_UNJOINTED
 
 #undef NABBER_PUNCH_LOW
 #undef NABBER_PUNCH_HIGH
