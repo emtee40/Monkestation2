@@ -347,7 +347,7 @@
 				T.pollute_turf(/datum/pollutant/metallic_scent, 5)
 				drop.drips++
 				drop.add_overlay(pick(drop.random_icon_states))
-				drop.transfer_mob_blood_dna(src, TRUE)
+				drop.transfer_mob_blood_dna(src, TRUE) //MONKEY EDIT: , TRUE append to allow for custom blood colours. Also makes blood splatters now transfer DNA! Forensics buff!
 				return
 			else
 				temp_blood_DNA = GET_ATOM_BLOOD_DNA(drop) //we transfer the dna from the drip to the splatter
@@ -355,7 +355,7 @@
 		else
 			T.pollute_turf(/datum/pollutant/metallic_scent, 5)
 			drop = new(T, get_static_viruses())
-			drop.transfer_mob_blood_dna(src, TRUE)
+			drop.transfer_mob_blood_dna(src, TRUE) //MONKEY EDIT: , TRUE append to allow for custom blood colours. Also makes blood splatters now transfer DNA! Forensics buff!
 			return
 
 	// Create a bit of metallic pollution, as that's how blood smells
@@ -377,7 +377,7 @@
 		if(blood_type)
 			B.color = initial(blood_type.color)
 		B.count ++
-		B.transfer_mob_blood_dna(src, TRUE)
+		B.transfer_mob_blood_dna(src, TRUE) //MONKEY EDIT: , TRUE append to allow for custom blood colours. Also makes blood splatters now transfer DNA! Forensics buff!
 	B.transfer_mob_blood_dna(src, TRUE) //MONKEY EDIT: , TRUE append to allow for custom blood colours
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
