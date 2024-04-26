@@ -24,7 +24,7 @@
 		TRAIT_TACKLING_TAILED_DEFENDER,
 	)
 	digitigrade_customization = DIGITIGRADE_NEVER
-	blood_colours = "#2c4485"
+	blood_colours = "#012791" //Haemolyph is typically a deep blue.
 	no_equip_flags = ITEM_SLOT_FEET | ITEM_SLOT_OCLOTHING | ITEM_SLOT_SUITSTORE | ITEM_SLOT_EYES
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	uses_offsets = TRUE

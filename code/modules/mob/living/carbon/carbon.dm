@@ -1353,5 +1353,6 @@
 	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc)
 	our_splatter.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 	our_splatter.blood_dna_info = get_blood_dna_list()
+	our_splatter.transfer_mob_blood_dna(src, TRUE) //Monkeystation Edit: Makes it so blood sprays also inherit blood colour changes
 	var/turf/targ = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(targ, splatter_strength)

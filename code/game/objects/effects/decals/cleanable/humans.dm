@@ -439,6 +439,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			land_on_window(bumped_atom)
 		else
 			var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
+			final_splatter.color = src.color //Monkeystation Edit: Keeps blood color consistent!
 			final_splatter.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 			final_splatter.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 	else // This will only happen if prev_loc is not even a turf, which is highly unlikely.
@@ -451,6 +452,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 		return
 	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new
 	final_splatter.forceMove(the_window)
+	final_splatter.color = src.color //Monkeystation Edit: Keeps blood color consistent!
 	the_window.vis_contents += final_splatter
 	the_window.bloodied = TRUE
 	qdel(src)

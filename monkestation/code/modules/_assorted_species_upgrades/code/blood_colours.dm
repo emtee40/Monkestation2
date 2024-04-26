@@ -4,6 +4,6 @@
 		var/mob/living/carbon/human/mob = injected_mob
 		var/colour = mob.dna.species.blood_colours
 		if(!(colour == null) && should_colour == TRUE) //fast fast fast
-			src.color = colour //curse of british upon you
+			src.color = colour //Switch the blood-colour last moment!
 		else
-			src.color = "#cc1111" //default blood color
+			src.color = "#e01919" //default blood color. Careful on editing this, as it has to apply to all species without blood_colours
