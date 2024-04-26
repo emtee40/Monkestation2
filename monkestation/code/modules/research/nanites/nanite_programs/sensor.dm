@@ -305,6 +305,7 @@
 		"Moth" = /datum/species/moth,
 		"Ethereal" = /datum/species/ethereal,
 		"Pod" = /datum/species/pod,
+		"Floran" = /datum/species/floran,
 		"Fly" = /datum/species/fly,
 		"Arachnid" = /datum/species/arachnid,
 		"Jelly" = /datum/species/jelly,
