@@ -189,14 +189,14 @@
 		return
 
 	pollinated = TRUE
-
+	var/set_time =  rand(600, 900)
 	for(var/item as anything in managed_seeds)
 		var/obj/item/seeds/seed = managed_seeds[item]
 		if(!seed)
 			continue
-		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_POLLINATE, parent)
+		SEND_SIGNAL(seed, COMSIG_PLANT_TRY_POLLINATE, parent, set_time)
 
-	addtimer(VARSET_CALLBACK(src, bio_boosted, FALSE), rand(60, 90))
+	addtimer(VARSET_CALLBACK(src, pollinated, FALSE), set_time)
 
 ///here we just remove any water added and increase the water precent, add other things you want done once.
 /datum/component/plant_growing/proc/on_reagent_cache_pre(datum/reagents/holder, datum/reagent/reagent, datum/reagents/coming_from, amount)

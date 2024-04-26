@@ -40,3 +40,5 @@
 #define SHOW_TOXIC (1<<4)
 #define SHOW_NUTRIENT (1<<5)
 #define SHOW_HARVEST (1<<6)
+
+#define SPECIES_APID "apid"

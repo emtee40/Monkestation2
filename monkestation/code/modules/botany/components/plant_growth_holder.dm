@@ -34,6 +34,7 @@
 	RegisterSignal(parent, COMSIG_ADJUST_PLANT_HEALTH, PROC_REF(adjust_health))
 	RegisterSignal(parent, COMSIG_PLANT_TRY_HARVEST, PROC_REF(try_harvest))
 	RegisterSignal(parent, COMSIG_PLANT_TRY_SECATEUR, PROC_REF(try_secateur))
+	RegisterSignal(parent, COMSIG_PLANT_TRY_POLLINATE, PROC_REF(try_pollinate))
 
 	var/obj/item/seeds/seed = parent
 	if(seed.get_gene(/datum/plant_gene/trait/repeated_harvest))
@@ -50,6 +51,11 @@
 		current_looks = mutable_appearance(seed.growing_icon, "[seed.icon_grow][t_growthstate]", offset_spokesman = planter)
 
 	current_looks.icon_state =  "[seed.icon_grow][t_growthstate]"
+
+	if(pollinated)
+		planter.particles = new /particles/pollen
+	else
+		planter.particles = null
 
 	if((plant_state == HYDROTRAY_PLANT_HARVESTABLE) && seed.icon_harvest)
 		current_looks.icon_state = seed.icon_harvest
@@ -172,3 +178,7 @@
 	snip.forceMove(planter.drop_location())
 	seed.grafted = TRUE
 	adjust_health(src, -5)
+
+/datum/component/growth_information/proc/try_pollinate(datum/source, atom/movable/planter, time)
+	pollinated = TRUE
+	addtimer(VARSET_CALLBACK(src, pollinated, FALSE), time)
