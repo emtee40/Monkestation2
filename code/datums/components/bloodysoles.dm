@@ -23,6 +23,9 @@
 
 	var/footprint_sprite = FOOTPRINT_SPRITE_SHOES
 
+	//Monkeystation edit. Holds colors.
+	var/blood_color
+
 /datum/component/bloodysoles/Initialize()
 	if(!isclothing(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -92,7 +95,7 @@
 
 	set_bloody_shoes(pool.blood_state, new_our_bloodiness)
 	pool.bloodiness = total_bloodiness - new_our_bloodiness // Give the pool the remaining blood incase we were limited
-
+	blood_color = pool.color //Monkeystation Edit.
 	if(HAS_TRAIT(parent_atom, TRAIT_LIGHT_STEP)) //the character is agile enough to don't mess their clothing and hands just from one blood splatter at floor
 		return TRUE
 
@@ -184,6 +187,7 @@
 				oldLocFP.bloodiness = half_our_blood
 				oldLocFP.add_blood_DNA(GET_ATOM_BLOOD_DNA(parent_atom))
 				oldLocFP.update_appearance()
+				oldLocFP.color = blood_color //Monkeystation Edit. Blood color for footprints.
 
 			half_our_blood = bloody_shoes[last_blood_state] / 2
 
@@ -197,6 +201,7 @@
 		update_icon()
 
 		var/obj/effect/decal/cleanable/blood/footprints/FP = new(get_turf(parent_atom), footprint_sprite)
+		FP.color = blood_color //Monkeystation edit.
 		if(!QDELETED(FP)) ///prints merged
 			FP.blood_state = last_blood_state
 			FP.entered_dirs |= wielder.dir
