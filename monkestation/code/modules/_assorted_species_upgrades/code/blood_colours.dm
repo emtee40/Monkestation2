@@ -6,10 +6,7 @@
 		if(!(colour == null) && should_colour == TRUE) //fast fast fast
 			src.color = colour //Switch the blood-colour last moment!
 		else
-			src.color = "#b60a0a" //default blood color. Careful on editing this, as it has to apply to all species without blood_colours
-
-/obj/effect/decal/cleanable/blood
-	var/fallback_colour
+			src.color = "#b60a0a" //default blood color. Careful on editing this, as it has to apply to all species without blood_colours. Differs from backup for runtime/debug testing
 
 /obj/effect/decal/cleanable/blood/dry()
 	..()

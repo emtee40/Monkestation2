@@ -365,6 +365,8 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 	var/splatter_strength = 3
 	/// Insurance so that we don't keep moving once we hit a stoppoint
 	var/hit_endpoint = FALSE
+	/// Monkeystation Edit: Ensures these retain proper colour variables.
+	var/held_color
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, splatter_strength)
 	. = ..()
@@ -439,7 +441,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			land_on_window(bumped_atom)
 		else
 			var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
-			final_splatter.color = src.color //Monkeystation Edit: Keeps blood color consistent!
+			final_splatter.color = held_color //Monkeystation Edit: Keeps blood color consistent!
 			final_splatter.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 			final_splatter.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 	else // This will only happen if prev_loc is not even a turf, which is highly unlikely.

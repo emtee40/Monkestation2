@@ -1356,3 +1356,6 @@
 	our_splatter.transfer_mob_blood_dna(src, TRUE) //Monkeystation Edit: Makes it so blood sprays also inherit blood colour changes
 	var/turf/targ = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(targ, splatter_strength)
+	if(ishuman(src))
+		var/mob/living/carbon/human/blood_donor = src
+		our_splatter.held_color = blood_donor.dna.species.blood_colours
