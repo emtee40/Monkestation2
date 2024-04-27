@@ -36,7 +36,6 @@
 	// changes, only the Random Golem type can be chosen
 	fixed_mut_color = "#aaaaaa"
 
-	mutanttongue = /obj/item/organ/internal/tongue/golem
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem,

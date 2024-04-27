@@ -382,7 +382,7 @@
 		if(pizza.type != pizza_preferences[nommer.ckey])
 			QDEL_NULL(pizza)
 		else
-			pizza.foodtypes = nommer.get_liked_foodtypes() //make sure it's our favourite
+			pizza.foodtypes = nommer.dna.species.liked_food //make sure it's our favourite
 			return
 
 	var/obj/item/food/pizza/favourite_pizza_type = pizza_preferences[nommer.ckey]

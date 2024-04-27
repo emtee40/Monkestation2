@@ -14,6 +14,8 @@
 		/obj/item/organ/external/arachnid_appendages = "long",
 		/obj/item/organ/external/chelicerae = "basic")
 	meat = /obj/item/food/meat/slab/spider
+	disliked_food = NONE // Okay listen, i don't actually know what irl spiders don't like to eat and i'm pretty tired of looking for answers.
+	liked_food = GORE | MEAT | BUGS | GROSS
 	species_language_holder = /datum/language_holder/fly
 	mutanttongue = /obj/item/organ/internal/tongue/arachnid
 	mutanteyes = /obj/item/organ/internal/eyes/night_vision/arachnid
