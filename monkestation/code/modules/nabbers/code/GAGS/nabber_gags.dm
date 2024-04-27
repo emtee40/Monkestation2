@@ -47,6 +47,10 @@
 	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
 	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/belt
 
+/obj/item/clothing/mask
+	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
+	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/belt
+
 /**
  * Nabber fallbacks.
  * In case what we have another species with specials Json config file. We use this for our case.
@@ -77,3 +81,8 @@
 /datum/greyscale_config/nabber/belt
 	name = "Nabber Belt"
 	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/belt.json'
+
+/datum/greyscale_config/nabber/mask
+	name = "Nabber Mask"
+	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/mask.json'
+
