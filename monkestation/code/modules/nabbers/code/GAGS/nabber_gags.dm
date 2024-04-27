@@ -47,9 +47,9 @@
 	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
 	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/belt
 
-/obj/item/clothing/mask
+/obj/item/clothing/mask // I can only forsee this going well
 	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
-	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/belt
+	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/mask
 
 /**
  * Nabber fallbacks.
@@ -82,7 +82,7 @@
 	name = "Nabber Belt"
 	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/belt.json'
 
-/datum/greyscale_config/nabber/mask
+/datum/greyscale_config/nabber/mask //yippie
 	name = "Nabber Mask"
 	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/mask.json'
 
