@@ -3,7 +3,7 @@
 /datum/species/nabber
 	name = "Giant Armored Serpentid"
 	id = SPECIES_NABBER
-	eyes_icon = 'monkestation/code/modules/nabbers/icons/organs/nabber_eyes.dmi'
+	eyes_icon = NABBER_EYES_ICON
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
