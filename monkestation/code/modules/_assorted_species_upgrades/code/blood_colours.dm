@@ -1,3 +1,6 @@
+/obj/effect/decal/cleanable/blood
+	color = "#b60a0a" //Backup of a backup. Should handle when all blood instances are created and not recoloured.
+
 /atom/transfer_mob_blood_dna(mob/living/injected_mob, should_colour)
 	..()
 	if(ishuman(injected_mob))

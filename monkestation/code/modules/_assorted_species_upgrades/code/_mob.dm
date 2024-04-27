@@ -6,6 +6,11 @@
 /datum/species/lizard
 	blood_colours = "#476d0a"
 
+/datum/species/Destroy(force, ...) //absolutely should never happen. Handle it anyway.
+	. = ..()
+	uses_offsets = null
+	blood_colours = null
+
 /// Updates features and clothing attached to a specific limb with limb-specific offsets
 
 

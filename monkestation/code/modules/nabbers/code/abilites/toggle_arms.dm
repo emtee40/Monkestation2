@@ -5,7 +5,7 @@
 	icon_state = "mantis_arm_r"
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 17 //These still hurt.
+	force = 14 //Temporary nerf. Original value; 17. Should no longer be able to damage reinforced windows.
 	armour_penetration = 7 //Hydraulic muscle-driven arms.
 	throwforce = 0 //Buggy.
 	throw_range = 0

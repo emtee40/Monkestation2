@@ -115,6 +115,7 @@
 	var/obj/effect/decal/cleanable/blood/bloodsplatter = locate() in exposed_turf //find some blood here
 	if(!bloodsplatter)
 		bloodsplatter = new(exposed_turf, data["viruses"])
+		bloodsplatter.color = "#b60a0a" //Monkeystation Edit: Ensures splattered blood will always be red.
 	else if(LAZYLEN(data["viruses"]))
 		var/list/viri_to_add = list()
 		for(var/datum/disease/virus in data["viruses"])

@@ -1,3 +1,5 @@
+/* Nabber Threat Display. Disabled until balancing pass & fixes.
+
 #define NABBER_THREAT_ICON 'monkestation/code/modules/nabbers/icons/effects.dmi'
 #define NABBER_THREAT_ICON_STATE "nabber_threat"
 
@@ -49,9 +51,20 @@
 	else
 		nabber_image.transform = turn(nabber_image.transform, -90)
 
+/datum/status_effect/nabber_combat/Destroy() //absolutely ensure we're harddelling here
+	. = ..()
+	QDEL_NULL(nabber_image)
+
+	UnregisterSignal(owner, list(
+		COMSIG_ATOM_DIR_CHANGE,
+		COMSIG_LIVING_SET_BODY_POSITION
+	))
+
+
 /datum/movespeed_modifier/nabber_combat
 	blacklisted_movetypes = FLYING
 	multiplicative_slowdown = -0.25
 
 #undef NABBER_THREAT_ICON
 #undef NABBER_THREAT_ICON_STATE
+*/

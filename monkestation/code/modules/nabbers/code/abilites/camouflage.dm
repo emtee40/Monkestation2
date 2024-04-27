@@ -8,7 +8,7 @@
 
 	button_icon = 'monkestation/code/modules/nabbers/icons/actions.dmi'
 	var/active = FALSE
-	var/camouflage_alpha = 35
+	var/camouflage_alpha = 60 //ORIGINALLY: 35
 
 /datum/action/cooldown/optical_camouflage/Activate(atom/target)
 	. = ..()
@@ -23,9 +23,11 @@
 		remove_camouflage()
 		return TRUE
 
+/* - Disabled until the effect is re-enabled - *
 	if(owner.has_status_effect(/datum/status_effect/nabber_combat))
 		owner.balloon_alert(owner, "Can't now!")
 		return FALSE
+*/
 
 	RegisterSignals(owner, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_ATOM_BULLET_ACT, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, COMSIG_LIVING_MOB_BUMP, COMSIG_HUMAN_BURNING), PROC_REF(remove_camouflage))
 	enter_camouflage()

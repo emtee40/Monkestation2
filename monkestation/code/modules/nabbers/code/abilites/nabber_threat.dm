@@ -1,3 +1,4 @@
+/* Disabled until balance pass
 /datum/action/cooldown/nabber_threat
 	name = "Toggle threat"
 	desc = "Strengthen your chitin by coloring it with a battle color. Gaining extra speed!"
@@ -87,3 +88,4 @@
 	SIGNAL_HANDLER
 
 	return remove_effect(force = TRUE)
+*/

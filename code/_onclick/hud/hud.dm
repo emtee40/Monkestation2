@@ -221,6 +221,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	action_intent = null
 	zone_select = null
 	pull_icon = null
+	rest_icon = null //MONKEYSTATION FIX: FIXES HARDDEL
 
 	QDEL_LIST(toggleable_inventory)
 	QDEL_LIST(hotkeybuttons)

@@ -44,7 +44,7 @@
 	icon = ORGAN_ICON_NABBER
 	icon_state = "eyes"
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-	var/datum/action/toggle_welding/shield
+	var/datum/action/cooldown/toggle_welding/shield
 	var/active = FALSE
 
 /obj/item/organ/internal/eyes/robotic/nabber/on_insert(mob/living/carbon/eye_recipient)
