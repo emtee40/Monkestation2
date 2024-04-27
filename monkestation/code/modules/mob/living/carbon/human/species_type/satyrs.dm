@@ -16,6 +16,7 @@
 		TRAIT_HARD_SOLES
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	use_skintones = TRUE
 	external_organs = list(
 		/obj/item/organ/external/satyr_fluff = "normal",
 		/obj/item/organ/external/satyr_tail = "short",
@@ -26,7 +27,7 @@
 	disliked_food = MEAT | DAIRY
 	maxhealthmod = 0.8
 	stunmod = 1.2
-	speedmod = 1
+	//speedmod = 1
 	payday_modifier = 1
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/satyr,
