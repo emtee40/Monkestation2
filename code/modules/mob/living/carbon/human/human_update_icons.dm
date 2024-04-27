@@ -1002,7 +1002,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 //MONKEYSTATION EDIT - ENSURES FILTERS ARE CUT UPON BEING DESTROYED \\
 
-/mob/living/carbon/human/proc/get_filter_and_destroy(var/filtername) //Using this is way neater code-wise.
+/mob/living/carbon/human/proc/get_filter_and_destroy(filtername) //Using this is way neater code-wise.
 	var/filter = src.get_filter(filtername)
 	if(filter)
 		remove_filter(filter)
