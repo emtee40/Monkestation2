@@ -49,7 +49,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE
 
-/datum/design/vial
+/* /datum/design/vial
 	name = "Vial"
 	id = "vial"
 	build_type = PROTOLATHE | AWAY_LATHE
@@ -58,7 +58,7 @@
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE */
 
 /datum/design/board/path_data
 	name = "Pathology Records Computer Board"
