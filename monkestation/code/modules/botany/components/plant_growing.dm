@@ -129,7 +129,6 @@
 			movable_parent.reagents.remove_any(max(1,round(movable_parent.reagents.total_volume * 0.01, CHEMICAL_QUANTISATION_LEVEL)))
 		else
 			movable_parent.reagents.remove_any(max(1,round(movable_parent.reagents.total_volume * 0.025, CHEMICAL_QUANTISATION_LEVEL)))
-	else
 
 	SEND_SIGNAL(movable_parent, COMSIG_NUTRIENT_UPDATE, movable_parent.reagents.total_volume / movable_parent.reagents.maximum_volume)
 
