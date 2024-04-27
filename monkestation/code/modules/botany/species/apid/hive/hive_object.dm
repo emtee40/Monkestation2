@@ -60,8 +60,9 @@ GLOBAL_LIST_INIT(hive_exits, list())
 	if(!do_after(user, enter_time, src))
 		return
 
+	if(user.pulling)
+		do_teleport(user.pulling, get_step(linked_exit, EAST), no_effects = TRUE, forced = TRUE)
 	do_teleport(user, get_step(linked_exit, EAST), no_effects = TRUE, forced = TRUE)
-
 
 
 /obj/structure/hive_exit
@@ -100,7 +101,8 @@ GLOBAL_LIST_INIT(hive_exits, list())
 
 	if(!do_after(user, enter_time, src))
 		return
-
+	if(user.pulling)
+		do_teleport(user.pulling, get_turf(linked_hive), no_effects = TRUE, forced = TRUE)
 	do_teleport(user, get_turf(linked_hive), no_effects = TRUE, forced = TRUE)
 
 /obj/structure/hive_exit/proc/exit_area(datum/source, atom/removed)
