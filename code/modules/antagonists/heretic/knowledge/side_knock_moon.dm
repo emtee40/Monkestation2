@@ -16,7 +16,7 @@
 
 /datum/heretic_knowledge/unfathomable_curio
 	name = "Unfathomable Curio"
-	desc = "Allows you to transmute 3 rods, a brain and a belt into an Unfathomable Curio\
+	desc = "Allows you to transmute 3 rods, a lung and a belt into an Unfathomable Curio\
 			, a belt that can hold blades and items for rituals. Whilst worn will also \
 			veil you, allowing you to take 5 hits without suffering damage, this veil will recharge very slowly \
 			outside of combat. When examined the examiner will suffer brain damage and blindness."
