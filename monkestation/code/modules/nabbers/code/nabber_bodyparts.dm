@@ -30,6 +30,11 @@
 	)
 	return ..()
 
+/obj/item/bodypart/head/mutant/nabber/Destroy()
+	. = ..()
+	QDEL_NULL(worn_ears_offset) //ABSOLUTELY ensure we are qdelling here, if not, rely on backups.
+	QDEL_NULL(worn_head_offset)
+	QDEL_NULL(worn_mask_offset)
 
 /obj/item/bodypart/chest/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
@@ -52,6 +57,10 @@
 	)
 	return ..()
 
+/obj/item/bodypart/chest/mutant/nabber/Destroy()
+	. = ..()
+	QDEL_NULL(worn_back_offset) // ditto
+	QDEL_NULL(worn_accessory_offset)
 
 /obj/item/bodypart/arm/left/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER

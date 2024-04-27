@@ -60,6 +60,20 @@
 /datum/worn_feature_offset/proc/on_owner_deleted(mob/living/host)
 	SIGNAL_HANDLER
 	owner = null
+	attached_part = null
+	feature_key = null
+	offset_x = null
+	offset_y = null
+
+/datum/worn_feature_offset/Destroy(force, ...) //absolutely ensure that on destroy it clears these variables
+	. = ..()
+	SIGNAL_HANDLER
+	owner = null
+	attached_part = null
+	feature_key = null
+	offset_x = null
+	offset_y = null
+
 
 /// When we change direction, re-apply the offset
 /datum/worn_feature_offset/proc/on_dir_change(mob/living/carbon/owner, olddir, newdir)

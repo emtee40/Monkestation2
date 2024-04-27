@@ -1,7 +1,7 @@
 //handles species upgrades
 /datum/species
 	var/uses_offsets = FALSE //This will determine if the offset system is active or not.
-	var/blood_colours //leave null by default, handles special blood colours for lizards, Nabbers, ETC
+	var/blood_colours = "#b60a0a" //This is the default blood colour used by the backup blood system. Until changed on subtypes, this is what is used to handle bleeding.
 
 /datum/species/lizard
 	blood_colours = "#476d0a"
