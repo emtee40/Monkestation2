@@ -72,18 +72,21 @@
 /datum/species/nabber/get_species_description()
 	return "Large, bulky - impressively armoured and chitinous, these ambush predators are a recent acquisition by NanoTrasen. Loyal workers, not the brightest bulb in the pack - and physically impressive, they're perfect for all forms of menial, unimportant labor. Known to be extremely flammable."
 
+/mob/living/carbon/human/proc/destroy_anime() //HATE. LET ME TELL YOU HOW MUCH I HAVE COME TO HATE.
+	var/obj/item/organ/external/anime_head/removing1 = src.get_organ_slot(ORGAN_SLOT_EXTERNAL_ANIME_HEAD)
+	var/obj/item/organ/external/anime_middle/removing2 = src.get_organ_slot(ORGAN_SLOT_EXTERNAL_ANIME_CHEST)
+	var/obj/item/organ/external/anime_bottom/removing3 = src.get_organ_slot(ORGAN_SLOT_EXTERNAL_ANIME_BOTTOM)
+	if(removing1) //Fugly-ass code but it works for ensuring we don't get sprite/code issues.
+		removing1.Destroy()
+	if(removing2)
+		removing2.Destroy()
+	if(removing3)
+		removing3.Destroy()
 
-/datum/species/nabber/after_equip_job(mob/living/carbon/human/C)
+
+/datum/species/nabber/after_equip_job(datum/job/J, mob/living/carbon/human/C, visualsOnly = FALSE, client/preference_source = null) //Handle things such as post_spawn timers here. In this case, prepare to evaporate anime.
 	..()
-	var/list/anime_list = list(
-		/obj/item/organ/external/anime_head,
-		/obj/item/organ/external/anime_middle,
-		/obj/item/organ/external/anime_bottom,
-		)
-	var/mob/living/carbon/human/human_holder = C
-	var/datum/species/species = human_holder.dna.species
-	for(var/obj/item/organ/external/organ_path as anything in anime_list)
-		species.external_organs -= organ_path // go away
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon/human, destroy_anime), TRUE), 2.5 SECONDS) //Enough time to ensure that we don't get any runtimes.
 
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
