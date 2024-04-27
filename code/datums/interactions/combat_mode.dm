@@ -1,6 +1,7 @@
 /datum/interaction_mode/combat_mode
 	shift_to_open_context_menu = TRUE
 	var/combat_mode = FALSE
+	var/held_hud //Kill this man with hammers - Monkey.
 
 /datum/interaction_mode/combat_mode/update_istate(mob/M, modifiers)
 	M.istate = NONE
@@ -19,6 +20,7 @@
 	if (!M.hud_used.has_interaction_ui)
 		return
 	var/atom/movable/screen/combattoggle/flashy/CT = new
+	held_hud = CT
 	CT.hud = H
 	CT.icon = H.ui_style
 	CT.combat_mode = src
@@ -27,7 +29,9 @@
 
 /datum/interaction_mode/combat_mode/Destroy(force, ...)
 	. = ..()
-	src.owner.mob.hud_used.Destroy() //Monkeystation Edit. If Combat_Mode is ever destroyed, destroy the hud too. This should help stop harddeling.
+	combat_mode = null
+	QDEL_NULL(held_hud)
+	held_hud = null //absolutely make sure we kill this - Monkeystation
 
 /datum/interaction_mode/combat_mode/keybind_act(type)
 	var/old_state = combat_mode
