@@ -22,6 +22,18 @@
 	/// The offset datum for our accessory overlay.
 	var/datum/worn_feature_offset/worn_accessory_offset
 
+/obj/item/bodypart/chest/Destroy() // CURSE OF QDEL UPON YOU
+	. = ..()
+	QDEL_NULL(worn_uniform_offset)
+	QDEL_NULL(worn_id_offset)
+	QDEL_NULL(worn_suit_storage_offset)
+	QDEL_NULL(worn_belt_offset)
+	QDEL_NULL(worn_back_offset)
+	QDEL_NULL(worn_suit_offset)
+	QDEL_NULL(worn_neck_offset)
+	QDEL_NULL(worn_accessory_offset)
+	return ..() //Just incase
+
 /obj/item/bodypart/head
 	/// Offset to apply to equipment worn on the ears
 	var/datum/worn_feature_offset/worn_ears_offset
@@ -34,14 +46,12 @@
 	/// Offset to apply to overlays placed on the face
 	var/datum/worn_feature_offset/worn_face_offset
 
-/obj/item/bodypart/head/Destroy()
+/obj/item/bodypart/head/Destroy() // CURSE OF QDEL
 	. = ..()
-	for(var/datum/worn_feature_offset/i in src)
-		i = null
-		QDEL_NULL(i)
+	QDEL_NULL(worn_ears_offset)
+	QDEL_NULL(worn_glasses_offset)
+	QDEL_NULL(worn_mask_offset)
+	QDEL_NULL(worn_head_offset)
+	QDEL_NULL(worn_face_offset)
+	return ..() // Just incase
 
-/obj/item/bodypart/chest/Destroy()
-	. = ..()
-	for(var/datum/worn_feature_offset/i in src)
-		i = null
-		QDEL_NULL(i)
