@@ -77,11 +77,11 @@
 	var/obj/item/organ/external/anime_middle/removing2 = src.get_organ_slot(ORGAN_SLOT_EXTERNAL_ANIME_CHEST)
 	var/obj/item/organ/external/anime_bottom/removing3 = src.get_organ_slot(ORGAN_SLOT_EXTERNAL_ANIME_BOTTOM)
 	if(removing1) //Fugly-ass code but it works for ensuring we don't get sprite/code issues.
-		removing1.Destroy()
+		qdel(removing1)
 	if(removing2)
-		removing2.Destroy()
+		qdel(removing2)
 	if(removing3)
-		removing3.Destroy()
+		qdel(removing3)
 
 
 /datum/species/nabber/after_equip_job(datum/job/J, mob/living/carbon/human/C, visualsOnly = FALSE, client/preference_source = null) //Handle things such as post_spawn timers here. In this case, prepare to evaporate anime.
@@ -90,8 +90,8 @@
 
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
-	arms.Destroy()
-	camouflage.Destroy()
+	qdel(arms)
+	qdel(camouflage)
 	//threat_mod.Destroy()
 
 /datum/species/nabber/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)

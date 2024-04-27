@@ -76,7 +76,7 @@
 
 /obj/item/organ/internal/eyes/robotic/nabber/Remove(mob/living/carbon/eye_owner, special)
 	. = ..()
-	shield.Destroy()
+	qdel(shield)
 	active = FALSE
 	toggle_shielding()
 
