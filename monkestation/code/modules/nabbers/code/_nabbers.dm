@@ -72,6 +72,19 @@
 /datum/species/nabber/get_species_description()
 	return "Large, bulky - impressively armoured and chitinous, these ambush predators are a recent acquisition by NanoTrasen. Loyal workers, not the brightest bulb in the pack - and physically impressive, they're perfect for all forms of menial, unimportant labor. Known to be extremely flammable."
 
+
+/datum/species/nabber/after_equip_job(mob/living/carbon/human/C)
+	..()
+	var/list/anime_list = list(
+		/obj/item/organ/external/anime_head,
+		/obj/item/organ/external/anime_middle,
+		/obj/item/organ/external/anime_bottom,
+		)
+	var/mob/living/carbon/human/human_holder = C
+	var/datum/species/species = human_holder.dna.species
+	for(var/obj/item/organ/external/organ_path as anything in anime_list)
+		species.external_organs -= organ_path // go away
+
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	arms.Destroy()

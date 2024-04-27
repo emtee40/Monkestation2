@@ -4,7 +4,6 @@
 #define NABBER_BRUTE_MODIFIER 0.65 // Handles the total damage incoming
 #define NABBER_BURN_MODIFIER 1.4 // 0.65x incoming brute, 1.4x burn. Keep in mind, they also suffocate while on fire.
 //Nabbers
-
 /obj/item/bodypart/head/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
 	limb_id = SPECIES_NABBER

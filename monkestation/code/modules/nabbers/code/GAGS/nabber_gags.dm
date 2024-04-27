@@ -51,6 +51,10 @@
 	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
 	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/mask
 
+/obj/item/clothing/mask/gas //because we have to subtype... every single time.
+	species_clothing_color_coords = list(list(BASE_CLOTH_X_1, BASE_CLOTH_Y_1))
+	greyscale_config_worn_nabber_fallback = /datum/greyscale_config/nabber/mask
+
 /**
  * Nabber fallbacks.
  * In case what we have another species with specials Json config file. We use this for our case.
