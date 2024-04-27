@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(hive_exits, list())
 	if(!do_after(user, enter_time, src))
 		return
 
-	if(user.pulling)
+	if(user.pulling && user.pulling != src)
 		do_teleport(user.pulling, get_step(linked_exit, EAST), no_effects = TRUE, forced = TRUE)
 	do_teleport(user, get_step(linked_exit, EAST), no_effects = TRUE, forced = TRUE)
 
