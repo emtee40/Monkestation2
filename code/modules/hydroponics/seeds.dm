@@ -95,7 +95,7 @@
 	var/list/generated_infusions = list()
 	for(var/datum/hydroponics/plant_mutation/infusion/listed_item as anything in infusion_mutations)
 		var/datum/hydroponics/plant_mutation/infusion/created_list_item = new listed_item
-		generated_mutations += created_list_item
+		generated_infusions += created_list_item
 	infusion_mutations = generated_infusions
 
 	if(!nogenes) // not used on Copy()
