@@ -25,7 +25,6 @@
 		var/list/types = bitfield_to_list(drink_type, FOOD_FLAGS)
 		. += span_notice("It is [lowertext(english_list(types))].")
 
-
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/M)
 	if(last_check_time + 50 >= world.time)
 		return
