@@ -155,7 +155,6 @@
 		)
 	job = /datum/job/bartender
 
-/* MONKESTATION REMOVAL: MERGED WITH PRISONERS
 /datum/id_trim/job/bitrunner
 	assignment = "Bitrunner"
 	trim_state = "trim_bitrunner"
@@ -179,7 +178,6 @@
 		ACCESS_QM,
 	)
 	job = /datum/job/bitrunner
-*/
 
 /datum/id_trim/job/botanist
 	assignment = "Botanist"

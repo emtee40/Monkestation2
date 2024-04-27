@@ -51,9 +51,6 @@
 #define ACCESS_HOS "hos"
 /// Access for the detective to get into their office, the medical data console, and some other detective-related stuff.
 #define ACCESS_DETECTIVE "detective"
-/*MONKESTATION ADDITION*/
-/// Access for the bitrunning den
-#define ACCESS_BIT_DEN "bit_den"
 
 /// Engineering General Access, grants access to the standard parts of engineering (as well as the Supermatter and related equipment).
 #define ACCESS_ENGINEERING "engineering"
@@ -107,10 +104,9 @@
 #define ACCESS_VAULT "vault"
 /// Access for the Quartermaster's personal quarters in mapping, as well as some other QM-related things.
 #define ACCESS_QM "qm"
-/* MONKESTATION REMOVAL
 /// Access for the bitrunning den
 #define ACCESS_BIT_DEN "bit_den"
-*/
+
 /// General access for Science, allows for entry to the general hallways of Science, as well as the main lathe room.
 #define ACCESS_SCIENCE "science"
 /// Access to the specialized research experimentation rooms within Science, as well as what gives access to lockers and access to TechWeb programs.
@@ -440,7 +436,6 @@
 	ACCESS_MECH_SECURITY, \
 	ACCESS_SECURITY, \
 	ACCESS_WEAPONS, \
-	ACCESS_BIT_DEN, \
 )
 /// Name for the Medbay region.
 #define REGION_MEDBAY "Medbay"
@@ -493,6 +488,7 @@
 #define REGION_SUPPLY "Supply"
 /// Used to seed the accesses_by_region list in SSid_access. A list of all cargo regional accesses that are overseen by the HoP.
 #define REGION_ACCESS_SUPPLY list( \
+	ACCESS_BIT_DEN, \
 	ACCESS_CARGO, \
 	ACCESS_MECH_MINING, \
 	ACCESS_MINERAL_STOREROOM, \
@@ -553,6 +549,7 @@
 	/obj/item/modular_computer/pda/heads/rd = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/heads/captain = list(REGION_COMMAND), \
 	/obj/item/modular_computer/pda/cargo = list(REGION_SUPPLY), \
+	/obj/item/modular_computer/pda/bitrunner = list(REGION_SUPPLY), \
 	/obj/item/modular_computer/pda/shaftminer = list(REGION_SUPPLY), \
 	/obj/item/modular_computer/pda/chaplain = list(REGION_GENERAL), \
 	/obj/item/modular_computer/pda/lawyer = list(REGION_GENERAL), \

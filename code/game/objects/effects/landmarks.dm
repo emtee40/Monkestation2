@@ -74,11 +74,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Cargo Technician"
 	icon_state = "Cargo Technician"
 
-/* MONKESTATION REMOVAL: MERGED WITH PRISONERS
 /obj/effect/landmark/start/bitrunner
 	name = "Bitrunner"
 	icon_state = "Bitrunner"
-*/
 
 /obj/effect/landmark/start/bartender
 	name = "Bartender"
