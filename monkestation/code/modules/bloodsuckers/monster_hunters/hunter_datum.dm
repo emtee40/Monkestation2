@@ -45,12 +45,13 @@
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.add_traits(granted_traits, HUNTER_TRAIT)
 	current_mob.update_sight()
-	owner.unconvertable = TRUE
+	current_mob.faction |= FACTION_RABBITS
 
 /datum/antagonist/monsterhunter/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	REMOVE_TRAITS_IN(current_mob, HUNTER_TRAIT)
+	current_mob.faction -= FACTION_RABBITS
 	current_mob.update_sight()
 
 /datum/antagonist/monsterhunter/on_gain()

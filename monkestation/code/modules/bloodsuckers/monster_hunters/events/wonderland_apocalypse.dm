@@ -86,13 +86,32 @@
 
 /obj/structure/wonderland_rift/proc/summon_rabbit(mob/user)
 	var/spawn_check = tgui_alert(user, "Become a Jabberwocky?", "Wonderland Rift", list("Yes", "No"))
-	if(spawn_check != "Yes" || !src || QDELETED(src) || QDELETED(user))
+	if(spawn_check != "Yes" || QDELETED(src) || QDELETED(user) || enemy_spawned)
 		return FALSE
-
-	if(enemy_spawned)
-		return FALSE
-
 	enemy_spawned = TRUE
 	var/mob/living/basic/red_rabbit/evil_rabbit = new(get_turf(src))
 	evil_rabbit.key = user.key
 	to_chat(evil_rabbit, span_boldwarning("Destroy everything, spare no one."))
+
+/datum/status_effect/wonderland_district
+	id = "wonderland_district"
+	alert_type = null
+	tick_interval = -1
+
+/datum/status_effect/wonderland_district/on_apply()
+	. = ..()
+	if(FACTION_RABBITS in owner?.faction)
+		return FALSE
+	RegisterSignal(owner, COMSIG_MOB_AFTER_SPELL_CAST, PROC_REF(after_spell_cast))
+
+/datum/status_effect/wonderland_district/on_remove()
+	. = ..()
+	UnregisterSignal(owner, COMSIG_MOB_AFTER_SPELL_CAST)
+
+/datum/status_effect/wonderland_district/proc/after_spell_cast(datum/source, datum/action/cooldown/spell/spell, atom/cast_on)
+	SIGNAL_HANDLER
+	if(!istype(spell) || QDELING(spell) || !spell.antimagic_flags) // don't affect non-magic spells.
+		return
+
+/datum/status_effect/wonderland_district/proc/recoil()
+	return
