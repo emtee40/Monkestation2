@@ -69,12 +69,6 @@
 	//threat_mod = new(C)
 	//threat_mod.Grant(C)
 
-/datum/species/nabber/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
-	if(H.stat == DEAD) //Should never allow for them to keep burning forever
-		return
-	if(H.fire_stacks <= 5) //Never give more than 10 firestacks... Normally.
-		H.adjust_fire_stacks(5)
-
 /datum/species/nabber/get_species_description()
 	return "Large, bulky - impressively armoured and chitinous, these ambush predators are a recent acquisition by NanoTrasen. Loyal workers, not the brightest bulb in the pack - and physically impressive, they're perfect for all forms of menial, unimportant labor. Known to be extremely flammable."
 
@@ -86,11 +80,13 @@
 
 /datum/species/nabber/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	. = ..()
-	if(isdead(H))
+	if(H.stat == DEAD) //Should never allow for them to keep burning forever
 		return
 	//Handles bonus burn damage
 	if(H.on_fire)
 		H.apply_damage(NABBER_DAMAGE_ONBURNING, OXY)
+	if(H.fire_stacks <= 5 && !H.on_fire) //Never give more than 15 firestacks... Normally.
+		H.adjust_fire_stacks(10)
 
 /datum/species/nabber/prepare_human_for_preview(mob/living/carbon/human/nabber)
 	var/nabber_color = "#00ac1d"
