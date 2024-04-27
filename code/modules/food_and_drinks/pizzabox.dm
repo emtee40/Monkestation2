@@ -389,7 +389,7 @@
 	pizza = new favourite_pizza_type
 	boxtag_set = FALSE
 	update_appearance() //update our boxtag to match our new pizza
-	pizza.foodtypes = nommer.get_liked_foodtypes() //it's our favorite!
+	pizza.foodtypes = nommer.dna.species.liked_food //it's our favorite!
 
 ///screentips for pizzaboxes
 /obj/item/pizzabox/add_context(atom/source, list/context, obj/item/held_item, mob/user)
