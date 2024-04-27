@@ -1000,4 +1000,22 @@ generate/load female uniform sprites matching all previously decided variables
 
 	return appearance
 
+//MONKEYSTATION EDIT - ENSURES FILTERS ARE CUT UPON BEING DESTROYED \\
+
+/mob/living/carbon/human/proc/get_filter_and_destroy(var/filtername) //Using this is way neater code-wise.
+	var/filter = src.get_filter(filtername)
+	if(filter)
+		remove_filter(filter)
+
+/mob/living/carbon/human/Destroy() //Ensure all filters are cut on destroy. Hopefully prevents harddels due to height.
+	. = ..()
+	src.get_filter_and_destroy("Gnome_Cut_Torso")
+	src.get_filter_and_destroy("Gnome_Cut_Legs")
+	src.get_filter_and_destroy("Cut_Torso")
+	src.get_filter_and_destroy("Cut_Legs")
+	src.get_filter_and_destroy("Lenghten_Legs")
+	src.get_filter_and_destroy("Lenghten_Torso")
+
+//MONKEYSTATION EDIT END\\
+
 #undef RESOLVE_ICON_STATE

@@ -310,6 +310,11 @@
 		flashy.color = "#C62727"
 	. += flashy
 
+/atom/movable/screen/combattoggle/flashy/Destroy()
+	. = ..()
+	QDEL_NULL(flashy) //Monkeystation Edit - Absolutely make sure these things avoid harddels
+	flashy = null
+
 /atom/movable/screen/combattoggle/robot
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
