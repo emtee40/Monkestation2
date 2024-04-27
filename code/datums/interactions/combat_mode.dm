@@ -25,6 +25,10 @@
 	UI = CT
 	return CT
 
+/datum/interaction_mode/combat_mode/Destroy(force, ...)
+	. = ..()
+	src.owner.mob.hud_used.Destroy() //Monkeystation Edit. If Combat_Mode is ever destroyed, destroy the hud too. This should help stop harddeling.
+
 /datum/interaction_mode/combat_mode/keybind_act(type)
 	var/old_state = combat_mode
 	switch (type)
