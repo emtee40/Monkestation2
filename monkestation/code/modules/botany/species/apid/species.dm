@@ -7,7 +7,7 @@
 
 
 /obj/item/food/meat/slab/human/mutant/apid
-	icon_state = "apidmeat"
+	icon_state = "mothmeat"
 	desc = "Unpleasantly powdery and dry. Kind of pretty, though."
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW | BUGS | GORE
