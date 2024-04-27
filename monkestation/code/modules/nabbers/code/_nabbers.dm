@@ -69,8 +69,14 @@
 	//threat_mod = new(C)
 	//threat_mod.Grant(C)
 
+/datum/species/nabber/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)
+	if(H.stat == DEAD) //Should never allow for them to keep burning forever
+		return
+	if(H.fire_stacks <= 5) //Never give more than 10 firestacks... Normally.
+		H.adjust_fire_stacks(5)
+
 /datum/species/nabber/get_species_description()
-	return "Large and in-charge, these large mantid-insect-snake hybrids stand at a massive height, easily towering over all but the tallest of Saurian races, and equipped with two deadly blade-arms and the ability to lift massive weights, these insectoids are valuable workers to Nanotrasen; if also appended with 'TERMINATE ON VIOLENT ACTION' tags."
+	return "Large, bulky - impressively armoured and chitinous, these ambush predators are a recent acquisition by NanoTrasen. Loyal workers, not the brightest bulb in the pack - and physically impressive, they're perfect for all forms of menial, unimportant labor. Known to be extremely flammable."
 
 /datum/species/nabber/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -105,7 +111,7 @@
 	))
 
 	perk_descriptions += list(list(
-		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 		SPECIES_PERK_ICON = "dna",
 		SPECIES_PERK_NAME = "Robust Chitin",
 		SPECIES_PERK_DESC = "Giant Armoured Serpentids have a robust external chitin layer that protects them from damage, but leaves them flammable."
@@ -116,6 +122,13 @@
 		SPECIES_PERK_ICON = "star-of-life",
 		SPECIES_PERK_NAME = "EXTREME Fire Vulnerability",
 		SPECIES_PERK_DESC = "Due to Giant Armoured Serpentids method of 'breathing', being set on fire will also suffocate them."
+	))
+
+	perk_descriptions += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = "star-of-life",
+		SPECIES_PERK_NAME = "Flammable Chitin",
+		SPECIES_PERK_DESC = "Due to the photoreflective layer on their chitin, Giant Armoured Serpentids are known to combust when exposed to sufficient heat or flame, very, very easily."
 	))
 
 	perk_descriptions += list(list(
@@ -135,8 +148,8 @@
 	perk_descriptions += list(list(
 		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 		SPECIES_PERK_ICON = "user-plus",
-		SPECIES_PERK_NAME = "Natural Chameleon",
-		SPECIES_PERK_DESC = "Giant Armoured Serpentids have photoreflective chitin, that makes them difficult to detect in darkness."
+		SPECIES_PERK_NAME = "Natural Electrochromic Chitin",
+		SPECIES_PERK_DESC = "Giant Armoured Serpentids have naturally-electrochromic chitin. Easily disrupted by grounding to any object they touch, they can remain mostly invisible, so long as they are not disturbed nor interact with their surroundings."
 	))
 
 	return perk_descriptions
