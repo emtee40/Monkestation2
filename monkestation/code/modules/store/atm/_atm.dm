@@ -147,7 +147,7 @@
 
 /obj/machinery/atm/proc/attempt_withdraw()
 	var/mob/living/living_user = usr
-	if(living_user)
+	if(!living_user)
 		return
 
 	var/current_balance = living_user.client.prefs.metacoins
@@ -190,6 +190,7 @@
 			var/obj/item/stack/monkecoin/attacked_coins = attacking_item
 			if(!user.client.prefs.adjust_metacoins(user.client.ckey, attacked_coins.amount, donator_multipler = FALSE))
 				say("Error acceptings coins, please try again later.")
+				return
 			qdel(attacked_coins)
 			say("Coins deposited to your account, have a nice day.")
 
