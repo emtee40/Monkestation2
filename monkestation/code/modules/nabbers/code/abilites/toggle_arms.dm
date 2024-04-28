@@ -22,9 +22,9 @@
 
 /obj/item/melee/nabber_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
 	AddComponent(/datum/component/butchering, \
-	speed = 3 SECONDS, \ //They're designed for this
+	speed = 3 SECONDS, \
 	effectiveness = 80, \
 	)
 
