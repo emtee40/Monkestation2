@@ -31,7 +31,7 @@
 	)
 	/// A list of traits innately granted to the mind of monster hunters.
 	var/static/list/mind_traits = list(
-		TRAIT_BLOODSUCKER_HUNTER,
+		TRAIT_OCCULTIST,
 		TRAIT_MADNESS_IMMUNE // You merely adopted the madness. I was born in it, molded by it.
 	)
 	/// A typecache of ability types that will be revealed to the monster hunter when they gain insight.
