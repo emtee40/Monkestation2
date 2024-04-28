@@ -37,6 +37,7 @@
 		apid.adjust_honeycount(-150)
 		created_hive = new(get_turf(user), user.real_name)
 		apid.owned_hive = created_hive
+		created_hive.current_stat = apid.current_stat
 
 	RegisterSignals(created_hive, list(COMSIG_QDELETING, COMSIG_PREQDELETED), PROC_REF(remove_hive))
 

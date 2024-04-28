@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(hive_exits, list())
 
 	var/obj/structure/hive_exit/linked_exit
 	var/stored_honey = 0
+	var/current_stat = "potency"
 
 /obj/structure/beebox/hive/Initialize(mapload, created_name)
 	. = ..()

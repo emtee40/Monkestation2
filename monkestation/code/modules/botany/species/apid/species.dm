@@ -74,6 +74,7 @@
 
 	var/datum/action/cooldown/spell/build_hive/build
 	var/datum/action/cooldown/spell/pointed/pollinate/pollinate
+	var/datum/action/cooldown/spell/change_pollination_stat/change_stat
 
 	var/stored_honey = 0
 	var/current_stat = "potency"
@@ -90,6 +91,9 @@
 
 	pollinate = new
 	pollinate.Grant(human_who_gained_species)
+
+	change_stat = new
+	change_stat.Grant(human_who_gained_species)
 
 	if(human_who_gained_species.hud_used)
 		var/datum/hud/hud_used = human_who_gained_species.hud_used
@@ -111,6 +115,8 @@
 		build.Remove(C)
 	if(pollinate)
 		pollinate.Remove(C)
+	if(change_stat)
+		change_stat.Remove(C)
 
 	if(C.hud_used)
 		var/datum/hud/hud_used = C.hud_used

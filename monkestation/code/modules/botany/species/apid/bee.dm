@@ -34,6 +34,10 @@
 					seed.adjust_endurance(rand(1,5))
 				if("lifespan")
 					seed.adjust_lifespan(rand(1,5))
+				if("maturation")
+					seed.adjust_maturation(rand(1, 5))
+				if("production")
+					seed.adjust_production(rand(1, 5))
 
 	SEND_SIGNAL(hydro, COMSIG_TRY_POLLINATE)
 
@@ -42,3 +46,9 @@
 		if(istype(beehome, /obj/structure/beebox/hive))
 			var/obj/structure/beebox/hive/hive = beehome
 			hive.stored_honey += rand(1, 5)
+
+/mob/living/basic/bee/apid_summoned/handle_habitation(obj/structure/beebox/hive/hive)
+	. = ..()
+	if(!istype(hive))
+		return
+	specalized_stat = hive.current_stat
