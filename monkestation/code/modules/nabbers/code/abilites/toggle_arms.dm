@@ -25,16 +25,13 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
 	AddComponent(/datum/component/butchering, \
 	speed = 3 SECONDS, \
-	effectiveness = 80, \
+	effectiveness = 85, \
 	)
 
 /obj/item/melee/nabber_blade/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(istype(target, /obj/structure/table))
-		var/obj/structure/table/T = target
-		T.deconstruct(FALSE)
 	else if(istype(target, /obj/structure/chair))
 		var/obj/structure/chair/C = target
 		C.deconstruct()
