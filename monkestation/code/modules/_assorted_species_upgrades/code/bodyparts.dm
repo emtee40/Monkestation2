@@ -23,7 +23,6 @@
 	var/datum/worn_feature_offset/worn_accessory_offset
 
 /obj/item/bodypart/chest/Destroy() // CURSE OF QDEL UPON YOU
-	. = ..()
 	QDEL_NULL(worn_uniform_offset)
 	QDEL_NULL(worn_id_offset)
 	QDEL_NULL(worn_suit_storage_offset)
