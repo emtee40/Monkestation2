@@ -6,7 +6,7 @@
 	if(ishuman(injected_mob))
 		var/mob/living/carbon/human/mob = injected_mob
 		var/colour = mob.dna.species.blood_colours
-		if(!(colour == null) && should_colour == TRUE) //fast fast fast
+		if(colour != null && should_colour == TRUE) //fast fast fast
 			src.color = colour //Switch the blood-colour last moment!
 		else
 			src.color = "#b60a0a" //default blood color. Careful on editing this, as it has to apply to all species without blood_colours. Differs from backup for runtime/debug testing
