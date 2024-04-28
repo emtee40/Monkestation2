@@ -1,7 +1,7 @@
 /datum/interaction_mode/combat_mode
 	shift_to_open_context_menu = TRUE
 	var/combat_mode = FALSE
-	var/held_hud //Kill this man with hammers - Monkey.
+	var/held_hud //Monkeystation Edit. Ensures the HUD is tracked to prevent harddels
 
 /datum/interaction_mode/combat_mode/update_istate(mob/M, modifiers)
 	M.istate = NONE
@@ -20,18 +20,12 @@
 	if (!M.hud_used.has_interaction_ui)
 		return
 	var/atom/movable/screen/combattoggle/flashy/CT = new
-	held_hud = CT
+	held_hud = CT //Monkeystation Edit. Keep track of this HUD for future destruction.
 	CT.hud = H
 	CT.icon = H.ui_style
 	CT.combat_mode = src
 	UI = CT
 	return CT
-
-/datum/interaction_mode/combat_mode/Destroy(force, ...)
-	. = ..()
-	combat_mode = null
-	QDEL_NULL(held_hud)
-	held_hud = null //absolutely make sure we kill this - Monkeystation
 
 /datum/interaction_mode/combat_mode/keybind_act(type)
 	var/old_state = combat_mode

@@ -197,8 +197,3 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	bound_height = 64
 
 	var/list/extra_bodyparts = list()
-
-/mob/living/carbon/human/dummy/extra_tall/Destroy() //Monkeystation edit
-	. = ..()
-	QDEL_NULL(extra_bodyparts)
-	extra_bodyparts = null // Even if QDEL fails, null.

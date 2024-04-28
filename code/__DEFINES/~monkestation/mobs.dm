@@ -1,5 +1,13 @@
+//Monkeystation Species Defines. Please update this here instead of /tg/stations mobs.dm \\
+
 #define SPECIES_ARACHNIDS "arachnid"
 #define SPECIES_DRACONIC_SKELETON "draconic_skeleton"
+#define SPECIES_OOZELING "oozeling"
+#define SPECIES_IPC "ipc"
+#define SPECIES_SIMIAN "simian"
+#define SPECIES_GOBLIN "goblin"
+#define SPECIES_FLORAN "floran"
+#define SPECIES_NABBER "nabber"
 
 GLOBAL_REAL_VAR(list/voice_type2sound = list(
 	"1" = list(
