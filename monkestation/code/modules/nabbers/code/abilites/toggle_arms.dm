@@ -14,8 +14,8 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
-	wound_bonus = 5 //dropped from 25
-	bare_wound_bonus = 15 //dropped from 25
+	wound_bonus = 10 //dropped from 25
+	bare_wound_bonus = 20 //High, but these are meant to maul people pretty badly.
 
 /obj/item/melee/nabber_blade/alt
 	icon_state = "mantis_arm_l"
@@ -24,7 +24,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	AddComponent(/datum/component/butchering, \
-	speed = 10 SECONDS, \
+	speed = 3 SECONDS, \ //They're designed for this
 	effectiveness = 80, \
 	)
 
@@ -90,7 +90,7 @@
 	nabber.visible_message(span_danger("[nabber] starts to pump blood into their hunting arms!"), span_warning("You let out a aggressive screech, raising your blade-arms!"), span_hear("You hear a sharp screech of an agitated creature!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 
-	if(!do_after(nabber, 5 SECONDS, nabber))
+	if(!do_after(nabber, 3 SECONDS, nabber))
 		StartCooldown()
 		nabber.balloon_alert(nabber, "Stand still!")
 		return FALSE
@@ -129,7 +129,7 @@
 
 	nabber.balloon_alert(nabber, "Removing blood from hunting-arms!")
 
-	if(!do_after(nabber, 5 SECONDS, nabber))
+	if(!do_after(nabber, 2.5 SECONDS, nabber))
 		nabber.balloon_alert(nabber, "Stand still!")
 		return	FALSE
 
