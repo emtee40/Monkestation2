@@ -6,6 +6,9 @@
 /datum/species/lizard
 	blood_colours = "#476d0a"
 
+/datum/species/arachnid
+	blood_colours = "#4b23b8"
+
 /datum/species/Destroy(force, ...) //absolutely should never happen. Handle it anyway.
 	. = ..()
 	uses_offsets = null
