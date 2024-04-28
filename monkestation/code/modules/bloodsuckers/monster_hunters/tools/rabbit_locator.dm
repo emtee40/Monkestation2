@@ -1,6 +1,6 @@
 /obj/item/rabbit_locator
 	name = "Accursed Red Queen card"
-	desc = "Hunts down the white rabbits.\n[span_bold("This does NOT track down monster targets, it tracks down the rabbits you must collect.")]"
+	desc = "Hunts down the white rabbits.\n<b>This does <i>NOT</i> track down monster targets, it tracks down the rabbits you must collect.</b>"
 	icon = 'monkestation/icons/bloodsuckers/weapons.dmi'
 	icon_state = "locator"
 	w_class = WEIGHT_CLASS_SMALL
