@@ -1,6 +1,6 @@
 /obj/item/rabbit_locator
 	name = "Accursed Red Queen card"
-	desc = "Hunts down the white rabbits."
+	desc = "Hunts down the white rabbits.\n[span_bold("This does NOT track down monster targets, it tracks down the rabbits you must collect.")]"
 	icon = 'monkestation/icons/bloodsuckers/weapons.dmi'
 	icon_state = "locator"
 	w_class = WEIGHT_CLASS_SMALL
@@ -57,7 +57,7 @@
 		to_chat(user,span_warning("You feel a VERY strong hint..."))
 	if(distance < 10)
 		sound_value = 100
-		to_chat(user,span_warning("Here...its definitely here!"))
+		to_chat(user, span_warning("Here... the white rabbit is definitely here!"))
 	user.playsound_local(bnuuy_turf, 'monkestation/sound/bloodsuckers/rabbitlocator.ogg', vol = sound_value, pressure_affected = FALSE)
 	COOLDOWN_START(src, locator_timer, 7 SECONDS)
 
