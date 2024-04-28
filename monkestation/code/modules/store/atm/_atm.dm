@@ -42,19 +42,21 @@
 
 /obj/machinery/atm/ui_data(mob/user)
 	var/list/data = list()
-
 	if(!user.client)
 		return
+
 	var/cash_balance = 0
-	var/obj/item/user_id = user.get_item_by_slot(ITEM_SLOT_ID)
-	if(user_id && istype(user_id, /obj/item/card/id))
-		var/obj/item/card/id/id_card = user_id.GetID()
-		cash_balance = id_card.registered_account.account_balance
+	var/obj/item/card/id/user_id = user.get_item_by_slot(ITEM_SLOT_ID)
+	if(user_id)
+		user_id = user_id.GetID()
+		if(istype(user_id))
+			cash_balance = user_id.registered_account.account_balance
 	else
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
 			var/datum/bank_account/user_account = SSeconomy.bank_accounts_by_id["[human_user.account_id]"]
-			cash_balance = user_account.account_balance
+			if(user_account)
+				cash_balance = user_account.account_balance
 
 	data["meta_balance"] = user.client.prefs.metacoins
 	data["cash_balance"] = cash_balance
