@@ -15,7 +15,7 @@
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
 	wound_bonus = 10 //dropped from 25
-	bare_wound_bonus = 20 //High, but these are meant to maul people pretty badly.
+	bare_wound_bonus = 10 //Dropped from 25. Now lowered due to the ability to sharpen them.
 
 /obj/item/melee/nabber_blade/alt
 	icon_state = "mantis_arm_l"
@@ -27,14 +27,23 @@
 	speed = 3 SECONDS, \
 	effectiveness = 85, \
 	)
+	RegisterSignal(src.loc, COMSIG_ATOM_EXAMINE, PROC_REF(on_receiver_examine))
+
+/obj/item/melee/nabber_blade/Destroy()
+	UnregisterSignal(src.loc, COMSIG_ATOM_EXAMINE)
+	return ..()
+
+/obj/item/melee/nabber_blade/proc/on_receiver_examine(mob/living/carbon/examined, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	var/examine_text = span_danger("[src.loc] has sharpened their hunting-arms, with the large blades radiating a bloodthirsty aura...")
+	examine_list += examine_text
 
 /datum/action/cooldown/toggle_arms/proc/sharpen_limbs(mob/user)
 	for(var/obj/item/held in user.held_items) //Actually sharpen them here
 		if(istype(held, /obj/item/melee/nabber_blade))
-			held.force = 18 //Lets bump this down a little.
-			held.wound_bonus = 15 // 5 more
-			held.bare_wound_bonus = 30 //10 more.
-			held.item_flags = DROPDEL //Makes it so that no matter what, you can see these.
+			held.force = 18 //+4 damage to simulate whetstone usage.
+			held.wound_bonus = 15 // Decent buff.
+			held.bare_wound_bonus = 35 //Significant buff.
 			held.name = "lethally sharpened hunting-arm"
 			var/datum/component/butchering/held_component = held.GetComponent(/datum/component/butchering)
 			held_component.effectiveness = 95
