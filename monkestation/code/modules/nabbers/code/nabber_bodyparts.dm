@@ -9,7 +9,7 @@
 	limb_id = SPECIES_NABBER
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	bodytype = BODYTYPE_CUSTOM
 
 /obj/item/bodypart/head/mutant/nabber/Initialize(mapload)
 	worn_ears_offset = new(
@@ -41,7 +41,8 @@
 	limb_id = SPECIES_NABBER
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	bodytype = BODYTYPE_CUSTOM
+	acceptable_bodytype = BODYTYPE_CUSTOM
 
 /obj/item/bodypart/chest/mutant/nabber/Initialize(mapload)
 	worn_back_offset = new(
@@ -79,7 +80,7 @@
 	unarmed_damage_high = NABBER_PUNCH_HIGH
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	bodytype =  BODYTYPE_CUSTOM
 	biological_state = BIO_STANDARD_UNJOINTED
 	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 
@@ -89,14 +90,14 @@
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
 	biological_state = BIO_STANDARD_UNJOINTED
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	bodytype = BODYTYPE_CUSTOM
 
 /obj/item/bodypart/leg/right/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
 	limb_id = SPECIES_NABBER
 	brute_modifier = NABBER_BRUTE_MODIFIER
 	burn_modifier = NABBER_BURN_MODIFIER
-	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
+	bodytype = BODYTYPE_CUSTOM
 	biological_state = BIO_STANDARD_UNJOINTED
 
 #undef NABBER_PUNCH_LOW
