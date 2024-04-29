@@ -43,7 +43,7 @@
 	heatmod = 2.5 // IT BURNS
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 10)
-	bodytype = BODYTYPE_CUSTOM
+	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	mutantbrain = /obj/item/organ/internal/brain/nabber
 	mutanteyes = /obj/item/organ/internal/eyes/robotic/nabber
 	mutantlungs = /obj/item/organ/internal/lungs/nabber
