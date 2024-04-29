@@ -31,8 +31,10 @@
 /datum/action/cooldown/toggle_arms/proc/sharpen_limbs(mob/user)
 	for(var/obj/item/held in user.held_items) //Actually sharpen them here
 		if(istype(held, /obj/item/melee/nabber_blade))
-			held.force = 20
-			held.wound_bonus = 25
+			held.force = 18 //Lets bump this down a little.
+			held.wound_bonus = 15 // 5 more
+			held.bare_wound_bonus = 30 //10 more.
+			held.item_flags = DROPDEL //Makes it so that no matter what, you can see these.
 			held.name = "lethally sharpened hunting-arm"
 			var/datum/component/butchering/held_component = held.GetComponent(/datum/component/butchering)
 			held_component.effectiveness = 95
