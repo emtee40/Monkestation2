@@ -200,7 +200,7 @@
 	C.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	C.dust()
 
-/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), max_damage = 90, remaining_bounces = remaining_bounces - 1) //Monke edit
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -335,7 +335,7 @@
 		var/mob/living/closest_mob = closest_atom
 		ADD_TRAIT(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
 		addtimer(TRAIT_CALLBACK_REMOVE(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
-		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power/600), 90) + rand(-5, 5)) : 0
+		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power/600), max_damage) + rand(-5, 5)) : 0 //monke edit
 		closest_mob.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob
@@ -348,6 +348,9 @@
 
 	else
 		power = closest_atom.zap_act(power, zap_flags)
+
+	if(!remaining_bounces && !(remaining_bounces < 0))
+		return
 
 	if(prob(20))//I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
