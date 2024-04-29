@@ -1,8 +1,9 @@
 /// List of antagonists that are considered 'Monsters'.
 GLOBAL_LIST_INIT(monster_antagonist_typecache, typecacheof(list(
 	/datum/antagonist/bloodsucker,
-	/datum/antagonist/heretic,
 	/datum/antagonist/changeling,
+	/datum/antagonist/heretic,
+	/datum/antagonist/wizard
 )))
 
 #define MINIMUM_MONSTERS_REQUIRED 2

@@ -33,9 +33,24 @@
 		new /obj/effect/anomaly/dimensional/wonderland(get_safe_random_station_turf(), null, FALSE)
 	for(var/i = 1 to 4)
 		var/obj/structure/wonderland_rift/rift = new(get_safe_random_station_turf())
-		notify_ghosts("A doorway to the wonderland has been opened!", source = rift, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Wonderland rift Opened")
+		notify_ghosts("A doorway to the wonderland has been opened!", source = rift, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Wonderland Rift Opened")
+	for(var/mob/living/target as anything in GLOB.mob_living_list)
+		if(QDELETED(target))
+			continue
+		var/area/centcom/target_area = get_area(target)
+		if(istype(target_area) && target_area.grace)
+			continue
+		target.apply_status_effect(/datum/status_effect/wonderland_district)
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_CREATED, PROC_REF(apply_pressure_to_new_mob))
 
-
+/datum/round_event/wonderlandapocalypse/proc/apply_pressure_to_new_mob(datum/source, mob/living/target)
+	SIGNAL_HANDLER
+	if(!istype(target) || QDELING(target))
+		return
+	var/area/centcom/target_area = get_area(target)
+	if(istype(target_area) && target_area.grace)
+		continue
+	target.apply_status_effect(/datum/status_effect/wonderland_district)
 
 /obj/effect/anomaly/dimensional/wonderland
 	aSignal = null
@@ -102,16 +117,39 @@
 	. = ..()
 	if(FACTION_RABBITS in owner?.faction)
 		return FALSE
+	to_chat(owner, span_warning("You feel an ominous pressure fill the air around you..."))
+	RegisterSignal(owner, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
 	RegisterSignal(owner, COMSIG_MOB_AFTER_SPELL_CAST, PROC_REF(after_spell_cast))
 
 /datum/status_effect/wonderland_district/on_remove()
 	. = ..()
-	UnregisterSignal(owner, COMSIG_MOB_AFTER_SPELL_CAST)
+	UnregisterSignal(owner, list(COMSIG_ENTER_AREA, COMSIG_MOB_AFTER_SPELL_CAST))
+
+/datum/status_effect/wonderland_district/proc/on_enter_area(datum/source, area/centcom/new_area)
+	SIGNAL_HANDLER
+	if(istype(new_area) && new_area.grace)
+		qdel(src)
 
 /datum/status_effect/wonderland_district/proc/after_spell_cast(datum/source, datum/action/cooldown/spell/spell, atom/cast_on)
 	SIGNAL_HANDLER
 	if(!istype(spell) || QDELING(spell) || !spell.antimagic_flags) // don't affect non-magic spells.
 		return
+	make_visible()
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living, emote), "scream")
+	owner.visible_message(span_warning("[owner] doubles over in pain, violently coughing up blood!"), span_userdanger("An overwhelming pressure fills your body as you cast [spell.name || "magic"], filling you with excruciating pain down to the very core of your being!"))
+	owner.take_overall_damage(brute = rand(5, 15))
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.vomit(lost_nutrition = 0, blood = TRUE, distance = rand(1, 2), message = FALSE)
 
-/datum/status_effect/wonderland_district/proc/recoil()
-	return
+/datum/status_effect/wonderland_district/proc/make_visible()
+	if(alert_type && !QDELETED(linked_alert))
+		return
+	alert_type = /atom/movable/screen/alert/status_effect/wonderland_district
+	linked_alert = owner.throw_alert(id, alert_type)
+	linked_alert.attached_effect = src
+
+/atom/movable/screen/alert/status_effect/wonderland_district
+	name = "Wonderland Manifestation"
+	desc = "An omnipresent pressure surrounds you, causing any magic use to overload, injuring you!"
+	icon_state = "wonderland_district"
