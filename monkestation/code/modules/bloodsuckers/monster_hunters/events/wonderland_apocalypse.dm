@@ -49,7 +49,7 @@
 		return
 	var/area/centcom/target_area = get_area(target)
 	if(istype(target_area) && target_area.grace)
-		continue
+		return
 	target.apply_status_effect(/datum/status_effect/wonderland_district)
 
 /obj/effect/anomaly/dimensional/wonderland
