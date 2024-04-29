@@ -1,9 +1,16 @@
 #define NABBER_DAMAGE_ONBURNING 5
-//Handles species
-/datum/species/nabber
-	name = "Giant Armored Serpentid"
-	id = SPECIES_NABBER
-	eyes_icon = 'monkestation/code/modules/nabbers/icons/organs/nabber_eyes_new.dmi'
+#ifdef TRAIT_HARD_SOLES //Checks to see if this trait exists.
+/datum/species/nabber //If Hard_soles is detected, apply it to their inherent_traits. Cross-Testmerge compatability!
+	inherent_traits = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
+		TRAIT_LIGHT_STEP,	//Can't wear shoes
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_HARD_SOLES,
+		TRAIT_RADIMMUNE //Flavor
+	)
+#else
+/datum/species/nabber //If hard soles does not exist (Satyrs not merged/Testmerged)
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_PUSHIMMUNE, //You aint pushing it, chief.
@@ -11,6 +18,12 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RADIMMUNE //Flavor
 	)
+#endif
+//Handles species
+/datum/species/nabber
+	name = "Giant Armored Serpentid"
+	id = SPECIES_NABBER
+	eyes_icon = 'monkestation/code/modules/nabbers/icons/organs/nabber_eyes_new.dmi'
 	visual_gender = FALSE
 	species_traits = list(
 		MUTCOLORS,
