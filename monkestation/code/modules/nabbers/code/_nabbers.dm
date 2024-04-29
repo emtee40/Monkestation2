@@ -39,7 +39,6 @@
 	uses_offsets = TRUE
 	mutanttongue = /obj/item/organ/internal/tongue/nabber
 	hair_alpha = 0
-	payday_modifier = 0.50 //Lore accurate.
 	coldmod = 0.3 //Very very resistant to cold
 	heatmod = 2.5 // IT BURNS
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
