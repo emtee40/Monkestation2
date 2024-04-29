@@ -32,7 +32,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	unsuitable_cold_damage = 4
 	unsuitable_heat_damage = 4
-	combat_mode = TRUE
+//	combat_mode = TRUE //monkestation removal
 	faction = list() // No allies but yourself
 	pass_flags = PASSTABLE
 	unique_name = TRUE
