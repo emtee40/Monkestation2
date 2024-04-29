@@ -46,6 +46,7 @@
 		"sensor_voice_nanites",
 		"stealth_nanites",
 		"voice_nanites",
+		"research_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 
@@ -198,3 +199,12 @@
 		"mag_autorifle_ic",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/linked_surgery
+	id = "linked_surgery"
+	display_name = "Surgical Serverlink Brain Implant"
+	description = "A bluespace implant which a holder can read surgical programs from their server with."
+	prereq_ids = list("exp_surgery", "micro_bluespace")
+	design_ids = list("linked_surgery")
+	boost_item_paths = list(/obj/item/organ/internal/cyberimp/brain/linked_surgery)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)

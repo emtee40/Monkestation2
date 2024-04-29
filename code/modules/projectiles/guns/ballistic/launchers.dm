@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	pin = /obj/item/firing_pin/implant/pindicate
 	bolt_type = BOLT_TYPE_NO_BOLT
+	gun_flags = GUN_SMOKE_PARTICLES
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted
 	pin = /obj/item/firing_pin
@@ -27,6 +28,7 @@
 	icon_state = "mecha_grenadelnchr"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenademulti
 	pin = /obj/item/firing_pin
+	gun_flags = GUN_SMOKE_PARTICLES
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/cyborg/attack_self()
 	return
@@ -41,6 +43,7 @@
 	fire_delay = 0
 	actions_types = list()
 	casing_ejector = FALSE
+	gun_flags = GUN_SMOKE_PARTICLES
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper PML-9"
@@ -64,6 +67,7 @@
 	tac_reloads = FALSE
 	/// Do we shit flames behind us when we fire?
 	var/backblast = TRUE
+	gun_flags = GUN_SMOKE_PARTICLES
 
 /obj/item/gun/ballistic/rocketlauncher/Initialize(mapload)
 	. = ..()
@@ -91,9 +95,9 @@
 	if(can_shoot())
 		ADD_TRAIT(user, TRAIT_NO_TRANSFORM, REF(src))
 		playsound(src, 'sound/vehicles/rocketlaunch.ogg', 80, TRUE, 5)
-		animate(user, pixel_z = 300, time = 30, easing = LINEAR_EASING)
+		animate(user, pixel_z = 300, time = 30, flags = ANIMATION_RELATIVE, easing = LINEAR_EASING)
 		sleep(7 SECONDS)
-		animate(user, pixel_z = 0, time = 5, easing = LINEAR_EASING)
+		animate(user, pixel_z = -300, time = 5, flags = ANIMATION_RELATIVE, easing = LINEAR_EASING)
 		sleep(0.5 SECONDS)
 		REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, REF(src))
 		process_fire(user, user, TRUE)

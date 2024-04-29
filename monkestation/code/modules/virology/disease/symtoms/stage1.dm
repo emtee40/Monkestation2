@@ -20,15 +20,15 @@
 	var/mob/living/carbon/human/host = mob
 	if (prob(50) && isturf(mob.loc))
 		if(istype(host.wear_mask, /obj/item/clothing/mask/cigarette))
-			var/obj/item/clothing/mask/cigarette/I = host.get_item_by_slot(ITEM_SLOT_MASK)
+			var/obj/item/clothing/mask/cigarette/ciggie = host.get_item_by_slot(ITEM_SLOT_MASK)
 			if(prob(20))
-				var/turf/Q = get_turf(mob)
+				var/turf/startLocation = get_turf(mob)
 				var/turf/endLocation
 				var/spitForce = pick(0,1,2,3)
-				endLocation = get_ranged_target_turf(Q, mob.dir, spitForce)
+				endLocation = get_ranged_target_turf(startLocation, mob.dir, spitForce)
 				to_chat(mob, "<span class ='warning'>You sneezed \the [host.wear_mask] out of your mouth!</span>")
-				host.dropItemToGround(I)
-				I.throw_at(endLocation,spitForce,1)
+				host.dropItemToGround(ciggie)
+				ciggie.throw_at(endLocation,spitForce,1)
 
 /datum/symptom/gunck
 	name = "Flemmingtons"
@@ -85,6 +85,7 @@
 
 /datum/symptom/eyewater/activate(mob/living/mob)
 	to_chat(mob, span_warning("Your eyes sting and water!"))
+	mob.emote("cry")
 
 
 /datum/symptom/wheeze
@@ -102,33 +103,36 @@
 	encyclopedia = "Giving the infected a steady drip of honey in exchange of coughing up a bee every so often. The higher the symptom strength, the more honey is generated, and the more bees will be coughed up and more often as well. While Honey is a great healing reagent, it is also high on nutrients. Expect to become fat quickly.."
 	stage = 1
 	badness = EFFECT_DANGER_ANNOYING
-	max_multiplier = 10
+	max_multiplier = 4
 
 /datum/symptom/bee_vomit/activate(mob/living/mob)
 	if(!ismouse(mob))
-		if ((mob.reagents.get_reagent_amount(/datum/reagent/consumable/honey) < 5 + multiplier * 0.5) && prob(multiplier * 3))
+		if ((mob.reagents.get_reagent_amount(/datum/reagent/consumable/sugar) < 5 + multiplier * 0.5) && prob(multiplier * 8)) //honey quickly decays into sugar
 			mob.reagents.add_reagent(/datum/reagent/consumable/honey, multiplier)
+			if(prob(25))
+				to_chat(mob, span_notice("You taste someting sweet"))
 
-	if(prob(4*multiplier))
+	if(prob(20 + 20 * multiplier))
 		to_chat(mob, span_warning("You feel a buzzing in your throat"))
 
 		spawn(5 SECONDS)
 			var/turf/open/T = get_turf(mob)
-			if(prob(50))
+			if(prob(40 + 10 * multiplier))
 				mob.visible_message(span_warning("[mob] coughs out a bee!"),span_danger("You cough up a bee!"))
-			for(var/i = 0 to multiplier)
 				var/bee_type = pick(
 					100;/mob/living/basic/bee/friendly,
 					10;/mob/living/basic/bee,
 					5;/mob/living/basic/bee/toxin,
 					)
 				var/mob/living/basic/bee/bee = new bee_type(T)
-				if(multiplier < 8)
-					addtimer(CALLBACK(src, PROC_REF(kill_bee), bee), 15 SECONDS * multiplier)
+				if(multiplier < 4)
+					addtimer(CALLBACK(src, PROC_REF(kill_bee), bee), 20 SECONDS * multiplier)
 
 /datum/symptom/bee_vomit/proc/kill_bee(mob/living/basic/bee/bee)
 	bee.visible_message(span_warning("The bee falls apart!"), span_warning("You fall apart"))
 	bee.death()
+	sleep(0.1 SECONDS)
+	qdel(bee)
 
 /datum/symptom/soreness
 	name = "Myalgia Syndrome"

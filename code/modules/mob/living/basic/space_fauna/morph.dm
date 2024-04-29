@@ -21,6 +21,7 @@
 	obj_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	melee_attack_cooldown = CLICK_CD_MELEE
 
 	// Oh you KNOW it's gonna be real green
 	lighting_cutoff_red = 10
@@ -57,6 +58,7 @@
 
 	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/content_barfer)
+	AddElement(/datum/element/prevent_attacking_of_types, GLOB.typecache_general_bad_hostile_attack_targets, "this tastes awful!") // MONKESTATION ADDITION
 
 	disguise_ability = new(src)
 	disguise_ability.Grant(src)

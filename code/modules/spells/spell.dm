@@ -48,7 +48,7 @@
 	button_icon_state = "spell_default"
 	overlay_icon_state = "bg_spell_border"
 	active_overlay_icon_state = "bg_spell_border_active_red"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED
 	panel = "Spells"
 	melee_cooldown_time = 0 SECONDS
 
@@ -177,12 +177,7 @@
 			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
 		return FALSE
 
-	if(!(spell_requirements & SPELL_CASTABLE_WHILE_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
-		if(feedback)
-			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
-		return FALSE
-
-	if(!try_invoke(feedback = feedback))
+	if(!try_invoke(owner, feedback = feedback))
 		return FALSE
 
 	if(ishuman(owner))
@@ -383,6 +378,8 @@
 		return FALSE
 
 	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak())
+		if(HAS_TRAIT(living_owner, TRAIT_SIGN_LANG) && !HAS_MIND_TRAIT(living_owner, TRAIT_CANT_SIGN_SPELLS)) // monkestation edit: allow sign language users to cast spells
+			return TRUE
 		if(feedback)
 			to_chat(owner, span_warning("You can't get the words out to invoke [src]!"))
 		return FALSE

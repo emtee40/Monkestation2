@@ -110,7 +110,7 @@
 		adjust_nanites(null, amount) //just add to the nanite volume
 
 /datum/component/nanites/process(seconds_per_tick)
-	if(!IS_IN_STASIS(host_mob))
+	if(!HAS_TRAIT(host_mob, TRAIT_STASIS))
 		adjust_nanites(null, (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * seconds_per_tick)
 		add_research()
 		for(var/X in programs)
@@ -302,12 +302,12 @@
 		var/datum/nanite_program/NP = X
 		NP.on_death(gibbed)
 
-/datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
+/datum/component/nanites/proc/receive_signal(datum/source, code, signal_source = "an unidentified source")
 	SIGNAL_HANDLER
 
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
-		NP.receive_signal(code, source)
+		NP.receive_signal(code, signal_source)
 
 /datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	SIGNAL_HANDLER

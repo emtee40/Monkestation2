@@ -181,6 +181,7 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	"Triumvirate",
 	"Weird",
 	"Yes-Man",
+	"Randomgod", //MONKEYSTATION ADDITION
 )))
 
 /// A form of resolve_ai_icon that is guaranteed to never sleep.
@@ -364,7 +365,12 @@ GLOBAL_LIST_INIT(status_display_approved_pictures, list(
 	"default",
 	"biohazard",
 	"lockdown",
+	"greenalert",
+	"bluealert",
 	"redalert",
+	"deltaalert",
+	"radiation",
+	"currentalert", //For automatic set of status display on current level
 ))
 
 // Members of status_display_approved_pictures that are actually states and not alert values

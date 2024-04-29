@@ -119,9 +119,14 @@
 		message_animal_or_basic = custom_message
 	. = ..()
 	message_animal_or_basic = initial(message_animal_or_basic)
-	if(. && user.death_sound)
-		if(!user.can_speak() || user.oxyloss >= 50)
-			return //stop the sound if oxyloss too high/cant speak
+	if(!. && !user.can_speak() || user.getOxyLoss() >= 50)
+		return //stop the sound if oxyloss too high/cant speak
+	var/mob/living/carbon/carbon_user = user
+	// For masks that give unique death sounds
+	if(istype(carbon_user) && isclothing(carbon_user.wear_mask) && carbon_user.wear_mask.unique_death)
+		playsound(carbon_user, carbon_user.wear_mask.unique_death, 200, TRUE, TRUE)
+		return
+	if(user.death_sound)
 		playsound(user, user.death_sound, 200, TRUE, TRUE)
 
 /datum/emote/living/drool
@@ -153,6 +158,8 @@
 		var/mob/living/carbon/human/H = user
 		var/open = FALSE
 		var/obj/item/organ/external/wings/functional/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+
+		// open/close functional wings
 		if(istype(wings))
 			if(wings.wings_open)
 				open = TRUE
@@ -161,9 +168,14 @@
 				wings.open_wings()
 			addtimer(CALLBACK(wings,  open ? TYPE_PROC_REF(/obj/item/organ/external/wings/functional, open_wings) : TYPE_PROC_REF(/obj/item/organ/external/wings/functional, close_wings)), wing_time)
 
+		// play moth flutter noise if moth wing
+		if(istype(wings, /obj/item/organ/external/wings/moth))
+			playsound(H, 'sound/voice/moth/moth_flutter.ogg', 50, TRUE)
+
 /datum/emote/living/flap/aflap
 	key = "aflap"
 	key_third_person = "aflaps"
+	name = "flap (Angry)"
 	message = "flaps their wings ANGRILY!"
 	hands_use_check = TRUE
 	wing_time = 10
@@ -317,6 +329,7 @@
 	message = "pouts."
 	message_mime = "pouts silently."
 
+/* monkestation edit start - relocating this to our own code @ <monkestation/code/modules/mob/living/emote.dm>
 /datum/emote/living/scream
 	key = "scream"
 	key_third_person = "screams"
@@ -325,7 +338,6 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) //Humans get specialized scream.
 
-//monkestation edit start
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(!issilicon(user))
 		return
@@ -335,7 +347,7 @@
 		'monkestation/sound/voice/screams/silicon/robotAUGH3.ogg',
 		'monkestation/sound/voice/screams/silicon/robotAUGH4.ogg',
 		'monkestation/sound/voice/screams/silicon/robotAUGH5.ogg')
-//monkestation edit end
+monkestation edit end */
 
 /datum/emote/living/scream/select_message_type(mob/user, message, intentional)
 	. = ..()
@@ -375,6 +387,13 @@
 	message = "sighs."
 	message_mime = "acts out an exaggerated silent sigh."
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/sigh/run_emote(mob/living/user, params, type_override, intentional)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/image/emote_animation = image('icons/mob/species/human/emote_visuals.dmi', user, "sigh")
+	flick_overlay_global(emote_animation, GLOB.clients, 2.0 SECONDS)
 
 /datum/emote/living/sit
 	key = "sit"
@@ -477,7 +496,7 @@
 /datum/emote/living/tremble
 	key = "tremble"
 	key_third_person = "trembles"
-	message = "trembles in fear!"
+	message = "trembles!"
 
 #define TREMBLE_LOOP_DURATION (4.4 SECONDS)
 /datum/emote/living/tremble/run_emote(mob/living/user, params, type_override, intentional)
@@ -508,6 +527,7 @@
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"
+	name = "twitch (Slight)"
 	message = "twitches."
 
 /datum/emote/living/twitch_s/run_emote(mob/living/user, params, type_override, intentional)
@@ -532,6 +552,7 @@
 /datum/emote/living/wsmile
 	key = "wsmile"
 	key_third_person = "wsmiles"
+	name = "smile (Weak)"
 	message = "smiles weakly."
 
 /// The base chance for your yawn to propagate to someone else if they're on the same tile as you

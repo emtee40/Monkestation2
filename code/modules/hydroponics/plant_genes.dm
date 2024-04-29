@@ -394,7 +394,7 @@
 	our_plant.investigate_log("zapped [key_name(target)] at [AREACOORD(target)]. Last touched by: [our_plant.fingerprintslast].", INVESTIGATE_BOTANY)
 	var/mob/living/carbon/target_carbon = target
 	var/obj/item/seeds/our_seed = our_plant.get_plant_seed()
-	var/power = our_seed.potency * rate
+	var/power = min(our_seed.potency, 100) * rate
 	if(prob(power))
 		target_carbon.electrocute_act(round(power), our_plant, 1, SHOCK_NOGLOVES)
 
@@ -449,7 +449,7 @@
 		return
 
 	var/obj/item/seeds/our_seed = our_plant.get_plant_seed()
-	our_plant.light_system = MOVABLE_LIGHT
+	our_plant.light_system = OVERLAY_LIGHT
 	our_plant.AddComponent(/datum/component/overlay_lighting, glow_range(our_seed), glow_power(our_seed), glow_color)
 
 /*

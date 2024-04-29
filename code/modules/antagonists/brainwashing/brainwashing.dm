@@ -1,3 +1,5 @@
+// MONKE: replaced by <monkestation\code\modules\antagonists\brainwashing\brainwashing.dm>
+/*
 /proc/brainwash(mob/living/brainwash_victim, directives)
 	if(!brainwash_victim.mind)
 		return
@@ -54,10 +56,6 @@
 	owner.announce_objectives()
 	return ..()
 
-/datum/antagonist/brainwashed/on_mindshield(mob/implanter)
-	owner.remove_antag_datum(/datum/antagonist/brainwashed)
-	return COMPONENT_MINDSHIELD_DECONVERTED
-
 /datum/antagonist/brainwashed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current
 	if(!istype(C))
@@ -87,3 +85,4 @@
 
 /datum/objective/brainwashing
 	completed = TRUE
+*/

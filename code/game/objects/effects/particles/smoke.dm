@@ -18,6 +18,11 @@
 /particles/smoke/burning
 	position = list(0, 0, 0)
 
+/particles/smoke/burning/small
+	spawning = 1
+	scale = list(0.8, 0.8)
+	velocity = list(0, 0.4, 0)
+
 /particles/smoke/steam
 	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
 	fade = 1.5 SECONDS
@@ -41,3 +46,16 @@
 	fadein = 0.7 SECONDS
 	position = generator(GEN_VECTOR, list(-3, 5, 0), list(3, 6.5, 0), NORMAL_RAND)
 	velocity = generator(GEN_VECTOR, list(-0.1, 0.4, 0), list(0.1, 0.5, 0), NORMAL_RAND)
+
+/particles/fog
+	icon = 'icons/effects/particles/smoke.dmi'
+	icon_state = list("chill_1" = 2, "chill_2" = 2, "chill_3" = 1)
+
+/particles/fog/breath
+	count = 1
+	spawning = 1
+	lifespan = 1 SECONDS
+	fade = 0.5 SECONDS
+	grow = 0.05
+	spin = 2
+	color = "#fcffff77"

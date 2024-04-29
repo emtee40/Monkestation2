@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(particle_weather)
 	name = "Particle Weather"
 	flags = SS_BACKGROUND
-	wait = 10
+	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
 	var/list/elligble_weathers = list()
 	var/datum/particle_weather/running_weather
@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(particle_weather)
 
 	var/particles/weather/particle_effect
 	var/datum/weather_effect/weather_special_effect
-	var/obj/weather_effect
+	var/obj/weather_effect/weather_effect
 
 /datum/controller/subsystem/particle_weather/stat_entry(msg)
 	if(running_weather?.running)
@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(particle_weather)
 			elligble_weathers[i] = particle_weather.probability
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/particle_weather/proc/run_weather(datum/particle_weather/weather_datum_type, force = 0)
+/datum/controller/subsystem/particle_weather/proc/run_weather(datum/particle_weather/weather_datum_type, force = FALSE)
 	if(running_weather)
 		if(force)
 			running_weather.end()
@@ -71,9 +71,8 @@ SUBSYSTEM_DEF(particle_weather)
 	running_weather.start()
 	weather_datum_type = null
 
-/datum/controller/subsystem/particle_weather/proc/make_eligible(possible_weather)
-	elligble_weathers = possible_weather
-// 	next_hit = null
+/datum/controller/subsystem/particle_weather/proc/make_eligible(datum/particle_weather/possible_weather, probability = 10)
+	elligble_weathers[possible_weather] = probability
 
 /datum/controller/subsystem/particle_weather/proc/get_weather_effect(atom/movable/screen/plane_master/weather_effect/W)
 	if(!weather_effect)
@@ -94,3 +93,6 @@ SUBSYSTEM_DEF(particle_weather)
 	QDEL_NULL(particle_effect)
 	QDEL_NULL(weather_effect)
 	QDEL_NULL(weather_special_effect)
+
+/obj/weather_effect
+	plane = LIGHTING_PLANE

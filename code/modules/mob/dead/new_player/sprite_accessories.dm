@@ -1564,14 +1564,19 @@
 
 // please make sure they're sorted alphabetically and categorized
 
+/datum/sprite_accessory/socks/ace_knee
+	name = "Knee-high (Ace)"
+	icon_state = "ace_knee"
+
 /datum/sprite_accessory/socks/bee_knee
 	name = "Knee-high (Bee)"
 	icon_state = "bee_knee"
-
+/*
+MONKESTATION EDIT
 /datum/sprite_accessory/socks/black_knee
 	name = "Knee-high (Black)"
 	icon_state = "black_knee"
-
+*/
 /datum/sprite_accessory/socks/commie_knee
 	name = "Knee-High (Commie)"
 	icon_state = "commie_knee"
@@ -1592,6 +1597,9 @@
 	name = "Knee-high (Thin)"
 	icon_state = "thin_knee"
 
+/datum/sprite_accessory/socks/trans_knee
+	name = "Knee-high (Trans)"
+	icon_state = "trans_knee"
 
 /datum/sprite_accessory/socks/uk_knee
 	name = "Knee-High (UK)"
@@ -1602,9 +1610,16 @@
 	icon_state = "white_knee"
 
 
+/datum/sprite_accessory/socks/fishnet_knee
+	name = "Knee-high (Fishnet)"
+	icon_state = "fishnet_knee"
+
+/*
+MONKESTATION EDIT
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal (Black)"
 	icon_state = "black_norm"
+*/
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal (White)"
@@ -1613,11 +1628,12 @@
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
-
+/*
+MONKESTATION EDIT
 /datum/sprite_accessory/socks/black_short
 	name = "Short (Black)"
 	icon_state = "black_short"
-
+*/
 /datum/sprite_accessory/socks/white_short
 	name = "Short (White)"
 	icon_state = "white_short"
@@ -1654,14 +1670,22 @@
 	name = "Stockings (Yellow)"
 	icon_state = "stockings_yellow"
 
+/datum/sprite_accessory/socks/stockings_fishnet
+	name = "Stockings (Fishnet)"
+	icon_state = "fishnet_full"
+
+/datum/sprite_accessory/socks/ace_thigh
+	name = "Thigh-high (Ace)"
+	icon_state = "ace_thigh"
+
 /datum/sprite_accessory/socks/bee_thigh
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
-
+/*
 /datum/sprite_accessory/socks/black_thigh
 	name = "Thigh-high (Black)"
 	icon_state = "black_thigh"
-
+*/
 /datum/sprite_accessory/socks/commie_thigh
 	name = "Thigh-high (Commie)"
 	icon_state = "commie_thigh"
@@ -1682,6 +1706,10 @@
 	name = "Thigh-high (Thin)"
 	icon_state = "thin_thigh"
 
+/datum/sprite_accessory/socks/trans_thigh
+	name = "Thigh-high (Trans)"
+	icon_state = "trans_thigh"
+
 /datum/sprite_accessory/socks/uk_thigh
 	name = "Thigh-high (UK)"
 	icon_state = "uk_thigh"
@@ -1689,6 +1717,10 @@
 /datum/sprite_accessory/socks/white_thigh
 	name = "Thigh-high (White)"
 	icon_state = "white_thigh"
+
+/datum/sprite_accessory/socks/fishnet_thigh
+	name = "Thigh-high (Fishnet)"
+	icon_state = "fishnet_thigh"
 
 /datum/sprite_accessory/socks/thocks
 	name = "Thocks"
@@ -1708,13 +1740,10 @@
 /datum/sprite_accessory/body_markings/dtiger
 	name = "Dark Tiger Body"
 	icon_state = "dtiger"
-	gender_specific = 1
 
 /datum/sprite_accessory/body_markings/ltiger
 	name = "Light Tiger Body"
 	icon_state = "ltiger"
-	gender_specific = 1
-
 /*
 /datum/sprite_accessory/body_markings/lbelly
 	name = "Light Belly"
@@ -1742,6 +1771,10 @@
 /datum/sprite_accessory/tails/lizard/spikes
 	name = "Spikes"
 	icon_state = "spikes"
+
+/datum/sprite_accessory/tails/lizard/short
+	name = "Short"
+	icon_state = "short"
 
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
@@ -1997,6 +2030,21 @@
 	center = TRUE
 	dimension_y = 32
 
+/datum/sprite_accessory/wings/slime
+	name = "Slime"
+	icon_state = "slime"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/slime
+	name = "Slime"
+	icon_state = "slime"
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/species/lizard/lizard_misc.dmi'
 
@@ -2031,46 +2079,6 @@
 /datum/sprite_accessory/spines_animated/none
 	name = "None"
 	icon_state = "none"
-
-/datum/sprite_accessory/spines/short
-	name = "Short"
-	icon_state = "short"
-
-/datum/sprite_accessory/spines_animated/short
-	name = "Short"
-	icon_state = "short"
-
-/datum/sprite_accessory/spines/shortmeme
-	name = "Short + Membrane"
-	icon_state = "shortmeme"
-
-/datum/sprite_accessory/spines_animated/shortmeme
-	name = "Short + Membrane"
-	icon_state = "shortmeme"
-
-/datum/sprite_accessory/spines/long
-	name = "Long"
-	icon_state = "long"
-
-/datum/sprite_accessory/spines_animated/long
-	name = "Long"
-	icon_state = "long"
-
-/datum/sprite_accessory/spines/longmeme
-	name = "Long + Membrane"
-	icon_state = "longmeme"
-
-/datum/sprite_accessory/spines_animated/longmeme
-	name = "Long + Membrane"
-	icon_state = "longmeme"
-
-/datum/sprite_accessory/spines/aqautic
-	name = "Aquatic"
-	icon_state = "aqua"
-
-/datum/sprite_accessory/spines_animated/aqautic
-	name = "Aquatic"
-	icon_state = "aqua"
 
 /datum/sprite_accessory/legs //legs are a special case, they aren't actually sprite_accessories but are updated with them.
 	icon = null //These datums exist for selecting legs on preference, and little else

@@ -94,14 +94,22 @@
 
 /obj/item/seeds/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(istype(over, /obj/machinery/composters))
+	// ensure user is next to what we're mouse dropping into
+	if (!Adjacent(usr, over))
+		return
+	// ensure the stuff we're mouse dropping is ALSO adjacent
+	if(istype(over, /obj/machinery/composters) && Adjacent(src_location, over_location))
 		var/obj/machinery/composters/dropped = over
 		for(var/obj/item/seeds/seed in src_location)
 			dropped.compost(seed)
 
 /obj/item/food/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(istype(over, /obj/machinery/composters))
+	// ensure user is next to what we're mouse dropping into
+	if (!Adjacent(usr, over))
+		return
+	// ensure the stuff we're mouse dropping is ALSO adjacent
+	if(istype(over, /obj/machinery/composters) && Adjacent(src_location, over_location))
 		var/obj/machinery/composters/dropped = over
 		for(var/obj/item/food/food in src_location)
 			dropped.compost(food)
@@ -112,22 +120,17 @@
 	desc = "A cube made of pure biomatter does wonders on plant trays"
 	icon = 'monkestation/icons/obj/misc.dmi'
 	icon_state = "bio_cube"
-
-	var/total_duration = 60 SECONDS
-	var/scale_multiplier = 0.6
-
+	var/total_duration = 1 MINUTES
 
 /obj/item/bio_cube/update_desc()
 	. = ..()
-	desc = "A cube made of pure biomatter, it seems to be bigger than normal making it last [total_duration / 600] minutes. Does wonders on plant trays."
+	desc = "A cube made of pure biomatter, it seems to be denser than normal making it last [DisplayTimeText(total_duration)]. Does wonders on plant trays."
 
 /obj/item/bio_cube/attackby(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(istype(attacking_item, /obj/item/bio_cube))
 		var/obj/item/bio_cube/attacking_cube = attacking_item
-		scale_multiplier += (attacking_cube.scale_multiplier - 0.5)
 		total_duration += attacking_cube.total_duration
-		to_chat(user, span_notice("You smash the two bio cubes together making a bigger bio cube that lasts longer."))
+		to_chat(user, span_notice("You smash the two bio cubes together, making a denser bio cube that lasts longer."))
 		update_desc()
-		transform = transform.Scale(scale_multiplier, scale_multiplier)
 		qdel(attacking_cube)

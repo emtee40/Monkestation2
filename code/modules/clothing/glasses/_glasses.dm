@@ -10,7 +10,7 @@
 	strip_delay = 20
 	equip_delay_other = 25
 	resistance_flags = NONE
-	custom_materials = list(/datum/material/glass = 250)
+	custom_materials = list(/datum/material/glass = SMALL_MATERIAL_AMOUNT*2.5)
 	gender = PLURAL
 	var/vision_flags = 0
 	var/invis_view = SEE_INVISIBLE_LIVING // Admin only for now
@@ -397,6 +397,29 @@
 	inhand_icon_state = "gar"
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+///Syndicate item that upgrades the flash protection of your eyes.
+/obj/item/syndicate_contacts
+	name = "suspicious contact lens case"
+	desc = "A sinister red case that contains two shiny black contact lenses."
+	w_class = WEIGHT_CLASS_TINY
+	icon = 'icons/obj/device.dmi'
+	icon_state = "contacts"
+
+/obj/item/syndicate_contacts/attack_self(mob/user, modifiers)
+	. = ..()
+	if(!user.get_organ_slot(ORGAN_SLOT_EYES))
+		to_chat(user, span_warning("You have no eyes to apply the contacts to!"))
+		return
+	var/obj/item/organ/internal/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
+
+	to_chat(user, span_notice("You begin applying the contact lenses to your eyes..."))
+	if(!do_after(user, 3 SECONDS, src))
+		return
+	to_chat(user, span_notice("The contacts seamlessly merge with your iris."))
+	eyes.flash_protect += FLASH_PROTECTION_WELDER
+	to_chat(user, span_warning("\The [src] disintegrates into nothing."))
+	qdel(src)
+
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
 	desc = "Protects the eyes from bright flashes; approved by the mad scientist association."
@@ -404,7 +427,7 @@
 	inhand_icon_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_WELDER
-	custom_materials = list(/datum/material/iron = 250)
+	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT*2.5)
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
@@ -504,6 +527,23 @@
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+
+// MONKESTATION ADDITION START
+/obj/item/clothing/glasses/thermal/syndi/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour != TOOL_MULTITOOL)
+		return ..()
+
+	if(chameleon_action.hidden)
+		chameleon_action.hidden = FALSE
+		actions += chameleon_action
+		chameleon_action.Grant(user)
+		log_game("[key_name(user)] has removed the disguise lock on the chameleon thermals ([name]) with [W]")
+	else
+		chameleon_action.hidden = TRUE
+		actions -= chameleon_action
+		chameleon_action.Remove(user)
+		log_game("[key_name(user)] has locked the disguise of the chameleon thermals ([name]) with [W]")
+// MONKESTATION ADDITION END
 
 /obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
 	. = ..()

@@ -1,4 +1,6 @@
 GLOBAL_LIST_EMPTY(roundstart_races)
+///List of all roundstart languages by path
+GLOBAL_LIST_EMPTY(roundstart_languages)
 
 /// An assoc list of species types to their features (from get_features())
 GLOBAL_LIST_EMPTY(features_by_species)
@@ -23,6 +25,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
+	///does our chosen bodytype have visual difference
+	var/visual_gender =TRUE
 	///A bitfield of "bodytypes", updated by /datum/obj/item/bodypart/proc/synchronize_bodytypes()
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	///Clothing offsets. If a species has a different body than other species, you can offset clothing so they look less weird.
@@ -78,7 +82,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
 	var/no_equip_flags
 	///What languages this species can understand and say. Use a [language holder datum][/datum/language_holder] in this var.
-	var/species_language_holder = /datum/language_holder
+	var/datum/language_holder/species_language_holder = /datum/language_holder
 	/**
 	  * Visible CURRENT bodyparts that are unique to a species.
 	  * DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK
@@ -273,23 +277,28 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	RETURN_TYPE(/list)
 
 	if (!GLOB.roundstart_races.len)
-		GLOB.roundstart_races = generate_selectable_species()
+		GLOB.roundstart_races = generate_selectable_species_and_languages()
 
 	return GLOB.roundstart_races
-
 /**
  * Generates species available to choose in character setup at roundstart
  *
  * This proc generates which species are available to pick from in character setup.
  * If there are no available roundstart species, defaults to human.
  */
-/proc/generate_selectable_species()
+/proc/generate_selectable_species_and_languages()
 	var/list/selectable_species = list()
 
 	for(var/species_type in subtypesof(/datum/species))
 		var/datum/species/species = new species_type
 		if(species.check_roundstart_eligible())
 			selectable_species += species.id
+			var/datum/language_holder/temp_holder = new species.species_language_holder
+			for(var/datum/language/spoken_languages as anything in temp_holder.understood_languages)
+				if(spoken_languages in GLOB.roundstart_languages)
+					continue
+				GLOB.roundstart_languages += spoken_languages
+			qdel(temp_holder)
 			qdel(species)
 
 	if(!selectable_species.len)
@@ -301,7 +310,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Checks if a species is eligible to be picked at roundstart.
  *
  * Checks the config to see if this species is allowed to be picked in the character setup menu.
- * Used by [/proc/generate_selectable_species].
+ * Used by [/proc/generate_selectable_species_and_languages].
  */
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
@@ -315,9 +324,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * gender - The gender that the name should adhere to. Use MALE for male names, use anything else for female names.
  * * unique - If true, ensures that this new name is not a duplicate of anyone else's name currently on the station.
- * * lastname - Does this species' naming system adhere to the last name system? Set to false if it doesn't.
+ * * last_name - Do we use a given last name or pick a random new one?
  */
-/datum/species/proc/random_name(gender,unique,lastname)
+/datum/species/proc/random_name(gender, unique, last_name)
 	if(unique)
 		return random_unique_name(gender)
 
@@ -327,8 +336,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else
 		randname = pick(GLOB.first_names_female)
 
-	if(lastname)
-		randname += " [lastname]"
+	if(last_name)
+		randname += " [last_name]"
 	else
 		randname += " [pick(GLOB.last_names)]"
 
@@ -528,8 +537,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
+	//Assigns exotic blood type if the species has one
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
+	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
+	//(why the fuck is blood type not tied to a fucking DNA block?)
+	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
+		C.dna.blood_type = random_blood_type()
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/human = C
@@ -750,7 +764,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
-		if(species_human.underwear)
+		if(species_human.underwear && !(src.bodytype & BODYTYPE_DIGITIGRADE)) //MONKESTATION EDIT
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
@@ -776,8 +790,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(src.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
+			//MONKESTATION EDITS FOR COLOURABLE SOCKS
+			var/mutable_appearance/socks_overlay
 			if(socks)
-				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				if(species_human.dna.species.sexes && species_human.physique == FEMALE && species_human.get_bodypart(BODY_ZONE_CHEST)?.is_dimorphic)
+					socks_overlay = wear_female_version(socks.icon_state, socks.icon, BODY_LAYER, FEMALE_UNIFORM_FULL)
+				else
+					socks_overlay = mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
+				if(!socks.use_static)
+					socks_overlay.color = species_human.socks_color
+				socks_overlay.pixel_y += height_offset
+				standing += socks_overlay
+			//MONKESTATION EDITS END
 
 	if(standing.len)
 		species_human.overlays_standing[BODY_LAYER] = standing
@@ -1539,7 +1563,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 
 	//Only stabilise core temp when alive and not in statis
-	if(humi.stat < DEAD && !IS_IN_STASIS(humi))
+	if(humi.stat < DEAD && !HAS_TRAIT(humi, TRAIT_STASIS))
 		body_temperature_core(humi, seconds_per_tick, times_fired)
 
 	//These do run in statis
@@ -1547,7 +1571,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	body_temperature_alerts(humi, seconds_per_tick, times_fired)
 
 	//Do not cause more damage in statis
-	if(!IS_IN_STASIS(humi))
+	if(!HAS_TRAIT(humi, TRAIT_STASIS))
 		body_temperature_damage(humi, seconds_per_tick, times_fired)
 
 /**

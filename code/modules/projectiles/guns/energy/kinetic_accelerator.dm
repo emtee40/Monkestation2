@@ -556,6 +556,17 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user)
+//monkestation edit start
+	if(is_type_in_list(KA, list(/obj/item/gun/energy/recharge/kinetic_accelerator/glock,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/m79,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/meme,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/railgun,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/repeater,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/shockwave,
+								/obj/item/gun/energy/recharge/kinetic_accelerator/shotgun)))
+		to_chat(user, span_warning("[src] is not compatible with [KA]."))
+		return FALSE
+//monkestation edit end
 	. = ..()
 	if(.)
 		KA.icon_state = chassis_icon
@@ -602,5 +613,5 @@
 /obj/item/borg/upgrade/modkit/tracer/adjustable/proc/choose_bolt_color(mob/user)
 	set waitfor = FALSE
 
-	var/new_color = input(user,"","Choose Color",bolt_color) as color|null
+	var/new_color = tgui_color_picker(user, "", "Choose Color", bolt_color)
 	bolt_color = new_color || bolt_color

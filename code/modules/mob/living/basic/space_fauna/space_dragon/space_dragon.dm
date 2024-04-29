@@ -63,7 +63,7 @@
 	add_traits(list(TRAIT_SPACEWALK, TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_NO_FLOATING_ANIM, TRAIT_HEALS_FROM_CARP_RIFTS), INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 	AddElement(/datum/element/content_barfer)
-	AddElement(/datum/element/wall_tearer, do_after_key = DOAFTER_SOURCE_SPACE_DRAGON_INTERACTION)
+	AddElement(/datum/element/wall_tearer, tear_time = 4 SECONDS, reinforced_multiplier = 3, do_after_key = DOAFTER_SOURCE_SPACE_DRAGON_INTERACTION)
 	AddElement(/datum/element/door_pryer, pry_time = 4 SECONDS, interaction_key = DOAFTER_SOURCE_SPACE_DRAGON_INTERACTION)
 	AddComponent(/datum/component/seethrough_mob)
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
@@ -100,7 +100,7 @@
 
 /// Select scale colour with the colour picker
 /mob/living/basic/space_dragon/proc/select_colour()
-	chosen_colour = input(src, "What colour would you like to be?" ,"Colour Selection", COLOR_WHITE) as color|null
+	chosen_colour = tgui_color_picker(src, "What colour would you like to be?", "Colour Selection", COLOR_WHITE)
 	if(!chosen_colour) // Redo proc until we get a color
 		to_chat(src, span_warning("Not a valid colour, please try again."))
 		select_colour()

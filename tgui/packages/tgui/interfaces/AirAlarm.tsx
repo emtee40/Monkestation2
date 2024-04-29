@@ -13,6 +13,10 @@ type AirAlarmData = {
   dangerLevel: 0 | 1 | 2;
   atmosAlarm: BooleanLike; // fix this
   fireAlarm: BooleanLike;
+  faultStatus: 0 | 1 | 2;
+  faultLocation: string;
+  sensor: BooleanLike;
+  allowLinkChange: BooleanLike;
   envData: {
     name: string;
     value: string; // preformatted in backend, shorter code that way.
@@ -39,6 +43,13 @@ type AirAlarmData = {
     danger: BooleanLike;
   }[];
   thresholdTypeMap: Record<string, number>;
+  ac: {
+    enabled: BooleanLike;
+    active: BooleanLike;
+    target: number;
+    min: number;
+    max: number;
+  };
 };
 
 export const AirAlarm = (props, context) => {
@@ -72,7 +83,22 @@ const AirAlarmStatus = (props, context) => {
       localStatusText: 'Danger (Internals Required)',
     },
   };
+  const faultMap = {
+    0: {
+      color: 'green',
+      areaFaultText: 'None',
+    },
+    1: {
+      color: 'purple',
+      areaFaultText: 'Manual Trigger',
+    },
+    2: {
+      color: 'average',
+      areaFaultText: 'Automatic Detection',
+    },
+  };
   const localStatus = dangerMap[data.dangerLevel] || dangerMap[0];
+  const areaFault = faultMap[data.faultStatus] || faultMap[0];
   return (
     <Section title="Air Status">
       <LabeledList>
@@ -89,15 +115,34 @@ const AirAlarmStatus = (props, context) => {
                 </LabeledList.Item>
               );
             })}
-            <LabeledList.Item label="Local status" color={localStatus.color}>
+            <LabeledList.Item label="Local Status" color={localStatus.color}>
               {localStatus.localStatusText}
             </LabeledList.Item>
             <LabeledList.Item
-              label="Area status"
+              label="Area Status"
               color={data.atmosAlarm || data.fireAlarm ? 'bad' : 'good'}>
               {(data.atmosAlarm && 'Atmosphere Alarm') ||
                 (data.fireAlarm && 'Fire Alarm') ||
                 'Nominal'}
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Air Conditioning Status"
+              color={
+                data.ac.enabled ? (data.ac.active ? 'average' : 'good') : 'gray'
+              }>
+              {data.ac.enabled
+                ? data.ac.active
+                  ? 'Active'
+                  : 'Idle'
+                : 'Disabled'}
+            </LabeledList.Item>
+            <LabeledList.Item label="Fault Status" color={areaFault.color}>
+              {areaFault.areaFaultText}
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Fault Location"
+              color={data.faultLocation ? 'blue' : 'green'}>
+              {data.faultLocation || 'None'}
             </LabeledList.Item>
           </>
         )) || (
@@ -127,6 +172,10 @@ const AIR_ALARM_ROUTES = {
   scrubbers: {
     title: 'Scrubber Controls',
     component: () => AirAlarmControlScrubbers,
+  },
+  ac: {
+    title: 'Air Conditioning Controls',
+    component: () => AirAlarmAirConditioningControls,
   },
   modes: {
     title: 'Operating Mode',
@@ -199,6 +248,12 @@ const AirAlarmControlHome = (props, context) => {
         icon="filter"
         content="Scrubber Controls"
         onClick={() => setScreen('scrubbers')}
+      />
+      <Box mt={1} />
+      <Button
+        icon="fan"
+        content="Air Conditioning Controls"
+        onClick={() => setScreen('ac')}
       />
       <Box mt={1} />
       <Button
@@ -494,6 +549,52 @@ const AirAlarmControlThresholds = (props, context) => {
           {...activeModal}
         />
       )}
+    </>
+  );
+};
+
+// Air Conditioning
+// --------------------------------------------------------
+
+const AirAlarmAirConditioningControls = (_props, context) => {
+  const {
+    act,
+    data: {
+      ac: { enabled, target, min, max },
+    },
+  } = useBackend<AirAlarmData>(context);
+  return (
+    <>
+      <Button
+        icon="fire"
+        content="Toggle Air Conditioning"
+        color={enabled && 'good'}
+        onClick={() => act('air_conditioning', { value: !!enabled })}
+      />
+      <Box mt={1} />
+      <LabeledList>
+        <LabeledList.Item label={'Target Temperature'}>
+          <>
+            <NumberInput
+              value={target}
+              minValue={min}
+              maxValue={max}
+              onChange={(_e, target: number) =>
+                act('set_ac_target', { target })
+              }
+              unit="K"
+              tooltip="Change the target temperature of the heater"
+              disabled={!enabled}
+            />
+            <Button
+              icon="thermometer-quarter"
+              content="Default"
+              color={enabled && 'good'}
+              onClick={() => act('default_ac_target')}
+            />
+          </>
+        </LabeledList.Item>
+      </LabeledList>
     </>
   );
 };

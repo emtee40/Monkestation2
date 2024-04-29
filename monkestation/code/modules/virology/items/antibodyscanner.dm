@@ -73,7 +73,7 @@
 				if ("C")
 					rgb = "#F54B4B"
 				//add colors for new special antigens here
-			scan.DrawBox(rgb,i*bar_spacing+bar_offset+x_adjustment,6,i*bar_spacing+bar_width+bar_offset+x_adjustment,6+antibodies[antibody]*3*immune_str)
+			scan.DrawBox(rgb,i*bar_spacing+bar_offset+x_adjustment,6,i*bar_spacing+bar_width+bar_offset+x_adjustment,6+antibodies[antibody]*3)
 			i++
 
 	if (length(L.diseases))
@@ -105,7 +105,7 @@
 	info += "<tr>"
 	if (L.immune_system)
 		for (var/antibody in antigens_that_matter)
-			info += "<td>[round(L.immune_system.antibodies[antibody]*L.immune_system.strength)]%</th>"
+			info += "<td>[round(L.immune_system.antibodies[antibody])]%</th>"
 	info += "</tr>"
 	info += "</table>"
 
@@ -115,6 +115,8 @@
 			if(ID in GLOB.virusDB)
 				var/datum/data/record/V = GLOB.virusDB[ID]
 				info += "<br><i>[V.fields["name"]][V.fields["nickname"] ? " \"[V.fields["nickname"]]\"" : ""] detected. Strength: [D.strength]. Robustness: [D.robustness]. Antigen: [D.get_antigen_string()]</i>"
+				for(var/datum/symptom/e in D.symptoms)
+					info += "<br><b>Stage [e.stage] - [e.name]</b> (Danger: [e.badness]): <i>[e.desc]</i>"
 			else
 				info += "<br><i>Unknown [D.form] detected. Strength: [D.strength]</i>"
 

@@ -114,10 +114,12 @@
 	return ..()
 
 /datum/reagent/toxin/plasma/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM)) // sometimes mobs can temporarily metabolize plasma (e.g. plasma fixation disease symptom)
 		toxpwr = 0
 
 /datum/reagent/toxin/plasma/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	toxpwr = initial(toxpwr)
 
 /// Handles plasma boiling.
@@ -172,10 +174,12 @@
 	return ..()
 
 /datum/reagent/toxin/hot_ice/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM))
 		toxpwr = 0
 
 /datum/reagent/toxin/hot_ice/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
 	toxpwr = initial(toxpwr)
 
 /datum/reagent/toxin/lexorin
@@ -203,9 +207,11 @@
 	..()
 
 /datum/reagent/toxin/lexorin/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
 	RegisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
 
 /datum/reagent/toxin/lexorin/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
 	UnregisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
 
 /datum/reagent/toxin/lexorin/proc/block_breath(mob/living/source)
@@ -259,7 +265,7 @@
 /datum/reagent/toxin/zombiepowder/on_mob_metabolize(mob/living/holder_mob)
 	. = ..()
 	holder_mob.adjustOxyLoss(0.5*REM, FALSE, required_biotype = affected_biotype, required_respiration_type = affected_respiration_type)
-	if(data?["method"] & INGEST)
+	if((data?["method"] & INGEST) && holder_mob.stat != DEAD)
 		holder_mob.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/holder_mob)
@@ -286,7 +292,8 @@
 		if(5 to 8)
 			affected_mob.stamina.adjust(-40 * REM * seconds_per_tick, 0)
 		if(9 to INFINITY)
-			affected_mob.fakedeath(type)
+			if(affected_mob.stat != DEAD)
+				affected_mob.fakedeath(type)
 	..()
 	return TRUE
 
@@ -301,14 +308,7 @@
 	taste_description = "death"
 	ph = 14.5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/toxin/ghoulpowder/on_mob_metabolize(mob/living/affected_mob)
-	..()
-	ADD_TRAIT(affected_mob, TRAIT_FAKEDEATH, type)
-
-/datum/reagent/toxin/ghoulpowder/on_mob_end_metabolize(mob/living/affected_mob)
-	REMOVE_TRAIT(affected_mob, TRAIT_FAKEDEATH, type)
-	..()
+	metabolized_traits = list(TRAIT_FAKEDEATH)
 
 /datum/reagent/toxin/ghoulpowder/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	affected_mob.adjustOxyLoss(1 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype, required_respiration_type = affected_respiration_type)
@@ -327,15 +327,7 @@
 	inverse_chem = /datum/reagent/impurity/rosenol
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 18)  //7.2 per 2 seconds
-
-
-/datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
-	. = ..()
-	ADD_TRAIT(metabolizer, TRAIT_RDS_SUPPRESSED, type)
-
-/datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
-	. = ..()
-	REMOVE_TRAIT(metabolizer, TRAIT_RDS_SUPPRESSED, type)
+	metabolized_traits = list(TRAIT_RDS_SUPPRESSED)
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/metabolizer, seconds_per_tick, times_fired)
 	// mindbreaker toxin assuages hallucinations in those plagued with it, mentally
@@ -681,9 +673,8 @@
 
 /datum/reagent/toxin/venom/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	var/newsize = 1.1 * RESIZE_DEFAULT_SIZE
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
 
 	toxpwr = 0.1 * volume
 	affected_mob.adjustBruteLoss((0.3 * volume) * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype)
@@ -695,9 +686,8 @@
 		..()
 
 /datum/reagent/toxin/venom/on_mob_end_metabolize(mob/living/affected_mob)
-	affected_mob.resize = RESIZE_DEFAULT_SIZE/current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE/current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 	..()
 
 /datum/reagent/toxin/fentanyl
@@ -848,14 +838,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
-
-/datum/reagent/toxin/sodium_thiopental/on_mob_add(mob/living/affected_mob, amount)
-	. = ..()
-	ADD_TRAIT(affected_mob, TRAIT_ANTICONVULSANT, name)
-
-/datum/reagent/toxin/sodium_thiopental/on_mob_delete(mob/living/affected_mob)
-	. = ..()
-	REMOVE_TRAIT(affected_mob, TRAIT_ANTICONVULSANT, name)
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(current_cycle >= 10)
@@ -992,18 +975,11 @@
 	toxpwr = 0
 	ph = 11.6
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	metabolized_traits = list(TRAIT_BLOODY_MESS)
 
 /datum/reagent/toxin/heparin/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(holder.has_reagent(/datum/reagent/medicine/coagulant)) //Directly purges coagulants from the system. Get rid of the heparin BEFORE attempting to use coagulants.
 		holder.remove_reagent(/datum/reagent/medicine/coagulant, 2 * REM * seconds_per_tick)
-	return ..()
-
-/datum/reagent/toxin/heparin/on_mob_metabolize(mob/living/affected_mob)
-	ADD_TRAIT(affected_mob, TRAIT_BLOODY_MESS, /datum/reagent/toxin/heparin)
-	return ..()
-
-/datum/reagent/toxin/heparin/on_mob_end_metabolize(mob/living/affected_mob)
-	REMOVE_TRAIT(affected_mob, TRAIT_BLOODY_MESS, /datum/reagent/toxin/heparin)
 	return ..()
 
 /datum/reagent/toxin/rotatium //Rotatium. Fucks up your rotation and is hilarious
@@ -1178,12 +1154,7 @@
 	ph = 1.7
 	taste_description = "stillness"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/toxin/mimesbane/on_mob_metabolize(mob/living/affected_mob)
-	ADD_TRAIT(affected_mob, TRAIT_EMOTEMUTE, type)
-
-/datum/reagent/toxin/mimesbane/on_mob_end_metabolize(mob/living/affected_mob)
-	REMOVE_TRAIT(affected_mob, TRAIT_EMOTEMUTE, type)
+	metabolized_traits = list(TRAIT_EMOTEMUTE)
 
 /datum/reagent/toxin/bonehurtingjuice //oof ouch
 	name = "Bone Hurting Juice"
@@ -1370,9 +1341,11 @@
 	traits_not_applied -= added_trait
 
 /datum/reagent/toxin/tetrodotoxin/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
 	RegisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
 
 /datum/reagent/toxin/tetrodotoxin/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
 	UnregisterSignal(affected_mob, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
 	// the initial() proc doesn't work for lists.
 	var/list/initial_list = list(

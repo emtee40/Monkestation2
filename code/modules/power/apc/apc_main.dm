@@ -176,7 +176,7 @@
 		name = "\improper [get_area_name(area, TRUE)] APC"
 
 	//Initialize its electronics
-	wires = new /datum/wires/apc(src)
+	set_wires(new /datum/wires/apc(src))
 	alarm_manager = new(src)
 	AddElement(/datum/element/atmos_sensitive, mapload)
 	// for apcs created during map load make them fully functional
@@ -712,7 +712,7 @@
 
 /// Used for full_charge apc helper, which sets apc charge to 100%.
 /obj/machinery/power/apc/proc/set_full_charge()
-	cell.charge = 100
+	cell.charge = cell.maxcharge
 
 /*Power module, used for APC construction*/
 /obj/item/electronics/apc

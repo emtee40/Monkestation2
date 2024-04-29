@@ -39,7 +39,26 @@
 		to_chat(owner, span_boldwarning("The souls you have stolen are preventing you from going incorporeal!"))
 		return
 
-	for(var/mob/living/watchers in view(9, target) - target)
+	for(var/mob/living/watcher in viewers(9, target))
+		if(watcher == target)
+			continue
+
+		if(!watcher.mind) //only mobs with minds stop you from jaunting
+			continue
+
+		if(isdead(watcher))
+			continue
+
+		if(isaicamera(watcher))
+			var/mob/camera/ai_eye/ai_eye = watcher
+			var/mob/living/silicon/ai/true_ai = ai_eye.ai
+			true_ai.disconnect_shell() // should never happen, lets try it anyway
+			true_ai.view_core()
+			to_chat(true_ai, span_warning("UNEXPECTED ENERGY SURGE -- RETURNING TO THE CORE"))
+			do_sparks(3, FALSE, true_ai)
+			true_ai.adjustBruteLoss(30) // same as a light explosion, to dis-encurage the AI always watching the slasher and telling their location
+			continue
+
 		target.balloon_alert(owner, "you can only vanish unseen.")
 		return
 
@@ -78,6 +97,7 @@
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, INNATE_TRAIT)
 
 	slasherdatum.corporeal = FALSE
+	ADD_TRAIT(jaunter, TRAIT_NOBREATH, REF(src))
 
 	// This needs to happen at the end, after all the traits and stuff is handled
 	SEND_SIGNAL(jaunter, COMSIG_MOB_ENTER_JAUNT, src, jaunt)
@@ -99,6 +119,7 @@
 		qdel(blood_hand)
 
 	slasherdatum.corporeal = TRUE
+	REMOVE_TRAIT(unjaunter, TRAIT_NOBREATH, REF(src))
 
 	return TRUE
 

@@ -74,11 +74,13 @@
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
+// BEGIN_INCLUDE
 #include "ablative_hud.dm"
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
 #include "antag_moodlets.dm"
+#include "antag_special_roles.dm"
 #include "area_contents.dm"
 #include "armor_verification.dm"
 #include "autowiki.dm"
@@ -123,6 +125,7 @@
 #include "hallucination_icons.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
+#include "high_five.dm"
 #include "holidays.dm"
 #include "human_through_recycler.dm"
 #include "hunger_curse.dm"
@@ -135,8 +138,8 @@
 #include "leash.dm"
 #include "lesserform.dm"
 #include "limbsanity.dm"
-#include "lungs.dm"
 #include "load_map_security.dm"
+#include "lungs.dm"
 #include "machine_disassembly.dm"
 #include "mapload_space_verification.dm"
 #include "mapping.dm"
@@ -150,7 +153,6 @@
 #include "mob_spawn.dm"
 #include "modsuit.dm"
 #include "modular_map_loader.dm"
-#include "monkey_business.dm"
 #include "mouse_bite_cable.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
@@ -159,7 +161,6 @@
 #include "objectives.dm"
 #include "operating_table.dm"
 #include "orderable_items.dm"
-#include "organs.dm"
 #include "organ_set_bonus.dm"
 #include "paintings.dm"
 #include "pills.dm"
@@ -186,11 +187,10 @@
 #include "screenshot_humanoids.dm"
 #include "screenshot_husk.dm"
 #include "screenshot_saturnx.dm"
-#include "security_officer_distribution.dm"
 #include "security_levels.dm"
+#include "security_officer_distribution.dm"
 #include "serving_tray.dm"
 #include "siunit.dm"
-#include "slime_mood.dm"
 #include "slips.dm"
 #include "spawn_humans.dm"
 #include "spawn_mobs.dm"
@@ -224,6 +224,7 @@
 #include "verify_emoji_names.dm"
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
+// END_INCLUDE
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
 #endif

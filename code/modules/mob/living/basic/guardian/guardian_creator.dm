@@ -57,9 +57,6 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 		/mob/living/basic/guardian/ranged,
 		/mob/living/basic/guardian/standard,
 		/mob/living/basic/guardian/support,
-		//MONKESTATION EDIT START
-		/mob/living/basic/guardian/standard/timestop,
-		//MONKESTATION EDIT END
 	)
 
 /obj/item/guardian_creator/Initialize(mapload)
@@ -96,18 +93,21 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 	used = TRUE
 	to_chat(user, use_message)
 	var/guardian_type_name = random ? "Random" : capitalize(initial(guardian_path.creator_name))
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates(
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
 		"Do you want to play as [user.real_name]'s [guardian_type_name] [mob_name]?",
-		jobban_type = ROLE_PAI,
+		check_jobban = ROLE_PAI,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_HOLOPARASITE,
+		pic_source = guardian_path,
+		role_name_text = "guardian spirit"
 	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/candidate = pick(candidates)
 		spawn_guardian(user, candidate, guardian_path)
+		used = TRUE
+		SEND_SIGNAL(src, COMSIG_TRAITOR_ITEM_USED(type))
 	else
 		to_chat(user, failure_message)
-		used = FALSE
 
 /// Actually create our guy
 /obj/item/guardian_creator/proc/spawn_guardian(mob/living/user, mob/dead/candidate, guardian_path)
@@ -151,9 +151,6 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 		/mob/living/basic/guardian/protector,
 		/mob/living/basic/guardian/ranged,
 		/mob/living/basic/guardian/standard,
-		//MONKESTATION EDIT START
-		/mob/living/basic/guardian/standard/timestop,
-		//MONKESTATION EDIT END
 	)
 
 /obj/item/guardian_creator/wizard/spawn_guardian(mob/living/user, mob/dead/candidate)
@@ -217,7 +214,4 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 		/mob/living/basic/guardian/ranged, // Shoots the bad guys
 		/mob/living/basic/guardian/standard, // Can mine walls
 		/mob/living/basic/guardian/support, // Heals and teleports you
-		//MONKESTATION EDIT START
-		/mob/living/basic/guardian/standard/timestop,
-		//MONKESTATION EDIT END
 	)

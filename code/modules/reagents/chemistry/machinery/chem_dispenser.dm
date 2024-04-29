@@ -213,7 +213,10 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
+			var/chem_name = R.name
+			if(istype(R, /datum/reagent/ammonia/urine) && user.client?.prefs.read_preference(/datum/preference/toggle/prude_mode))
+				chem_name = "Ammonia?"
+			beakerContents.Add(list(list("name" = chem_name, "volume" = round(R.volume, 0.01), "pH" = R.ph, "purity" = R.purity))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -478,7 +481,7 @@
 	has_panel_overlay = FALSE
 	dispensed_temperature = WATER_MATTERSTATE_CHANGE_TEMP // magical mystery temperature of 274.5, where ice does not melt, and water does not freeze
 	amount = 10
-	pixel_y = 6
+	anchored_tabletop_offset = 6
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks
 	working_state = null
 	nopower_state = null
@@ -495,6 +498,7 @@
 		/datum/reagent/consumable/lemonjuice,
 		/datum/reagent/consumable/lemon_lime,
 		/datum/reagent/consumable/limejuice,
+		/datum/reagent/consumable/melon_soda,
 		/datum/reagent/consumable/menthol,
 		/datum/reagent/consumable/orangejuice,
 		/datum/reagent/consumable/pineapplejuice,
@@ -502,6 +506,7 @@
 		/datum/reagent/consumable/shamblers,
 		/datum/reagent/consumable/spacemountainwind,
 		/datum/reagent/consumable/sodawater,
+		/datum/reagent/consumable/sol_dry,
 		/datum/reagent/consumable/space_up,
 		/datum/reagent/consumable/sugar,
 		/datum/reagent/consumable/tea,
@@ -567,6 +572,7 @@
 		/datum/reagent/consumable/ethanol/ale,
 		/datum/reagent/consumable/ethanol/applejack,
 		/datum/reagent/consumable/ethanol/beer,
+		/datum/reagent/consumable/ethanol/coconut_rum,
 		/datum/reagent/consumable/ethanol/cognac,
 		/datum/reagent/consumable/ethanol/creme_de_cacao,
 		/datum/reagent/consumable/ethanol/creme_de_coconut,
@@ -577,6 +583,7 @@
 		/datum/reagent/consumable/ethanol/kahlua,
 		/datum/reagent/consumable/ethanol/beer/maltliquor,
 		/datum/reagent/consumable/ethanol/navy_rum,
+		/datum/reagent/consumable/ethanol/rice_beer,
 		/datum/reagent/consumable/ethanol/rum,
 		/datum/reagent/consumable/ethanol/sake,
 		/datum/reagent/consumable/ethanol/tequila,
@@ -585,6 +592,7 @@
 		/datum/reagent/consumable/ethanol/vodka,
 		/datum/reagent/consumable/ethanol/whiskey,
 		/datum/reagent/consumable/ethanol/wine,
+		/datum/reagent/consumable/ethanol/yuyake,
 	)
 	upgrade_reagents = null
 	emagged_reagents = list(

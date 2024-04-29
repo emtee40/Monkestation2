@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(ticker)
 	var/start_at
 
 	var/gametime_offset = 432000 //Deciseconds to add to world.time for station time.
-	var/station_time_rate_multiplier = 12 //factor of station time progressal vs real time.
+	var/station_time_rate_multiplier = 24 //factor of station time progressal vs real time.
 
 	/// Num of players, used for pregame stats on statpanel
 	var/totalPlayers = 0
@@ -285,7 +285,7 @@ SUBSYSTEM_DEF(ticker)
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore,SetRoundStart))
 
 	to_chat(world, span_notice("<B>Welcome to [station_name()], enjoy your stay!</B>"))
-	
+
 	for(var/mob/M as anything in GLOB.player_list)
 		if(!M.client)
 			SEND_SOUND(M, sound(SSstation.announcer.get_rand_welcome_sound(), volume = 100))
@@ -299,7 +299,7 @@ SUBSYSTEM_DEF(ticker)
 		to_chat(world, span_notice("and..."))
 		for(var/holidayname in GLOB.holidays)
 			var/datum/holiday/holiday = GLOB.holidays[holidayname]
-			to_chat(world, "<h4>[holiday.greet()]</h4>")
+			to_chat(world, span_info(holiday.greet()))
 
 	PostSetup()
 

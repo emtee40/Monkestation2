@@ -54,7 +54,7 @@
 
 /datum/antagonist/cult/greet()
 	. = ..()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult/bloodcult_gain.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 
 /datum/antagonist/cult/on_gain()
@@ -109,22 +109,15 @@
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
 	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
-
+///Attempts to make a new item and put it in a potential inventory slot in the provided mob.
 /datum/antagonist/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
-	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
-	)
-
-	var/T = new item_path(mob)
-	var/item_name = initial(item_path.name)
-	var/where = mob.equip_in_one_of_slots(T, slots)
+	var/item = new item_path(mob)
+	var/where = mob.equip_conspicuous_item(item)
 	if(!where)
-		to_chat(mob, span_userdanger("Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)."))
+		to_chat(mob, span_userdanger("Unfortunately, you weren't able to get [item]. This is very bad and you should adminhelp immediately (press F1)."))
 		return FALSE
 	else
-		to_chat(mob, span_danger("You have a [item_name] in your [where]."))
+		to_chat(mob, span_danger("You have [item] in your [where]."))
 		if(where == "backpack")
 			mob.back.atom_storage?.show_contents(mob)
 		return TRUE
@@ -301,7 +294,7 @@
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/hallucinations/i_see_you2.ogg')
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult/bloodcult_eyes.ogg')
 				to_chat(mind.current, span_cultlarge(span_warning("The veil weakens as your cult grows, your eyes begin to glow...")))
 				mind.current.AddElement(/datum/element/cult_eyes)
 		cult_risen = TRUE
@@ -310,7 +303,7 @@
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/hallucinations/im_here1.ogg')
+				SEND_SOUND(mind.current, 'sound/ambience/antag/bloodcult/bloodcult_halos.ogg')
 				to_chat(mind.current, span_cultlarge(span_warning("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")))
 				mind.current.AddElement(/datum/element/cult_halo)
 		cult_ascendent = TRUE
@@ -596,13 +589,12 @@
 #undef SUMMON_POSSIBILITIES
 
 /datum/antagonist/cult/antag_token(datum/mind/hosts_mind, mob/spender)
-	. = ..()
-	var/datum/antagonist/cult/new_cultist = new()
+	var/datum/antagonist/cult/new_cultist = new
 	new_cultist.cult_team = get_team()
 	new_cultist.give_equipment = TRUE
 	if(isobserver(spender))
-		var/mob/living/carbon/human/newmob = spender.change_mob_type( /mob/living/carbon/human , null, null, TRUE )
-		newmob.equipOutfit(/datum/outfit/job/assistant)
-		newmob.mind.add_antag_datum(new_cultist)
+		var/mob/living/carbon/human/new_mob = spender.change_mob_type( /mob/living/carbon/human, delete_old_mob = TRUE)
+		new_mob.equipOutfit(/datum/outfit/job/assistant)
+		new_mob.mind.add_antag_datum(new_cultist)
 	else
 		hosts_mind.add_antag_datum(new_cultist)

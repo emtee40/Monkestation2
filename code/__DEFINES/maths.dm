@@ -7,6 +7,9 @@
 
 #define IS_FINITE__UNSAFE(a) (a-a == a-a)
 #define IS_FINITE(a) (isnum(a) && IS_FINITE__UNSAFE(a))
+
+#define IS_SAFE_NUM(a) (isnum(a) && !IS_INF__UNSAFE(a) && IS_FINITE__UNSAFE(a))
+
 // ------------------------------------
 // Aight dont remove the rest
 
@@ -240,6 +243,9 @@
 /// Like SPT_PROB_RATE but easier to use, simply put `if(SPT_PROB(10, 5))`
 #define SPT_PROB(prob_per_second_percent, seconds_per_tick) (prob(100*SPT_PROB_RATE((prob_per_second_percent)/100, (seconds_per_tick))))
 // )
+
+// This value per these many units. Very unnecessary but helpful for readability (For example wanting 30 units of synthflesh to heal 50 damage - VALUE_PER(50, 30))
+#define VALUE_PER(value, per) (value / per)
 
 #define GET_TRUE_DIST(a, b) (a == null || b == null) ? -1 : max(abs(a.x -b.x), abs(a.y-b.y), abs(a.z-b.z))
 

@@ -218,8 +218,6 @@
 	required_atoms = list(
 		/obj/machinery/autolathe = 1,
 		/obj/machinery/rnd/production/circuit_imprinter/department/science = 1,
-		/obj/machinery/monkey_recycler = 1,
-		/obj/machinery/processor/slime = 1,
 		/obj/machinery/processor = 2,
 		/obj/machinery/reagentgrinder = 2,
 		/obj/machinery/hydroponics = 2,
@@ -320,7 +318,7 @@
 	///Damage percent that each mech needs to be at for a scan to work.
 	var/damage_percent
 
-/datum/experiment/scanning/random/mecha_damage_scan/New()
+/datum/experiment/scanning/random/mecha_damage_scan/New(datum/techweb/techweb)
 	. = ..()
 	damage_percent = rand(15, 95)
 	//updating the description with the damage_percent var set

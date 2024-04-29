@@ -14,6 +14,8 @@
 			"products" = list(
 				/obj/item/clothing/under/costume/gladiator = 1,
 				/obj/item/clothing/head/helmet/gladiator = 1,
+				/obj/item/clothing/head/viking/fake_helmet = 1, //monkestation edit
+				/obj/item/clothing/under/viking/fake_tunic = 1, //monkestation edit
 				/obj/item/clothing/suit/toggle/labcoat/mad = 1,
 				/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
 				/obj/item/clothing/head/bio_hood/plague = 1,
@@ -114,6 +116,9 @@
 				/obj/item/clothing/head/costume/cueball = 1,
 				/obj/item/clothing/under/suit/white_on_white = 1,
 				/obj/item/clothing/head/tragic = 2,
+				/obj/item/clothing/head/harlequinhat =2,//MONKESTATION EDIT ADDITION
+				/obj/item/clothing/under/costume/harlequin =2,//MONKESTATION EDIT ADDITION
+				/obj/item/clothing/shoes/clown_shoes/harlequin_boots =2,//MONKESTATION EDIT ADDITION
 				/obj/item/clothing/under/costume/tragic = 2,
 				/obj/item/clothing/under/costume/streetmime = 1,
 				/obj/item/clothing/mask/gas/clown_hat/yellow = 1,
@@ -147,6 +152,7 @@
 				/obj/item/clothing/suit/costume/cheongsam_red = 1,
 				/obj/item/clothing/suit/costume/cheongsam_blue = 1,
 				/obj/item/clothing/under/wonka = 1,
+				/obj/item/clothing/shoes/heels = 4, // MONKESTATION EDIT ADDITION
 			),
 		),
 		list(
@@ -191,6 +197,10 @@
 				/obj/item/clothing/neck/maid = 1,
 				/obj/item/clothing/under/rank/civilian/janitor/maid = 1,
 				/obj/item/clothing/accessory/maidapron = 1,
+				/obj/item/clothing/under/costume/playbunny = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/neck/tie/bunnytie = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/head/playbunnyears = 2, // MONKESTATION EDIT ADDITION
+				/obj/item/clothing/suit/jacket/tailcoat = 2, // MONKESTATION EDIT ADDITION
 			),
 		),
 		list(
@@ -209,6 +219,10 @@
 				/obj/item/clothing/mask/gas/prop = 4,
 				/obj/item/clothing/mask/gas/atmosprop = 3,
 				/obj/item/clothing/mask/animal/small/tribal = 1,
+				/obj/item/clothing/head/shipwreckedhelmet = 2,
+				/obj/item/clothing/suit/shipwreckedsuit = 2,
+				/obj/item/clothing/head/kingofbugshelmet = 2,
+				/obj/item/clothing/suit/kingofbugssuit = 2,
 			),
 		),
 	)
