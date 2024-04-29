@@ -217,7 +217,8 @@
 	if(length(skillchips))
 		. += span_info("It has a skillchip embedded in it.")
 	if(suicided)
-		return span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
+		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
+		return
 	if((brainmob && (brainmob.client || brainmob.get_ghost())) || decoy_override)
 		if(organ_flags & ORGAN_FAILING)
 			return span_info("It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.")
