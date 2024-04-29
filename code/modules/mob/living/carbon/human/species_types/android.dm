@@ -37,6 +37,7 @@
 	mutantheart = null
 	mutantliver = null
 	mutantlungs = null
+	mutantappendix = null
 	mutanteyes = /obj/item/organ/internal/eyes/robotic
 	mutantears = /obj/item/organ/internal/ears/cybernetic
 	species_language_holder = /datum/language_holder/synthetic
