@@ -205,7 +205,6 @@
 	button_icon_state = "arms_off"
 	nabber.update_action_buttons()
 
-
 /datum/action/cooldown/toggle_arms/proc/examined(mob/living/carbon/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	var/examine_text = span_danger("[examined] has sharpened their hunting-arms, with the large blades radiating a bloodthirsty aura...")
