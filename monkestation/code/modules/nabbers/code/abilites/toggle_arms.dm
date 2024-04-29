@@ -27,16 +27,9 @@
 	speed = 3 SECONDS, \
 	effectiveness = 85, \
 	)
-	RegisterSignal(src.loc, COMSIG_ATOM_EXAMINE, PROC_REF(on_receiver_examine))
 
 /obj/item/melee/nabber_blade/Destroy()
-	UnregisterSignal(src.loc, COMSIG_ATOM_EXAMINE)
 	return ..()
-
-/obj/item/melee/nabber_blade/proc/on_receiver_examine(mob/living/carbon/examined, mob/user, list/examine_list)
-	SIGNAL_HANDLER
-	var/examine_text = span_danger("[src.loc] has sharpened their hunting-arms, with the large blades radiating a bloodthirsty aura...")
-	examine_list += examine_text
 
 /datum/action/cooldown/toggle_arms/proc/sharpen_limbs(mob/user)
 	for(var/obj/item/held in user.held_items) //Actually sharpen them here
@@ -154,6 +147,7 @@
 	nabber.put_in_active_hand(active_hand)
 	nabber.put_in_inactive_hand(inactive_hand)
 	if(has_sharpened) //Rather than just having these be items that can cause huge problems, ensure we delete them and just recreate with the force neccessary.
+		RegisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 		sharpen_limbs(nabber)
 	RegisterSignal(owner, COMSIG_CARBON_REMOVE_LIMB, PROC_REF(on_lose_hand))
 	button_icon_state = "arms_on"
@@ -180,6 +174,8 @@
 		return	FALSE
 
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
+	if(has_sharpened)
+		UnregisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 	for(var/obj/item/held in nabber.held_items)
 		if(istype(held, /obj/item/melee/nabber_blade))
 			qdel(held)
@@ -200,9 +196,17 @@
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 	nabber.balloon_alert(nabber, "Lost hands!")
 	nabber.Stun(5 SECONDS)
+	if(has_sharpened)
+		UnregisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 	for(var/obj/item/held in nabber.held_items)
 		if(istype(held, /obj/item/melee/nabber_blade))
 			qdel(held)
 
 	button_icon_state = "arms_off"
 	nabber.update_action_buttons()
+
+
+/datum/action/cooldown/toggle_arms/proc/examined(mob/living/carbon/examined, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	var/examine_text = span_danger("[src.loc] has sharpened their hunting-arms, with the large blades radiating a bloodthirsty aura...")
+	examine_list += examine_text
