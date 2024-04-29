@@ -299,7 +299,7 @@
 	desc = "The nanites receive a singal when they detect that the host is/isn't the target species."
 	can_rule = TRUE
 
-	var/list/species_list = list(
+	var/static/list/species_list = list(
 		"Human" = /datum/species/human,
 		"Lizard" = /datum/species/lizard,
 		"Moth" = /datum/species/moth,
