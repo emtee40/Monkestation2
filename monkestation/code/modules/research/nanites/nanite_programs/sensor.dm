@@ -12,8 +12,8 @@
 	var/spendable = TRUE
 
 /datum/nanite_program/sensor/register_extra_settings()
-	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
-	extra_settings[NES_SENT_CODE_INVERTED] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+	extra_settings[NES_SENT_CODE_SIGNAL] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+	extra_settings[NES_SENT_CODE_SIGNAL_INVERTED] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 
 	if (can_trigger)
 		extra_settings[NES_SENT_CODE_TRIGGER] = new /datum/nanite_extra_setting/number(0, 1, 9999)

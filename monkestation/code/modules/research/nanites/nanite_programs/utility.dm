@@ -261,6 +261,7 @@
 /datum/nanite_program/repeat
 	name = "Signal Repeater"
 	desc = "When triggered, sends another signal to the nanites, optionally with a delay."
+	unique = FALSE
 	can_trigger = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 10
@@ -277,6 +278,7 @@
 /datum/nanite_program/relay_repeat
 	name = "Relay Signal Repeater"
 	desc = "When triggered, sends another signal to a relay channel, optionally with a delay."
+	unique = FALSE
 	can_trigger = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 10
