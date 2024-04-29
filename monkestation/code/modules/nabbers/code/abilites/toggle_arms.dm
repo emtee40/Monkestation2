@@ -40,20 +40,24 @@
 
 /obj/item/melee/nabber_blade/pre_attack(atom/W, mob/living/user, params) //Handles whetstoning your limbs. TODO: Maybe add nabber-specific traitor item for this?
 	if (istype(W, /obj/item/sharpener))
-		user.visible_message(span_notice("[user] begins to sharpen their massive blade-arms."),
-								span_notice("You begin to sharpen your natural weaponry."))
-		if(do_after(user, 7, target = src))
-			user.visible_message(span_notice("[user] sharpens the large, sharp underside of their bladearms..."),
-						        	span_notice("You sharpen the large underside of your bladearm, ready to kill..."))
-			playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
-			var/obj/item/sharpener/poorstone = W
-			poorstone.uses-- //Make sure you cant sharpen both for a single whetstone!
-			poorstone.name = "thoroughly ruined whetstone"
-			poorstone.desc = "A whetstone, ruined seemingly by sharpening both sides of a massive, bladed limb." //Give a forensic hint as to what ruined it.
-			for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
-				arms.has_sharpened = TRUE
-				arms.sharpen_limbs(user)
-		return
+		var/obj/item/sharpener/poorstone = W
+		if(poorstone.uses >= 1)
+			user.visible_message(span_notice("[user] begins to sharpen their massive blade-arms."),
+									span_notice("You begin to sharpen your natural weaponry."))
+			if(do_after(user, 7 SECONDS, target = src))
+				user.visible_message(span_notice("[user] sharpens the large, sharp underside of their bladearms..."),
+										span_notice("You sharpen the large underside of your bladearm, ready to kill..."))
+				playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
+				poorstone.uses-- //Make sure you cant sharpen both for a single whetstone!
+				poorstone.name = "thoroughly ruined whetstone"
+				poorstone.desc = "A whetstone, ruined seemingly by sharpening both sides of a massive, bladed limb - ground utterly smooth." //Give a forensic hint as to what ruined it.
+				for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
+					arms.has_sharpened = TRUE
+					arms.sharpen_limbs(user)
+			return
+		else
+			user.visible_message(span_notice("[user] attempts to sharpen their arms, only to find the whetstone too smooth to do so!"),
+									span_notice("You fail to even grind the burr away from your chitinous limbs. Use a better stone."))
 	return ..()
 
 /obj/item/melee/nabber_blade/afterattack(atom/target, mob/user, proximity)
