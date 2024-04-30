@@ -25,7 +25,11 @@
 /datum/round_event/wonderlandapocalypse/announce(fake)
 	if(!fake && SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_DELTA)
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
-	priority_announce("What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!", "?????????", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
+	priority_announce(
+		text = "What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!",
+		title = Gibberish("[command_name()] Higher Dimensional Affairs", TRUE, 45),
+		sound = 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg'
+	)
 
 /datum/round_event/wonderlandapocalypse/start()
 	SSshuttle.emergency_no_recall = TRUE
