@@ -155,5 +155,6 @@
 
 /atom/movable/screen/alert/status_effect/wonderland_district
 	name = "Wonderland Manifestation"
-	desc = "An omnipresent pressure surrounds you, causing any magic use to overload, injuring you!"
-	icon_state = "wonderland_district"
+	desc = "An omnipresent pressure surrounds you, causing any use of magic to overload your body!"
+	icon = 'monkestation/icons/hud/screen_alert.dmi'
+	icon_state = "wonderland"
