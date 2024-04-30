@@ -32,11 +32,7 @@
 
 /obj/projectile/bullet/bloodsilver/on_hit(mob/living/carbon/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(!iscarbon(target) || QDELING(target))
-		return
-	if(target.has_movespeed_modifier(/datum/movespeed_modifier/silver_bullet))
-		return
-	if(!IS_HERETIC(target) && !(IS_BLOODSUCKER(target)) && !(target.mind.has_antag_datum(/datum/antagonist/changeling)))
+	if(!iscarbon(target) || QDELING(target) || target.has_movespeed_modifier(/datum/movespeed_modifier/silver_bullet) || !is_monster_hunter_prey(target))
 		return
 	target.add_movespeed_modifier(/datum/movespeed_modifier/silver_bullet)
 	if(!(target.has_movespeed_modifier(/datum/movespeed_modifier/silver_bullet)))

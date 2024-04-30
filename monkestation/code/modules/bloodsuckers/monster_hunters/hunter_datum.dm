@@ -242,7 +242,7 @@
 	for(var/datum/antagonist/victim as anything in GLOB.antagonists)
 		if(QDELETED(victim?.owner?.current) || victim.owner.current.stat == DEAD || victim.owner == owner)
 			continue
-		if(is_type_in_typecache(victim, GLOB.monster_antagonist_typecache))
+		if(is_type_in_typecache(victim, GLOB.monster_hunter_prey_antags))
 			possible_targets += victim.owner
 
 	for(var/i in 1 to 3) //we get 3 targets

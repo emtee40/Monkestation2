@@ -1,11 +1,3 @@
-/// List of antagonists that are considered 'Monsters'.
-GLOBAL_LIST_INIT(monster_antagonist_typecache, typecacheof(list(
-	/datum/antagonist/bloodsucker,
-	/datum/antagonist/changeling,
-	/datum/antagonist/heretic,
-	/datum/antagonist/wizard
-)))
-
 #define MINIMUM_MONSTERS_REQUIRED 2
 
 //gives monsterhunters an icon in the antag selection panel
@@ -57,7 +49,7 @@ GLOBAL_LIST_INIT(monster_antagonist_typecache, typecacheof(list(
 	for(var/datum/antagonist/monster as anything in GLOB.antagonists)
 		if(QDELETED(monster.owner) || QDELETED(monster.owner.current) || monster.owner.current.stat == DEAD)
 			continue
-		if(is_type_in_typecache(monster, GLOB.monster_antagonist_typecache))
+		if(is_type_in_typecache(monster, GLOB.monster_hunter_prey_antags))
 			count++
 
 	if(MINIMUM_MONSTERS_REQUIRED > count)

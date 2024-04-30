@@ -38,7 +38,7 @@
 		if(QDELETED(monster?.owner?.current) || monster.owner.current.stat == DEAD)
 			continue
 
-		if(is_type_in_typecache(monster, GLOB.monster_antagonist_typecache))
+		if(is_type_in_typecache(monster, GLOB.monster_hunter_prey_antags))
 			count++
 
 	if(MINIMUM_MONSTERS_REQUIRED > count)
