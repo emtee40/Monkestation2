@@ -28,7 +28,8 @@
 	priority_announce(
 		text = "What the heELl is going on?! WEeE have detected  massive up-spikes in ##@^^?? coming fr*m yoOourr st!*i@n! GeEeEEET out of THERE NOW!!",
 		title = Gibberish("[command_name()] Higher Dimensional Affairs", TRUE, 45),
-		sound = 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg'
+		sound = 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg',
+		color_override = "purple"
 	)
 
 /datum/round_event/wonderlandapocalypse/start()
