@@ -77,14 +77,14 @@
 /obj/structure/wonderland_rift
 	name = "Wonderland Door"
 	desc = "A door leading to a magical beautiful land."
-	armor_type = /datum/armor/wonderland_rift
-	max_integrity = 300
 	icon = 'monkestation/icons/mob/infils.dmi'
 	icon_state = "cyborg_rift"
 	anchored = TRUE
 	density = FALSE
 	plane = MASSIVE_OBJ_PLANE
-	///Have we already spawned an enemy?
+	armor_type = /datum/armor/wonderland_rift
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	/// Have we already spawned an enemy?
 	var/enemy_spawned = FALSE
 
 /datum/armor/wonderland_rift
