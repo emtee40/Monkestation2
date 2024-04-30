@@ -168,11 +168,12 @@ SUBSYSTEM_DEF(gamemode)
 	for(var/type in subtypesof(/datum/storyteller))
 		storytellers[type] = new type()
 
-	for(var/type in typesof(/datum/round_event_control))
-		var/datum/round_event_control/event = new type()
-		if(!event.typepath || !event.name)
-			continue //don't want this one! leave it for the garbage collector
+	for(var/datum/round_event_control/event_type as anything in typesof(/datum/round_event_control))
+		if(!event_type::typepath || !event_type::name)
+			continue
+		var/datum/round_event_control/event = new event_type
 		if(!event.valid_for_map())
+			qdel(event)
 			continue // event isn't good for this map no point in trying to add it to the list
 		control += event //add it to the list of all events (controls)
 	getHoliday()
@@ -271,6 +272,7 @@ SUBSYSTEM_DEF(gamemode)
 			if(!ready_players && !isliving(candidate))
 				continue
 			if(no_antags && candidate.mind.special_role)
+				log_storyteller("Candidate([candidate]) removed from rolling poll due to special_role([candidate.mind.special_role])")
 				continue
 			if(restricted_roles && (candidate.mind.assigned_role.title in restricted_roles))
 				continue
@@ -367,8 +369,9 @@ SUBSYSTEM_DEF(gamemode)
 
 /// At this point we've rolled roundstart events and antags and we handle leftover points here.
 /datum/controller/subsystem/gamemode/proc/handle_post_setup_points()
-	for(var/track in event_track_points) //Just halve the points for now.
-		event_track_points[track] *= 0.5
+//	for(var/track in event_track_points) //Just halve the points for now.
+//		event_track_points[track] *= 0.5 TESTING HOW THINGS GO WITHOUT THIS HALVING OF POINTS
+	return
 
 /// Because roundstart events need 2 steps of firing for purposes of antags, here is the first step handled, happening before occupation division.
 /datum/controller/subsystem/gamemode/proc/handle_pre_setup_roundstart_events()

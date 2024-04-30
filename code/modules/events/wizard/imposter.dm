@@ -13,7 +13,7 @@
 		if(!ishuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
-		var/list/candidates = poll_ghost_candidates("Would you like to be an imposter wizard?", ROLE_WIZARD)
+		var/list/candidates = SSpolling.poll_ghost_candidates("Would you like to be an imposter wizard?", check_jobban = ROLE_WIZARD, pic_source = /obj/item/clothing/head/wizard, role_name_text = "imposter wizard")
 		if(!length(candidates))
 			return //Sad Trombone
 		var/mob/dead/observer/C = pick(candidates)
@@ -33,7 +33,7 @@
 		var/datum/antagonist/wizard/apprentice/imposter/imposter = new()
 		imposter.master = M
 		imposter.wiz_team = master.wiz_team
-		master.wiz_team.add_member(imposter)
+		master.wiz_team.add_member(I.mind)
 		I.mind.add_antag_datum(imposter)
 		I.mind.special_role = "imposter"
 		I.log_message("is an imposter!", LOG_ATTACK, color="red") //?

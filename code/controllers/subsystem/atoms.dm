@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(atoms)
 
 	switch(result)
 		if (INITIALIZE_HINT_NORMAL)
-			// pass
+			EMPTY_BLOCK_GUARD // Pass
 		if(INITIALIZE_HINT_LATELOAD)
 			if(arguments[1]) //mapload
 				late_loaders += A
@@ -193,6 +193,10 @@ SUBSYSTEM_DEF(atoms)
 		base_initialized = INITIALIZATION_INNEW_REGULAR
 		return
 	initialized = initialized_state[length(initialized_state)][2]
+
+/// Returns TRUE if anything is currently being initialized
+/datum/controller/subsystem/atoms/proc/initializing_something()
+	return length(initialized_state) > 1
 
 /datum/controller/subsystem/atoms/Recover()
 	initialized = SSatoms.initialized

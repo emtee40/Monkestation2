@@ -198,6 +198,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		QUEUE_SMOOTH(src)
 
+	SSdemo.mark_turf(new_turf) // Monkestation Edit: REPLAYS
 	return new_turf
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags) //Resist the temptation to make this default to keeping air.
@@ -228,6 +229,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 				stashed_group.display_turf(new_turf)
 	else
 		for(var/turf/open/adjacent_turf as anything in atmos_adjacent_turfs)
+			if(QDELETED(adjacent_turf))
+				continue
 			adjacent_turf.atmos_adjacent_turfs -= src
 		atmos_adjacent_turfs = null
 		if(pollution)

@@ -45,7 +45,7 @@
 	block_chance = 20
 	on_force = 20
 	base_force = 17
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = "#59b3c9"
 	light_outer_range = 2
 	light_power = 2
@@ -118,7 +118,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "plasmasoul"
 	damage = 25
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 2
 	light_power = 1
 	light_color = "#44acb1"
@@ -363,6 +363,7 @@
 	icon_state = "rabbit_mask"
 	worn_icon = 'monkestation/icons/bloodsuckers/worn_mask.dmi'
 	worn_icon_state = "rabbit_mask"
+	clothing_flags = SNUG_FIT
 	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER

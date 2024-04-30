@@ -119,13 +119,23 @@
 	if(speak_emote)
 		speak_emote = string_list(speak_emote)
 
-	if(unsuitable_atmos_damage != 0)
-		//String assoc list returns a cached list, so this is like a static list to pass into the element below.
-		habitable_atmos = string_assoc_list(habitable_atmos)
-		AddElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
+	apply_atmos_requirements()
+	apply_temperature_requirements()
 
-	if(unsuitable_cold_damage != 0 && unsuitable_heat_damage != 0)
-		AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+/// Ensures this mob can take atmospheric damage if it's supposed to
+/mob/living/basic/proc/apply_atmos_requirements()
+	if(unsuitable_atmos_damage == 0)
+		return
+	//String assoc list returns a cached list, so this is like a static list to pass into the element below.
+	habitable_atmos = string_assoc_list(habitable_atmos)
+	AddElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
+
+/// Ensures this mob can take temperature damage if it's supposed to
+/mob/living/basic/proc/apply_temperature_requirements()
+	if(unsuitable_cold_damage == 0 && unsuitable_heat_damage == 0)
+		return
+	AddElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+
 
 /mob/living/basic/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	. = ..()
@@ -214,10 +224,24 @@
 	//monkestation edit
 
 /mob/living/basic/vv_edit_var(vname, vval)
+	switch(vname)
+		if(NAMEOF(src, habitable_atmos), NAMEOF(src, unsuitable_atmos_damage))
+			RemoveElement(/datum/element/atmos_requirements, habitable_atmos, unsuitable_atmos_damage)
+			. = TRUE
+		if(NAMEOF(src, minimum_survivable_temperature), NAMEOF(src, maximum_survivable_temperature), NAMEOF(src, unsuitable_cold_damage), NAMEOF(src, unsuitable_heat_damage))
+			RemoveElement(/datum/element/basic_body_temp_sensitive, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+			. = TRUE
+
 	. = ..()
-	if(vname == NAMEOF(src, speed))
-		datum_flags |= DF_VAR_EDITED
-		set_varspeed(vval)
+
+	switch(vname)
+		if(NAMEOF(src, habitable_atmos), NAMEOF(src, unsuitable_atmos_damage))
+			apply_atmos_requirements()
+		if(NAMEOF(src, minimum_survivable_temperature), NAMEOF(src, maximum_survivable_temperature), NAMEOF(src, unsuitable_cold_damage), NAMEOF(src, unsuitable_heat_damage))
+			apply_temperature_requirements()
+		if(NAMEOF(src, speed))
+			datum_flags |= DF_VAR_EDITED
+			set_varspeed(vval)
 
 /mob/living/basic/proc/set_varspeed(var_value)
 	speed = var_value
@@ -255,17 +279,17 @@
 /mob/living/basic/on_fire_stack(seconds_per_tick, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	adjust_bodytemperature((maximum_survivable_temperature + (fire_handler.stacks * 12)) * 0.5 * seconds_per_tick)
 
-/mob/living/basic/update_fire_overlay(stacks, on_fire, last_icon_state, suffix = "")
-	var/mutable_appearance/fire_overlay = mutable_appearance('icons/mob/effects/onfire.dmi', "generic_fire")
-	if(on_fire && isnull(last_icon_state))
-		add_overlay(fire_overlay)
-		return fire_overlay
-	else if(!on_fire && !isnull(last_icon_state))
-		cut_overlay(fire_overlay)
-		return null
-	else if(on_fire && !isnull(last_icon_state))
-		return last_icon_state
-	return null
+/mob/living/basic/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "generic_fire"
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR,
+		)
+
+	return GLOB.fire_appearances[fire_icon]
 
 /mob/living/basic/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, ignore_animation = TRUE)
 	. = ..()

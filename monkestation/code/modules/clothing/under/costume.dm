@@ -72,6 +72,14 @@
 	alternate_worn_layer = GLOVES_LAYER
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/harlequin
+	name = "harlequin jumpsuit"
+	desc = "This is what you wear if you wanna be a weird fusion of a clown and mime."
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	icon_state = "harlequin"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/costume/bee
 	name = "bee hide costume"
 	desc = "A suit made of beehide"
@@ -136,6 +144,7 @@ BUNNY SUITS
 	greyscale_colors = "#39393f#39393f#ffffff#87502e"
 	greyscale_config = /datum/greyscale_config/bunnysuit
 	greyscale_config_worn = /datum/greyscale_config/bunnysuit_worn
+	greyscale_config_worn_digitigrade = /datum/greyscale_config/bunnysuit_worn/digitigrade
 	flags_1 = IS_PLAYER_COLORABLE_1
 	body_parts_covered = CHEST|GROIN|LEGS
 	alt_covers_chest = TRUE
@@ -187,28 +196,34 @@ BUNNY SUITS
 	greyscale_config = null
 	greyscale_config_worn = null
 	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
 
 /obj/item/clothing/under/costume/playbunny/british
 	name = "british bunny suit"
+	desc = "The staple of any bunny themed monarchists. It has a little cottonball tail too."
 	icon_state = "playbunny_brit"
 	greyscale_config = null
 	greyscale_config_worn = null
 	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
 
 /obj/item/clothing/under/costume/playbunny/communist
 	name = "really red bunny suit"
+	desc = "The staple of any bunny themed communists. It has a little cottonball tail too."
 	icon_state = "playbunny_communist"
 	greyscale_config = null
 	greyscale_config_worn = null
 	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
 
 /obj/item/clothing/under/costume/playbunny/usa
 	name = "striped bunny suit"
+	desc = "A bunny outfit stitched together from several American flags. It has a little cottonball tail too."
 	icon_state = "playbunny_usa"
 	greyscale_config = null
 	greyscale_config_worn = null
 	greyscale_colors = null
-
+	greyscale_config_worn_digitigrade = null
 /*
 END OF BUNNY SUITS
 */

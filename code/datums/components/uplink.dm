@@ -48,6 +48,7 @@
 	has_progression = FALSE,
 	datum/uplink_handler/uplink_handler_override,
 )
+
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -119,6 +120,7 @@
 /// Sets the telecrystals of the uplink. It is bad practice to use this outside of the component itself.
 /datum/component/uplink/proc/set_telecrystals(new_telecrystal_amount)
 	uplink_handler.telecrystals = new_telecrystal_amount
+	uplink_handler.on_update()
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/uplink)
 	lockable |= uplink.lockable
@@ -144,6 +146,11 @@
 
 	if(istype(item, /obj/item/stack/telecrystal))
 		load_tc(user, item)
+
+	if(!istype(item))
+		return
+
+	SEND_SIGNAL(item, COMSIG_ITEM_ATTEMPT_TC_REIMBURSE, user, src)
 
 /datum/component/uplink/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
@@ -253,6 +260,7 @@
 	data["current_stock"] = remaining_stock
 	data["shop_locked"] = uplink_handler.shop_locked
 	data["purchased_items"] = length(uplink_handler.purchase_log?.purchase_log)
+	data["can_renegotiate"] = user.mind == uplink_handler.owner && uplink_handler.can_replace_objectives?.Invoke() == TRUE
 //monkestation edit start
 	data["locked_entries"] = uplink_handler.locked_entries
 	data["is_contractor"] = (uplink_handler.uplink_flag == UPLINK_CONTRACTORS)
@@ -310,6 +318,9 @@
 			if(!lockable)
 				return TRUE
 			lock_uplink()
+		if("renegotiate_objectives")
+			uplink_handler.replace_objectives?.Invoke()
+			SStgui.update_uis(src)
 
 	if(!uplink_handler.has_objectives)
 		return TRUE

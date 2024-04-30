@@ -32,6 +32,7 @@ GLOBAL_LIST_INIT(bioscrambler_parts_blacklist, typecacheof(list(
 GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list (
 	/obj/item/organ/external/pod_hair,
 	/obj/item/organ/external/spines,
+	/obj/item/organ/external/wings,
 	/obj/item/organ/external/wings/functional,
 	/obj/item/organ/internal/alien,
 	/obj/item/organ/internal/brain,
@@ -43,6 +44,7 @@ GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list (
 	/obj/item/organ/internal/monster_core,
 	/obj/item/organ/internal/vocal_cords/colossus,
 	/obj/item/organ/internal/zombie_infection,
+	/obj/item/organ/internal/empowered_borer_egg, // MONKESTATION ADDITION -- CORTICAL_BORERS
 )))
 
 /// List of body parts we can apply to people

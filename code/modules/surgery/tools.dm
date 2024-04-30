@@ -56,6 +56,7 @@
 	attack_verb_simple = list("burn")
 	tool_behaviour = TOOL_CAUTERY
 	toolspeed = 1
+	heat = 500
 
 /obj/item/cautery/ignition_effect(atom/ignitable_atom, mob/user)
 	. = span_notice("[user] touches the end of [src] to \the [ignitable_atom], igniting it with a puff of smoke.")
@@ -76,7 +77,7 @@
 	hitsound = 'sound/items/welder.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 0.7
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 1
 	light_color = COLOR_SOFT_RED
 
@@ -336,7 +337,7 @@
 	force = 16
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 0.7
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 1
 	light_color = LIGHT_COLOR_BLUE
 	sharpness = SHARP_EDGED
