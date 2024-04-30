@@ -147,7 +147,7 @@
 /datum/species/apid/get_scream_sound(mob/living/carbon/human/human)
 	return 'sound/voice/moth/scream_moth.ogg'
 
-/datum/species/moth/get_species_description()
+/datum/species/apid/get_species_description()
 	return "Apids are a race of bipedal bees from the jungle planet of Saltu. Due to their large bodies, they have lost the ability to fly."
 
 #undef ui_honeydisplay
