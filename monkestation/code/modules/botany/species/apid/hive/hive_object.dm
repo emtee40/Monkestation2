@@ -13,6 +13,7 @@ GLOBAL_LIST_INIT(hive_exits, list())
 
 /obj/structure/beebox/hive/Initialize(mapload, created_name)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_BANNED_FROM_CARGO_SHUTTLE, INNATE_TRAIT) // womp womp
 
 	name = "[created_name]'s hive"
 	for(var/i = 1 to 3)
