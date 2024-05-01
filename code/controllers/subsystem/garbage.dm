@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(garbage)
 	#endif
 	#endif
 
+	/// Toggle for enabling/disabling hard deletes. Objects that don't explicitly request hard deletion with this disabled will leak.
+	var/enable_hard_deletes = FALSE
 
 /datum/controller/subsystem/garbage/PreInit()
 	InitQueues()
@@ -263,10 +265,29 @@ SUBSYSTEM_DEF(garbage)
 	queue[++queue.len] = list(queue_time, D, D.gc_destroyed) // not += for byond reasons
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D)
+/datum/controller/subsystem/garbage/proc/HardDelete(datum/D, non_datum = FALSE, override = FALSE)
+	if(!D)
+		return
+
+	if (!override && !enable_hard_deletes)
+		return
+
 	++delslasttick
 	++totaldels
-	var/type = D.type
+	var/type
+	if (!non_datum)
+		type = D.type
+	else if (islist(D))
+		type = "/list"
+	else if (istext(D))
+		type = "string"
+	else if (isnum(D))
+		type = "number"
+	else if (isfile(D))
+		type = "file"
+	else
+		type = "unknown"
+
 	var/refID = text_ref(D)
 
 	var/tick_usage = TICK_USAGE
@@ -327,7 +348,7 @@ SUBSYSTEM_DEF(garbage)
 /// Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
 /proc/qdel(datum/D, force=FALSE, ...)
 	if(!istype(D))
-		del(D)
+		SSgarbage.HardDelete(D, TRUE)
 		return
 
 	var/datum/qdel_item/I = SSgarbage.items[D.type]
@@ -381,7 +402,7 @@ SUBSYSTEM_DEF(garbage)
 				SSgarbage.HardDelete(D)
 			#ifdef REFERENCE_TRACKING
 			if (QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
-				SSgarbage.Queue(D)
+				SSgarbage.HardDelete(D, override = TRUE) // Need to override enable_hard_deletes, stuff like /client uses this
 				D.find_references() //This breaks ci. Consider it insurance against somehow pring reftracking on accident
 			if (QDEL_HINT_IFFAIL_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled and the object fails to collect, display all references to this object.
 				SSgarbage.Queue(D)
