@@ -84,18 +84,7 @@
 	speed = 5 SECONDS, \
 	effectiveness = 60, \
 	) //They suck at butchering
-	AddComponent(\
-		/datum/component/bullet_intercepting,\
-		block_chance = 0.45,\
-		block_type = BULLET, \
-		active_slots = ITEM_SLOT_HANDS,\
-		on_intercepted = CALLBACK(src, PROC_REF(on_intercepted_bullet)),\
-	)
 	return ..()
-
-/obj/item/melee/nabber_blade/syndicate/proc/on_intercepted_bullet(mob/living/victim, obj/projectile/bullet)
-	victim.visible_message(span_warning("\The [bullet] screeches as it slams into [victim]'s energy blades! Holy shit!"))
-	playsound(victim, get_sfx(SFX_RICOCHET), 100, TRUE)
 
 /obj/item/melee/nabber_blade/syndicate/alt
 	icon_state = "mantis_arm_l" //todo: custom sprites.
@@ -209,7 +198,7 @@
 		StartCooldown()
 		nabber.balloon_alert(nabber, "Stand still!")
 		return FALSE
-	RegisterSignal(nabber, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
+	RegisterSignal(nabber, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile), override = TRUE)
 	nabber.balloon_alert(nabber, "Arms raised!")
 	nabber.visible_message(span_warning("[nabber] raised their mantid-like hunting arms in a frenzy, ready for a fight!"), span_warning("You raise your mantis arms, ready for combat."), span_hear("You hear a terrible hunting screech!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
