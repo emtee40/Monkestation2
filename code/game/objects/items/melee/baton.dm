@@ -18,7 +18,7 @@
 	/// Used interally, you don't want to modify
 	var/cooldown_check = 0
 	/// Default wait time until can stun again.
-	var/cooldown = (1.5 SECONDS)
+	var/cooldown = (4 SECONDS) //monkestation edit
 	/// The length of the knockdown applied to a struck living, non-cyborg mob.
 	var/knockdown_time = (1.5 SECONDS)
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
@@ -136,7 +136,7 @@
 
 	if(!chunky_finger_usable && ishuman(user))
 		var/mob/living/carbon/human/potential_chunky_finger_human = user
-		if(potential_chunky_finger_human.check_chunky_fingers() && user.is_holding(src))
+		if(potential_chunky_finger_human.check_chunky_fingers() && user.is_holding(src) && !HAS_MIND_TRAIT(user, TRAIT_CHUNKYFINGERS_IGNORE_BATON))
 			balloon_alert(potential_chunky_finger_human, "fingers are too big!")
 			return BATON_ATTACK_DONE
 
@@ -207,7 +207,7 @@
 		if(!trait_check)
 			target.stamina.adjust(-stamina_damage)
 		else
-			var/stamina_to_min = (target.stamina.maximum * 0.35)
+			var/stamina_to_min = (target.stamina.maximum * 0.29)
 			target.stamina.adjust_to(-stamina_damage, stamina_to_min)
 		if(!trait_check)
 			target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
@@ -314,7 +314,6 @@
 	bare_wound_bonus = 5
 	clumsy_knockdown_time = 15 SECONDS
 	active = FALSE
-	cooldown = 1.5 SECONDS //monkestation edit
 
 	/// The sound effecte played when our baton is extended.
 	var/on_sound = 'sound/weapons/batonextend.ogg'
