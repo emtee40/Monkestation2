@@ -1,7 +1,11 @@
+//defines
+#define NABBER_OVERLAY_LAYER 21.1 //float layer lmao
 //handles species upgrades
 /datum/species
 	var/uses_offsets = FALSE //This will determine if the offset system is active or not.
 	var/blood_colours = "#b60a0a" //This is the default blood colour used by the backup blood system. Until changed on subtypes, this is what is used to handle bleeding.
+	var/held_accessory //neccessary for nabbers having cool shit
+	var/held_accessory_path // should not exist unless you're using things like custom arm overlays
 
 /datum/species/lizard
 	blood_colours = "#476d0a"
@@ -13,9 +17,10 @@
 	. = ..()
 	uses_offsets = null
 	blood_colours = null
+	held_accessory = null
+	held_accessory_path = null
 
 /// Updates features and clothing attached to a specific limb with limb-specific offsets
-
 
 /mob/living/carbon/proc/update_features(feature_key) //absolutely vital this loads first
 	switch(feature_key)
@@ -57,6 +62,18 @@
 // VVVV THIS CODE IS FUCKING ASS BUT MODULAR. VVVV
 // REMEMBER THIS IS THE LESSER OF TWO EVILS. IT WAS THIS OR DOING A NOVA SECTOR AND REPLACING THE BASE PROCS
 //vvvvvv UPDATE_INV PROCS vvvvvv
+
+/mob/living/carbon/human/proc/modify_accessory_overlay(var/accessory) //Repurposing this to be for all accessories/mods that need a spare layer.
+	var/mob/living/carbon/human/human_wearer = src
+	var/wanted_accessory = accessory
+	var/image/held_overlay
+	remove_overlay(NABBER_OVERLAY_LAYER) //begone
+	// handle custom overlay via grabbing the icon
+	if(human_wearer.dna.species.held_accessory_path)
+		var/icon/custom_accessory_icon_path = human_wearer.dna.species.held_accessory_path
+		held_overlay = image(icon=custom_accessory_icon_path,icon_state=wanted_accessory) //Grab the image in question
+		overlays_standing[NABBER_OVERLAY_LAYER] = held_overlay
+	apply_overlay(NABBER_OVERLAY_LAYER)
 
 /mob/living/carbon/human/update_worn_back(update_obscured = TRUE) //We're going to the fucking asylum with this one boys. This is how you should handle all future update_ if you wish to add more than custom backpack positions.
 	. = ..()

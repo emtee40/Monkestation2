@@ -1,3 +1,12 @@
+//Defines. Handles what type of arm to give. Always use blank or /type to prevent issues with regular arms.
+#define NABBER_ARM_TYPE_REGULAR ""
+#define NABBER_ARM_TYPE_SHARPENED "/sharp"
+#define NABBER_ARM_TYPE_SYNDICATE "/syndicate"
+#define NABBER_ARM_TYPE_NUCLEAR 3
+#define NABBER_ARM_TYPE_PACIFIED 4
+
+//var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+
 /obj/item/melee/nabber_blade
 	name = "Hunting arm"
 	desc = "A grotesque, sharpened blade-limb. You feel as if you had to get this from a living creature to hold it. You monster."
@@ -16,9 +25,8 @@
 	sharpness = SHARP_EDGED
 	wound_bonus = 10 //dropped from 25
 	bare_wound_bonus = 10 //Dropped from 25. Now lowered due to the ability to sharpen them.
-
-/obj/item/melee/nabber_blade/alt
-	icon_state = "mantis_arm_l"
+	var/icon_type_on //will manage if a blade should have custom icons.
+	var/icon_type_off
 
 /obj/item/melee/nabber_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
@@ -29,20 +37,64 @@
 	)
 
 /obj/item/melee/nabber_blade/Destroy()
+	icon_type_on = null
+	icon_type_off = null
 	return ..()
 
-/datum/action/cooldown/toggle_arms/proc/sharpen_limbs(mob/user)
-	for(var/obj/item/held in user.held_items) //Actually sharpen them here
-		if(istype(held, /obj/item/melee/nabber_blade))
-			held.force = 18 //+4 damage to simulate whetstone usage.
-			held.wound_bonus = 15 // Decent buff.
-			held.bare_wound_bonus = 35 //Significant buff.
-			held.name = "lethally sharpened hunting-arm"
-			var/datum/component/butchering/held_component = held.GetComponent(/datum/component/butchering)
-			held_component.effectiveness = 95
-			held_component.speed = 1.5 SECONDS
+/obj/item/melee/nabber_blade/alt
+	icon_state = "mantis_arm_l"
+
+/obj/item/melee/nabber_blade/sharp
+	force = 18 //+4 damage to simulate whetstone usage.
+	wound_bonus = 15 // Decent buff.
+	bare_wound_bonus = 35 //Significant buff.
+	name = "lethally sharpened hunting-arm"
+
+/obj/item/melee/nabber_blade/sharp/alt
+	icon_state = "mantis_arm_l" //todo: replace sprites
+
+/obj/item/melee/nabber_blade/sharp/Initialize(mapload,silent,synthetic)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
+	AddComponent(/datum/component/butchering, \
+	speed = 1.5 SECONDS, \
+	effectiveness = 95, \
+	)
+
+/obj/item/melee/nabber_blade/syndicate
+	name = "energy-enhanced bladearm"
+	force = 29 //Only 5 less than a DEsword, but way more utility for nabbers.
+	armour_penetration = 45 //Almost half AP however
+	wound_bonus = 25 //Also insane, but 18tc item.
+	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
+	hitsound = 'sound/weapons/blade1.ogg'
+	armor_type = /datum/armor/item_dualsaber
+	block_chance = 40 //80% chance isn't actually that high (copium)
+	block_sound = 'sound/weapons/block_blade.ogg'
+	icon_type_on = "blades_on"
+	icon_type_off = "blades_off"
+	light_system = OVERLAY_LIGHT
+	light_outer_range = 5
+	light_power = 0.65 //Bright, but not awfully so.
+	light_on = TRUE
+	light_color = LIGHT_COLOR_INTENSE_RED //Cant forget this
+
+/obj/item/melee/nabber_blade/syndicate/Initialize(mapload,silent,synthetic)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
+	AddComponent(/datum/component/butchering, \
+	speed = 5 SECONDS, \
+	effectiveness = 60, \
+	) //They suck at butchering
+	playsound(src, 'sound/weapons/saberon.ogg', 35, TRUE) //:3
+
+/obj/item/melee/nabber_blade/syndicate/Destroy()
+	playsound(src, 'sound/weapons/saberoff.ogg', 35, TRUE) //I can't resist.
+	return ..()
+
+/obj/item/melee/nabber_blade/syndicate/alt
+	icon_state = "mantis_arm_l" //todo: custom sprites.
 
 /obj/item/melee/nabber_blade/pre_attack(atom/W, mob/living/user, params) //Handles whetstoning your limbs. TODO: Maybe add nabber-specific traitor item for this?
+
 	if (istype(W, /obj/item/sharpener))
 		var/obj/item/sharpener/poorstone = W
 		if(poorstone.uses >= 1)
@@ -56,12 +108,26 @@
 				poorstone.name = "thoroughly ruined whetstone"
 				poorstone.desc = "A whetstone, ruined seemingly by sharpening both sides of a massive, bladed limb - ground utterly smooth." //Give a forensic hint as to what ruined it.
 				for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
-					arms.has_sharpened = TRUE
-					arms.sharpen_limbs(user)
+					arms.blade_type = NABBER_ARM_TYPE_SHARPENED
+					arms.held_desc = span_notice("has sharpened their blade-arms with what appears to be crude whetstoning, the honed edge gleaming with a dangerous tint...")
 			return
 		else
 			user.visible_message(span_notice("[user] attempts to sharpen their arms, only to find the whetstone too smooth to do so!"),
 									span_notice("You fail to even grind the burr away from your chitinous limbs. Use a better stone."))
+
+
+	if (istype(W, /obj/item/nabber_energyblades)) //Ideally turn this into a component in the future.
+		user.visible_message(span_notice("[user] begins to carefully run their blade-arms through the suspicious case, an ominous red glow present..."),
+								span_notice("You lower your arms into the case, utilising the inbuilt autosurgeon to attach several energy-projectors to the undersides."))
+		if(do_after(user, 7 SECONDS, target = src))
+			user.visible_message(span_notice("[user] raises their blade-arms, a new black-and-red set of projectors providing an ominous nimbus..."),
+									span_notice("With your new energy-blades, you're more than ready to kill."))
+			playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
+			qdel(W) //Destroy the evidence!
+			for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
+				arms.blade_type = NABBER_ARM_TYPE_SYNDICATE
+				arms.held_desc = span_bolddanger("has clearly been modified - several large energy projectors attached to their blade-arms, glowing with the classic red nimbus of syndicate technology...")
+		return
 	return ..()
 
 /obj/item/melee/nabber_blade/afterattack(atom/target, mob/user, proximity)
@@ -81,10 +147,12 @@
 	cooldown_time = 5 SECONDS
 
 	button_icon = 'monkestation/code/modules/nabbers/icons/actions.dmi'
-	var/has_sharpened = FALSE //Simplest way to avoid bugs.
+	var/blade_type = NABBER_ARM_TYPE_REGULAR //Need to hold this here.
+	var/held_desc // Manages any custom blade messages on examine
 
 /datum/action/cooldown/toggle_arms/Destroy()
-	has_sharpened = null
+	blade_type = null
+	held_desc = null
 	return ..()
 
 /datum/action/cooldown/toggle_arms/New(Target, original)
@@ -138,31 +206,35 @@
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 
 	var/c = nabber.dna.features["mcolor"]
-	var/obj/item/melee/nabber_blade/active_hand = new
-	var/obj/item/melee/nabber_blade/alt/inactive_hand = new
+	var/active_path = text2path("/obj/item/melee/nabber_blade[blade_type]")
+	var/inactive_path = text2path("/obj/item/melee/nabber_blade[blade_type]/alt")
+	var/obj/item/melee/nabber_blade/active_hand =  new active_path
+	var/obj/item/melee/nabber_blade/inactive_hand = new inactive_path
 
 	active_hand.color = c
 	inactive_hand.color = c
 
 	nabber.put_in_active_hand(active_hand)
 	nabber.put_in_inactive_hand(inactive_hand)
-	if(has_sharpened) //Rather than just having these be items that can cause huge problems, ensure we delete them and just recreate with the force neccessary.
+	if(blade_type) //Rather than just having these be items that can cause huge problems, ensure we delete them and just recreate with the force neccessary.
 		RegisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
-		sharpen_limbs(nabber)
+		if(active_hand.icon_type_on)
+			nabber.modify_accessory_overlay(active_hand.icon_type_on)
 	RegisterSignal(owner, COMSIG_CARBON_REMOVE_LIMB, PROC_REF(on_lose_hand))
 	button_icon_state = "arms_on"
 	nabber.update_action_buttons()
 
 /datum/action/cooldown/toggle_arms/proc/down_arms(force = FALSE)
 	var/mob/living/carbon/human/nabber = owner
-
 	nabber.visible_message(span_notice("[nabber] starts to relax, pumping blood away from their hunting-arms!"), span_notice("You start pumping blood out your mantis arms. Stay still!"), span_hear("You hear [src] let out a quiet hissing sigh."))
 
 	if(force)
 		nabber.Stun(5 SECONDS)
 		for(var/obj/item/held in nabber.held_items)
-			if(istype(held, /obj/item/melee/nabber_blade))
-				qdel(held)
+			var/obj/item/melee/nabber_blade/held_temp = held
+			if(held_temp.icon_type_off)
+				nabber.modify_accessory_overlay(held_temp.icon_type_off)
+			qdel(held)
 		button_icon_state = "arms_on"
 		nabber.update_action_buttons()
 		return	FALSE
@@ -174,11 +246,13 @@
 		return	FALSE
 
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
-	if(has_sharpened)
+	if(blade_type)
 		UnregisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 	for(var/obj/item/held in nabber.held_items)
-		if(istype(held, /obj/item/melee/nabber_blade))
-			qdel(held)
+		var/obj/item/melee/nabber_blade/held_temp = held
+		if(held_temp.icon_type_off)
+			nabber.modify_accessory_overlay(held_temp.icon_type_off)
+		qdel(held)
 
 	UnregisterSignal(owner, COMSIG_CARBON_REMOVE_LIMB)
 	nabber.balloon_alert(nabber, "Arms down!")
@@ -196,16 +270,18 @@
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 	nabber.balloon_alert(nabber, "Lost hands!")
 	nabber.Stun(5 SECONDS)
-	if(has_sharpened)
+	if(blade_type)
 		UnregisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 	for(var/obj/item/held in nabber.held_items)
-		if(istype(held, /obj/item/melee/nabber_blade))
-			qdel(held)
+		var/obj/item/melee/nabber_blade/held_temp = held
+		if(held_temp.icon_type_off)
+			nabber.modify_accessory_overlay(held_temp.icon_type_off)
+		qdel(held)
 
 	button_icon_state = "arms_off"
 	nabber.update_action_buttons()
 
 /datum/action/cooldown/toggle_arms/proc/examined(mob/living/carbon/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	var/examine_text = span_danger("[examined] has sharpened their hunting-arms, with the large blades radiating a bloodthirsty aura...")
+	var/examine_text = span_bolditalic("[examined] [src.held_desc]")
 	examine_list += examine_text

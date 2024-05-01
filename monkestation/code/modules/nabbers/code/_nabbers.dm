@@ -24,7 +24,8 @@
 	name = "Giant Armored Serpentid"
 	id = SPECIES_NABBER
 	eyes_icon = 'monkestation/code/modules/nabbers/icons/organs/nabber_eyes_new.dmi'
-	visual_gender = FALSE
+	held_accessory = null
+	held_accessory_path = 'monkestation/code/modules/nabbers/icons/bodyparts/bodypart_overlays.dmi'
 	species_traits = list(
 		MUTCOLORS,
 		EYECOLOR,

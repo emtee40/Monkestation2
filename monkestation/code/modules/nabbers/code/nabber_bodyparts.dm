@@ -53,7 +53,7 @@
 	worn_accessory_offset = new(
 		attached_part = src,
 		feature_key = OFFSET_ACCESSORY,
-		offset_y = list("north" = 5, "south" = 5, "east" = 5, "west" = 5),
+		offset_y = list("north" = 10, "south" = 10, "east" = 10, "west" = 10),
 	)
 	return ..()
 
