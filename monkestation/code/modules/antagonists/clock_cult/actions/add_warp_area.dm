@@ -15,12 +15,7 @@
 /datum/action/innate/clockcult/add_warp_area/New(Target)
 	. = ..()
 	if(!cached_addable_areas)
-		cached_addable_areas = list()
-		for(var/area/station_area as anything in GLOB.the_station_areas)
-			station_area = GLOB.areas_by_type[station_area]
-			if(station_area.outdoors || (station_area.area_flags & ABDUCTOR_PROOF) || is_type_in_typecache(station_area, blocked_areas) || (station_area in GLOB.clock_warp_areas))
-				continue
-			cached_addable_areas += station_area
+		build_addable_areas()
 
 /datum/action/innate/clockcult/add_warp_area/IsAvailable(feedback)
 	if(!IS_CLOCK(owner))
@@ -40,15 +35,19 @@
 		if(GLOB.clock_vitality < cost)
 			to_chat(span_brass("Not enough vitality."))
 			return
+
+		if(input_area in GLOB.clock_warp_areas)
+			return
+
 		GLOB.clock_warp_areas += input_area
 		cached_addable_areas -= input_area
 		send_clock_message(null, "[input_area] added to warpable areas.")
 
-/datum/action/innate/clockcult/add_warp_area/proc/build_starting_warp_areas()
+/datum/action/innate/clockcult/add_warp_area/proc/choose_starting_warp_areas()
 	if(!cached_addable_areas || !length(cached_addable_areas))
 		return
 
-	//shuffle_inplace(cached_addable_areas) //this is so our randomly picked maint areas are random without needing to do anything weird
+	//shuffle_inplace(cached_addable_areas) //this is so our picked maint areas are random without needing to do anything weird
 	for(var/i in 1 to STARTING_WARP_AREAS)
 		/*if(i <= 2) //always give them 2 maint areas to hopefully be easy to warp from
 			var/area/station/maintenance/maint_area = locate() in cached_addable_areas
@@ -57,6 +56,14 @@
 				GLOB.clock_warp_areas += maint_area
 				continue*/ //for if I implement abscond restrictions
 		GLOB.clock_warp_areas += pick_n_take(cached_addable_areas)
+
+/datum/action/innate/clockcult/add_warp_area/proc/build_addable_areas()
+	cached_addable_areas = list()
+	for(var/area/station_area as anything in GLOB.the_station_areas)
+		station_area = GLOB.areas_by_type[station_area]
+		if(station_area.outdoors || (station_area.area_flags & ABDUCTOR_PROOF) || is_type_in_typecache(station_area, blocked_areas) || (station_area in GLOB.clock_warp_areas))
+			continue
+		cached_addable_areas += station_area
 
 /datum/action/innate/clockcult/show_warpable_areas
 	name = "Warpable Areas"

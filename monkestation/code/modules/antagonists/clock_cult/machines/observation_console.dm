@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(clock_warp_areas)
 	var/datum/action/innate/clockcult/add_warp_area/add_area = new(src)
 	actions += add_area
 	if(!length(GLOB.clock_warp_areas))
-		add_area.build_starting_warp_areas() //slightly hacky but handling it on the action is cheaper as it lets us just build our warpable areas once without needing globals
+		add_area.choose_starting_warp_areas() //slightly hacky but handling it on the action is cheaper as it lets us just build our warpable areas once without needing globals
 
 /obj/machinery/computer/camera_advanced/ratvar/Destroy()
 	STOP_PROCESSING(SSobj, src)
