@@ -30,12 +30,12 @@
 	var/icon_type_off
 
 /obj/item/melee/nabber_blade/Initialize(mapload,silent,synthetic)
+	. = ..() //Always run last. Chain last together repeatedly to modify butcher statistics.
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
 	AddComponent(/datum/component/butchering, \
 	speed = 3 SECONDS, \
 	effectiveness = 85, \
 	)
-	return ..()
 
 /obj/item/melee/nabber_blade/Destroy()
 	icon_type_on = null
@@ -55,12 +55,11 @@
 	icon_state = "mantis_arm_l" //todo: replace sprites
 
 /obj/item/melee/nabber_blade/sharp/Initialize(mapload,silent,synthetic)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
-	AddComponent(/datum/component/butchering, \
-	speed = 1.5 SECONDS, \
-	effectiveness = 95, \
-	)
-	return ..()
+	var/datum/component/butchering/held_component = src.GetComponent(/datum/component/butchering)
+	held_component.effectiveness = 95
+	held_component.speed = 1.5 SECONDS
 
 /obj/item/melee/nabber_blade/syndicate
 	name = "energy-enhanced bladearm"
@@ -92,12 +91,11 @@
 */
 
 /obj/item/melee/nabber_blade/syndicate/Initialize(mapload,silent,synthetic)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
-	AddComponent(/datum/component/butchering, \
-	speed = 5 SECONDS, \
-	effectiveness = 60, \
-	) //They suck at butchering
-	return ..()
+	var/datum/component/butchering/held_component = src.GetComponent(/datum/component/butchering)
+	held_component.effectiveness = 65
+	held_component.speed = 4 SECONDS //Faster, but they're worse at it.
 
 /obj/item/melee/nabber_blade/syndicate/alt
 	icon_state = "mantis_arm_l" //todo: custom sprites.
