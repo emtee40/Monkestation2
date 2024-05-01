@@ -69,7 +69,7 @@
 	wound_bonus = 25 //Also insane, but 18tc item.
 	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
 	hitsound = 'sound/weapons/blade1.ogg'
-	hit_reaction_chance = 75 //75% chance to block leaps/melee.
+	hit_reaction_chance = 65 //65% chance to block leaps/melee/unarmed.
 	block_chance = 15 //15% chance to block all other sources of damage (e.g bullets)
 	armor_type = /datum/armor/item_shield
 	icon_type_on = "blades_on"
@@ -81,9 +81,10 @@
 	light_color = LIGHT_COLOR_INTENSE_RED //Cant forget this
 
 /obj/item/melee/nabber_blade/syndicate/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == (UNARMED_ATTACK || MELEE_ATTACK || LEAP_ATTACK) && prob(hit_reaction_chance))
-		owner.visible_message(span_danger("[owner] reflexively blocks [attack_text] with [src]!"))
-		return TRUE
+	if(attack_type == UNARMED_ATTACK || attack_type == MELEE_ATTACK || attack_type == LEAP_ATTACK)
+		if(prob(hit_reaction_chance))
+			owner.visible_message(span_danger("[owner] reflexively blocks [attack_text] with [src]!"))
+			return TRUE
 	return FALSE
 
 /* Adds balance concerns & a lack of coolness I don't like.
