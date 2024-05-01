@@ -2,8 +2,8 @@
 #define NABBER_ARM_TYPE_REGULAR ""
 #define NABBER_ARM_TYPE_SHARPENED "/sharp"
 #define NABBER_ARM_TYPE_SYNDICATE "/syndicate"
-#define NABBER_ARM_TYPE_NUCLEAR 3
-#define NABBER_ARM_TYPE_PACIFIED 4
+#define NABBER_ARM_TYPE_NUCLEAR 3 //Unimplemented for now.
+#define NABBER_ARM_TYPE_PACIFIED 4 //Unimplemented for now.
 
 //var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 
@@ -89,9 +89,9 @@
 /obj/item/melee/nabber_blade/syndicate/alt
 	icon_state = "mantis_arm_l" //todo: custom sprites.
 
-/obj/item/melee/nabber_blade/pre_attack(atom/W, mob/living/user, params) //Handles whetstoning your limbs. TODO: Maybe add nabber-specific traitor item for this?
-	if (istype(W, /obj/item/sharpener))
-		var/obj/item/sharpener/poorstone = W
+/obj/item/melee/nabber_blade/pre_attack(atom/Whetstone, mob/living/user, params) //Handles whetstoning your limbs. TODO: Maybe add nabber-specific traitor item for this?
+	if (istype(Whetstone, /obj/item/sharpener))
+		var/obj/item/sharpener/poorstone = Whetstone
 		for(var/datum/action/cooldown/toggle_arms/arms in user.actions)
 			if(arms.blade_type != NABBER_ARM_TYPE_REGULAR)
 				user.visible_message(span_notice("[user] tries to sharpen their blade-arms... But fails, like a doofus."),
@@ -116,14 +116,14 @@
 									span_notice("You fail to even grind the burr away from your chitinous limbs. Use a better stone."))
 
 
-	if (istype(W, /obj/item/nabber_energyblades)) //Ideally turn this into a component in the future.
+	if (istype(Whetstone, /obj/item/nabber_energyblades)) //Ideally turn this into a component in the future.
 		user.visible_message(span_notice("[user] begins to carefully run their blade-arms through the suspicious case, an ominous red glow present..."),
 								span_notice("You lower your arms into the case, utilising the inbuilt autosurgeon to attach several energy-projectors to the undersides."))
 		if(do_after(user, 7 SECONDS, target = src))
 			user.visible_message(span_notice("[user] raises their blade-arms, a new black-and-red set of projectors providing an ominous nimbus..."),
 									span_notice("With your new energy-blades, you're more than ready to kill."))
 			playsound(src, 'sound/weapons/saberon.ogg', 100, TRUE)
-			qdel(W) //Destroy the evidence!
+			qdel(Whetstone) //Destroy the evidence!
 			for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
 				arms.blade_type = NABBER_ARM_TYPE_SYNDICATE
 				arms.held_desc = span_bolddanger("has clearly been modified - several large energy projectors attached to their blade-arms, glowing with the classic red nimbus of syndicate technology...")
@@ -292,7 +292,7 @@
 	if(blade_type == (NABBER_ARM_TYPE_SYNDICATE || NABBER_ARM_TYPE_NUCLEAR))
 		if(hitting_projectile.reflectable == REFLECT_NORMAL) //Should only work on very few projectiles.
 			nabber.visible_message(
-				span_danger("[nabber] deflects [hitting_projectile] aside with a shower of sparks! [nabber.p_They()] can deflect energy projectiles with [nabber.p_their()] glowing armblades!"),
+				span_bolddanger("[nabber] deflects [hitting_projectile] aside with a shower of sparks! [nabber.p_They()] can deflect energy projectiles with [nabber.p_their()] glowing armblades!"),
 				span_userdanger("You deflect [hitting_projectile]!"),
 			)
 			playsound(nabber, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), vol = 75, vary = TRUE)
