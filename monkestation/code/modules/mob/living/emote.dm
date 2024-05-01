@@ -231,8 +231,8 @@
 // The below function replaces the `/datum/emote/silicon/mob_type_allowed_typecache` variable. If
 // you remove this function, be sure to replace the above variable.
 /datum/emote/silicon/can_run_emote(mob/user, status_check, intentional)
-	// Silicons can always use silicon emotes, assuming nothing else is wrong
-	if(istype(user, /mob/living/silicon) || istype(user, /mob/living/simple_animal/bot))
+	// Silicons and simple bots can always use silicon emotes, assuming nothing else is wrong
+	if(issilicon(user) || isbot(user))
 		return ..()
 
 	// Allow users with synthetic voice boxes to use silicon emotes as well, because a synthetic
