@@ -86,6 +86,7 @@
 	effectiveness = 60, \
 	) //They suck at butchering
 	playsound(src, 'sound/weapons/saberon.ogg', 35, TRUE) //:3
+	return ..()
 
 /obj/item/melee/nabber_blade/syndicate/Destroy()
 	playsound(src, 'sound/weapons/saberoff.ogg', 35, TRUE) //I can't resist.

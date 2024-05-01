@@ -6,6 +6,7 @@
 		Once attached to their blade-arms, these project a sharp energy-field on-par with a double-bladed energy sword, capable of blocking a majority of incoming fire; while rendering them far more lethal than normal."
 	item = /obj/item/nabber_energyblades
 	cost = 18 // These give people 28 damage, 45 AP weapons with huge total block and basically no way to remove them past getting their arms cut off.
+	restricted_species = list(SPECIES_NABBER) //Whoops.
 
 /obj/item/nabber_energyblades
 	name = "sinister case"
