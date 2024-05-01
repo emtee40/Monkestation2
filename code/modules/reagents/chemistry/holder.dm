@@ -1044,7 +1044,7 @@
 			if(!text_in_list(temp_mix_message, mix_message))
 				mix_message += temp_mix_message
 			continue
-		SSblackbox.record_feedback("tally", "chemical_reaction", 1, "[equilibrium.reaction.type] total reaction steps")
+		SSblackbox.record_feedback("tally", "chemical_reaction", 1, "[equilibrium.reaction] total reaction steps")
 	if(num_reactions)
 		SEND_SIGNAL(src, COMSIG_REAGENTS_REACTION_STEP, num_reactions, seconds_per_tick)
 
