@@ -16,8 +16,6 @@
 	var/datum/team/clock_cult/clock_team
 	///should we directly give them a slab or not
 	var/give_slab = TRUE
-	///our overlay for after the assault begins
-	var/mutable_appearance/forbearance
 	///ref to our turf_healing component, used for deletion when deconverted
 	var/datum/component/turf_healing/owner_turf_healing
 	///used for holy water deconversion, slightly easier to have this here then on the team, might want to refactor this to an assoc global list
@@ -84,9 +82,7 @@
 		RegisterSignal(current, COMSIG_CLOCKWORK_SLAB_USED, PROC_REF(switch_recall_slab))
 		handle_clown_mutation(current, mob_override ? null : "The light of Rat'var allows you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 		ADD_TRAIT(current, TRAIT_KNOW_ENGI_WIRES, CULT_TRAIT)
-	if(ishuman(current) && GLOB.clock_ark?.current_state >= 2) //active state value
-		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
-		current.add_overlay(forbearance)
+		add_forbearance(current)
 
 /datum/antagonist/clock_cultist/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -94,6 +90,7 @@
 	current.faction -= FACTION_CLOCK
 	current.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 	current.clear_alert("clockinfo")
+	current.remove_filter("forbearance")
 	if(!iseminence(current))
 		communicate.Remove(current)
 		recall.Remove(current)
@@ -101,8 +98,6 @@
 		QDEL_NULL(owner_turf_healing)
 		handle_clown_mutation(current, removing = FALSE)
 		REMOVE_TRAIT(current, TRAIT_KNOW_ENGI_WIRES, CULT_TRAIT)
-	if(forbearance)
-		current.cut_overlay(list(forbearance))
 
 /datum/antagonist/clock_cultist/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -203,6 +198,12 @@
 	for(var/obj/item/object as anything in current.get_all_contents())
 		if(object.type in GLOB.types_to_drop_on_clock_deonversion)
 			current.dropItemToGround(object, TRUE, TRUE)
+
+/datum/antagonist/clock_cultist/proc/add_forbearance(mob/apply_to)
+	if(GLOB.clock_ark?.current_state >= ARK_STATE_ACTIVE)
+		apply_to.add_filter("forbearance", 3, list("type" = "outline", "color" = "#FAE48E", "size" = 2, /*"falloff" = 1,*/ "alpha" = 100))
+		//var/filter = apply_to.get_filter("forbearance") //add_filter does not actually return anything so we have to do this
+		//var/image/filter(type, size, color, x, y, offset, flags, border, render_source, icon, space, transform, blend_mode, density, threshold, factor, repeat, radius, falloff, alpha)
 
 /datum/antagonist/clock_cultist/eminence
 	name = "Eminence"

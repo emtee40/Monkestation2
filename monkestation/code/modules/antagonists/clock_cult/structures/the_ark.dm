@@ -151,15 +151,14 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 
 	for(var/datum/mind/servant_mind in GLOB.main_clock_cult.members)
 		var/mob/living/servant_mob = servant_mind.current
-		if(!servant_mob || QDELETED(servant_mob))
+		if(QDELETED(servant_mob))
 			continue
+
 		if(GLOB.abscond_markers)
 			try_servant_warp(servant_mob, get_turf(pick(GLOB.abscond_markers)))
-		if(ishuman(servant_mob))
-			var/datum/antagonist/clock_cultist/servant_antag = servant_mind.has_antag_datum(/datum/antagonist/clock_cultist)
-			if(servant_antag)
-				servant_antag.forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
-				servant_mob.add_overlay(servant_antag.forbearance)
+
+		var/datum/antagonist/clock_cultist/servant_antag = servant_mind.has_antag_datum(/datum/antagonist/clock_cultist)
+		servant_antag?.add_forbearance(servant_mob)
 
 	sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 50)
 	SSsecurity_level.set_level(3)
