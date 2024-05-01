@@ -834,8 +834,7 @@
 		"Butler" = list(SKIN_ICON_STATE = "service_m"),
 		"Kent" = list(SKIN_ICON_STATE = "kent", SKIN_LIGHT_KEY = "medical", SKIN_HAT_OFFSET = 3),
 		"Tophat" = list(SKIN_ICON_STATE = "tophat", SKIN_LIGHT_KEY = NONE, SKIN_HAT_OFFSET = INFINITY),
-		"Waitress" = list(SKIN_ICON_STATE = "service_f"),
-		"Kerfus" = list(SKIN_ICON_STATE = "kerfus_service", SKIN_LIGHT_KEY = NONE, SKIN_ICON = CYBORG_ICON_CARGO),
+		"Waitress" = list(SKIN_ICON_STATE = "service_f")
 	)
 
 /obj/item/robot_model/service/respawn_consumable(mob/living/silicon/robot/cyborg, coeff = 1)
