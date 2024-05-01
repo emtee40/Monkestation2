@@ -71,10 +71,10 @@
 
 /datum/id_trim/job/security_assistant
 	assignment = "Security Assistant"
-	trim_state = "trim_securityofficer"
+	trim_state = "trim_secass"
 	department_color = COLOR_SECURITY_RED
 	subdepartment_color = COLOR_SECURITY_RED
-	sechud_icon_state = SECHUD_SECURITY_OFFICER
+	sechud_icon_state = SECHUD_SECURITY_ASSISTANT
 	minimal_access = list(
 		ACCESS_BRIG_ENTRANCE,
 		ACCESS_SECURITY,
