@@ -9,7 +9,7 @@
 
 /obj/item/melee/nabber_blade
 	name = "Hunting arm"
-	desc = "A grotesque, sharpened blade-limb. You feel as if you had to get this from a living creature to hold it. You monster."
+	desc = "A sharpened, grotesque limb of chitin and hydraulic muscles, designed to pierce into a target and bleed them out like a stuck pig."
 	icon = 'monkestation/code/modules/nabbers/icons/items.dmi'
 	icon_state = "mantis_arm_r"
 	item_flags = ABSTRACT | DROPDEL
@@ -68,9 +68,8 @@
 	wound_bonus = 25 //Also insane, but 18tc item.
 	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
 	hitsound = 'sound/weapons/blade1.ogg'
-	armor_type = /datum/armor/item_dualsaber
-	block_chance = 75 //75% chance isn't actually that high (copium). They die to three laser shots anyway.
-	block_sound = 'sound/weapons/block_blade.ogg'
+	block_chance = 50
+	armor_type = /datum/armor/item_shield
 	icon_type_on = "blades_on"
 	icon_type_off = "blades_off"
 	light_system = OVERLAY_LIGHT
@@ -85,7 +84,18 @@
 	speed = 5 SECONDS, \
 	effectiveness = 60, \
 	) //They suck at butchering
+	AddComponent(\
+		/datum/component/bullet_intercepting,\
+		block_chance = 0.45,\
+		block_type = BULLET, \
+		active_slots = ITEM_SLOT_HANDS,\
+		on_intercepted = CALLBACK(src, PROC_REF(on_intercepted_bullet)),\
+	)
 	return ..()
+
+/obj/item/melee/nabber_blade/syndicate/proc/on_intercepted_bullet(mob/living/victim, obj/projectile/bullet)
+	victim.visible_message(span_warning("\The [bullet] screeches as it slams into [victim]'s energy blades! Holy shit!"))
+	playsound(victim, get_sfx(SFX_RICOCHET), 100, TRUE)
 
 /obj/item/melee/nabber_blade/syndicate/alt
 	icon_state = "mantis_arm_l" //todo: custom sprites.
@@ -162,7 +172,6 @@
 
 /datum/action/cooldown/toggle_arms/Activate(atom/target)
 	var/mob/living/carbon/human/nabber = owner
-
 	if(!nabber)
 		return FALSE
 
@@ -192,7 +201,6 @@
 
 /datum/action/cooldown/toggle_arms/proc/rise_arms()
 	var/mob/living/carbon/human/nabber = owner
-
 	nabber.balloon_alert(nabber, "Begin pumping blood in!")
 	nabber.visible_message(span_danger("[nabber] starts to pump blood into their hunting arms!"), span_warning("You let out a aggressive screech, raising your blade-arms!"), span_hear("You hear a sharp screech of an agitated creature!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
@@ -201,7 +209,7 @@
 		StartCooldown()
 		nabber.balloon_alert(nabber, "Stand still!")
 		return FALSE
-
+	RegisterSignal(nabber, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
 	nabber.balloon_alert(nabber, "Arms raised!")
 	nabber.visible_message(span_warning("[nabber] raised their mantid-like hunting arms in a frenzy, ready for a fight!"), span_warning("You raise your mantis arms, ready for combat."), span_hear("You hear a terrible hunting screech!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
@@ -238,6 +246,7 @@
 			qdel(held)
 		button_icon_state = "arms_on"
 		nabber.update_action_buttons()
+		UnregisterSignal(nabber, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_PRE_BULLET_ACT))
 		return	FALSE
 
 	nabber.balloon_alert(nabber, "Removing blood from hunting-arms!")
@@ -246,6 +255,7 @@
 		nabber.balloon_alert(nabber, "Stand still!")
 		return	FALSE
 
+	UnregisterSignal(nabber, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_PRE_BULLET_ACT))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 	if(blade_type)
 		UnregisterSignal(nabber, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
@@ -263,7 +273,7 @@
 /datum/action/cooldown/toggle_arms/proc/on_lose_hand()
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/nabber = owner
-
+	UnregisterSignal(nabber, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_PRE_BULLET_ACT))
 	if(!(nabber.num_hands < 2))
 		return	FALSE
 
@@ -284,5 +294,22 @@
 
 /datum/action/cooldown/toggle_arms/proc/examined(mob/living/carbon/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	var/examine_text = span_bolditalic("[examined] [held_desc]")
-	examine_list += examine_text
+	if(held_desc)
+		var/examine_text = span_bolditalic("[examined] [held_desc]")
+		examine_list += examine_text
+
+/datum/action/cooldown/toggle_arms/proc/hit_by_projectile(mob/living/nabber, obj/projectile/hitting_projectile, def_zone) //stolen from sleeping carp my beloved
+	SIGNAL_HANDLER
+	if(blade_type == (NABBER_ARM_TYPE_SYNDICATE || NABBER_ARM_TYPE_NUCLEAR))
+		if(hitting_projectile.reflectable == REFLECT_NORMAL) //Should only work on very few projectiles.
+			nabber.visible_message(
+				span_danger("[nabber] deflects [hitting_projectile] aside with a shower of sparks! [nabber.p_They()] can deflect energy projectiles with [nabber.p_their()] glowing armblades!"),
+				span_userdanger("You deflect [hitting_projectile]!"),
+			)
+			playsound(nabber, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), vol = 75, vary = TRUE)
+			hitting_projectile.firer = nabber
+			hitting_projectile.set_angle(rand(0, 360))//SHING
+			return COMPONENT_BULLET_PIERCED
+	return NONE
+
+
