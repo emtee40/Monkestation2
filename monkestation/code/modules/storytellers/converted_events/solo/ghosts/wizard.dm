@@ -16,6 +16,7 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
+		JOB_CHAPLAIN,
 	)
 	required_enemies = 5
 	weight = 2
@@ -23,11 +24,11 @@
 	max_occurrences = 1
 	prompted_picking = TRUE
 
-/datum/round_event_control/antagonist/solo/ghost/wizard/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
+/datum/round_event_control/antagonist/solo/from_ghosts/wizard/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
 	. = ..()
 	if(!.)
 		return
-	if(GLOB.wizardstart.len == 0)
+	if(!length(GLOB.wizardstart))
 		return FALSE
 
 /datum/round_event/antagonist/solo/ghost/wizard

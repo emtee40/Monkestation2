@@ -205,24 +205,6 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
-	if(..()) //successful slime shock
-		flash_act()
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustBruteLoss(M.powerlevel * rand(6,10))
-
-	var/damage = rand(1, 3)
-
-	if(M.is_adult)
-		damage = rand(20, 40)
-	else
-		damage = rand(5, 35)
-	damage = round(damage / 2) // borgs receive half damage
-	adjustBruteLoss(damage)
-
-	return
-
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	add_fingerprint(user)
 	if(!opened)
@@ -234,7 +216,6 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		cell.add_fingerprint(user)
 		user.put_in_active_hand(cell)
 		to_chat(user, span_notice("You remove \the [cell]."))
-		cell = null
 		update_icons()
 		diag_hud_set_borgcell()
 
@@ -306,9 +287,9 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		spark_system.start()
 		return
 	to_chat(user, span_notice("You start to unfasten [src]'s securing bolts..."))
-	if(tool.use_tool(src, user, 50, volume=50) && !cell)
+	if(tool.use_tool(src, user, 5 SECONDS, volume = 50) && !cell)
 		user.visible_message(span_notice("[user] deconstructs [src]!"), span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
-		deconstruct()
+		cyborg_deconstruct()
 		return
 
 /mob/living/silicon/robot/fire_act()
@@ -353,20 +334,17 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]\] successfully defended against subversion."))
 		log_silicon("EMAG: [key_name(user)] attempted to emag cyborg [key_name(src)], but they were slaved to traitor AI [connected_ai].")
-		add_event_to_buffer(user, src,  data ="attempted to emag cyborg [key_name(src)], but they were slaved to traitor AI [connected_ai].", log_key = "SILICON")
 		return TRUE // emag succeeded, it was just counteracted
 //monkestation edit start
 	if(IS_CLOCK(src)) //cant emag clock borgs
 		to_chat(src, span_brass("The light of Rat'var protects you from subversion!"))
 		log_silicon("EMAG: [key_name(user)] attempted to emag cyborg [key_name(src)], but they were a clockwork borg.")
-		add_event_to_buffer(user, src,  data ="attempted to emag cyborg [key_name(src)], but they were a clockwork borg.", log_key = "SILICON")
 		return TRUE // emag succeeded, it was just counteracted
 //monkestation edit end
 
 	if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 		to_chat(user, span_danger("[src] is remotely controlled! Your emag attempt has triggered a system reset instead!"))
 		log_silicon("EMAG: [key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
-		add_event_to_buffer(user, src,  data ="attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.", log_key = "SILICON")
 		ResetModel()
 		return TRUE
 
@@ -376,7 +354,6 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 	set_connected_ai(null)
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_silicon("EMAG: [key_name(user)] emagged cyborg [key_name(src)]. Laws overridden.")
-	add_event_to_buffer(user, src,  data ="emagged cyborg [key_name(src)]. Laws overridden.", log_key = "SILICON")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	if(user)
 		GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")

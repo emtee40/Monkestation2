@@ -49,3 +49,21 @@
 	desc = "A plush of a hotdog. ~Handcrafted lovingly for Spinnermaster."
 	icon = 'monkestation/code/modules/donator/icons/obj/plushes.dmi'
 	icon_state = "hotdog"
+
+/obj/item/toy/plush/jackfrost
+	name = "jack frost plush"
+	desc = "A plush of Jack Frost. ~Handcrafted lovingly for tonymcsp"
+	icon = 'monkestation/code/modules/donator/icons/obj/plushes.dmi'
+	icon_state = "jack_frost"
+
+/obj/item/toy/plush/liefflos
+	name = "lief flos plush"
+	desc = "A plush of the Floran Lief Flos. ~Handcrafted lovingly for rickdude"
+	icon = 'monkestation/code/modules/donator/icons/obj/plushes.dmi'
+	icon_state = "lief_flos"
+
+/obj/item/toy/plush/quilark
+	name = "quilark plush"
+	desc = "A plush of the Lizard Basil. ~Handcrafted lovingly for quilark"
+	icon = 'monkestation/code/modules/donator/icons/obj/plushes.dmi'
+	icon_state = "quilark"

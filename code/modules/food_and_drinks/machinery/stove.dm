@@ -36,7 +36,7 @@
 	amount_per_transfer_from_this = 50
 	amount_list_position = 2
 	reagent_flags = REFILLABLE | DRAINABLE
-	custom_materials = list(/datum/material/iron = 5000)
+	custom_materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT * 2.5)
 	w_class = WEIGHT_CLASS_BULKY
 	custom_price = PAYCHECK_LOWER * 8
 	fill_icon_thresholds = null
@@ -178,11 +178,18 @@
 		// Clearing reagents Will do this for us already, but if we have no reagents this is a failsafe
 		dump_ingredients()
 
-/obj/item/reagent_containers/cup/soup_pot/proc/dump_ingredients(atom/drop_loc = drop_location())
+/**
+ * Dumps all inside ingredients to a spot
+ *
+ * * drop_loc - Where to drop the ingredients, defaults to drop loc
+ * * x_offset - How much pixel X offset to give every ingredient, if not set will be random
+ * * y_offset - How much pixel Y offset to give every ingredient, if not set will be random
+ */
+/obj/item/reagent_containers/cup/soup_pot/proc/dump_ingredients(atom/drop_loc = drop_location(), x_offset, y_offset)
 	for(var/obj/item/ingredient as anything in added_ingredients)
 		ingredient.forceMove(drop_loc)
-		ingredient.pixel_x += rand(-4, 4)
-		ingredient.pixel_y += rand(-4, 4)
+		ingredient.pixel_x += (isnum(x_offset) ? x_offset : rand(-4, 4))
+		ingredient.pixel_y += (isnum(y_offset) ? x_offset : rand(-4, 4))
 		ingredient.SpinAnimation(loops = 1)
 	update_appearance(UPDATE_OVERLAYS)
 

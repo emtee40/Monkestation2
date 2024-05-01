@@ -151,6 +151,22 @@
 		return
 	chameleon_action.emp_randomise()
 
+// MONKESTATION ADDITION START
+/obj/item/clothing/glasses/hud/security/chameleon/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour != TOOL_MULTITOOL)
+		return ..()
+
+	if(chameleon_action.hidden)
+		chameleon_action.hidden = FALSE
+		actions += chameleon_action
+		chameleon_action.Grant(user)
+		log_game("[key_name(user)] has removed the disguise lock on the chameleon security HUD ([name]) with [W]")
+	else
+		chameleon_action.hidden = TRUE
+		actions -= chameleon_action
+		chameleon_action.Remove(user)
+		log_game("[key_name(user)] has locked the disguise of the chameleon security HUD ([name]) with [W]")
+// MONKESTATION ADDITION END
 
 /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	name = "eyepatch HUD"
@@ -267,7 +283,7 @@
 
 /obj/item/clothing/glasses/hud/spacecop
 	name = "police aviators"
-	desc = "For thinking you look cool while brutalizing protestors and minorities."
+	desc = "For thinking you look like an action hero."
 	icon_state = "bigsunglasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1

@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(virusDB, list())
 	//the percentage of the strength at which effects will start getting disabled by antibodies.
 	var/robustness = 100
 	//chance to cure the disease at every proc when the body is getting cooked alive.
-	var/max_bodytemperature = 1000
+	var/max_bodytemperature = T0C+100
 	//very low temperatures will stop the disease from activating/progressing
 	var/min_bodytemperature = 120
 	///split category used for predefined diseases atm
@@ -33,8 +33,8 @@ GLOBAL_LIST_INIT(virusDB, list())
 
 	//When an opportunity for the disease to spread_flags to a mob arrives, runs this percentage through prob()
 	//Ignored if infected materials are ingested (injected with infected blood, eating infected meat)
-	var/infectionchance = 70
-	var/infectionchance_base = 70
+	var/infectionchance = 20
+	var/infectionchance_base = 20
 
 	//ticks increases by [speed] every time the disease activates. Drinking Virus Food also accelerates the process by 10.
 	var/ticks = 0
@@ -378,6 +378,10 @@ GLOBAL_LIST_INIT(virusDB, list())
 	if(!(infectable_biotypes & mob.mob_biotypes))
 		return
 
+	if(mob.immune_system)
+		if(prob(8))
+			mob.immune_system.NaturalImmune()
+
 	if(!mob.immune_system.CanInfect(src))
 		cure(mob)
 		return
@@ -482,7 +486,7 @@ GLOBAL_LIST_INIT(virusDB, list())
 	for(var/datum/symptom/e in symptoms)
 		e.disable_effect(mob, src)
 	mob.diseases -= src
-	add_event_to_buffer(mob,  data = "was cured of virus: [admin_details()] at [loc_name(mob.loc)].", log_key = "VIRUS")
+	logger.Log(LOG_CATEGORY_VIRUS, "[mob.name] was cured of virus [real_name()] at [loc_name(mob.loc)]", list("disease_data" = admin_details(), "location" = loc_name(mob.loc)))
 	//--Plague Stuff--
 	/*
 	var/datum/faction/plague_mice/plague = find_active_faction_by_type(/datum/faction/plague_mice)
@@ -505,13 +509,12 @@ GLOBAL_LIST_INIT(virusDB, list())
 
 	if (mob.immune_system)
 		var/immune_system = mob.immune_system.GetImmunity()
-		var/immune_str = immune_system[1]
 		var/list/antibodies = immune_system[2]
 		var/subdivision = (strength - ((robustness * strength) / 100)) / max_stages
 		//for each antigen, we measure the corresponding antibody concentration in the carrier's immune system
 		//the less robust the pathogen, the more likely that further stages' effects won't activate at a given concentration
 		for (var/A in antigen)
-			var/concentration = immune_str * antibodies[A]
+			var/concentration = antibodies[A]
 			highest_concentration = max(highest_concentration,concentration)
 			var/i = lowest_stage
 			while (i > 0)
@@ -634,8 +637,8 @@ GLOBAL_LIST_INIT(virusDB, list())
 /datum/disease/advanced/virus
 	form = "Virus"
 	max_stages = 4
-	infectionchance = 70
-	infectionchance_base = 70
+	infectionchance = 20
+	infectionchance_base = 20
 	stageprob = 10
 	stage_variance = -1
 	can_kill = list("Bacteria")
@@ -643,24 +646,24 @@ GLOBAL_LIST_INIT(virusDB, list())
 /datum/disease/advanced/bacteria//faster spread_flags and progression, but only 3 stages max, and reset to stage 1 on every spread_flags
 	form = "Bacteria"
 	max_stages = 3
-	infectionchance = 90
-	infectionchance_base = 90
+	infectionchance = 30
+	infectionchance_base = 30
 	stageprob = 30
 	stage_variance = -4
 	can_kill = list("Parasite")
 
 /datum/disease/advanced/parasite//slower spread_flags. stage preserved on spread_flags
 	form = "Parasite"
-	infectionchance = 50
-	infectionchance_base = 50
+	infectionchance = 15
+	infectionchance_base = 15
 	stageprob = 10
 	stage_variance = 0
 	can_kill = list("Virus")
 
 /datum/disease/advanced/prion//very fast progression, but very slow spread_flags and resets to stage 1.
 	form = "Prion"
-	infectionchance = 10
-	infectionchance_base = 10
+	infectionchance = 3
+	infectionchance_base = 3
 	stageprob = 80
 	stage_variance = -10
 	can_kill = list()
@@ -821,10 +824,10 @@ GLOBAL_LIST_INIT(virusDB, list())
 		D.pattern = rand(1,6)
 		D.pattern_color = "#[pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)][pick(randomhexes)]"
 		if (alert("Do you want to specify the appearance of your pathogen in a petri dish?","Choose your appearance","Yes","No") == "Yes")
-			D.color = input(C, "Choose the color of the dish", "Cosmetic") as color
+			D.color = tgui_color_picker(C, "Choose the color of the dish", "Cosmetic")
 			D.pattern = input(C, "Choose the shape of the pattern inside the dish (1 to 6)", "Cosmetic",rand(1,6)) as num
 			D.pattern = clamp(D.pattern,1,6)
-			D.pattern_color = input(C, "Choose the color of the pattern", "Cosmetic") as color
+			D.pattern_color = tgui_color_picker(C, "Choose the color of the pattern", "Cosmetic")
 
 		D.spread_flags = 0
 		if (alert("Can this virus spread_flags into blood? (warning! if choosing No, this virus will be impossible to sample and analyse!)","Spreading Vectors","Yes","No") == "Yes")

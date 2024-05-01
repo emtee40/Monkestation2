@@ -11,6 +11,7 @@
 	integrity_failure = 0.25
 	armor_type = /datum/armor/structure_closet
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = LETPASSCLICKS
 
 	/// The overlay for the closet's door
 	var/obj/effect/overlay/closet_door/door_obj
@@ -266,7 +267,10 @@
 		return TRUE
 	if(welded || locked)
 		return FALSE
-	if(strong_grab)
+	//MONKESTATION EDIT START - Allow a strong grabber to open their own pulled closet
+	//if(strong_grab) //MONKESTATION EDIT ORIGINAL
+	if(strong_grab && pulledby != user)
+		//MONKESTATION EDIT END
 		to_chat(user, span_danger("[pulledby] has an incredibly strong grip on [src], preventing it from opening."))
 		return FALSE
 	var/turf/T = get_turf(src)

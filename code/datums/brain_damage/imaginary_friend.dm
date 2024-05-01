@@ -47,7 +47,14 @@
 
 /datum/brain_trauma/special/imaginary_friend/proc/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner.real_name]'s imaginary friend?", ROLE_PAI, null, 7.5 SECONDS, friend, POLL_IGNORE_IMAGINARYFRIEND)
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
+		question = "Do you want to play as [owner.real_name]'s imaginary friend?",
+		check_jobban = ROLE_PAI,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_IMAGINARYFRIEND,
+		pic_source = owner,
+		role_name_text = "imaginary friend"
+	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
@@ -287,7 +294,6 @@
 
 // We have to create our own since we can only show emotes to ourselves and our owner
 /datum/emote/imaginary_friend/run_emote(mob/user, params, type_override, intentional = FALSE)
-	add_event_to_buffer(user, data = message, log_key = "EMOTE", voluntary = intentional)
 	user.log_talk(message, LOG_EMOTE)
 	if(!can_run_emote(user, FALSE, intentional))
 		return FALSE

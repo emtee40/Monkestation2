@@ -42,6 +42,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/toggleguests, /*toggles whether guests can join the current game*/
 	/datum/admins/proc/toggleooc, /*toggles ooc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead, /*toggles ooc on/off for everyone who is dead*/
+	/datum/admins/proc/togglelooc, /*MONKESTATION EDIT; toggles looc on/off for everyone*/
 	/datum/admins/proc/trophy_manager,
 	/datum/admins/proc/view_all_circuits,
 	/datum/admins/proc/open_artifactpanel,
@@ -95,8 +96,9 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/cmd_admin_law_panel,
 	/client/proc/spawn_pollution,
 	/client/proc/view_player_camera,
+	/client/proc/log_viewer_new,
 	)
-GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
+GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/library_control))
 GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_direct_mob_sound, /client/proc/play_sound, /client/proc/set_round_end_sound))
 GLOBAL_PROTECT(admin_verbs_sounds)
@@ -106,8 +108,9 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 // Client procs
 	/client/proc/admin_away,
 	/client/proc/add_mob_ability,
-	/client/proc/adjust_players_antag_tokens,
-	/client/proc/adjust_players_metacoins,
+	/client/proc/adjust_players_antag_tokens, //monkestation edit
+	/client/proc/adjust_players_event_tokens, //monkestation edit
+	/client/proc/adjust_players_metacoins, //monkestation edit
 	/client/proc/admin_change_sec_level,
 	/client/proc/change_ocean, //monkestation addition
 	/client/proc/cinematic,
@@ -220,6 +223,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/get_dynex_range, /*debug verbs for dynex explosions.*/
 	/client/proc/jump_to_ruin,
 	/client/proc/load_circuit,
+	/client/proc/map_export,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
 	/client/proc/modify_goals,
@@ -390,7 +394,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_bombers()
 	set name = "List Bombers"
-	set category = "Admin.Game"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_bombers()
@@ -398,7 +402,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_signalers()
 	set name = "List Signalers"
-	set category = "Admin.Game"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_signalers()
@@ -406,7 +410,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_law_changes()
 	set name = "List Law Changes"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_law_changes()
@@ -422,7 +426,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_dna()
 	set name = "List DNA"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_dna()
@@ -430,7 +434,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 /client/proc/list_fingerprints()
 	set name = "List Fingerprints"
-	set category = "Debug"
+	set category = "Admin.Logging"
 	if(!holder)
 		return
 	holder.list_fingerprints()
@@ -984,8 +988,6 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)
 			real_reqs += "Castable as brain"
-		if(reqs & SPELL_CASTABLE_WHILE_PHASED)
-			real_reqs += "Castable phased"
 		if(reqs & SPELL_REQUIRES_HUMAN)
 			real_reqs += "Must be human"
 		if(reqs & SPELL_REQUIRES_MIME_VOW)
@@ -1084,3 +1086,14 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		QDEL_NULL(segment.ai_controller)
 		segment.AddComponent(/datum/component/mob_chain, front = previous)
 		previous = segment
+
+/client/proc/library_control()
+	set name = "Library Management"
+	set category = "Admin"
+	if(!check_rights(R_BAN))
+		return
+
+	if(!holder.library_manager)
+		holder.library_manager = new()
+	holder.library_manager.ui_interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Library Management") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

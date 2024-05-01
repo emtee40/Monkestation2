@@ -2,7 +2,7 @@
 	name = "Spawn Sentient Disease"
 	typepath = /datum/round_event/ghost_role/sentient_disease
 	weight = 7
-	max_occurrences = 1
+	max_occurrences = 0 //monkestation edit: from 1 to 0
 	min_players = 25
 	earliest_start = 60 MINUTES //monke edit: 25 to 60
 	category = EVENT_CATEGORY_HEALTH
@@ -14,8 +14,8 @@
 	role_name = "sentient disease"
 
 /datum/round_event/ghost_role/sentient_disease/spawn_role()
-	var/list/candidates = get_candidates(ROLE_ALIEN, ROLE_ALIEN)
-	if(!candidates.len)
+	var/list/candidates = SSpolling.poll_ghost_candidates(check_jobban = ROLE_SENTIENT_DISEASE, role = ROLE_SENTIENT_DISEASE, pic_source = /obj/structure/sign/warning/biohazard, role_name_text = role_name)
+	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)

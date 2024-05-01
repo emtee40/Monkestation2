@@ -1,8 +1,8 @@
 /datum/round_event_control/slasher
 	name = "Slasher"
 	typepath = /datum/round_event/ghost_role/slasher
-	weight = 14 // for now
-	max_occurrences = 2
+	weight = 0 // for now, disabled. prev weight of 14. max occurrances set to 0 to disable the storyteller from running the event. can still be manually done by admins as requested.
+	max_occurrences = 0
 	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_SPOOKY, TAG_COMBAT, TAG_EXTERNAL)
 	checks_antag_cap = TRUE
@@ -13,10 +13,17 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/slasher/spawn_role()
-	var/list/candidates = get_candidates()
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		question = "Do you want to play as a Slasher?",
+		role = ROLE_SLASHER,
+		check_jobban = ROLE_SLASHER,
+		poll_time = 20 SECONDS,
+		pic_source = /datum/antagonist/slasher,
+		role_name_text = "slasher"
+	)
 	var/turf/spawn_loc = find_safe_turf()//Used for the Drop Pod type of spawn
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
 	var/mob/dead/selected = pick_n_take(candidates)

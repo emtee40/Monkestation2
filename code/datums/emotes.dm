@@ -14,6 +14,8 @@
 	var/key = ""
 	/// This will also call the emote.
 	var/key_third_person = ""
+	/// Needed for more user-friendly emote names, so emotes with keys like "aflap" will show as "flap angry". Defaulted to key.
+	var/name = ""
 	/// Message displayed when emote is used.
 	var/message = ""
 	/// Message displayed if the user is a mime.
@@ -71,6 +73,9 @@
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
+	if(!name)
+		name = key
+
 /**
  * Handles the modifications and execution of emotes.
  *
@@ -86,6 +91,8 @@
 	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_EMOTED, key, params, type_override, intentional) & COMPONENT_CANT_EMOTE)
+		return // We don't return FALSE because the error output would be incorrect, provide your own if necessary.
 	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
@@ -95,14 +102,17 @@
 	if(!msg)
 		return
 
-	add_event_to_buffer(user, data = msg, log_key = "EMOTE", voluntary = intentional)
 	user.log_message(msg, LOG_EMOTE)
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, type))
 		TIMER_COOLDOWN_START(user, type, audio_cooldown)
-		playsound(user, tmp_sound, 50, vary, mixer_channel = CHANNEL_MOB_SOUNDS)
+		//MONKESTATION EDIT START - Allows sounds to vary based on their calling conditions.
+		//playsound(user, tmp_sound, 50, vary, mixer_channel = CHANNEL_MOB_SOUNDS) //MONKESTATION EDIT ORIGINAL
+		var/tmp_vary = should_vary(user)
+		playsound(user, tmp_sound, 50, tmp_vary, mixer_channel = CHANNEL_MOB_SOUNDS)
+		//MONKESTATION EDIT END
 
 	var/user_turf = get_turf(user)
 	if (user.client)

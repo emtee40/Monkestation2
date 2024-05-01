@@ -188,6 +188,17 @@
 		/obj/item/toy,
 	)
 
+/obj/item/clothing/under/costume/aotuniform
+	name = "\improper Survey Corps Uniform"
+	desc = "The uniform of a Survey Corps member."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "aotuniform"
+	worn_icon_state = "aotuniform"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS|LEGS
+
+
 /obj/item/clothing/head/hooded/aotcloak
 	name = "survey corps cloak hood"
 	desc = "A cozy winter hood attached to a heavy winter jacket."
@@ -205,3 +216,111 @@
 	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
 	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
 	icon_state = "bells"
+
+/obj/item/clothing/head/costume/zed_officercap
+	name = "\improper Zed Officer Cap"
+	desc = "Only dumb furries wear this. You notice a smiley face on the insignia."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "zed_officercap"
+	inhand_icon_state = null
+
+/obj/item/clothing/mask/igor
+	name = "\improper Igor Mask"
+	desc = "A mask that resembles a peculiar man named Igor."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "igor_mask"
+	inhand_icon_state = null
+	flags_inv = HIDEFACE
+
+/obj/item/clothing/suit/costume/violet_jacket
+	name = "\improper Violet's Jacket"
+	desc = "A jacket resembling the outfit worn by the Phantom Thief known as Violet."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "violet_jacket"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS
+
+/obj/item/clothing/suit/toggle/quilark
+	name = "discontinued winter coat"
+	desc = "An old world coat, it has an old red cross no longer in use. It smells strangely of iron around the neck."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "coat_quilark"
+	toggle_noun = "zipper"
+	body_parts_covered = CHEST|GROIN|ARMS
+	cold_protection = CHEST|GROIN|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/toggle/quilark/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/flashlight,
+		/obj/item/lighter,
+		/obj/item/modular_computer/pda,
+		/obj/item/radio,
+		/obj/item/storage/bag/books,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+	)
+
+
+/obj/item/clothing/head/costume/fur_cap_quilark
+	name = "discontinued cross hat"
+	desc = "An old world hat, it has a red cross no longer in use. The inside has a strong scent of iron."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "fur_hat_quilark"
+
+/obj/item/clothing/suit/lambcloak
+	name = "lamb's cloak"
+	desc = "A brilliant red cloak adorned with a bell."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "lambcloak"
+	body_parts_covered = CHEST|ARMS
+	cold_protection = CHEST|ARMS
+	layer = NECK_LAYER
+
+/obj/item/clothing/suit/hooded/org_thirteen
+	name = "\improper Organization 13 Cloak"
+	desc = "A large, hooded jacket belonging to an Organization 13 member."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "org_thirteen"
+	inhand_icon_state = null
+	body_parts_covered = CHEST|ARMS
+	cold_protection = CHEST|ARMS
+	allowed = list()
+	armor_type = /datum/armor/hooded_wintercoat
+	hoodtype = /obj/item/clothing/head/hooded/org_thirteen
+
+
+/obj/item/clothing/suit/hooded/org_thirteen/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/flashlight,
+		/obj/item/lighter,
+		/obj/item/modular_computer/pda,
+		/obj/item/radio,
+		/obj/item/storage/bag/books,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+	)
+
+/obj/item/clothing/head/hooded/org_thirteen
+	name = "organization 13 hood"
+	desc = "A cozy winter hood attached to a heavy winter jacket."
+	icon = 'monkestation/code/modules/donator/icons/obj/clothing.dmi'
+	worn_icon = 'monkestation/code/modules/donator/icons/mob/clothing.dmi'
+	icon_state = "org_thirteen_hood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags_inv = HIDEHAIR|HIDEEARS
+	armor_type = /datum/armor/hooded_winterhood

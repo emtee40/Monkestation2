@@ -91,9 +91,6 @@
 
 /obj/machinery/telecomms/message_server/Initialize(mapload)
 	. = ..()
-	if (!decryptkey)
-		decryptkey = GenerateKey()
-
 	if (calibrating)
 		calibrating += world.time
 		say("Calibrating... Estimated wait time: [rand(3, 9)] minutes.")
@@ -111,13 +108,6 @@
 	. = ..()
 	if(calibrating)
 		. += span_warning("It's still calibrating.")
-
-/obj/machinery/telecomms/message_server/proc/GenerateKey()
-	var/newKey
-	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
-	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
-	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	return newKey
 
 /obj/machinery/telecomms/message_server/process()
 	. = ..()
@@ -153,6 +143,29 @@
 	if(calibrating)
 		. += "message_server_calibrate"
 
+// Preset messaging server
+/obj/machinery/telecomms/message_server/preset
+	id = "Messaging Server"
+	network = "tcommsat"
+	autolinkers = list("messaging")
+	calibrating = 0
+
+GLOBAL_VAR(preset_station_message_server_key)
+
+/obj/machinery/telecomms/message_server/preset/Initialize(mapload)
+	. = ..()
+	// Just in case there are multiple preset messageservers somehow once the CE arrives,
+	// we want those on the station to share the same preset default decrypt key shown in his memories.
+	var/is_on_station = is_station_level(z)
+	if(is_on_station && GLOB.preset_station_message_server_key)
+		decryptkey = GLOB.preset_station_message_server_key
+		return
+	//Generate a random password for the message server
+	decryptkey = pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
+	decryptkey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
+	decryptkey += "[rand(0, 9)]"
+	if(is_on_station)
+		GLOB.preset_station_message_server_key = decryptkey
 
 // Root messaging signal datum
 /datum/signal/subspace/messaging
@@ -197,10 +210,10 @@
 /datum/signal/subspace/messaging/rc/broadcast()
 	if (!logged)  // Like /pda, only if logged
 		return
-	var/rec_dpt = ckey(data["rec_dpt"])
-	for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
-		if(ckey(Console.department) == rec_dpt || (data["ore_update"] && Console.receive_ore_updates))
-			Console.createmessage(data["sender"], data["send_dpt"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
+	var/recipient_department = ckey(data["recipient_department"])
+	for (var/obj/machinery/requests_console/console in GLOB.req_console_all)
+		if(ckey(console.department) == recipient_department || (data["ore_update"] && console.receive_ore_updates))
+			console.create_message(data)
 
 // Log datums stored by the message server.
 /datum/data_tablet_msg

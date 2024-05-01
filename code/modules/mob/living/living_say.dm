@@ -142,6 +142,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			say_dead(original_message)
 			return
 
+	if(HAS_TRAIT(src, TRAIT_SOFTSPOKEN) && !HAS_TRAIT(src, TRAIT_SIGN_LANG)) // softspoken trait only applies to spoken languages
+		message_mods[WHISPER_MODE] = MODE_WHISPER
+
 	if(client && SSlag_switch.measures[SLOWMODE_SAY] && !HAS_TRAIT(src, TRAIT_BYPASS_MEASURES) && !forced && src == usr)
 		if(!COOLDOWN_FINISHED(client, say_slowmode))
 			to_chat(src, span_warning("Message not sent due to slowmode. Please wait [SSlag_switch.slowmode_cooldown/10] seconds between messages.\n\"[message]\""))
@@ -245,7 +248,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(client && !HAS_TRAIT(src, TRAIT_SIGN_LANG))
 		var/ending = copytext_char(message, -1)
 		var/sound/speak_sound
-		if(ending == "?")
+		if(HAS_TRAIT(src, TRAIT_HELIUM))
+			speak_sound = sound('monkestation/sound/effects/helium_squeak.ogg')
+		else if(ending == "?")
 			speak_sound = voice_type2sound[voice_type]["?"]
 		else if(ending == "!")
 			speak_sound = voice_type2sound[voice_type]["!"]
@@ -437,6 +442,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
  *
  * message - The message to treat.
  * capitalize_message - Whether we run capitalize() on the message after we're done.
+ *
+ * Returns a list, which is a packet of information corresponding to the message that has been treated, which
+ * contains the new message, as well as text-to-speech information.
  */
 /mob/living/proc/treat_message(message, capitalize_message = TRUE)
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))

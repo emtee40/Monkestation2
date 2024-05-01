@@ -24,7 +24,7 @@
 	typepath = /datum/round_event/disease_outbreak
 	max_occurrences = 1
 	min_players = 10
-	weight = 5
+	weight = 4
 	category = EVENT_CATEGORY_HEALTH
 	description = "A 'classic' virus will infect some members of the crew."
 	min_wizard_trigger_potency = 2
@@ -119,11 +119,11 @@
 		EFFECT_DANGER_FLAVOR	= 1,
 		EFFECT_DANGER_ANNOYING	= 2,
 		EFFECT_DANGER_HINDRANCE	= 3,
-		EFFECT_DANGER_HARMFUL	= 1,
+		EFFECT_DANGER_HARMFUL	= 0,
 		EFFECT_DANGER_DEADLY	= 0,
 		)
 	var/datum/disease/advanced/new_disease = new virus_choice
-	new_disease.makerandom(list(50,90),list(50,100),anti,bad,src)
+	new_disease.makerandom(list(30,60),list(50,100),anti,bad,src)
 	new_disease.carrier = TRUE
 	illness_type = new_disease.name
 
@@ -143,7 +143,7 @@
 	name = "Disease Outbreak: Advanced"
 	typepath = /datum/round_event/disease_outbreak/advanced
 	category = EVENT_CATEGORY_HEALTH
-	weight = 7 //monkestation change 15 ==> 7
+	weight = 5 //monkestation change 15 ==> 5
 	min_players = 35 // To avoid shafting lowpop
 	earliest_start = 15 MINUTES // give the chemist a chance
 	description = "An 'advanced' disease will infect some members of the crew."

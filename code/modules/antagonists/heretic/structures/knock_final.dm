@@ -5,9 +5,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/anomaly.dmi'
 	icon_state = "bhole3"
-	color = COLOR_PURPLE
-	light_color = COLOR_PURPLE
-	light_outer_range  = 20
+	color = COLOR_VOID_PURPLE
+	light_color = COLOR_VOID_PURPLE
+	light_inner_range = 20
+	light_outer_range = 30
 	anchored = TRUE
 	density = FALSE
 	layer = HIGH_PIPE_LAYER //0.01 above sigil layer used by heretic runes
@@ -20,8 +21,8 @@
 	var/static/list/monster_types
 	/// A static list of heretic summons which we should not create
 	var/static/list/monster_types_blacklist = list(
-		/mob/living/basic/heretic_summon/armsy,
 		/mob/living/basic/heretic_summon/star_gazer,
+		/mob/living/basic/heretic_summon/armsy
 	)
 
 /obj/structure/knock_tear/Initialize(mapload, datum/mind/ascendant_mind)
@@ -37,7 +38,14 @@
 
 /// Ask ghosts if they want to make some noise
 /obj/structure/knock_tear/proc/poll_ghosts()
-	var/list/candidates = poll_ghost_candidates("Would you like to be a random eldritch monster attacking the crew?", ROLE_SENTIENCE, ROLE_SENTIENCE, 10 SECONDS, POLL_IGNORE_HERETIC_MONSTER)
+	var/list/candidates = SSpolling.poll_ghost_candidates(
+		"Would you like to be a random eldritch monster attacking the crew?",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_HERETIC_MONSTER,
+		pic_source = src,
+		role_name_text = "eldritch monster"
+	)
 	while(LAZYLEN(candidates))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		ghost_to_monster(candidate, should_ask = FALSE)
@@ -98,9 +106,10 @@
 	name = "destabilised tear"
 	icon = 'icons/obj/anomaly.dmi'
 	icon_state = "bhole3"
-	color = COLOR_PURPLE
-	light_color = COLOR_PURPLE
-	light_outer_range = 20
+	color = COLOR_VOID_PURPLE
+	light_color = COLOR_VOID_PURPLE
+	light_inner_range = 15
+	light_outer_range = 25
 	layer = HIGH_PIPE_LAYER
 	duration = 1 SECONDS
 
@@ -111,4 +120,4 @@
 	animate(transform = matrix().Scale(0.2), time = 0.75 SECONDS)
 	animate(transform = matrix().Scale(3, 0), time = 0.1 SECONDS)
 	animate(src, color = COLOR_WHITE, time = 0.25 SECONDS, flags = ANIMATION_PARALLEL)
-	animate(color = COLOR_PURPLE, time = 0.3 SECONDS)
+	animate(color = COLOR_VOID_PURPLE, time = 0.3 SECONDS)

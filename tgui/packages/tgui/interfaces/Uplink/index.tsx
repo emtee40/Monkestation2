@@ -8,6 +8,7 @@ import { BooleanLike } from 'common/react';
 import { Box, Tabs, Button, Stack, Section, Tooltip, Dimmer } from '../../components';
 import { PrimaryObjectiveMenu } from './PrimaryObjectiveMenu';
 import { Objective, ObjectiveMenu } from './ObjectiveMenu';
+import { ContractorItem, ContractorMenu } from './ContractorMenu';
 import { calculateProgression, calculateDangerLevel, dangerDefault, dangerLevelsTooltip } from './calculateDangerLevel';
 
 type UplinkItem = {
@@ -59,7 +60,11 @@ type UplinkData = {
   maximum_potential_objectives: number;
   purchased_items: number;
   shop_locked: BooleanLike;
+  can_renegotiate: BooleanLike;
   locked_entries: string[];
+  is_contractor: BooleanLike;
+  contractor_items: ContractorItem[];
+  contractor_rep: number;
 };
 
 type UplinkState = {
@@ -161,6 +166,7 @@ export class Uplink extends Component<{}, UplinkState> {
       telecrystals,
       progression_points,
       primary_objectives,
+      can_renegotiate,
       completed_final_objective,
       active_objectives,
       potential_objectives,
@@ -178,6 +184,9 @@ export class Uplink extends Component<{}, UplinkState> {
       purchased_items,
       shop_locked,
       locked_entries,
+      is_contractor,
+      contractor_items,
+      contractor_rep,
     } = data;
     const { allItems, allCategories, currentTab } = this.state as UplinkState;
 
@@ -359,9 +368,16 @@ export class Uplink extends Component<{}, UplinkState> {
                           </Tabs.Tab>
                         </Fragment>
                       )}
+                      {!!is_contractor && (
+                        <Tabs.Tab
+                          selected={currentTab === 2}
+                          onClick={() => this.setState({ currentTab: 2 })}>
+                          Contractor Market
+                        </Tabs.Tab>
+                      )}
                       <Tabs.Tab
-                        selected={currentTab === 2 || !has_objectives}
-                        onClick={() => this.setState({ currentTab: 2 })}>
+                        selected={currentTab === 3 || !has_objectives}
+                        onClick={() => this.setState({ currentTab: 3 })}>
                         Market
                       </Tabs.Tab>
                     </Tabs>
@@ -384,6 +400,7 @@ export class Uplink extends Component<{}, UplinkState> {
                 <PrimaryObjectiveMenu
                   primary_objectives={primary_objectives}
                   final_objective={completed_final_objective}
+                  can_renegotiate={can_renegotiate}
                 />
               )) ||
                 (currentTab === 1 && has_objectives && (
@@ -418,6 +435,12 @@ export class Uplink extends Component<{}, UplinkState> {
                       })
                     }
                     handleRequestObjectives={() => act('regenerate_objectives')}
+                  />
+                )) ||
+                (currentTab === 2 && is_contractor && (
+                  <ContractorMenu
+                    items={contractor_items}
+                    rep={contractor_rep}
                   />
                 )) || (
                   <Section>

@@ -1,5 +1,6 @@
 /client
 	var/datum/patreon_data/patreon
+
 /datum/patreon_data
 	///the client that owns this data
 	var/client/owner
@@ -58,7 +59,7 @@
 			access_rank =  ACCESS_COMMAND_RANK
 		if(TRAITOR_RANK)
 			access_rank =  ACCESS_TRAITOR_RANK
-		if(NUKIE_RANK)
+		if(NUKIE_RANK, OLD_NUKIE_RANK)
 			access_rank =  ACCESS_NUKIE_RANK
 
 /datum/patreon_data/proc/has_access(rank)

@@ -72,7 +72,8 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, or isn't one of the sacrifices, remove it from the list
-		if(sacrifice.stat < SOFT_CRIT || !(sacrifice in heretic_datum.sac_targets))
+		// monke edit: allow stamcrit targets to be sacrificed (bc they're incapable of putting up resistance)
+		if(!(sacrifice in heretic_datum.sac_targets) || (sacrifice.stat < SOFT_CRIT && !HAS_TRAIT_FROM(sacrifice, TRAIT_INCAPACITATED, STAMINA)))
 			atoms -= sacrifice
 
 	// Finally, return TRUE if we have a target in the list
@@ -177,6 +178,13 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	var/obj/item/organ/internal/brain/slime/slime = locate() in selected_atoms
+
+	if(slime)
+		slime.rebuild_body()
+		slime.coredeath = FALSE
+		addtimer(CALLBACK(slime, TYPE_PROC_REF(/obj/item/organ/internal/brain/slime, enable_coredeath)), 20 SECONDS)
+
 	var/mob/living/carbon/human/sacrifice = locate() in selected_atoms
 	if(!sacrifice)
 		CRASH("[type] sacrifice_process didn't have a human in the atoms list. How'd it make it so far?")
@@ -186,7 +194,6 @@
 	if(sacrifice.mind)
 		LAZYADD(target_blacklist, sacrifice.mind)
 	heretic_datum.remove_sacrifice_target(sacrifice)
-
 
 	var/feedback = "Your patrons accept your offer"
 	var/sac_department_flag = sacrifice.mind?.assigned_role?.departments_bitflags | sacrifice.last_mind?.assigned_role?.departments_bitflags
@@ -246,6 +253,7 @@
 	// If our target is dead, try to revive them
 	// and if we fail to revive them, don't proceede the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
+	sac_target.grab_ghost() // monke edit: try to grab their ghost
 	if(!sac_target.heal_and_revive(50, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 
@@ -275,6 +283,8 @@
 	if(QDELETED(sac_target))
 		return
 
+	sac_target.grab_ghost() // monke edit: try to grab their ghost
+
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
 		disembowel_target(sac_target)
@@ -289,6 +299,7 @@
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
+	sac_target.grab_ghost() // monke edit: try to grab their ghost again before revival
 	if(!sac_target.heal_and_revive(60, span_danger("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		disembowel_target(sac_target)
 		return
@@ -374,8 +385,11 @@
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/inverse/helgrasp/heretic)
 	sac_target.clear_mood_event("shadow_realm")
-	sac_target.gain_trauma(/datum/brain_trauma/mild/phobia/supernatural, TRAUMA_RESILIENCE_MAGIC)
-
+	if(IS_HERETIC(sac_target))
+		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
+		victim_heretic.knowledge_points -= 3
+	else
+		sac_target.gain_trauma(/datum/brain_trauma/mild/phobia/heresy, TRAUMA_RESILIENCE_LOBOTOMY) // monke edit: allow lobotomy to cure the phobia
 	// Wherever we end up, we sure as hell won't be able to explain
 	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
 	sac_target.adjust_stutter(40 SECONDS)
@@ -444,7 +458,10 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
-	to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
+	if(IS_HERETIC(sac_target))
+		to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...")))
+	else
+		to_chat(sac_target, span_big(span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")))
 
 	// Oh god where are we?
 	sac_target.flash_act()
@@ -457,7 +474,10 @@
 
 	// Glad i'm outta there, though!
 	sac_target.add_mood_event("shadow_realm_survived", /datum/mood_event/shadow_realm_live)
-	sac_target.add_mood_event("shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
+	if(IS_HERETIC(sac_target))
+		sac_target.add_mood_event("shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad_heretic)
+	else
+		sac_target.add_mood_event("shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
 	// Could use a little pick-me-up...
 	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)

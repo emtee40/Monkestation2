@@ -34,7 +34,7 @@
 	 /obj/item/ammo_casing/energy/lawbringer/tideshot, \
 	 /obj/item/ammo_casing/energy/lawbringer/ion )
 	pin = /obj/item/firing_pin/lawbringer
-	ammo_x_offset = 4
+	ammo_x_offset = 3
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	can_select = FALSE
@@ -352,7 +352,7 @@
 	name = "hyperfocused disabler beam"
 	icon_state = "gauss_silenced"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	damage = 0
 	damage_type = STAMINA
 	stamina = 40
@@ -368,7 +368,7 @@
 	ricochet_shoots_firer = FALSE //something something biometrics
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	reflectable = REFLECT_NORMAL
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 1
 	light_power = 1
 	light_color = LIGHT_COLOR_BLUE
@@ -380,7 +380,7 @@
 /obj/item/ammo_casing/energy/lawbringer/execute
 	projectile_type = /obj/projectile/lawbringer/execute
 	select_name = "execute"
-	fire_sound = 'sound/weapons/gun/pistol/shot_suppressed.ogg'
+	fire_sound = 'sound/weapons/gun/revolver/shot.ogg'
 	e_cost = 300 //10%, 10 shots
 	harmful = TRUE
 
@@ -570,7 +570,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	reflectable = REFLECT_NORMAL
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 1
 	light_power = 1
 	light_color = LIGHT_COLOR_HALOGEN

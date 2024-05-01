@@ -71,7 +71,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(!(prefs.chat_toggles & CHAT_OOC))
 		to_chat(src, span_danger("You have OOC muted."))
 		return
-	add_event_to_buffer(mob, data = raw_msg, log_key = "OOC")
 	mob.log_talk(raw_msg, LOG_OOC)
 
 	var/keyname = key
@@ -144,7 +143,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "Server"
 	if(IsAdminAdvancedProcCall())
 		return
-	var/newColor = input(src, "Please select the new player OOC color.", "OOC color") as color|null
+	var/newColor = tgui_color_picker(src, "Please select the new player OOC color.", "OOC color")
 	if(isnull(newColor))
 		return
 	if(!check_rights(R_FUN))

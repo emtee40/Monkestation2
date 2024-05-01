@@ -146,9 +146,13 @@ SUBSYSTEM_DEF(gamemode)
 	/// Is storyteller secret or not
 	var/secret_storyteller = FALSE
 
+	/// List of new player minds we currently want to give our roundstart antag to
+	var/list/roundstart_antag_minds = list()
+
 	var/wizardmode = FALSE //refactor this into just being a unique storyteller
 
-	var/datum/round_event_control/current_roundstart_event
+	/// What is our currently desired/selected roundstart event
+	var/datum/round_event_control/antagonist/solo/current_roundstart_event
 	var/list/last_round_events = list()
 	var/ran_roundstart = FALSE
 	var/list/triggered_round_events = list()
@@ -164,11 +168,12 @@ SUBSYSTEM_DEF(gamemode)
 	for(var/type in subtypesof(/datum/storyteller))
 		storytellers[type] = new type()
 
-	for(var/type in typesof(/datum/round_event_control))
-		var/datum/round_event_control/event = new type()
-		if(!event.typepath || !event.name)
-			continue //don't want this one! leave it for the garbage collector
+	for(var/datum/round_event_control/event_type as anything in typesof(/datum/round_event_control))
+		if(!event_type::typepath || !event_type::name)
+			continue
+		var/datum/round_event_control/event = new event_type
 		if(!event.valid_for_map())
+			qdel(event)
 			continue // event isn't good for this map no point in trying to add it to the list
 		control += event //add it to the list of all events (controls)
 	getHoliday()
@@ -251,9 +256,9 @@ SUBSYSTEM_DEF(gamemode)
 			var/mob/dead/new_player/new_player = player
 			if(new_player.ready == PLAYER_READY_TO_PLAY && new_player.mind && new_player.check_preferences())
 				candidate_candidates += player
-		else if (observers && isobserver(player))
+		else if(observers && isobserver(player))
 			candidate_candidates += player
-		else if (living_players && isliving(player))
+		else if(living_players && isliving(player))
 			if(!ishuman(player) && !isAI(player))
 				continue
 			if(!(player.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
@@ -264,9 +269,10 @@ SUBSYSTEM_DEF(gamemode)
 		if(QDELETED(candidate) || !candidate.key || !candidate.client || (!observers && !candidate.mind))
 			continue
 		if(!observers)
-			if(!isliving(candidate))
+			if(!ready_players && !isliving(candidate))
 				continue
 			if(no_antags && candidate.mind.special_role)
+				log_storyteller("Candidate([candidate]) removed from rolling poll due to special_role([candidate.mind.special_role])")
 				continue
 			if(restricted_roles && (candidate.mind.assigned_role.title in restricted_roles))
 				continue
@@ -280,7 +286,7 @@ SUBSYSTEM_DEF(gamemode)
 			var/time_to_check
 			if(required_time)
 				time_to_check = required_time
-			else if (inherit_required_time)
+			else if(inherit_required_time)
 				time_to_check = GLOB.special_roles[be_special]
 
 			if(time_to_check && candidate.client.get_remaining_days(time_to_check) > 0)
@@ -363,8 +369,9 @@ SUBSYSTEM_DEF(gamemode)
 
 /// At this point we've rolled roundstart events and antags and we handle leftover points here.
 /datum/controller/subsystem/gamemode/proc/handle_post_setup_points()
-	for(var/track in event_track_points) //Just halve the points for now.
-		event_track_points[track] *= 0.5
+//	for(var/track in event_track_points) //Just halve the points for now.
+//		event_track_points[track] *= 0.5 TESTING HOW THINGS GO WITHOUT THIS HALVING OF POINTS
+	return
 
 /// Because roundstart events need 2 steps of firing for purposes of antags, here is the first step handled, happening before occupation division.
 /datum/controller/subsystem/gamemode/proc/handle_pre_setup_roundstart_events()
@@ -385,7 +392,7 @@ SUBSYSTEM_DEF(gamemode)
 			continue
 		ASYNC
 			event.try_start()
-//		INVOKE_ASYNC(event, /datum/round_event.proc/try_start)
+		INVOKE_ASYNC(event, TYPE_PROC_REF(/datum/round_event, try_start))
 
 /// Schedules an event to run later.
 /datum/controller/subsystem/gamemode/proc/schedule_event(datum/round_event_control/passed_event, passed_time, passed_cost, passed_ignore, passed_announce, _forced = FALSE)
@@ -434,7 +441,7 @@ SUBSYSTEM_DEF(gamemode)
 		var/high_pop_bound = pop_scale_thresholds[track]
 		var/scale_penalty = pop_scale_penalties[track]
 
-		var/perceived_pop = max(low_pop_bound, active_players) // after max pop we start generating even more threat
+		var/perceived_pop = min(max(low_pop_bound, active_players), high_pop_bound)
 
 		var/divisor = high_pop_bound - low_pop_bound
 		/// If the bounds are equal, we'd be dividing by zero or worse, if upper is smaller than lower, we'd be increasing the factor, just make it 1 and continue.
@@ -545,7 +552,7 @@ SUBSYSTEM_DEF(gamemode)
 /datum/controller/subsystem/gamemode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
 	if(!report)
 		report = !CONFIG_GET(flag/no_intercept_report)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/display_roundstart_logout_report), ROUNDSTART_LOGOUT_REPORT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(display_roundstart_logout_report)), ROUNDSTART_LOGOUT_REPORT_TIME)
 
 	if(CONFIG_GET(flag/reopen_roundstart_suicide_roles))
 		var/delay = CONFIG_GET(number/reopen_roundstart_suicide_roles_delay)
@@ -553,7 +560,7 @@ SUBSYSTEM_DEF(gamemode)
 			delay = (delay SECONDS)
 		else
 			delay = (4 MINUTES) //default to 4 minutes if the delay isn't defined.
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(reopen_roundstart_suicide_roles)), delay)
 
 	if(SSdbcore.Connect())
 		var/list/to_set = list()

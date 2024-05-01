@@ -72,6 +72,14 @@
 	alternate_worn_layer = GLOVES_LAYER
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/harlequin
+	name = "harlequin jumpsuit"
+	desc = "This is what you wear if you wanna be a weird fusion of a clown and mime."
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	icon_state = "harlequin"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/costume/bee
 	name = "bee hide costume"
 	desc = "A suit made of beehide"
@@ -96,6 +104,7 @@
 	icon_state = "kimono"
 	body_parts_covered = CHEST|GROIN|ARMS
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	alternate_worn_layer = ABOVE_SHOES_LAYER
 
 /*
 *	CHRISTMAS CLOTHES
@@ -122,3 +131,99 @@
 	name = "sexy green christmas costume"
 	desc = "Stupid. Ugly. Out of date. If I can't find something nice to wear I'm not going."
 	icon_state = "christmas_crop_green"
+
+/*
+BUNNY SUITS
+*/
+/obj/item/clothing/under/costume/playbunny
+	name = "bunny suit"
+	desc = "The staple of any bunny themed waiters and the like. It has a little cottonball tail too."
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	icon_state = "playbunny"
+	greyscale_colors = "#39393f#39393f#ffffff#87502e"
+	greyscale_config = /datum/greyscale_config/bunnysuit
+	greyscale_config_worn = /datum/greyscale_config/bunnysuit_worn
+	greyscale_config_worn_digitigrade = /datum/greyscale_config/bunnysuit_worn/digitigrade
+	flags_1 = IS_PLAYER_COLORABLE_1
+	body_parts_covered = CHEST|GROIN|LEGS
+	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/costume/playbunny/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny)
+
+/obj/item/clothing/under/syndicate/syndibunny //heh
+	name = "blood-red bunny suit"
+	desc = "The staple of any bunny themed syndicate assassins. Are those carbon nanotube stockings?"
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	icon_state = "syndibunny"
+	body_parts_covered = CHEST|GROIN|LEGS
+
+/obj/item/clothing/under/syndicate/syndibunny/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/small)
+
+/obj/item/clothing/under/costume/playbunny/magician
+	name = "magician's bunny suit"
+	desc = "The staple of any bunny themed stage magician."
+	icon_state = "playbunny_wiz"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
+
+/obj/item/clothing/under/costume/playbunny/magician/Initialize(mapload)
+	. = ..()
+
+	create_storage(storage_type = /datum/storage/pockets/tiny/magician)
+
+/datum/storage/pockets/tiny/magician/New() //this is probably a good idea
+	. = ..()
+	var/static/list/exception_cache = typecacheof(list(
+		/obj/item/gun/magic/wand,
+		/obj/item/warp_whistle,
+	))
+	exception_hold = exception_cache
+
+/obj/item/clothing/under/costume/playbunny/centcom
+	name = "centcom bunnysuit"
+	desc = "A modified Centcom version of a bunny outfit, using Lunarian technology to condense countless amounts of rabbits into a material that is extremely comfortable and light to wear."
+	icon_state = "playbunny_centcom"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
+
+/obj/item/clothing/under/costume/playbunny/british
+	name = "british bunny suit"
+	desc = "The staple of any bunny themed monarchists. It has a little cottonball tail too."
+	icon_state = "playbunny_brit"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
+
+/obj/item/clothing/under/costume/playbunny/communist
+	name = "really red bunny suit"
+	desc = "The staple of any bunny themed communists. It has a little cottonball tail too."
+	icon_state = "playbunny_communist"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
+
+/obj/item/clothing/under/costume/playbunny/usa
+	name = "striped bunny suit"
+	desc = "A bunny outfit stitched together from several American flags. It has a little cottonball tail too."
+	icon_state = "playbunny_usa"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	greyscale_config_worn_digitigrade = null
+/*
+END OF BUNNY SUITS
+*/

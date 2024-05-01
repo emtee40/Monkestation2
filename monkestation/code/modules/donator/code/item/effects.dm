@@ -57,3 +57,25 @@
 	name = "Spycrab transformation"
 	icon_state = "crab_red"
 	animal_transformation = /mob/living/basic/crab/spycrab
+
+//tonymcp
+
+/obj/item/effect_granter/donator/void_butterfly
+	name = "void butterfly transformation"
+	icon_state = "void_butterfly"
+	animal_transformation = /mob/living/basic/butterfly/void/spacial
+
+//rickdude
+/obj/item/effect_granter/donator/plant_crab
+	name = "plantcrab transformation"
+	icon_state = "crab_plant"
+	animal_transformation = /mob/living/basic/crab/plant
+
+
+//Quilark
+/obj/item/effect_granter/donator/quilava
+	name = "quilava transformation"
+	icon_state = "quil_maid"
+	animal_transformation = /mob/living/basic/pet/quilmaid
+
+

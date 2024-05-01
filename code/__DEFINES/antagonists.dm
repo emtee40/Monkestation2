@@ -80,6 +80,7 @@
 #define PATH_VOID "Void Path"
 #define PATH_BLADE "Blade Path"
 #define PATH_COSMIC "Cosmic Path"
+#define PATH_KNOCK "Knock Path"
 
 /// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
 #define HERETIC_NO_HEART_ORGAN -1
@@ -329,3 +330,13 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 
 // This flag disables certain checks that presume antagonist datums mean 'baddie'.
 #define FLAG_FAKE_ANTAG (1 << 0)
+
+#define FREEDOM_IMPLANT_CHARGES 4
+
+/// Changeling abilities with DNA cost = this are innately given to all changelings
+#define CHANGELING_POWER_INNATE -1
+/// Changeling abilities with DNA cost = this are not obtainable by changelings - either used for secret unlockable or abstract abilities
+#define CHANGELING_POWER_UNOBTAINABLE -2
+
+/// For changelings, this is how many recent say lines are retained when absorbing a mob
+#define LING_ABSORB_RECENT_SPEECH 8
