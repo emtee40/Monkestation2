@@ -22,7 +22,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.add_traits(list(TRAIT_NOSOFTCRIT, TRAIT_NOCRITDAMAGE), HUNTER_TRAIT)
-	ADD_TRAIT(owner, TRAIT_BLOODSUCKER_HUNTER, HUNTER_TRAIT)
+	ADD_TRAIT(owner, TRAIT_OCCULTIST, HUNTER_TRAIT)
 	owner.unconvertable = TRUE
 
 /datum/antagonist/monsterhunter/remove_innate_effects(mob/living/mob_override)
