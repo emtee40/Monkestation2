@@ -1163,12 +1163,12 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.adjustBruteLoss(-5 * REM * seconds_per_tick, FALSE) //A ton of healing - this is a 50 telecrystal investment.
-	affected_mob.adjustFireLoss(-5 * REM * seconds_per_tick, FALSE)
-	affected_mob.adjustOxyLoss(-15 * REM * seconds_per_tick, FALSE)
-	affected_mob.adjustToxLoss(-5 * REM * seconds_per_tick, FALSE)
+	affected_mob.adjustBruteLoss(-5 * REM * seconds_per_tick, updating_health = FALSE) //A ton of healing - this is a 50 telecrystal investment.
+	affected_mob.adjustFireLoss(-5 * REM * seconds_per_tick, updating_health = FALSE)
+	affected_mob.adjustOxyLoss(-15 * REM * seconds_per_tick, updating_health = FALSE)
+	affected_mob.adjustToxLoss(-5 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE, required_biotype = affected_biotype) // slimes are people too!!
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15 * REM * seconds_per_tick)
-	affected_mob.adjustCloneLoss(-3 * REM * seconds_per_tick, FALSE)
+	affected_mob.adjustCloneLoss(-3 * REM * seconds_per_tick)
 	..()
 	. = TRUE
 
