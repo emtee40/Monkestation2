@@ -29,12 +29,12 @@
 	var/icon_type_off
 
 /obj/item/melee/nabber_blade/Initialize(mapload,silent,synthetic)
-	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
 	AddComponent(/datum/component/butchering, \
 	speed = 3 SECONDS, \
 	effectiveness = 85, \
 	)
+	return ..()
 
 /obj/item/melee/nabber_blade/Destroy()
 	icon_type_on = null
@@ -59,6 +59,7 @@
 	speed = 1.5 SECONDS, \
 	effectiveness = 95, \
 	)
+	return ..()
 
 /obj/item/melee/nabber_blade/syndicate
 	name = "energy-enhanced bladearm"
@@ -94,9 +95,13 @@
 	icon_state = "mantis_arm_l" //todo: custom sprites.
 
 /obj/item/melee/nabber_blade/pre_attack(atom/W, mob/living/user, params) //Handles whetstoning your limbs. TODO: Maybe add nabber-specific traitor item for this?
-
 	if (istype(W, /obj/item/sharpener))
 		var/obj/item/sharpener/poorstone = W
+		for(var/datum/action/cooldown/toggle_arms/arms in user.actions)
+			if(arms.blade_type != NABBER_ARM_TYPE_REGULAR)
+				user.visible_message(span_notice("[user] tries to sharpen their blade-arms... But fails, like a doofus."),
+										span_notice("You can't sharpen these!"))
+				return FALSE
 		if(poorstone.uses >= 1)
 			user.visible_message(span_notice("[user] begins to sharpen their massive blade-arms."),
 									span_notice("You begin to sharpen your natural weaponry."))
