@@ -69,7 +69,7 @@
 	wound_bonus = 25 //Also insane, but 18tc item.
 	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
 	hitsound = 'sound/weapons/blade1.ogg'
-	hit_reaction_chance = 65 //65% chance to block leaps/melee/unarmed.
+	hit_reaction_chance = 45 //45% chance to block leaps/melee/unarmed.
 	block_chance = 15 //15% chance to block all other sources of damage (e.g bullets)
 	armor_type = /datum/armor/item_shield
 	icon_type_on = "blades_on"
