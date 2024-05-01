@@ -81,13 +81,15 @@
 	light_color = LIGHT_COLOR_INTENSE_RED //Cant forget this
 
 /obj/item/melee/nabber_blade/syndicate/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance) || attack_type == LEAP_ATTACK && prob(hit_reaction_chance))
+	if(attack_type == (UNARMED_ATTACK || MELEE_ATTACK || LEAP_ATTACK) && prob(hit_reaction_chance))
 		owner.visible_message(span_danger("[owner] reflexively blocks [attack_text] with [src]!"))
 		return TRUE
 	return FALSE
 
+/* Adds balance concerns & a lack of coolness I don't like.
 /obj/item/melee/nabber_blade/syndicate/IsReflect() // IF EVERYTHING, ABSOLUTELY EVERYTHING FAILS, ABSOLUTELY MAKE SURE YOU REFLECT AND DO NOT BLOCK.
 	return TRUE
+*/
 
 /obj/item/melee/nabber_blade/syndicate/Initialize(mapload,silent,synthetic)
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT) //They're designed for this
