@@ -62,8 +62,6 @@ GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list(
 	/obj/item/organ/internal/heart/gland/plasma,
 	/obj/item/organ/internal/heart/gland/quantum,
 	/obj/item/organ/internal/heart/gland/slime,
-	/obj/item/organ/internal/heart/gland/spiderman,
-	/obj/item/organ/internal/heart/gland/transform,
 	/obj/item/organ/internal/heart/gland/trauma,
 	/obj/item/organ/internal/heart/gland/viral,
 	/obj/item/organ/external/anime_head,
@@ -74,7 +72,8 @@ GLOBAL_LIST_INIT(bioscrambler_organs_blacklist, typecacheof(list(
 	/obj/item/organ/internal/legion_tumour,
 	/obj/item/organ/internal/liver/gondola,
 	/obj/item/organ/internal/heart/gondola,
-	/obj/item/organ/internal/tongue/gondola
+	/obj/item/organ/internal/tongue/gondola,
+	/obj/item/organ/internal/empowered_borer_egg
 )) - subtypesof(/obj/item/organ/external/wings/functional) - typesof(/obj/item/organ/external/wings/moth))
 
 /// List of body parts we can apply to people
