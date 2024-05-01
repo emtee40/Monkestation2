@@ -145,7 +145,7 @@
 /datum/action/cooldown/toggle_arms
 	name = "Toggle mantis arms"
 	desc = "Pump your Haemolyph from the rest of your body into your hunting arms, allowing you to stab at foes. This will take time to do, and can be interrupted."
-	cooldown_time = 5 SECONDS
+	cooldown_time = 3 SECONDS
 
 	button_icon = 'monkestation/code/modules/nabbers/icons/actions.dmi'
 	var/blade_type = NABBER_ARM_TYPE_REGULAR //Need to hold this here.
@@ -197,7 +197,7 @@
 	nabber.visible_message(span_danger("[nabber] starts to pump blood into their hunting arms!"), span_warning("You let out a aggressive screech, raising your blade-arms!"), span_hear("You hear a sharp screech of an agitated creature!"))
 	playsound(nabber, 'monkestation/code/modules/nabbers/sounds/nabberscream.ogg', 70)
 
-	if(!do_after(nabber, 3 SECONDS, nabber))
+	if(!do_after(nabber, 1.5 SECONDS, nabber))
 		StartCooldown()
 		nabber.balloon_alert(nabber, "Stand still!")
 		return FALSE
@@ -242,7 +242,7 @@
 
 	nabber.balloon_alert(nabber, "Removing blood from hunting-arms!")
 
-	if(!do_after(nabber, 2.5 SECONDS, nabber))
+	if(!do_after(nabber, 0.5 SECONDS, nabber))
 		nabber.balloon_alert(nabber, "Stand still!")
 		return	FALSE
 
