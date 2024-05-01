@@ -126,7 +126,7 @@
 		display_pain(target, "You feel a strange sensation from your new [parse_zone(target_zone)].", TRUE)
 		if(istype(tool, /obj/item/chainsaw))
 			qdel(tool)
-			bodypart_to_attach.bodypart_flags |= BODYPART_ROBOTIC
+			bodypart_to_attach.bodypart_flags |= BODYTYPE_ROBOTIC
 			var/obj/item/chainsaw/mounted_chainsaw/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return
