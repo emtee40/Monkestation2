@@ -315,7 +315,7 @@
 	var/turf/position = get_turf(src)
 	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
 		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range) && !syndie)
+		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range) && !(syndie || radio_host)) // monkestation edit: the radio host bows to none
 			return
 
 	// Determine the identity information which will be attached to the signal.
@@ -331,6 +331,10 @@
 		signal.levels = list(0)
 		signal.broadcast()
 		return
+
+	// monkestation edit: the radio host bows to none
+	if(radio_host && freq == FREQ_RADIO)
+		signal.data["compression"] = 0
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
