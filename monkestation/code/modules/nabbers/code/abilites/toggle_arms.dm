@@ -69,7 +69,7 @@
 	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
 	hitsound = 'sound/weapons/blade1.ogg'
 	armor_type = /datum/armor/item_dualsaber
-	block_chance = 40 //80% chance isn't actually that high (copium)
+	block_chance = 75 //75% chance isn't actually that high (copium). They die to three laser shots anyway.
 	block_sound = 'sound/weapons/block_blade.ogg'
 	icon_type_on = "blades_on"
 	icon_type_off = "blades_off"
@@ -85,11 +85,6 @@
 	speed = 5 SECONDS, \
 	effectiveness = 60, \
 	) //They suck at butchering
-	playsound(src, 'sound/weapons/saberon.ogg', 35, TRUE) //:3
-	return ..()
-
-/obj/item/melee/nabber_blade/syndicate/Destroy()
-	playsound(src, 'sound/weapons/saberoff.ogg', 35, TRUE) //I can't resist.
 	return ..()
 
 /obj/item/melee/nabber_blade/syndicate/alt
@@ -128,7 +123,7 @@
 		if(do_after(user, 7 SECONDS, target = src))
 			user.visible_message(span_notice("[user] raises their blade-arms, a new black-and-red set of projectors providing an ominous nimbus..."),
 									span_notice("With your new energy-blades, you're more than ready to kill."))
-			playsound(src, 'sound/items/unsheath.ogg', 100, TRUE)
+			playsound(src, 'sound/weapons/saberon.ogg', 100, TRUE)
 			qdel(W) //Destroy the evidence!
 			for(var/datum/action/cooldown/toggle_arms/arms in user.actions) //Should only ever be one instance. Make sure to handle it, though
 				arms.blade_type = NABBER_ARM_TYPE_SYNDICATE
@@ -289,5 +284,5 @@
 
 /datum/action/cooldown/toggle_arms/proc/examined(mob/living/carbon/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	var/examine_text = span_bolditalic("[examined] [src.held_desc]")
+	var/examine_text = span_bolditalic("[examined] [held_desc]")
 	examine_list += examine_text
