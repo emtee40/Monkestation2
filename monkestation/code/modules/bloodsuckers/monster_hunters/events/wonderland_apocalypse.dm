@@ -45,7 +45,7 @@
 		var/area/centcom/target_area = get_area(target)
 		if(istype(target_area) && target_area.grace)
 			continue
-		target.apply_status_effect(/datum/status_effect/wonderland_district)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, apply_status_effect), /datum/status_effect/wonderland_district), rand(5 SECONDS, 10 SECONDS))
 	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_CREATED, PROC_REF(apply_pressure_to_new_mob))
 
 /datum/round_event/wonderlandapocalypse/proc/apply_pressure_to_new_mob(datum/source, mob/living/target)
