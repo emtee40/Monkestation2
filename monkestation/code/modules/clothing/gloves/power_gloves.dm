@@ -23,7 +23,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 	antimagic_flags = NONE
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
-	overlay_icon_state = 'icons/mob/actions/backgrounds.dmi'
+	overlay_icon_state = "bg_default_border"
 
 //had to recreate tesla zap into a pointed version
 /datum/action/cooldown/spell/pointed/glove_zap/proc/target_tesla_zap(atom/source, atom/target, power, zap_flags = ZAP_DEFAULT_FLAGS, max_damage = 90)
