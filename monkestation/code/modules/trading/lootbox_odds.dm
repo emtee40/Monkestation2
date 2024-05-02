@@ -67,6 +67,7 @@
 		to_chat(buyer, span_warning("Database is not connected."))
 		to_chat(buyer, replacement_lootbox_message)
 		buyer.prefs.lootboxes_owned++
+		buyer.prefs.save_preferences()
 		return FALSE
 	if(!buyer?.prefs)
 		return FALSE
@@ -88,6 +89,7 @@
 		to_chat(buyer, span_warning("Failed to add lootbox item to database."))
 		to_chat(buyer, replacement_lootbox_message)
 		buyer.prefs.lootboxes_owned++
+		buyer.prefs.save_preferences()
 		qdel(query_add_gear_purchase)
 		return FALSE
 	qdel(query_add_gear_purchase)
