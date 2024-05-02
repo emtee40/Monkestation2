@@ -57,15 +57,16 @@
 	else
 		playsound(owner, 'monkestation/sound/weapons/powerglovestarget.ogg', 25, TRUE, -1)
 		if (do_after(owner, 3 SECONDS, target, IGNORE_TARGET_LOC_CHANGE))
-			if (get_dist(owner, target) <= 6)
+			if (get_dist(owner, target) > 6)
+				owner.balloon_alert (owner, "Target moved out of range!")
+			else
 				var/calculated_power = surplus/95 //Calc_power, change division to balance
 				target_tesla_zap(owner, target, calculated_power, SHOCK_NOSTUN, max_damage = 140)
 				StartCooldown()
 				if (surplus <= 2000000) //plays a separate sound at 2 MW excess
 					playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
-
-				else playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE, -1)
-			else owner.balloon_alert (owner, "Target moved out of range!")
+				else
+					playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE, -1)
 
 /obj/item/clothing/gloves/color/yellow/power_gloves/equipped(mob/living/owner, slot)
 	. = ..()
