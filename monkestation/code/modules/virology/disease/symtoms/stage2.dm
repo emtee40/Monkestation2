@@ -197,6 +197,8 @@
 	badness = EFFECT_DANGER_HELPFUL
 	multiplier = 4
 	max_multiplier = 10
+	chance = 10
+	max_chance = 15
 	var/uncolored = 0
 	var/flavortext = 0
 	var/color = rgb(255, 255, 255)
