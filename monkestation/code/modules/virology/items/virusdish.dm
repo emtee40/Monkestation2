@@ -106,14 +106,14 @@ GLOBAL_LIST_INIT(virusdishes, list())
 		return
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		if(growth < 50)
-			to_chat(user, span_notice("There isn't enough blood in the [src]"))
+			to_chat(user, span_warning("There isn't enough blood in the [src]."))
 		else
 			growth = growth - 50
 			var/obj/item/reagent_containers/syringe/B = I
 			var/list/data = list("viruses"=null,"blood_DNA"=null,"blood_type"="O-","resistances"=null,"trace_chem"=null,"viruses"=list(),"immunity"=list())
 			data["viruses"] |= list(contained_virus)
 			B.reagents.add_reagent(/datum/reagent/blood, B.volume, data)
-			to_chat(user, span_notice("You take some blood from the [src]"))
+			to_chat(user, span_notice("You take some blood from the [src]."))
 	if (open)
 		if (istype(I,/obj/item/reagent_containers))
 			var/success = 0
