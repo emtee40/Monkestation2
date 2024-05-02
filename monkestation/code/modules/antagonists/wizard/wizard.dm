@@ -6,6 +6,14 @@
 	REMOVE_TRAITS_IN(owner, REF(src))
 	return ..()
 
+/datum/antagonist/wizard/antag_token(datum/mind/hosts_mind, mob/spender)
+	purge_crew_record(hosts_mind.name || hosts_mind.current?.real_name, hosts_mind.assigned_role?.title)
+	if(isobserver(spender))
+		var/mob/living/carbon/human/new_mob = spender.change_mob_type(/mob/living/carbon/human, delete_old_mob = TRUE)
+		new_mob.mind.make_wizard()
+	else
+		hosts_mind.make_wizard()
+
 /datum/antagonist/wizard/traitor // traitors that complete a final objective to become a wizard, this subtype is mainly for wizard look things
 	name = "\improper Syndicate Space Wizard"
 	roundend_category = "syndicate wizards/witches"
