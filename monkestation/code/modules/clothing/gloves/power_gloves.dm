@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/color/yellow/power_gloves
 	name = "Power Gloves"
-	desc = "Insulated gloves that appear to be able to redirect the electrical current towards a point."
+	desc = "Insulated gloves with onboard machinery that appears to be able to redirect the electrical current towards a creature."
 	armor_type = /datum/armor/power_gloves
 	var/datum/action/cooldown/spell/pointed/glove_zap/zap = new
 
@@ -22,9 +22,11 @@
 	sparks_amt = 4
 	spell_requirements = SPELL_REQUIRES_HUMAN
 	antimagic_flags = NONE
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+	overlay_icon_state = 'icons/mob/actions/backgrounds.dmi'
 
 //had to recreate tesla zap into a pointed version
-/datum/action/cooldown/spell/pointed/glove_zap/proc/target_tesla_zap(atom/source, atom/target, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, max_damage = 90)
+/datum/action/cooldown/spell/pointed/glove_zap/proc/target_tesla_zap(atom/source, atom/target, power, zap_flags = ZAP_DEFAULT_FLAGS, max_damage = 90)
 	source.Beam(target, icon_state="lightning[rand(1,12)]", time = 5)
 	var/zapdir = get_dir(source, target)
 	if(zapdir)
@@ -49,13 +51,13 @@
 		owner.balloon_alert (owner,"Not enough power in the grid!")
 		return
 
-	if (get_dist(owner, target) < 6)
+	if (get_dist(owner, target) >= 6)
 		owner.balloon_alert (owner, "Unable to lock on! Move closer!")
 		return
 	else
 		playsound(owner, 'monkestation/sound/weapons/powerglovestarget.ogg', 25, TRUE, -1)
 		if (do_after(owner, 3 SECONDS, target, IGNORE_TARGET_LOC_CHANGE))
-			if (get_dist(owner, target) >= 6)
+			if (get_dist(owner, target) <= 6)
 				var/calculated_power = surplus/95 //Calc_power, change division to balance
 				target_tesla_zap(owner, target, calculated_power, SHOCK_NOSTUN, max_damage = 140)
 				StartCooldown()
