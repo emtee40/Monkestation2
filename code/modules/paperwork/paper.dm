@@ -422,8 +422,8 @@
 	return ..()
 
 /// Secondary right click interaction to quickly stamp things
-/obj/item/paper/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
-	var/list/writing_stats = tool.get_writing_implement_details()
+/obj/item/paper/attackby_secondary(obj/item/attacking_item, mob/living/user, params)
+	var/list/writing_stats = attacking_item.get_writing_implement_details()
 
 	if(!length(writing_stats))
 		return NONE
@@ -434,12 +434,12 @@
 
 	add_stamp(writing_stats["stamp_class"], rand(1, 300), rand(1, 400), stamp_icon_state = writing_stats["stamp_icon_state"])
 	user.visible_message(
-		span_notice("[user] quickly stamps [src] with [tool] without looking."),
-		span_notice("You quickly stamp [src] with [tool] without looking."),
+		span_notice("[user] quickly stamps [src] with [attacking_item] without looking."),
+		span_notice("You quickly stamp [src] with [attacking_item] without looking."),
 	)
 	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
-	return ITEM_INTERACT_BLOCKING // Stop the UI from opening.
+	return TOOL_ACT_SIGNAL_BLOCKING // Stop the UI from opening.
 /**
  * Attempts to ui_interact the paper to the given user, with some sanity checking
  * to make sure the camera still exists via the weakref and that this paper is still
