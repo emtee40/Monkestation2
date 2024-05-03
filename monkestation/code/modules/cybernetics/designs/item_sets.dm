@@ -101,3 +101,16 @@
 		RND_CATEGORY_CYBERNETICS + RND_SUBCATEGORY_CYBERNETICS_IMPLANTS_TOOLS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
+
+/datum/design/cyberlink_connector
+	name = "Cyberlink Connector"
+	desc =  "A cyberlink connector used to hack implants."
+	id = "ci-cyberconnector"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 3 SECONDS
+	materials = list(/datum/material/iron = 2500, /datum/material/glass =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
+	build_path = /obj/item/cyberlink_connector
+	category = list(
+		RND_CATEGORY_CYBERNETICS + RND_SUBCATEGORY_CYBERNETICS_IMPLANTS_TOOLS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
