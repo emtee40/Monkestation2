@@ -11,6 +11,10 @@
 
 /datum/action/item_action/organ_action/sandy
 	name = "Sandevistan Activation"
+	cooldown = 45 SECONDS
+
+/datum/action/item_action/organ_action/sandy/bad
+	cooldown = 65 SECONDS
 
 /obj/item/organ/internal/cyberimp/chest/sandevistan
 	name = "Militech Apogee Sandevistan"
@@ -56,6 +60,7 @@
 /obj/item/organ/internal/cyberimp/chest/sandevistan/refurbished
 	name = "refurbished sandevistan"
 	desc = "The branding has been scratched off of these and it looks hastily put together."
+	actions_types = list(/datum/action/item_action/organ_action/sandy/bad)
 
 	cooldown_time = 65 SECONDS
 
