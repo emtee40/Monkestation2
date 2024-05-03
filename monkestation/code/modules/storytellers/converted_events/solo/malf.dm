@@ -11,6 +11,7 @@
 		JOB_ROBOTICIST,
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
+		JOB_BRIG_PHYSICIAN,
 	)
 	maximum_antags = 1
 	exclusive_roles = list(JOB_AI)
