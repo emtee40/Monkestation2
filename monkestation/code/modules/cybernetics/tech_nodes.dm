@@ -33,7 +33,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/security_authorized_implants
-	id = "job_itemsets"
+	id = "job_itemsets-sec"
 	display_name = "NT Approved Security Implants"
 	description = "A list of approved item sets that can be implanted into the crew to allow easier access to their tools."
 	prereq_ids = "A list of approved implants for security officers."
