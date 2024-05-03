@@ -30,7 +30,7 @@
 			return
 
 	user.do_attack_animation(attacked_mob)
-	attacked_mob.Paralyze(100)
+	attacked_mob.stamina.adjust(-125)
 	attacked_mob.adjust_stutter(10 SECONDS)
 
 	attacked_mob.visible_message(span_danger("[user] prods [attacked_mob] with [src]!"), \
