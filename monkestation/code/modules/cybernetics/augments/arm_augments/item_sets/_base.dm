@@ -55,6 +55,8 @@
 	if(!active_item || (active_item in src))
 		active_item = null
 		if(contents.len == 1)
+			if(!check_compatibility())
+				return
 			Extend(contents[1])
 		else
 			var/list/choice_list = list()
@@ -79,7 +81,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/item_set/on_remove(mob/living/carbon/arm_owner)
 	. = ..()
-	Retract()
+	Retract(arm_owner)
 	UnregisterSignal(arm_owner, list(COMSIG_CARBON_POST_ATTACH_LIMB, COMSIG_KB_MOB_DROPITEM_DOWN))
 	on_limb_detached(hand)
 
@@ -129,18 +131,21 @@
 	if(Retract())
 		return COMSIG_KB_ACTIVATED
 
-/obj/item/organ/internal/cyberimp/arm/item_set/proc/Retract()
+/obj/item/organ/internal/cyberimp/arm/item_set/proc/Retract(mob/living/carbon/passover)
+	var/mob/living/carbon/user = owner
+	if(passover)
+		user = passover
 	if(!active_item || (active_item in src))
 		return FALSE
 
-	owner?.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+	user?.visible_message(span_notice("[user] retracts [active_item] back into [user.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_notice("[active_item] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_hear("You hear a short mechanical noise."))
 
-	owner.transferItemToLoc(active_item, src, TRUE)
+	user.transferItemToLoc(active_item, src, TRUE)
 	UnregisterSignal(active_item, COMSIG_ITEM_ATTACK_SELF)
 	active_item = null
-	playsound(get_turf(owner), retract_sound, 50, TRUE)
+	playsound(get_turf(user), retract_sound, 50, TRUE)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/item_set/proc/Extend(obj/item/augment)
