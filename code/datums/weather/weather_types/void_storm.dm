@@ -29,7 +29,7 @@
 
 /datum/weather/void_storm/can_weather_act(mob/living/mob_to_check)
 	. = ..()
-	if(IS_HERETIC_OR_MONSTER(mob_to_check) || IS_MONSTERHUNTER(mob_to_check))
+	if(IS_HERETIC_OR_MONSTER(mob_to_check))
 		return FALSE
 
 /datum/weather/void_storm/weather_act(mob/living/victim)

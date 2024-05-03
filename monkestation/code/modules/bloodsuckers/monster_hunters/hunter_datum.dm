@@ -22,12 +22,9 @@
 	var/list/datum/mind/prey = list()
 	/// A list of traits innately granted to monster hunters.
 	var/static/list/granted_traits = list(
-		TRAIT_FEARLESS,
-		TRAIT_HARDLY_WOUNDED,
+		TRAIT_FEARLESS, // to ensure things like fear of heresy or blood or whatever don't fuck them over
 		TRAIT_NOCRITDAMAGE,
-		TRAIT_NOSOFTCRIT,
-		TRAIT_NO_ZOMBIFY,
-		TRAIT_TRUE_NIGHT_VISION
+		TRAIT_NOSOFTCRIT
 	)
 	/// A list of traits innately granted to the mind of monster hunters.
 	var/static/list/mind_traits = list(
