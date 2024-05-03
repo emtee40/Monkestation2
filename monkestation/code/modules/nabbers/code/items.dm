@@ -47,8 +47,8 @@
 
 /obj/item/melee/nabber_blade/sharp
 	force = 18 //+4 damage to simulate whetstone usage.
-	wound_bonus = 15 // Decent buff.
-	bare_wound_bonus = 35 //Significant buff.
+	wound_bonus = 15 // Same as cleaver
+	bare_wound_bonus = 10 // Less than the default, due to higher flat wound_bonus
 	name = "lethally sharpened hunting-arm"
 
 /obj/item/melee/nabber_blade/sharp/alt
