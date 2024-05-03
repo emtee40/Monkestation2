@@ -428,6 +428,7 @@
 	desc = "The virus synthesizes oxygen, which can remove the need for breathing at high symptom strength."
 	stage = 4
 	max_multiplier = 5
+	badness = EFFECT_DANGER_HELPFUL
 	var/breathing = TRUE
 
 /datum/symptom/oxygen/activate(mob/living/carbon/mob, datum/disease/advanced/disease)
