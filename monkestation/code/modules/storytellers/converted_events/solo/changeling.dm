@@ -12,6 +12,7 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_PRISONER,
 		JOB_SECURITY_OFFICER,
+		JOB_SECURITY_ASSISTANT,
 		JOB_WARDEN,
 	)
 	restricted_roles = list(
@@ -30,6 +31,7 @@
 
 /datum/round_event_control/antagonist/solo/changeling/midround
 	name = "Genome Awakening (Changelings)"
+	antag_flag = ROLE_CHANGELING_MIDROUND
 	prompted_picking = TRUE
 	max_occurrences = 2
 	shared_occurences = list(/datum/round_event_control/antagonist/solo/changeling/roundstart)

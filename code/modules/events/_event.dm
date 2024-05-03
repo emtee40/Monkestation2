@@ -90,7 +90,7 @@
 /datum/round_event_control/proc/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 //monkestation edit start
-	if(roundstart && (world.time-SSticker.round_start_time >= 2 MINUTES || (SSgamemode.ran_roundstart && !fake_check)))
+	if(roundstart && ((SSticker.round_start_time && world.time - SSticker.round_start_time >= 2 MINUTES) || (SSgamemode.ran_roundstart && !fake_check)))
 		return FALSE
 //monkestation edit end
 	if(occurrences >= max_occurrences)
@@ -203,7 +203,7 @@ Runs the event
 	if(alert_observers)
 		round_event.announce_deadchat(random, event_cause)
 
-	SSblackbox.record_feedback("tally", "event_ran", 1, "[round_event]")
+	SSblackbox.record_feedback("tally", "event_ran", 1, "[name]")
 	return round_event
 
 //Returns the component for the listener
