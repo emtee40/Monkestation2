@@ -37,6 +37,8 @@
 		return
 
 	var/mob/living/parent_as_living = parent
+	if((squash_flags & SQUASHED_DONT_SQUASH_IN_CONTENTS) && !isturf(parent_as_living.loc))
+		return
 
 	if(squash_flags & SQUASHED_SHOULD_BE_DOWN && parent_as_living.body_position != LYING_DOWN)
 		return
@@ -49,7 +51,7 @@
 	if(isliving(crossing_movable))
 		var/mob/living/crossing_mob = crossing_movable
 		if(crossing_mob.mob_size > MOB_SIZE_SMALL && !(crossing_mob.movement_type & FLYING))
-			if(HAS_TRAIT(crossing_mob, TRAIT_PACIFISM))
+			if(HAS_TRAIT(crossing_mob, TRAIT_PACIFISM) || HAS_TRAIT(crossing_mob, TRAIT_CAREFUL_STEPS))
 				crossing_mob.visible_message(span_notice("[crossing_mob] carefully steps over [parent_as_living]."), span_notice("You carefully step over [parent_as_living] to avoid hurting it."))
 				return
 			if(should_squash)

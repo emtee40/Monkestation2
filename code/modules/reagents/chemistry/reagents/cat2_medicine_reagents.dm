@@ -129,12 +129,14 @@
 	. = TRUE
 
 /datum/reagent/medicine/c2/probital/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.stamina.adjust(-3 * REM * seconds_per_tick, FALSE)
+	affected_mob.stamina.adjust(-3 * REM * seconds_per_tick, TRUE)
 	if(affected_mob.stamina.loss >= 80)
 		affected_mob.adjust_drowsiness(2 SECONDS * REM * seconds_per_tick)
 	if(affected_mob.stamina.loss >= 100)
 		to_chat(affected_mob,span_warning("You feel more tired than you usually do, perhaps if you rest your eyes for a bit..."))
 		affected_mob.stamina.adjust(100, TRUE)
+		if(HAS_TRAIT(affected_mob, TRAIT_INCAPACITATED))
+			affected_mob.exit_stamina_stun()
 		affected_mob.Sleeping(10 SECONDS)
 	..()
 	. = TRUE
@@ -360,12 +362,6 @@
 		affected_mob.reagents.remove_reagent(the_reagent2.type, amount2purge * REM * seconds_per_tick)
 	..()
 	return TRUE
-
-// Antitoxin binds plants pretty well. So the tox goes significantly down
-/datum/reagent/medicine/c2/multiver/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_toxic(-round(chems.get_reagent_amount(src.type) * 2))
 
 #define issyrinormusc(A) (istype(A,/datum/reagent/medicine/c2/syriniver) || istype(A,/datum/reagent/medicine/c2/musiver)) //musc is metab of syrin so let's make sure we're not purging either
 

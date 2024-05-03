@@ -168,11 +168,12 @@ SUBSYSTEM_DEF(gamemode)
 	for(var/type in subtypesof(/datum/storyteller))
 		storytellers[type] = new type()
 
-	for(var/type in typesof(/datum/round_event_control))
-		var/datum/round_event_control/event = new type()
-		if(!event.typepath || !event.name)
-			continue //don't want this one! leave it for the garbage collector
+	for(var/datum/round_event_control/event_type as anything in typesof(/datum/round_event_control))
+		if(!event_type::typepath || !event_type::name)
+			continue
+		var/datum/round_event_control/event = new event_type
 		if(!event.valid_for_map())
+			qdel(event)
 			continue // event isn't good for this map no point in trying to add it to the list
 		control += event //add it to the list of all events (controls)
 	getHoliday()
@@ -270,8 +271,14 @@ SUBSYSTEM_DEF(gamemode)
 		if(!observers)
 			if(!ready_players && !isliving(candidate))
 				continue
-			if(no_antags && candidate.mind.special_role)
-				continue
+			if(no_antags && !isnull(candidate.mind.antag_datums))
+				var/real = FALSE
+				for(var/datum/antagonist/antag_datum as anything in candidate.mind.antag_datums)
+					if(!(antag_datum.antag_flags & FLAG_FAKE_ANTAG))
+						real = TRUE
+						break
+				if(real)
+					continue
 			if(restricted_roles && (candidate.mind.assigned_role.title in restricted_roles))
 				continue
 			if(length(required_roles) && !(candidate.mind.assigned_role.title in required_roles))

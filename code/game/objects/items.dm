@@ -1379,7 +1379,7 @@
 /obj/item/wash(clean_types)
 	. = ..()
 
-	if(ismob(loc))
+	if(ismob(loc) && ..())
 		var/mob/mob_loc = loc
 		mob_loc.regenerate_icons()
 
