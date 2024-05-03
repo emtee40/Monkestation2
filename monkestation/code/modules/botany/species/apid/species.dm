@@ -82,10 +82,6 @@
 	/// UI displaying how much honey we have
 	var/atom/movable/screen/apid/honey/honeydisplay
 
-/datum/species/apid/prepare_human_for_preview(mob/living/carbon/human/apid)
-	apid.dna.features["apid_antenna"] = "Horns"
-	apid.update_body_parts()
-
 
 /datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
 	. = ..()
