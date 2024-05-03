@@ -68,12 +68,26 @@
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	items_to_create = list(
+		/obj/item/lightreplacer,
+		/obj/item/holosign_creator,
+		/obj/item/soap/nanotrasen,
+		/obj/item/reagent_containers/spray/cyborg_drying,
 		/obj/item/mop/advanced,
-		/obj/item/reagent_containers/cup/bucket,
-		/obj/item/soap,
+		/obj/item/paint/paint_remover,
+		/obj/item/reagent_containers/cup/beaker/large,
 		/obj/item/reagent_containers/spray/cleaner
 	)
 	encode_info = AUGMENT_NT_LOWLEVEL
+
+/obj/item/organ/internal/cyberimp/arm/item_set/janitor/emag_act()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	for(var/datum/weakref/created_item in items_list)
+	to_chat(usr, span_notice("You unlock [src]'s integrated deluxe cleaning supplies!"))
+	items_list += WEAKREF(new /obj/item/soap/syndie(src)) //We add not replace.
+	items_list += WEAKREF(new /obj/item/reagent_containers/spray/cyborg_lube(src))
+	obj_flags |= EMAGGED
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/item_set/detective
 	name = "detective's toolset implant"
@@ -149,3 +163,17 @@
 	implant_color = "#39992d"
 	encode_info = AUGMENT_NO_REQ
 	items_to_create = list(/obj/item/cyberlink_connector)
+
+/obj/item/organ/internal/cyberimp/arm/item_set/botany
+	name = "botany arm implant"
+	desc = "A rather simple arm implant containing tools used in gardening and botanical research."
+	items_to_create = list(
+		/obj/item/cultivator,
+		/obj/item/shovel/spade,
+		/obj/item/hatchet,
+		/obj/item/plant_analyzer,
+		/obj/item/geneshears,
+		/obj/item/secateurs,
+		/obj/item/storage/bag/plants,
+		/obj/item/storage/bag/plants/portaseeder
+	)

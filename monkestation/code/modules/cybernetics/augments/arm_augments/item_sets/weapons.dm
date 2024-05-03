@@ -125,3 +125,88 @@
 /datum/bodypart_overlay/simple/razorwire/unique_properties(obj/item/organ/internal/cyberimp/called_from)
 	if(called_from.zone == BODY_ZONE_L_ARM)
 		icon_state = "razorwire_left"
+
+/obj/item/organ/internal/cyberimp/arm/item_set/mining_drill
+	name = "\improper Dalba Masterworks 'Burrower' Integrated Drill"
+	desc = "Extending from a stabilization bracer built into the upper forearm, this implant allows for a steel mining drill to extend over the user's hand. Little by little, we advance a bit further with each turn. That's how a drill works!"
+	icon = 'monkestation/code/modules/cybernetics/icons/drillimplant.dmi'
+	icon_state = "steel"
+	items_to_create = list(/obj/item/pickaxe/drill/implant)
+	implant_overlay = null
+	implant_color = null
+	visual_implant = TRUE
+	bodypart_overlay = /datum/bodypart_overlay/simple/steel_drill
+
+/obj/item/organ/internal/cyberimp/arm/item_set/mining_drill/l
+	zone = BODY_ZONE_L_ARM
+
+/obj/item/organ/internal/cyberimp/arm/item_set/mining_drill/right_arm //You know the drill.
+    zone = BODY_ZONE_R_ARM
+    slot = ORGAN_SLOT_RIGHT_ARM_AUG
+
+/obj/item/organ/internal/cyberimp/arm/item_set/mining_drill/left_arm
+    zone = BODY_ZONE_L_ARM
+    slot = ORGAN_SLOT_LEFT_ARM_AUG
+
+/datum/bodypart_overlay/simple/steel_drill
+	icon = 'monkestation/code/modules/cybernetics/icons/implants_onmob.dmi'
+	layers = EXTERNAL_FRONT // look into novas external front over
+	icon_state = "steel_right"
+
+/datum/bodypart_overlay/simple/steel_drill/unique_properties(obj/item/organ/internal/cyberimp/called_from)
+	if(called_from.zone == BODY_ZONE_L_ARM)
+		icon_state = "steel_left"
+
+
+/obj/item/pickaxe/drill/implant
+	name = "integrated mining drill"
+	desc = "Extending from a stabilization bracer built into the upper forearm, this implant allows for a steel mining drill to extend over the user's hand. Little by little, we advance a bit further with each turn. That's how a drill works!"
+	slot_flags = NONE
+	icon = 'monkestation/code/modules/cybernetics/icons/drillimplant.dmi'
+	righthand_file = 'monkestation/code/modules/cybernetics/icons/drillimplant_righthand.dmi'
+	lefthand_file = 'monkestation/code/modules/cybernetics/icons/drillimplant_lefthand.dmi'
+	icon_state = "steel"
+	inhand_icon_state = "steel"
+	toolspeed = 0.6 //faster than a pickaxe
+	usesound = 'sound/weapons/drill.ogg'
+	hitsound = 'sound/weapons/drill.ogg'
+	/// How recent the spin emote was
+	var/recent_spin = 0
+	/// The delay for how often you should be able to do it to prevent spam
+	var/spin_delay = 10 SECONDS
+
+/obj/item/pickaxe/drill/implant/AltClick(mob/user)
+	spin()
+
+/obj/item/pickaxe/drill/implant/verb/spin()
+	set name = "Spin Drillbit"
+	set category = "Object"
+	set desc = "Click to spin your drill's head. It won't do practically anything, but it's pretty cool anyway."
+
+	var/mob/user = usr
+
+	if(user.stat || !in_range(user, src))
+		return
+
+	if (recent_spin > world.time)
+		return
+	recent_spin = world.time + spin_delay
+
+	user.visible_message(span_warning("[user] spins [src]'s bit, accelerating for a moment to <span class='bolddanger'>thousands of RPM.</span>"), span_notice("You spin [src]'s bit, accelerating for a moment to <span class='bolddanger'>thousands of RPM.</span>"))
+
+/obj/item/organ/internal/cyberimp/arm/item_set/mining_drill/diamond
+	name = "\improper Dalba Masterworks 'Tunneler' Diamond Integrated Drill"
+	desc = "Extending from a stabilization bracer built into the upper forearm, this implant allows for a masterwork diamond mining drill to extend over the user's hand. This drill will open a hole in the universe, and that hole will be a path for those behind us!"
+	icon_state = "diamond"
+	items_to_create = list(/obj/item/pickaxe/drill/implant/diamond)
+
+/obj/item/pickaxe/drill/implant/diamond
+	name = "integrated diamond mining drill"
+	desc = "Extending from a stabilization bracer built into the upper forearm, this implant allows for a masterwork diamond mining drill to extend over the user's hand. This drill will open a hole in the universe, and that hole will be a path for those behind us!"
+	icon_state = "diamond"
+	inhand_icon_state = "diamond"
+	toolspeed = 0.2
+	force = 20
+	demolition_mod = 1.25
+	usesound = 'sound/weapons/drill.ogg'
+	hitsound = 'sound/weapons/drill.ogg'

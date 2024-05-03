@@ -95,15 +95,3 @@
 		/datum/reagent/medicine/c2/aiuri = 2,
 		/datum/reagent/medicine/c2/libital = 2
 	)
-
-/obj/item/organ/internal/cyberimp/leg/chemplant/rage
-	name = "R.A.G.E. chemical system"
-	desc = "Extremely dangerous system that fills the user with a mix of potent drugs in dire situation."
-	implant_color = "#ce3914"
-	encode_info = AUGMENT_TG_LEVEL
-	reagent_list = list(
-		/datum/reagent/determination = 2,
-		/datum/reagent/medicine/c2/penthrite = 3 ,
-		/datum/reagent/drug/bath_salts = 5 ,
-		/datum/reagent/medicine/ephedrine = 5
-	)

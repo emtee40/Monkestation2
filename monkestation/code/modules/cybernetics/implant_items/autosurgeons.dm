@@ -129,3 +129,13 @@
 		desc = "[initial(desc)] Looks like it's been used up."
 
 	return TRUE
+
+
+/obj/item/autosurgeon/organ/drill
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/mining_drill
+
+/obj/item/autosurgeon/organ/drill/l
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/mining_drill/l
+
+/obj/item/autosurgeon/organ/chemvat
+	starting_organ = /obj/item/organ/internal/cyberimp/chest/chemvat
