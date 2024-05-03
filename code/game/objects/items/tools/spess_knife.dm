@@ -6,6 +6,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "spess_knife"
 	worn_icon_state = "spess_knife"
+	worn_icon = 'icons/mob/clothing/temp.dmi'
 	//belt_icon_state = "spess_knife" TEMP FOR ANTI CONFLICT
 	inhand_icon_state = "spess_knife"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
