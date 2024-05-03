@@ -17,7 +17,7 @@
 
 /datum/techweb_node/job_approved_item_set
 	id = "job_itemsets"
-	name = "NT Approved Job Item Sets"
+	display_name = "NT Approved Job Item Sets"
 	description = "A list of approved item sets that can be implanted into the crew to allow easier access to their tools."
 	prereq_ids = list("adv_biotech","adv_biotech", "datatheory")
 	design_ids = list(
@@ -28,5 +28,18 @@
 		"ci-set-atmospherics",
 		"ci-set-connector",
 		"ci-set-botany",
+		"ci-set-mining",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/security_authorized_implants
+	id = "job_itemsets"
+	display_name = "NT Approved Security Implants"
+	description = "A list of approved item sets that can be implanted into the crew to allow easier access to their tools."
+	prereq_ids = "A list of approved implants for security officers."
+	prereq_ids = list("ci-nt_high")
+	design_ids = list(
+		"ci-set-mantis",
+		"ci-set-combat",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)

@@ -88,3 +88,16 @@
 		RND_CATEGORY_CYBERNETICS + RND_SUBCATEGORY_CYBERNETICS_IMPLANTS_TOOLS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
+
+/datum/design/itemset_mining
+	name = "Drill Arm Implant"
+	desc =  "Just a big drill, implanted into your hand."
+	id = "ci-set-mining"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 3 SECONDS
+	materials = list(/datum/material/iron = 2500, /datum/material/glass =HALF_SHEET_MATERIAL_AMOUNT * 1.5, /datum/material/silver =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
+	build_path = /obj/item/organ/internal/cyberimp/arm/item_set/mining_drill
+	category = list(
+		RND_CATEGORY_CYBERNETICS + RND_SUBCATEGORY_CYBERNETICS_IMPLANTS_TOOLS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
