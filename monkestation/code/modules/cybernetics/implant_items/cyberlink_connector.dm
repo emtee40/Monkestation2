@@ -132,6 +132,8 @@
 
 	for(var/datum/hacking_minigame/game in game_list)
 		data["games"] += list(game.get_simplified_image())
+		data["finished_states"] += list(game.finished)
+
 	return data
 
 /obj/item/cyberlink_connector/ui_interact(mob/user, datum/tgui/ui)

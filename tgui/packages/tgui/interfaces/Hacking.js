@@ -1,26 +1,41 @@
 import { useBackend } from '../backend';
-import { Section, Box, TimeDisplay } from '../components';
+import { Section, Box, Flex, TimeDisplay } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 
 export const Hacking = (props, context) => {
   const { act, data } = useBackend(context);
-  const { timeleft, games = [[[]]] } = data;
+  const { timeleft, games = [[[]]], finished_states = [] } = data;
+  let found_valid = 0;
   return (
-    <Window width={500} height={768} theme="hackerman" resizable>
+    <Window width={450} height={565} theme="hackerman" resizable>
       <Window.Content scrollable>
         <Section title="CYBERNETICS HACKING INTERFACE ">
-          {games.map((game, i) => (
-            <Section
-              key={i}
-              title={'HACKING IN PROGRESS [ ' + i + ' ]'}
-              level={2}>
-              {'[TIME LEFT: '}
-              <TimeDisplay auto="down" value={timeleft} />
-              {']'}
-              <Minigame key={i} array={game} minigame_id={i} />
-            </Section>
-          ))}
+          {'[TIME LEFT:  ['}
+          <TimeDisplay auto="down" value={timeleft} />
+          {']'}
+          <Flex direction="row" grow={1}>
+            {games.map((game, i) => {
+              if (finished_states[i] === 0 && !found_valid) {
+                found_valid = 1;
+                return (
+                  <Section
+                    key={i}
+                    title={'HACKING IN PROGRESS [ ' + i + ' ]'}
+                    level={2}>
+                    <Minigame
+                      key={i}
+                      array={game}
+                      finished={finished_states[i]}
+                      minigame_id={i}
+                    />
+                  </Section>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </Flex>
         </Section>
       </Window.Content>
     </Window>

@@ -10,7 +10,7 @@
 
 	var/finished = FALSE
 
-	var/board_size = 16
+	var/board_size = 8
 
 	var/list/datum/hacking_minigame_piece/board
 
