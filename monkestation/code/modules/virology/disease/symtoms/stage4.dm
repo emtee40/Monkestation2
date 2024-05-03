@@ -441,5 +441,8 @@
 			ADD_TRAIT(mob, TRAIT_NOBREATH, DISEASE_TRAIT)
 
 /datum/symptom/oxygen/deactivate(mob/living/carbon/mob, datum/disease/advanced/disease)
-	breathing = TRUE
-	REMOVE_TRAIT(mob, TRAIT_NOBREATH, DISEASE_TRAIT)
+	if(!breathing)
+		breathing = TRUE
+		REMOVE_TRAIT(mob, TRAIT_NOBREATH, DISEASE_TRAIT)
+		mob.emote("gasp")
+		to_chat(mob, span_notice("You feel the need to breathe again."))
