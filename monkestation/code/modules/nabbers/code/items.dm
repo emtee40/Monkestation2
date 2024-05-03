@@ -24,8 +24,8 @@
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
-	wound_bonus = 10 //dropped from 25
-	bare_wound_bonus = 10 //Dropped from 25. Now lowered due to the ability to sharpen them.
+	wound_bonus = 5 // 1/3rd of cleaver
+	bare_wound_bonus = 10 // Way less due to the fact that on a random greytider this would give them almost 30 wound_threshold bonus pre-damage calc.
 	var/icon_type_on //will manage if a blade should have custom icons.
 	var/icon_type_off
 
@@ -65,8 +65,8 @@
 	name = "energy-enhanced bladearm"
 	force = 29 //Only 5 less than a DEsword, but way more utility for nabbers.
 	armour_penetration = 45 //Almost half AP however
-	wound_bonus = 25 //Also insane, but 18tc item.
-	bare_wound_bonus = 40 //Insane, but this is a 18tc item. On-par with double-bladed esword.
+	wound_bonus = 15 //Same as cleaver
+	bare_wound_bonus = 20 //Insane, but this is a 18tc item. On-par with double-bladed esword/esword
 	hitsound = 'sound/weapons/blade1.ogg'
 	hit_reaction_chance = 45 //45% chance to block leaps/melee/unarmed.
 	armor_type = /datum/armor/item_shield
