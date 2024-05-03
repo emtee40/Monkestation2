@@ -11,11 +11,6 @@
 
 /datum/action/item_action/organ_action/sandy
 	name = "Sandevistan Activation"
-	cooldown = 45 SECONDS
-
-/datum/action/item_action/organ_action/sandy/bad
-	cooldown = 65 SECONDS
-
 /obj/item/organ/internal/cyberimp/chest/sandevistan
 	name = "Militech Apogee Sandevistan"
 	desc = "This model of Sandevistan doesn't exist, at least officially. Off the record, there's gossip of secret Militech Lunar labs producing covert cyberware. It was never meant to be mass produced, but an army would only really need a few pieces like this one to dominate their enemy."
@@ -60,7 +55,6 @@
 /obj/item/organ/internal/cyberimp/chest/sandevistan/refurbished
 	name = "refurbished sandevistan"
 	desc = "The branding has been scratched off of these and it looks hastily put together."
-	actions_types = list(/datum/action/item_action/organ_action/sandy/bad)
 
 	cooldown_time = 65 SECONDS
 
