@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(virusdishes, list())
 		return
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		if(growth < 50)
-			to_chat(user, span_warning("There isn't enough blood in the [src]."))
+			to_chat(user, span_warning("There isn't enough growth in the [src]."))
 		else
 			growth = growth - 50
 			var/obj/item/reagent_containers/syringe/B = I
