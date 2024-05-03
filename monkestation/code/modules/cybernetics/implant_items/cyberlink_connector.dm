@@ -124,8 +124,8 @@
 	to_chat(to_display, span_notice("Cyberlink beeps: HACKING [uppertext(cybernetic.name)] SUCCESS. COMPATIBILITY ACHIEVED."))
 	say("Successfully hacked augment.")
 	playsound(src, 'sound/machines/terminal_success.ogg', 50)
-	cleanup()
 	ui_close(current_user)
+	cleanup()
 
 
 /obj/item/cyberlink_connector/proc/hack_failure(failed as num)
@@ -154,10 +154,10 @@
 			cybernetic.visible_message(span_danger("[cybernetic.name] begins to flare and twitch as the electronics fry and sizzle!") )
 			addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
 	current_user.mind.adjust_experience(/datum/skill/implant_hacking,(4 - failed)*2)
-	cleanup()
 	say("Failed to hack augment.")
 	playsound(src, 'sound/machines/terminal_error.ogg', 50)
 	ui_close(current_user)
+	cleanup()
 
 /obj/item/cyberlink_connector/proc/explode()
 	SIGNAL_HANDLER
