@@ -16,5 +16,6 @@
 	name = "legendary hacker's cloak"
 	desc = "Worn by the most skilled of cybernetic hackers, wearing this proves you were able to conquer protocol, and hack any cybernetic. You are not sure if openly wearing an item of clothing that says 'I'm a master in breaking security protocols' is a good idea."
 	icon = 'monkestation/code/modules/cybernetics/icons/cloaks.dmi'
+	worn_icon = 'monkestation/code/modules/cybernetics/icons/neck.dmi'
 	icon_state = "hackercloak"
 	associated_skill_path = /datum/skill/implant_hacking
