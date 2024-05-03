@@ -37,7 +37,7 @@
 	display_name = "NT Approved Security Implants"
 	description = "A list of approved item sets that can be implanted into the crew to allow easier access to their tools."
 	prereq_ids = "A list of approved implants for security officers."
-	prereq_ids = list("ci-nt_high")
+	prereq_ids = list("ntlink_high")
 	design_ids = list(
 		"ci-set-mantis",
 		"ci-set-combat",
