@@ -17,6 +17,7 @@
 	var/beam_icon
 	var/list/beams = list()
 	var/force_teleports
+	var/datum/callback/break_callback
 
 	VAR_PRIVATE
 		// Pathfinding can yield, so only move us closer if this is the best one
@@ -32,7 +33,8 @@
 	force_teleport_in_effect,
 	beam_icon_state,
 	beam_icon,
-	force_teleports = TRUE
+	force_teleports = TRUE,
+	break_callback,
 )
 	. = ..()
 
@@ -63,6 +65,7 @@
 	src.beam_icon_state = beam_icon_state
 	src.beam_icon = beam_icon
 	src.force_teleports = force_teleports
+	src.break_callback = break_callback
 
 	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(on_owner_qdel))
 
@@ -89,6 +92,9 @@
 /datum/component/leash/proc/on_owner_qdel()
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
+
+	if(break_callback)
+		break_callback.Invoke()
 
 	qdel(src)
 
@@ -166,6 +172,8 @@
 	PRIVATE_PROC(TRUE)
 
 	if(!force_teleports)
+		if(break_callback)
+			break_callback.Invoke()
 		qdel(src)
 
 	var/atom/movable/movable_parent = parent

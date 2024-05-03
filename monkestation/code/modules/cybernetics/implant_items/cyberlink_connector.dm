@@ -8,10 +8,25 @@
 	var/current_timer_id = FALSE
 	var/obj/item/organ/internal/cyberimp/cybernetic
 	var/mob/living/current_user
+	var/mob/living/linked_target
+
+/obj/item/cyberlink_connector/Initialize(mapload)
+	. = ..()
+	register_context()
+
+/obj/item/cyberlink_connector/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(linked_target)
+		context[SCREENTIP_CONTEXT_ALT_LMB] = "Rip out cyberlink connection"
+
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/cyberlink_connector/Destroy()
 	. = ..()
 	parent_cyberlink = null
+	if(linked_target)
+		qdel(linked_target.GetComponent(/datum/component/leash))
+		linked_target = null
 	cleanup()
 
 ///We dont open the tgui when we click on this.
@@ -29,7 +44,7 @@
 	if(!parent_cyberlink)
 		var/obj/item/organ/internal/cyberimp/cyberlink/link = user.get_organ_slot(ORGAN_SLOT_LINK)
 		if(!link)
-			to_chat(user,"<span class='notice'> NO CYBERLINK DETECTED </span>")
+			to_chat(user,span_notice(" NO CYBERLINK DETECTED ") )
 			return
 		parent_cyberlink = link
 
@@ -50,7 +65,7 @@
 				break
 
 	if(diffrences == 0)
-		to_chat(current_user,"<span class='notice'> Cyberlink beeps: [uppertext(cybernetic.name)] ALREADY COMPATIBLE.</span>")
+		to_chat(current_user,span_notice(" Cyberlink beeps: [uppertext(cybernetic.name)] ALREADY COMPATIBLE.") )
 		cleanup()
 		return
 
@@ -62,6 +77,33 @@
 
 	ui_interact(user)
 
+/obj/item/cyberlink_connector/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!isliving(user))
+		return
+	var/mob/living/target_living = target
+	var/obj/item/organ/internal/cyberimp/cyberlink/link = target_living.get_organ_slot(ORGAN_SLOT_LINK)
+	if(!link)
+		to_chat(user, span_notice("[target] doesn't have a cyberlink."))
+		return
+	user.visible_message(span_notice("[user] begins to start plugging "))
+	if(!do_after(user, 2 SECONDS, target))
+		return
+	linked_target = target_living
+	target_living.AddComponent(/datum/component/leash, src, 3, beam_icon_state = "razorwire", beam_icon = 'icons/effects/beam.dmi', force_teleports = FALSE, break_callback = CALLBACK(src, PROC_REF(clear_target_link)))
+	parent_cyberlink = link
+
+/obj/item/cyberlink_connector/AltClick(mob/user)
+	. = ..()
+	if(!linked_target)
+		return
+	clear_target_link()
+
+/obj/item/cyberlink_connector/proc/clear_target_link()
+	if(linked_target)
+		qdel(linked_target.GetComponent(/datum/component/leash))
+		linked_target = null
+
 /obj/item/cyberlink_connector/proc/cleanup()
 	current_user = null
 	cybernetic = null
@@ -70,37 +112,43 @@
 	current_timer_id = FALSE
 
 /obj/item/cyberlink_connector/proc/hack_success(success as num)
+	var/mob/living/to_display = current_user
+	if(linked_target)
+		to_display = linked_target
 	for(var/info in cybernetic.encode_info)
 		if(cybernetic.encode_info[info] == NO_PROTOCOL)
 			continue
 		//Not a += because we want to avoid having duplicate entries in either encode_info
 		cybernetic.encode_info[info] |= parent_cyberlink.encode_info[info]
 	current_user.mind.adjust_experience(/datum/skill/implant_hacking,success * 25)
-	to_chat(current_user,"<span class='notice'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] SUCCESS. COMPATIBILITY ACHIEVED.</span>")
+	to_chat(to_display, span_notice("Cyberlink beeps: HACKING [uppertext(cybernetic.name)] SUCCESS. COMPATIBILITY ACHIEVED."))
 	cleanup()
 
 
 /obj/item/cyberlink_connector/proc/hack_failure(failed as num)
 	var/chance = rand(0,40*failed)
+	var/mob/living/to_damage = current_user
+	if(linked_target)
+		to_damage = linked_target
 	switch(chance)
 		if(0 to 25)
-			to_chat(current_user,"<span class='warning'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MINOR FAILURE. COMPATIBILITY NOT ACHIEVED. NO DAMAGE DETECTED.</span>")
+			to_chat(to_damage,span_warning(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MINOR FAILURE. COMPATIBILITY NOT ACHIEVED. NO DAMAGE DETECTED.") )
 		if(26 to 40)
-			to_chat(current_user,"<span class='warning'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MEDIUM FAILURE. COMPATIBILITY NOT ACHIEVED. SMALL AMOUNT OF DAMAGE DETECTED.</span>")
-			current_user.adjustFireLoss(10)
-			current_user.emote("scream")
+			to_chat(to_damage,span_warning(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MEDIUM FAILURE. COMPATIBILITY NOT ACHIEVED. SMALL AMOUNT OF DAMAGE DETECTED.") )
+			to_damage.adjustFireLoss(10)
+			to_damage.emote("scream")
 		if(41 to 50)
-			to_chat(current_user,"<span class='warning'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MEDIUM FAILURE. COMPATIBILITY NOT ACHIEVED. PROTOCOL SCRAMBILING DETECTED.</span>")
+			to_chat(to_damage,span_warning(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MEDIUM FAILURE. COMPATIBILITY NOT ACHIEVED. PROTOCOL SCRAMBILING DETECTED.") )
 			cybernetic.random_encode()
 		if(51 to 75)
-			to_chat(current_user,"<span class='danger'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MINOR ELECTROMAGNETIC PULSE DETECTED.</span>")
-			empulse(current_user, 0, 1)
+			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MINOR ELECTROMAGNETIC PULSE DETECTED.") )
+			empulse(to_damage, 0, 1)
 		if(76 to 99)
-			to_chat(current_user,"<span class='danger'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MAJOR ELECTROMAGNETIC PULSE DETECTED.</span>")
-			empulse(current_user, 1, 2)
+			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MAJOR ELECTROMAGNETIC PULSE DETECTED.") )
+			empulse(to_damage, 1, 2)
 		if(100 to INFINITY)
-			to_chat(current_user,"<span class='danger'> Cyberlink beeps: HACKING [uppertext(cybernetic.name)] CRITICAL FAILURE. COMPATIBILITY NOT ACHIEVED. IMPLANT OVERHEATING IN 5 SECONDS.</span>")
-			cybernetic.visible_message("<span class='danger'>[cybernetic.name] begins to flare and twitch as the electronics fry and sizzle!</span>")
+			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] CRITICAL FAILURE. COMPATIBILITY NOT ACHIEVED. IMPLANT OVERHEATING IN 5 SECONDS.") )
+			cybernetic.visible_message(span_danger("[cybernetic.name] begins to flare and twitch as the electronics fry and sizzle!") )
 			addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
 	current_user.mind.adjust_experience(/datum/skill/implant_hacking,(4 - failed)*2)
 	cleanup()

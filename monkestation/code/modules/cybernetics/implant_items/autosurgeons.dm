@@ -44,38 +44,38 @@
 
 /obj/item/autosurgeon/skillchip/attack_self(mob/living/carbon/user)//when the object it used...
 	if(!uses)
-		to_chat(user, "<span class='alert'>[src] has already been used. The tools are dull and won't reactivate.</span>")
+		to_chat(user, span_alert("[src] has already been used. The tools are dull and won't reactivate.") )
 		return
 
 	if(!stored_skillchip)
-		to_chat(user, "<span class='alert'>[src] currently has no skillchip stored.</span>")
+		to_chat(user, span_alert("[src] currently has no skillchip stored.") )
 		return
 
 	if(!istype(user))
-		to_chat(user, "<span class='alert'>[user]'s brain cannot accept skillchip implants.</span>")
+		to_chat(user, span_alert("[user]'s brain cannot accept skillchip implants.") )
 		return
 
 	// Try implanting.
 	var/implant_msg = user.implant_skillchip(stored_skillchip)
 	if(implant_msg)
-		user.visible_message("<span class='notice'>[user] presses a button on [src], but nothing happens.</span>", "<span class='notice'>The [src] quietly beeps at you, indicating some sort of error.</span>")
-		to_chat(user, "<span class='alert'>[stored_skillchip] cannot be implanted. [implant_msg]</span>")
+		user.visible_message(span_notice("[user] presses a button on [src], but nothing happens.") , span_notice("The [src] quietly beeps at you, indicating some sort of error.") )
+		to_chat(user, span_alert("[stored_skillchip] cannot be implanted. [implant_msg]") )
 		return
 
 	// Clear the stored skillchip, it's technically not in this machine anymore.
 	var/obj/item/skillchip/implanted_chip = stored_skillchip
 	stored_skillchip = null
 
-	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your brain.</span>")
+	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise.") , span_notice("You feel a sharp sting as [src] plunges into your brain.") )
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 
-	to_chat(user,"<span class='notice'>Operation complete! [implanted_chip] successfully implanted. Attempting auto-activation...</span>")
+	to_chat(user,span_notice("Operation complete! [implanted_chip] successfully implanted. Attempting auto-activation...") )
 
 	// If implanting succeeded, try activating - Although activating isn't required, so don't early return if it fails.
 	// The user can always go activate it at a skill station.
 	var/activate_msg = implanted_chip.try_activate_skillchip(FALSE, FALSE)
 	if(activate_msg)
-		to_chat(user, "<span class='alert'>[implanted_chip] cannot be activated. [activate_msg]</span>")
+		to_chat(user, span_alert("[implanted_chip] cannot be activated. [activate_msg]") )
 
 	name = initial(name)
 
@@ -90,19 +90,19 @@
 		return ..()
 
 	if(stored_skillchip)
-		to_chat(user, "<span class='alert'>[src] already has a skillchip stored.</span>")
+		to_chat(user, span_alert("[src] already has a skillchip stored.") )
 		return
 
 	if(!uses)
-		to_chat(user, "<span class='alert'>[src] has already been used up.</span>")
+		to_chat(user, span_alert("[src] has already been used up.") )
 		return
 
 	if(!user.transferItemToLoc(I, src))
-		to_chat(user, "<span class='alert'>You fail to insert the skillchip into [src]. It seems stuck to your hand.</span>")
+		to_chat(user, span_alert("You fail to insert the skillchip into [src]. It seems stuck to your hand.") )
 		return
 
 	stored_skillchip = I
-	to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
+	to_chat(user, span_notice("You insert the [I] into [src].") )
 
 /obj/item/autosurgeon/skillchip/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -110,7 +110,7 @@
 		return
 
 	if(!stored_skillchip)
-		to_chat(user, "<span class='warning'>There's no skillchip in [src] for you to remove!</span>")
+		to_chat(user, span_warning("There's no skillchip in [src] for you to remove!") )
 		return TRUE
 
 	var/atom/drop_loc = user.drop_location()
@@ -118,7 +118,7 @@
 		var/atom/movable/movable_content = thing
 		movable_content.forceMove(drop_loc)
 
-	to_chat(user, "<span class='notice'>You remove the [stored_skillchip] from [src].</span>")
+	to_chat(user, span_notice("You remove the [stored_skillchip] from [src].") )
 	I.play_tool_sound(src)
 	stored_skillchip = null
 

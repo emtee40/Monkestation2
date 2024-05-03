@@ -104,6 +104,7 @@
 /obj/item/organ/internal/cyberimp/arm/ammo_counter
 	name = "S.M.A.R.T. ammo logistics system"
 	desc = "Special inhand implant that allows transmits the current ammo and energy data straight to the user's visual cortex."
+	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#750137"
