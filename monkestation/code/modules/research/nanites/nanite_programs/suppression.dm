@@ -292,17 +292,17 @@
 /datum/nanite_program/conversation_filter/proc/on_hear(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
 	var/datum/nanite_extra_setting/phrase = extra_settings[NES_INVALID_PHRASE]
+	var/datum/nanite_extra_setting/replacement_phrase = extra_settings[NES_PHRASE_REPLACEMENT]
+	var/datum/nanite_extra_setting/replacement_mode = extra_settings[NES_REPLACEMENT_MODE]
 
 	if(!phrase.get_value())
 		return
-
-	var/datum/nanite_extra_setting/replacement_phrase = extra_settings[NES_PHRASE_REPLACEMENT]
 
 	if(!replacement_phrase.get_value())
 		replacement_phrase = new /datum/nanite_extra_setting/text("\[Invalid Phrase Detected, Sentence Revoked.\]")
 
 	if(findtext(hearing_args[HEARING_RAW_MESSAGE], phrase.get_value()))
-		if (extra_settings[NES_REPLACEMENT_MODE])
+		if (replacement_mode.get_value())
 			hearing_args[HEARING_RAW_MESSAGE] = replacement_phrase.get_value()
 		else
 			var/message = hearing_args[HEARING_RAW_MESSAGE]
