@@ -96,4 +96,5 @@
 
 /datum/greyscale_config/nabber/glasses //yippie
 	name = "Nabber Glasses"
+	icon_file = 'monkestation/code/modules/nabbers/icons/mob/clothing/glasses.dmi'
 	json_config = 'monkestation/code/modules/nabbers/code/GAGS/greyscale/json_configs/nabber_fallbacks/glasses.json'
