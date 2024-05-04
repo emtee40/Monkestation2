@@ -146,28 +146,28 @@
 		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 		SPECIES_PERK_ICON = "dna",
 		SPECIES_PERK_NAME = "Inhuman Proportions",
-		SPECIES_PERK_DESC = "Giant Armoured Serpentids are, unfortunately, too different to wear normal clothing."
+		SPECIES_PERK_DESC = "Giant Armoured Serpentids are, unfortunately, too different to wear a majority of traditional armor, MODsuits and goggles!."
 	))
 
 	perk_descriptions += list(list(
 		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 		SPECIES_PERK_ICON = "dna",
 		SPECIES_PERK_NAME = "Robust Chitin",
-		SPECIES_PERK_DESC = "Giant Armoured Serpentids have a robust external chitin layer that protects them from damage, but leaves them flammable."
+		SPECIES_PERK_DESC = "Giant Armoured Serpentids have a robust external chitin layer that protects them from a majority of brute damage sources."
 	))
 
 	perk_descriptions += list(list(
 		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 		SPECIES_PERK_ICON = "star-of-life",
-		SPECIES_PERK_NAME = "EXTREME Fire Vulnerability",
-		SPECIES_PERK_DESC = "Due to Giant Armoured Serpentids method of 'breathing', being set on fire will also suffocate them."
+		SPECIES_PERK_NAME = "Chitin-Breather",
+		SPECIES_PERK_DESC = "Due to the fact Giant Armoured Serpentids (Nabbers) rely on spiracles beneath their chitin to breathe, when set on fire - they are unable to intake oxygen!"
 	))
 
 	perk_descriptions += list(list(
 		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 		SPECIES_PERK_ICON = "star-of-life",
 		SPECIES_PERK_NAME = "Flammable Chitin",
-		SPECIES_PERK_DESC = "Due to the photoreflective layer on their chitin, Giant Armoured Serpentids are known to combust when exposed to sufficient heat or flame, very, very easily."
+		SPECIES_PERK_DESC = "Due to the photoreflectivity and nature of their chitin, Giant Armoured Serpentids are known to be EXTREMELY burn weak, taking almost double damage from all sources, and combusting on exposure to open flame or hot enough atmospherics."
 	))
 
 	perk_descriptions += list(list(
