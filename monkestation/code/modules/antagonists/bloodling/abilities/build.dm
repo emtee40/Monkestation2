@@ -13,8 +13,8 @@
 // Snowflake to check for what we build
 /datum/action/cooldown/bloodling/build/proc/check_for_duplicate()
 	for(var/blocker_name in structures)
-		var/atom/blocker_type = structures[blocker_name]
-		if(locate(blocker_type) in owner.loc)
+		blocker_name = structures[blocker_name]
+		if(locate(blocker_type) in get_turf(src))
 			to_chat(owner, span_warning("There is already shaped flesh here!"))
 			return FALSE
 
@@ -34,5 +34,5 @@
 		span_notice("You mold a [choice] out of your flesh."),
 	)
 
-	new choice_path(owner.loc)
+	new choice_path(get_turf(owner))
 	return TRUE

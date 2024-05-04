@@ -35,7 +35,7 @@
 	/// How much biomass is gained from absorbing something
 	var/biomass_gain = 10
 
-	to_chat(owner, span_noticealien("You wrap your tendrils around [target] and begin absorbing it!"))
+	balloon_alert(owner, "You wrap your tendrils around [target] and begin absorbing it!")
 
 	// This prevents the mob from being dragged away from the bloodling during the process
 	target.AddComponentFrom(REF(src), /datum/component/leash, our_mob, 1)
@@ -51,7 +51,7 @@
 
 	var/mob/living/mob_to_absorb = target
 	if(!iscarbon(mob_to_absorb))
-		biomass_gain = mob_to_absorb.getMaxHealth() * 0.5
+		biomass_gain = max(mob_to_absorb.getMaxHealth() * 0.5, biomass_gain)
 		if(biomass_gain < 10)
 			biomass_gain = 10
 	else

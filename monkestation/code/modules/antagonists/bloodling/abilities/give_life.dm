@@ -9,7 +9,7 @@
 		return FALSE
 
 	var/mob/living/mob_target = target
-	if(mob_target.ckey && !mob_target.stat == DEAD)
+	if(mob_target.mind && !mob_target.stat == DEAD)
 		owner.balloon_alert(owner, "only works on non-sentient alive mobs!")
 		return FALSE
 
@@ -31,7 +31,7 @@
 		POLL_IGNORE_SHUTTLE_DENIZENS,
 		pic_source = target_mob
 	)
-	if(!LAZYLEN(candidates) && !LAZYLEN(target_mob))
+	if(!LAZYLEN(candidates))
 		owner.balloon_alert(owner, "[target_mob] rejects your generous gift...for now...")
 		return FALSE
 	var/mob/dead/observer/candie = pick_n_take(candidates)
