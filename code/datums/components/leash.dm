@@ -200,6 +200,8 @@
 		qdel(beam)
 
 	var/atom/movable/movable_parent = parent
+	if(!length(path))
+		return
 	var/turf/first_turf = path[1]
 	var/atom/new_host = movable_parent
 
