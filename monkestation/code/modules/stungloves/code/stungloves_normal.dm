@@ -3,7 +3,7 @@
 /obj/item/melee/baton/security/stungloves //Compatible with species with chunky fingers.
 	name = "PSG-MK3"
 	desc = "The Mark-Three Powered Stun Gloves. For re-educating the Clown with your fists, now in legally-correct flavors! Wearable - turns your punches into stunbaton hits!."
-	force = 3 // These are gloves meant to stun targets. They're not meant to be used to beat the clown to death. Hopefully.
+	force = 1 // These are gloves meant to stun targets. They're not meant to be used to beat the clown to death. Hopefully.
 	icon = 'monkestation/code/modules/stungloves/icons/stunglove_item.dmi'
 	worn_icon = 'monkestation/code/modules/stungloves/icons/stunglove_item.dmi'
 	worn_icon_nabber = 'monkestation/code/modules/nabbers/icons/mob/clothing/hands.dmi'
@@ -14,8 +14,8 @@
 	slot_flags = ITEM_SLOT_GLOVES
 	chunky_finger_usable = TRUE
 
-	cooldown = 2.5 SECONDS //Longer.
-	stamina_damage = 95 //Lower.
+	cooldown = 3 SECONDS //Longer.
+	stamina_damage = 65 //Lower.
 	knockdown_time = 2.5 SECONDS //Half
 	clumsy_knockdown_time = 6 SECONDS //Lower power batong
 	var/datum/action/cooldown/toggle_stunners/assistant_killer

@@ -6,8 +6,8 @@
 		"seclite",
 		"zipties",
 		"inspector",
-		"rubber_c35", //Moves nonmodular sec edits to here. Might aswell.
-		"stungloves_empty"
+		"rubber_c35" //Moves nonmodular sec edits to here. Might aswell.
+		//"stungloves_empty"
 	)
 
 /datum/design/stunglove_empty //tacking this onto basic sectech
