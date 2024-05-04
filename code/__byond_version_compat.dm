@@ -9,7 +9,6 @@
 #error You need version 515.1627 or higher
 #endif
 
-
 // Keep savefile compatibilty at minimum supported level
 /savefile/byond_version = MIN_COMPILER_VERSION
 
