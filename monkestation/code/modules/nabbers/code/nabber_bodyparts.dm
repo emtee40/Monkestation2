@@ -1,9 +1,10 @@
 #define NABBER_PUNCH_LOW 3 // Base punch damage.
 #define NABBER_PUNCH_HIGH 5
 #define BODYPART_ICON_NABBER 'monkestation/code/modules/nabbers/icons/bodyparts/nabber_parts_greyscale.dmi'
-#define NABBER_BRUTE_MODIFIER 0.65 // Handles the total damage incoming
-#define NABBER_BURN_MODIFIER 1.4 // 0.65x incoming brute, 1.4x burn. Keep in mind, they also suffocate while on fire.
-//Nabbers
+#define NABBER_BRUTE_MODIFIER 0.95 //5% total incoming brute damage reduction atop of armor.
+#define NABBER_BURN_MODIFIER 1.8 // 0.65x incoming brute, 1.8x burn. Burn multiplier raised to account for melee armor affecting welders.
+
+//Nabbers limbs.
 /obj/item/bodypart/head/mutant/nabber
 	icon_greyscale = BODYPART_ICON_NABBER
 	limb_id = SPECIES_NABBER

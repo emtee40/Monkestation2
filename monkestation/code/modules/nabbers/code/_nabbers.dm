@@ -1,4 +1,4 @@
-#define NABBER_DAMAGE_ONBURNING 5
+#define NABBER_DAMAGE_ONBURNING 10 //Temporary change. If it's too dangerous, I'll nerf it.
 #ifdef TRAIT_HARD_SOLES //Checks to see if this trait exists.
 /datum/species/nabber //If Hard_soles is detected, apply it to their inherent_traits. Cross-Testmerge compatability!
 	inherent_traits = list(
@@ -20,6 +20,18 @@
 	)
 #endif
 //Handles species
+
+//Nabbers armor datum. Change this to change their resistances. Is now affected by armor piercing/etc
+//By default, this is a way easier method of balancing a species rather than directly affecting burn/brute_mod, as this takes into account AP.
+//Currently Nabbers also recieve a 5% brute damage reduction atop of this, and a 1.8x burn modifier, atop of their pre-existing heat modifiers.
+//Whenever you adjust these variables, make sure to adjust their damage reduction, heat modifiers, and burn vulnerability to prevent scaling issues.
+
+/datum/armor/nabbers
+	melee = 45 //Massively reduce incoming melee damage
+	bullet = 25 //Reduce incoming bullet damage, too
+	wound = 25 //Bare wound chance reduction
+	acid = 15 // Acid reduction
+
 /datum/species/nabber
 	name = "Giant Armored Serpentid"
 	id = SPECIES_NABBER
@@ -79,8 +91,8 @@
 	arms.Grant(C)
 	camouflage = new(C)
 	camouflage.Grant(C)
-	//threat_mod = new(C)
-	//threat_mod.Grant(C)
+
+	C.set_armor(C.get_armor().add_other_armor(/datum/armor/nabbers)) //Assign the armor
 
 /datum/species/nabber/get_species_description()
 	return "Large, bulky - impressively armoured and chitinous, these ambush predators are a recent acquisition by NanoTrasen. Loyal workers, not the brightest bulb in the pack - and physically impressive, they're perfect for all forms of menial, unimportant labor. Known to be extremely flammable."
@@ -105,6 +117,7 @@
 	. = ..()
 	qdel(arms)
 	qdel(camouflage)
+	C.set_armor(C.get_armor().subtract_other_armor(/datum/armor/nabbers)) //Make sure to remove it, to stop people abusing lings/etc to gain infinite melee armor
 	//threat_mod.Destroy()
 
 /datum/species/nabber/spec_life(mob/living/carbon/human/H, seconds_per_tick, times_fired)

@@ -1,41 +1,68 @@
 //Add any and all powergloves/stungloves to this file!\\
 
 /obj/item/melee/baton/security/stungloves //Compatible with species with chunky fingers.
-	name = "MK.III PSG"
-	desc = "The Mark-Three Powered Stun Gloves. For re-educating the Clown with your fists, now in legally-correct flavors! Wearable - Leftclick to Stun, Rightclick to beat. Combat intent to stun AND beat while leftclicking."
+	name = "PSG-MK3"
+	desc = "The Mark-Three Powered Stun Gloves. For re-educating the Clown with your fists, now in legally-correct flavors! Wearable - turns your punches into stunbaton hits!."
 	force = 3 // These are gloves meant to stun targets. They're not meant to be used to beat the clown to death. Hopefully.
 	icon = 'monkestation/code/modules/stungloves/icons/stunglove_item.dmi'
 	worn_icon = 'monkestation/code/modules/stungloves/icons/stunglove_item.dmi'
 	worn_icon_nabber = 'monkestation/code/modules/nabbers/icons/mob/clothing/hands.dmi'
 	icon_state = "stunglove"
-	inhand_icon_state = "stunglove"
+	inhand_icon_state = "baton"
 	worn_icon_state = "stunglove_onmob"
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	chunky_finger_usable = TRUE
-	preload_cell_type = /obj/item/stock_parts/cell/high
 
-	cooldown = 2 SECONDS //Longer.
-	stamina_damage = 95
+	cooldown = 2.5 SECONDS //Longer.
+	stamina_damage = 95 //Lower.
 	knockdown_time = 2.5 SECONDS //Half
 	clumsy_knockdown_time = 6 SECONDS //Lower power batong
+	var/datum/action/cooldown/toggle_stunners/assistant_killer
+
+/obj/item/melee/baton/security/stungloves/Destroy()
+	qdel(assistant_killer) // This should never be neccessary except if admins are manually deleting players.
+	return ..()
 
 /obj/item/melee/baton/security/stungloves/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_GLOVES)
 		RegisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(punch_to_stun))
+		assistant_killer = new(user)
+		assistant_killer.Grant(user)
 
 /obj/item/melee/baton/security/stungloves/dropped(mob/user)
 	. = ..()
 	if(user.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		UnregisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
+		assistant_killer.Remove(user)
+		qdel(assistant_killer) //Ensure this evaporates itself. Likely WILL NOT happen if an admin deletes someone wearing them, so handle it on destroy too.
 
 /obj/item/melee/baton/security/stungloves/proc/punch_to_stun(mob/living/carbon/human/source, atom/target, proximity, modifiers)
 	SIGNAL_HANDLER
 	if(!proximity)
 		return NONE
 	if(ishuman(target))
-		return src.attack(target, source, BATON_ATTACKING) //Make sure we stun them, or at worst case, just prod them if no cell
+		if((source.istate & ISTATE_HARM) || (source.istate & ISTATE_SECONDARY))
+			return src.attack(target, source, BATON_ATTACKING) //Make sure we stun them, or at worst case, just prod them if no cell
 	if(ismob(target))
-		return src.attack(target,source) //Default to attacking otherwise
+		if((source.istate & ISTATE_HARM) || (source.istate & ISTATE_SECONDARY))
+			return src.attack(target, source) //Make sure we beat they ass
 	return NONE
+
+/obj/item/melee/baton/security/stungloves/preloaded
+	preload_cell_type = /obj/item/stock_parts/cell/high
+
+/datum/action/cooldown/toggle_stunners
+	name = "Toggle Stungloves"
+	desc = "Toggle your stungloves on or off."
+	button_icon = 'icons/mob/actions/actions_items.dmi'
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
+	button_icon_state = "nanite_power" //Placeholder
+	cooldown_time = 0.25 SECONDS //Stops spam.
+
+/datum/action/cooldown/toggle_stunners/Activate()
+	. = ..()
+	var/mob/living/carbon/human/shitsec = owner // we do a little trolling
+	var/obj/item/melee/baton/security/stungloves/assistantkiller = shitsec.get_item_by_slot(ITEM_SLOT_GLOVES)
+	assistantkiller.attack_self(shitsec) //handles turning this on and off pretty well

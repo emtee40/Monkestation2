@@ -1542,8 +1542,7 @@
 		"pepperspray",
 		"seclite",
 		"zipties",
-		"inspector",
-		"rubber_c35", //monkestation edit: taco sec
+		"inspector"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
