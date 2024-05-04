@@ -191,6 +191,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/proc/machine_upgrade,
 	/datum/admins/proc/create_or_modify_area,
 	/client/proc/adventure_manager,
+	/client/proc/hard_deletion_toggle,
 	/client/proc/atmos_control,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
@@ -223,6 +224,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/get_dynex_range, /*debug verbs for dynex explosions.*/
 	/client/proc/jump_to_ruin,
 	/client/proc/load_circuit,
+	/client/proc/map_export,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
 	/client/proc/modify_goals,
