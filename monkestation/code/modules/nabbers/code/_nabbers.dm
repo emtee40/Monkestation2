@@ -32,6 +32,7 @@
 	bullet = 25 //Reduce incoming bullet damage, too
 	wound = 25 //Bare wound chance reduction
 	acid = 15 // Acid reduction
+	bomb = 10 //Forgot to add this earlier. Should stop them from instantly getting eviscerated from things like exploding vines/etc
 
 /datum/species/nabber
 	name = "Giant Armored Serpentid"
