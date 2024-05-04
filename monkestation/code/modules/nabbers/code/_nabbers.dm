@@ -25,6 +25,7 @@
 //By default, this is a way easier method of balancing a species rather than directly affecting burn/brute_mod, as this takes into account AP.
 //Currently Nabbers also recieve a 5% brute damage reduction atop of this, and a 1.8x burn modifier, atop of their pre-existing heat modifiers.
 //Whenever you adjust these variables, make sure to adjust their damage reduction, heat modifiers, and burn vulnerability to prevent scaling issues.
+//All values are currently temporary and will require further balancing as eye protection, and nabber nukie modsuits are added.
 
 /datum/armor/nabbers
 	melee = 45 //Massively reduce incoming melee damage
@@ -55,7 +56,7 @@
 	coldmod = 0.3 //Very very resistant to cold
 	heatmod = 2.5 // IT BURNS
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 10)
+	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT - 5) //-10 was a bit too high, as it already does damage to their lungs
 	bodytype = BODYTYPE_ORGANIC | BODYTYPE_CUSTOM
 	mutantbrain = /obj/item/organ/internal/brain/nabber
 	mutanteyes = /obj/item/organ/internal/eyes/robotic/nabber

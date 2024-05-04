@@ -85,7 +85,7 @@
 	icon = ORGAN_ICON_NABBER
 	icon_state = "lungs"
 
-	cold_message = "You can't stand the freezing cold with every breath you take!"
+	cold_message = "frigid cold"
 	cold_level_1_threshold = NABBER_COLD_THRESHOLD_1
 	cold_level_2_threshold = NABBER_COLD_THRESHOLD_2
 	cold_level_3_threshold = NABBER_COLD_THRESHOLD_3
@@ -95,7 +95,7 @@
 	cold_damage_type = BRUTE
 
 
-	hot_message = "You can't stand the searing heat with every breath you take!"
+	hot_message = "scorching heat"
 	heat_level_1_threshold = NABBER_HEAT_THRESHOLD_1
 	heat_level_2_threshold = NABBER_HEAT_THRESHOLD_2
 	heat_level_3_threshold = NABBER_HEAT_THRESHOLD_3
