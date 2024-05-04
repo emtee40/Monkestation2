@@ -284,6 +284,7 @@ Security HUDs! Basic mode shows only the job.
 	if(!permit_icon_state)
 		permit_icon_state = "hudfan_no"
 	permit_holder.icon_state = permit_icon_state
+	SEND_SIGNAL(src, COMSIG_HUMAN_SECHUD_SET_ID)
 //monkestation edit end
 
 /mob/living/proc/sec_hud_set_implants()

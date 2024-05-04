@@ -2,6 +2,16 @@
 	///The list of keys that are valid to see our antag hud/of huds we can see
 	var/list/hud_keys
 
+/datum/antagonist/on_gain()
+	. = ..()
+	if(show_to_ghosts)
+		GLOB.orbit_menu.update_static_data_for_all_viewers()
+
+/datum/antagonist/on_removal()
+	. = ..()
+	if(show_to_ghosts)
+		GLOB.orbit_menu.update_static_data_for_all_viewers()
+
 ///Set our hud_keys, please only use this proc when changing them, if override_old_keys is FALSE then we will simply add keys, otherwise we we set our keys to only be passed ones
 /datum/antagonist/proc/set_hud_keys(list/keys, override_old_keys = FALSE)
 	if(!islist(keys))
