@@ -31,6 +31,8 @@
 		"repairing_nanites",
 		"repeater_nanites",
 		"sensor_nanite_volume",
+		// DEBUG
+		"word_filter_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -99,6 +101,7 @@
 		"paralyzing_nanites",
 		"selfscan_nanites",
 		"stun_nanites",
+		// "word_filter_nanites", DEBUG
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 
