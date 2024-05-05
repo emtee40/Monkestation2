@@ -35,7 +35,7 @@
 	if(ishuman(user) && !COOLDOWN_FINISHED(src, non_charge_cooldown))
 		attacked_mob.stamina.adjust(-5)
 		attacked_mob.visible_message(span_danger("[user] weakly prods [attacked_mob] with [src]!"), \
-					span_userdanger("[user] weakly prods you with [src]!"))'
+					span_userdanger("[user] weakly prods you with [src]!"))
 		COOLDOWN_START(src, non_charge_cooldown, 3 SECONDS)
 		return
 
