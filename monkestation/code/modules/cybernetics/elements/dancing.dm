@@ -108,14 +108,14 @@
 		chosen_dance = pick(dances)
 		chosen_dance = new chosen_dance
 		INVOKE_ASYNC(chosen_dance, TYPE_PROC_REF(/datum/dance, trigger_dance), target)
-	ADD_TRAIT(target, TRAIT_IMMOBILIZED, trait_source)
+	//ADD_TRAIT(target, TRAIT_IMMOBILIZED, trait_source)
 	ADD_TRAIT(target, TRAIT_DANCING, trait_source)
 	RegisterSignal(target, dancing_stop_signals, PROC_REF(stop_dancing))
 
 /datum/element/dancing/Detach(datum/source, datum/target, trait_source)
 	. = ..()
 	REMOVE_TRAIT(source, TRAIT_DANCING, trait_source)
-	REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, trait_source)
+	//REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, trait_source)
 	if(!HAS_TRAIT(source, TRAIT_DANCING))
 		chosen_dance?.end_dance(source)
 		QDEL_NULL(chosen_dance)
