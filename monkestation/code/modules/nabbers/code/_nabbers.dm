@@ -127,9 +127,9 @@
 	if(H.stat == DEAD) //Should never allow for them to keep burning forever
 		return
 	//Handles bonus burn damage
-	if(H.on_fire && !H.get_armor_rating(FIRE) >= 50) //Make sure this isn't being applied if they're fire immune.
+	if(H.on_fire) //Make sure this isn't being applied if they're fire immune.
 		H.apply_damage(NABBER_DAMAGE_ONBURNING, OXY)
-	if(H.fire_stacks <= 5 && !H.on_fire && !H.get_armor_rating(FIRE) >= 50) //Never give more than 15 firestacks... Normally. Or if they have enough fire armor.
+	if(H.fire_stacks <= 5 && !H.on_fire) //Never give more than 15 firestacks... Normally. Or if they have enough fire armor.
 		H.adjust_fire_stacks(10)
 
 /datum/species/nabber/prepare_human_for_preview(mob/living/carbon/human/nabber)
