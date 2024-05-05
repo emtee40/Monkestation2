@@ -40,12 +40,11 @@
 //monkestation edit start
 /datum/round_event/pirates/setup()
 	. = ..()
-	if(!.)
-		return
-
-	for(var/gang in gang_list)
-		gang = new gang
-	setup = TRUE
+	gang_list = list()
+	for(var/datum/pirate_gang/gang in GLOB.light_pirate_gangs + GLOB.heavy_pirate_gangs)
+		if(gang.paid_off)
+			continue
+		gang_list += gang
 //monkestation edit end
 
 /datum/round_event/pirates/start()
@@ -89,6 +88,7 @@
 
 /proc/spawn_pirates(datum/comm_message/threat, datum/pirate_gang/chosen_gang)
 	if(chosen_gang.paid_off)
+		chosen_gang.paid_off = FALSE //monkestation edit
 		return
 
 	var/list/candidates = SSpolling.poll_ghost_candidates("Do you wish to be considered for a a pirate crew of [chosen_gang.name]?", check_jobban = ROLE_SPACE_PIRATE, pic_source = /obj/item/claymore/cutlass, role_name_text = "pirate crew")
