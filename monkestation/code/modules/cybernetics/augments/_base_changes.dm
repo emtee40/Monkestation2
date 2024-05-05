@@ -54,7 +54,7 @@
 			display = ""
 			for(var/operating in check_list)
 				display += "[uppertext(operating)], "
-			. += "It's operating protocols are [display]for the implant to function it requires at least one of them to be shared with the cyberlink."
+			. += "It's operating protocols are [display]for the implant to function it requires the operating protocols match the cyberlink's."
 
 /obj/item/organ/internal/cyberimp/emp_act(severity)
 	. = ..()
