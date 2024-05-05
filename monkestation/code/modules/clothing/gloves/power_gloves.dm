@@ -27,22 +27,31 @@
 
 //had to recreate tesla zap into a pointed version
 /datum/action/cooldown/spell/pointed/glove_zap/proc/target_tesla_zap(atom/source, atom/target, power, zap_flags = ZAP_DEFAULT_FLAGS, max_damage = 90)
-	source.Beam(target, icon_state="lightning[rand(1,12)]", time = 5)
+	// damage the shock causes, DO NOT fuck with the function unless you know what you're doing.
+	var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round( 5*(ROOT (4, (power)))), max_damage) + rand(-5, 5)) : 0
+	var/mob/living/electrocute_victim = target
+
+	source.Beam(target, icon_state="lightning[rand(1,12)]", time = 5) //Creates lightning beam
 	var/zapdir = get_dir(source, target)
 	if(zapdir)
 		. = zapdir
+
+	if(power >=10000000000) //Dust if over 10 gw power :]
+		electrocute_victim.dust(TRUE, FALSE, TRUE)
+
 	if (isliving(target))
-		var/mob/living/electrocute_victim = target
-		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power/600), max_damage) + rand(-5, 5)) : 0
 		electrocute_victim.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
-	if(issilicon(target))
+
+	if(issilicon(target)) //sillycons get emp'd
 		var/mob/living/silicon/S = target
-		if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))
+		if (power <= 10000)
 			S.emp_act(EMP_LIGHT)
+		else if (power <=1000000)
+			S.emp_act(EMP_HEAVY)
 
 /datum/action/cooldown/spell/pointed/glove_zap/proc/glove_nerd_zap(atom/target, /mob/living/owner)
 	var/turf/T = get_turf(owner)
-	var/obj/structure/cable/C = T.get_cable_node()
+	var/obj/structure/cable/C = T.get_cable_node() //Gets power from underfoot node
 	if(!C)
 		return FALSE
 
@@ -55,13 +64,13 @@
 		owner.balloon_alert (owner, "Unable to lock on! Move closer!")
 		return
 	else
-		playsound(owner, 'monkestation/sound/weapons/powerglovestarget.ogg', 25, TRUE, -1)
+		playsound(owner, 'monkestation/sound/weapons/powerglovestarget.ogg', 35, TRUE, -1)
 		if (do_after(owner, 3 SECONDS, target, IGNORE_TARGET_LOC_CHANGE))
 			if (get_dist(owner, target) > 6)
 				owner.balloon_alert (owner, "Target moved out of range!")
 			else
-				var/calculated_power = surplus/95 //Calc_power, change division to balance
-				target_tesla_zap(owner, target, calculated_power, SHOCK_NOSTUN, max_damage = 140)
+				var/calculated_power = surplus/20 //Calc_power, change division to balance
+				target_tesla_zap(owner, target, calculated_power, SHOCK_NOSTUN, max_damage = INFINITY)
 				StartCooldown()
 				if (surplus <= 2000000) //plays a separate sound at 2 MW excess
 					playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
