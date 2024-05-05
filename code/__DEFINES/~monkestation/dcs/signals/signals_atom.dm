@@ -12,3 +12,8 @@
 
 ///Called by either cell/proc/give or cell/proc/use
 #define COMSIG_CELL_CHANGE_POWER "cell_change_power"
+
+
+/// Mob is trying to open the hacking menu of a target [/atom], from /datum/hacking/interactable(): (mob/user)
+#define COMSIG_TRY_HACKING_INTERACT "try_hacking_interact"
+	#define COMPONENT_CANT_INTERACT_HACKING (1<<0)
