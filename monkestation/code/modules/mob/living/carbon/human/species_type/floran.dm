@@ -121,10 +121,22 @@
 			SPECIES_PERK_DESC = "Your green skin slowly heals itself while it is illuminated.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bolt",
+			SPECIES_PERK_NAME = "Agile",
+			SPECIES_PERK_DESC = "Florans run slightly faster than other species, but are still outpaced by Goblins.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "",
 			SPECIES_PERK_NAME = "Flammable Skin",
 			SPECIES_PERK_DESC = "Your flammable skin is highly susceptible to burn damage.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "skull",
+			SPECIES_PERK_NAME = "Plant Biology",
+			SPECIES_PERK_DESC = "PlantbGone and potassium will do large amounts of damage to a Floran."
 		),
 		)
 
