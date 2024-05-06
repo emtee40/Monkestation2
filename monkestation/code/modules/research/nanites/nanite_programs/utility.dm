@@ -250,7 +250,7 @@
 	if(!iscarbon(host_mob))
 		return FALSE
 	var/mob/living/carbon/C = host_mob
-	if(C.nutrition <= NUTRITION_LEVEL_WELL_FED)
+	if(C.nutrition <= NUTRITION_LEVEL_STARVING) //It's the nanite programmer's job to make sure nanites don't starve the host, also allows a saboteur to starve everyone who has nanites.
 		return FALSE
 	return ..()
 
