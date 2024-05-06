@@ -1,4 +1,4 @@
-#define NABBER_DAMAGE_ONBURNING 10 //Temporary change. If it's too dangerous, I'll nerf it.
+#define NABBER_DAMAGE_ONBURNING 5 //Yeah it needed a nerf.
 #ifdef TRAIT_HARD_SOLES //Checks to see if this trait exists.
 /datum/species/nabber //If Hard_soles is detected, apply it to their inherent_traits. Cross-Testmerge compatability!
 	inherent_traits = list(
