@@ -110,13 +110,13 @@
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "fist-raised",
 			SPECIES_PERK_NAME = "Carnivore",
 			SPECIES_PERK_DESC = "As a vicious carnivore, your claws do more damage to your prey.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "sun",
 			SPECIES_PERK_NAME = "Photosynthesis",
 			SPECIES_PERK_DESC = "Your green skin slowly heals itself while it is illuminated.",
 		),
@@ -128,7 +128,7 @@
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "fire",
 			SPECIES_PERK_NAME = "Flammable Skin",
 			SPECIES_PERK_DESC = "Your flammable skin is highly susceptible to burn damage.",
 		),

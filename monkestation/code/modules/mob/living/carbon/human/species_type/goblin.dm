@@ -120,7 +120,7 @@
 		),
 		,list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "hand",
 			SPECIES_PERK_NAME = "Small Hands",
 			SPECIES_PERK_DESC = "Goblin's small hands allow them to construct machines faster.", //Quick Build trait
 		),

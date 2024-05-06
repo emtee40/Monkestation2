@@ -90,7 +90,7 @@
 		)
 		,list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "hand",
 			SPECIES_PERK_NAME = "Thief",
 			SPECIES_PERK_DESC = "Your monkey instincts force you to steal objects at random.",
 		),
@@ -101,6 +101,12 @@
 			SPECIES_PERK_DESC = "Simians run slightly faster than other species, but are still outpaced by Goblins.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "running",
+			SPECIES_PERK_NAME = "Vaulting",
+			SPECIES_PERK_DESC = "Simians vault over tables instead of climbing them.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "fist-raised",
 			SPECIES_PERK_NAME = "Easy to Keep Down",
@@ -108,7 +114,7 @@
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "heart",
 			SPECIES_PERK_NAME = "Ape Not Kill Ape",
 			SPECIES_PERK_DESC = "Monkeys like you more.",
 		),
