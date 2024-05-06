@@ -56,9 +56,13 @@
 		active_item = null
 		if(contents.len == 1)
 			if(!check_compatibility())
+				to_chat(owner, span_warning("Your [src] beeps loudly, it seems its not compatible with your current cyberlink!"))
 				return
 			Extend(contents[1])
 		else
+			if(!check_compatibility())
+				to_chat(owner, span_warning("Your [src] beeps loudly, it seems its not compatible with your current cyberlink!"))
+				return
 			var/list/choice_list = list()
 			for(var/datum/weakref/augment_ref in items_list)
 				var/obj/item/augment_item = augment_ref.resolve()
@@ -67,7 +71,7 @@
 					continue
 				choice_list[augment_item] = image(augment_item)
 			var/obj/item/choice = show_radial_menu(owner, owner, choice_list)
-			if(owner && owner == usr && owner.stat != DEAD && (src in owner.organs) && !active_item && (choice in contents) && check_compatibility())
+			if(owner && owner == usr && owner.stat != DEAD && (src in owner.organs) && !active_item && (choice in contents))
 				// This monster sanity check is a nice example of how bad input is.
 				Extend(choice)
 	else
