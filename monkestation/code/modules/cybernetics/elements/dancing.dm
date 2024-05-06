@@ -73,15 +73,13 @@
 		user.visible_message(msg, visible_message_flags = EMOTE_MESSAGE)
 
 	if(!is_intentionally_dancing)
-		user.AddElement(/datum/element/dancing, EMOTE_TRAIT)
+		user.AddComponent(/datum/component/dancing, EMOTE_TRAIT)
 	else
-		user.RemoveElement(/datum/element/dancing, EMOTE_TRAIT)
+		qdel(user.GetComponent(/datum/component/dancing))
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
 
 
-/datum/element/dancing
-	argument_hash_start_idx = 2
-	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
+/datum/component/dancing
 	/// The source of the dancing trait we give
 	var/trait_source = EMOTE_TRAIT
 	/// Signals that cause us to detach
@@ -89,7 +87,7 @@
 	///this is our dance
 	var/datum/dance/chosen_dance
 
-/datum/element/dancing/New()
+/datum/component/dancing/Initialize(trait_source)
 	. = ..()
 	if(!dancing_stop_signals)
 		dancing_stop_signals = list(
@@ -97,34 +95,29 @@
 			SIGNAL_ADDTRAIT(TRAIT_FLOORED),
 			SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
 		)
-
-/datum/element/dancing/Attach(datum/target, trait_source)
-	. = ..()
-	if(!isatom(target) || isarea(target))
-		return ELEMENT_INCOMPATIBLE
 	src.trait_source = trait_source
-	if(!HAS_TRAIT(target, TRAIT_DANCING))
+	if(!HAS_TRAIT(parent, TRAIT_DANCING))
 		var/list/dances = typesof(/datum/dance)
 		chosen_dance = pick(dances)
 		chosen_dance = new chosen_dance
-		INVOKE_ASYNC(chosen_dance, TYPE_PROC_REF(/datum/dance, trigger_dance), target)
+		INVOKE_ASYNC(chosen_dance, TYPE_PROC_REF(/datum/dance, trigger_dance), parent)
 	//ADD_TRAIT(target, TRAIT_IMMOBILIZED, trait_source)
-	ADD_TRAIT(target, TRAIT_DANCING, trait_source)
-	RegisterSignal(target, dancing_stop_signals, PROC_REF(stop_dancing))
+	ADD_TRAIT(parent, TRAIT_DANCING, trait_source)
+	RegisterSignal(parent, dancing_stop_signals, PROC_REF(stop_dancing))
 
-/datum/element/dancing/Detach(datum/source, datum/target, trait_source)
-	. = ..()
-	REMOVE_TRAIT(source, TRAIT_DANCING, trait_source)
+/datum/component/dancing/Destroy(force, silent)
+	REMOVE_TRAIT(parent, TRAIT_DANCING, trait_source)
 	//REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, trait_source)
-	if(!HAS_TRAIT(source, TRAIT_DANCING))
-		chosen_dance?.end_dance(source)
+	if(!HAS_TRAIT(parent, TRAIT_DANCING))
+		chosen_dance?.end_dance(parent)
 		QDEL_NULL(chosen_dance)
-	UnregisterSignal(target, dancing_stop_signals)
+	UnregisterSignal(parent, dancing_stop_signals)
+	. = ..()
 
-/datum/element/dancing/proc/stop_dancing(atom/movable/source)
+/datum/component/dancing/proc/stop_dancing(atom/movable/source)
 	SIGNAL_HANDLER
 
-	Detach(source)
+	qdel(src)
 
 
 /datum/dance
