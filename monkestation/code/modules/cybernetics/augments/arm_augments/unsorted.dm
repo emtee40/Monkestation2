@@ -209,6 +209,7 @@
 /obj/item/organ/internal/cyberimp/arm/cooler
 	name = "sub-dermal cooling implant"
 	desc = "Special inhand implant that cools you down if overheated."
+	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#00e1ff"
@@ -230,6 +231,7 @@
 /obj/item/organ/internal/cyberimp/arm/heater
 	name = "sub-dermal heater implant"
 	desc = "Special inhand implant that heats you up if overcooled."
+	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "hand_implant"
 	implant_overlay = "hand_implant_overlay"
 	implant_color = "#ff9100"
