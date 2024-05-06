@@ -10,7 +10,7 @@
 		/obj/item/wirecutters/cyborg,
 		/obj/item/multitool/cyborg,
 	)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NT_LOWLEVEL
 
 /obj/item/organ/internal/cyberimp/arm/item_set/toolset/l
 	zone = BODY_ZONE_L_ARM
@@ -121,7 +121,7 @@
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/dropper
 	)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NT_LOWLEVEL
 
 /obj/item/organ/internal/cyberimp/arm/item_set/atmospherics
 	name = "atmospherics toolset implant"
@@ -132,7 +132,7 @@
 		/obj/item/crowbar,
 		/obj/item/holosign_creator/atmos
 	)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NT_LOWLEVEL
 
 /obj/item/organ/internal/cyberimp/arm/item_set/combat
 	name = "combat cybernetics implant"
@@ -176,3 +176,4 @@
 		/obj/item/storage/bag/plants,
 		/obj/item/storage/bag/plants/portaseeder
 	)
+	encode_info = AUGMENT_NT_LOWLEVEL
