@@ -218,10 +218,20 @@
 		if (!Nonsouprecipe) //monkeedit
 			ingredient.AddElement(/datum/element/fried_item, 30)
 
+	// Spawning physical food results
+	if(resulting_food_path)
+		var/obj/item/created = new resulting_food_path(get_turf(pot))
+		created.pixel_y += 8
+		BLACKBOX_LOG_FOOD_MADE(created)
+	else
+		var/results_length = length(results)
+		var/datum/reagent/reagent = results[results_length]
+		if(reagent)
+			BLACKBOX_LOG_FOOD_MADE(initial(reagent.name))
+
 	// Anything left in the ingredient list will get dumped out
 	pot.dump_ingredients(get_turf(pot), y_offset = 8)
 	// Blackbox log the chemical reaction used, to account for soup reaction that don't produce typical results
-	BLACKBOX_LOG_FOOD_MADE(type)
 
 /**
  * Transfers reagents from the passed reagent to the soup pot, as a "result"
