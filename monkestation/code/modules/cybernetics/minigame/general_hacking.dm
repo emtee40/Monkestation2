@@ -12,7 +12,7 @@ PROCESSING_SUBSYSTEM_DEF(hacking)
 /atom/Destroy(force)
 	. = ..()
 	if(hacking)
-		QDELL_NULL(hacking)
+		QDEL_NULL(hacking)
 
 /// Attempts to open the hacking interface
 /atom/proc/attempt_hacking_interaction(mob/user)
