@@ -5,6 +5,7 @@
 	armor_type = /datum/armor/shoes_cowboy
 	custom_price = PAYCHECK_CREW
 	can_be_tied = FALSE
+	var/max_occupants = 4
 
 /datum/armor/shoes_cowboy
 	bio = 90
