@@ -255,7 +255,7 @@
 	return ..()
 
 /datum/nanite_program/metabolic_synthesis/active_effect()
-	host_mob.adjust_nutrition(-0.5)
+	host_mob.adjust_nutrition(-0.25)
 
 /datum/nanite_program/access
 	name = "Subdermal ID"
