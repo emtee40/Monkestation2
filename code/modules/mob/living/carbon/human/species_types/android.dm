@@ -60,6 +60,49 @@
 	)
 	examine_limb_id = SPECIES_HUMAN
 
+/datum/species/android/get_species_description()
+	return "Androids are an entirely synthetic species."
+
+/datum/species/android/create_pref_traits_perks()
+	var/list/to_add = list()
+	
+	to_add += list(
+	list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_SHIELD_ALT,
+		SPECIES_PERK_NAME = "Android Aptitude",
+		SPECIES_PERK_DESC = "As a synthetic lifeform, Androids are immune to many forms of damage humans are susceptible to. \
+			Fire, cold, heat, pressure, radiation, and toxins are all ineffective against them. \
+			They also can't overdose on drugs, don't need to breathe or eat, can't catch on fire, and are immune to being pierced.",
+	),
+	list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_COGS,
+		SPECIES_PERK_NAME = "Modular Lifeform",
+		SPECIES_PERK_DESC = "Android limbs are modular, allowing them to easily reattach severed bodyparts.",
+	),
+	list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_DNA,
+		SPECIES_PERK_NAME = "Not Human After All",
+		SPECIES_PERK_DESC = "There is no humanity behind the eyes of the Android, and as such, they have no DNA to genetically alter.",
+	),
+	list(
+		SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+		SPECIES_PERK_ICON = FA_ICON_SHIELD_HEART,
+		SPECIES_PERK_NAME = "Some Components Optional",
+		SPECIES_PERK_DESC = "Androids have very few internal organs. While they can survive without many of them, \
+			they don't have any benefits from them either.",
+	),
+	list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_ROBOT,
+		SPECIES_PERK_NAME = "Synthetic",
+		SPECIES_PERK_DESC = "Being synthetic, Androids are vulnernable to EMPs.",
+	),
+	)
+	return to_add
+
 /datum/species/android/on_species_gain(mob/living/carbon/C)
 	. = ..()
 	// Androids don't eat, hunger or metabolise foods. Let's do some cleanup.
