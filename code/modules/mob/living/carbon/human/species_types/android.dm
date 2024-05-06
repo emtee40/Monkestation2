@@ -60,9 +60,13 @@
 	)
 	examine_limb_id = SPECIES_HUMAN
 
+
+//Taken from TGstation
 /datum/species/android/get_species_description()
 	return "Androids are an entirely synthetic species."
 
+
+/// Taken from TGstation.
 /datum/species/android/create_pref_traits_perks()
 	var/list/to_add = list()
 	
