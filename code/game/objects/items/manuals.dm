@@ -183,6 +183,7 @@
 				<b>Popcorn:</b> Microwave corn.<br>
 				<b>Meat Steak:</b> Microwave meat.<br>
 				<b>Meat Pie:</b> 1 plain pie + 1u black pepper + 1u salt + 2 meat cutlets<br>
+				<b>Boiled Spaghetti:</b>Raw Spaghetti + 50u water at 450+K<br>
 				<b>Donuts:</b> 1u sugar + 1 pastry base<br>
 				<b>Fries:</b> Process potato.
 
