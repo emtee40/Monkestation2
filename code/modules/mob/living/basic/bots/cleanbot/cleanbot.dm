@@ -147,7 +147,7 @@
 
 	GLOB.janitor_devices += src
 
-	var/obj/item/reagent_containers/cup/bucket/consistent/bucket_obj = new
+	var/obj/item/reagent_containers/cup/bucket/bucket_obj = new
 	bucket_obj.forceMove(src)
 
 	var/obj/item/mop/new_mop = new
@@ -158,7 +158,7 @@
 	)
 
 	grant_actions_by_list(innate_actions)
-	RegisterSignal(src, COMSIG_LIVING_EARLY_UNARMED_ATTACK, PROC_REF(pre_attack))
+	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
 	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attack_by))
 	update_appearance(UPDATE_ICON)
 
@@ -270,7 +270,7 @@
 
 /mob/living/basic/bot/cleanbot/proc/on_attack_by(datum/source, obj/item/used_item, mob/living/user)
 	SIGNAL_HANDLER
-	if(!istype(used_item, /obj/item/knife) || user.combat_mode)
+	if(!istype(used_item, /obj/item/knife) || (user.istate & ISTATE_HARM))
 		return
 	INVOKE_ASYNC(src, PROC_REF(attach_knife), user, used_item)
 	return COMPONENT_NO_AFTERATTACK
@@ -346,7 +346,7 @@
 	ai_controller.set_blackboard_key(BB_CLEANBOT_EMAGGED_PHRASES, emagged_phrases)
 
 /mob/living/basic/bot/cleanbot/autopatrol
-	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
+	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_GHOST_CONTROLLABLE | BOT_MODE_ROUNDSTART_POSSESSION
 
 /mob/living/basic/bot/cleanbot/medbay
 	name = "Scrubs, MD"

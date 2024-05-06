@@ -133,7 +133,6 @@
 
 		on_cleaned_callback?.Invoke(source, target, user)
 
-	on_cleaned_callback?.Invoke(source, target, user, clean_succeeded)
 	//remove the cleaning overlay
 	target.cut_overlay(low_bubble)
 	target.cut_overlay(high_bubble)

@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	return //we use a different hud
 
 /mob/living/basic/bot/attack_hand(mob/living/carbon/human/user, list/modifiers)
-	if(!user.istate & ISTATE_HARM)
+	if(!(user.istate & ISTATE_HARM))
 		ui_interact(user)
 		return
 	return ..()
