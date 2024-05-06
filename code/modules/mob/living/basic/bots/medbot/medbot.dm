@@ -139,6 +139,7 @@
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
 
 
+	/*
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) || !mapload || !is_station_level(z))
 		return
 	skin = "advanced"
@@ -146,13 +147,13 @@
 	damage_type_healer = HEAL_ALL_DAMAGE
 	if(prob(50))
 		name += ", PhD."
-
+	*/
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/basic/bot/medbot/LateInitialize()
 	. = ..()
 	if(!CONFIG_GET(flag/no_default_techweb_link) && !linked_techweb)
-		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+		linked_techweb = SSresearch.science_tech
 
 /mob/living/basic/bot/medbot/update_icon_state()
 	. = ..()
@@ -307,7 +308,7 @@
 	update_bot_mode(new_mode = BOT_IDLE)
 
 /mob/living/basic/bot/medbot/autopatrol
-	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
+	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_GHOST_CONTROLLABLE | BOT_MODE_ROUNDSTART_POSSESSION
 
 /mob/living/basic/bot/medbot/stationary
 	medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE

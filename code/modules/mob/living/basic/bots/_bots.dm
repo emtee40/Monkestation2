@@ -35,8 +35,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 	bubble_icon = "machine"
 	speech_span = SPAN_ROBOT
 	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
-	light_system = MOVABLE_LIGHT
-	light_range = 3
+	light_system = OVERLAY_LIGHT
+	light_outer_range = 3
 	light_power = 0.9
 	speed = 3
 	///Access required to access this Bot's maintenance protocols
@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	///All initial access this bot started with.
 	var/list/initial_access = list()
 	///Bot-related mode flags on the Bot indicating how they will act. BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
-	var/bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
+	var/bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED | BOT_MODE_GHOST_CONTROLLABLE | BOT_MODE_ROUNDSTART_POSSESSION
 	///Bot-related cover flags on the Bot to deal with what has been done to their cover, including emagging. BOT_MAINTS_PANEL_OPEN | BOT_CONTROL_PANEL_OPEN | BOT_COVER_EMAGGED | BOT_COVER_HACKED
 	var/bot_access_flags = NONE
 	///Small name of what the bot gets messed with when getting hacked/emagged.
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BOTS_GLITCHED))
 		randomize_language_if_on_station()
 
-	if(mapload && is_station_level(z) && (bot_mode_flags & BOT_MODE_CAN_BE_SAPIENT) && (bot_mode_flags & BOT_MODE_ROUNDSTART_POSSESSION))
+	if(mapload && is_station_level(z) && (bot_mode_flags & BOT_MODE_GHOST_CONTROLLABLE) && (bot_mode_flags & BOT_MODE_ROUNDSTART_POSSESSION))
 		enable_possession(mapload = mapload)
 
 	pa_system = (isnull(announcement_type)) ? new(src, automated_announcements = generate_speak_list()) : new announcement_type(src, automated_announcements = generate_speak_list())
@@ -341,7 +341,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	return //we use a different hud
 
 /mob/living/basic/bot/attack_hand(mob/living/carbon/human/user, list/modifiers)
-	if(!user.combat_mode)
+	if(!user.istate & ISTATE_HARM)
 		ui_interact(user)
 		return
 	return ..()
@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/welder_act(mob/living/user, obj/item/tool)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(user.combat_mode)
+	if(user.istate & ISTATE_HARM)
 		return FALSE
 
 	. = TOOL_ACT_TOOLTYPE_SUCCESS
@@ -436,8 +436,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 	ejectpai(user)
 
-/mob/living/basic/bot/attack_effects(damage_done, hit_zone, armor_block, obj/item/attacking_item, mob/living/attacker)
-	if(damage_done > 0 && attacking_item.damtype != STAMINA && stat != DEAD)
+/mob/living/basic/bot/attacked_by(obj/item/I, mob/living/user)
+	if(I.force > 0 && I.damtype != STAMINA && stat != DEAD)
 		do_sparks(5, TRUE, src)
 		. = TRUE
 	return ..() || .
@@ -470,11 +470,13 @@ GLOBAL_LIST_INIT(command_strings, list(
 	else
 		addtimer(CALLBACK(src, PROC_REF(turn_on)), severity * 30 SECONDS)
 
+	/*
 	if(!prob(70/severity) || !length(GLOB.uncommon_roundstart_languages))
 		return
 
 	remove_all_languages(source = LANGUAGE_EMP)
 	grant_random_uncommon_language(source = LANGUAGE_EMP)
+	*/
 
 /**
  * Pass a message to have the bot say() it, passing through our announcement action to potentially also play a sound.
@@ -575,7 +577,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	data["settings"] = list()
 	if(bot_access_flags & BOT_CONTROL_PANEL_OPEN || issilicon(user) || isAdminGhostAI(user))
 		data["settings"]["pai_inserted"] = !!paicard
-		data["settings"]["allow_possession"] = bot_mode_flags & BOT_MODE_CAN_BE_SAPIENT
+		data["settings"]["allow_possession"] = bot_mode_flags & BOT_MODE_GHOST_CONTROLLABLE
 		data["settings"]["possession_enabled"] = can_be_possessed
 		data["settings"]["airplane_mode"] = !(bot_mode_flags & BOT_MODE_REMOTE_ENABLED)
 		data["settings"]["maintenance_lock"] = !(bot_access_flags & BOT_MAINTS_PANEL_OPEN)
@@ -672,7 +674,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	if(!(bot_access_flags & BOT_COVER_OPEN))
 		balloon_alert(user, "slot inaccessible!")
 		return
-	if(!(bot_mode_flags & BOT_MODE_CAN_BE_SAPIENT))
+	if(!(bot_mode_flags & BOT_MODE_GHOST_CONTROLLABLE))
 		balloon_alert(user, "incompatible firmware!")
 		return
 	if(isnull(card.pai?.mind))
@@ -684,7 +686,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 	disable_possession()
 	paicard.pai.fold_in()
 	copy_languages(paicard.pai, source_override = LANGUAGE_PAI)
-	set_active_language(paicard.pai.get_selected_language())
+	var/datum/language_holder/source_holder = get_language_holder()
+	source_holder?.selected_language = paicard.pai.get_selected_language()
 	user.visible_message(span_notice("[user] inserts [card] into [src]!"), span_notice("You insert [card] into [src]."))
 	paicard.pai.mind.transfer_to(src)
 	to_chat(src, span_notice("You sense your form change as you are uploaded into [src]."))
