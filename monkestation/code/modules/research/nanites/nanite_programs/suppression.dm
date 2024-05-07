@@ -302,6 +302,7 @@
 	if(!phrase.get_value())
 		return
 
+	// Can't just replace words with blank spaces, that wouldnt be fair.
 	if(!replacement_phrase.get_value())
 		replacement_phrase = initial(extra_settings[NES_PHRASE_REPLACEMENT])
 
