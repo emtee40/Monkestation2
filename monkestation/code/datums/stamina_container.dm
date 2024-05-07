@@ -46,12 +46,6 @@
 	loss = maximum - current
 	loss_as_percent = loss ? (loss == maximum ? 0 : loss / maximum * 100) : 0
 
-	if(datum_flags & DF_ISPROCESSING)
-		if(seconds_per_tick && current == maximum)
-			STOP_PROCESSING(SSstamina, src)
-	else if(!(current == maximum))
-		START_PROCESSING(SSstamina, src)
-
 	parent.on_stamina_update()
 
 ///Pause stamina regeneration for some period of time. Does not support doing this from multiple sources at once because I do not do that and I will add it later if I want to.
