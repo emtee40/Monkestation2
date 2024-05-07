@@ -165,6 +165,11 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/should_idle()
 	if(!can_idle)
 		return FALSE
+
+	if(!our_cells)
+		our_cells = new(interesting_dist, interesting_dist, 1)
+		set_new_cells()
+
 	for(var/datum/spatial_grid_cell/grid as anything in our_cells.member_cells)
 		if(length(grid.client_contents))
 			return FALSE
