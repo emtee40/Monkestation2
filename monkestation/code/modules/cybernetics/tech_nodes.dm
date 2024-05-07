@@ -41,5 +41,6 @@
 	design_ids = list(
 		"ci-set-mantis",
 		"ci-set-combat",
+		"ci-tg",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)

@@ -33,7 +33,7 @@
 	STOP_PROCESSING(SSstamina, src)
 	return ..()
 
-/datum/stamina_container/proc/update(seconds_per_tick)
+/datum/stamina_container/proc/update()
 	if(seconds_per_tick && !is_regenerating)
 		if(!COOLDOWN_FINISHED(src, paused_stamina))
 			return
@@ -78,7 +78,7 @@
 	///Our parent might want to fuck with these numbers
 	var/modify = parent.pre_stamina_change(amt, forced)
 	current = round(clamp(current + modify, 0, maximum), DAMAGE_PRECISION)
-	update()
+	update(1)
 	if((amt < 0) && is_regenerating)
 		pause(STAMINA_REGEN_TIME)
 	return amt
@@ -96,7 +96,7 @@
 		amount = current - lowest_stamina_value
 
 	current = round(clamp(current + amount, 0, maximum), DAMAGE_PRECISION)
-	update()
+	update(1)
 	if((amount < 0) && is_regenerating)
 		pause(STAMINA_REGEN_TIME)
 	return amount

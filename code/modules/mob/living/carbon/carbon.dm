@@ -506,9 +506,9 @@
 		stamina_stun()
 
 	if(is_exhausted && (stam > max * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER_EXIT))
-		REMOVE_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_NO_SPRINT, STAMINA)
-		remove_movespeed_modifier(/datum/movespeed_modifier/exhaustion)
+		if(remove_movespeed_modifier(/datum/movespeed_modifier/exhaustion))
+			REMOVE_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
+			REMOVE_TRAIT(src, TRAIT_NO_SPRINT, STAMINA)
 
 	update_stamina_hud()
 
