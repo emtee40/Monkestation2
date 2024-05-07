@@ -26,6 +26,7 @@
 	src.maximum = maximum
 	src.regen_rate = regen_rate
 	src.current = maximum
+	START_PROCESSING(SSstamina, src)
 
 /datum/stamina_container/Destroy()
 	parent?.stamina = null
