@@ -28,12 +28,14 @@ GLOBAL_LIST_INIT(bioscrambler_parts_blacklist, typecacheof(list(
 )))
 
 /// Blacklist of limb IDs which should not appear when bioscrambled, mostly because they looks awful and buggy.
+/* - Moved to Monkeystation Defines file. Because apparently it was never considered we may modularise species code.
 GLOBAL_LIST_INIT(bioscrambler_limb_id_blacklist, list(
 	BODYPART_ID_PSYKER,
 	SPECIES_SIMIAN,
 	SPECIES_MONKEY,
 	SPECIES_GOBLIN
 ))
+*/
 
 /// Blacklist of organs which should not appear when bioscrambled.
 /// Either will look terrible outside of intended host, give you magical powers, are irreversible, or kill you
