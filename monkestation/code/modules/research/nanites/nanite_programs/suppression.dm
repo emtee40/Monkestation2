@@ -274,12 +274,12 @@
 	desc = "The nanites pre-process words, granting the ability to filter out certain phrases."
 	use_rate = 0.1
 	unique = FALSE
-	rogue_types = list(/datum/nanite_program/brain_decay)
+	rogue_types = list(/datum/nanite_program/brain_misfire)
 
 /datum/nanite_program/conversation_filter/register_extra_settings()
 	. = ..()
 	extra_settings[NES_INVALID_PHRASE] = new /datum/nanite_extra_setting/text("")
-	extra_settings[NES_PHRASE_REPLACEMENT] = new /datum/nanite_extra_setting/text("\[Invalid Phrase Detected, Sentence Revoked.\]")
+	extra_settings[NES_PHRASE_REPLACEMENT] = new /datum/nanite_extra_setting/text("\[Invalid Phrase Detected.\]")
 	extra_settings[NES_REPLACEMENT_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Whole Sentence", "Phrase Only")
 
 /datum/nanite_program/conversation_filter/on_mob_add()
@@ -291,6 +291,10 @@
 
 /datum/nanite_program/conversation_filter/proc/on_hear(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
+
+	if(!activated)
+		return
+
 	var/datum/nanite_extra_setting/phrase = extra_settings[NES_INVALID_PHRASE]
 	var/datum/nanite_extra_setting/replacement_phrase = extra_settings[NES_PHRASE_REPLACEMENT]
 	var/datum/nanite_extra_setting/replacement_mode = extra_settings[NES_REPLACEMENT_MODE]
@@ -299,7 +303,7 @@
 		return
 
 	if(!replacement_phrase.get_value())
-		replacement_phrase = new /datum/nanite_extra_setting/text("\[Invalid Phrase Detected, Sentence Revoked.\]")
+		replacement_phrase = initial(extra_settings[NES_PHRASE_REPLACEMENT])
 
 	if(findtext(hearing_args[HEARING_RAW_MESSAGE], phrase.get_value()))
 		if (replacement_mode.get_value())
