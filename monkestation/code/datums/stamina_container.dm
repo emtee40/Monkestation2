@@ -33,8 +33,8 @@
 	STOP_PROCESSING(SSstamina, src)
 	return ..()
 
-/datum/stamina_container/proc/update()
-	if(seconds_per_tick && !is_regenerating)
+/datum/stamina_container/proc/update(seconds_per_tick)
+	if(!is_regenerating)
 		if(!COOLDOWN_FINISHED(src, paused_stamina))
 			return
 		is_regenerating = TRUE
