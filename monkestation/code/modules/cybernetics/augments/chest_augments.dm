@@ -93,7 +93,7 @@
 	name = "R.A.G.E. chemical system"
 	desc = "Extremely dangerous system that fills the user with a mix of potent drugs."
 	encode_info = AUGMENT_TG_LEVEL
-	icon_state = "chemtank_back_held"
+	icon_state = "chemtvat_back_held"
 	icon = 'monkestation/code/modules/cybernetics/icons/implants_onmob.dmi'
 
 	var/obj/item/clothing/mask/chemvat/forced
