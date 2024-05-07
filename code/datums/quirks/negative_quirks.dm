@@ -619,7 +619,7 @@
 	you need to use a welding tool and cables to repair them, instead of bruise packs and ointment."))
 
 	/datum/quirk/bipedal_amputee
-	name = "bipedal Amputee"
+	name = "Bipedal Amputee"
 	desc = "Your old legs dont work anymore, so youve gotten some new ones! They're kinda cheap though..."
 	icon = "tg-prosthetic-leg"
 	value = -5
