@@ -469,7 +469,7 @@
 	inhand_icon_state = "default"
 	attack_verb_continuous = list("strikes")
 	attack_verb_simple = list("strike")
-	//actions_types = list(/datum/action/item_action/)
+	actions = list(/datum/action/item_action/concuss)
 
 	slot_flags = ITEM_SLOT_BELT + ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
@@ -478,3 +478,14 @@
 /obj/item/melee/concuhammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed)
+
+/*/obj/item/melee/concuhammer/equipped(mob/user,slot)
+	. = ..()
+	if(true==true)
+		//A button appears
+
+/obj/item/melee/concuhammer/dropped(mob/user, slot)
+	. = ..()
+	if(true==true)
+		//The button disappears
+*/
