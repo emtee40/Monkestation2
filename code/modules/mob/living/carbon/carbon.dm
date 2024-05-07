@@ -1359,3 +1359,14 @@
 	if(ishuman(src)) //Monkeystation Edit: Ensures that no matter what, splatters will hold the color of blood in question.
 		var/mob/living/carbon/human/blood_donor = src
 		our_splatter.held_color = blood_donor.dna.species.blood_colours
+
+/mob/living/carbon/ominous_nosebleed()
+	var/obj/item/bodypart/head = get_bodypart(BODY_ZONE_HEAD)
+	if(isnull(head))
+		return ..()
+	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
+		to_chat(src, span_notice("You get a headache."))
+		return
+	head.adjustBleedStacks(5)
+	visible_message(span_notice("[src] gets a nosebleed."), span_warning("You get a nosebleed."))
+  
