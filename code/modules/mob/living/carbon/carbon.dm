@@ -1369,4 +1369,3 @@
 		return
 	head.adjustBleedStacks(5)
 	visible_message(span_notice("[src] gets a nosebleed."), span_warning("You get a nosebleed."))
-  
