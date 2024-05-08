@@ -296,21 +296,22 @@
 		return
 
 	var/datum/nanite_extra_setting/phrase = extra_settings[NES_INVALID_PHRASE]
-	var/datum/nanite_extra_setting/replacement_phrase = extra_settings[NES_PHRASE_REPLACEMENT]
 	var/datum/nanite_extra_setting/replacement_mode = extra_settings[NES_REPLACEMENT_MODE]
+	var/datum/nanite_extra_setting/replacement_setting = extra_settings[NES_PHRASE_REPLACEMENT]
+	var/replacement_phrase = replacement_setting.get_value()
 
 	if(!phrase.get_value())
 		return
 
 	// Can't just replace words with blank spaces, that wouldnt be fair.
-	if(!replacement_phrase.get_value())
-		replacement_phrase = initial(extra_settings[NES_PHRASE_REPLACEMENT])
+	if(!replacement_phrase || replacement_phrase == "")
+		replacement_phrase = "\[Invalid Phrase Detected.\]"
 
 	if(findtext(hearing_args[HEARING_RAW_MESSAGE], phrase.get_value()))
 		if (replacement_mode.get_value())
-			hearing_args[HEARING_RAW_MESSAGE] = replacement_phrase.get_value()
+			hearing_args[HEARING_RAW_MESSAGE] = replacement_phrase
 		else
 			var/message = hearing_args[HEARING_RAW_MESSAGE]
-			message = replacetext(message, phrase.get_value(), replacement_phrase.get_value())
+			message = replacetext(message, phrase.get_value(), replacement_phrase)
 			hearing_args[HEARING_RAW_MESSAGE] = message
 
