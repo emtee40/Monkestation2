@@ -220,7 +220,7 @@ multiple modular subtrees with behaviors
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]))
+	if(!length(SSmobs.clients_by_zlevel[pawn_turf?.z]))
 		return AI_STATUS_OFF
 	if(should_idle())
 		return AI_STATUS_IDLE
