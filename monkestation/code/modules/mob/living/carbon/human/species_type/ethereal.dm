@@ -7,6 +7,8 @@
 	mutanteyes = /obj/item/organ/internal/eyes/ethereal
 	mutanttongue = /obj/item/organ/internal/tongue/ethereal
 	mutantheart = /obj/item/organ/internal/heart/ethereal
+	external_organs = list(
+		/obj/item/organ/external/ethereal_horns = "None")
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	exotic_bloodtype = "LE"
 	siemens_coeff = 0.5 //They thrive on energy
