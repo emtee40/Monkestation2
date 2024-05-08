@@ -27,15 +27,15 @@
 	if(iscarbon(mob))
 		var/mob/living/carbon/human/carbon_mob = target
 		if(HAS_TRAIT(carbon_mob, TRAIT_MINDSHIELD))
-			if(!do_after(owner, 15 SECONDS))
+			if(!do_after(owner, 2 MINUTES))
 				return FALSE
 		else
-			if(!do_after(owner, 10 SECONDS))
+			if(!do_after(owner, 1 MINUTES))
 				return FALSE
 		var/datum/antagonist/changeling/bloodling_thrall/thrall = carbon_mob.mind.add_antag_datum(/datum/antagonist/changeling/bloodling_thrall)
 		thrall.set_master(owner)
 	else
-		if(!do_after(owner, 5 SECONDS))
+		if(!do_after(owner, 30 SECONDS))
 			return FALSE
 		var/datum/antagonist/infested_thrall/thrall = mob.mind.add_antag_datum(/datum/antagonist/infested_thrall)
 		thrall.set_master(owner)

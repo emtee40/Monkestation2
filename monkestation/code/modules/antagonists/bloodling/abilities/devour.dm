@@ -13,9 +13,6 @@
 
 /datum/action/cooldown/mob_cooldown/bloodling/devour/Activate(atom/target)
 	StartCooldown()
-	return eat_limb(target)
-
-/datum/action/cooldown/mob_cooldown/bloodling/devour/proc/eat_limb(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
 	var/list/candidate_for_removal = list()
 	var/mob/living/carbon/carbon_target = target
@@ -41,7 +38,7 @@
 
 	target_part.dismember()
 	qdel(target_part)
-	our_mob.add_biomass(20)
+	our_mob.add_biomass(5)
 
 	our_mob.visible_message(
 		span_alertalien("[our_mob] snaps its maw over [target]s [target_part] and swiftly devours it!"),

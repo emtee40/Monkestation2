@@ -26,16 +26,13 @@
 
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/Activate(atom/target)
 	. = ..()
-	return consume(target)
-
-/datum/action/cooldown/mob_cooldown/bloodling/absorb/proc/consume(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
 	/// How long it takes to absorb something
 	var/absorb_time = 5 SECONDS
 	/// How much biomass is gained from absorbing something
 	var/biomass_gain = 10
 
-	balloon_alert(owner, "You wrap your tendrils around [target] and begin absorbing it!")
+	our_mob.balloon_alert(our_mob, "You begin absorbing [target]!")
 
 	// This prevents the mob from being dragged away from the bloodling during the process
 	target.AddComponentFrom(REF(src), /datum/component/leash, our_mob, 1)
@@ -52,6 +49,10 @@
 	var/mob/living/mob_to_absorb = target
 	if(!iscarbon(mob_to_absorb))
 		biomass_gain = max(mob_to_absorb.getMaxHealth() * 0.5, biomass_gain)
+		if(biomass_gain > 150)
+			our_mob.balloon_alert(our_mob, "[target] is too large!")
+			return FALSE
+
 		if(biomass_gain < 10)
 			biomass_gain = 10
 	else

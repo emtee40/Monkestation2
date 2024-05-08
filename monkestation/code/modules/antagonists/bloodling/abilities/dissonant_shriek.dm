@@ -10,9 +10,9 @@
 		owner.balloon_alert(owner, "can't shriek in pipes!")
 		return FALSE
 	empulse(get_turf(owner), 2, 5, 1)
-	for(var/obj/machinery/light/L in range(5, usr))
-		L.on = TRUE
-		L.break_light_tube()
+	for(var/obj/machinery/light/light_break in range(5, usr))
+		light_break.on = TRUE
+		light_break.break_light_tube()
 		stoplag()
 
 	return TRUE

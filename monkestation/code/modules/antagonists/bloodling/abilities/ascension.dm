@@ -1,8 +1,8 @@
 /datum/action/cooldown/bloodling/ascension
 	name = "Ascend"
-	desc = "We reach our last form...Mass consumption is required. Costs 250 Biomass and takes 5 minutes for you to ascend."
+	desc = "We reach our last form...Mass consumption is required. Costs 500 Biomass and takes 5 minutes for you to ascend."
 	button_icon_state = "dissonant_shriek"
-	biomass_cost = 250
+	biomass_cost = 500
 
 /datum/action/cooldown/bloodling/ascension/Activate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
@@ -25,7 +25,7 @@
 	REMOVE_TRAIT(bloodling, TRAIT_IMMOBILIZED, REF(src))
 
 /* PLANS
-	* Make tiles that turn people into thralls
+	* Make tiles that the bloodling can easier infest on
 */
 /turf/open/floor/misc/bloodling
 	name = "nerve threads"
@@ -56,7 +56,7 @@
 
 /datum/round_event/bloodling_ascension
 	// Holds our theme
-	var/datum/dimension_theme/chosen_theme
+	var/static/datum/dimension_theme/chosen_theme
 
 /datum/round_event/bloodling_ascension/announce(fake)
 

@@ -14,7 +14,7 @@
 /datum/action/cooldown/bloodling/build/proc/check_for_duplicate()
 	for(var/blocker_name in structures)
 		blocker_name = structures[blocker_name]
-		if(locate(blocker_type) in get_turf(src))
+		if(locate(blocker_name) in get_turf(src))
 			to_chat(owner, span_warning("There is already shaped flesh here!"))
 			return FALSE
 

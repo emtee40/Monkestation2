@@ -10,12 +10,14 @@
 		return FALSE
 	// Basically we only want bloodlings to have this
 	if(!istype(owner, /mob/living/basic/bloodling))
+		stack_trace("A non-bloodling mob has obtained a bloodling action!")
 		return FALSE
+
 	var/mob/living/basic/bloodling/our_mob = owner
 	if(our_mob.biomass <= biomass_cost)
 		return FALSE
-	// Hardcoded for the bloodling biomass system. So it will not function on non-bloodlings
-	return istype(owner, /mob/living/basic/bloodling)
+
+	return TRUE
 
 /datum/action/cooldown/mob_cooldown/bloodling/PreActivate(atom/target)
 	if(get_dist(owner, target) > 1)
