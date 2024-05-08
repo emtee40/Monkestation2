@@ -64,7 +64,8 @@
 
 // The start of the event, it grabs a bunch of turfs to parse and apply our theme to
 /datum/round_event/bloodling_ascension/start()
-	chosen_theme = new /datum/dimension_theme/bloodling()
+	if(isnull(chosen_theme))
+		chosen_theme = new /datum/dimension_theme/bloodling()
 	// Placeholder code, just for testing
 	var/turf/start_turf = get_turf(pick(GLOB.station_turfs))
 	var/greatest_dist = 0
