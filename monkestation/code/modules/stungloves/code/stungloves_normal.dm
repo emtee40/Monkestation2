@@ -19,6 +19,7 @@
 	knockdown_time = 2.5 SECONDS //Half
 	clumsy_knockdown_time = 6 SECONDS //Lower power batong
 	var/datum/action/cooldown/toggle_stunners/assistant_killer
+	var/traits_to_give = list(TRAIT_CHUNKYFINGERS_IGNORE_BATON)
 
 /obj/item/melee/baton/security/stungloves/Destroy()
 	qdel(assistant_killer) // This should never be neccessary except if admins are manually deleting players.
@@ -30,6 +31,7 @@
 		RegisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(punch_to_stun))
 		assistant_killer = new(user)
 		assistant_killer.Grant(user)
+		user.add_traits(traits_to_give, TRAIT_GENERIC)
 
 /obj/item/melee/baton/security/stungloves/dropped(mob/user)
 	. = ..()
@@ -37,6 +39,7 @@
 		UnregisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
 		assistant_killer.Remove(user)
 		qdel(assistant_killer) //Ensure this evaporates itself. Likely WILL NOT happen if an admin deletes someone wearing them, so handle it on destroy too.
+		user.remove_traits(traits_to_give, TRAIT_GENERIC)
 
 /obj/item/melee/baton/security/stungloves/proc/punch_to_stun(mob/living/carbon/human/source, atom/target, proximity, modifiers)
 	SIGNAL_HANDLER
