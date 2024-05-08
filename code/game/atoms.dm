@@ -96,7 +96,7 @@
 	var/list/alternate_appearances
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
 	///Range of the maximum brightness of light in tiles. Zero means no light.
 	var/light_inner_range = 0
 	///Range where light begins to taper into darkness in tiles.
@@ -250,9 +250,6 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) /// Sends a signal that the new atom `src`, has been created at `loc`
-
 	SET_PLANE_IMPLICIT(src, plane)
 
 	if(greyscale_config && greyscale_colors) //we'll check again at item/init for inhand/belt/worn configs.
@@ -262,7 +259,7 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if (light_system == STATIC_LIGHT && light_power && (light_inner_range || light_outer_range))
+	if (light_system == COMPLEX_LIGHT && light_power && (light_inner_range || light_outer_range))
 		update_light()
 
 	SETUP_SMOOTHING()
@@ -336,6 +333,9 @@
 
 	if(smoothing_flags & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
+
+	if(material_stats)
+		QDEL_NULL(material_stats)
 
 	return ..()
 
@@ -1264,23 +1264,23 @@
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, light_inner_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_inner_range = var_value)
 				. = TRUE
 		if(NAMEOF(src, light_outer_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_outer_range = var_value)
 			else
 				set_light_range(var_value)
 			. = TRUE
 		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_power = var_value)
 			else
 				set_light_power(var_value)
 			. = TRUE
 		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_color = var_value)
 			else
 				set_light_color(var_value)

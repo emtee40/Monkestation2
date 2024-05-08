@@ -237,6 +237,7 @@
 		/obj/item/reagent_containers/honeycomb,
 		/obj/item/graft,
 		/obj/item/disk/plantgene,
+		/obj/item/paper,
 		))
 ////////
 
@@ -511,6 +512,7 @@
 		/obj/item/reagent_containers/syringe,
 		/obj/item/slime_extract,
 		/obj/item/swab,
+		/obj/item/stack/biomass // monke: make science bags able to hold biomass cubes
 		))
 
 /*
