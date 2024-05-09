@@ -118,7 +118,7 @@
 	. = ..()
 
 	// For the atom that just entered this area, as well as each of its contents...
-	for(var/atom/movable/atom_inside in thing.get_all_contents())
+	for(var/atom/movable/atom_inside as anything in thing.get_all_contents())
 		// ...check if any of them are a ghost player mob...
 		if(istype(atom_inside, /mob/living/carbon/human/ghost))
 			// ...and if so, run the checks.
