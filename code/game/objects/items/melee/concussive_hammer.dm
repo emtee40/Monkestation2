@@ -10,11 +10,19 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/datum/action/cooldown/spell/touch/concuss = new
 
-/datum/action/cooldown/spell/touch/concuss
+/obj/item/melee/concussive_hammer/Destroy()
+	qdel(concuss)
+	return ..()
+
+/datum/action/cooldown/spell/pointed/concuss
 	name = "Concuss"
 	desc = "TBD"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
-	spell_requirements = SPELL_REQUIRES_HUMAN
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 10 //Subject to balancing
+	spell_max_level = 1
+	cast_range = 1 //I know this looks horrible but this isn't possible with touch spell as both hands are holding the item
 	overlay_icon_state = "bg_default_border"
 
 /obj/item/melee/concussive_hammer/Initialize(mapload)
