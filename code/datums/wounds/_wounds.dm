@@ -186,10 +186,12 @@
  */
 /datum/wound/proc/apply_wound(obj/item/bodypart/L, silent = FALSE, datum/wound/old_wound = null, smited = FALSE, attack_direction = null, wound_source = "Unknown")
 
-	if (!can_be_applied_to(L, old_wound))
+	if ((SEND_SIGNAL(L.owner, COMSIG_PRE_CARBON_GAIN_WOUND, src, L, smited) & COMPONENT_STOP_WOUND) || !can_be_applied_to(L, old_wound)) //monkestation edit: the signal stuff
+		SEND_SIGNAL(L.owner, COMSIG_CANCEL_CARBON_GAIN_WOUND, src, L) //monkestation edit
 		qdel(src)
 		return FALSE
 
+	src.wound_source = wound_source //monkestation edit: yes, this is never set on TG
 	set_victim(L.owner)
 	set_limb(L)
 	LAZYADD(victim.all_wounds, src)

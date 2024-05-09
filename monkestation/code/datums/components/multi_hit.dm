@@ -23,6 +23,9 @@
 
 ///this is incredibly cursed i should probably move the default defines into this to make it not have a ton of if statements but that feels wrong aswell.
 /datum/component/multi_hit/Initialize(continues_travel, icon_state, icon, width, height, center_offset, attacking_direction, after_hit_callback, pre_hit_callback, stamina_cost)
+	if(!isitem(parent))
+		return COMPONENT_INCOMPATIBLE
+
 	if(continues_travel)
 		src.continues_travel = continues_travel
 	if(icon_state)
@@ -44,6 +47,7 @@
 	if(stamina_cost)
 		src.stamina_cost = stamina_cost
 	item_parent = parent
+
 /datum/component/multi_hit/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(pre_hit_callback))
 

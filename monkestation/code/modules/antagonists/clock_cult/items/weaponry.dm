@@ -55,8 +55,8 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
 	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
-	throwforce = 36
-	force = 26
+	throwforce = 40
+	force = 22
 	armour_penetration = 24
 	block_chance = 40
 	clockwork_desc = "Can be summoned back to its last holder every 10 seconds if they are standing on bronze."
@@ -181,7 +181,7 @@
 	attack_verb_simple = list("attack", "slash", "cut", "tear", "gore")
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "tears", "gores")
 	clockwork_desc = "Enemies and mechs will be struck with a powerful electromagnetic pulse while you are on bronze tiles, with a cooldown."
-	block_chance = 35
+	block_chance = 25
 	COOLDOWN_DECLARE(emp_cooldown)
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
