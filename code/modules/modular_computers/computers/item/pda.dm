@@ -34,6 +34,7 @@
 	///Static list of default PDA apps to install on Initialize.
 	var/static/list/datum/computer_file/pda_programs = list(
 		/datum/computer_file/program/messenger,
+		/datum/computer_file/program/chatclient, // monke edit: install IRC client by default
 		/datum/computer_file/program/nt_pay,
 		/datum/computer_file/program/notepad,
 		/datum/computer_file/program/crew_manifest // monke edit: install crew manifest by default

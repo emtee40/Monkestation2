@@ -47,11 +47,16 @@
 
 		if("GetPayToken")
 			wanted_token = null
+			// monkestation start: better name matching - case insentive and disregard non-alphanumeric characters
+			var/static/regex/cleanup_regex = new(@"\[^a-z0-9]+", "ig")
+			var/cleaned_wanted_name = cleanup_regex.Replace(trim(params["wanted_name"]), "")
 			for(var/account in SSeconomy.bank_accounts_by_id)
 				var/datum/bank_account/acc = SSeconomy.bank_accounts_by_id[account]
-				if(acc.account_holder == params["wanted_name"])
+				var/cleaned_account_holder = cleanup_regex.Replace(trim(acc.account_holder), "")
+				if(cmptext(cleaned_account_holder, cleaned_wanted_name))
 					wanted_token = "Token: [acc.pay_token]"
 					break
+			// monkestation end
 			if(!wanted_token)
 				return wanted_token = "Account \"[params["wanted_name"]]\" not found."
 

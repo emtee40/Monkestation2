@@ -1,9 +1,11 @@
 /datum/computer_file/program/crew_manifest
+	filedesc = "Plexagon Crew Manifest"
 	transfer_access = list()
 	detomatix_resistance = NONE
 
 /datum/computer_file/program/crew_manifest/New()
 	. = ..()
+	RegisterSignals(SSdcs, list(COMSIG_GLOB_CREW_RECORD_ADDED, COMSIG_GLOB_CREW_RECORD_REMOVED))
 	RegisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED, PROC_REF(_update_ui_data))
 
 /datum/computer_file/program/crew_manifest/Destroy()

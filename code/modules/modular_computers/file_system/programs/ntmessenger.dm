@@ -243,7 +243,7 @@
 
 	if (!input_message || !sending_and_receiving)
 		return
-	if(!user.can_perform_action(computer))
+	if(!user.can_perform_action(computer, ALLOW_RESTING))
 		return
 	return sanitize(input_message)
 
@@ -415,7 +415,7 @@
 	if(computer.active_program != src)
 		if(!computer.open_program(usr, src, open_ui = FALSE))
 			return
-	if(!href_list["close"] && usr.can_perform_action(computer, FORBID_TELEKINESIS_REACH))
+	if(!href_list["close"] && usr.can_perform_action(computer, ALLOW_RESTING))
 		switch(href_list["choice"])
 			if("Message")
 				send_message(usr, list(locate(href_list["target"])))

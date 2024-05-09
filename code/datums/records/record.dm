@@ -114,9 +114,11 @@
 	src.quirk_notes = quirk_notes
 
 	GLOB.manifest.general += src
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_RECORD_ADDED, src) // monkestation edit: add crew record update signals
 
 /datum/record/crew/Destroy()
 	GLOB.manifest.general -= src
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_RECORD_REMOVED, src) // monkestation edit: add crew record update signals
 	return ..()
 
 /**
@@ -152,9 +154,11 @@
 	species_type = dna_ref.species.type
 
 	GLOB.manifest.locked += src
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LOCKED_RECORD_ADDED, src) // monkestation edit: add crew record update signals
 
 /datum/record/locked/Destroy()
 	GLOB.manifest.locked -= src
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LOCKED_RECORD_REMOVED, src) // monkestation edit: add crew record update signals
 	return ..()
 
 /// A helper proc to get the front photo of a character from the record.
