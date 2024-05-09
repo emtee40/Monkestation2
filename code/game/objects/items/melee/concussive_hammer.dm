@@ -18,7 +18,7 @@
 	name = "Concuss"
 	desc = "TBD"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
-	spell_requirements = NONE
+	spell_requirements = SPELL_REQUIRES_HUMAN
 	antimagic_flags = NONE
 	cooldown_time = 10 //Subject to balancing
 	spell_max_level = 1
