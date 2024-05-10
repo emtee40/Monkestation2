@@ -486,3 +486,69 @@
 
 /obj/item/organ/internal/cyberimp/chest/thrusters/proc/get_user()
 	return owner
+
+
+/datum/action/item_action/organ_action/knockout
+	name = "Knockout Punch"
+
+/obj/item/organ/internal/cyberimp/chest/knockout
+	name = "knockout chest implant"
+	desc = "Knocks the socks of the person in front of you!"
+
+	actions_types = list(/datum/action/item_action/organ_action/knockout)
+	encode_info = AUGMENT_NT_HIGHLEVEL
+
+	COOLDOWN_DECLARE(shoot)
+
+	var/cooldown_time = 60 SECONDS
+	///the object we beam
+	var/projectile = /obj/item/punching_glove
+	///our fire sound
+	var/fire_sound = 'sound/items/bikehorn.ogg'
+	///do we do damage
+	var/harmful = FALSE
+
+
+/obj/item/organ/internal/cyberimp/chest/knockout/ui_action_click()
+	if(!check_compatibility())
+		return
+
+	if((organ_flags & ORGAN_FAILING))
+		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
+		return
+
+	if(!COOLDOWN_FINISHED(src, shoot))
+		to_chat(owner, span_warning("The implant doesn't respond. It seems to be recharging..."))
+		return
+	COOLDOWN_START(src, shoot, cooldown_time)
+
+	shoot_fist()
+
+
+/obj/item/organ/internal/cyberimp/chest/knockout/proc/shoot_fist()
+	var/turf/target = get_edge_target_turf(owner, owner.dir)
+	var/obj/O = new projectile(owner.loc)
+	playsound(owner, fire_sound, 50, TRUE)
+	log_message("Launched a [O.name] from [owner], targeting [target].", LOG_ATTACK)
+
+	if(harmful)
+		O.throwforce = 35
+	else
+		O.throwforce = 0
+
+	owner.Beam(O, icon_state = "chain", time = 100, maxdistance = 7)
+	O.throw_at(target, 5, 1.5, owner, FALSE, diagonals_first = TRUE)
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		var/obj/item/item = human.wear_suit
+		if(item)
+			owner.dropItemToGround(human.wear_suit, TRUE)
+			item.throw_at(target, 5, 1.5, owner, FALSE, diagonals_first = TRUE)
+
+	owner.visible_message(span_notice("[owner] flies backwards falling on their ass."))
+	var/newtonian_target = turn(owner.dir,180)
+	owner.newtonian_move(newtonian_target)
+	owner.SetKnockdown(1.5 SECONDS)
+
+	return TRUE

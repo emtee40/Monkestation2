@@ -120,7 +120,7 @@
 			continue
 		//Not a += because we want to avoid having duplicate entries in either encode_info
 		cybernetic.encode_info[info] |= parent_cyberlink.encode_info[info]
-	current_user.mind.adjust_experience(/datum/skill/implant_hacking,success * 25)
+	current_user.mind.adjust_experience(/datum/skill/implant_hacking, success * 25)
 	to_chat(to_display, span_notice("Cyberlink beeps: HACKING [uppertext(cybernetic.name)] SUCCESS. COMPATIBILITY ACHIEVED."))
 	say("Successfully hacked augment.")
 	playsound(src, 'sound/machines/terminal_success.ogg', 50)
