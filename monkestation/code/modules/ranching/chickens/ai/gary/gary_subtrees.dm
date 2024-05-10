@@ -10,7 +10,7 @@
 		while(!target_turf && sanity < 100)
 			sanity++
 			var/turf/turf = pick(turfs)
-			if(!turf.density)
+			if(is_safe_turf(turf))
 				target_turf = turf
 		controller.blackboard[BB_GARY_HIDEOUT] = WEAKREF(target_turf)
 		controller.blackboard[BB_GARY_HIDEOUT_SETTING_UP] = TRUE

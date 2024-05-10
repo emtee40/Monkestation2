@@ -28,7 +28,6 @@
 	. = ..()
 	if(succeeded)
 		controller.blackboard[BB_GARY_COME_HOME] = FALSE
-		controller.blackboard[BB_GARY_HIDEOUT_SETTING_UP] = FALSE
 
 /datum/ai_behavior/head_to_hideout/drop/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
@@ -51,5 +50,16 @@
 
 	var/turf/current_home = get_turf(pawn)
 	for(var/shiny_object in stored_items)
+		if(!shiny_object)
+			continue
 		var/obj/item/spawned = new shiny_object(current_home)
 		spawned.AddComponent(/datum/component/garys_item)
+	finish_action(controller, TRUE)
+
+/datum/ai_behavior/setup_hideout/perform(seconds_per_tick, datum/ai_controller/controller, ...)
+	. = ..()
+	finish_action(controller, TRUE)
+
+/datum/ai_behavior/setup_hideout/finish_action(datum/ai_controller/controller, succeeded, ...)
+	. = ..()
+	controller.blackboard[BB_GARY_HIDEOUT_SETTING_UP] = FALSE
