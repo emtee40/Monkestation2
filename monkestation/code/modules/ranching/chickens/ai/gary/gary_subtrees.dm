@@ -4,7 +4,7 @@
 	///we prioritize getting a hideout setup asap
 	if(!controller.blackboard[BB_GARY_HIDEOUT])
 		///gary will pick a random maint turf to set as its home
-		var/list/turfs = get_area_turfs(pick(subtypesof(/area/station/maintenance)))
+		var/list/turfs = get_area_turfs(/area/station/maintenance, subtypes = TRUE)
 		var/turf/open/target_turf = null
 		var/sanity = 0
 		while(!target_turf && sanity < 100)

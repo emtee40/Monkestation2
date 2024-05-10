@@ -27,10 +27,22 @@
 	///list of held shinies
 	var/list/held_shinies = list()
 
+	var/datum/callback/roundend_callback
+
 /mob/living/basic/chicken/gary/Initialize(mapload)
 	. = ..()
+
+	if(!memory_saved)
+		roundend_callback = CALLBACK(src, PROC_REF(Write_Memory))
+		SSticker.OnRoundend(roundend_callback)
+
 	Read_Memory()
 	AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS, ACCESS_AWAY_MAINTENANCE))
+
+/mob/living/basic/chicken/gary/Destroy()
+	. = ..()
+	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
+	QDEL_NULL(roundend_callback) //This ought to free the callback datum, and prevent us from harddeling
 
 /mob/living/basic/chicken/gary/death(gibbed)
 	. = ..()
@@ -57,6 +69,7 @@
 
 /mob/living/basic/chicken/gary/Write_Memory(dead)
 	. = ..()
+	memory_saved = TRUE
 	var/json_file = file("data/npc_saves/Gary.json")
 	var/list/file_data = list()
 	if(dead)
