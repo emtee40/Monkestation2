@@ -259,7 +259,7 @@
 		return FOOD_LIKED
 	// I thought it didn't make sense for it to instantly kill you, so instead enjoy shitloads of toxin damage per bite.
 	balloon_alert(consumer, "ate it wrong!")
-	consumer.ForceContractDisease(new/datum/disease/death_sandwich_poisoning())
+	consumer.infect_disease_predefined(DISEASE_SANDWICH, TRUE) //Monkestation Edit: Pathology (drinking anacea is still the only cure)
 
 /obj/item/food/sandwich/death/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] starts to shove [src] down [user.p_their()] throat the wrong way. It looks like [user.p_theyre()] trying to commit suicide!"))
