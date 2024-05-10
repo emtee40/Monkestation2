@@ -27,7 +27,7 @@
 	///list of held shinies
 	var/list/held_shinies = list()
 
-	var/datum/callback/roundend_callback
+	var/datum/callback/roundend_callback = null
 
 /mob/living/basic/chicken/gary/Initialize(mapload)
 	. = ..()
