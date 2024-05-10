@@ -23,6 +23,7 @@
 	name = "Knockout Implant"
 	desc = "A crazy clown made this to prank the crew really really hard."
 	item = /obj/item/organ/internal/cyberimp/chest/knockout
+	auction_weight = 7
 
 	price_min = CARGO_CRATE_VALUE * 2
 	price_max = CARGO_CRATE_VALUE * 3
