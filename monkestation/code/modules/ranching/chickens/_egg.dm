@@ -1,0 +1,60 @@
+/obj/item/food/egg/process(seconds_per_tick)
+	amount_grown += rand(3,6) * seconds_per_tick
+	if(amount_grown >= 100)
+		pre_hatch()
+
+/obj/item/food/egg/pickup(mob/user)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/food/egg/dropped(mob/user, silent)
+	. = ..()
+	if(is_fertile)
+		START_PROCESSING(SSobj, src)
+
+/obj/item/food/egg/proc/pre_hatch()
+	var/list/final_mutations = list()
+	var/failed_mutations = FALSE
+	for(var/datum/mutation/ranching/chicken/mutation in possible_mutations)
+		if(mutation.cycle_requirements(src, TRUE))
+			final_mutations |= mutation
+		else
+			desc = "Huh it seems like nothing is coming out of this one, maybe it needed something else?"
+			failed_mutations = TRUE
+			animate(src, transform = matrix()) //stop animation
+
+	hatch(final_mutations, failed_mutations)
+
+/obj/item/food/egg/proc/hatch(list/possible_mutations, failed_mutations)
+	STOP_PROCESSING(SSobj, src)
+	if(failed_mutations || !src.loc)
+		return
+	var/mob/living/basic/chick/birthed = new /mob/living/basic/chick(src.loc)
+
+	if(possible_mutations.len)
+		var/datum/mutation/ranching/chicken/chosen_mutation = pick(possible_mutations)
+		birthed.grown_type = chosen_mutation.chicken_type
+		if(chosen_mutation.nearby_items.len)
+			absorbed_required_items(chosen_mutation.nearby_items)
+	else
+		birthed.grown_type = layer_hen_type //if no possible mutations default to layer hen type
+
+	if(birthed.grown_type == /mob/living/basic/chicken/glass)
+		for(var/list_item in src.reagents.reagent_list)
+			birthed.glass_egg_reagent.Add(list_item)
+
+	if(birthed.grown_type == /mob/living/basic/chicken/stone)
+		birthed.production_type = src.production_type
+
+	birthed.absorb_eggstat(src)
+	birthed.assign_chick_icon(birthed.grown_type)
+	visible_message("[src] hatches with a quiet cracking sound.")
+	qdel(src)
+
+/obj/item/food/egg/proc/absorbed_required_items(list/required_items)
+	for(var/item in required_items)
+		var/obj/item/removal_item = item
+		var/obj/item/temp = locate(removal_item) in view(3, src.loc)
+		if(temp)
+			visible_message("[src] absorbs the nearby [temp.name] into itself.")
+			qdel(temp)

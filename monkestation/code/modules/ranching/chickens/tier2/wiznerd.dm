@@ -3,7 +3,7 @@
 
 	maxHealth = 150
 	melee_damage_upper = 7
-	melee_damage_lower
+	melee_damage_lower = 3
 	obj_damage = 5
 	ai_controller = /datum/ai_controller/chicken/retaliate
 
@@ -17,6 +17,7 @@
 	ranged_cooldown = 1.5 SECONDS
 
 	book_desc = "It seems the Wizard's Federation has spread its influence into the local chicken population, Nano-Transen higher ups will look into this."
+
 /obj/item/food/egg/wiznerd
 	name = "Bewitching Egg"
 	icon_state = "wiznerd"

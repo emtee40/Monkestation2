@@ -89,6 +89,6 @@
 
 #define COMSIG_FRIENDSHIP_CHECK_LEVEL "friendship_check_level"
 #define COMSIG_FRIENDSHIP_CHANGE "friendship_change"
-
+#define COMSIG_FRIENDSHIP_PASS_FRIENDSHIP "friendship_passfriends"
 
 #define TRAIT_RAINBOWED "rainbowed"

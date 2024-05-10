@@ -87,8 +87,6 @@
 	var/list/glass_egg_reagents = list()
 	///Stone Chicken Exclusive: ore type for eggs
 	var/obj/item/stack/ore/production_type = null
-	///list of all friends will not attack them and can be ordered around by them if high enough
-	var/list/Friends = list()
 	/// Last phrase said near it and person who said it
 	var/list/speech_buffer = list()
 	/// the icon suffix
@@ -138,8 +136,6 @@
 	var/obj/item/stack/ore/production_type = null
 	///list of picked mutations should only ever be one
 	var/list/possible_mutations = list()
-	///list of all friends will not attack them and can be ordered around by them if high enough
-	var/list/Friends = list()
 	///was this just layed as a mutation if so don't let it grow via incubators
 	var/fresh_mutation = FALSE
 	///is this egg fertile? used when picked up / dropped
@@ -148,10 +144,3 @@
 	var/list/faction_holder = list()
 	///our stored_glass_egg_reagents from the parent
 	var/list/glass_egg_reagents = list()
-
-/datum/action/cooldown/mob_cooldown/chicken
-	melee_cooldown_time =  1 // dumb
-	var/datum/ai_behavior/targeted_mob_ability/min_range/chicken/what_range = /datum/ai_behavior/targeted_mob_ability/min_range/chicken/melee
-
-/datum/pet_command/point_targeting/attack/chicken
-	attack_behaviour = /datum/ai_behavior/basic_melee_attack/chicken

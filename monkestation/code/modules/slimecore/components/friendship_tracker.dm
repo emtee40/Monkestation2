@@ -20,10 +20,12 @@
 /datum/component/friendship_container/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_FRIENDSHIP_CHECK_LEVEL, PROC_REF(check_friendship_level))
 	RegisterSignal(parent, COMSIG_FRIENDSHIP_CHANGE, PROC_REF(change_friendship))
+	RegisterSignal(parent, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, PROC_REF(pass_friendship))
 
 /datum/component/friendship_container/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_FRIENDSHIP_CHECK_LEVEL)
 	UnregisterSignal(parent, COMSIG_FRIENDSHIP_CHANGE)
+	UnregisterSignal(parent, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP)
 
 /datum/component/friendship_container/proc/change_friendship(mob/living/source, atom/target, amount)
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
@@ -54,3 +56,13 @@
 				return TRUE
 			return FALSE
 	return FALSE
+
+
+/datum/component/friendship_container/proc/pass_friendship(datum/source, atom/target)
+	if(!target.GetComponent(/datum/component/friendship_container))
+		target.AddComponent(/datum/component/friendship_container, friendship_levels, befriend_level)
+
+	for(var/datum/weakref/ref as anything in weakrefed_friends)
+		var/amount = weakrefed_friends[ref]
+		var/atom/resolved = ref.resolve()
+		SEND_SIGNAL(target, COMSIG_FRIENDSHIP_CHANGE, resolved, amount)
