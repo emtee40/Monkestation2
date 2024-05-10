@@ -536,6 +536,7 @@
 	else
 		O.throwforce = 0
 
+	owner.visible_message(span_warning("[owner] shoots a [O] out of their chest."))
 	owner.Beam(O, icon_state = "chain", time = 100, maxdistance = 7)
 	O.throw_at(target, 5, 1.5, owner, FALSE, diagonals_first = TRUE)
 
