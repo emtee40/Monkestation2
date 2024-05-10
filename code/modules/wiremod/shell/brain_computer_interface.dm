@@ -143,6 +143,7 @@
 	bci = shell
 
 	show_charge_meter.set_value(TRUE)
+	update_charge_action()
 
 	RegisterSignal(shell, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_organ_implanted))
 	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
