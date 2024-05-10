@@ -8,7 +8,7 @@
 	attack_verb_simple = list("strike")
 	slot_flags = ITEM_SLOT_BELT + ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
-	var/datum/action/cooldown/spell/touch/concuss = new
+	var/datum/action/cooldown/spell/pointed/concuss = new
 
 /obj/item/melee/concussive_hammer/Destroy()
 	qdel(concuss)
@@ -18,7 +18,7 @@
 	name = "Concuss"
 	desc = "TBD"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
-	spell_requirements = SPELL_REQUIRES_HUMAN
+	spell_requirements = SPELL_REQU
 	antimagic_flags = NONE
 	cooldown_time = 10 //Subject to balancing
 	spell_max_level = 1
