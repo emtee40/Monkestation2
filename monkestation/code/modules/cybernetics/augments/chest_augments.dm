@@ -496,7 +496,7 @@
 	desc = "Knocks the socks of the person in front of you!"
 
 	actions_types = list(/datum/action/item_action/organ_action/knockout)
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_NT_LOWLEVEL
 
 	COOLDOWN_DECLARE(shoot)
 
