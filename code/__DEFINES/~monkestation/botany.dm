@@ -42,3 +42,7 @@
 #define SHOW_HARVEST (1<<6)
 
 #define SPECIES_APID "apid"
+
+#define COMSIG_MUTATION_TRIGGER "mutation_trigger"
+#define COMSIG_AGE_ADJUSTMENT "age_adjust"
+#define COMSIG_AGE_RETURN_AGE "age_return"

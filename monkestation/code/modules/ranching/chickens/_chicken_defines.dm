@@ -1,5 +1,3 @@
-#define DEFAULT_CHICKEN_ABILITY_COOLDOWN 30 SECONDS
-
 /mob/living/basic
 	///the child type of the parent, basically spawns in the baby version instead of the adult version. Used if mutations fail
 	var/child_type
@@ -17,7 +15,7 @@
 	///Consumed food
 	var/list/consumed_food = list()
 	///All Consumed reagents
-	var/list/datum/reagent/consumed_reagents = new/list()
+	var/list/datum/reagent/consumed_reagents = list()
 
 /mob/living/basic/chicken
 
@@ -43,14 +41,6 @@
 	var/current_feed_amount = 0
 	///Overcrowding amount
 	var/overcrowding = 10
-	///Age of the chicken
-	var/age = 0
-	///max age of a chicken
-	var/max_age = 100
-	///Cooldown for aging
-	COOLDOWN_DECLARE(age_cooldown)
-	///Aging Speed
-	var/age_speed = 30 SECONDS
 	///max generational happiness
 	var/max_happiness_per_generation = 100
 	///How sad until they die of sadness?
@@ -58,9 +48,10 @@
 
 	///List of happy chems
 	var/list/happy_chems = list(
-	/datum/reagent/drug/methamphetamine = 0.5,
-	/datum/reagent/toxin/lipolicide = 0.25,
-	/datum/reagent/consumable/sugar = 0.1,)
+		/datum/reagent/drug/methamphetamine = 0.5,
+		/datum/reagent/toxin/lipolicide = 0.25,
+		/datum/reagent/consumable/sugar = 0.1,
+	)
 	///List of liked foods
 	var/list/liked_foods = list(/obj/item/food/grown/wheat = 3,)
 	///list of disliked foods
@@ -115,32 +106,3 @@
 	var/instability = 0
 	///modifier to the egg laying cooldown
 	var/egg_laying_boosting = 0
-
-#undef DEFAULT_CHICKEN_ABILITY_COOLDOWN
-
-/obj/item/food/egg
-	name = "White Egg"
-	///the amount the chicken is grown
-	var/amount_grown = 0
-	///the type of chicken that laid this egg
-	var/mob/living/basic/chicken/layer_hen_type = /mob/living/basic/chicken
-	///happiness of the chicken
-	var/happiness = 0
-	///list of consumed food
-	var/list/consumed_food
-	///list of consumed reagents
-	var/list/consumed_reagents
-	///list of all possible mutations
-	var/list/mutations = list()
-	///eggs ore type
-	var/obj/item/stack/ore/production_type = null
-	///list of picked mutations should only ever be one
-	var/list/possible_mutations = list()
-	///was this just layed as a mutation if so don't let it grow via incubators
-	var/fresh_mutation = FALSE
-	///is this egg fertile? used when picked up / dropped
-	var/is_fertile = FALSE
-	///the holder of our factions used so that we keep faction friends through generations
-	var/list/faction_holder = list()
-	///our stored_glass_egg_reagents from the parent
-	var/list/glass_egg_reagents = list()

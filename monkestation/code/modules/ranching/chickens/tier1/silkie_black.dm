@@ -7,11 +7,9 @@
 
 	book_desc = "Besides being incredibly cute, these chickens act the same as White Chickens do."
 
-/mob/living/basic/chicken/silkie_black/death(gibbed)
+/mob/living/basic/chicken/silkie_black/old_age_death()
+	new /mob/living/basic/chicken/dream(get_turf(src))
 	. = ..()
-	if(age >= max_age)
-		new /mob/living/basic/chicken/dream(get_turf(src))
-
 
 /obj/item/food/egg/silkie_black
 	name = "Black Selkie Egg"

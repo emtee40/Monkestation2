@@ -111,7 +111,7 @@
 			to_chat(user, examine_block(combined_msg.Join("\n")))
 	else
 		var/list/combined_msg = list()
-		combined_msg += "\t <span class='info'>Age:[scanned_chicken.age]</span>"
+		combined_msg += "\t <span class='info'>Age:[SEND_SIGNAL(scanned_chicken, COMSIG_AGE_RETURN_AGE)]</span>"
 		combined_msg += "\t <span class='info'>Happiness:[round(scanned_chicken.happiness, 1)]</span>"
 		to_chat(user, examine_block(combined_msg.Join("\n")))
 

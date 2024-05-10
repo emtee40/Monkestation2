@@ -46,7 +46,7 @@
 	AddComponent(/datum/component/mutation, mutation_list, TRUE)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
 	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100), FRIENDSHIP_ACQUAINTANCES)
-
+	AddComponent(/datum/component/aging, death_callback = CALLBACK(src, PROC_REF(old_age_death)))
 
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
@@ -67,39 +67,7 @@
 		else
 			name = "[breed_name] Hen"
 
-	var/list/new_planning_subtree = list()
-
-	var/datum/action/cooldown/mob_cooldown/chicken/feed/feed_ability = new(src)
-	feed_ability.Grant(src)
-	ai_controller.blackboard[BB_CHICKEN_FEED] = feed_ability
-	new_planning_subtree |= /datum/ai_planning_subtree/targeted_mob_ability/min_range/chicken/feed
-
-	if(gender == FEMALE)
-		var/datum/action/cooldown/mob_cooldown/chicken/lay_egg/new_ability = new(src)
-		new_ability.Grant(src)
-		ai_controller.blackboard[BB_CHICKEN_LAY_EGG] = new_ability
-		new_planning_subtree |= /datum/ai_planning_subtree/targeted_mob_ability/min_range/chicken/lay_egg
-
-	if(targeted_ability)
-		var/datum/action/cooldown/mob_cooldown/created_ability = new targeted_ability(src)
-		created_ability.Grant(src)
-		ai_controller.blackboard[BB_CHICKEN_TARGETED_ABILITY] = created_ability
-		new_planning_subtree |= targeted_ability_planning_tree
-
-	if(self_ability)
-		var/datum/action/cooldown/mob_cooldown/created_ability = new self_ability(src)
-		created_ability.Grant(src)
-		ai_controller.blackboard[BB_CHICKEN_SELF_ABILITY] = created_ability
-		new_planning_subtree |= ability_planning_tree
-
-	if(projectile_type)
-		AddComponent(/datum/component/ranged_attacks, projectile_type = src.projectile_type, cooldown_time = ranged_cooldown)
-		new_planning_subtree |= /datum/ai_planning_subtree/basic_ranged_attack_subtree/chicken
-
-	for(var/datum/ai_planning_subtree/listed_tree as anything in ai_controller.planning_subtrees)
-		new_planning_subtree |= listed_tree.type
-
-	ai_controller.replace_planning_subtrees(new_planning_subtree)
+	build_initial_planning_tree()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -145,13 +113,14 @@
 	layed_egg.pixel_y = rand(-6,6)
 
 	if(glass_egg_reagents)
+		layed_egg.glass_egg_reagents = glass_egg_reagents
 		layed_egg.food_reagents = glass_egg_reagents
 
 	if(production_type)
 		layed_egg.production_type = production_type
 
 	if(eggs_fertile)
-		if(prob(20 + (fertility_boosting * 0.1)) || layed_egg.possible_mutations.len) //25
+		if(prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) //25
 			START_PROCESSING(SSobj, layed_egg)
 			layed_egg.is_fertile = TRUE
 			flop_animation(layed_egg)
@@ -269,12 +238,6 @@
 	. =..()
 	if(!.)
 		return
-	if(COOLDOWN_FINISHED(src, age_cooldown))
-		COOLDOWN_START(src, age_cooldown, age_speed)
-		age ++
-
-	if(age > max_age)
-		src.death()
 
 	if(instability > initial(instability))
 		instability = max(initial(instability), instability - 2)
@@ -314,3 +277,41 @@
 			add_visual("angry")
 	if(source)
 		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHANGE, source, amount * 0.5)
+
+/mob/living/basic/chicken/proc/old_age_death()
+	death()
+
+/mob/living/basic/chicken/proc/build_initial_planning_tree()
+	var/list/new_planning_subtree = list()
+
+	var/datum/action/cooldown/mob_cooldown/chicken/feed/feed_ability = new(src)
+	feed_ability.Grant(src)
+	ai_controller.blackboard[BB_CHICKEN_FEED] = feed_ability
+	new_planning_subtree |= /datum/ai_planning_subtree/targeted_mob_ability/min_range/chicken/feed
+
+	if(gender == FEMALE)
+		var/datum/action/cooldown/mob_cooldown/chicken/lay_egg/new_ability = new(src)
+		new_ability.Grant(src)
+		ai_controller.blackboard[BB_CHICKEN_LAY_EGG] = new_ability
+		new_planning_subtree |= /datum/ai_planning_subtree/targeted_mob_ability/min_range/chicken/lay_egg
+
+	if(targeted_ability)
+		var/datum/action/cooldown/mob_cooldown/created_ability = new targeted_ability(src)
+		created_ability.Grant(src)
+		ai_controller.blackboard[BB_CHICKEN_TARGETED_ABILITY] = created_ability
+		new_planning_subtree |= targeted_ability_planning_tree
+
+	if(self_ability)
+		var/datum/action/cooldown/mob_cooldown/created_ability = new self_ability(src)
+		created_ability.Grant(src)
+		ai_controller.blackboard[BB_CHICKEN_SELF_ABILITY] = created_ability
+		new_planning_subtree |= ability_planning_tree
+
+	if(projectile_type)
+		AddComponent(/datum/component/ranged_attacks, projectile_type = src.projectile_type, cooldown_time = ranged_cooldown)
+		new_planning_subtree |= /datum/ai_planning_subtree/basic_ranged_attack_subtree/chicken
+
+	for(var/datum/ai_planning_subtree/listed_tree as anything in ai_controller.planning_subtrees)
+		new_planning_subtree |= listed_tree.type
+
+	ai_controller.replace_planning_subtrees(new_planning_subtree)

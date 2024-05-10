@@ -1,3 +1,30 @@
+/obj/item/food/egg
+	name = "White Egg"
+	///the amount the chicken is grown
+	var/amount_grown = 0
+	///the type of chicken that laid this egg
+	var/mob/living/basic/chicken/layer_hen_type = /mob/living/basic/chicken
+	///happiness of the chicken
+	var/happiness = 0
+	///list of consumed food
+	var/list/consumed_food
+	///list of consumed reagents
+	var/list/consumed_reagents
+	///list of all possible mutations
+	var/list/mutations = list()
+	///eggs ore type
+	var/obj/item/stack/ore/production_type = null
+	///list of picked mutations should only ever be one
+	var/list/possible_mutations = list()
+	///was this just layed as a mutation if so don't let it grow via incubators
+	var/fresh_mutation = FALSE
+	///is this egg fertile? used when picked up / dropped
+	var/is_fertile = FALSE
+	///the holder of our factions used so that we keep faction friends through generations
+	var/list/faction_holder = list()
+	///our stored_glass_egg_reagents from the parent
+	var/list/glass_egg_reagents = list()
+
 /obj/item/food/egg/process(seconds_per_tick)
 	amount_grown += rand(3,6) * seconds_per_tick
 	if(amount_grown >= 100)

@@ -88,7 +88,7 @@
 	var/mob/living/basic/chicken/new_chicken = new grown_type(src.loc)
 	SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, new_chicken)
 	new_chicken.happiness = src.happiness
-	new_chicken.age += rand(1,10) //add a bit of age to each chicken causing staggered deaths
+	SEND_SIGNAL(new_chicken, COMSIG_AGE_ADJUSTMENT, rand(1, 10))
 
 	if(istype(new_chicken, /mob/living/basic/chicken/glass))
 		for(var/list_item in glass_egg_reagent)
