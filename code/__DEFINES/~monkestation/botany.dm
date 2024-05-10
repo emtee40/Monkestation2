@@ -46,3 +46,6 @@
 #define COMSIG_MUTATION_TRIGGER "mutation_trigger"
 #define COMSIG_AGE_ADJUSTMENT "age_adjust"
 #define COMSIG_AGE_RETURN_AGE "age_return"
+#define COMSIG_HAPPINESS_ADJUST "happiness_adjustment"
+#define COMSIG_HAPPINESS_RETURN_VALUE "happiness_return"
+#define COMSIG_HAPPINESS_PASS_HAPPINESS "happiness_pass"

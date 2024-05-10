@@ -10,8 +10,6 @@
 	///can it still lay eggs?
 	var/eggs_fertile = TRUE
 
-	///How happy the animal is, used on mutation to see if it can branch
-	var/happiness = 0
 	///Consumed food
 	var/list/consumed_food = list()
 	///All Consumed reagents
@@ -86,8 +84,6 @@
 	var/book_desc = "White Chickens lay White Eggs, however, if they are happy they will lay Brown Eggs instead. "
 	///if this chicken is marked, will add a sigil above it to show its marked
 	var/is_marked = FALSE
-	///the current visual effect applied
-	var/mutable_appearance/applied_visual
 	///the self ability planning tree
 	var/ability_planning_tree = /datum/ai_planning_subtree/use_mob_ability/chicken
 	///the targeted ability planning tree

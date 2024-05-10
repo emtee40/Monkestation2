@@ -25,6 +25,6 @@
 		new production_type.type(src.loc, 1)
 		for(var/mob/living/basic/chicken/viewer_chicken in view(3, src))
 			visible_message("<span class='notice'>[viewer_chicken] becomes upset from seeing an egg broken near them!</span>")
-			viewer_chicken.happiness -= 10
+			SEND_SIGNAL(viewer_chicken, COMSIG_HAPPINESS_ADJUST, -10, user)
 		qdel(src)
 #undef MINIMUM_BREAK_FORCE

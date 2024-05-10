@@ -4,8 +4,6 @@
 	var/amount_grown = 0
 	///the type of chicken that laid this egg
 	var/mob/living/basic/chicken/layer_hen_type = /mob/living/basic/chicken
-	///happiness of the chicken
-	var/happiness = 0
 	///list of consumed food
 	var/list/consumed_food
 	///list of consumed reagents

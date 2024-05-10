@@ -87,7 +87,7 @@
 		return
 	var/mob/living/basic/chicken/new_chicken = new grown_type(src.loc)
 	SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, new_chicken)
-	new_chicken.happiness = src.happiness
+	SEND_SIGNAL(src, COMSIG_HAPPINESS_PASS_HAPPINESS, new_chicken)
 	SEND_SIGNAL(new_chicken, COMSIG_AGE_ADJUSTMENT, rand(1, 10))
 
 	if(istype(new_chicken, /mob/living/basic/chicken/glass))
@@ -105,7 +105,7 @@
 	for(var/listed_faction in host_egg.faction_holder)
 		src.faction |= listed_faction
 
-	src.happiness = host_egg.happiness
+	SEND_SIGNAL(host_egg, COMSIG_HAPPINESS_PASS_HAPPINESS, src)
 	SEND_SIGNAL(host_egg, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, src)
 	if(istype(grown_type, /mob/living/basic/chicken/glass))
 		for(var/list_item in host_egg.glass_egg_reagents)

@@ -47,6 +47,7 @@
 	AddComponent(/datum/component/obeys_commands, pet_commands)
 	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100), FRIENDSHIP_ACQUAINTANCES)
 	AddComponent(/datum/component/aging, death_callback = CALLBACK(src, PROC_REF(old_age_death)))
+	AddComponent(/datum/component/happiness_container, max_happiness_per_generation, happy_chems, disliked_chemicals, liked_foods, disliked_foods, disliked_food_types, list(CALLBACK(src, PROC_REF(unhappy_death)) = minimum_living_happiness))
 
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
@@ -87,26 +88,15 @@
 	if(is_marked)
 		.+= mutable_appearance('monkestation/icons/effects/ranching.dmi', "marked", FLOAT_LAYER, src, plane = src.plane)
 
-/mob/living/basic/chicken/proc/add_visual(method)
-	if(applied_visual)
-		return
-	applied_visual = mutable_appearance('monkestation/icons/effects/ranching_text.dmi', "chicken_[method]", FLOAT_LAYER, src, plane = src.plane)
-	add_overlay(applied_visual)
-	addtimer(CALLBACK(src, PROC_REF(remove_visual)), 3 SECONDS)
-
-/mob/living/basic/chicken/proc/remove_visual()
-	cut_overlay(applied_visual)
-	applied_visual = null
-
 /mob/living/basic/chicken/pass_stats(atom/child)
 	var/obj/item/food/egg/layed_egg = child
 
-	if(layed_egg.is_fertile) //using the heating box will cause the friendship to be lost, this is a nerf to raptor farms
+	if(layed_egg.is_fertile) //using the heating box will cause the friendship and happiness to be lost, this is a nerf to raptor farms and slows down gold chickens
 		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, layed_egg)
+		SEND_SIGNAL(src, COMSIG_HAPPINESS_PASS_HAPPINESS, layed_egg)
 
 	layed_egg.faction_holder = src.faction
 	layed_egg.layer_hen_type = src.type
-	layed_egg.happiness = src.happiness
 	layed_egg.consumed_food = src.consumed_food
 	layed_egg.consumed_reagents = src.consumed_reagents
 	layed_egg.pixel_x = rand(-6,6)
@@ -132,7 +122,6 @@
 	consumed_reagents = null
 	mutation_list = null
 	glass_egg_reagents = null
-	applied_visual = null
 	disliked_foods = null
 	return ..()
 
@@ -166,10 +155,10 @@
 		..()
 
 /mob/living/basic/chicken/proc/feed_food(obj/item/given_item, mob/user)
-	handle_happiness_changes(given_item, user)
 	if(user)
 		var/feedmsg = "[user] feeds [given_item] to [name]! [pick(feedMessages)]"
 		user.visible_message(feedmsg)
+	SEND_SIGNAL(src, COMSIG_LIVING_ATE, given_item, user)
 
 	qdel(given_item)
 	eggs_left += rand(0, 2)
@@ -177,6 +166,8 @@
 	total_times_eaten ++
 
 /mob/living/basic/chicken/proc/eat_feed(obj/effect/chicken_feed/eaten_feed)
+	SEND_SIGNAL(src, COMSIG_LIVING_ATE, eaten_feed)
+
 	if(eaten_feed.held_reagents.len)
 		for(var/datum/reagent/listed_reagent in eaten_feed.held_reagents)
 			listed_reagent.feed_interaction(src, listed_reagent.volume)
@@ -185,54 +176,10 @@
 	for(var/listed_item in eaten_feed.held_foods)
 		var/obj/item/food/listed_food = new listed_item
 		consumed_food |= listed_food.type
-
-		for(var/food_type in listed_food.foodtypes)
-			if(food_type in disliked_food_types)
-				var/type_value = disliked_food_types[food_type]
-				adjust_happiness(-type_value)
-
-		if((listed_food.type in liked_foods) && max_happiness_per_generation >= liked_foods[listed_food.type])
-			var/liked_value = liked_foods[listed_food.type]
-			adjust_happiness(liked_value)
-
-		else if(listed_food.type in disliked_foods)
-			var/disliked_value = disliked_foods[listed_food.type]
-			adjust_happiness(-disliked_value)
 		qdel(listed_food)
 	total_times_eaten++
 	eggs_left += rand(1, 3)
 	qdel(eaten_feed)
-
-/mob/living/basic/chicken/proc/handle_happiness_changes(obj/given_item, mob/user)
-	for(var/datum/reagent/reagent in given_item.reagents.reagent_list)
-		if(reagent in happy_chems && max_happiness_per_generation >= (happy_chems[reagent.type] * reagent.volume))
-			var/liked_value = happy_chems[reagent.type]
-			adjust_happiness(liked_value * reagent.volume, user)
-		else if(reagent in disliked_chemicals)
-			var/disliked_value = disliked_chemicals[reagent.type]
-			adjust_happiness(-(disliked_value * reagent.volume), user)
-		if(!(reagent in consumed_reagents))
-			consumed_reagents.Add(reagent)
-
-	if(!istype(given_item, /obj/item/food))
-		return
-
-	var/obj/item/food/placeholder_food_item = given_item
-	if(!(placeholder_food_item.type in consumed_food))
-		consumed_food.Add(placeholder_food_item.type)
-
-	for(var/food_type in placeholder_food_item.foodtypes)
-		if(food_type in disliked_food_types)
-			var/type_value = disliked_food_types[food_type]
-			adjust_happiness(-type_value, user)
-
-	if((placeholder_food_item.type in liked_foods) && max_happiness_per_generation >= liked_foods[placeholder_food_item.type])
-		var/liked_value = liked_foods[placeholder_food_item.type]
-		adjust_happiness(liked_value, user)
-
-	else if(placeholder_food_item.type in disliked_foods)
-		var/disliked_value = disliked_foods[placeholder_food_item.type]
-		adjust_happiness(-disliked_value, user)
 
 /mob/living/basic/chicken/Life()
 	. =..()
@@ -257,8 +204,6 @@
 	if(current_feed_amount == 0)
 		adjust_happiness(-0.01, natural_cause = TRUE)
 
-	if(happiness < minimum_living_happiness)
-		src.death()
 	if(!stat && prob(3) && current_feed_amount > 0)
 		current_feed_amount --
 		if(current_feed_amount == 0)
@@ -268,15 +213,7 @@
 
 
 /mob/living/basic/chicken/proc/adjust_happiness(amount, atom/source, natural_cause = FALSE)
-	happiness += amount
-	if(amount > 0)
-		max_happiness_per_generation -= amount
-		add_visual("love")
-	else
-		if(!natural_cause)
-			add_visual("angry")
-	if(source)
-		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHANGE, source, amount * 0.5)
+	SEND_SIGNAL(src, COMSIG_HAPPINESS_ADJUST, amount, source, natural_cause)
 
 /mob/living/basic/chicken/proc/old_age_death()
 	death()
@@ -315,3 +252,6 @@
 		new_planning_subtree |= listed_tree.type
 
 	ai_controller.replace_planning_subtrees(new_planning_subtree)
+
+/mob/living/basic/chicken/proc/unhappy_death()
+	death()
