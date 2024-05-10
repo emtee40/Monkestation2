@@ -91,10 +91,6 @@
 /mob/living/basic/chicken/pass_stats(atom/child)
 	var/obj/item/food/egg/layed_egg = child
 
-	if(layed_egg.is_fertile) //using the heating box will cause the friendship and happiness to be lost, this is a nerf to raptor farms and slows down gold chickens
-		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, layed_egg)
-		SEND_SIGNAL(src, COMSIG_HAPPINESS_PASS_HAPPINESS, layed_egg)
-
 	layed_egg.faction_holder = src.faction
 	layed_egg.layer_hen_type = src.type
 	layed_egg.consumed_food = src.consumed_food
@@ -113,6 +109,8 @@
 		if(prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) //25
 			START_PROCESSING(SSobj, layed_egg)
 			layed_egg.is_fertile = TRUE
+			SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, layed_egg)
+			SEND_SIGNAL(src, COMSIG_HAPPINESS_PASS_HAPPINESS, layed_egg)
 			flop_animation(layed_egg)
 			layed_egg.desc = "You can hear pecking from the inside of this seems it may hatch soon."
 
