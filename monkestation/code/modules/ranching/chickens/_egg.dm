@@ -24,7 +24,7 @@
 	var/list/glass_egg_reagents = list()
 
 /obj/item/food/egg/process(seconds_per_tick)
-	amount_grown += rand(3,6) * seconds_per_tick
+	amount_grown += rand(2,3) * seconds_per_tick
 	if(amount_grown >= 100)
 		pre_hatch()
 

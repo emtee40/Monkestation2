@@ -48,11 +48,16 @@
 	AddComponent(/datum/component/friendship_container, list(FRIENDSHIP_HATED = -100, FRIENDSHIP_DISLIKED = -50, FRIENDSHIP_STRANGER = 0, FRIENDSHIP_NEUTRAL = 10, FRIENDSHIP_ACQUAINTANCES = 25, FRIENDSHIP_FRIEND = 50, FRIENDSHIP_BESTFRIEND = 100), FRIENDSHIP_ACQUAINTANCES)
 	AddComponent(/datum/component/aging, death_callback = CALLBACK(src, PROC_REF(old_age_death)))
 	AddComponent(/datum/component/happiness_container, max_happiness_per_generation, happy_chems, disliked_chemicals, liked_foods, disliked_foods, disliked_food_types, list(CALLBACK(src, PROC_REF(unhappy_death)) = minimum_living_happiness))
+	AddComponent(/datum/component/generic_mob_hunger, 400, 0.5, 3 MINUTES, 200)
+
 
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
+	RegisterSignal(src, COMSIG_HUNGER_UPDATED, PROC_REF(handle_hunger_updates))
+
 	if(prob(40))
 		gender = MALE
 
@@ -157,14 +162,16 @@
 		var/feedmsg = "[user] feeds [given_item] to [name]! [pick(feedMessages)]"
 		user.visible_message(feedmsg)
 	SEND_SIGNAL(src, COMSIG_LIVING_ATE, given_item, user)
+	SEND_SIGNAL(src, COMSIG_MOB_FEED, given_item, 50)
 
 	qdel(given_item)
 	eggs_left += rand(0, 2)
-	current_feed_amount ++
+	current_feed_amount++
 	total_times_eaten ++
 
 /mob/living/basic/chicken/proc/eat_feed(obj/effect/chicken_feed/eaten_feed)
 	SEND_SIGNAL(src, COMSIG_LIVING_ATE, eaten_feed)
+	SEND_SIGNAL(src, COMSIG_MOB_FEED, eaten_feed, 25 + (15 * length(eaten_feed.held_foods)) + (10 * length(eaten_feed.held_reagents)))
 
 	if(eaten_feed.held_reagents.len)
 		for(var/datum/reagent/listed_reagent in eaten_feed.held_reagents)
@@ -175,6 +182,7 @@
 		var/obj/item/food/listed_food = new listed_item
 		consumed_food |= listed_food.type
 		qdel(listed_food)
+
 	total_times_eaten++
 	eggs_left += rand(1, 3)
 	qdel(eaten_feed)
@@ -199,16 +207,8 @@
 	if(animal_count >= overcrowding)
 		adjust_happiness(-1)
 
-	if(current_feed_amount == 0)
-		adjust_happiness(-0.01, natural_cause = TRUE)
-
 	if(!stat && prob(3) && current_feed_amount > 0)
-		current_feed_amount --
-		if(current_feed_amount == 0)
-			var/list/users = get_hearers_in_view(4, src.loc)
-			for(var/mob/living/carbon/human/user in users)
-				user.visible_message("[src] starts pecking at the floor, it must be hungry.")
-
+		current_feed_amount--
 
 /mob/living/basic/chicken/proc/adjust_happiness(amount, atom/source, natural_cause = FALSE)
 	SEND_SIGNAL(src, COMSIG_HAPPINESS_ADJUST, amount, source, natural_cause)
@@ -253,3 +253,16 @@
 
 /mob/living/basic/chicken/proc/unhappy_death()
 	death()
+
+/mob/living/basic/chicken/proc/handle_hunger_updates(datum/source, current_hunger, max_hunger)
+	SIGNAL_HANDLER
+
+	var/hunger_precent = current_hunger / max_hunger
+
+	if(hunger_precent > 0.1)
+		return
+
+	var/list/users = get_hearers_in_view(4, loc)
+	for(var/mob/living/carbon/human/user in users)
+		user.visible_message("[name] starts pecking at the floor, it must be hungry.")
+	adjust_happiness(-0.01, natural_cause = TRUE)
