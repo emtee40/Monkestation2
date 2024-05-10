@@ -30,6 +30,7 @@
 /mob/living/basic/chicken/gary/Initialize(mapload)
 	. = ..()
 	Read_Memory()
+	AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS, ACCESS_AWAY_MAINTENANCE))
 
 /mob/living/basic/chicken/gary/death(gibbed)
 	. = ..()

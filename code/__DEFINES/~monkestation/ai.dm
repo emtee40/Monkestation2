@@ -11,6 +11,5 @@
 #define BB_GARY_HIDEOUT_SETTING_UP "BB_gary_hideout_setting_up"
 #define BB_GARY_TARGET_AREA "BB_gary_target"
 #define BB_GARY_BARTERING "BB_gary_bartering"
-#define BB_GARY_BARTER_FRIEND "BB_gary_barter_friend"
 #define BB_GARY_COME_HOME "BB_gary_come_home"
 #define BB_GARY_HAS_SHINY "BB_gary_has_shiny"
