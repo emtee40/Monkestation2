@@ -67,7 +67,7 @@
 	var/when_dead = TRUE
 
 /datum/nanite_rule/death/check_rule()
-	return when_dead == (program.host_mob.stat == DEAD || HAS_TRAIT(program.host_mob, TRAIT_FAKEDEATH))
+	return when_dead == (program.host_mob.stat == DEAD)
 
 /datum/nanite_rule/death/copy_to(datum/nanite_program/new_program)
 	var/datum/nanite_rule/death/rule = new(new_program)
