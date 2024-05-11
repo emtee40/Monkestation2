@@ -44,6 +44,7 @@
 	. = ..()
 	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
 	QDEL_NULL(roundend_callback) //This ought to free the callback datum, and prevent us from harddeling
+	QDEL_NULL(hideout)
 
 /mob/living/basic/chicken/gary/death(gibbed)
 	. = ..()
