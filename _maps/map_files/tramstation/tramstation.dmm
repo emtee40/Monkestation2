@@ -1146,6 +1146,7 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 1
 	},
+/obj/item/shovel/spade,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "adx" = (
@@ -11992,6 +11993,7 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/cup/watering_can,
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "cIq" = (
@@ -22883,6 +22885,7 @@
 	dir = 8
 	},
 /obj/machinery/growing/tray,
+/obj/item/plant_analyzer,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "glO" = (
@@ -30017,27 +30020,10 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = -12
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/closet/crate/hydroponics,
-/obj/item/seeds/onion,
-/obj/item/paper/guides/jobs/hydroponics,
-/obj/item/seeds/garlic,
-/obj/item/seeds/potato,
-/obj/item/seeds/tomato,
-/obj/item/seeds/carrot,
-/obj/item/seeds/grass,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/wheat,
-/obj/item/seeds/pumpkin,
-/obj/effect/spawner/random/contraband/prison,
-/obj/item/seeds/tree,
-/obj/item/botanical_lexicon,
+/obj/machinery/composters,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "iHH" = (
@@ -52809,6 +52795,10 @@
 /obj/item/reagent_containers/condiment/sugar{
 	pixel_x = -5
 	},
+/obj/item/reagent_containers/condiment/flour{
+	pixel_x = -1;
+	pixel_y = 8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/station/security/prison/mess)
 "pTP" = (
@@ -57926,6 +57916,26 @@
 "ryo" = (
 /turf/closed/wall,
 /area/station/security/prison/workout)
+"ryp" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/closet/crate/hydroponics,
+/obj/item/botanical_lexicon,
+/obj/item/seeds/tree,
+/obj/effect/spawner/random/contraband/prison,
+/obj/item/seeds/pumpkin,
+/obj/item/seeds/wheat,
+/obj/item/seeds/ambrosia,
+/obj/item/seeds/grass,
+/obj/item/seeds/carrot,
+/obj/item/seeds/tomato,
+/obj/item/seeds/potato,
+/obj/item/seeds/garlic,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/item/seeds/onion,
+/turf/open/floor/iron,
+/area/station/security/prison/garden)
 "ryy" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
@@ -65558,12 +65568,6 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 1
 	},
-/obj/structure/closet/crate/hydroponics,
-/obj/effect/spawner/random/food_or_drink/seed{
-	spawn_all_loot = 1;
-	spawn_random_offset = 1
-	},
-/obj/effect/spawner/random/contraband/prison,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "tWG" = (
@@ -68556,7 +68560,9 @@
 	dir = 6;
 	network = list("ss13","Security","prison")
 	},
-/obj/machinery/composters,
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "uSL" = (
@@ -77633,6 +77639,14 @@
 /area/station/science/lower)
 "xNm" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
+/obj/item/secateurs{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/secateurs{
+	pixel_x = -9;
+	pixel_y = -9
+	},
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "xNq" = (
@@ -102745,7 +102759,7 @@ cAU
 duB
 ria
 ecs
-cOv
+ryp
 biS
 lQx
 duB

@@ -30948,6 +30948,7 @@
 /area/station/engineering/break_room)
 "lff" = (
 /obj/machinery/biogenerator,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "lfk" = (
@@ -36839,6 +36840,7 @@
 /area/station/security/courtroom)
 "nhi" = (
 /obj/machinery/seed_extractor,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "nhP" = (
@@ -41866,13 +41868,10 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 1
 	},
-/obj/structure/closet/crate/hydroponics,
-/obj/item/paper/guides/jobs/hydroponics,
-/obj/effect/spawner/random/food_or_drink/seed{
-	spawn_all_loot = 1;
-	spawn_random_offset = 1
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
 	},
-/obj/effect/spawner/random/contraband/prison,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "oUu" = (
@@ -46488,6 +46487,8 @@
 /obj/item/seeds/potato,
 /obj/item/seeds/garlic,
 /obj/item/seeds/onion,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/item/seeds/tree,
 /obj/item/botanical_lexicon,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
@@ -50109,6 +50110,17 @@
 /obj/effect/landmark/navigate_destination/aiupload,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
+"rPo" = (
+/obj/effect/turf_decal/trimline/green/filled/line{
+	dir = 8
+	},
+/obj/item/secateurs,
+/obj/item/secateurs{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/turf/open/floor/iron,
+/area/station/security/prison/garden)
 "rPF" = (
 /obj/machinery/shower/directional/south{
 	name = "emergency shower"
@@ -50921,7 +50933,6 @@
 /obj/machinery/growing/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
-/obj/item/plant_analyzer,
 /turf/open/floor/grass,
 /area/station/security/prison/garden)
 "scb" = (
@@ -58199,9 +58210,18 @@
 /obj/machinery/light/directional/west,
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable,
-/obj/item/storage/fancy/egg_box,
 /obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/rice,
+/obj/item/reagent_containers/condiment/rice{
+	pixel_x = -10
+	},
+/obj/item/reagent_containers/condiment/sugar{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/condiment/flour{
+	pixel_x = 7
+	},
+/obj/item/storage/fancy/egg_box,
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "uEC" = (
@@ -59587,6 +59607,7 @@
 /area/station/medical/chemistry)
 "vfV" = (
 /obj/machinery/composters,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "vgb" = (
@@ -63768,6 +63789,14 @@
 	dir = 1
 	},
 /area/station/engineering/atmos/pumproom)
+"wDV" = (
+/obj/item/plant_analyzer,
+/obj/item/plant_analyzer{
+	pixel_y = -4;
+	pixel_x = -5
+	},
+/turf/open/floor/iron,
+/area/station/security/prison/garden)
 "wEf" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/plasma_output{
 	dir = 1
@@ -87350,7 +87379,7 @@ oyl
 vjE
 hSw
 qBB
-tCC
+rPo
 heA
 tCC
 qDS
@@ -87607,7 +87636,7 @@ nNE
 xfp
 hSw
 oUk
-fiA
+wDV
 cxr
 fiA
 fiA

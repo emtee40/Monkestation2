@@ -18290,6 +18290,10 @@
 /obj/item/knife/plastic,
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom/prison/directional/north,
+/obj/item/reagent_containers/cup/soup_pot{
+	pixel_x = 4;
+	pixel_y = 8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/station/security/prison/mess)
 "fTq" = (
@@ -18490,7 +18494,7 @@
 /area/station/security/prison/rec)
 "fWe" = (
 /obj/machinery/growing/soil,
-/obj/item/plant_analyzer,
+/obj/item/cultivator,
 /turf/open/floor/grass,
 /area/station/security/prison/garden)
 "fWl" = (
@@ -50934,6 +50938,16 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/range)
+"qtu" = (
+/obj/item/plant_analyzer,
+/obj/item/plant_analyzer{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/station/security/prison/garden)
 "qtw" = (
 /obj/machinery/door/airlock/security{
 	name = "Prison Forestry"
@@ -53757,6 +53771,11 @@
 /obj/structure/chair/pew/right,
 /turf/open/floor/wood,
 /area/station/security/prison/rec)
+"roI" = (
+/obj/machinery/growing/soil,
+/obj/item/shovel/spade,
+/turf/open/floor/grass,
+/area/station/security/prison/garden)
 "roQ" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -59303,6 +59322,14 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
+"thN" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/station/security/prison/garden)
 "thW" = (
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/wood,
@@ -67332,6 +67359,19 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron,
 /area/mine/production)
+"vOr" = (
+/obj/item/secateurs{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/item/secateurs{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/station/security/prison/garden)
 "vOw" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red{
@@ -72106,15 +72146,11 @@
 /area/station/medical/pharmacy)
 "xnk" = (
 /obj/machinery/light/directional/north,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
-/obj/structure/closet/crate/hydroponics,
-/obj/effect/spawner/random/contraband/prison,
-/obj/effect/spawner/random/food_or_drink/seed{
-	spawn_all_loot = 1;
-	spawn_random_offset = 1
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
 	},
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
@@ -161773,7 +161809,7 @@ nFU
 jNf
 xnk
 tau
-cPE
+thN
 cPE
 hVY
 gjq
@@ -162287,7 +162323,7 @@ obv
 jNf
 dID
 tau
-cPE
+qtu
 cPE
 hVY
 gjq
@@ -162544,7 +162580,7 @@ tWO
 jNf
 tXd
 qSo
-cPE
+vOr
 cPE
 hVY
 gjq
@@ -163315,7 +163351,7 @@ eCD
 jNf
 pbB
 tzf
-ozX
+roI
 ozX
 hVY
 gjq
