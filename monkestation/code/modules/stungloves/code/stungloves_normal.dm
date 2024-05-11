@@ -14,8 +14,8 @@
 	slot_flags = ITEM_SLOT_GLOVES
 	chunky_finger_usable = TRUE
 
-	cooldown = 3 SECONDS //Longer.
-	stamina_damage = 65 //Lower.
+	cooldown = 1.5 SECONDS //Reduced down to accomodate the way less stam damage.
+	stamina_damage = 70 //Lower.
 	knockdown_time = 2.5 SECONDS //Half
 	clumsy_knockdown_time = 6 SECONDS //Lower power batong
 	var/datum/action/cooldown/toggle_stunners/assistant_killer
