@@ -42,6 +42,14 @@
 		new /obj/item/flashlight/flare(src)
 		new /obj/item/radio/off(src)
 
+//monkestation temp removal
+/*	if(HAS_TRAIT(SSstation, STATION_TRAIT_RADIOACTIVE_NEBULA))
+		new /obj/item/storage/pill_bottle/potassiodide(src)*/
+//monkestation removal end
+
+	if(SSmapping.is_planetary() && LAZYLEN(SSmapping.multiz_levels))
+		new /obj/item/climbing_hook/emergency(src)
+
 /obj/item/storage/box/survival/radio/PopulateContents()
 	..() // we want the survival stuff too.
 	new /obj/item/radio/off(src)
