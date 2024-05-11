@@ -108,7 +108,6 @@
 		if(held_item)
 			return ..()
 		if(istype(attacking_item, /obj/item/knife))
-			held_item = attacking_item //put knife in hand
 			attack_sound = 'sound/weapons/bladeslice.ogg'
 			melee_damage_upper = attacking_item.force //attack dmg inherits knife dmg
 			melee_damage_lower = attacking_item.force

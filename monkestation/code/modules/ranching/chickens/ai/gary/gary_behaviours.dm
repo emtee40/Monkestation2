@@ -172,3 +172,43 @@
 	controller.blackboard[BB_GARY_BARTERING] = FALSE
 	controller.blackboard[BB_GARY_BARTER_ITEM] = null
 	controller.blackboard[BB_GARY_BARTER_TARGET] = null
+
+
+/datum/ai_behavior/gary_goto_target
+	required_distance = 3
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+
+/datum/ai_behavior/gary_goto_target/setup(datum/ai_controller/controller, ...)
+	. = ..()
+	var/mob/living/owner = controller.pawn
+
+	var/list/turfs = list()
+	for(var/mob/living/mob as anything in GLOB.player_list)
+		if(!istype(mob))
+			continue
+		if(mob.z != SSmapping.levels_by_trait(ZTRAIT_STATION)[1])
+			continue
+		for(var/turf/open/turf in view(5, mob))
+			turfs += turf
+
+	var/turf/open/target_turf = null
+	var/sanity = 0
+	while(!target_turf && sanity < 100)
+		sanity++
+		var/turf/turf = pick(turfs)
+		if(is_safe_turf(turf))
+
+			target_turf = turf
+	set_movement_target(controller, target_turf)
+	if(get_dist(get_turf(owner), target_turf) > 14)
+		if(owner.fading_leap_up())
+			owner.forceMove(target_turf)
+			owner.fading_leap_down()
+	controller.blackboard[BB_GARY_WANDER_COOLDOWN] = world.time + 5 MINUTES
+	finish_action(controller, TRUE)
+	return ..()
+
+/datum/ai_behavior/gary_goto_target/perform(seconds_per_tick, datum/ai_controller/controller, ...)
+	. = ..()
+	finish_action(controller, TRUE)
+

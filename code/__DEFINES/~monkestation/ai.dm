@@ -16,3 +16,4 @@
 #define BB_GARY_BARTER_TARGET "BB_gary_barter_target"
 #define BB_GARY_BARTER_ITEM "BB_gary_barter_item"
 #define BB_GARY_BARTER_STEP "BB_gary_barter_step"
+#define BB_GARY_WANDER_COOLDOWN "BB_gary_wander_cooldown"
