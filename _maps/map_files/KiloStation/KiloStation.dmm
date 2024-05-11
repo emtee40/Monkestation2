@@ -2961,7 +2961,6 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/item/reagent_containers/cup/watering_can,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "aVx" = (
@@ -4957,6 +4956,19 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/closet/crate/hydroponics,
+/obj/item/seeds/tree,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/item/seeds/onion,
+/obj/item/seeds/garlic,
+/obj/item/seeds/potato,
+/obj/item/seeds/tomato,
+/obj/item/seeds/carrot,
+/obj/item/seeds/grass,
+/obj/item/seeds/ambrosia,
+/obj/item/seeds/wheat,
+/obj/item/seeds/pumpkin,
+/obj/effect/spawner/random/contraband/prison,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "bHR" = (
@@ -7832,18 +7844,9 @@
 	c_tag = "Prison Botany";
 	network = list("ss13","prison")
 	},
-/obj/structure/closet/crate/hydroponics,
-/obj/effect/spawner/random/contraband/prison,
-/obj/item/seeds/pumpkin,
-/obj/item/seeds/wheat,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/grass,
-/obj/item/seeds/carrot,
-/obj/item/seeds/tomato,
-/obj/item/seeds/potato,
-/obj/item/seeds/garlic,
-/obj/item/seeds/onion,
-/obj/item/paper/guides/jobs/hydroponics,
+/obj/machinery/vending/hydroseeds{
+	slogan_delay = 700
+	},
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "cEM" = (
@@ -24490,12 +24493,20 @@
 "hTz" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/item/reagent_containers/condiment/rice,
+/obj/item/reagent_containers/condiment/rice{
+	pixel_y = 6
+	},
 /obj/item/reagent_containers/condiment/flour{
 	pixel_x = -3
 	},
-/obj/item/storage/fancy/egg_box,
 /obj/machinery/door/firedoor,
+/obj/item/reagent_containers/condiment/flour{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/sugar{
+	pixel_x = 7
+	},
+/obj/item/storage/fancy/egg_box,
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "hTB" = (
@@ -26192,6 +26203,11 @@
 	pixel_y = 3
 	},
 /obj/structure/flora/bush/sparsegrass/style_random,
+/obj/item/reagent_containers/cup/watering_can,
+/obj/item/reagent_containers/cup/watering_can{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/open/floor/grass,
 /area/station/security/prison/garden)
 "irO" = (
@@ -38797,12 +38813,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/closet/crate/hydroponics,
-/obj/effect/spawner/random/food_or_drink/seed{
-	spawn_all_loot = 1;
-	spawn_random_offset = 1
-	},
-/obj/effect/spawner/random/contraband/prison,
 /turf/open/floor/iron,
 /area/station/security/prison/garden)
 "mzp" = (
@@ -48646,6 +48656,14 @@
 /obj/structure/flora/grass/jungle/b/style_random,
 /obj/structure/flora/bush/flowers_yw/style_random,
 /obj/item/plant_analyzer,
+/obj/item/plant_analyzer{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/secateurs,
+/obj/item/secateurs{
+	pixel_y = -5
+	},
 /turf/open/floor/grass,
 /area/station/security/prison/garden)
 "pOq" = (
