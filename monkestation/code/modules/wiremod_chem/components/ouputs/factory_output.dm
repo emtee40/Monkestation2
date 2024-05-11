@@ -1,6 +1,3 @@
-#define CAT_PILLS "pills"
-#define CAT_PATCHES "patches"
-
 /obj/structure/chemical_tank/factory
 	name = "remote factory output"
 	desc = "Produces patchs, pills or bottles on demand."
@@ -97,6 +94,3 @@
 /obj/structure/chemical_tank/factory/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	generate_product(user)
-
-#undef CAT_PILLS
-#undef CAT_PATCHES

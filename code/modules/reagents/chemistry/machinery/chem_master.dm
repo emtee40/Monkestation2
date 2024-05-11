@@ -2,10 +2,6 @@
 #define TRANSFER_MODE_MOVE 1
 #define TARGET_BEAKER "beaker"
 #define TARGET_BUFFER "buffer"
-#define CAT_CONDIMENTS "condiments"
-#define CAT_TUBES "tubes"
-#define CAT_PILLS "pills"
-#define CAT_PATCHES "patches"
 
 /// List of containers the Chem Master machine can print
 GLOBAL_LIST_INIT(chem_master_containers, list(
@@ -499,7 +495,3 @@ GLOBAL_LIST_INIT(chem_master_containers, list(
 #undef TRANSFER_MODE_MOVE
 #undef TARGET_BEAKER
 #undef TARGET_BUFFER
-#undef CAT_CONDIMENTS
-#undef CAT_TUBES
-#undef CAT_PILLS
-#undef CAT_PATCHES
