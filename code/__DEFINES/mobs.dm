@@ -371,6 +371,8 @@
 #define GALOSHES_DONT_HELP (1<<3)
 /// Slip works even if you're already on the ground
 #define SLIP_WHEN_CRAWLING (1<<4)
+/// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
+#define SLIPPERY_TURF (1<<5)
 
 #define MAX_CHICKENS 50
 
@@ -577,8 +579,11 @@
 ///Whether or not the squashing requires the squashed mob to be lying down
 #define SQUASHED_SHOULD_BE_DOWN (1<<0)
 ///Whether or not to gib when the squashed mob is moved over
-#define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+#define SQUASHED_SHOULD_BE_GIBBED (1<<1)
 
+
+/// Don't squash our mob if its not located in a turf
+#define SQUASHED_DONT_SQUASH_IN_CONTENTS (1<<3)
 /*
  * Defines for "AI emotions", allowing the AI to expression emotions
  * with status displays via emotes.
@@ -739,6 +744,7 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 	"[BELT_LAYER]" = LOWER_BODY,
 	// Everything below looks fine with or without a filter, so we can skip it and just offset
 	// (In practice they'd be fine if they got a filter but we can optimize a bit by not.)
+	/* monkestation edit: fix some weirdness with heights, most notably gloves
 	"[GLASSES_LAYER]" = UPPER_BODY,
 	"[ABOVE_BODY_FRONT_GLASSES_LAYER]" = UPPER_BODY, // currently unused
 	"[ABOVE_BODY_FRONT_HEAD_LAYER]" = UPPER_BODY, // only used for head stuff
@@ -748,6 +754,7 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 	"[ID_CARD_LAYER]" = UPPER_BODY, // unused
 	"[ID_LAYER]" = UPPER_BODY,
 	"[FACEMASK_LAYER]" = UPPER_BODY,
+	monkestation end */
 	"[FACE_LAYER]" = UPPER_BODY,
 	// These two are cached, and have their appearance shared(?), so it's safer to just not touch it
 	"[MUTATIONS_LAYER]" = NO_MODIFY,

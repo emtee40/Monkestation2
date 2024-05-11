@@ -1183,7 +1183,8 @@
 /mob/living/proc/resist_restraints()
 	return
 
-/mob/living/proc/get_visible_name()
+/// Used by mobs to determine the name for someone wearing a mask, or with a disfigured or missing face. By default just returns the atom's name. add_id_name will control whether or not we append "(as [id_name])".
+/atom/proc/get_visible_name(add_id_name)
 	return name
 
 /mob/living/proc/update_gravity(gravity)
@@ -2429,6 +2430,10 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			span_userdanger("You're thrown violently into [lattice], smashing through it and punching straight through!"))
 		apply_damage(rand(5,10), BRUTE, BODY_ZONE_CHEST)
 		lattice.deconstruct(FALSE)
+
+/// Prints an ominous message if something bad is going to happen to you
+/mob/living/proc/ominous_nosebleed()
+	to_chat(src, span_warning("You feel a bit nauseous for just a moment."))
 
 /**
  * Proc used by different station pets such as Ian and Poly so that some of their data can persist between rounds.
