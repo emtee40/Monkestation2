@@ -44,8 +44,6 @@
 			if(category == CAT_PATCHES)
 				patch_styles += list("[style.icon_state]" = image(icon = style.icon, icon_state = style.icon_state))
 
-
-
 /obj/structure/chemical_tank/factory/proc/generate_product(mob/user)
 	if(reagents.total_volume < current_volume)
 		return
@@ -95,7 +93,6 @@
 		var/pill_choice = show_radial_menu(user, src, pill_styles)
 		if(pill_choice)
 			pill_style = pill_choice
-
 
 /obj/structure/chemical_tank/factory/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
