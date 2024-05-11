@@ -18,4 +18,6 @@
 	var/obj/item/source_item = parent
 	var/mob/living/basic/chicken/gary/gary = attached_gary.resolve()
 	gary.held_shinies -= source_item.type
+	gary.hideout.remove_item(source_item)
 	gary.adjust_happiness(-5, taker)
+	SEND_SIGNAL(gary, COMSIG_FRIENDSHIP_CHANGE, taker, -50)// womp womp

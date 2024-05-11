@@ -10,7 +10,12 @@
 	. = ..()
 	blackboard += BB_GARY_HIDEOUT
 	blackboard += BB_GARY_TARGET_AREA
+
 	blackboard += BB_GARY_BARTERING
+	blackboard += BB_GARY_BARTER_TARGET
+	blackboard += BB_GARY_BARTER_ITEM
+	blackboard += BB_GARY_BARTER_STEP
+
 	blackboard += BB_GARY_HIDEOUT_SETTING_UP
 	blackboard += BB_GARY_COME_HOME
 	blackboard += BB_GARY_HAS_SHINY

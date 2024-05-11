@@ -32,3 +32,9 @@
 		else
 			controller.queue_behavior(/datum/ai_behavior/head_to_hideout)
 
+	if(controller.blackboard[BB_GARY_BARTERING])
+		switch(controller.blackboard[BB_GARY_BARTER_STEP])
+			if(1)
+				controller.queue_behavior(/datum/ai_behavior/gary_retrieve_item)
+			if(2)
+				controller.queue_behavior(/datum/ai_behavior/gary_give_item)

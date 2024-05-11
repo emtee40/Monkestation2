@@ -27,6 +27,7 @@
 	///list of held shinies
 	var/list/held_shinies = list()
 
+	var/datum/hideout/hideout
 	var/datum/callback/roundend_callback = null
 
 /mob/living/basic/chicken/gary/Initialize(mapload)
@@ -102,11 +103,10 @@
 		Read_Memory()
 	return held_shinies
 
-/mob/living/basic/chicken/gary/attacked_by(obj/item/attacking_item, mob/living/user)
+/mob/living/basic/chicken/gary/attackby(obj/item/attacking_item, mob/living/user)
 	if(attacking_item.w_class <= WEIGHT_CLASS_SMALL)
 		if(held_item)
-			. = ..()
-			return
+			return ..()
 		if(istype(attacking_item, /obj/item/knife))
 			held_item = attacking_item //put knife in hand
 			attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -114,11 +114,19 @@
 			melee_damage_lower = attacking_item.force
 			icon_state = "crow_gary_knife"
 			qdel(attacking_item)
-			return
+			return TRUE
 		else
+			if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_BESTFRIEND))
+				var/barter_choice = show_radial_menu(user, src, hideout.stored_items)
+				if(barter_choice)
+					ai_controller.blackboard[BB_GARY_BARTERING] = TRUE
+					ai_controller.blackboard[BB_GARY_BARTER_TARGET] = WEAKREF(user)
+					ai_controller.blackboard[BB_GARY_BARTER_ITEM] = barter_choice
+					ai_controller.blackboard[BB_GARY_BARTER_STEP] = 1
+
 			held_item = attacking_item
 			attacking_item.forceMove(src)
 			ai_controller.blackboard[BB_GARY_COME_HOME] = TRUE
 			ai_controller.blackboard[BB_GARY_HAS_SHINY] = TRUE
-			return
+			return TRUE
 	. = ..()

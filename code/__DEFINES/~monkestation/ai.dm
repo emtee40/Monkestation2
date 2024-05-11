@@ -13,3 +13,6 @@
 #define BB_GARY_BARTERING "BB_gary_bartering"
 #define BB_GARY_COME_HOME "BB_gary_come_home"
 #define BB_GARY_HAS_SHINY "BB_gary_has_shiny"
+#define BB_GARY_BARTER_TARGET "BB_gary_barter_target"
+#define BB_GARY_BARTER_ITEM "BB_gary_barter_item"
+#define BB_GARY_BARTER_STEP "BB_gary_barter_step"
