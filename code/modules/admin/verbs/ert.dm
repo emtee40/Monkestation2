@@ -25,7 +25,7 @@
 
 
 /datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
-	// MONKESTATION ADDITION
+	// MONKESTATION EDIT
 	// Non carbon mobs dont got clothes
 	if(!istype(mannequin))
 		return
@@ -36,6 +36,7 @@
 		var/datum/antagonist/ert/ert = antag
 		mannequin.equipOutfit(initial(ert.outfit), TRUE)
 
+// MONKESTATION EDIT - Allows non-carbons to still get displayed in the preview.
 /datum/admins/proc/makeERTPreviewIcon(list/settings)
 	var/prefs = settings["mainsettings"]
 	var/datum/ert/template = prefs["template"]["value"]
@@ -243,7 +244,7 @@
 			//Spawn the body
 			var/mob/ert_operative = new ertemplate.mobtype(spawnloc)
 
-
+			// MONKESTATION EDIT - Non-Carbon compatibility.
 			if(iscarbon(ert_operative))
 				var/mob/living/carbon/ert_operative_carbon = ert_operative
 				chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative_carbon, is_antag = TRUE)
@@ -252,6 +253,7 @@
 					ert_operative_carbon.set_species(/datum/species/human)
 
 			ert_operative.key = chosen_candidate.key
+			// MONKESTATION EDIT END
 
 			//Give antag datum
 			var/datum/antagonist/ert/ert_antag
