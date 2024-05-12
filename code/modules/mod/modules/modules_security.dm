@@ -385,3 +385,17 @@
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = MEDIUM_RANGE_SOUND_EXTRARANGE) // Should be audible for the radius of the sonar
 	to_chat(mod.wearer, span_notice("You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!"))
+
+/obj/item/mod/module/armor_booster/crew
+	name = "MOD security armor booster module"
+	desc = "A low tech version of the syndicate's armor booster module, \
+		this version provides less protection, and takes a large amount of space in the suit."
+	removable = TRUE
+	complexity = 4
+	speed_added = 0
+	
+/datum/armor/mod_module_armor_boost_crew
+	melee = 20
+	bullet = 20
+	laser = 15
+	energy = 15

@@ -642,7 +642,7 @@
 	name = "MODsuit Energy Shield Module"
 	desc = "An energy shield module for a MODsuit. The shields can handle up to three impacts \
 			within a short duration and will rapidly recharge while not under fire."
-	item = /obj/item/mod/module/energy_shield
+	item = /obj/item/mod/module/anomaly_locked/energy_shield
 	cost = 15
 	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
