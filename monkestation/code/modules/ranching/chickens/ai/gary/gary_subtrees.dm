@@ -14,6 +14,7 @@
 			var/area/turf_area = get_area(turf)
 			if(turf_area.type in excluded_areas)
 				continue
+
 			if(is_safe_turf(turf))
 				target_turf = turf
 		controller.blackboard[BB_GARY_HIDEOUT] = list(target_turf.x, target_turf.y, target_turf.z)

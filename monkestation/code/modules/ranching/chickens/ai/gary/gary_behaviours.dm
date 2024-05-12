@@ -184,7 +184,7 @@
 	for(var/mob/living/mob as anything in GLOB.player_list)
 		if(!istype(mob))
 			continue
-		if(mob.z != SSmapping.levels_by_trait(ZTRAIT_STATION)[1])
+		if(!(mob.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
 			continue
 		mobs += mob
 
