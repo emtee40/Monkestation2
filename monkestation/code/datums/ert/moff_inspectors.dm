@@ -5,6 +5,6 @@
 	teamsize = 4
 	opendoors = FALSE
 	enforce_human = FALSE
-	rename_team = "CentCom Inspectors"
+	rename_team = "Station Inspectors"
 	mission = "Central Command has sent you to run a surprise inspection, and ensure the station is up to code."
-	polldesc = "a team of Mothroach CentCom Inspectors"
+	polldesc = "a team of Mothroach Station Inspectors"
