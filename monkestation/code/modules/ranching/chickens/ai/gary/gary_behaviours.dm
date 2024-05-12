@@ -1,49 +1,43 @@
-/datum/ai_behavior/head_to_hideout
-	required_distance = 0
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+/datum/ai_behavior/travel_towards/head_to_hideout
+	clear_target = TRUE
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/head_to_hideout/setup(datum/ai_controller/controller)
+/datum/ai_behavior/travel_towards/head_to_hideout/setup(datum/ai_controller/controller, target_key)
 	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
 	if(!length(turf_coords))
 		return
 	var/turf/target_turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
-	var/mob/living/owner = controller.pawn
 	if(!target_turf)
 		return
-	set_movement_target(controller, target_turf)
-	if(get_dist(get_turf(owner), target_turf) > controller.max_target_distance)
-		if(owner.fading_leap_up())
-			owner.forceMove(target_turf)
-			owner.fading_leap_down()
+	controller.blackboard[BB_TRAVEL_DESTINATION] = target_turf
 	return ..()
 
-// We actually only wanted the movement so if we've arrived we're done
-/datum/ai_behavior/head_to_hideout/perform(seconds_per_tick, datum/ai_controller/controller, area_key, turf_key)
+/datum/ai_behavior/travel_towards/head_to_hideout/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
-	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
-	if(!length(turf_coords))
-		return FALSE
-	var/turf/target_turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
+	var/mob/living/basic/chicken/gary/pawn = controller.pawn
+	if(!succeeded) // god I hate this is needed but for some reason the ai controller cries and moans about failing to path 2 tiles and instead of you know using the 20 goddamn path attempts it has left it just ends everything.
+		if(pawn.fading_leap_up())
+			var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+			var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
+			pawn.forceMove(turf)
+			pawn.fading_leap_down()
+	controller.blackboard[BB_GARY_COME_HOME] = FALSE
 
-	if(target_turf != get_turf(controller.pawn))
-		finish_action(controller, succeeded = FALSE)
-	else
-		finish_action(controller, succeeded = TRUE)
-
-/datum/ai_behavior/head_to_hideout/finish_action(datum/ai_controller/controller, succeeded, ...)
+/datum/ai_behavior/travel_towards/head_to_hideout/drop/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
-	if(succeeded)
-		controller.blackboard[BB_GARY_COME_HOME] = FALSE
+	var/mob/living/basic/chicken/gary/pawn = controller.pawn
+	if(!succeeded) // god I hate this is needed but for some reason the ai controller cries and moans about failing to path 2 tiles and instead of you know using the 20 goddamn path attempts it has left it just ends everything.
+		if(pawn.fading_leap_up())
+			var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+			var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
+			pawn.forceMove(turf)
+			pawn.fading_leap_down()
 
-/datum/ai_behavior/head_to_hideout/drop/finish_action(datum/ai_controller/controller, succeeded, ...)
-	. = ..()
-	if(succeeded)
-		var/mob/living/basic/chicken/gary/pawn = controller.pawn
-		pawn.held_item.forceMove(get_turf(pawn))
-		pawn.held_shinies += pawn.held_item.type
-		pawn.held_item.AddComponent(/datum/component/garys_item)
-		pawn.held_item = null
-		controller.blackboard[BB_GARY_HAS_SHINY] = FALSE
+	controller.blackboard[BB_GARY_HAS_SHINY] = FALSE
+	pawn.held_item.forceMove(get_turf(pawn))
+	pawn.held_shinies += pawn.held_item.type
+	pawn.held_item.AddComponent(/datum/component/garys_item)
+	pawn.held_item = null
 
 /datum/ai_behavior/setup_hideout
 	///all stored items retrieved from the save of gary
@@ -181,44 +175,30 @@
 	controller.blackboard[BB_GARY_BARTER_TARGET] = null
 
 
-/datum/ai_behavior/gary_goto_target
-	required_distance = 3
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+/datum/ai_behavior/travel_towards/gary_goto_target
+	clear_target = TRUE
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/gary_goto_target/setup(datum/ai_controller/controller, ...)
-	. = ..()
-	var/mob/living/owner = controller.pawn
-
-	var/list/turfs = list()
+/datum/ai_behavior/travel_towards/gary_goto_target/setup(datum/ai_controller/controller, target_key)
+	var/list/mobs = list()
 	for(var/mob/living/mob as anything in GLOB.player_list)
 		if(!istype(mob))
 			continue
 		if(mob.z != SSmapping.levels_by_trait(ZTRAIT_STATION)[1])
 			continue
-		for(var/turf/open/turf in view(5, mob))
-			turfs += turf
+		mobs += mob
 
-	var/turf/open/target_turf = null
-	var/sanity = 0
-	while(!target_turf && sanity < 100)
-		sanity++
-		var/turf/turf = pick(turfs)
-		if(is_safe_turf(turf))
-			target_turf = turf
-
-	if(!target_turf)
-		return FALSE
-
-	set_movement_target(controller, target_turf)
-	if(get_dist(get_turf(owner), target_turf) > controller.max_target_distance)
-		if(owner.fading_leap_up())
-			owner.forceMove(target_turf)
-			owner.fading_leap_down()
+	controller.blackboard[BB_TRAVEL_DESTINATION] = pick(mobs)
 	controller.blackboard[BB_GARY_WANDER_COOLDOWN] = world.time + 5 MINUTES
-	finish_action(controller, TRUE)
-	return ..()
-
-/datum/ai_behavior/gary_goto_target/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	. = ..()
-	finish_action(controller, TRUE)
 
+
+/datum/ai_behavior/travel_towards/gary_goto_target/finish_action(datum/ai_controller/controller, succeeded, ...)
+	. = ..()
+	var/mob/living/basic/chicken/gary/pawn = controller.pawn
+	if(!succeeded) // god I hate this is needed but for some reason the ai controller cries and moans about failing to path 2 tiles and instead of you know using the 20 goddamn path attempts it has left it just ends everything.
+		if(pawn.fading_leap_up())
+			var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+			var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
+			pawn.forceMove(turf)
+			pawn.fading_leap_down()

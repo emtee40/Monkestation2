@@ -38,7 +38,7 @@
 		SSticker.OnRoundend(roundend_callback)
 
 	Read_Memory()
-	AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS, ACCESS_AWAY_MAINTENANCE))
+	AddComponent(/datum/component/simple_access, REGION_ACCESS_ALL_STATION) //gary actually balls
 
 /mob/living/basic/chicken/gary/Destroy()
 	. = ..()
