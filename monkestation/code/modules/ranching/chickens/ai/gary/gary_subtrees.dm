@@ -12,7 +12,7 @@
 			var/turf/turf = pick(turfs)
 			if(is_safe_turf(turf))
 				target_turf = turf
-		controller.blackboard[BB_GARY_HIDEOUT] = WEAKREF(target_turf)
+		controller.blackboard[BB_GARY_HIDEOUT] = list(target_turf.x, target_turf.y, target_turf.z)
 		controller.blackboard[BB_GARY_HIDEOUT_SETTING_UP] = TRUE
 		controller.blackboard[BB_GARY_COME_HOME] = TRUE
 

@@ -3,6 +3,9 @@
 		/datum/ai_planning_subtree/gary,
 		/datum/ai_planning_subtree/flee_target/low_health,
 		)
+
+	ai_movement = /datum/ai_movement/jps/gary
+	max_target_distance = 70
 	idle_behavior = /datum/idle_behavior/chicken/gary
 	max_target_distance = 255
 
@@ -25,3 +28,9 @@
 	. = ..()
 	if(prob(5) && (world.time > controller.blackboard[BB_GARY_WANDER_COOLDOWN]))
 		controller.queue_behavior(/datum/ai_behavior/gary_goto_target)
+
+
+/datum/ai_movement/jps/gary
+	max_pathing_attempts = 25
+	maximum_length = AI_BOT_PATH_LENGTH
+	diagonal_flags = DIAGONAL_REMOVE_ALL

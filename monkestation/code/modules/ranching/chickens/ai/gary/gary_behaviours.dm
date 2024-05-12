@@ -3,13 +3,15 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
 /datum/ai_behavior/head_to_hideout/setup(datum/ai_controller/controller)
-	var/datum/weakref/weak_turf = controller.blackboard[BB_GARY_HIDEOUT]
-	var/turf/target_turf = weak_turf?.resolve()
+	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+	if(!length(turf_coords))
+		return
+	var/turf/target_turf = locate(turf_coords[1], turf_coords[3], turf_coords[3])
 	var/mob/living/owner = controller.pawn
 	if(!target_turf)
 		return
 	set_movement_target(controller, target_turf)
-	if(get_dist(get_turf(owner), target_turf) > 14)
+	if(get_dist(get_turf(owner), target_turf) > controller.max_target_distance)
 		if(owner.fading_leap_up())
 			owner.forceMove(target_turf)
 			owner.fading_leap_down()
@@ -18,8 +20,10 @@
 // We actually only wanted the movement so if we've arrived we're done
 /datum/ai_behavior/head_to_hideout/perform(seconds_per_tick, datum/ai_controller/controller, area_key, turf_key)
 	. = ..()
-	var/datum/weakref/weak_turf = controller.blackboard[BB_GARY_HIDEOUT]
-	var/turf/target_turf = weak_turf?.resolve()
+	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+	if(!length(turf_coords))
+		return FALSE
+	var/turf/target_turf = locate(turf_coords[1], turf_coords[3], turf_coords[3])
 
 	if(target_turf != get_turf(controller.pawn))
 		finish_action(controller, succeeded = FALSE)
@@ -51,7 +55,7 @@
 	stored_items = pawn.return_stored_items()
 
 	if(!pawn.hideout)
-		pawn.hideout = new(get_turf(pawn))
+		pawn.hideout = new()
 
 	var/turf/current_home = get_turf(pawn)
 	for(var/shiny_object in stored_items)
@@ -105,6 +109,9 @@
 /datum/ai_behavior/gary_give_item/setup(datum/ai_controller/controller, target_key)
 	. = ..()
 	var/datum/weakref/ref = controller.blackboard[BB_GARY_BARTER_TARGET]
+	if(!ref)
+		return FALSE
+
 	set_movement_target(controller, ref.resolve())
 
 /datum/ai_behavior/gary_give_item/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
@@ -197,10 +204,13 @@
 		sanity++
 		var/turf/turf = pick(turfs)
 		if(is_safe_turf(turf))
-
 			target_turf = turf
+
+	if(!target_turf)
+		return FALSE
+
 	set_movement_target(controller, target_turf)
-	if(get_dist(get_turf(owner), target_turf) > 14)
+	if(get_dist(get_turf(owner), target_turf) > controller.max_target_distance)
 		if(owner.fading_leap_up())
 			owner.forceMove(target_turf)
 			owner.fading_leap_down()
