@@ -4,10 +4,7 @@
 		/datum/ai_planning_subtree/flee_target/low_health,
 		)
 
-	ai_movement = /datum/ai_movement/jps/gary
-	max_target_distance = 70
 	idle_behavior = /datum/idle_behavior/chicken/gary
-	max_target_distance = 255
 
 /datum/ai_controller/chicken/gary/TryPossessPawn(atom/new_pawn)
 	. = ..()
@@ -24,6 +21,10 @@
 	blackboard += BB_GARY_COME_HOME
 	blackboard += BB_GARY_HAS_SHINY
 
+
+/datum/ai_controller/basic_controller/chicken/gary/get_access()
+	return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS, ACCESS_AWAY_MAINTENANCE)
+
 /datum/idle_behavior/chicken/gary/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	if(prob(5) && (world.time > controller.blackboard[BB_GARY_WANDER_COOLDOWN]))
@@ -32,5 +33,5 @@
 
 /datum/ai_movement/jps/gary
 	max_pathing_attempts = 25
-	maximum_length = AI_BOT_PATH_LENGTH
+	maximum_length = 60
 	diagonal_flags = DIAGONAL_REMOVE_ALL

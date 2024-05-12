@@ -6,7 +6,7 @@
 	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
 	if(!length(turf_coords))
 		return
-	var/turf/target_turf = locate(turf_coords[1], turf_coords[3], turf_coords[3])
+	var/turf/target_turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
 	var/mob/living/owner = controller.pawn
 	if(!target_turf)
 		return
@@ -23,7 +23,7 @@
 	var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
 	if(!length(turf_coords))
 		return FALSE
-	var/turf/target_turf = locate(turf_coords[1], turf_coords[3], turf_coords[3])
+	var/turf/target_turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
 
 	if(target_turf != get_turf(controller.pawn))
 		finish_action(controller, succeeded = FALSE)
