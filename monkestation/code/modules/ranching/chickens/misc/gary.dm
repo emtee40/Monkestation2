@@ -128,6 +128,6 @@
 			attacking_item.forceMove(src)
 			ai_controller.blackboard[BB_GARY_COME_HOME] = TRUE
 			ai_controller.blackboard[BB_GARY_HAS_SHINY] = TRUE
-			SEND_SIGNAL(gary, COMSIG_MOB_ADJUST_HUNGER, 200) //gary hungers for trinkets and baubles.
+			SEND_SIGNAL(src, COMSIG_MOB_ADJUST_HUNGER, 200) //gary hungers for trinkets and baubles.
 			return TRUE
 	. = ..()
