@@ -136,14 +136,6 @@ There are several things that need to be remembered:
 			uniform_overlay?.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
 			uniform_overlay?.pixel_y += dna.species.offset_features[OFFSET_UNIFORM][2]
 
-		if(HAS_TRAIT(uniform, TRAIT_RAINBOWED))
-			uniform_overlay.apply_rainbow_effect("uniform", src)
-			var/obj/effect/abstract/blank/rainbow_effect = new
-
-			uniform_overlay.appearance_flags &= ~KEEP_APART
-			uniform_overlay.appearance_flags |= KEEP_TOGETHER
-			uniform_overlay.vis_contents += rainbow_effect
-
 		overlays_standing[UNIFORM_LAYER] = uniform_overlay
 		apply_overlay(UNIFORM_LAYER)
 
