@@ -198,7 +198,12 @@
 	var/mob/living/basic/chicken/gary/pawn = controller.pawn
 	if(!succeeded) // god I hate this is needed but for some reason the ai controller cries and moans about failing to path 2 tiles and instead of you know using the 20 goddamn path attempts it has left it just ends everything.
 		if(pawn.fading_leap_up())
-			var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
-			var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
-			pawn.forceMove(turf)
-			pawn.fading_leap_down()
+			if(controller.blackboard[BB_TRAVEL_DESTINATION])
+				var/atom/movable/target = controller.blackboard[BB_TRAVEL_DESTINATION]
+				pawn.forceMove(target)
+				pawn.fading_leap_down()
+			else
+				var/list/turf_coords = controller.blackboard[BB_GARY_HIDEOUT]
+				var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
+				pawn.forceMove(turf)
+				pawn.fading_leap_down()
