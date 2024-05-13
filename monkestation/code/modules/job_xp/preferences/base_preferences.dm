@@ -32,11 +32,11 @@
 
 	if(!length(job_rewards_claimed))
 		build_jobxp_list(job_rewards_claimed)
-	update_jobxp_list(job_rewards_claimed)
+	update_jobxp_list(job_rewards_claimed, FALSE)
 
 	if(!length(job_rewards_per_round))
 		build_jobxp_list(job_rewards_per_round)
-	update_jobxp_list(job_rewards_per_round)
+	update_jobxp_list(job_rewards_per_round, FALSE)
 
 	if(!length(job_level_list))
 		build_jobxp_list(job_level_list)
