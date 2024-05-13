@@ -143,7 +143,7 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 
-	var/key = hosts_mind.key
+	var/key = spender.ckey
 
 	//spawn the ninja and assign the candidate
 	var/mob/living/carbon/human/ninja = create_space_ninja(pick(spawn_locs))

@@ -117,7 +117,7 @@
 		return MAP_ERROR
 
 
-	var/datum/mind/player_mind = new /datum/mind(hosts_mind.key)
+	var/datum/mind/player_mind = new /datum/mind(spender.ckey)
 	player_mind.active = TRUE
 
 	var/mob/living/carbon/human/clone_victim = find_original()
