@@ -194,7 +194,6 @@
 
 
 /datum/ai_behavior/travel_towards/gary_goto_target/finish_action(datum/ai_controller/controller, succeeded, ...)
-	. = ..()
 	var/mob/living/basic/chicken/gary/pawn = controller.pawn
 	if(!succeeded) // god I hate this is needed but for some reason the ai controller cries and moans about failing to path 2 tiles and instead of you know using the 20 goddamn path attempts it has left it just ends everything.
 		if(pawn.fading_leap_up())
@@ -207,3 +206,4 @@
 				var/turf/turf = locate(turf_coords[1], turf_coords[2], turf_coords[3])
 				pawn.forceMove(turf)
 				pawn.fading_leap_down()
+	. = ..()
