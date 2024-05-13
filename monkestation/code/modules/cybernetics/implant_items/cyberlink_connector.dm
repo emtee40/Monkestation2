@@ -3,6 +3,7 @@
 	desc = "Allows you to connect to incompatible implants and hack them."
 	icon = 'monkestation/code/modules/cybernetics/icons/surgery.dmi'
 	icon_state = "connector"
+	w_class = WEIGHT_CLASS_SMALL
 	var/obj/item/organ/internal/cyberimp/cyberlink/parent_cyberlink
 	var/list/datum/hacking_minigame/game_list = list()
 	var/current_timer_id = FALSE

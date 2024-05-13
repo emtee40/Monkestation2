@@ -36,7 +36,7 @@
 	. = ..()
 	if(hacked)
 		. += "It seems to have been tinkered with."
-	if(HAS_TRAIT(user,TRAIT_DIAGNOSTIC_HUD))
+	if(HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
 		var/display = ""
 		var/list/check_list = encode_info[SECURITY_PROTOCOL]
 		if(check_list.len)
@@ -55,6 +55,8 @@
 			for(var/operating in check_list)
 				display += "[uppertext(operating)], "
 			. += "It's operating protocols are [display]for the implant to function it requires the operating protocols match the cyberlink's."
+	else
+		. += "You can see the encoding information of this implant by wearing a diagnostic hud or medical hud."
 
 /obj/item/organ/internal/cyberimp/emp_act(severity)
 	. = ..()
