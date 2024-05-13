@@ -40,5 +40,5 @@
 
 /datum/ai_movement/jps/gary
 	max_pathing_attempts = 25
-	maximum_length = 60
+	maximum_length = 175
 	diagonal_flags = DIAGONAL_REMOVE_ALL
