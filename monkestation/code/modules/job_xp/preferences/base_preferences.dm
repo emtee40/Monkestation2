@@ -8,7 +8,6 @@
 	///per round claims
 	var/list/job_rewards_per_round = list()
 
-
 /datum/preferences/proc/write_jobxp_preferences()
 	savefile.set_entry("job_xp_list", job_xp_list)
 	savefile.set_entry("job_rewards_claimed", job_rewards_claimed)
@@ -83,7 +82,9 @@
 		jobs += initial(job.title)
 
 	for(var/job as anything in jobs)
-		if(update_list[job])
+		if(job in update_list)
+			if(!update_list[job])
+				update_list[job] = 0
 			continue
 		update_list += job
 		if(should_zero)
