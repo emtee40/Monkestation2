@@ -128,9 +128,10 @@
 	log_admin("[key_name(admin)] has ninja'ed [key_name(new_owner)].")
 
 /datum/antagonist/ninja/antag_token(datum/mind/hosts_mind, mob/spender)
-	hosts_mind.current.unequip_everything()
-	new /obj/effect/holy(hosts_mind.current.loc)
-	QDEL_IN(hosts_mind.current, 20)
+	if(isliving(spender) && hosts_mind)
+		hosts_mind.current.unequip_everything()
+		new /obj/effect/holy(hosts_mind.current.loc)
+		QDEL_IN(hosts_mind.current, 20)
 
 	var/list/spawn_locs = list()
 	for(var/obj/effect/landmark/carpspawn/carp_spawn in GLOB.landmarks_list)

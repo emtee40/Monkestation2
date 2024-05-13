@@ -103,9 +103,10 @@
 
 
 /datum/antagonist/paradox_clone/antag_token(datum/mind/hosts_mind, mob/spender)
-	hosts_mind.current.unequip_everything()
-	new /obj/effect/holy(hosts_mind.current.loc)
-	QDEL_IN(hosts_mind.current, 20)
+	if(isliving(spender) && hosts_mind)
+		hosts_mind.current.unequip_everything()
+		new /obj/effect/holy(hosts_mind.current.loc)
+		QDEL_IN(hosts_mind.current, 20)
 
 	var/list/possible_spawns = list()
 	for(var/turf/warp_point in GLOB.generic_maintenance_landmarks)
