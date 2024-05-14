@@ -11,10 +11,11 @@
 
 /datum/action/item_action/organ_action/sandy
 	name = "Sandevistan Activation"
+
 /obj/item/organ/internal/cyberimp/chest/sandevistan
 	name = "Militech Apogee Sandevistan"
 	desc = "This model of Sandevistan doesn't exist, at least officially. Off the record, there's gossip of secret Militech Lunar labs producing covert cyberware. It was never meant to be mass produced, but an army would only really need a few pieces like this one to dominate their enemy."
-	encode_info = AUGMENT_NT_HIGHLEVEL
+	encode_info = AUGMENT_SYNDICATE_LEVEL
 	icon_state = "sandy"
 	actions_types = list(/datum/action/item_action/organ_action/sandy)
 	icon = 'monkestation/code/modules/cybernetics/icons/implants.dmi'
@@ -92,7 +93,7 @@
 /obj/item/organ/internal/cyberimp/chest/chemvat
 	name = "R.A.G.E. chemical system"
 	desc = "Extremely dangerous system that fills the user with a mix of potent drugs."
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_SYNDICATE_LEVEL
 	icon_state = "chemtvat_back_held"
 	icon = 'monkestation/code/modules/cybernetics/icons/implants_onmob.dmi'
 
