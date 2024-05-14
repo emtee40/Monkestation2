@@ -66,13 +66,24 @@
 				break
 
 	if(diffrences == 0)
-		to_chat(current_user,span_notice(" Cyberlink beeps: [uppertext(cybernetic.name)] ALREADY COMPATIBLE.") )
+		to_chat(current_user,span_notice("Cyberlink beeps: [uppertext(cybernetic.name)] ALREADY COMPATIBLE."))
 		cleanup()
 		return
 
+	var/size = 8
+	switch(cybernetic.encode_info)
+		if(AUGMENT_NT_LOWLEVEL)
+			size = 4
+		if(AUGMENT_NT_HIGHLEVEL)
+			size = 6
+
+	if(HAS_TRAIT(user, TRAIT_BETTER_CYBERCONNECTOR))
+		size = max(4, size--)
+
+	diffrences = max(1, diffrences--)
 	if(!game_list.len)
 		for(var/i in 1 to diffrences)
-			var/datum/hacking_minigame/game = new/datum/hacking_minigame()
+			var/datum/hacking_minigame/game = new/datum/hacking_minigame(size)
 			game.generate()
 			game_list += game
 
@@ -130,7 +141,7 @@
 
 
 /obj/item/cyberlink_connector/proc/hack_failure(failed as num)
-	var/chance = rand(0,40*failed)
+	var/chance = rand(0, 40*failed)
 	var/mob/living/to_damage = current_user
 	if(linked_target)
 		to_damage = linked_target
@@ -146,10 +157,10 @@
 			cybernetic.random_encode()
 		if(51 to 75)
 			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MINOR ELECTROMAGNETIC PULSE DETECTED.") )
-			empulse(to_damage, 0, 1)
+			to_damage.emp_act(1)
 		if(76 to 99)
 			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] MAJOR FAILURE. COMPATIBILITY NOT ACHIEVED. MAJOR ELECTROMAGNETIC PULSE DETECTED.") )
-			empulse(to_damage, 1, 2)
+			to_damage.emp_act(2)
 		if(100 to INFINITY)
 			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] CRITICAL FAILURE. COMPATIBILITY NOT ACHIEVED. IMPLANT OVERHEATING IN 5 SECONDS.") )
 			cybernetic.visible_message(span_danger("[cybernetic.name] begins to flare and twitch as the electronics fry and sizzle!") )

@@ -14,6 +14,10 @@
 
 	var/list/datum/hacking_minigame_piece/board
 
+/datum/hacking_minigame/New(board_size)
+	. = ..()
+	src.board_size = board_size
+
 /**
  * checks if the game is finished
  *

@@ -291,6 +291,8 @@
 /obj/item/storage/box/skillchips/science/PopulateContents()
 	new/obj/item/skillchip/job/roboticist(src)
 	new/obj/item/skillchip/job/roboticist(src)
+	new/obj/item/skillchip/job/cyberjacker(src)
+	new/obj/item/skillchip/job/cyberjacker(src)
 
 /obj/item/storage/box/skillchips/engineering
 	name = "box of engineering job skillchips"

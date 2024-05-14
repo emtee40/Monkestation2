@@ -28,3 +28,4 @@
 #define TRAIT_BYPASS_COMPRESS_CHECK "can_compress_anyways"
 
 #define ABDUCTOR_GLAND_VENTCRAWLING_TRAIT "abductor_gland_ventcrawling"
+#define TRAIT_BETTER_CYBERCONNECTOR "better_cyberconnector_hacking"
