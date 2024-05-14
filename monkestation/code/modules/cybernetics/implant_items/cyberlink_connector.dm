@@ -39,13 +39,37 @@
 	if(!proximity_flag)
 		return
 
-	if(!istype(target,/obj/item/organ/internal/cyberimp) || istype(target,/obj/item/organ/internal/cyberimp/cyberlink))
-		return
+	if(ishuman(target))
+		if(linked_target && (target != linked_target))
+			return
+		if(target != user)
+			return
+
+		var/mob/living/carbon/human/human = target
+		var/list/implants = list()
+		for(var/obj/item/organ/internal/cyberimp/imp as anything in human.organs)
+			if(!istype(imp))
+				continue
+
+			if(istype(imp, /obj/item/organ/internal/cyberimp/cyberlink))
+				continue
+
+			implants += imp
+		if(!length(implants))
+			return
+		var/choice = tgui_input_list(user, "Choose an implant you wish to hack.", "Internal Implants", implants)
+		if(!choice)
+			return
+		target = choice
+
+	else
+		if(!istype(target,/obj/item/organ/internal/cyberimp) || istype(target,/obj/item/organ/internal/cyberimp/cyberlink))
+			return
 
 	if(!parent_cyberlink)
 		var/obj/item/organ/internal/cyberimp/cyberlink/link = user.get_organ_slot(ORGAN_SLOT_LINK)
 		if(!link)
-			to_chat(user,span_notice(" NO CYBERLINK DETECTED ") )
+			to_chat(user, span_notice("NO CYBERLINK DETECTED") )
 			return
 		parent_cyberlink = link
 
@@ -165,6 +189,8 @@
 			to_chat(to_damage,span_danger(" Cyberlink beeps: HACKING [uppertext(cybernetic.name)] CRITICAL FAILURE. COMPATIBILITY NOT ACHIEVED. IMPLANT OVERHEATING IN 5 SECONDS.") )
 			cybernetic.visible_message(span_danger("[cybernetic.name] begins to flare and twitch as the electronics fry and sizzle!") )
 			addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
+
+	cybernetic.failed_count++
 	current_user.mind.adjust_experience(/datum/skill/implant_hacking,(4 - failed)*2)
 	say("Failed to hack augment.")
 	playsound(src, 'sound/machines/terminal_error.ogg', 50)
@@ -206,7 +232,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		if(!current_timer_id)
-			var/time_left = (game_list.len * 10  - 2 * (game_list.len-1) + user.mind.get_skill_modifier(/datum/skill/implant_hacking, SKILL_TIME_MODIFIER)) SECONDS
+			var/time_left = (length(game_list) * 10  - 2 * (length(game_list)-1) + user.mind.get_skill_modifier(/datum/skill/implant_hacking, SKILL_TIME_MODIFIER) + (cybernetic.failed_count * 2 * (length(game_list)))) SECONDS
 			current_timer_id = addtimer(CALLBACK(src, PROC_REF(game_update), TRUE),time_left,TIMER_STOPPABLE)
 			START_PROCESSING(SSprocessing,src)
 		ui = new(user, src, "Hacking", name)

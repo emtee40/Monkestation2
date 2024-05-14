@@ -13,6 +13,8 @@
 	var/datum/bodypart_overlay/simple/bodypart_overlay
 	/// What limb we are inside of, used for tracking when and how to remove our overlays and all that
 	var/obj/item/bodypart/ownerlimb
+	///how many times we failed to hack this
+	var/failed_count = 0
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
