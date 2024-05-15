@@ -1769,7 +1769,7 @@
 	name = "Lube Shoulders Module"
 	id = "mod_lubespray"
 	materials = list(/datum/material/plastic =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/bananium =HALF_SHEET_MATERIAL_AMOUNT)
-	build_path = /obj/item/mod/module/pepper_shoulders
+	build_path = /obj/item/mod/module/pepper_shoulders/clown
 	category = list(
 		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SERVICE
 	)
