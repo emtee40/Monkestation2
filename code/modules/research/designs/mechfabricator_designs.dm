@@ -1981,7 +1981,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
 
-/datum/design/module/mod_antigrav
+/datum/design/module/mod_energyshield
 	name = "Prototype Energy Shield Module"
 	id = "mod_energyshield"
 	materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT *1.25, /datum/material/glass =SHEET_MATERIAL_AMOUNT, /datum/material/plasma =SHEET_MATERIAL_AMOUNT)
