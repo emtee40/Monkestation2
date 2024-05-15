@@ -92,7 +92,7 @@
 		return
 	if(!check_power(use_power_cost))
 		return
-	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a defensive smoke!"), span_notice("Your [src] releases a cloud of defensive smoke!")) //Could I make a variable to hold what kind of string to output?
+	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a defensive spray!"), span_notice("Your [src] releases a cloud of defensive spray!")) //Could I make a variable to hold what kind of string to output?
 	on_use()
 	
 /obj/item/mod/module/pepper_shoulders/clown
