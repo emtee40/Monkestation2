@@ -65,6 +65,7 @@
 	cooldown_time = 5 SECONDS
 	overlay_state_inactive = "module_pepper"
 	overlay_state_use = "module_pepper_used"
+	var/reagent = /datum/reagent/consumable/condensedcapsaicin
 
 /obj/item/mod/module/pepper_shoulders/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_shields))
@@ -78,7 +79,7 @@
 		return
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	var/datum/reagents/capsaicin_holder = new(10)
-	capsaicin_holder.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 10)
+	capsaicin_holder.add_reagent(reagent, 10)
 	var/datum/effect_system/fluid_spread/smoke/chem/quick/smoke = new
 	smoke.set_up(1, holder = src, location = get_turf(src), carry = capsaicin_holder)
 	smoke.start(log = TRUE)
@@ -91,8 +92,16 @@
 		return
 	if(!check_power(use_power_cost))
 		return
-	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
+	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a defensive smoke!"), span_notice("Your [src] releases a cloud of defensive smoke!")) //Could I make a variable to hold what kind of string to output?
 	on_use()
+	
+/obj/item/mod/module/pepper_shoulders/clown
+	name = "MOD lube shoulders module"
+	desc = "An abomination that sprays lube when the user is touched."
+	icon_state = "clown_shoulder"
+	reagent = /datum/reagent/lube
+	//overlay_state_inactive = "module_pepper"
+	//overlay_state_use = "module_pepper_used"
 
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
