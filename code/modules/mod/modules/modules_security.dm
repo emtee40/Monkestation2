@@ -97,11 +97,11 @@
 	
 /obj/item/mod/module/pepper_shoulders/clown
 	name = "MOD lube shoulders module"
-	desc = "An abomination that sprays lube when the user is touched."
+	desc = "Clown Planet's imitation of Nanotrasen's pepper shoulder module, with an ingenious twist, they make it spray lube instead."
 	icon_state = "clown_shoulder"
 	reagent = /datum/reagent/lube
-	//overlay_state_inactive = "module_pepper"
-	//overlay_state_use = "module_pepper_used"
+	overlay_state_inactive = "module_lube"
+	overlay_state_use = "module_lube_used"
 
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
