@@ -98,7 +98,6 @@
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
-	incompatible_modules = list(/obj/item/mod/module/anomaly_locked/energy_shield)
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/grav)
 	prebuilt = TRUE
 	/// Max charges of the shield.
