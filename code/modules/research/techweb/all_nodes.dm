@@ -1784,6 +1784,7 @@
 		"mod_bikehorn",
 		"mod_microwave_beam",
 		"mod_waddle",
+		"mod_lubespray"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

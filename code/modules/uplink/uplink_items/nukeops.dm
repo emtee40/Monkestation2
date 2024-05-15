@@ -666,6 +666,13 @@
 	item = /obj/item/mod/module/holster
 	cost = 2
 	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
+	
+/datum/uplink_item/suits/lubespray
+	name = "MODsuit Lube Shoulders"
+	desc = "A modification of security's pepperspray shoulders, which instead launches lube."
+	item = /obj/item/mod/module/pepper_shoulders/clown
+	cost = 4 //Would be OP with antigrav, but chances are you'll just slip yourself as a clown op.
+	purchasable_from = UPLINK_CLOWN_OPS
 
 /datum/uplink_item/device_tools/assault_pod
 	name = "Assault Pod Targeting Device"

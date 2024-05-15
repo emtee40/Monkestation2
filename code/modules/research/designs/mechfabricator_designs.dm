@@ -1764,6 +1764,16 @@
 		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SERVICE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
+	
+/datum/design/module/lubespray
+	name = "Lube Shoulders Module"
+	id = "mod_lubespray"
+	materials = list(/datum/material/plastic =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/bananium =HALF_SHEET_MATERIAL_AMOUNT)
+	build_path = /obj/item/mod/module/pepper_shoulders
+	category = list(
+		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SERVICE
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE
 
 /datum/design/module/mod_clamp
 	name = "Crate Clamp Module"
