@@ -1,0 +1,5 @@
+/datum/ntnet_conversation/add_message(message, username)
+	. = ..()
+	for(var/datum/computer_file/program/chatclient/hunter2 in active_clients)
+		if(!cmptext(hunter2.username, username))
+			hunter2.computer.alert_call(hunter2, "[username] in [title]: [message]", 'sound/machines/ping.ogg')
