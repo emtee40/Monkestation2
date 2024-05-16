@@ -147,7 +147,7 @@
 /obj/item/encryptionkey/heads/hop
 	name = "\proper the head of personnel's encryption key"
 	icon_state = "cypherkey_cube"
-	channels = list(RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SUPPLY = 1) //monkestation edit: QM isnt a head, HOP should have access to the supply channel.
+	channels = list(RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_COMMAND = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_cube
 	greyscale_colors = "#2b2793#c2c1c9"
 
