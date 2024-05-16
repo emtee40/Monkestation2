@@ -24,18 +24,25 @@
 
 /datum/action/cooldown/mob_cooldown/bloodling/infest/Activate(atom/target)
 	var/mob/living/mob = target
+	var/infest_time = 30 SECONDS
+
+	// If they are standing on the ascended bloodling tiles it takes 1/3rd of the time to infest them
+	if(isturf(get_turf(mob), /turf/open/floor/misc/bloodling))
+		infest_time = 10 SECONDS
+
 	if(iscarbon(mob))
 		var/mob/living/carbon/human/carbon_mob = target
+		infest_time *= 2
+
 		if(HAS_TRAIT(carbon_mob, TRAIT_MINDSHIELD))
-			if(!do_after(owner, 2 MINUTES))
-				return FALSE
-		else
-			if(!do_after(owner, 1 MINUTES))
-				return FALSE
+			infest_time *= 4
+
+		if(!do_after(owner, infest_time))
+			return FALSE
 		var/datum/antagonist/changeling/bloodling_thrall/thrall = carbon_mob.mind.add_antag_datum(/datum/antagonist/changeling/bloodling_thrall)
 		thrall.set_master(owner)
 	else
-		if(!do_after(owner, 30 SECONDS))
+		if(!do_after(owner, infest_time))
 			return FALSE
 		var/datum/antagonist/infested_thrall/thrall = mob.mind.add_antag_datum(/datum/antagonist/infested_thrall)
 		thrall.set_master(owner)

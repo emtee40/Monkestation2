@@ -24,9 +24,6 @@
 	// Woah they can move
 	REMOVE_TRAIT(bloodling, TRAIT_IMMOBILIZED, REF(src))
 
-/* PLANS
-	* Make tiles that the bloodling can easier infest on
-*/
 /turf/open/floor/misc/bloodling
 	name = "nerve threads"
 	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
