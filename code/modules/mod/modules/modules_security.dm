@@ -413,7 +413,7 @@
 /obj/item/mod/module/anomaly_locked/energy_shield/crew
 	name = "MOD prototype energy shield module"
 	desc = "Nanotrasen's attempt at replicating syndicate shield technology. \
-		Unfortunately, due to a lack of technology, it was neccesary to use an anomaly core to replicate the deflection effect.
+		Unfortunately, due to a lack of technology, it was neccesary to use an anomaly core to replicate the deflection effect."
 	prebuilt = FALSE
 	shield_icon = "shield-old"
 	complexity = 4
