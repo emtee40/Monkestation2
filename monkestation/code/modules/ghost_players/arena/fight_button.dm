@@ -164,7 +164,7 @@
 
 /obj/structure/fight_button/proc/end_duel(mob/living/carbon/human/ghost/loser)
 	if(loser == player_one)
-		player_two.client.prefs.adjust_metacoins(player_one.ckey, payout * 2, "Won Duel.", donator_multipler = FALSE)
+		player_two.client.prefs.adjust_metacoins(player_two.ckey, payout * 2, "Won Duel.", donator_multipler = FALSE)
 	else if(loser == player_two)
 		player_one.client.prefs.adjust_metacoins(player_one.ckey, payout * 2, "Won Duel.", donator_multipler = FALSE)
 	addtimer(CALLBACK(src, GLOBAL_PROC_REF(reset_arena_area)), 5 SECONDS)
