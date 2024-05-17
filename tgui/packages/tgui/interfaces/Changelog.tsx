@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Component, Fragment } from 'inferno';
-import { Box, Button, Dropdown, Icon, Section, Stack, Table } from '../components';
+import { Box, Button, Collapsible, Dropdown, Icon, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import dateformat from 'dateformat';
@@ -189,35 +189,47 @@ const Testmerges = (_props, context) => {
     return null;
   }
   return (
-    <Section>
-      <h4>
-        These are features being actively tested and developed on the server.{' '}
-        <br />
-        Please report any issues or feedback to the original PR, or on the
-        feedback thread on the Discord if there is one.
-      </h4>
-      {testmerges.map((testmerge) => {
-        const title = (
-          <a href={testmerge.link}>
-            #{testmerge.number}: &quot;{testmerge.title}&quot; by{' '}
-            {testmerge.author}
-          </a>
-        );
-        return (
-          <Section key={testmerge.number} title={title}>
-            <Box ml={3}>
-              <Table>
-                {Object.entries(testmerge.changes).map(([kind, changes]) =>
-                  changes.map((desc) => (
-                    <ChangeRow key={kind + desc} kind={kind} content={desc} />
-                  ))
-                )}
-              </Table>
-            </Box>
-          </Section>
-        );
-      })}
-    </Section>
+    <>
+      <Section px={1}>
+        <h4>
+          These are features being actively tested and developed on the server.{' '}
+          Please report any issues or feedback to the original PR, or on the
+          feedback thread on the Discord if there is one.
+        </h4>
+      </Section>
+      <Stack vertical>
+        {testmerges.map((testmerge) => {
+          const title = (
+            <a href={testmerge.link}>
+              #{testmerge.number}: &quot;{testmerge.title}&quot; by{' '}
+              {testmerge.author}
+            </a>
+          );
+          return (
+            <Stack.Item key={testmerge.number}>
+              <Section title={title}>
+                <Collapsible color="transparent" title="Changelog" open>
+                  <Box ml={3}>
+                    <Table>
+                      {Object.entries(testmerge.changes).map(
+                        ([kind, changes]) =>
+                          changes.map((desc) => (
+                            <ChangeRow
+                              key={kind + desc}
+                              kind={kind}
+                              content={desc}
+                            />
+                          ))
+                      )}
+                    </Table>
+                  </Box>
+                </Collapsible>
+              </Section>
+            </Stack.Item>
+          );
+        })}
+      </Stack>
+    </>
   );
 };
 
