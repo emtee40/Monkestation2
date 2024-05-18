@@ -1307,3 +1307,31 @@
 	SIGNAL_HANDLER
 	if(current_cycle >= 28)
 		return COMSIG_CARBON_BLOCK_BREATH
+
+/datum/reagent/toxin/radiomagnetic_disruptor // MONKESTATION ADDITION: NANITE REMOVAL CHEM
+	name = "Radiomagnetic Disruptor"
+	color = "#1d5a1aae" // grayish dark green
+	description = "An unpleasant-looking yet useful chemical that rapidly destroys nanites while causing toxin damage and the occasional EMP."
+	taste_description = "radio waves"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 20
+	toxpwr = 1
+	var/purge_rate = 10
+
+/datum/reagent/toxin/radiomagnetic_disruptor/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if (SPT_PROB(2, seconds_per_tick))
+		empulse(affected_mob, heavy_range = 0, light_range = 1)
+	var/datum/component/nanites/nanites = affected_mob.GetComponent(/datum/component/nanites)
+	if (nanites)
+		nanites.adjust_nanites(null, -purge_rate * seconds_per_tick)
+
+/datum/reagent/toxin/radiomagnetic_disruptor/overdose_start(mob/living/M)
+	. = ..()
+	purge_rate *= 2
+
+/datum/reagent/toxin/radiomagnetic_disruptor/overdose_process(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if (SPT_PROB(5, seconds_per_tick))
+		empulse(affected_mob, heavy_range = 1, light_range = 1)
