@@ -401,7 +401,7 @@
 		this version provides less protection, and takes a large amount of space in the suit."
 	removable = TRUE
 	complexity = 4
-	speed_added = 0
+	speed_added = 0.25 //Less than antag, but still something.
 	
 /datum/armor/mod_module_armor_boost_crew
 	melee = 20
