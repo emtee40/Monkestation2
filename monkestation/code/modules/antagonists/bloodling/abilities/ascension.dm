@@ -36,6 +36,7 @@
 	sound = 'sound/items/eatfood.ogg'
 	replace_floors = list(/turf/open/floor/misc/bloodling = 1)
 	replace_walls = /turf/closed/wall/material/meat
+	window_colour = "#5c0c0c"
 	replace_objs = list(\
 		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
 		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
