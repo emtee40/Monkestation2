@@ -289,6 +289,7 @@
 	electronics.forceMove(door)
 	door.autoclose = TRUE
 	door.close()
+	door.auto_dir_align() // monkestation edit: ensure doors get aligned properly on creation
 	door.update_appearance()
 
 	qdel(src)
