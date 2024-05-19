@@ -21,13 +21,13 @@
 	RegisterSignal(parent, COMSIG_FRIENDSHIP_CHECK_LEVEL, PROC_REF(check_friendship_level))
 	RegisterSignal(parent, COMSIG_FRIENDSHIP_CHANGE, PROC_REF(change_friendship))
 	RegisterSignal(parent, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, PROC_REF(pass_friendship))
-	RegisterSignal(parent, COMSIG_SHIFT_CLICKED_ON, PROC_REF(view_friendship))
+	RegisterSignal(parent, COMSIG_ATOM_MOUSE_ENTERED, PROC_REF(view_friendship))
 
 /datum/component/friendship_container/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_FRIENDSHIP_CHECK_LEVEL)
 	UnregisterSignal(parent, COMSIG_FRIENDSHIP_CHANGE)
 	UnregisterSignal(parent, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP)
-	UnregisterSignal(parent, COMSIG_SHIFT_CLICKED_ON)
+	UnregisterSignal(parent, COMSIG_ATOM_MOUSE_ENTERED)
 
 /datum/component/friendship_container/proc/change_friendship(mob/living/source, atom/target, amount)
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
@@ -71,7 +71,7 @@
 
 
 /datum/component/friendship_container/proc/view_friendship(mob/living/source, mob/living/clicker)
-	if(!istype(clicker) || !clicker.CanReach(source) || !length(weakrefed_friends))
+	if(!istype(clicker) || !length(weakrefed_friends) || !clicker.client)
 		return
 	var/max_level = friendship_levels[length(friendship_levels)]
 	var/max_level_value = friendship_levels[max_level]
@@ -81,12 +81,16 @@
 
 		var/list/offset_to_add = get_icon_dimensions(source.icon)
 		var/y_position = offset_to_add["height"] + 1
-		var/obj/effect/overlay/happiness_overlay/hearts = new
+		var/obj/effect/overlay/happiness_overlay/hearts = new(null, clicker)
 		var/lowest_level = friendship_levels[1]
 		var/lowest_level_value = friendship_levels[lowest_level]
 		hearts.pixel_y = y_position
-		hearts.set_hearts((befriended_refs[ref] - (lowest_level_value)) / (max_level_value - (lowest_level_value)))
-		source.vis_contents += hearts
+		hearts.set_hearts((weakrefed_friends[ref] - (lowest_level_value)) / (max_level_value - (lowest_level_value)))
+		var/image/new_image = new(source)
+		new_image.appearance = hearts.appearance
+		new_image.loc = source
+		clicker.client.images += new_image
+		hearts.image = new_image
 
 
 /obj/effect/overlay/happiness_overlay
@@ -98,10 +102,19 @@
 	VAR_PRIVATE/hearts_percentage
 	///icon of our heart
 	var/heart_icon = 'icons/effects/effects.dmi'
+	var/client/stored_client
+	var/image/image
 
-/obj/effect/overlay/happiness_overlay/Initialize(mapload)
+/obj/effect/overlay/happiness_overlay/New(loc, mob/living/clicker)
 	. = ..()
-	QDEL_IN(src, 5 SECONDS)
+	RegisterSignal(clicker.client, COMSIG_CLIENT_HOVER_NEW, PROC_REF(clear_view))
+	stored_client = clicker.client
+
+/obj/effect/overlay/happiness_overlay/Destroy(force)
+	. = ..()
+	stored_client.images -= image
+	QDEL_NULL(image)
+	stored_client = null
 
 /obj/effect/overlay/happiness_overlay/proc/set_hearts(happiness_percentage)
 	hearts_percentage = happiness_percentage
@@ -119,3 +132,6 @@
 		var/mutable_appearance/display_icon = mutable_appearance(icon = heart_icon, icon_state = heart_icon_state, layer = ABOVE_HUD_PLANE)
 		display_icon.pixel_x = heart_positions[index]
 		. += display_icon
+
+/obj/effect/overlay/happiness_overlay/proc/clear_view()
+	qdel(src)
