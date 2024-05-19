@@ -1943,7 +1943,7 @@
 	name = "Security Armor Booster Module"
 	id = "mod_crewarmor"
 	materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT *1.25, /datum/material/titanium =SHEET_MATERIAL_AMOUNT)
-	build_path = /obj/item/mod/module/pepper_shoulders
+	build_path = /obj/item/mod/module/armor_booster/crew
 	category = list(
 		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SECURITY
 	)
