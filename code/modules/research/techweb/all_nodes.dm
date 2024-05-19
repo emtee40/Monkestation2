@@ -1771,7 +1771,6 @@
 		"mod_projectile_dampener",
 		"mod_criminalcapture",
 		"mod_pepperspray",
-		"mod_crewarmor",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
