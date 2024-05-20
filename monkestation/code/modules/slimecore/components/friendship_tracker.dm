@@ -53,7 +53,7 @@
 ///Returns {TRUE} if friendship is above a certain threshold else returns {FALSE}
 /datum/component/friendship_container/proc/check_friendship_level(mob/living/source, atom/target, friendship_level)
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
-		if(isnull(ref))
+		if(isnull(ref) || QDELETED(ref))
 			weakrefed_friends -= ref
 			continue
 		if(ref.resolve() == target)
@@ -68,6 +68,9 @@
 		target.AddComponent(/datum/component/friendship_container, friendship_levels, befriend_level)
 
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
+		if(isnull(ref) || QDELETED(ref))
+			weakrefed_friends -= ref
+			continue
 		var/amount = weakrefed_friends[ref]
 		var/atom/resolved = ref.resolve()
 		SEND_SIGNAL(target, COMSIG_FRIENDSHIP_CHANGE, resolved, amount)
@@ -79,6 +82,9 @@
 	var/max_level = friendship_levels[length(friendship_levels)]
 	var/max_level_value = friendship_levels[max_level]
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
+		if(isnull(ref) || QDELETED(ref))
+			weakrefed_friends -= ref
+			continue
 		if(ref.resolve() != clicker)
 			continue
 
