@@ -53,6 +53,9 @@
 ///Returns {TRUE} if friendship is above a certain threshold else returns {FALSE}
 /datum/component/friendship_container/proc/check_friendship_level(mob/living/source, atom/target, friendship_level)
 	for(var/datum/weakref/ref as anything in weakrefed_friends)
+		if(isnull(ref))
+			weakrefed_friends -= ref
+			continue
 		if(ref.resolve() == target)
 			if(friendship_levels[friendship_level] <= weakrefed_friends[ref])
 				return TRUE
