@@ -110,12 +110,15 @@
 
 /obj/effect/overlay/happiness_overlay/New(loc, mob/living/clicker)
 	. = ..()
+	if(!clicker)
+		return
+
 	RegisterSignal(clicker.client, COMSIG_CLIENT_HOVER_NEW, PROC_REF(clear_view))
 	stored_client = clicker.client
 
 /obj/effect/overlay/happiness_overlay/Destroy(force)
 	. = ..()
-	stored_client.images -= image
+	stored_client?.images -= image
 	QDEL_NULL(image)
 	stored_client = null
 
