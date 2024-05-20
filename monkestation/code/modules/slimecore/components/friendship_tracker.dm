@@ -98,12 +98,15 @@
 	anchored = TRUE
 	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_PLANE
 	layer = ABOVE_HUD_PLANE
+	plane = GAME_PLANE_UPPER
 	///how many hearts should we display
 	VAR_PRIVATE/hearts_percentage
 	///icon of our heart
 	var/heart_icon = 'icons/effects/effects.dmi'
 	var/client/stored_client
 	var/image/image
+	var/full_icon = "full_heart"
+	var/empty_icon = "empty_heart"
 
 /obj/effect/overlay/happiness_overlay/New(loc, mob/living/clicker)
 	. = ..()
@@ -118,9 +121,6 @@
 
 /obj/effect/overlay/happiness_overlay/proc/set_hearts(happiness_percentage)
 	hearts_percentage = happiness_percentage
-	maptext_y = 10
-	maptext_width = 64
-	maptext_x = 10
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/effect/overlay/happiness_overlay/update_overlays()
@@ -128,7 +128,7 @@
 	var/static/list/heart_positions = list(-24, -16, -8, 0, 8, 16, 24)
 	var/display_amount = round(length(heart_positions) * hearts_percentage, 1)
 	for(var/index in 1 to length(heart_positions))
-		var/heart_icon_state = display_amount >= index ? "full_heart" : "empty_heart"
+		var/heart_icon_state = display_amount >= index ? full_icon : empty_icon
 		var/mutable_appearance/display_icon = mutable_appearance(icon = heart_icon, icon_state = heart_icon_state, layer = ABOVE_HUD_PLANE)
 		display_icon.pixel_x = heart_positions[index]
 		. += display_icon
