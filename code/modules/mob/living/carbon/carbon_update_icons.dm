@@ -303,15 +303,6 @@
 		if(iter_part.burnstate)
 			damage_overlay.add_overlay("[iter_part.dmg_overlay_type]_[iter_part.body_zone]_0[iter_part.burnstate]")
 
-	var/mob/living/carbon/human/human = src
-	if(human)
-		var/height = human.get_mob_height()
-		if(height == HUMAN_HEIGHT_DWARF)
-			height += 2
-		height = num2text(height)
-		var/offsets = GLOB.human_heights_to_offsets[height]
-		damage_overlay.pixel_y += offsets[1]
-
 	if(isnull(damage_overlay))
 		return
 
@@ -326,15 +317,6 @@
 		if(iter_part.bleed_overlay_icon)
 			wound_overlay ||= mutable_appearance('icons/mob/effects/bleed_overlays.dmi', "blank", -WOUND_LAYER, appearance_flags = KEEP_TOGETHER)
 			wound_overlay.add_overlay(iter_part.bleed_overlay_icon)
-
-	var/mob/living/carbon/human/human = src
-	if(human)
-		var/height = human.get_mob_height()
-		if(height == HUMAN_HEIGHT_DWARF)
-			height += 2
-		height = num2text(height)
-		var/offsets = GLOB.human_heights_to_offsets[height]
-		wound_overlay.pixel_y += offsets[1]
 
 	if(isnull(wound_overlay))
 		return

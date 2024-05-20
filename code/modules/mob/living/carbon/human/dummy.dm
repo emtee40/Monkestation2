@@ -95,12 +95,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/apply_height_offsets(image/appearance, upper_torso)
 	return
 
-/// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
-/proc/get_consistent_feature_entry(list/accessory_feature_list)
-	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
-	ASSERT(!isnull(consistent_entry))
-	return consistent_entry
-
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.initialize_dna(skip_index = TRUE)
 	target.dna.features["body_markings"] = "None"
