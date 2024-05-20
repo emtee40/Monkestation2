@@ -75,7 +75,6 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_worn_undersuit()
 	remove_overlay(UNIFORM_LAYER)
-	remove_overlay_rainbow_effect("uniform")
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ICLOTHING) + 1]
