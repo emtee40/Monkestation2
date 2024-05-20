@@ -47,6 +47,7 @@
 #define MASSIVE_OBJ_PLANE 3
 #define GHOST_PLANE 4
 #define POINT_PLANE 5
+#define PLANE_NAME_TAGS 6
 
 //---------- LIGHTING -------------
 //monkestation begin
