@@ -40,7 +40,7 @@
 	if(!stored_chicken)
 		return .. ()
 
-	if(istype(attacking_item, /obj/item/food) || istype(/obj/item/chicken_feed))
+	if(istype(attacking_item, /obj/item/food) || istype(attacking_item, /obj/item/chicken_feed))
 		stored_chicken.attackby(attacking_item, user, params)
 		return
 	. = ..()
