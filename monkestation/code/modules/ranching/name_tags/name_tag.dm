@@ -113,11 +113,11 @@
 		<br>Literally just contains FOV images, or masks."
 	plane = PLANE_NAME_TAGS_BLOCKER
 	render_target = NAME_TAG_RENDER_TARGET
+	render_relay_planes = list()
 
 /atom/movable/screen/name_shadow
 	icon = 'monkestation/code/modules/ranching/name_tags/covers.dmi'
 	icon_state = "alpha-blocker"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = PLANE_NAME_TAGS_BLOCKER
-	render_relay_planes = list()
 	screen_loc = "BOTTOM,LEFT"
