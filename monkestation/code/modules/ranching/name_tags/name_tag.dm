@@ -21,6 +21,7 @@
 
 /mob
 	var/obj/effect/name_tag/name_tag
+	var/atom/movable/screen/name_shadow/shadow
 
 /mob/Initialize(mapload)
 	. = ..()
@@ -28,10 +29,29 @@
 	update_name_tag()
 	vis_contents += name_tag
 
+/mob/Login()
+	. = ..()
+	if(client)
+		shadow = new()
+		shadow.loc = src
+		client.screen += shadow
+		hud_used.always_visible_inventory += shadow
+
+/mob/Logout()
+	. = ..()
+	if(client)
+		client.screen -= shadow
+		hud_used.always_visible_inventory -= shadow
+		QDEL_NULL(shadow)
+
 /mob/Destroy()
 	. = ..()
 	vis_contents -= name_tag
 	QDEL_NULL(name_tag)
+	if(client || shadow)
+		client?.screen -= shadow
+		hud_used.always_visible_inventory -= shadow
+		QDEL_NULL(shadow)
 
 /mob/proc/update_name_tag(passed_name)
 	if(!passed_name)
@@ -74,3 +94,25 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	critical = PLANE_CRITICAL_DISPLAY
 	alpha = 0
+	multiz_scaled = FALSE
+	allows_offsetting = FALSE
+
+/atom/movable/screen/plane_master/name_tags/Initialize(mapload)
+	. = ..()
+	add_filter("vision_cone", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(NAME_TAG_RENDER_TARGET, offset), flags = MASK_INVERSE))
+
+/atom/movable/screen/plane_master/name_tag_blocker
+	name = "name tag blocker blocker"
+	documentation = "This is one of those planes that's only used as a filter. It masks out things that want to be hidden by fov.\
+		<br>Literally just contains FOV images, or masks."
+	plane = PLANE_NAME_TAGS_BLOCKER
+	render_target = NAME_TAG_RENDER_TARGET
+	multiz_scaled = FALSE
+	allows_offsetting = FALSE
+
+/atom/movable/screen/name_shadow
+	icon = 'monkestation/code/modules/ranching/name_tags/covers.dmi'
+	icon_state = "alpha-blocker"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = PLANE_NAME_TAGS_BLOCKER
+	screen_loc = "BOTTOM,LEFT"
