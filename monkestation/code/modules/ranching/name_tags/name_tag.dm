@@ -112,6 +112,7 @@
 		<br>Literally just contains FOV images, or masks."
 	plane = PLANE_NAME_TAGS_BLOCKER
 	render_target = NAME_TAG_RENDER_TARGET
+
 /atom/movable/screen/name_shadow
 	icon = 'monkestation/code/modules/ranching/name_tags/covers.dmi'
 	icon_state = "alpha-blocker"

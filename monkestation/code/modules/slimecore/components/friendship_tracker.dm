@@ -98,6 +98,7 @@
 		var/image/new_image = new(source)
 		new_image.appearance = hearts.appearance
 		new_image.loc = source
+		SET_PLANE(new_image, new_image.plane, source)
 		clicker.client.images += new_image
 		hearts.image = new_image
 

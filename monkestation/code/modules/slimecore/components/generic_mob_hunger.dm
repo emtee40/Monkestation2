@@ -109,6 +109,7 @@
 	new_image.appearance = hearts.appearance
 	new_image.loc = source
 	clicker.client.images += new_image
+	SET_PLANE(new_image, new_image.plane, source)
 	hearts.image = new_image
 
 /obj/effect/overlay/happiness_overlay/hunger
