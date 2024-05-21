@@ -31,7 +31,7 @@
 
 /mob/Login()
 	. = ..()
-	if(client)
+	if(client && isliving(src))
 		shadow = new()
 		shadow.loc = src
 		client.screen += shadow
@@ -39,7 +39,7 @@
 
 /mob/Logout()
 	. = ..()
-	if(client)
+	if(client && isliving(src))
 		client.screen -= shadow
 		shadow.UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
 		hud_used?.always_visible_inventory -= shadow
