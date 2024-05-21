@@ -97,7 +97,10 @@
 		hearts.set_hearts((weakrefed_friends[ref] - (lowest_level_value)) / (max_level_value - (lowest_level_value)))
 		var/image/new_image = new(source)
 		new_image.appearance = hearts.appearance
-		new_image.loc = source
+		if(!isturf(source.loc))
+			new_image.loc = source.loc
+		else
+			new_image.loc = source
 		SET_PLANE(new_image, new_image.plane, source)
 		clicker.client.images += new_image
 		hearts.image = new_image
