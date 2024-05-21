@@ -53,7 +53,7 @@
 		for(var/num as anything in preference_source?.special_loadout_list["unusual"])
 			if(num in numbers)
 				continue
-			numbers += text2num(num)
+			numbers += num
 			var/list/unusuals = preference_source?.extra_stat_inventory["unusual"]
 			var/list/data = unusuals[text2num(num)]
 			var/item_path = text2path(data["unusual_type"])
