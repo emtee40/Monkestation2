@@ -25,7 +25,7 @@
 
 /mob/Initialize(mapload)
 	. = ..()
-	name_tag = new()
+	name_tag = new(src)
 	update_name_tag()
 	vis_contents += name_tag
 
@@ -41,6 +41,7 @@
 	. = ..()
 	if(client)
 		client.screen -= shadow
+		shadow.UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
 		hud_used?.always_visible_inventory -= shadow
 		QDEL_NULL(shadow)
 
@@ -50,6 +51,7 @@
 	QDEL_NULL(name_tag)
 	if(client || shadow)
 		client?.screen -= shadow
+		shadow.UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
 		hud_used?.always_visible_inventory -= shadow
 		QDEL_NULL(shadow)
 
@@ -76,6 +78,9 @@
 	appearance_flags = PIXEL_SCALE
 	alpha = 180
 
+/obj/effect/name_tag/New(mob/user)
+	RegisterSignal(user, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(update_z))
+
 /obj/effect/name_tag/proc/hide()
 	alpha = 0
 
@@ -85,6 +90,8 @@
 /obj/effect/name_tag/proc/set_name(incoming_name)
 	maptext = "<span class='pixel c ol'><span style='font-size: 6px; text-align: center;'>[incoming_name]</span></span>"
 
+/obj/effect/name_tag/proc/update_z(datum/source, turf/old_turf, turf/new_turf, same_z_layer)
+	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 
 /atom/movable/screen/plane_master/name_tags
 	name = "name tag plane"
@@ -94,8 +101,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	critical = PLANE_CRITICAL_DISPLAY
 	alpha = 0
-	multiz_scaled = FALSE
-	allows_offsetting = FALSE
 
 /atom/movable/screen/plane_master/name_tags/Initialize(mapload)
 	. = ..()
@@ -107,9 +112,6 @@
 		<br>Literally just contains FOV images, or masks."
 	plane = PLANE_NAME_TAGS_BLOCKER
 	render_target = NAME_TAG_RENDER_TARGET
-	multiz_scaled = FALSE
-	allows_offsetting = FALSE
-
 /atom/movable/screen/name_shadow
 	icon = 'monkestation/code/modules/ranching/name_tags/covers.dmi'
 	icon_state = "alpha-blocker"
