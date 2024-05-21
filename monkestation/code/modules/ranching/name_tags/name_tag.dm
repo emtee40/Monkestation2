@@ -41,7 +41,7 @@
 	. = ..()
 	if(client)
 		client.screen -= shadow
-		hud_used.always_visible_inventory -= shadow
+		hud_used?.always_visible_inventory -= shadow
 		QDEL_NULL(shadow)
 
 /mob/Destroy()
@@ -50,7 +50,7 @@
 	QDEL_NULL(name_tag)
 	if(client || shadow)
 		client?.screen -= shadow
-		hud_used.always_visible_inventory -= shadow
+		hud_used?.always_visible_inventory -= shadow
 		QDEL_NULL(shadow)
 
 /mob/proc/update_name_tag(passed_name)
