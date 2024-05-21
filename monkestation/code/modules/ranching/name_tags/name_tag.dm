@@ -100,6 +100,7 @@
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	critical = PLANE_CRITICAL_DISPLAY
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 	alpha = 0
 
 /atom/movable/screen/plane_master/name_tags/Initialize(mapload)
@@ -118,4 +119,5 @@
 	icon_state = "alpha-blocker"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = PLANE_NAME_TAGS_BLOCKER
+	render_relay_planes = list()
 	screen_loc = "BOTTOM,LEFT"
