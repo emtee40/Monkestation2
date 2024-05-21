@@ -109,10 +109,10 @@
 	new_image.appearance = hearts.appearance
 	if(!isturf(source.loc))
 		new_image.loc = source.loc
-		SET_PLANE(new_image, new_image.plane, source.loc)
+		SET_PLANE_EXPLICIT(new_image, new_image.plane, source.loc)
 	else
 		new_image.loc = source
-		SET_PLANE(new_image, new_image.plane, source)
+		SET_PLANE_EXPLICIT(new_image, new_image.plane, source)
 	clicker.client.images += new_image
 	hearts.image = new_image
 

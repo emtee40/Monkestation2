@@ -49,7 +49,7 @@
 	AddComponent(/datum/component/aging, death_callback = CALLBACK(src, PROC_REF(old_age_death)))
 	AddComponent(/datum/component/happiness_container, max_happiness_per_generation, happy_chems, disliked_chemicals, liked_foods, disliked_foods, disliked_food_types, list(CALLBACK(src, PROC_REF(unhappy_death)) = minimum_living_happiness))
 	AddComponent(/datum/component/generic_mob_hunger, 400, 0.5, 3 MINUTES, 200)
-
+	AddComponent(/datum/component/hovering_information, /datum/hover_data/chicken_info)
 
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW)
