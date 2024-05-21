@@ -74,12 +74,9 @@
 				signal.data["name"] = ""
 				signal.data["reject"] = 0
 				Compiler.Run(signal)
-				if(signal.data["reject"] == 0)
-					usr.client.give_award(/datum/award/achievement/engineering/Poly_silent, usr)
 			else
 				for(var/sample in signal.data["spans"])
 					if(sample == SPAN_COMMAND)
-						usr.client.give_award(/datum/award/achievement/engineering/Poly_loud, usr)
 						break // Not having this break leaves us open to a potential DoS attack.
 		return compileerrors
 //end-NTSL
