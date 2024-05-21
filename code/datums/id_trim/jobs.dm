@@ -325,6 +325,7 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_TCOMMS,
 		ACCESS_TECH_STORAGE,
+		ACCESS_TCOM_ADMIN,
 		)
 	minimal_wildcard_access = list(
 		ACCESS_CE,

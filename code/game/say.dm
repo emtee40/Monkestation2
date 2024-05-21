@@ -97,6 +97,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/spanpart2 = "<span class='name'>"
 	//Radio freq/name display
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
+	//For NTSL and AI tracking
+	var/realnamepart = "[speaker.GetVoice(TRUE)][speaker.get_alt_name()]"
 	//Speaker name
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
 	if(face_name && ishuman(speaker))
@@ -105,8 +107,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	else if(visible_name && ishuman(speaker))
 		var/mob/living/carbon/human/human_speaker = speaker
 		namepart = "[human_speaker.get_visible_name()]"
-	//End name span.
-	var/endspanpart = "</span>"
+	//End name span. Small NTSL change
+	var/endspanpart = "</span></a>"
 
 	//Message
 	var/messagepart
@@ -122,7 +124,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 	messagepart = " <span class='message'>[say_emphasis(messagepart)]</span></span>"
 
-	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
+	//Make sure that you're sending all the parts of the message, including the NTSL parts
+	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, realnamepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
 /atom/movable/proc/compose_track_href(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
@@ -182,6 +185,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(!language)
 		return "makes a strange sound."
 
+	//Make sure that you are properly sending language across too
+	if(isnum(language))
+		language = NTSL_LANG_TODATUM(language)
+
 	if(!has_language(language))
 		var/datum/language/dialect = GLOB.language_datum_instances[language]
 		raw_message = dialect.scramble(raw_message)
@@ -235,6 +242,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 //VIRTUALSPEAKERS
 /atom/movable/virtualspeaker
 	var/job
+	var/realvoice	//NTSL, Gives an extra UUID
 	var/atom/movable/source
 	var/obj/item/radio/radio
 
@@ -245,6 +253,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	source = M
 	if(istype(M))
 		name = radio.anonymize ? "Unknown" : M.GetVoice()
+		realvoice = M.GetVoice()	//NTSL. Taking use of the new UUID
 		verb_say = M.verb_say
 		verb_ask = M.verb_ask
 		verb_exclaim = M.verb_exclaim
@@ -276,8 +285,24 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 /atom/movable/virtualspeaker/GetJob()
 	return job
 
+/atom/movable/virtualspeaker/GetVoice(bool)
+	if(bool && realvoice)
+		return realvoice
+	else
+		return "[src]"
+
+// Commented out because this was causing NTSL to not properly be capable of editing verb_say & al.
+// However, I don't exactly know why it was even in here in the first place, so,
+// if there's some weird bugs involving virtualspeaker, check here first.
+/*
 /atom/movable/virtualspeaker/GetSource()
 	return source
+*/
+
+//Comment from 3 years after this was first ported:
+//I have no fuckign clue what this does still, nor am I really going to learn.
+//If this seriously breaks anything, and I doubt it will because no one ever touches T-Comms code (and with good reason)
+//notify Kitsunemitsu.
 
 /atom/movable/virtualspeaker/GetRadio()
 	return radio

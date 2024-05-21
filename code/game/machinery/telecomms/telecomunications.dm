@@ -56,6 +56,11 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(!on)
 		return
 
+	//Make sure the NTSL shit actually has a path
+	if(filter && !ispath(filter))
+		CRASH("relay_information() was given a path filter that wasn't actually a path!")
+
+
 	if(!filter || !ispath(filter, /obj/machinery/telecomms))
 		CRASH("null or non /obj/machinery/telecomms typepath given as the filter argument! given typepath: [filter]")
 
@@ -67,8 +72,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		signal.data["slow"] = netlag
 
 	// Loop through all linked machines and send the signal or copy.
+	for(var/m_typeless in links_by_telecomms_type?[filter])			//Not sure what this does, and I don't really want to read it, I just ported this. Related to NTSL - Kitsunemitsu
+		var/obj/machinery/telecomms/filtered_machine = m_typeless
 
-	for(var/obj/machinery/telecomms/filtered_machine in links_by_telecomms_type?[filter])
 		if(!filtered_machine.on)
 			continue
 		if(amount && send_count >= amount)
