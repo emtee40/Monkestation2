@@ -199,6 +199,7 @@
 	initial_powers = list(
 		/datum/action/cooldown/mob_cooldown/bloodling/absorb,
 		/datum/action/cooldown/sneak/bloodling,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 	speed = 0.5
 
@@ -215,6 +216,7 @@
 		/datum/action/cooldown/sneak/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 	speed = 1
 
@@ -227,6 +229,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/infest,
 		/datum/action/cooldown/bloodling/build,
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 	speed = 1.5
 
@@ -244,6 +247,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 		/datum/action/cooldown/mob_cooldown/bloodling/heal,
 		/datum/action/cooldown/mob_cooldown/bloodling/give_life,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 	speed = 2
 
@@ -262,5 +266,6 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
 		/datum/action/cooldown/mob_cooldown/bloodling/heal,
 		/datum/action/cooldown/mob_cooldown/bloodling/give_life,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 	speed = 2.5

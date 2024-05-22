@@ -10,6 +10,7 @@
 		/datum/action/cooldown/mob_cooldown/bloodling/devour,
 		/datum/action/cooldown/spell/aoe/repulse/bloodling,
 		/datum/action/cooldown/mob_cooldown/bloodling/transfer_biomass,
+		/datum/action/cooldown/bloodling_hivespeak,
 	)
 
 /mob/living/basic/bloodling/minion/harvester

@@ -41,9 +41,6 @@
 		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
 		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
 
-/* PLANS
-	* Make this call the shuttle
-*/
 /datum/round_event_control/bloodling_ascension
 	name = "Bloodling ascension"
 	typepath = /datum/round_event/bloodling_ascension
@@ -62,6 +59,8 @@
 
 // The start of the event, it grabs a bunch of turfs to parse and apply our theme to
 /datum/round_event/bloodling_ascension/start()
+	SSshuttle.requestEvac(src, "ALERT: LEVEL 4 BIOHAZARD DETECTED. ORGANISM CONTAINMENT HAS FAILED. EVACUATE REMAINING PERSONEL.")
+
 	if(isnull(chosen_theme))
 		chosen_theme = new /datum/dimension_theme/bloodling()
 	// Placeholder code, just for testing
