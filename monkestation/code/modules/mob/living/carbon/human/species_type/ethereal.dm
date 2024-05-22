@@ -130,6 +130,9 @@
 		fixed_mut_color = rgb(128,128,128)
 	ethereal.hair_color = current_color
 	ethereal.facial_hair_color = current_color
+	if(ethereal.organs_slot["horns"])
+		var/obj/item/organ/external/horms = ethereal.organs_slot["horns"]
+		horms.bodypart_overlay.draw_color = current_color
 	ethereal.update_body()
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
