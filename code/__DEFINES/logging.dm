@@ -51,7 +51,7 @@
 #define LOG_CLONING (1 << 22)
 #define LOG_MECHCOMP (1 << 23)
 #define LOG_BLACKMARKET (1 << 24)
-#define LOG_NTSL (1 << 20)
+#define LOG_NTSL (1 << 25)
 
 //Individual logging panel pages
 #define INDIVIDUAL_GAME_LOG (LOG_GAME)
