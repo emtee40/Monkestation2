@@ -155,6 +155,23 @@
 			qdel(given_item)
 			return
 
+	if(istype(given_item, /obj/item/chicken_feed))
+		var/obj/item/chicken_feed/feed = given_item
+		var/turf/open/targeted_turf = get_turf(src)
+		var/list/compiled_reagents = list()
+		for(var/datum/reagent/listed_reagent in feed.reagents.reagent_list)
+			compiled_reagents += new listed_reagent.type
+			compiled_reagents[listed_reagent] = listed_reagent.volume
+
+		var/obj/effect/chicken_feed/new_feed = new(targeted_turf, feed.held_foods, compiled_reagents, mix_color_from_reagents(feed.reagents.reagent_list), feed.name)
+		feed.placements_left--
+		user.visible_message("[user] gives [src] some of the [feed.name]")
+		if(feed.placements_left <= 0)
+			qdel(feed)
+		eat_feed(new_feed, user)
+		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHANGE, user, 1)
+		return
+
 	if(istype(given_item, /obj/item/food)) //feedin' dem chickens
 		if(!stat && current_feed_amount <= 3 )
 			feed_food(given_item, user)
@@ -187,13 +204,13 @@
 			if(given_item.type in mutation.food_requirements)
 				mutation.food_requirements -= given_item.type
 
-/mob/living/basic/chicken/proc/eat_feed(obj/effect/chicken_feed/eaten_feed)
+/mob/living/basic/chicken/proc/eat_feed(obj/effect/chicken_feed/eaten_feed, mob/user)
 	SEND_SIGNAL(src, COMSIG_LIVING_ATE, eaten_feed)
 	SEND_SIGNAL(src, COMSIG_MOB_FEED, eaten_feed, 25 + (15 * length(eaten_feed.held_foods)) + (10 * length(eaten_feed.held_reagents)))
 
 	if(length(eaten_feed.held_reagents))
 		for(var/datum/reagent/listed_reagent in eaten_feed.held_reagents)
-			listed_reagent.feed_interaction(src, listed_reagent.volume)
+			listed_reagent.feed_interaction(src, listed_reagent.volume, user)
 			consumed_reagents |= listed_reagent.type
 
 			for(var/datum/mutation/ranching/mutation as anything in created_mutations)
