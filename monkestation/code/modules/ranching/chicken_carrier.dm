@@ -24,7 +24,7 @@
 		update_appearance()
 		return
 
-	if(!istype(target, /mob/living/basic/chicken))
+	if(!istype(target, /mob/living/basic/chicken) || !istype(target, /mob/living/basic/chick))
 		return ..()
 
 	var/mob/living/basic/chicken/chicken_target = target
@@ -40,7 +40,7 @@
 	if(!stored_chicken)
 		return .. ()
 
-	if(istype(attacking_item, /obj/item/food) || istype(attacking_item, /obj/item/chicken_feed))
+	if(istype(attacking_item, /obj/item/food) || istype(attacking_item, /obj/item/chicken_feed) && istype(stored_chicken))
 		stored_chicken.attackby(attacking_item, user, params)
 		return
 	. = ..()
@@ -49,6 +49,10 @@
 	. = ..()
 	if(!stored_chicken)
 		return
+
+	stored_chicken.pixel_x = 0
+	stored_chicken.pixel_y = 0
+
 	SET_PLANE_EXPLICIT(stored_chicken, PLANE_TO_TRUE(plane), src)
 	stored_chicken.layer = layer - 0.1
 	var/mutable_appearance/chicken_image = stored_chicken.appearance

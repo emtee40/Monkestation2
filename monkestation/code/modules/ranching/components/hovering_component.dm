@@ -59,6 +59,7 @@
 		qdel(listed_image)
 
 /obj/effect/overlay/hover
+	icon = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_PLANE
