@@ -62,7 +62,7 @@
 
 /obj/item/organ/internal/cyberimp/emp_act(severity)
 	. = ..()
-	if(severity == EMP_HEAVY && prob(5))
+	if(severity == EMP_HEAVY && prob(5) && !owner)
 		to_chat(owner,"<span class = 'danger'> cyberlink beeps: ERR03 HEAVY ELECTROMAGNETIC MALFUNCTION DETECTED IN [uppertext(name)].DAMAGE DETECTED, INTERNAL MEMORY DAMAGED. </span>")
 		random_encode()
 	else
