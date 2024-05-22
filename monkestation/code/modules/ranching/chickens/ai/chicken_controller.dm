@@ -16,7 +16,7 @@
 		BB_CHICKEN_FEED = null,
 
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_PET_TARGETTING_DATUM = /datum/targeting_strategy/basic/not_friends,
+		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
 	)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -51,7 +51,7 @@
 		BB_CHICKEN_FEED = null,
 
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_PET_TARGETTING_DATUM = /datum/targeting_strategy/basic/not_friends,
+		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
 	)
 
 	planning_subtrees = list(
