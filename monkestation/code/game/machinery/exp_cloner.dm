@@ -81,6 +81,53 @@
 	attempting = FALSE
 	return CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
 
+/obj/machinery/clonepod/experimental/go_out()
+	countdown.stop()
+	var/mob/living/mob_occupant = occupant
+	var/turf/T = get_turf(src)
+
+	if(mess) //Clean that mess and dump those gibs!
+		for(var/obj/fl in unattached_flesh)
+			fl.forceMove(T)
+		unattached_flesh.Cut()
+		mess = FALSE
+		new /obj/effect/gibspawner/generic(get_turf(src), mob_occupant)
+		audible_message("<span class='italics'>You hear a splat.</span>")
+		icon_state = "pod_0"
+		return
+		
+	if(!mob_occupant.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
+		qdel(mob_occupant)
+
+	if(!mob_occupant)
+		return
+	current_insurance = null
+	REMOVE_TRAIT(mob_occupant, TRAIT_STABLEHEART, CLONING_POD_TRAIT)
+	REMOVE_TRAIT(mob_occupant, TRAIT_STABLELIVER, CLONING_POD_TRAIT)
+	REMOVE_TRAIT(mob_occupant, TRAIT_EMOTEMUTE, CLONING_POD_TRAIT)
+	REMOVE_TRAIT(mob_occupant, TRAIT_MUTE, CLONING_POD_TRAIT)
+	REMOVE_TRAIT(mob_occupant, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
+	REMOVE_TRAIT(mob_occupant, TRAIT_NOBREATH, CLONING_POD_TRAIT)
+
+	if(grab_ghost_when == CLONER_MATURE_CLONE)
+		mob_occupant.grab_ghost()
+		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+		mob_occupant.flash_act()
+
+	var/policy = get_policy(POLICY_REVIVAL_CLONER) || get_policy(POLICY_REVIVAL)
+	if(policy)
+		to_chat(occupant, policy)
+
+	mob_occupant.adjustOrganLoss(ORGAN_SLOT_BRAIN, mob_occupant.getCloneLoss())
+
+	occupant.forceMove(T)
+	icon_state = "pod_0"
+	mob_occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
+	for(var/fl in unattached_flesh)
+		qdel(fl)
+	unattached_flesh.Cut()
+
+	occupant = null
 
 /obj/machinery/clonepod/experimental/proc/get_clone_preview(datum/dna/clone_dna)
 	RETURN_TYPE(/image)
