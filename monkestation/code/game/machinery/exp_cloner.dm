@@ -96,7 +96,7 @@
 		icon_state = "pod_0"
 		return
 		
-	if(!mob_occupant.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
+	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
 
 	if(!mob_occupant)
