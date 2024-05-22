@@ -205,9 +205,8 @@
 	var/obj/effect/dummy/lighting_obj/moblight
 
 /datum/symptom/lantern/activate(mob/living/mob)
-	if(moblight)
-		qdel(moblight)
-	moblight = new(mob)
+	if(!moblight)
+		moblight = new(mob)
 	if(ismouse(mob))
 		moblight.set_light_range(multiplier)
 		moblight.set_light_power(multiplier / 3)
@@ -414,7 +413,7 @@
 		sleep(100)
 		var/list/possible_bots = list(
 			/mob/living/simple_animal/bot/cleanbot,
-			/mob/living/simple_animal/bot/medbot,
+			/mob/living/basic/bot/medbot,
 			/mob/living/simple_animal/bot/secbot,
 			/mob/living/simple_animal/bot/floorbot,
 			/mob/living/simple_animal/bot/buttbot
