@@ -1,4 +1,4 @@
-/mob/living/basic/proc/pass_stats(atom/child)
+/mob/living/basic/proc/pass_stats(atom/child, mutant = FALSE)
 	return
 
 /mob/living/basic/chicken
@@ -93,7 +93,7 @@
 	if(is_marked)
 		.+= mutable_appearance('monkestation/icons/effects/ranching.dmi', "marked", FLOAT_LAYER, src, plane = src.plane)
 
-/mob/living/basic/chicken/pass_stats(atom/child)
+/mob/living/basic/chicken/pass_stats(atom/child, mutant = FALSE)
 	var/obj/item/food/egg/layed_egg = child
 
 	layed_egg.faction_holder = src.faction
@@ -112,11 +112,13 @@
 
 	if(eggs_fertile)
 		if(prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) //25
-			START_PROCESSING(SSobj, layed_egg)
-			layed_egg.is_fertile = TRUE
+			if(mutant)
+				layed_egg.AddComponent(/datum/component/hatching, 100, CALLBACK(layed_egg, TYPE_PROC_REF(/obj/item/food/egg, pre_hatch)), layed_egg.low_temp, layed_egg.high_temp, layed_egg.low_pressure, layed_egg.high_pressure, layed_egg.liquid_depth, layed_egg.turf_requirements, layed_egg.nearby_mob)
+			else
+				layed_egg.AddComponent(/datum/component/hatching, 100, CALLBACK(layed_egg, TYPE_PROC_REF(/obj/item/food/egg, pre_hatch)))
+
 			SEND_SIGNAL(src, COMSIG_FRIENDSHIP_PASS_FRIENDSHIP, layed_egg)
 			SEND_SIGNAL(src, COMSIG_HAPPINESS_PASS_HAPPINESS, layed_egg)
-			flop_animation(layed_egg)
 			layed_egg.desc = "You can hear pecking from the inside of this seems it may hatch soon."
 
 
@@ -144,6 +146,15 @@
 		adjust_happiness(-1, user)
 
 /mob/living/basic/chicken/attackby(obj/item/given_item, mob/user, params)
+	for(var/datum/mutation/ranching/mutation as anything in created_mutations)
+		if(!length(mutation.nearby_items))
+			continue
+		if(given_item.type in mutation.nearby_items)
+			mutation.nearby_items -= given_item.type
+			user.visible_message(span_notice("[user] gives [given_item] to [src]"))
+			qdel(given_item)
+			return
+
 	if(istype(given_item, /obj/item/food)) //feedin' dem chickens
 		if(!stat && current_feed_amount <= 3 )
 			feed_food(given_item, user)
@@ -168,19 +179,43 @@
 	eggs_left += rand(0, 2)
 	current_feed_amount++
 	total_times_eaten ++
+	for(var/datum/mutation/ranching/mutation as anything in created_mutations)
+		if(!istype(mutation))
+			continue
+
+		if(length(mutation.food_requirements))
+			if(given_item.type in mutation.food_requirements)
+				mutation.food_requirements -= given_item.type
 
 /mob/living/basic/chicken/proc/eat_feed(obj/effect/chicken_feed/eaten_feed)
 	SEND_SIGNAL(src, COMSIG_LIVING_ATE, eaten_feed)
 	SEND_SIGNAL(src, COMSIG_MOB_FEED, eaten_feed, 25 + (15 * length(eaten_feed.held_foods)) + (10 * length(eaten_feed.held_reagents)))
 
-	if(eaten_feed.held_reagents.len)
+	if(length(eaten_feed.held_reagents))
 		for(var/datum/reagent/listed_reagent in eaten_feed.held_reagents)
 			listed_reagent.feed_interaction(src, listed_reagent.volume)
-			consumed_reagents |= listed_reagent
+			consumed_reagents |= listed_reagent.type
+
+			for(var/datum/mutation/ranching/mutation as anything in created_mutations)
+				if(!istype(mutation))
+					continue
+
+				if(length(mutation.reagent_requirements))
+					if(listed_reagent.type in mutation.reagent_requirements)
+						mutation.reagent_requirements -= listed_reagent.type
 
 	for(var/listed_item in eaten_feed.held_foods)
 		var/obj/item/food/listed_food = new listed_item
 		consumed_food |= listed_food.type
+
+		for(var/datum/mutation/ranching/mutation as anything in created_mutations)
+			if(!istype(mutation))
+				continue
+
+			if(length(mutation.food_requirements))
+				if(listed_food.type in mutation.food_requirements)
+					mutation.food_requirements -= listed_food.type
+
 		qdel(listed_food)
 
 	total_times_eaten++

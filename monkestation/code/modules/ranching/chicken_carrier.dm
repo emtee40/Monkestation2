@@ -24,7 +24,7 @@
 		update_appearance()
 		return
 
-	if(!istype(target, /mob/living/basic/chicken) || !istype(target, /mob/living/basic/chick))
+	if(!istype(target, /mob/living/basic/chicken) && !istype(target, /mob/living/basic/chick))
 		return ..()
 
 	var/mob/living/basic/chicken/chicken_target = target

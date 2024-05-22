@@ -5,6 +5,8 @@
 	var/egg_type
 	///ALL possible mutations this simple animal has
 	var/list/mutation_list = list()
+	///this is the created_mutations
+	var/list/created_mutations = list()
 	///How many eggs can the chicken still lay?
 	var/eggs_left = 0
 	///can it still lay eggs?
@@ -14,6 +16,25 @@
 	var/list/consumed_food = list()
 	///All Consumed reagents
 	var/list/datum/reagent/consumed_reagents = list()
+	///list of our "consumed" items
+	var/list/consumed_items = list()
+
+/mob/living/basic/Initialize(mapload)
+	. = ..()
+	create_mutations()
+
+/mob/living/basic/proc/create_mutations()
+	for(var/datum/mutation/ranching/mutation as anything in mutation_list )
+		var/datum/mutation/ranching/new_mut = new mutation
+		if(!istype(new_mut))
+			continue
+		created_mutations += new_mut
+
+/mob/living/basic/Destroy()
+	. = ..()
+	QDEL_LIST(created_mutations)
+	created_mutations = null
+	consumed_items = null
 
 /mob/living/basic/chicken
 

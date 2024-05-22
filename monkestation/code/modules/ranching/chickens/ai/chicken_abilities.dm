@@ -29,7 +29,7 @@
 	if(chicken_owner.total_times_eaten > 4 && prob(25 + chicken_owner.instability))
 		passes_minimum_checks = TRUE
 
-	SEND_SIGNAL(chicken_owner, COMSIG_MUTATION_TRIGGER, get_turf(chicken_owner), passes_minimum_checks)
+	SEND_SIGNAL(chicken_owner, COMSIG_MUTATION_TRIGGER, get_turf(chicken_owner), passes_minimum_checks, chicken_owner.instability)
 	chicken_owner.eggs_left--
 	StartCooldown(cooldown_time / max(1, (chicken_owner.egg_laying_boosting * 0.02)))
 	return TRUE

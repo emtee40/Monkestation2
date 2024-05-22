@@ -1,12 +1,3 @@
-/obj/structure/nestbox
-	name = "Nesting Box"
-	desc = "A warm box perfect for a chicken"
-	density = FALSE
-	icon = 'monkestation/icons/obj/structures.dmi'
-	icon_state = "nestbox"
-	anchored = FALSE
-
-
 /obj/item/chicken_scanner
 	name = "Chicken Scanner"
 	desc = "Scans chickens to give you information about possible mutations that chicken can have"

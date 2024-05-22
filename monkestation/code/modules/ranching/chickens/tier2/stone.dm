@@ -12,6 +12,7 @@
 	icon_state = "stone"
 
 	layer_hen_type = /mob/living/basic/chicken/stone
+	turf_requirements = list(/turf/open/floor/fakebasalt)
 
 /obj/item/food/egg/stone/attackby(obj/item/attacked_item, mob/user, params)
 	. = ..()

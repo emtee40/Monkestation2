@@ -16,3 +16,4 @@
 	icon_state = "silkie_black"
 
 	layer_hen_type = /mob/living/basic/chicken/silkie_black
+	turf_requirements = list(/turf/open/floor/grass, /turf/open/floor/sandy_dirt)

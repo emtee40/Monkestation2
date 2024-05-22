@@ -23,6 +23,14 @@
 	///our stored_glass_egg_reagents from the parent
 	var/list/glass_egg_reagents = list()
 
+	var/low_temp
+	var/high_temp
+	var/low_pressure
+	var/high_pressure
+	var/liquid_depth
+	var/list/turf_requirements
+	var/nearby_mob
+
 /obj/item/food/egg/process(seconds_per_tick)
 	amount_grown += rand(2,3) * seconds_per_tick
 	if(amount_grown >= 100)
