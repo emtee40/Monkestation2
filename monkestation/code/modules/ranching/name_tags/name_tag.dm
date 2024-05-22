@@ -26,20 +26,22 @@
 /mob/Initialize(mapload)
 	. = ..()
 	name_tag = new(src)
+	//SET_PLANE_EXPLICIT(name_tag, PLANE_NAME_TAGS, src)
 	update_name_tag()
 	vis_contents += name_tag
 
 /mob/Login()
 	. = ..()
-	if(client && isliving(src))
+	if(client && isliving(src) && (!iscyborg(src) && !isaicamera(src) && !isAI(src)))
 		shadow = new()
 		shadow.loc = src
+		SET_PLANE_EXPLICIT(shadow, PLANE_NAME_TAGS_BLOCKER, src)
 		client.screen += shadow
 		hud_used.always_visible_inventory += shadow
 
 /mob/Logout()
 	. = ..()
-	if(client && isliving(src))
+	if(client && isliving(src) && (!iscyborg(src) && !isaicamera(src) && !isAI(src)))
 		client.screen -= shadow
 		shadow.UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
 		hud_used?.always_visible_inventory -= shadow
