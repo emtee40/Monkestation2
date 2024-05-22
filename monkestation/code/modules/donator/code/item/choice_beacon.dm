@@ -70,3 +70,13 @@
 	name = "Void Butterfly"
 	default_name = "Void Butterfly"
 	donator_pet = 	/mob/living/basic/butterfly/void/spacial
+
+/obj/item/choice_beacon/pet/donator/plantcrab
+	name = "Plant Crab"
+	default_name = "Plant Crab"
+	donator_pet = 	/mob/living/basic/crab/plant
+
+/obj/item/choice_beacon/pet/donator/quilava
+	name = "Quil Maid"
+	default_name = "Quil Maid"
+	donator_pet = 	/mob/living/basic/pet/quilmaid

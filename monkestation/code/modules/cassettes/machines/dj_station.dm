@@ -60,11 +60,11 @@ GLOBAL_VAR(dj_booth)
 	if(waiting_for_yield)
 		return
 	time_left -= round(seconds_per_tick)
-	if(time_left < 0)
+	if(time_left <= 0)
 		time_left = 0
 		if(COOLDOWN_FINISHED(src, next_song_timer) && broadcasting)
 			COOLDOWN_START(src, next_song_timer, 10 MINUTES)
-		broadcasting = 0
+		broadcasting = FALSE
 
 /obj/machinery/cassette/dj_station/attack_hand(mob/user)
 	. = ..()
@@ -182,8 +182,9 @@ GLOBAL_VAR(dj_booth)
 
 	var/list/viable_z = SSmapping.levels_by_any_trait(list(ZTRAIT_STATION, ZTRAIT_MINING, ZTRAIT_CENTCOM, ZTRAIT_RESERVED))
 	for(var/mob/person as anything in GLOB.player_list)
-		if(isAI(person) || isobserver(person) || isaicamera(person) || iscyborg(person))
+		if(issilicon(person) || isobserver(person) || isaicamera(person) || isbot(person))
 			active_listeners |=	person.client
+			continue
 		if(iscarbon(person))
 			var/mob/living/carbon/anything = person
 			if(!(anything in people_with_signals))

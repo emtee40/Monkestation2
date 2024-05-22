@@ -238,10 +238,17 @@
 	var/datum/dna/saved_dna
 	var/original_name
 	var/activated = 0
+	///old info
+	var/datum/dna/old_dna
+	var/old_name
 
 /datum/symptom/dnaspread/activate(mob/living/carbon/mob)
 	if(!activated)
 		to_chat(mob, span_warning("You don't feel like yourself.."))
+		old_dna = new
+		C.dna.copy_dna(old_dna)
+		old_name = C.real_name
+
 	if(!iscarbon(mob))
 		return
 	var/mob/living/carbon/C = mob
@@ -256,6 +263,10 @@
 
 /datum/symptom/dnaspread/deactivate(mob/living/carbon/mob)
 	activated = FALSE
+	if(!old_dna)
+		return
+	old_dna.copy_dna(C.dna)
+	C.real_name = old_name
 
 /datum/symptom/dnaspread/Copy(datum/disease/advanced/disease)
 	var/datum/symptom/dnaspread/new_e = ..(disease)
@@ -305,7 +316,7 @@
 /datum/symptom/retrovirus/activate(mob/living/carbon/affected_mob)
 	if(!iscarbon(affected_mob))
 		return
-	switch(max_multiplier)
+	switch(multiplier)
 		if(1)
 			if(prob(4))
 				to_chat(affected_mob, span_danger("Your head hurts."))
@@ -412,3 +423,26 @@
 	.=..()
 	disease.process_dead = FALSE
 
+/datum/symptom/oxygen
+	name = "Self-Respiration"
+	desc = "The virus synthesizes oxygen, which can remove the need for breathing at high symptom strength."
+	stage = 4
+	max_multiplier = 5
+	badness = EFFECT_DANGER_HELPFUL
+	var/breathing = TRUE
+
+/datum/symptom/oxygen/activate(mob/living/carbon/mob, datum/disease/advanced/disease)
+	mob.losebreath = max(0, mob.losebreath - multiplier)
+	mob.adjustOxyLoss(-2 * multiplier)
+	if(multiplier >= 4)
+		to_chat(mob, span_notice("[pick("Your lungs feel great.", "You realize you haven't been breathing.", "You don't feel the need to breathe.")]"))
+		if(breathing)
+			breathing = FALSE
+			ADD_TRAIT(mob, TRAIT_NOBREATH, DISEASE_TRAIT)
+
+/datum/symptom/oxygen/deactivate(mob/living/carbon/mob, datum/disease/advanced/disease)
+	if(!breathing)
+		breathing = TRUE
+		REMOVE_TRAIT(mob, TRAIT_NOBREATH, DISEASE_TRAIT)
+		mob.emote("gasp")
+		to_chat(mob, span_notice("You feel the need to breathe again."))

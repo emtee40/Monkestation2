@@ -94,6 +94,11 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = FALSE
 
+/datum/emote/living/scream/run_emote(mob/user, params, type_override, intentional = FALSE)
+	if(!intentional && HAS_TRAIT(user, TRAIT_ANALGESIA))
+		return
+	return ..()
+
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(issilicon(user))
 		return pick(
@@ -145,9 +150,9 @@
 /datum/emote/living/bark/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_ANIME))
-	 return TRUE
+		return TRUE
 	else
-	 return FALSE
+		return FALSE
 /datum/emote/living/bark
 	key = "bark"
 	key_third_person = "barks"
@@ -222,3 +227,18 @@
 		return TRUE
 	else
 		return FALSE
+
+// The below function replaces the `/datum/emote/silicon/mob_type_allowed_typecache` variable. If
+// you remove this function, be sure to replace the above variable.
+/datum/emote/silicon/can_run_emote(mob/user, status_check, intentional)
+	// Silicons and simple bots can always use silicon emotes, assuming nothing else is wrong
+	if(issilicon(user) || isbot(user))
+		return ..()
+
+	// Allow users with synthetic voice boxes to use silicon emotes as well, because a synthetic
+	// voice box is more akin to a speaker than a human larynx.
+	var/tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(istype(tongue, /obj/item/organ/internal/tongue/synth))
+		return ..()
+
+	return FALSE

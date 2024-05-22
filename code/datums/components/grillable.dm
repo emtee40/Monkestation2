@@ -13,7 +13,7 @@
 	/// REF() to the mind which placed us on the griddle
 	var/who_placed_us
 
-	/// What type of pollutant we spread around as we are grilleed, can be none  // SKYRAT EDIT ADDITION
+	/// What type of pollutant we spread around as we are grilleed, can be none  // MONKESTATION EDIT ADDITION
 	var/pollutant_type
 
 /datum/component/grillable/Initialize(cook_result, required_cook_time, positive_result, use_large_steam_sprite, pollutant_type)
@@ -90,7 +90,7 @@
 			grilled_result.set_custom_materials(original_object.custom_materials)
 
 	if(IS_EDIBLE(grilled_result))
-		BLACKBOX_LOG_FOOD_MADE(grilled_result.type)
+		BLACKBOX_LOG_FOOD_MADE(grilled_result)
 
 	SEND_SIGNAL(parent, COMSIG_ITEM_GRILLED, grilled_result)
 	if(who_placed_us)

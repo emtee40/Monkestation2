@@ -96,13 +96,6 @@
 			job_check += length(SSjob.assigned_players_by_job[enemy_job.type])
 			enemy_players += SSjob.assigned_players_by_job[enemy_job.type]
 
-	for(var/mob/enemy_mob in GLOB.alive_player_list)
-		if(enemy_mob.stat == DEAD)
-			continue // Dead players cannot count as opponents
-		if(enemy_mob.mind && (enemy_mob.mind.assigned_role.title in enemy_roles))
-			job_check++ // Checking for "enemies" (such as sec officers). To be counters, they must either not be candidates to that rule, or have a job that restricts them from it
-			enemy_players += enemy_mob
-
 	if(job_check >= required_enemies)
 		return return_players ? enemy_players : TRUE
 	return return_players ? enemy_players : FALSE
@@ -208,30 +201,62 @@
 	var/list/possible_candidates = cast_control.get_candidates()
 	var/list/candidates = list()
 	if(cast_control == SSgamemode.current_roundstart_event && length(SSgamemode.roundstart_antag_minds))
+		log_storyteller("Running roundstart antagonist assignment, event: [src], roundstart_antag_minds: [english_list(SSgamemode.roundstart_antag_minds)]")
 		for(var/datum/mind/antag_mind in SSgamemode.roundstart_antag_minds)
 			if(!antag_mind.current)
+				log_storyteller("Roundstart antagonist setup error: antag_mind([antag_mind]) in roundstart_antag_minds without a set mob")
 				continue
 			candidates += antag_mind.current
-//			SSgamemode.roundstart_antag_minds -= antag_mind //commented out for debugging in case something breaks
+			SSgamemode.roundstart_antag_minds -= antag_mind
+			log_storyteller("Roundstart antag_mind, [antag_mind]")
+
+	//guh
+	var/list/cliented_list = list()
+	for(var/mob/living/mob as anything in possible_candidates)
+		cliented_list += mob.client
+	if(length(cliented_list))
+		mass_adjust_antag_rep(cliented_list, 1)
+
+	var/list/weighted_candidates = return_antag_rep_weight(possible_candidates)
 
 	while(length(possible_candidates) && length(candidates) < antag_count) //both of these pick_n_take from possible_candidates so this should be fine
 		if(prompted_picking)
-			candidates |= poll_candidates("Would you like to be a [cast_control.name]", antag_flag, antag_flag, 20 SECONDS, FALSE, FALSE, list(pick_n_take(possible_candidates)))
+			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/mob/picked_mob = picked_client.mob
+			log_storyteller("Prompted antag event mob: [picked_mob], special role: [picked_mob.mind?.special_role ? picked_mob.mind.special_role : "none"]")
+			if(picked_mob)
+				candidates |= SSpolling.poll_candidates(
+					question = "Would you like to be a [cast_control.name]?",
+					check_jobban = antag_flag,
+					role = antag_flag,
+					poll_time = 20 SECONDS,
+					group = list(picked_mob),
+					pic_source = antag_datum,
+					role_name_text = lowertext(cast_control.name),
+				)
 		else
-			candidates |= pick_n_take(possible_candidates)
+			var/client/picked_client = pick_n_take_weighted(weighted_candidates)
+			var/mob/picked_mob = picked_client.mob
+			log_storyteller("Picked antag event mob: [picked_mob], special role: [picked_mob.mind?.special_role ? picked_mob.mind.special_role : "none"]")
+			candidates |= picked_mob
 
 	for(var/i in 1 to antag_count)
-		if(!length(candidates))
+		if(!length(weighted_candidates))
 			message_admins("A roleset event got fewer antags then its antag_count and may not function correctly.")
 			break
 
 		var/mob/candidate = pick_n_take(candidates)
+		log_storyteller("Antag event spawned mob: [candidate], special role: [candidate.mind?.special_role ? candidate.mind.special_role : "none"]")
+
+		candidate.client?.prefs.reset_antag_rep()
+
 		if(!candidate.mind)
 			candidate.mind = new /datum/mind(candidate.key)
 
 		setup_minds += candidate.mind
 		candidate.mind.special_role = antag_flag
 		candidate.mind.restricted_roles = restricted_roles
+
 	setup = TRUE
 
 
@@ -243,13 +268,37 @@
 	restricted_roles = cast_control.restricted_roles
 	prompted_picking = cast_control.prompted_picking
 	var/list/candidates = cast_control.get_candidates()
+
+	//guh
+	var/list/cliented_list = list()
+	for(var/mob/living/mob as anything in candidates)
+		cliented_list += mob.client
+	if(length(cliented_list))
+		mass_adjust_antag_rep(cliented_list, 1)
+
 	if(prompted_picking)
-		candidates = poll_candidates("Would you like to be a [cast_control.name]", antag_flag, antag_flag, 20 SECONDS, FALSE, FALSE, candidates)
+		candidates = SSpolling.poll_candidates(
+			question = "Would you like to be a [cast_control.name]?",
+			check_jobban = antag_flag,
+			role = antag_flag,
+			poll_time = 20 SECONDS,
+			group = candidates,
+			pic_source = antag_datum,
+			role_name_text = lowertext(cast_control.name),
+		)
+
+	var/list/weighted_candidates = return_antag_rep_weight(candidates)
 
 	for(var/i in 1 to antag_count)
 		if(!length(candidates))
 			break
-		var/mob/candidate = pick_n_take(candidates)
+
+		var/client/mob_client = pick_n_take_weighted(weighted_candidates)
+		var/mob/candidate = mob_client.mob
+
+		if(candidate.client) //I hate this
+			candidate.client.prefs.reset_antag_rep()
+
 		if(!candidate.mind)
 			candidate.mind = new /datum/mind(candidate.key)
 

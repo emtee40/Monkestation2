@@ -46,6 +46,7 @@
 		"sensor_voice_nanites",
 		"stealth_nanites",
 		"voice_nanites",
+		"research_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500, TECHWEB_POINT_TYPE_NANITES = 500)
 
@@ -79,6 +80,8 @@
 		"regenerative_nanites",
 		"sensor_crit_nanites",
 		"sensor_damage_nanites",
+		"sensor_blood_nanites",
+		"sensor_nutrition_nanites",
 		"sensor_death_nanites",
 		"sensor_health_nanites",
 		"sensor_species_nanites",
@@ -169,9 +172,7 @@
 		"offline_nanites",
 		"pyramid_nanites",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
-	hidden = TRUE
-	experimental = TRUE
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000, TECHWEB_POINT_TYPE_NANITES = 5000)
 
 /datum/techweb_node/nanite_storage_protocols
 	id = "nanite_storage_protocols"
@@ -184,9 +185,7 @@
 		"unsafe_storage_nanites",
 		"zip_nanites",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
-	hidden = TRUE
-	experimental = TRUE
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000, TECHWEB_POINT_TYPE_NANITES = 5000)
 
 /datum/techweb_node/adv_ballistics
 	id = "adv_ballistics"
@@ -207,5 +206,3 @@
 	design_ids = list("linked_surgery")
 	boost_item_paths = list(/obj/item/organ/internal/cyberimp/brain/linked_surgery)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	hidden = TRUE
-	experimental = TRUE

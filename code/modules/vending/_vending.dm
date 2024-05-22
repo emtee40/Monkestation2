@@ -1325,7 +1325,7 @@
 		to_chat(usr, span_notice("You take [R.name] out of the slot."))
 	else
 		to_chat(usr, span_warning("[capitalize(R.name)] falls onto the floor!"))
-	SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
+	SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[name]", "[R.name]"))
 	vend_ready = TRUE
 
 /obj/machinery/vending/process(seconds_per_tick)
@@ -1642,7 +1642,7 @@
 	max_integrity = 700
 	max_loaded_items = 40
 	light_mask = "greed-light-mask"
-	custom_materials = list(/datum/material/gold = MINERAL_MATERIAL_AMOUNT * 5)
+	custom_materials = list(/datum/material/gold = SHEET_MATERIAL_AMOUNT * 5)
 
 /obj/machinery/vending/custom/greed/Initialize(mapload)
 	. = ..()

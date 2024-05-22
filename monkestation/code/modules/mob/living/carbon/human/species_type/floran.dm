@@ -2,7 +2,7 @@
 	name = "\improper Floran"
 	plural_form = "Florans"
 	id = SPECIES_FLORAN
-	sexes = FALSE
+	sexes = TRUE
 	species_traits = list(
 		MUTCOLORS,
 		MUTCOLORS_SECONDARY,
@@ -24,7 +24,6 @@
 	heatmod = 0.67 //Same as lizard people
 	coldmod = 1.5 //Same as lizard people
 	speedmod = -0.1 //Same as arachnids
-	payday_modifier = 0.75
 	meat = /obj/item/food/meat/slab/human/mutant/plant
 	exotic_blood = /datum/reagent/water
 	// disliked_food = VEGETABLES | FRUIT | GRAIN
@@ -111,21 +110,33 @@
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "fist-raised",
 			SPECIES_PERK_NAME = "Carnivore",
 			SPECIES_PERK_DESC = "As a vicious carnivore, your claws do more damage to your prey.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "sun",
 			SPECIES_PERK_NAME = "Photosynthesis",
 			SPECIES_PERK_DESC = "Your green skin slowly heals itself while it is illuminated.",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bolt",
+			SPECIES_PERK_NAME = "Agile",
+			SPECIES_PERK_DESC = "Florans run slightly faster than other species, but are still outpaced by Goblins.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "",
+			SPECIES_PERK_ICON = "fire",
 			SPECIES_PERK_NAME = "Flammable Skin",
 			SPECIES_PERK_DESC = "Your flammable skin is highly susceptible to burn damage.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "skull",
+			SPECIES_PERK_NAME = "Plant Biology",
+			SPECIES_PERK_DESC = "PlantbGone and potassium will do large amounts of damage to a Floran."
 		),
 		)
 

@@ -60,13 +60,7 @@
 	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
 	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
 	icon_state = "syndimaid"
-/obj/item/clothing/under/rank/civilian/janitor
-	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
-	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
-
-/obj/item/clothing/under/rank/civilian/janitor/maid //heckin subtypes
-	icon = 'icons/obj/clothing/under/civilian.dmi'
-	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
+	can_adjust = FALSE
 
 /obj/item/clothing/under/wonka
 	name = "wonky suit"
@@ -75,6 +69,7 @@
 	icon_state = "wonka"
 	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
 	worn_icon_state = "wonka"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/guardmanuniform
 	name = "guardman's uniform"
@@ -82,3 +77,12 @@
 	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
 	icon_state = "guardman_uniform"
 	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	can_adjust = FALSE
+
+/obj/item/clothing/under/artisan
+	name = "culinary artisan's uniform"
+	desc = "For the chef who knows what their doing and cooks with ethically sourced monkey meat"
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
+	icon_state = "artisan"
+	can_adjust = FALSE

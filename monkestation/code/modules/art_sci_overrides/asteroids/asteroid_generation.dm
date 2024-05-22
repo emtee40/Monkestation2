@@ -50,6 +50,7 @@
 		/obj/item/stack/ore/titanium = 1,
 		/obj/item/stack/ore/uranium = 1,
 		/turf/closed/mineral/artifact = 15,
+		/turf/closed/mineral/mineral_sample = 15,
 	)
 
 /datum/controller/subsystem/mapping/proc/generate_asteroid(datum/mining_template/template, datum/callback/asteroid_generator)
@@ -75,7 +76,7 @@
 
 /// Cleanup our currently loaded mining template
 /proc/CleanupAsteroidMagnet(turf/center, size)
-	var/list/turfs_to_destroy = ReserveTurfsForAsteroidGeneration(center, size, space_only = FALSE)
+	var/list/turfs_to_destroy = ReserveTurfsForAsteroidGeneration(center, size, baseturf_only = FALSE)
 	for(var/turf/T as anything in turfs_to_destroy)
 		CHECK_TICK
 
@@ -88,12 +89,12 @@
 		T.ChangeTurf(/turf/baseturf_bottom)
 
 /// Sanitizes a block of turfs to prevent writing over undesired locations
-/proc/ReserveTurfsForAsteroidGeneration(turf/center, size, space_only = TRUE)
+/proc/ReserveTurfsForAsteroidGeneration(turf/center, size, baseturf_only = TRUE)
 	. = list()
 
 	var/list/turfs = RANGE_TURFS(size, center)
 	for(var/turf/T as anything in turfs)
-		if(space_only && !isspaceturf(T))
+		if(baseturf_only && !islevelbaseturf(T))
 			continue
 		if(!(istype(T.loc, /area/station/cargo/mining/asteroid_magnet)))
 			continue

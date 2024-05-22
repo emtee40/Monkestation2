@@ -30,6 +30,7 @@
 	else if(ckey)
 		stack_trace("Mob without client but with associated ckey has been deleted.")
 
+	unset_machine()
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
@@ -1005,7 +1006,7 @@
  * You can buckle on mobs if you're next to them since most are dense
  */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
-	if(M.buckled)
+	if(M.buckled && LAZYLEN(buckled_mobs) >= max_buckled_mobs)
 		return FALSE
 	return ..(M, force, check_loc, buckle_mob_flags)
 

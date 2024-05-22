@@ -218,11 +218,11 @@
 
 	return ..()
 
-/obj/machinery/rnd/production/proc/do_print(path, amount, list/matlist)
+/obj/machinery/rnd/production/proc/do_print(atom/path, amount, list/matlist)
 	for(var/i in 1 to amount)
 		new path(get_turf(src))
 
-	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
+	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[initial(name)]", "[initial(path.name)]"))
 
 /obj/machinery/rnd/production/proc/efficient_with(path)
 	return !ispath(path, /obj/item/stack/sheet) && !ispath(path, /obj/item/stack/ore/bluespace_crystal)
@@ -349,7 +349,7 @@
 	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, drop_location())
 
 	var/list/matlist = list()
-	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
+	matlist[eject_sheet] = SHEET_MATERIAL_AMOUNT * count
 
 	materials.silo_log(src, "ejected", -count, "sheets", matlist)
 

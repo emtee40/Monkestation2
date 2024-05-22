@@ -29,7 +29,7 @@
 		return
 	return FALSE
 
-/datum/computer_file/program/radar/kill_program(forced = FALSE)
+/datum/computer_file/program/radar/kill_program(mob/user)
 	objects = list()
 	selected = null
 	STOP_PROCESSING(SSfastprocess, src)
@@ -62,10 +62,7 @@
 		data["target"] = trackinfo
 	return data
 
-/datum/computer_file/program/radar/ui_act(action, params)
-	. = ..()
-	if(.)
-		return
+/datum/computer_file/program/radar/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	switch(action)
 		if("selecttarget")
 			selected = params["ref"]
@@ -282,8 +279,8 @@
 			var/obj/structure/mop_bucket/janitorialcart/janicart = custodial_tools
 			tool_name = "[janicart.name] - Water level: [janicart.reagents.total_volume] / [janicart.reagents.maximum_volume]"
 
-		if(istype(custodial_tools, /mob/living/simple_animal/bot/cleanbot))
-			var/mob/living/simple_animal/bot/cleanbot/cleanbots = custodial_tools
+		if(istype(custodial_tools, /mob/living/basic/bot/cleanbot))
+			var/mob/living/basic/bot/cleanbot/cleanbots = custodial_tools
 			tool_name = "[cleanbots.name] - [cleanbots.bot_mode_flags & BOT_MODE_ON ? "Online" : "Offline"]"
 
 		var/list/tool_information = list(
@@ -318,7 +315,7 @@
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_NUKE_DEVICE_ARMED, PROC_REF(on_nuke_armed))
 
-/datum/computer_file/program/radar/fission360/kill_program(forced)
+/datum/computer_file/program/radar/fission360/kill_program(mob/user)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_NUKE_DEVICE_ARMED)
 	return ..()
 

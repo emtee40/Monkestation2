@@ -3,6 +3,7 @@
 #define POPCOUNT_SHUTTLE_ESCAPEES "shuttle_escapees" //Emergency shuttle only.
 #define PERSONAL_LAST_ROUND "personal last round"
 #define SERVER_LAST_ROUND "server last round"
+#define DISCORD_SUPPRESS_NOTIFICATIONS (1 << 12) // monke edit: discord flag for silent messages
 
 GLOBAL_LIST_INIT(achievements_unlocked, list())
 
@@ -193,17 +194,15 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		return FALSE
 
 	if(human_mob.mind && (human_mob.mind.special_role || length(human_mob.mind.antag_datums) > 0))
-		var/didthegamerwin = TRUE
 		for(var/datum/antagonist/antag_datums as anything in human_mob.mind.antag_datums)
+			if(initial(antag_datums.can_assign_self_objectives) && !antag_datums.can_assign_self_objectives)
+				return FALSE // You don't get a prize if you picked your own objective, you can't fail those
 			for(var/datum/objective/objective_datum as anything in antag_datums.objectives)
 				if(!objective_datum.check_completion())
-					didthegamerwin = FALSE
-		if(!didthegamerwin)
-			return FALSE
+					return FALSE
 		player_client.give_award(/datum/award/score/hardcore_random, human_mob, round(human_mob.hardcore_survival_score * 2))
 	else if(considered_escaped(human_mob))
 		player_client.give_award(/datum/award/score/hardcore_random, human_mob, round(human_mob.hardcore_survival_score))
-
 
 /datum/controller/subsystem/ticker/proc/declare_completion(was_forced = END_ROUND_AS_NORMAL)
 	set waitfor = FALSE
@@ -283,6 +282,9 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
 	var/hour = round((world.time - SSticker.round_start_time) / 36000)
+
+	// monkestation start: token backups, monkecoin rewards, challenges, and roundend webhook
+	rustg_file_write(json_encode(GLOB.saved_token_values), "[GLOB.log_directory]/tokens.json")
 	var/minute = round(((world.time - SSticker.round_start_time) - (hour * 36000)) / 600)
 	var/added_xp = round(25 + (minute**0.85))
 	for(var/client/C in GLOB.clients)
@@ -306,6 +308,7 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	ready_for_reboot = TRUE
 	var/datum/discord_embed/embed = format_roundend_embed("<@&999008528595419278>")
 	send2roundend_webhook(embed)
+	// monkestation end
 	standard_reboot()
 
 /datum/controller/subsystem/ticker/proc/format_roundend_embed(message)
@@ -347,6 +350,7 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		webhook_info["username"] = CONFIG_GET(string/roundend_webhook_name)
 	if(CONFIG_GET(string/mentorhelp_webhook_pfp))
 		webhook_info["avatar_url"] = CONFIG_GET(string/roundend_webhook_pfp)
+	webhook_info["flags"] = DISCORD_SUPPRESS_NOTIFICATIONS // monke edit: @silent roundend pings
 	// Uncomment when servers are moved to TGS4
 	// send2chat(new /datum/tgs_message_conent("[initiator_ckey] | [message_content]"), "ahelp", TRUE)
 	var/list/headers = list()
@@ -667,9 +671,15 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	var/list/all_antagonists = list()
 
 	for(var/datum/team/team as anything in GLOB.antagonist_teams)
+		if(!istype(team))
+			stack_trace("Non-team ([team?.type]) found in GLOB.antagonist_teams!")
+			continue
 		all_teams |= team
 
 	for(var/datum/antagonist/antagonists as anything in GLOB.antagonists)
+		if(!istype(antagonists))
+			stack_trace("Non-antagonist ([antagonists?.type]) found in GLOB.antagonists!")
+			continue
 		if(!antagonists.owner)
 			continue
 		all_antagonists |= antagonists
@@ -678,9 +688,11 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		//check if we should show the team
 		if(!active_teams.show_roundend_report)
 			continue
-
 		//remove the team's individual antag reports, if the team actually shows up in the report.
 		for(var/datum/mind/team_minds as anything in active_teams.members)
+			if(!istype(team_minds))
+				stack_trace("Non-mind ([team_minds?.type]) found in team.members!")
+				continue
 			if(!isnull(team_minds.antag_datums)) // is_special_character passes if they have a special role instead of an antag
 				all_antagonists -= team_minds.antag_datums
 
@@ -708,8 +720,8 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 		result += "<br><br>"
 		CHECK_TICK
 
-	if(all_antagonists.len)
-		var/datum/antagonist/last = all_antagonists[all_antagonists.len]
+	if(length(all_antagonists))
+		var/datum/antagonist/last = all_antagonists[length(all_antagonists)]
 		result += last.roundend_report_footer()
 		result += "</div>"
 
@@ -781,10 +793,7 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in objectives)
-		if(objective.check_completion())
-			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
-		else
-			objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
+		objective_parts += "<b>[objective.objective_name] #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
 		count++
 	return objective_parts.Join("<br>")
 
@@ -890,3 +899,5 @@ GLOBAL_LIST_INIT(round_end_images, world.file2list("data/image_urls.txt")) // MO
 	var/winner_key
 	///The name of the area we earned this cheevo in
 	var/award_location
+
+#undef DISCORD_SUPPRESS_NOTIFICATIONS

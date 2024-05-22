@@ -121,7 +121,9 @@
 
 /obj/effect/visible_heretic_influence/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(show_presence)), 15 SECONDS)
+	// monke edit: make influences only show up after a minute or so, and disappear after about 10 minutes
+	addtimer(CALLBACK(src, PROC_REF(show_presence)), 1 MINUTES)
+	QDEL_IN(src, 10 MINUTES)
 
 	var/image/silicon_image = image('icons/effects/eldritch.dmi', src, null, OBJ_LAYER)
 	silicon_image.override = TRUE
@@ -147,9 +149,15 @@
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/bodypart/their_poor_arm = human_user.get_active_hand()
 	if(prob(25))
-		to_chat(human_user, span_userdanger("An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
-		their_poor_arm.dismember()
-		qdel(their_poor_arm)
+		// monke edit: TRAIT_NODISMEMBER means you just get your arm fucked the hell up instead
+		// while in theory it should atomize your arm anyways, a dismemberment fail and then qdeling the still-attached limb causes Weird Things to happen.
+		if(HAS_TRAIT(human_user, TRAIT_NODISMEMBER))
+			to_chat(human_user, span_userdanger("An otherwordly presence lashes out and violently mangles your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
+			their_poor_arm.receive_damage(brute = 50, wound_bonus = 100) // guaranteed to wound
+		else
+			to_chat(human_user, span_userdanger("An otherwordly presence tears and atomizes your [their_poor_arm.name] as you try to touch the hole in the very fabric of reality!"))
+			their_poor_arm.dismember()
+			qdel(their_poor_arm)
 	else
 		to_chat(human_user,span_danger("You pull your hand away from the hole as the eldritch energy flails, trying to latch onto existance itself!"))
 	return TRUE
@@ -182,7 +190,7 @@
 
 /obj/effect/visible_heretic_influence/examine(mob/user)
 	. = ..()
-	if(IS_HERETIC(user) || !ishuman(user))
+	if(IS_HERETIC(user) || !ishuman(user) || IS_MONSTERHUNTER(user))
 		return
 
 	var/mob/living/carbon/human/human_user = user
@@ -218,6 +226,11 @@
 		return
 	on_turf.interaction_flags_atom |= INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND
 	RegisterSignal(on_turf, COMSIG_TURF_CHANGE, PROC_REF(replace_our_turf))
+
+	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
+
+/obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
+	return (user?.mind in minds)
 
 /obj/effect/heretic_influence/proc/replace_our_turf(datum/source, path, new_baseturfs, flags, post_change_callbacks)
 	SIGNAL_HANDLER
@@ -255,13 +268,16 @@
 		return
 
 	// Using a codex will give you two knowledge points for draining.
-	if(!being_drained && istype(weapon, /obj/item/codex_cicatrix))
-		var/obj/item/codex_cicatrix/codex = weapon
-		if(!codex.book_open)
-			codex.attack_self(user) // open booke
-		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2)
+	if(drain_influence_with_codex(user, weapon))
 		return TRUE
 
+/obj/effect/heretic_influence/proc/drain_influence_with_codex(mob/user, obj/item/codex_cicatrix/codex)
+	if(!istype(codex) || being_drained)
+		return FALSE
+	if(!codex.book_open)
+		codex.attack_self(user) // open booke
+	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2)
+	return TRUE
 
 /**
  * Begin to drain the influence, setting being_drained,

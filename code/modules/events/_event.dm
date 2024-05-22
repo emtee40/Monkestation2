@@ -51,7 +51,7 @@
 	var/calculated_weight = 0
 	var/tags = list() 	/// Tags of the event
 	/// List of the shared occurence types.
-	var/static/list/shared_occurences = list()
+	var/list/shared_occurences = list()
 	/// Whether a roundstart event can happen post roundstart. Very important for events which override job assignments.
 	var/can_run_post_roundstart = TRUE
 	/// If set then the type or list of types of storytellers we are restricted to being trigged by
@@ -90,7 +90,7 @@
 /datum/round_event_control/proc/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 //monkestation edit start
-	if(roundstart && (world.time-SSticker.round_start_time >= 2 MINUTES || (SSgamemode.ran_roundstart && !fake_check)))
+	if(roundstart && ((SSticker.round_start_time && world.time - SSticker.round_start_time >= 2 MINUTES) || (SSgamemode.ran_roundstart && !fake_check)))
 		return FALSE
 //monkestation edit end
 	if(occurrences >= max_occurrences)
@@ -203,7 +203,7 @@ Runs the event
 	if(alert_observers)
 		round_event.announce_deadchat(random, event_cause)
 
-	SSblackbox.record_feedback("tally", "event_ran", 1, "[round_event]")
+	SSblackbox.record_feedback("tally", "event_ran", 1, "[name]")
 	return round_event
 
 //Returns the component for the listener
@@ -335,9 +335,17 @@ Runs the event
 				for(var/datum/event_admin_setup/admin_setup_datum in src.admin_setup)
 					if(admin_setup_datum.prompt_admins() == ADMIN_CANCEL_EVENT)
 						return
-			message_admins("[key_name_admin(usr)] force scheduled event [src.name].")
-			log_admin_private("[key_name(usr)] force scheduled event [src.name].")
+			message_admins("[key_name_admin(usr)] forced scheduled event [src.name].")
+			log_admin_private("[key_name(usr)] forced scheduled event [src.name].")
 			SSgamemode.forced_next_events[src.track] = src
+		if("fire")
+			if(length(src.admin_setup))
+				for(var/datum/event_admin_setup/admin_setup_datum in src.admin_setup)
+					if(admin_setup_datum.prompt_admins() == ADMIN_CANCEL_EVENT)
+						return
+			message_admins("[key_name_admin(usr)] fired event [src.name].")
+			log_admin_private("[key_name(usr)] fired event [src.name].")
+			run_event(random = FALSE, admin_forced = TRUE)
 
 //monkestation addition ends - STORYTELLERS
 
