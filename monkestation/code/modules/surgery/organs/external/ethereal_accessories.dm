@@ -18,8 +18,5 @@
 /datum/bodypart_overlay/mutant/ethereal_horns/get_global_feature_list()
 	return GLOB.ethereal_horns_list
 
-/datum/bodypart_overlay/mutant/ethereal_horns/get_base_icon_state()
-	return sprite_datum.icon_state
-
 /datum/bodypart_overlay/mutant/ethereal_horns/can_draw_on_bodypart(mob/living/carbon/human/human)
 	return TRUE
