@@ -17,7 +17,7 @@
 	if(istype(sting_path, /datum/action/changeling/fakedeath))
 		to_chat(owner.current, span_warning("We are unable to evolve that ability"))
 		return FALSE
-	..()
+	return ..()
 
 /datum/antagonist/changeling/bloodling_thrall/create_innate_actions()
 	for(var/datum/action/changeling/path as anything in all_powers)
@@ -28,6 +28,8 @@
 			continue
 		innate_powers += innate_ability
 		innate_ability.on_purchase(owner.current, TRUE)
+	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new path()
+	hivetalk.Grant(owner.current)
 
 /datum/antagonist/changeling/bloodling_thrall/proc/set_master(mob/living/basic/bloodling/master)
 	to_chat(owner, span_info("Your master is [master], they have granted you this gift. Obey their commands. Praise be the living flesh."))
@@ -56,6 +58,10 @@
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE) //Grants omnitongue. We are a horrific blob of flesh who can manifest a million tongues.
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_alert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	return ..()
+
+/datum/antagonist/changeling/bloodling_thrall/create_innate_actions()
+	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new path()
+	hivetalk.Grant(owner.current)
 
 /datum/antagonist/infested_thrall/forge_objectives()
 	var/datum/objective/bloodling_thrall/serve_objective = new
