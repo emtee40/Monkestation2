@@ -42,9 +42,9 @@
 
 
 /datum/action/cooldown/spell/pointed/projectile/arcane_barrage
-	name = "Arcane Barrage"
+	name = "Magic Missle Barrage"
 	desc = "This spell fires a series of arcane bolts at a target."
-	button_icon_state = "fireball0"
+	button_icon_state = "arcane_barrage"
 
 	sound = 'sound/magic/fireball.ogg'
 	school = SCHOOL_EVOCATION
