@@ -3,6 +3,7 @@
 	desc = "We reach our last form...Mass consumption is required. Costs 500 Biomass and takes 5 minutes for you to ascend."
 	button_icon_state = "dissonant_shriek"
 	biomass_cost = 500
+	var/static/datum/dimension_theme/chosen_theme
 
 /datum/action/cooldown/bloodling/ascension/Activate(atom/target)
 	var/mob/living/basic/bloodling/our_mob = owner
@@ -10,61 +11,20 @@
 	ADD_TRAIT(our_mob, TRAIT_IMMOBILIZED, REF(src))
 	// Waits 5 minutes before calling the ascension
 	addtimer(CALLBACK(src, PROC_REF(ascend), our_mob), 5 MINUTES)
-
-
 	/* PLANS
 	* turn the bloodling into a buffed up meteor heart on completion
 	*/
-
-	force_event(/datum/round_event_control/bloodling_ascension, "A bloodling is ascending")
-
 	return TRUE
 
 /datum/action/cooldown/bloodling/ascension/proc/ascend(mob/living/basic/bloodling)
 	// Woah they can move
 	REMOVE_TRAIT(bloodling, TRAIT_IMMOBILIZED, REF(src))
-
-/turf/open/floor/misc/bloodling
-	name = "nerve threads"
-	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
-	icon_state = "flesh_tile"
-	baseturfs = /turf/open/floor/plating
-
-/datum/dimension_theme/bloodling
-	icon = 'icons/obj/food/meat.dmi'
-	icon_state = "meat"
-	sound = 'sound/items/eatfood.ogg'
-	replace_floors = list(/turf/open/floor/misc/bloodling = 1)
-	replace_walls = /turf/closed/wall/material/meat
-	window_colour = "#5c0c0c"
-	replace_objs = list(\
-		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
-		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
-
-/datum/round_event_control/bloodling_ascension
-	name = "Bloodling ascension"
-	typepath = /datum/round_event/bloodling_ascension
-	max_occurrences = 0
-	weight = 0
-	alert_observers = FALSE
-	category = EVENT_CATEGORY_SPACE
-
-/datum/round_event/bloodling_ascension
-	// Holds our theme
-	var/static/datum/dimension_theme/chosen_theme
-
-/datum/round_event/bloodling_ascension/announce(fake)
-
-	priority_announce("You have failed to contain the organism. Its takeover of the station will be absolute. Emergency shuttle dispatched.","Central Command Biohazard Agency", 'monkestation/sound/bloodsuckers/monsterhunterintro.ogg')
-
-// The start of the event, it grabs a bunch of turfs to parse and apply our theme to
-/datum/round_event/bloodling_ascension/start()
 	SSshuttle.requestEvac(src, "ALERT: LEVEL 4 BIOHAZARD DETECTED. ORGANISM CONTAINMENT HAS FAILED. EVACUATE REMAINING PERSONEL.")
 
 	if(isnull(chosen_theme))
 		chosen_theme = new /datum/dimension_theme/bloodling()
 	// Placeholder code, just for testing
-	var/turf/start_turf = get_turf(pick(GLOB.station_turfs))
+	var/turf/start_turf = get_turf(bloodling)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
 	for (var/turf/transform_turf as anything in GLOB.station_turfs)
@@ -85,9 +45,27 @@
 			continue
 		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
 
-/datum/round_event/bloodling_ascension/proc/transform_area(list/turfs)
+/datum/action/cooldown/bloodling/ascension/proc/transform_area(list/turfs)
 	for (var/turf/transform_turf as anything in turfs)
 		if (!chosen_theme.can_convert(transform_turf))
 			continue
 		chosen_theme.apply_theme(transform_turf)
 		CHECK_TICK
+
+/turf/open/floor/misc/bloodling
+	name = "nerve threads"
+	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
+	icon_state = "flesh_tile"
+	baseturfs = /turf/open/floor/plating
+
+/datum/dimension_theme/bloodling
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "meat"
+	sound = 'sound/items/eatfood.ogg'
+	replace_floors = list(/turf/open/floor/misc/bloodling = 1)
+	replace_walls = /turf/closed/wall/material/meat
+	window_colour = "#5c0c0c"
+	replace_objs = list(\
+		/obj/machinery/atmospherics/components/unary/vent_scrubber = list(/obj/structure/meateor_fluff/eyeball = 1), \
+		/obj/machinery/atmospherics/components/unary/vent_pump = list(/obj/structure/meateor_fluff/eyeball = 1),)
+

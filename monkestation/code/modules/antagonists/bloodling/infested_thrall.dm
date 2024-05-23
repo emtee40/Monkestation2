@@ -28,7 +28,7 @@
 			continue
 		innate_powers += innate_ability
 		innate_ability.on_purchase(owner.current, TRUE)
-	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new path()
+	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new()
 	hivetalk.Grant(owner.current)
 
 /datum/antagonist/changeling/bloodling_thrall/proc/set_master(mob/living/basic/bloodling/master)
@@ -60,7 +60,7 @@
 	return ..()
 
 /datum/antagonist/changeling/bloodling_thrall/create_innate_actions()
-	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new path()
+	var/datum/action/cooldown/bloodling_hivespeak/hivetalk = new()
 	hivetalk.Grant(owner.current)
 
 /datum/antagonist/infested_thrall/forge_objectives()
