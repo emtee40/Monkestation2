@@ -42,6 +42,7 @@
 	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
+	health = maxHealth
 
 	AddComponent(/datum/component/mutation, mutation_list, TRUE)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
@@ -270,7 +271,9 @@
 
 /mob/living/basic/chicken/proc/build_initial_planning_tree()
 	var/list/new_planning_subtree = list()
-	new_planning_subtree |= /datum/ai_planning_subtree/pet_planning,
+
+	new_planning_subtree |= /datum/ai_planning_subtree/pet_planning
+
 	var/datum/action/cooldown/mob_cooldown/chicken/feed/feed_ability = new(src)
 	feed_ability.Grant(src)
 	ai_controller.blackboard[BB_CHICKEN_FEED] = feed_ability
