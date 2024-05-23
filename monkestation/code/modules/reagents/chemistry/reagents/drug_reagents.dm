@@ -1,4 +1,4 @@
-/datum/reagent/drug/krokodil
+/datum/reagent/drug/krokodil // Needed to modularize due to original TG krokodil having a fermi-chem purity requirement for making krokodil zombies.
 	name = "Krokodil"
 	description = "Cools and calms you down. If overdosed it will deal significant Brain and Toxin damage."
 	reagent_state = LIQUID
@@ -14,7 +14,7 @@
 	if(SPT_PROB(2.5, seconds_per_tick))
 		to_chat(affected_mob, span_notice("[high_message]"))
 	affected_mob.add_mood_event("smacked out", /datum/mood_event/narcotic_heavy, name)
-	if(current_cycle == 35)
+	if(current_cycle == 35) // Previously required a chem purity of 0.6 or lower to create krokodil zombies w/ fermi-chem.
 		if(!istype(affected_mob.dna.species, /datum/species/human/krokodil_addict))
 			to_chat(affected_mob, span_userdanger("Your skin falls off easily!"))
 			var/mob/living/carbon/human/affected_human = affected_mob
@@ -30,3 +30,5 @@
 	affected_mob.adjustToxLoss(0.25 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
 	..()
 	. = TRUE
+
+
