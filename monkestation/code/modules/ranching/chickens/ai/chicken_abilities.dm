@@ -67,3 +67,6 @@
 
 /datum/pet_command/point_targeting/attack/chicken
 	attack_behaviour = /datum/ai_behavior/basic_melee_attack/chicken
+
+/datum/pet_command/point_targeting/attack/chicken/ranged
+	attack_behaviour = /datum/ai_behavior/basic_ranged_attack/chicken
