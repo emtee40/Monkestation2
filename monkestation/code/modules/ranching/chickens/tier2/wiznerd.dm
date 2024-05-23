@@ -24,11 +24,36 @@
 
 	layer_hen_type = /mob/living/basic/chicken/wiznerd
 
+/obj/item/food/egg/wiznerd/consumed_egg(datum/source, mob/living/eater, mob/living/feeder)
+	. = ..()
+	var/datum/action/cooldown/spell/pointed/projectile/arcane_barrage/new_barrage = new
+	new_barrage.Grant(eater)
+	new_barrage.addtimer(CALLBACK(new_barrage, PROC_REF(Remove), eater), 3 MINUTES)
+
 /obj/item/ammo_casing/magic/magic_missle_weak
 	projectile_type = /obj/projectile/magic/magic_missle_weak
 
 /obj/projectile/magic/magic_missle_weak
 	name = "magic missile"
-	icon_state = "ion"
-	damage = 5
-	damage_type = BRUTE
+	icon_state = "arcane_barrage"
+	damage = 10
+	damage_type = BURN
+	hitsound = 'sound/weapons/barragespellhit.ogg'
+
+
+/datum/action/cooldown/spell/pointed/projectile/arcane_barrage
+	name = "Arcane Barrage"
+	desc = "This spell fires a series of arcane bolts at a target."
+	button_icon_state = "fireball0"
+
+	sound = 'sound/magic/fireball.ogg'
+	school = SCHOOL_EVOCATION
+	cooldown_time = 45 SECONDS
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+
+	active_msg = "You prepare to cast your barrage spell!"
+	deactive_msg = "You extinguish your barrage... for now."
+	cast_range = 8
+	projectile_type = /obj/projectile/magic/arcane_barrage
+	projectile_amount = 3
