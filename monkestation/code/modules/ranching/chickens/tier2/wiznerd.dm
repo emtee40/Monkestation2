@@ -28,7 +28,7 @@
 	. = ..()
 	var/datum/action/cooldown/spell/pointed/projectile/arcane_barrage/new_barrage = new
 	new_barrage.Grant(eater)
-	new_barrage.addtimer(CALLBACK(new_barrage, PROC_REF(Remove), eater), 3 MINUTES)
+	addtimer(CALLBACK(new_barrage, TYPE_PROC_REF(/datum/action/cooldown/spell/pointed/projectile/arcane_barrage, Remove), eater), 3 MINUTES)
 
 /obj/item/ammo_casing/magic/magic_missle_weak
 	projectile_type = /obj/projectile/magic/magic_missle_weak
