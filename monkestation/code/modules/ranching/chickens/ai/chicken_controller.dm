@@ -102,6 +102,11 @@
 	if (time_on_target < 5 SECONDS)
 		return ..()
 	var/mob/living/target = controller.blackboard[target_key]
+	if(SEND_SIGNAL(controller.pawn, COMSIG_FRIENDSHIP_CHECK_LEVEL, target, FRIENDSHIP_FRIEND))
+		controller.clear_blackboard_key(target_key)
+		finish_action(controller, succeeded = FALSE)
+		return
+
 	// Interrupt attack chain to use tentacles, unless the target is already tentacled
 	if (isliving(target))
 		var/datum/action/cooldown/using_action = controller.blackboard[BB_CHICKEN_TARGETED_ABILITY]

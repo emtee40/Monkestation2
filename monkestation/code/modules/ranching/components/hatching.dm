@@ -51,14 +51,15 @@
 
 	var/obj/structure/nestbox/nest = locate(/obj/structure/nestbox) in get_turf(parent)
 	if(!nest)
+		failures |= "nest"
 		if(hatching)
 			stop_hatching()
-			failures |= "nest"
 		return
+
 	if(!nest.incubator)
+		failures |= "nest"
 		if(hatching)
 			stop_hatching()
-			failures |= "nest"
 		return
 
 	if(!hatching)

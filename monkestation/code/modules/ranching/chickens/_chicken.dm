@@ -314,7 +314,6 @@
 	if(hunger_precent > 0.1)
 		return
 
-	var/list/users = get_hearers_in_view(4, loc)
-	for(var/mob/living/carbon/human/user in users)
-		user.visible_message("[name] starts pecking at the floor, it must be hungry.")
+	if(prob(5))
+		visible_message("[name] starts pecking at the floor, it must be hungry.")
 	adjust_happiness(-0.01, natural_cause = TRUE)
