@@ -50,6 +50,10 @@
 #define SLIME_RANDOM_MODIFIER_MIN -0.0003
 #define SLIME_RANDOM_MODIFIER_MAX 0.0003
 
+/// How many units of slime ooze are required for a normal extract recipe.
+#define EXTRACT_RECIPE_OOZE_AMOUNT		20
+/// How many units of slime ooze (of each color) are required for a crossbreed recipe.
+#define CROSSBREED_RECIPE_OOZE_AMOUNT	250
 
 #define EMOTION_HAPPY "happy"
 #define EMOTION_SAD "sad"
