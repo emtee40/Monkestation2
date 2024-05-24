@@ -57,6 +57,7 @@
 	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
 	icon_state = "flesh_tile"
 	baseturfs = /turf/open/floor/plating
+	smoothing_flags = SMOOTH_BITMASK
 
 /datum/dimension_theme/bloodling
 	icon = 'icons/obj/food/meat.dmi'
