@@ -52,18 +52,43 @@
 		chosen_theme.apply_theme(transform_turf)
 		CHECK_TICK
 
-/turf/open/floor/misc/bloodling
+
+/turf/open/misc/bloodling
 	name = "nerve threads"
-	icon = 'monkestation/code/modules/antagonists/bloodling/bloodling_sprites.dmi'
-	icon_state = "flesh_tile"
+	icon = 'monkestation/code/modules/antagonists/bloodling/sprites/flesh_tile.dmi'
+	icon_state = "flesh_tile-0"
+	base_icon_state = "flesh_tile-255"
 	baseturfs = /turf/open/floor/plating
 	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_TURF_OPEN + SMOOTH_GROUP_FLOOR_BLOODLING
+	canSmoothWith = SMOOTH_GROUP_FLOOR_BLOODLING
+	flags_1 = NONE
+
+/turf/open/misc/bloodling/Initialize(mapload)
+	. = ..()
+	update_appearance()
+
+	if(is_station_level(z))
+		GLOB.station_turfs += src
+
+/turf/open/misc/bloodling/smooth_icon()
+	. = ..()
+	update_appearance(~UPDATE_SMOOTHING)
+
+/turf/open/misc/bloodling/update_icon(updates=ALL)
+	. = ..()
+	if(!. || !(updates & UPDATE_SMOOTHING))
+		return
+	QUEUE_SMOOTH(src)
+
+/turf/open/misc/bloodling/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
 
 /datum/dimension_theme/bloodling
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meat"
 	sound = 'sound/items/eatfood.ogg'
-	replace_floors = list(/turf/open/floor/misc/bloodling = 1)
+	replace_floors = list(/turf/open/misc/bloodling = 1)
 	replace_walls = /turf/closed/wall/material/meat
 	window_colour = "#5c0c0c"
 	replace_objs = list(\
