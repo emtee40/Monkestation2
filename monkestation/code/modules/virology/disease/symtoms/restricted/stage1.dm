@@ -137,7 +137,7 @@
 
 /datum/symptom/death_sandwich
 	name = "Death Sandwich"
-	desc = "You ate it wrong, and now you will die"
+	desc = "You ate it wrong, and now you will die. Cure: Anacea"
 	stage = 1
 	badness = EFFECT_DANGER_DEADLY
 	restricted = TRUE
