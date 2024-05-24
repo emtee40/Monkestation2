@@ -406,6 +406,7 @@
 		"beer_dispenser",
 		"blood_pack",
 		"chem_dispenser",
+		"sleeper",
 		"chem_heater",
 		"chem_mass_spec",
 		"chem_master",
