@@ -217,7 +217,6 @@
 		qdel(GetComponent(/datum/component/gps))
 
 	//we have the plasma. we can rebuild them.
-<<<<<<< ss13-in-2014
 	brainmob.mind.grab_ghost()
 	if(isnull(brainmob))
 		if(user)
@@ -231,20 +230,13 @@
 		if(user)
 			user.balloon_alert("This brain does not contain a mind!")
 		return TRUE
-	var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(src.loc)
-=======
 	var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(drop_location())
->>>>>>> master
 
 	brainmob.client?.prefs?.safe_transfer_prefs_to(new_body)
 	new_body.underwear = "Nude"
 	new_body.undershirt = "Nude" //Which undershirt the player wants
 	new_body.socks = "Nude" //Which socks the player wants
-<<<<<<< ss13-in-2014
-	brainmob.stored_dna.transfer_identity(new_body, transfer_SE=1)
-=======
 	stored_dna.transfer_identity(new_body, transfer_SE = TRUE)
->>>>>>> master
 	new_body.dna.features["mcolor"] = new_body.dna.features["mcolor"]
 	new_body.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 	new_body.real_name = new_body.dna.real_name
@@ -254,12 +246,8 @@
 	new_body.forceMove(drop_location())
 	new_body.blood_volume = BLOOD_VOLUME_SAFE + 60
 	REMOVE_TRAIT(new_body, TRAIT_NO_TRANSFORM, REF(src))
-<<<<<<< ss13-in-2014
-	SSquirks.AssignQuirks(new_body, brainmob.client)
-=======
 	if(!QDELETED(brainmob))
 		SSquirks.AssignQuirks(new_body, brainmob.client)
->>>>>>> master
 	var/obj/item/organ/internal/brain/new_body_brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
 	qdel(new_body_brain)
 	forceMove(new_body)
@@ -270,12 +258,8 @@
 			continue
 	new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from [new_body.p_their()] core, yet to form the rest."))
 	to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
-<<<<<<< ss13-in-2014
-	brainmob.mind.transfer_to(new_body)
-=======
 
 	brainmob?.mind?.transfer_to(new_body)
 	new_body.grab_ghost()
->>>>>>> master
 
 	drop_items_to_ground(new_body.drop_location())
