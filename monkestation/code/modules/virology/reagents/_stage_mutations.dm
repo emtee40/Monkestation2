@@ -13,6 +13,8 @@
 /datum/reagent/toxin/mutagen/mutagenvirusfood/sugar/stage_disease_incubate(atom/movable/parent, datum/disease/disease, list/symptoms, obj/machinery/disease2/incubator/machine)
 	disease.log += "<br />[ROUND_TIME()] Effect Chance Strengthing (Sucrose Agar)"
 	for(var/datum/symptom/listed as anything in symptoms)
+		if((listed.chance == listed.max_chance) && prob(5))
+			listed.max_chance = min(listed.max_chance++, 100)
 		listed.chance = min(listed.chance + rand(2, 3), listed.max_chance)
 		if(istype(parent, /obj/item/weapon/virusdish))
 			var/obj/item/weapon/virusdish/dish = parent
