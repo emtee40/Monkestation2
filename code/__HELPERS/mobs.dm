@@ -154,6 +154,7 @@
 		"animecolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]", //Monkestation Addition
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
+		"ethereal_horns" = pick(GLOB.ethereal_horns_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
