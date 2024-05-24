@@ -319,8 +319,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		farewell()
 	UnregisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT)
 	UnregisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED)
-	var/datum/team/team = get_team()
-	team?.remove_member(owner)
+	get_team()?.remove_member(owner)
 	SEND_SIGNAL(owner, COMSIG_ANTAGONIST_REMOVED, src)
 
 	// Remove HUDs that they should no longer see
@@ -366,7 +365,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /**
  * Proc that will return the team this antagonist belongs to, when called. Helpful with antagonists that may belong to multiple potential teams in a single round.
  */
-/datum/antagonist/proc/get_team()
+/datum/antagonist/proc/get_team() as /datum/team
+	RETURN_TYPE(/datum/team) // it's right there, dreamchecker, come on
 	return
 
 /**
