@@ -1,9 +1,9 @@
-/datum/disease/advanced/proc/update_global_log()
+/datum/disease/proc/update_global_log()
 	if ("[uniqueID]-[subID]" in GLOB.inspectable_diseases)
 		return
 	GLOB.inspectable_diseases["[uniqueID]-[subID]"] = Copy()
 
-/datum/disease/advanced/proc/clean_global_log()
+/datum/disease/proc/clean_global_log()
 	var/ID = "[uniqueID]-[subID]"
 	if (ID in GLOB.virusDB)
 		return

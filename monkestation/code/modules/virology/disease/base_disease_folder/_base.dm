@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(virusDB, list())
 	//bitflag showing which transmission types are allowed for this disease
 	var/allowed_transmission = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_AIRBORNE
 
-/datum/disease/advanced/proc/roll_antigen(list/factors = list())
+/datum/disease/proc/roll_antigen(list/factors = list())
 	if (factors.len <= 0)
 		antigen = list(pick(GLOB.all_antigens))
 		antigen |= pick(GLOB.all_antigens)
@@ -74,12 +74,12 @@ GLOBAL_LIST_INIT(virusDB, list())
 
 		antigen |= pick(antigen_family(selected_second_antigen))
 
-/datum/disease/advanced/proc/get_effect(index)
+/datum/disease/proc/get_effect(index)
 	if(!index)
 		return pick(symptoms)
 	return symptoms[clamp(index,0,symptoms.len)]
 
-/datum/disease/advanced/proc/GetImmuneData(mob/living/mob)
+/datum/disease/proc/GetImmuneData(mob/living/mob)
 	var/lowest_stage = stage
 	var/highest_concentration = 0
 
@@ -129,13 +129,16 @@ GLOBAL_LIST_INIT(virusDB, list())
 				if (L.client)
 					L.client.images -= mob.pathogen
 
-/datum/disease/advanced/proc/activate(mob/living/mob, starved = FALSE, seconds_per_tick)
+/datum/disease/proc/activate(mob/living/mob, starved = FALSE, seconds_per_tick)
 	if((mob.stat == DEAD) && !process_dead)
 		return
 
 	//Searing body temperatures cure diseases, on top of killing you.
 	if(mob.bodytemperature > max_bodytemperature)
 		cure(mob,1)
+		return
+
+	if(disease_flags & DISEASE_DORMANT)
 		return
 
 	if(!(infectable_biotypes & mob.mob_biotypes))

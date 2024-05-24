@@ -17,7 +17,7 @@
 		L += D.Copy()
 	return L
 
-/datum/disease/advanced/proc/makerandom(var/list/str = list(), var/list/rob = list(), var/list/anti = list(), var/list/bad = list(), var/atom/source = null)
+/datum/disease/proc/makerandom(var/list/str = list(), var/list/rob = list(), var/list/anti = list(), var/list/bad = list(), var/atom/source = null)
 	//ID
 	uniqueID = rand(0,9999)
 	subID = rand(0,9999)
@@ -71,7 +71,7 @@
 					origin = "Pathology"
 	update_global_log()
 
-/datum/disease/advanced/proc/AddToGoggleView(mob/living/infectedMob)
+/datum/disease/proc/AddToGoggleView(mob/living/infectedMob)
 	if (spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 		GLOB.infected_contact_mobs |= infectedMob
 		if (!infectedMob.pathogen)

@@ -1,24 +1,24 @@
-/datum/disease/advanced/proc/get_antigen_string()
+/datum/disease/proc/get_antigen_string()
 	var/dat = ""
 	for (var/A in antigen)
 		dat += "[A]"
 	return dat
 
-/datum/disease/advanced/proc/name(override=FALSE)
+/datum/disease/proc/name(override=FALSE)
 	.= "[form] #["[uniqueID]"][childID ? "-["[childID]"]" : ""]"
 
 	if (!override && ("[uniqueID]-[subID]" in GLOB.virusDB))
 		var/datum/data/record/V = GLOB.virusDB["[uniqueID]-[subID]"]
 		.= V.fields["name"]
 
-/datum/disease/advanced/proc/real_name()
+/datum/disease/proc/real_name()
 	.= "[form] #["[uniqueID]"]-["[subID]"]"
 	if ("[uniqueID]-[subID]" in GLOB.virusDB)
 		var/datum/data/record/v = GLOB.virusDB["[uniqueID]-[subID]"]
 		var/nickname = v.fields["nickname"] ? " \"[v.fields["nickname"]]\"" : ""
 		. += nickname
 
-/datum/disease/advanced/proc/get_subdivisions_string()
+/datum/disease/proc/get_subdivisions_string()
 	var/subdivision = (strength - ((robustness * strength) / 100)) / max_stages
 	var/dat = "("
 	for (var/i = 1 to max_stages)
@@ -28,7 +28,7 @@
 	dat += ")"
 	return dat
 
-/datum/disease/advanced/proc/get_info()
+/datum/disease/proc/get_info()
 	var/r = "GNAv3 [name()]"
 	r += "<BR>Strength / Robustness : <b>[strength]% / [robustness]%</b> - [get_subdivisions_string()]"
 	r += "<BR>Infectability : <b>[infectionchance]%</b>"
@@ -43,7 +43,7 @@
 	r += "<BR><i>last analyzed at: [worldtime2text()]</i>"
 	return r
 
-/datum/disease/advanced/proc/get_spread_string()
+/datum/disease/proc/get_spread_string()
 	var/dat = ""
 	var/check = 0
 	if (spread_flags & DISEASE_SPREAD_BLOOD)
@@ -90,7 +90,7 @@
 	*/
 	return dat
 
-/datum/disease/advanced/proc/addToDB()
+/datum/disease/proc/addToDB()
 	if ("[uniqueID]-[subID]" in GLOB.virusDB)
 		return 0
 	childID = 0

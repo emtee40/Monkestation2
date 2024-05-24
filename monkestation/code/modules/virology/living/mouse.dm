@@ -19,7 +19,7 @@
 			EFFECT_DANGER_ANNOYING	= 2,
 			EFFECT_DANGER_HINDRANCE	= 2,
 			EFFECT_DANGER_HARMFUL	= 2,
-			EFFECT_DANGER_DEADLY	= 0,
+			EFFECT_DANGER_DEADLY	= 2,
 		)
 		var/datum/disease/advanced/disease = new virus_choice
 		disease.makerandom(list(50,90),list(10,100),anti,bad,src)

@@ -1,4 +1,4 @@
-/datum/disease/advanced/proc/new_effect(badness = 2, stage = 0)
+/datum/disease/proc/new_effect(badness = 2, stage = 0)
 	var/list/datum/symptom/list = list()
 	var/list/to_choose = subtypesof(/datum/symptom)
 	for(var/e in to_choose)
@@ -12,7 +12,7 @@
 		e.chance = rand(1, e.max_chance)
 		return e
 
-/datum/disease/advanced/proc/new_random_effect(var/max_badness = 5, var/min_badness = 0, var/stage = 0, var/old_effect)
+/datum/disease/proc/new_random_effect(var/max_badness = 5, var/min_badness = 0, var/stage = 0, var/old_effect)
 	var/list/datum/symptom/list = list()
 	var/list/to_choose = subtypesof(/datum/symptom)
 	if(old_effect) //So it doesn't just evolve right back into the previous virus type
@@ -28,7 +28,7 @@
 		e.chance = rand(1, e.max_chance)
 		return e
 
-/datum/disease/advanced/proc/randomize_spread()
+/datum/disease/proc/randomize_spread()
 	spread_flags = DISEASE_SPREAD_BLOOD	//without blood spread_flags, the disease cannot be extracted or cured, we don't want that for regular diseases
 	if (prob(5))			//5% chance of spreading through both contact and the air.
 		spread_flags |= DISEASE_SPREAD_CONTACT_SKIN

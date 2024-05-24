@@ -25,9 +25,9 @@
 
 	var/on = FALSE
 
-	var/mutatechance = 5
-	var/growthrate = 4
-	var/can_focus = 0 //Whether the machine can focus on an effect to mutate it or not
+	var/mutatechance = 10
+	var/growthrate = 8
+	var/can_focus = FALSE //Whether the machine can focus on an effect to mutate it or not
 	var/effect_focus = 0 //What effect of the disease are we focusing on?
 
 /obj/machinery/disease2/incubator/New()
@@ -47,13 +47,13 @@
 	var/scancount = 0
 	var/lasercount = 0
 	for(var/datum/stock_part/scanning_module/SP in component_parts)
-		scancount += SP.tier-1
+		scancount += SP.tier * 0.5
 	for(var/datum/stock_part/micro_laser/SP in component_parts)
-		lasercount += SP.tier-1
+		lasercount += SP.tier * 0.5
 	if(lasercount >= 4)
-		can_focus = 1
+		can_focus = TRUE
 	else
-		can_focus = 0
+		can_focus = FALSE
 	mutatechance = initial(mutatechance) * max(1, scancount)
 	growthrate = initial(growthrate) + lasercount
 
