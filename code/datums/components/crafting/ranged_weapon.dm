@@ -232,11 +232,13 @@
 		/obj/item/gun/ballistic/rifle/boltaction/pipegun = 1,
 		/obj/item/food/deadmouse = 1,
 		/datum/reagent/consumable/grey_bull = 20,
-		/obj/item/spear = 1,
 		/obj/item/storage/toolbox = 1,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
-	time = 30 SECONDS //contemplate for a bit
+	tool_paths = list(
+		/obj/item/spear
+	)
+	time = 25 SECONDS //contemplate for a bit
 	category = CAT_WEAPON_RANGED
 
 /datum/crafting_recipe/deagle_prime //When you factor in the makarov (7 tc), the toolbox (1 tc), and the emag (3 tc), this comes to a total of 17 TC or thereabouts. Igorning the 20k pricetag, obviously.
@@ -324,7 +326,7 @@
 		/datum/reagent/consumable/nuka_cola = 15,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER) //monke edits. removed the need for the special clothing
-	time = 30 SECONDS //contemplate for a bit
+	time = 25 SECONDS //contemplate for a bit
 	category = CAT_WEAPON_RANGED
 
 /datum/crafting_recipe/smoothbore_disabler
@@ -352,5 +354,5 @@
 		/obj/item/stock_parts/cell/super = 1,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
-	time = 20 SECONDS
+	time = 15 SECONDS
 	category = CAT_WEAPON_RANGED
