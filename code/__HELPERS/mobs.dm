@@ -118,6 +118,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/floran_leaves, GLOB.floran_leaves_list)
 	if(!GLOB.ethereal_horns_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ethereal_horns, GLOB.ethereal_horns_list)
+	if(!GLOB.ethereal_tail_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/ethereal, GLOB.ethereal_tail_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
@@ -155,6 +157,7 @@
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
 		"ethereal_horns" = pick(GLOB.ethereal_horns_list), //Monkestation Addition
+		"ethereal_tail" = pick(GLOB.ethereal_tail_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)

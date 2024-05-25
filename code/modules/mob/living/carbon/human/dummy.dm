@@ -111,6 +111,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["goblin_ears"] = "Normal" //Monkestation Addition
 	target.dna.features["floran_leaves"] = "Furnivour" //Monkestation Addition
 	target.dna.features["ethereal_horns"] = "None" //Monkestation Addition
+	target.dna.features["ethereal_tail"] = "None" //Monkestation Addition
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent
