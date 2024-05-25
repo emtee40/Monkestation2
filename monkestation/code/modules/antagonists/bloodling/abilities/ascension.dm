@@ -12,7 +12,7 @@
 	// Waits 5 minutes before calling the ascension
 	addtimer(CALLBACK(src, PROC_REF(ascend), our_mob), 5 MINUTES)
 	/* PLANS
-	* turn the bloodling into a buffed up meteor heart on completion
+	* Make this spawn a cool meator heart/other chrysalis whilst the bloodling is pulsing
 	*/
 	return TRUE
 
@@ -63,6 +63,7 @@
 	smoothing_groups = SMOOTH_GROUP_TURF_OPEN + SMOOTH_GROUP_FLOOR_BLOODLING
 	canSmoothWith = SMOOTH_GROUP_FLOOR_BLOODLING
 	layer = HIGH_TURF_LAYER
+	underfloor_accessibility = UNDERFLOOR_HIDDEN
 
 /turf/open/misc/bloodling/Initialize(mapload)
 	. = ..()

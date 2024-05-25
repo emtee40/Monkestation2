@@ -7,6 +7,7 @@
 	antag_hud_name = "changeling"
 	hijack_speed = 0.5
 	suicide_cry = "CONSUME!! CLAIM!! THERE WILL BE ANOTHER!!"
+	show_name_in_check_antagonists = TRUE
 
 	// If this bloodling is ascended or not
 	var/is_ascended = FALSE
