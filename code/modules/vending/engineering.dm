@@ -20,6 +20,7 @@
 		/obj/item/multitool = 12,
 		/obj/item/wrench = 12,
 		/obj/item/t_scanner = 12,
+		/obj/item/stack/sticky_tape = 12,
 		/obj/item/stock_parts/cell = 8,
 		/obj/item/weldingtool = 8,
 		/obj/item/clothing/head/utility/welding = 8,

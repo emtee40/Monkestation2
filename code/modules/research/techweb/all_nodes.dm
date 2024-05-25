@@ -291,6 +291,7 @@
 		"retractor",
 		"scalpel",
 		"stethoscope",
+		"glasses",
 		"surgical_drapes",
 		"surgical_tape",
 		"surgicaldrill",

@@ -17,6 +17,7 @@
 		/obj/item/analyzer = 5,
 		/obj/item/t_scanner = 5,
 		/obj/item/screwdriver = 5,
+		/obj/item/stack/sticky_tape = 5, //You would find tape at a hardware store.
 		/obj/item/flashlight/glowstick = 3,
 		/obj/item/flashlight/glowstick/red = 3,
 		/obj/item/flashlight = 5,

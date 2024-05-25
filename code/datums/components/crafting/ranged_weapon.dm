@@ -236,7 +236,6 @@
 		/obj/item/storage/toolbox = 1,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
-	tool_paths = list(/obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas, /obj/item/melee/baton/security/cattleprod)
 	time = 30 SECONDS //contemplate for a bit
 	category = CAT_WEAPON_RANGED
 
@@ -350,8 +349,7 @@
 	reqs = list(
 		/obj/item/gun/energy/disabler/smoothbore = 1,
 		/obj/item/stack/sheet/mineral/gold = 5,
-		/obj/item/stock_parts/cell/hyper = 1,
-		/datum/reagent/reaction_agent/speed_agent = 10,
+		/obj/item/stock_parts/cell/super = 1,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	time = 20 SECONDS
