@@ -57,32 +57,37 @@
 	name = "nerve threads"
 	icon = 'monkestation/code/modules/antagonists/bloodling/sprites/flesh_tile.dmi'
 	icon_state = "flesh_tile-0"
-	base_icon_state = "flesh_tile-255"
+	base_icon_state = "flesh_tile"
 	baseturfs = /turf/open/floor/plating
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_TURF_OPEN + SMOOTH_GROUP_FLOOR_BLOODLING
 	canSmoothWith = SMOOTH_GROUP_FLOOR_BLOODLING
-	flags_1 = NONE
+	layer = HIGH_TURF_LAYER
 
 /turf/open/misc/bloodling/Initialize(mapload)
 	. = ..()
-	update_appearance()
-
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 
-/turf/open/misc/bloodling/smooth_icon()
-	. = ..()
-	update_appearance(~UPDATE_SMOOTHING)
-
-/turf/open/misc/bloodling/update_icon(updates=ALL)
-	. = ..()
-	if(!. || !(updates & UPDATE_SMOOTHING))
-		return
+	var/matrix/translation = new
+	translation.Translate(-9, -9)
+	transform = translation
 	QUEUE_SMOOTH(src)
 
+
 /turf/open/misc/bloodling/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	return FALSE
+	. = ..()
+	if (!.)
+		return
+
+	if(!smoothing_flags)
+		return
+
+	var/matrix/translation = new
+	translation.Translate(-9, -9)
+	transform = translation
+
+	underlay_appearance.transform = transform
 
 /datum/dimension_theme/bloodling
 	icon = 'icons/obj/food/meat.dmi'
