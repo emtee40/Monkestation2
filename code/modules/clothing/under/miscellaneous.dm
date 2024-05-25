@@ -100,11 +100,13 @@
 
 /datum/armor/misc_durathread
 	melee = 10
+	bullet = 5
 	laser = 10
 	fire = 40
 	acid = 10
 	bomb = 5
 	bio = 10
+	wound = 5
 
 /obj/item/clothing/under/misc/bouncer
 	name = "bouncer uniform"
