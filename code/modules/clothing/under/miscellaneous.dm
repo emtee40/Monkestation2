@@ -102,6 +102,7 @@
 	melee = 10
 	bullet = 5
 	laser = 10
+	energy = 10
 	fire = 40
 	acid = 10
 	bomb = 5
