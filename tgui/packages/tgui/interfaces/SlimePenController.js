@@ -176,8 +176,13 @@ const SlimeData = (_, context) => {
 
 const StoreViewer = (_, context) => {
   const { data, act } = useBackend(context);
-  const { buyable_upgrades, corral_upgrades, reagent_data, reagent_amount } =
-    data;
+  const {
+    buyable_upgrades,
+    corral_upgrades,
+    reagent_data,
+    reagent_amount,
+    capacity,
+  } = data;
 
   return (
     <Table>
@@ -212,7 +217,7 @@ const StoreViewer = (_, context) => {
         ))}
       </Collapsible>
       <Section textAlign="center" fontSize="18px">
-        Corral Data
+        Corral Data - {capacity}
       </Section>
       <LabeledList>
         <LabeledList.Item label="Corral Upgrades">

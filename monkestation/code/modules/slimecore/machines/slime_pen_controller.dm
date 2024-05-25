@@ -49,10 +49,13 @@
 		data["slimes"] = list()
 		data["corral_upgrades"] = list()
 		data["buyable_upgrades"] = list()
+		data["capacity"] = "0/0"
 
 	else
 		data["slimes"] = list()
 		linked_data.update_slimes()
+		data["capacity"] = "[length(linked_data.managed_slimes)]/[linked_data.max_capacity]"
+
 		for(var/mob/living/basic/slime/slime as anything in linked_data.managed_slimes)
 			var/list/slime_data = list()
 			slime_data += list(
