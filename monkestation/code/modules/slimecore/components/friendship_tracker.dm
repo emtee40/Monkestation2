@@ -19,8 +19,8 @@
 
 /datum/component/friendship_container/Destroy(force, silent)
 	. = ..()
-	QDEL_LIST(befriended_refs)
-	QDEL_LIST(weakrefed_friends)
+	befriended_refs = null
+	weakrefed_friends = null
 	friendship_levels = null
 
 /datum/component/friendship_container/RegisterWithParent()
