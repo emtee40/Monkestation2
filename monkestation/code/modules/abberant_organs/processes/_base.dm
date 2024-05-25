@@ -4,3 +4,5 @@
 
 	var/complexity_cost = 0
 	var/process_flags = NONE
+
+/datum/organ_process/proc/trigger(datum/weakref/host, stability)

@@ -18,10 +18,18 @@
 	///our restriction flags
 	var/restriction_flags = NONE
 
-/datum/component/abberant_organ/Initialize(max_complexity = 100, restriction_flags = NONE)
+/datum/component/abberant_organ/Initialize(max_complexity = 100, restriction_flags = NONE, list/new_processors = list(), datum/organ_trigger/new_trigger, datum/organ_outcome/outcome)
 	. = ..()
 	src.max_complexity = max_complexity
 	src.restriction_flags = restriction_flags
+
+	if(new_trigger)
+		trigger = new new_trigger(parent)
+		complexity += trigger.complexity_cost
+
+	if(length(new_processors))
+		for(var/datum/organ_process/process as anything in new_processors)
+			add_process(process)
 
 /datum/component/abberant_organ/RegisterWithParent()
 	. = ..()
@@ -35,7 +43,7 @@
 
 /datum/component/abberant_organ/proc/add_host(obj/item/organ/source, mob/living/new_host)
 	host = WEAKREF(new_host)
-	SEND_SIGNAL(parent, COMSIG_ABBERANT_HOST_SET, host)
+	SEND_SIGNAL(parent, COMSIG_ABBERANT_HOST_SET, new_host)
 
 /datum/component/abberant_organ/proc/remove_host()
 	host = null
@@ -43,6 +51,9 @@
 
 /datum/component/abberant_organ/proc/trigger()
 	SIGNAL_HANDLER
+	for(var/datum/organ_process/process as anything in processors)
+		process.trigger(host, stability)
+	SEND_SIGNAL(parent, COMSIG_ABBERANT_OUTCOME)
 
 /datum/component/abberant_organ/proc/add_trait(datum/source, /datum/organ_trait)
 	//TODO
@@ -52,4 +63,12 @@
 		return FALSE
 
 /datum/component/abberant_organ/proc/process_outcome(datum/source)
-	//TODO
+	if(outcome)
+		outcome.trigger(host, stability)
+
+/datum/component/abberant_organ/proc/add_process(datum/organ_process/new_process)
+	var/datum/organ_process/created_process = new new_process(parent)
+	if(complexity + created_process.complexity_cost > max_complexity)
+		qdel(created_process)
+		return
+	processors |= created_process
