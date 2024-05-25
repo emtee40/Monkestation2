@@ -193,6 +193,7 @@
 		disease.makerandom(list(50,90),list(10,100),anti,bad,src)
 
 		disease.disease_flags |= DISEASE_DORMANT
+		disease.spread_flags -= DISEASE_SPREAD_AIRBORNE
 		spawned.infect_disease(disease, TRUE, "Random Dormant Disease [key_name(src)]")
 
 /datum/job/proc/announce_job(mob/living/joining_mob, job_title)
