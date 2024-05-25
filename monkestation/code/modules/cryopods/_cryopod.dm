@@ -398,9 +398,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 		if(target.ckey != listed["ckey"])
 			continue
 
-		/*if(world.time < (listed["entered_time"] + 15 MINUTES))
+		if(world.time < (listed["entered_time"] + 15 MINUTES))
 			to_chat(target, span_notice("You need to wait atleast 15 minutes before you can return from cryosleep."))
-			return*/
+			return
 
 		var/mob/living/carbon/human/newmob = target.change_mob_type( /mob/living/carbon/human , get_turf(src), null, TRUE)
 		for(var/obj/item/listed_item as anything in listed["items"])
