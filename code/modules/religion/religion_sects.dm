@@ -337,7 +337,7 @@
 	tgui_icon = "eye"
 	altar_icon_state = "convertaltar-maint"
 	alignment = ALIGNMENT_EVIL //while maint is more neutral in my eyes, the flavor of it kinda pertains to rotting and becoming corrupted by the maints
-	rites_list = list(/datum/religion_rites/maint_adaptation, /datum/religion_rites/adapted_eyes, /datum/religion_rites/adapted_food, /datum/religion_rites/ritual_totem)
+	rites_list = list(/datum/religion_rites/maint_adaptation, /datum/religion_rites/adapted_eyes, /datum/religion_rites/adapted_food, /datum/religion_rites/ritual_totem, /datum/religion_rites/weapon_granter)
 	desired_items = list(/obj/item/reagent_containers = "holding organic slurry")
 
 /datum/religion_sect/maintenance/sect_bless(mob/living/blessed_living, mob/living/chap)
