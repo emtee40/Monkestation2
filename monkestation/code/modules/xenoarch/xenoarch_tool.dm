@@ -195,7 +195,6 @@
 /obj/item/storage/bag/xenoarch/adv
 	name = "advanced xenoarch mining satchel"
 	icon_state = "adv_satchel"
-	insert_speed = 1
 
 /obj/item/storage/bag/xenoarch/adv/Initialize(mapload)
 	. = ..()

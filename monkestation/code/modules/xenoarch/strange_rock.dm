@@ -148,87 +148,29 @@
 	mineralAmt = 1
 	icon = 'icons/turf/mining.dmi'
 	scan_state = "rock_Strange"
-	mineralType = /obj/item/xenoarch/strange_rock
 
 /turf/closed/mineral/strange_rock/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
+	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
+	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = TRUE
-
-/turf/closed/mineral/random/volcanic
-	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
-	defer_change = TRUE
-
-	mineralChance = 10
-	mineralSpawnChanceList = list(
-		/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10, /obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /turf/closed/mineral/strange_rock/volcanic = 10,
-		/turf/closed/mineral/gibtonite/volcanic = 4, /obj/item/stack/ore/bluespace_crystal = 1)
 
 /turf/closed/mineral/strange_rock/ice
-	environment_type = "snow_cavern"
-	icon_state = "icerock_strange"
-	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
+	icon_state = "icerock_Strange"
+	icon = MAP_SWITCH('icons/turf/walls/icerock_wall.dmi', 'icons/turf/mining.dmi')
+	scan_state = "icerock_Strange"
 	base_icon_state = "icerock_wall"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	turf_type = /turf/open/floor/plating/asteroid/snow/ice
-	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	turf_type = /turf/open/misc/asteroid/snow/ice
+	baseturfs = /turf/open/misc/asteroid/snow/ice
 	initial_gas_mix = FROZEN_ATMOS
 	defer_change = TRUE
 
 /turf/closed/mineral/strange_rock/ice/icemoon
-	turf_type = /turf/open/floor/plating/asteroid/snow/ice/icemoon
-	baseturfs = /turf/open/floor/plating/asteroid/snow/ice/icemoon
+	turf_type = /turf/open/misc/asteroid/snow/ice/icemoon
+	baseturfs = /turf/open/misc/asteroid/snow/ice/icemoon
 	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
-
-/turf/closed/mineral/random/snow
-	mineralSpawnChanceList = list(
-		/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10, /obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /turf/closed/mineral/strange_rock/ice/icemoon = 10,
-		/turf/closed/mineral/gibtonite/ice/icemoon = 4, /obj/item/stack/ore/bluespace_crystal = 1)
-
-/turf/closed/mineral/random/snow/underground
-	baseturfs = /turf/open/floor/plating/asteroid/snow/icemoon
-	// abundant ore
-	mineralChance = 20
-	mineralSpawnChanceList = list(
-		/obj/item/stack/ore/uranium = 10, /obj/item/stack/ore/diamond = 4, /obj/item/stack/ore/gold = 20, /obj/item/stack/ore/titanium = 22,
-		/obj/item/stack/ore/silver = 24, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 20, /obj/item/stack/ore/bananium = 1,
-		/turf/closed/mineral/gibtonite/ice/icemoon = 8, /turf/closed/mineral/strange_rock/ice/icemoon = 10, /obj/item/stack/ore/bluespace_crystal = 2)
-
-// I think this is a Skyrat thing
-
-//small gibonite fix
-/turf/closed/mineral/gibtonite/asteroid
-	environment_type = "asteroid"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	turf_type = /turf/open/floor/plating/asteroid
-	baseturfs = /turf/open/floor/plating/asteroid
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	defer_change = TRUE
-
-
-/turf/closed/mineral/strange_rock/asteroid
-	environment_type = "asteroid"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	turf_type = /turf/open/floor/plating/asteroid
-	baseturfs = /turf/open/floor/plating/asteroid
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	defer_change = TRUE
-
-
-/turf/closed/mineral/random/stationside/asteroid/rockplanet
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	turf_type = /turf/open/floor/plating/asteroid
-	mineralSpawnChanceList = list(/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
-		/turf/closed/mineral/gibtonite/asteroid = 4, /obj/item/stack/ore/bluespace_crystal = 1, /turf/closed/mineral/strange_rock/asteroid = 10)
-	mineralChance = 30
 
 #undef DIG_UNDEFINED
 #undef DIG_DELETE
