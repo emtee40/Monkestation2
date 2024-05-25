@@ -21,6 +21,6 @@
 		UnregisterSignal(resolved.reagents, COMSIG_REAGENTS_ADD_REAGENT)
 	. = ..()
 
-/datum/organ_trigger/chemical_consume/proc/check_trigger(datum/source, reagent, amount, reagtemp, data, no_react)
+/datum/organ_trigger/chemical_consume/proc/check_trigger(datum/source, datum/reagent/reagent, amount, reagtemp, data, no_react)
 	if(reagent.type == consumed_chemical)
 		trigger()
