@@ -47,8 +47,8 @@
 /datum/component/abberant_organ/proc/add_trait(datum/source, /datum/organ_trait)
 	//TODO
 
-/datum/component/abberant_organ/proc/try_add_process(datum/source, datum/organ_process/source)
-	if(!(restriction_flags & source.process_flags))
+/datum/component/abberant_organ/proc/try_add_process(datum/source, datum/organ_process/process)
+	if(!(restriction_flags & process.process_flags))
 		return FALSE
 
 /datum/component/abberant_organ/proc/process_outcome(datum/source)
