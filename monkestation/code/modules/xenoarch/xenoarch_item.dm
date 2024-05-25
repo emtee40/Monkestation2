@@ -46,7 +46,7 @@
 //circuit boards
 /obj/item/circuitboard/machine/xenoarch_researcher
 	name = "Xenoarch Researcher (Machine Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/xenoarch/researcher
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -57,7 +57,7 @@
 
 /obj/item/circuitboard/machine/xenoarch_scanner
 	name = "Xenoarch Scanner (Machine Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/xenoarch/scanner
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -68,7 +68,7 @@
 
 /obj/item/circuitboard/machine/xenoarch_digger
 	name = "Xenoarch Digger (Machine Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/xenoarch/digger
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -79,7 +79,7 @@
 
 /obj/item/circuitboard/machine/xenoarch_recoverer
 	name = "Xenoarch Recoverer (Machine Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/xenoarch/recoverer
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,

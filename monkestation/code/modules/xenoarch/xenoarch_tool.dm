@@ -106,15 +106,12 @@
 	name = "xenoarch toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Holds tools."
 	content_overlays = FALSE
-	custom_premium_price = PAYCHECK_MEDIUM * 2
 
-/obj/item/storage/belt/utility/xenoarch/ComponentInitialize()
+/obj/item/storage/belt/utility/xenoarch/Initialize()
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
-	STR.max_items = 8
-	STR.set_holdable(list(
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage  = 8
+	atom_storage.set_holdable(list(
 		/obj/item/xenoarch/hammer,
 		/obj/item/xenoarch/brush,
 		/obj/item/xenoarch/tape_measure,
@@ -130,21 +127,21 @@
 	worn_icon_state = "satchel"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-	var/insert_speed = 1 SECONDS
 	var/mob/listeningTo
 	var/range = null
+	COOLDOWN_DECLARE(ore_bag_balloon_cooldown)
 
 	var/spam_protection = FALSE //If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
 
-/obj/item/storage/bag/xenoarch/ComponentInitialize()
+/obj/item/storage/bag/xenoarch/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.allow_quick_empty = TRUE
-	STR.max_combined_w_class = 1000
-	STR.max_items = 10
-	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/xenoarch/strange_rock))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
+	atom_storage.max_total_storage = 15
+	atom_storage.numerical_stacking = TRUE
+	atom_storage.allow_quick_empty = TRUE
+	atom_storage.allow_quick_gather = TRUE
+	atom_storage.set_holdable(list(/obj/item/xenoarch/strange_rock))
+	atom_storage.silent_for_user = TRUE
 
 /obj/item/storage/bag/xenoarch/equipped(mob/user)
 	. = ..()
@@ -152,37 +149,47 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/pickup_rocks)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(pickup_rocks))
 	listeningTo = user
 
-/obj/item/storage/bag/xenoarch/dropped(mob/user)
+/obj/item/storage/bag/xenoarch/dropped()
 	. = ..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	listeningTo = null
+		listeningTo = null
 
 /obj/item/storage/bag/xenoarch/proc/pickup_rocks(mob/living/user)
+	SIGNAL_HANDLER
+
 	var/show_message = FALSE
-	var/turf/tile = user.loc
-	if (!isturf(tile))
+	var/turf/tile = get_turf(user)
+
+	if(!isturf(tile))
 		return
 
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	if(STR)
-		for(var/A in tile)
-			if (!is_type_in_typecache(A, STR.can_hold))
+	if(atom_storage)
+		for(var/thing in tile)
+			if(!is_type_in_typecache(thing, atom_storage.can_hold))
 				continue
-			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
+			else if(atom_storage.attempt_insert(thing, user))
 				show_message = TRUE
 			else
 				if(!spam_protection)
-					to_chat(user, "<span class='warning'>Your [name] is full and can't hold any more!</span>")
+					balloon_alert(user, "bag full!")
 					spam_protection = TRUE
 					continue
 	if(show_message)
-		playsound(user, "rustle", 50, TRUE)
-		user.visible_message("<span class='notice'>[user] scoops up the rocks beneath [user.p_them()].</span>", \
-			"<span class='notice'>You scoop up the rocks beneath you with your [name].</span>")
+		playsound(user, SFX_RUSTLE, 50, TRUE)
+		if(!COOLDOWN_FINISHED(src, ore_bag_balloon_cooldown))
+			return
+
+		COOLDOWN_START(src, ore_bag_balloon_cooldown, 10)
+		balloon_alert(user, "scoops ore into bag")
+		user.visible_message(
+			span_notice("[user] scoops up the ores beneath [user.p_them()]."),
+			ignored_mobs = user
+			)
+
 	spam_protection = FALSE
 
 /obj/item/storage/bag/xenoarch/adv
@@ -190,10 +197,9 @@
 	icon_state = "adv_satchel"
 	insert_speed = 1
 
-/obj/item/storage/bag/xenoarch/adv/ComponentInitialize()
+/obj/item/storage/bag/xenoarch/adv/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 25
+	atom_storage.max_total_storage = 25
 
 /obj/structure/closet/xenoarch
 	name = "xenoarchaeology equipment locker"
@@ -212,4 +218,3 @@
 	new /obj/item/storage/belt/utility/xenoarch(src)
 	new /obj/item/t_scanner/adv_mining_scanner(src)
 	new /obj/item/pickaxe(src)
-	new /obj/item/clothing/suit/neocoat/xeno(src)

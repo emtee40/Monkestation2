@@ -76,7 +76,7 @@
 			if(!istype(check_item, /obj/item/xenoarch/strange_rock))
 				continue
 			var/obj/item/xenoarch/strange_rock/strange_rock = check_item
-			if(!do_after(user, xenoarch_bag.insert_speed, target = src))
+			if(!do_after(user, 15, target = src))
 				world_compare = world.time + process_speed
 				addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
 				return
@@ -115,7 +115,7 @@
 		current_research += 10
 	if(current_research >= 100)
 		current_research = 0
-		new /obj/item/disk/tech_disk/spaceloot(get_turf(src))
+		new /obj/item/xenoarch/broken_item/illegal(get_turf(src))
 	qdel(remove_item)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	world_compare = world.time + process_speed
@@ -219,19 +219,19 @@
 		qdel(content_obj)
 		return
 	if(istype(content_obj, /obj/item/xenoarch/broken_item/tech))
-		var/spawn_item = pickweight(GLOB.tech_reward)
+		var/spawn_item = pick_weight(GLOB.tech_reward)
 		recover_item(spawn_item, content_obj)
 		return
 	if(istype(content_obj, /obj/item/xenoarch/broken_item/weapon))
-		var/spawn_item = pickweight(GLOB.weapon_reward)
+		var/spawn_item = pick_weight(GLOB.weapon_reward)
 		recover_item(spawn_item, content_obj)
 		return
 	if(istype(content_obj, /obj/item/xenoarch/broken_item/illegal))
-		var/spawn_item = pickweight(GLOB.illegal_reward)
+		var/spawn_item = pick_weight(GLOB.illegal_reward)
 		recover_item(spawn_item, content_obj)
 		return
 	if(istype(content_obj, /obj/item/xenoarch/broken_item/alien))
-		var/spawn_item = pickweight(GLOB.alien_reward)
+		var/spawn_item = pick_weight(GLOB.alien_reward)
 		recover_item(spawn_item, content_obj)
 		return
 	if(istype(content_obj, /obj/item/xenoarch/broken_item/plant))
