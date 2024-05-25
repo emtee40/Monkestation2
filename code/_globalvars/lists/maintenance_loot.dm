@@ -284,6 +284,18 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/instrument/violin = 5,
 		/obj/item/instrument/violin/golden = 2,
 		) = 2,
+		
+	list(//paint
+		/obj/item/paint/anycolor = 1,
+		/obj/item/paint/black = 1,
+		/obj/item/paint/blue = 1,
+		/obj/item/paint/green = 1,
+		/obj/item/paint/paint_remover = 1,
+		/obj/item/paint/red = 1,
+		/obj/item/paint/violet = 1,
+		/obj/item/paint/white = 1,
+		/obj/item/paint/yellow = 1,
+		) = 1,
 
 	list(//fakeout items, keep this list at low relative weight
 		/obj/item/clothing/shoes/jackboots = 1,
@@ -316,18 +328,6 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/storage/belt/security = 1,
 		) = 1,
 
-	list(//paint
-		/obj/item/paint/anycolor = 1,
-		/obj/item/paint/black = 1,
-		/obj/item/paint/blue = 1,
-		/obj/item/paint/green = 1,
-		/obj/item/paint/paint_remover = 1,
-		/obj/item/paint/red = 1,
-		/obj/item/paint/violet = 1,
-		/obj/item/paint/white = 1,
-		/obj/item/paint/yellow = 1,
-		) = 1,
-
 	list(//medical and chemicals
 		list(//medkits
 			/obj/item/storage/box/hug/medical = 1,
@@ -346,6 +346,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/book/granter/crafting_recipe/maint_gun/pipegun_prime = 1,
 		/obj/item/book/granter/crafting_recipe/trash_cannon = 1,
 		/obj/item/book/granter/crafting_recipe/maint_gun/laser_musket_prime = 1,
+		/obj/item/book/granter/crafting_recipe/maint_gun/smoothbore_disabler_prime = 1,
 		/obj/item/book/granter/sign_language = 1,
 		/obj/item/disk/nuclear/fake = 1,
 		/obj/item/skillchip/brainwashing = 1,
