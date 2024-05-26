@@ -1,4 +1,4 @@
-/obj/item/skillchip/job/cyberjacker
+/obj/item/skillchip/cyberjacker
 	name = "Robotics Cybergrid Bypass Protocol"
 	desc = "Used by both ethical and unethical roboticists to create the perfect machine."
 	auto_traits = list(TRAIT_BETTER_CYBERCONNECTOR)

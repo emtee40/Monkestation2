@@ -45,7 +45,7 @@
 /obj/item/organ/internal/cyberimp/leg/accelerator
 	name = "P.R.Y.Z.H.O.K. accelerator system"
 	desc = "Russian implant that allows you to tackle people. You need to implant this in both of your legs to make it work."
-	encode_info = AUGMENT_TG_LEVEL
+	encode_info = AUGMENT_NT_HIGHLEVEL
 	double_legged = TRUE
 	var/datum/component/tackler
 

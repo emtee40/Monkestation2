@@ -164,7 +164,7 @@
 	icon_state = "implant_mask"
 	slot = ORGAN_SLOT_BREATHING_TUBE
 	w_class = WEIGHT_CLASS_TINY
-	encode_info = AUGMENT_NT_LOWLEVEL
+	encode_info = AUGMENT_NO_REQ
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	. = ..()
