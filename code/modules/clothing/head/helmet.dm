@@ -455,8 +455,8 @@
 	strip_delay = 60
 
 /datum/armor/helmet_durathread
-	melee = 25
-	bullet = 15
+	melee = 20
+	bullet = 10
 	laser = 30
 	energy = 40
 	bomb = 15

@@ -88,5 +88,6 @@
 	can_adjust = FALSE
 
 /datum/armor/misc_durathread
+	bullet = 5
 	energy = 5
 	wound = 5

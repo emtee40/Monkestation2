@@ -100,7 +100,6 @@
 
 /datum/armor/misc_durathread
 	melee = 10
-	bullet = 5
 	laser = 10
 	fire = 40
 	acid = 10
