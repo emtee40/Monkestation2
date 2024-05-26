@@ -93,6 +93,8 @@ GLOBAL_LIST_INIT(hive_exits, list())
 
 /obj/structure/hive_exit/Destroy()
 	. = ..()
+	if(!linked_hive || !get_turf(linked_hive))
+		return
 	for(var/atom/movable/listed in atoms_inside)
 		listed.forceMove(get_turf(linked_hive))
 	var/area/area = get_area(src)
