@@ -72,7 +72,7 @@
 
 	box = /obj/item/storage/box/survival/security
 
-	implants = list(/obj/item/implant/mindshield) // i think this is stupid but this was apparently agreed upon ~lucy
+	implants = list(/obj/item/implant/mindshield)
 
 /datum/id_trim/job/blueshield
 	assignment = "Blueshield"
