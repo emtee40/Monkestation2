@@ -1,8 +1,7 @@
-/*
 /mob/living/basic/sheep
 	name = "sheep"
 	desc = "Known for their soft wool and use in sacrifical rituals. Big fan of grass."
-	icon = 'icons/mob/simple/sheep.dmi'
+	icon = 'monkestation/code/modules/ranching/icons/sheep.dmi'
 	icon_state = "sheep"
 	icon_dead = "sheep_dead"
 	base_icon_state = "sheep"
@@ -29,29 +28,31 @@
 
 	/// Were we sacrificed by cultists?
 	var/cult_converted = FALSE
+	var/wool_icon_state = "wool"
+	///our output path
+	var/output = /obj/item/stack/sheet/cotton/wool
+	var/color_mut
 
 /mob/living/basic/sheep/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/mob_harvest, \
-		harvest_tool = /obj/item/razor, \
-		fed_item = /obj/item/food/grown/grass, \
-		produced_item_typepath = /obj/item/stack/sheet/cotton/wool, \
-		produced_item_desc = "soft wool", \
-		max_ready = 10, \
-		item_generation_wait = 3 MINUTES, \
-		item_reduction_time = 30 SECONDS, \
-		item_harvest_time = 5 SECONDS, \
-		item_harvest_sound = 'sound/surgery/scalpel1.ogg', \
-	)
+	set_icon_states()
+	if(prob(33))
+		gender = MALE
+
+	AddComponent(/datum/component/shearable, output, 1, 5 MINUTES, 'monkestation/code/modules/ranching/icons/sheep.dmi', wool_icon_state, CALLBACK(src, PROC_REF(regrow)), CALLBACK(src, PROC_REF(on_shear)))
+
 	AddElement(/datum/element/ai_retaliate)
 	RegisterSignal(src, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_sacrificed))
 
 /mob/living/basic/sheep/update_overlays()
 	. = ..()
+	if(gender == MALE)
+		. += mutable_appearance(icon, "horns", layer + 0.1, src, appearance_flags = RESET_COLOR)
 	if(stat == DEAD)
 		return
 	if(cult_converted)
 		. += "hat"
+
 
 /// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to have special interaction with sacrificing a lamb
 /mob/living/basic/sheep/proc/on_sacrificed(datum/source, list/invokers)
@@ -93,4 +94,21 @@
 		/datum/ai_planning_subtree/flee_target,
 	)
 
-*/
+/mob/living/basic/sheep/proc/regrow()
+	return
+
+/mob/living/basic/sheep/proc/on_shear()
+	return
+
+/mob/living/basic/sheep/proc/set_icon_states()
+	if(color_mut)
+		icon_dead = "dead_greyscale"
+		icon_living = "base_greyscale"
+		color = color_mut
+	else
+		if(prob(50))
+			icon_dead = "dead_black"
+			icon_living = "base_black"
+		else
+			icon_dead = "dead_white"
+			icon_living = "base_white"

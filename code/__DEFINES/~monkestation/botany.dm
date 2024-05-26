@@ -49,3 +49,5 @@
 #define COMSIG_HAPPINESS_ADJUST "happiness_adjustment"
 #define COMSIG_HAPPINESS_RETURN_VALUE "happiness_return"
 #define COMSIG_HAPPINESS_PASS_HAPPINESS "happiness_pass"
+
+#define COMSIG_MOB_SHEARED "comsig_mob_sheared"
