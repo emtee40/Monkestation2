@@ -134,7 +134,6 @@
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
-	bayonet = TRUE
 
 /obj/item/knife/combat/bone
 	name = "bone dagger"
