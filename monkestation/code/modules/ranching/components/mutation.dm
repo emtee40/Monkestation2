@@ -55,10 +55,10 @@
 		if(!COOLDOWN_FINISHED(src, gestate_cooldown))
 			return
 		gestating = TRUE
-		addtimer(CALLBACK(src, PROC_REF(finished_gestate), passes_minimum_checks), gestate_timer)
+		addtimer(CALLBACK(src, PROC_REF(finished_gestate), passes_minimum_checks, instability), gestate_timer)
 
 
-/datum/component/mutation/proc/finished_gestate(passes_minimum_checks)
+/datum/component/mutation/proc/finished_gestate(passes_minimum_checks, instability = 10)
 	gestating = FALSE
 	COOLDOWN_START(src, gestate_cooldown, gestate_cooldown_time)
 	var/turf/open/source_turf = get_turf(parent)
@@ -76,5 +76,10 @@
 					continue
 				real_mutations |= mutation
 				real_mutations[mutation] = value
+			if(length(real_mutations))
+				var/datum/mutation/ranching/picked_mutation = pick_weight(real_mutations)
+				child = new picked_mutation.baby(source_turf)
+			else
+				child = new parent_animal.child_type(source_turf)
 
 	parent_animal.pass_stats(child)

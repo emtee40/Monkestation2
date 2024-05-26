@@ -1,4 +1,5 @@
 /datum/mutation/ranching
+	var/mob/living/basic/baby
 	///Required Happiness
 	var/happiness
 	///temperature required
