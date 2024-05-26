@@ -95,11 +95,10 @@
 		return
 
 	var/size = 8
-	switch(cybernetic.encode_info)
-		if(AUGMENT_NT_LOWLEVEL)
-			size = 4
-		if(AUGMENT_NT_HIGHLEVEL)
-			size = 6
+	if(cybernetic.encode_info == AUGMENT_NT_LOWLEVEL)
+		size = 4
+	if(cybernetic.encode_info == AUGMENT_NT_HIGHLEVEL)
+		size = 6
 
 	if(HAS_TRAIT(user, TRAIT_BETTER_CYBERCONNECTOR))
 		size = max(4, size--)
