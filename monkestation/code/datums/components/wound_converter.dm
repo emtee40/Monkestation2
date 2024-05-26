@@ -18,7 +18,7 @@
 
 /datum/component/wound_converter/RegisterWithParent()
 	if(iscarbon(parent))
-		RegisterSignal(parent, COMSIG_PRE_CARBON_GAIN_WOUND, PROC_REF(on_pre_wound))
+//		RegisterSignal(parent, COMSIG_PRE_CARBON_GAIN_WOUND, PROC_REF(on_pre_wound))
 		return
 	if(istype(parent, /obj/item/bodypart))
 		return
