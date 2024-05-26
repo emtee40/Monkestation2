@@ -107,6 +107,7 @@
 	inhand_icon_state = "huntingknife"
 	icon_state = "huntingknife"
 	wound_bonus = 10
+	bayonet = TRUE
 
 /obj/item/knife/hunting/set_butchering()
 	AddComponent(/datum/component/butchering, \
@@ -172,6 +173,7 @@
 	attack_verb_simple = list("shank", "shiv")
 	armor_type = /datum/armor/none
 	custom_materials = list(/datum/material/glass = SMALL_MATERIAL_AMOUNT * 4)
+	bayonet = TRUE
 
 /obj/item/knife/shiv/Initialize(mapload)
 	flags_1 &= ~CONDUCT_1
