@@ -21,9 +21,12 @@
 		RegisterSignal(parent, COMSIG_PRE_CARBON_GAIN_WOUND, PROC_REF(on_pre_wound))
 		return
 	if(istype(parent, /obj/item/bodypart))
+		return
 
 /datum/component/wound_converter/Destroy(force, silent)
 	. = ..()
 	//var/eee = exact_type_conversions[item] || general_type_conversions[item]
 
 /datum/component/wound_converter/proc/on_pre_wound()
+	SIGNAL_HANDLER
+	return
