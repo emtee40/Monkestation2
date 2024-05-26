@@ -48,14 +48,14 @@
 
 	id_trim = /datum/id_trim/job/blueshield
 	uniform = /obj/item/clothing/under/rank/security/officer/blueshirt
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/paco/no_mag //monkestation edit: Paco sec
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/paco/no_mag
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m35/rubber = 2,
 		/obj/item/restraints/handcuffs/cable/zipties = 1,
 		/obj/item/reagent_containers/spray/pepper = 1
 	)
-	head = /obj/item/clothing/head/beret/sec/navyofficer //monkestation edit: cowboy sec
-	suit = /obj/item/clothing/suit/armor/blueshield //monkestation edit: cowboy sec
+	head = /obj/item/clothing/head/beret/sec/navyofficer
+	suit = /obj/item/clothing/suit/armor/blueshield
 
 	belt = /obj/item/modular_computer/pda/security
 	shoes = /obj/item/clothing/shoes/sneakers/black

@@ -40,7 +40,7 @@
 #define JOB_RESEARCH_DIRECTOR "Research Director"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_CHIEF_MEDICAL_OFFICER "Chief Medical Officer"
-#define JOB_BLUESHIELD "Blueshield"
+#define JOB_BLUESHIELD "Blueshield" //Monke edit
 //Silicon
 #define JOB_AI "AI"
 #define JOB_CYBORG "Cyborg"
