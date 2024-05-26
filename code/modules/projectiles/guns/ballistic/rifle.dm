@@ -101,19 +101,20 @@
 	return ..()
 
 /obj/item/gun/ballistic/rifle/boltaction/attackby(obj/item/item, mob/user, params)
-	. = ..()
-	if(!can_jam)
-		balloon_alert(user, "can't jam!")
-		return
-
-	if(!bolt_locked)
+	if(!bolt_locked && !istype(item, /obj/item/knife))
 		balloon_alert(user, "bolt closed!")
 		return
 
-	if(istype(item, /obj/item/gun_maintenance_supplies) && do_after(user, 10 SECONDS, target = src))
-		user.visible_message(span_notice("[user] finishes maintenance of [src]."))
-		jamming_chance = initial(jamming_chance)
-		qdel(item)
+	. = ..()
+
+	if(istype(item, /obj/item/gun_maintenance_supplies))
+		if(!can_jam)
+			balloon_alert(user, "can't jam!")
+			return
+		if(do_after(user, 10 SECONDS, target = src))
+			user.visible_message(span_notice("[user] finishes maintaining [src]."))
+			jamming_chance = initial(jamming_chance)
+			qdel(item)
 
 /obj/item/gun/ballistic/rifle/boltaction/blow_up(mob/user)
 	. = FALSE
@@ -181,6 +182,7 @@
 	can_modify_ammo = TRUE
 	can_misfire = FALSE
 	can_bayonet = TRUE
+	knife_x_offset = 25
 	knife_y_offset = 11
 	can_be_sawn_off = FALSE
 	projectile_damage_multiplier = 0.75
