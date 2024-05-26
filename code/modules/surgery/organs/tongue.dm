@@ -74,6 +74,7 @@
 		/datum/language/nekomimetic,
 		/datum/language/ratvar, //Monkestation Edit
 		/datum/language/goblin, //Monkestation Addition
+		/datum/language/spacer, //Monkestation Addition
 	)
 
 /obj/item/organ/internal/tongue/proc/handle_speech(datum/source, list/speech_args)
