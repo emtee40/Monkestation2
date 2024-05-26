@@ -57,7 +57,8 @@
 		else
 			if(maxiumum_life_happiness == 0)
 				return
-		maximum_drain = min(maxiumum_life_happiness, adjustment)
+			maximum_drain = min(maxiumum_life_happiness, adjustment)
+
 		maxiumum_life_happiness -= maximum_drain
 		current_happiness += maximum_drain
 	else
