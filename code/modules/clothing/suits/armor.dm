@@ -476,14 +476,13 @@
 	dog_fashion = null
 
 /datum/armor/vest_durathread
-	melee = 25
-	bullet = 15
+	melee = 20
+	bullet = 10
 	laser = 30
 	energy = 40
 	bomb = 15
 	fire = 40
 	acid = 50
-	wound = 5
 
 /obj/item/clothing/suit/armor/vest/russian
 	name = "russian vest"

@@ -326,3 +326,8 @@
 	greyscale_colors = null
 
 //End of Bunny Costume Jackets
+
+/datum/armor/vest_durathread
+	melee = 25
+	bullet = 15
+	wound = 5

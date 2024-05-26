@@ -86,3 +86,7 @@
 	worn_icon = 'monkestation/icons/mob/clothing/uniform.dmi'
 	icon_state = "artisan"
 	can_adjust = FALSE
+
+/datum/armor/misc_durathread
+	energy = 5
+	wound = 5
