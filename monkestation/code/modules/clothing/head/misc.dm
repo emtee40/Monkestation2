@@ -222,5 +222,4 @@
 	icon_state = "syndieheadband"
 
 /datum/armor/helmet_durathread
-	melee = 25
 	bullet = 15
