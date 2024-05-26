@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Burnt Orange" = "#cc4400",
 	"Cyan Blue" = "#00ffff",
 	"Dark Blue" = "#6666ff",
-	"Dark Fuschia" = "#cc0066",
+	"Dark Fuschia" = "#C70064", //Monkestation Edit: #CC0066 TO #C70064
 
 	"Dark Green" = "#37835b",
 	"Dark Red" = "#9c3030",
@@ -77,6 +77,8 @@ GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "#ff4d4d",
 	"Seafoam Green" = "#00fa9a",
 	"White" = "#f2f2f2",
+	"Fuschia" = "#FF0066", //Monkestation Addition
+	"Dark Purple" = "#502A77", //Monkestation Addition
 ))
 
 GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
