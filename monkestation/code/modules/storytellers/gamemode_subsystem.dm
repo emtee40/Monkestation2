@@ -271,8 +271,14 @@ SUBSYSTEM_DEF(gamemode)
 		if(!observers)
 			if(!ready_players && !isliving(candidate))
 				continue
-			if(no_antags && candidate.mind.special_role)
-				continue
+			if(no_antags && !isnull(candidate.mind.antag_datums))
+				var/real = FALSE
+				for(var/datum/antagonist/antag_datum as anything in candidate.mind.antag_datums)
+					if(!(antag_datum.antag_flags & FLAG_FAKE_ANTAG))
+						real = TRUE
+						break
+				if(real)
+					continue
 			if(restricted_roles && (candidate.mind.assigned_role.title in restricted_roles))
 				continue
 			if(length(required_roles) && !(candidate.mind.assigned_role.title in required_roles))
