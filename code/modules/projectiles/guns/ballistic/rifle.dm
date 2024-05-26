@@ -181,6 +181,7 @@
 	can_modify_ammo = TRUE
 	can_misfire = FALSE
 	can_bayonet = TRUE
+	knife_x_offset = 25
 	knife_y_offset = 11
 	can_be_sawn_off = FALSE
 	projectile_damage_multiplier = 0.75
