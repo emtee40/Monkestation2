@@ -6,7 +6,7 @@
 	name = "Maintenance Knowledge"
 	desc = "Creates a tome teaching you how to make an improved improvised weapon."
 	favor_cost = 100 //You still have to make the weapon afterwards, might want to change this though.
-	invoke_msg = "Grant me the ingenuinity of the Maintenance Khan!"
+	invoke_msg = "Grant me your ingenuity!"
 	ritual_length = 5 SECONDS
 
 /datum/religion_rites/weapon_granter/invoke_effect(mob/living/user, atom/movable/religious_tool)
