@@ -47,4 +47,4 @@
 #define DISEASE_DECLONING "decloning"
 #define DISEASE_ANXIETY "anxiety"
 
-#define DISEASE_DORMANT (1 << 0)
+#define DISEASE_DORMANT (1 << 3)
