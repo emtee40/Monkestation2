@@ -58,3 +58,13 @@
 		/obj/item/flashlight = 5,
 		/obj/item/clothing/ears/earmuffs = 1,
 	)
+
+/obj/machinery/vending/cola
+	premium = list(
+		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/nuka_cola = 3,
+		/obj/item/reagent_containers/cup/glass/drinkingglass/filled/sunset_sarsaparilla = 3, // monkestation edit
+		/obj/item/reagent_containers/cup/soda_cans/air = 3,
+		/obj/item/reagent_containers/cup/soda_cans/monkey_energy = 3,
+		/obj/item/reagent_containers/cup/soda_cans/grey_bull = 3,
+		/obj/item/reagent_containers/cup/glass/bottle/rootbeer = 3,
+	)
