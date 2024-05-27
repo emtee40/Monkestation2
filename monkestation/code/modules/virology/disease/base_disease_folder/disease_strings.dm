@@ -5,14 +5,20 @@
 	return dat
 
 /datum/disease/proc/name(override=FALSE)
-	.= "[form] #["[uniqueID]"][childID ? "-["[childID]"]" : ""]"
+	if(disease_flags & DISEASE_DORMANT)
+		.= "DORMANT - [form] #["[uniqueID]"][childID ? "-["[childID]"]" : ""]"
+	else
+		.= "[form] #["[uniqueID]"][childID ? "-["[childID]"]" : ""]"
 
 	if (!override && ("[uniqueID]-[subID]" in GLOB.virusDB))
 		var/datum/data/record/V = GLOB.virusDB["[uniqueID]-[subID]"]
 		.= V.fields["name"]
 
 /datum/disease/proc/real_name()
-	.= "[form] #["[uniqueID]"]-["[subID]"]"
+	if(disease_flags & DISEASE_DORMANT)
+		.= "DORMANT - [form] #["[uniqueID]"]-["[subID]"]"
+	else
+		.= "[form] #["[uniqueID]"]-["[subID]"]"
 	if ("[uniqueID]-[subID]" in GLOB.virusDB)
 		var/datum/data/record/v = GLOB.virusDB["[uniqueID]-[subID]"]
 		var/nickname = v.fields["nickname"] ? " \"[v.fields["nickname"]]\"" : ""
