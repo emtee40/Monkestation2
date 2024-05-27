@@ -112,7 +112,7 @@
 		layed_egg.production_type = production_type
 
 	if(eggs_fertile)
-		var/rooster_nearby = FALSE
+		var/rooster_nearby = FALSE //not used atm as I don't have it set to always spawn a breeding pair
 		for(var/mob/living/basic/chicken/chicken in view(4, src))
 			if(chicken.gender == MALE)
 				rooster_nearby = TRUE
