@@ -48,7 +48,7 @@
 
 /datum/mutation/ranching/proc/check_happiness(atom/checkee, is_egg)
 	if(happiness)
-		return SEND_SIGNAL(checkee, COMSIG_HAPPINESS_PASS_HAPPINESS, happiness)
+		return SEND_SIGNAL(checkee, COMSIG_HAPPINESS_CHECK_RANGE, happiness)
 	return TRUE
 
 /datum/mutation/ranching/proc/check_food(atom/checkee, is_egg)
