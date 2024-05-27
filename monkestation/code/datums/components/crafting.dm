@@ -33,3 +33,6 @@
 		/obj/item/stack/sheet/mineral/gold = 5,
 		/obj/item/stock_parts/cell/super = 1,
 	)
+
+/datum/crafting_recipe/riflestock
+	tool_behaviors = list(TOOL_KNIFE)
