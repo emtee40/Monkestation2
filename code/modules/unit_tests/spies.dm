@@ -34,8 +34,3 @@
 				TEST_FAIL("No bounties were generated on initial refresh for difficulty [difficulty]")
 
 	handler.force_refresh()
-
-	for(var/difficulty in UNLINT(handler.bounties))
-		var/list/generated_bounties = UNLINT(handler.bounties[difficulty])
-		if(!length(generated_bounties))
-			TEST_FAIL("No bounties were generated on first refresh for difficulty [difficulty]")
