@@ -12,7 +12,7 @@
 	// Waits 5 minutes before calling the ascension
 	addtimer(CALLBACK(src, PROC_REF(ascend), our_mob), 5 MINUTES)
 	/* PLANS
-	* Make this spawn a cool meator heart/other chrysalis whilst the bloodling is pulsing
+	* Make this spawn a cool meator heart/other chrysalis whilst the bloodling is gestating
 	*/
 	return TRUE
 

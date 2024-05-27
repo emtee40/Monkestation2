@@ -69,7 +69,7 @@
 	sight = SEE_SELF|SEE_MOBS
 
 	biomass = 50
-	biomass_max = 500
+	biomass_max = 750
 	/// The evolution level our bloodling is on
 	var/evolution_level = 0
 
