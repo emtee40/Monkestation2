@@ -75,6 +75,7 @@
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
 // BEGIN_INCLUDE
+#include "abductor_baton_spell.dm"
 #include "ablative_hud.dm"
 #include "achievements.dm"
 #include "anchored_mobs.dm"
@@ -127,7 +128,6 @@
 #include "heretic_rituals.dm"
 #include "high_five.dm"
 #include "holidays.dm"
-#include "human_through_recycler.dm"
 #include "hunger_curse.dm"
 #include "hydroponics_extractor_storage.dm"
 #include "hydroponics_validate_genes.dm"

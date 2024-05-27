@@ -18,9 +18,9 @@
 	/// Used interally, you don't want to modify
 	var/cooldown_check = 0
 	/// Default wait time until can stun again.
-	var/cooldown = (4 SECONDS) //monkestation edit
+	var/cooldown = (1.5 SECONDS)
 	/// The length of the knockdown applied to a struck living, non-cyborg mob.
-	var/knockdown_time = (1.5 SECONDS)
+	var/knockdown_time = (0 SECONDS) //monkestation edit
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
 	var/stun_time_cyborg = (5 SECONDS)
 	/// The length of the knockdown applied to the user on clumsy_check()
@@ -136,7 +136,7 @@
 
 	if(!chunky_finger_usable && ishuman(user))
 		var/mob/living/carbon/human/potential_chunky_finger_human = user
-		if(potential_chunky_finger_human.check_chunky_fingers() && user.is_holding(src))
+		if(potential_chunky_finger_human.check_chunky_fingers() && user.is_holding(src) && !HAS_MIND_TRAIT(user, TRAIT_CHUNKYFINGERS_IGNORE_BATON))
 			balloon_alert(potential_chunky_finger_human, "fingers are too big!")
 			return BATON_ATTACK_DONE
 

@@ -146,7 +146,7 @@
 /obj/item/autosurgeon/syndicate/laser_arm
 	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
-	starting_organ = /obj/item/organ/internal/cyberimp/arm/gun/laser
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/gun/laser
 
 /obj/item/autosurgeon/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/robotic/thermals
@@ -170,7 +170,7 @@
 	organ_whitelist += /obj/item/organ/internal/tongue
 
 /obj/item/autosurgeon/syndicate/emaggedsurgerytoolset
-	starting_organ = /obj/item/organ/internal/cyberimp/arm/surgery/emagged
+	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/surgery/emagged
 
 /obj/item/autosurgeon/syndicate/contraband_sechud
 	desc = "Contains a contraband SecHUD implant, undetectable by health scanners."

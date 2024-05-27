@@ -11,6 +11,11 @@
 #define SMOOTH_QUEUED (1<<4)
 /// Smooths with objects, and will thus need to scan turfs for contents.
 #define SMOOTH_OBJ (1<<5)
+/// Uses directional object smoothing, so we care not only about something being on the right turf, but also its direction
+/// Changes the meaning of smoothing_junction, instead of representing the directions we are smoothing in
+/// it represents the sides of our directional border object that have a neighbor
+/// Is incompatible with SMOOTH_CORNERS because border objects don't have corners
+#define SMOOTH_BORDER_OBJECT (1<<6)
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -19,6 +24,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_BORDER" = SMOOTH_BORDER,
 	"SMOOTH_QUEUED" = SMOOTH_QUEUED,
 	"SMOOTH_OBJ" = SMOOTH_OBJ,
+	"SMOOTH_BORDER_OBJECT" = SMOOTH_BORDER_OBJECT,
 ))
 
 
@@ -138,6 +144,8 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM S_OBJ(24) ///turf/closed/indestructible/opsglass, /obj/structure/window/reinforced/plasma/plastitanium
 #define SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE S_OBJ(25) ///obj/structure/window/reinforced/shuttle
 
+#define SMOOTH_GROUP_WINDOW_DIRECTIONAL_TRAM S_OBJ(26) ///obj/structure/window/reinforced/tram
+
 #define SMOOTH_GROUP_LATTICE S_OBJ(31) ///obj/structure/lattice
 #define SMOOTH_GROUP_CATWALK S_OBJ(32) ///obj/structure/lattice/catwalk
 
@@ -174,6 +182,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_GRILLE S_OBJ(75)
 
+#define SMOOTH_GROUP_WAXWALL S_OBJ(76)
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.
 #define SETUP_SMOOTHING(...) \

@@ -184,6 +184,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FENCE_CLIMBER "can_climb_fences"
 /// means that you can't use weapons with normal trigger guards.
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"
+#define TRAIT_CHUNKYFINGERS_IGNORE_BATON "chunkyfingers_ignore_baton"
 #define TRAIT_DUMB "dumb"
 /// Whether a mob is dexterous enough to use machines and certain items or not.
 #define TRAIT_ADVANCEDTOOLUSER "advancedtooluser"
@@ -635,6 +636,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This movable atom has the explosive block element
 #define TRAIT_BLOCKING_EXPLOSIVES "blocking_explosives"
 
+///Lava will be safe to cross while it has this trait.
+#define TRAIT_LAVA_STOPPED "lava_stopped"
+///Chasms will be safe to cross while they've this trait.
+#define TRAIT_CHASM_STOPPED "chasm_stopped"
+///Turf slowdown will be ignored when this trait is added to a turf.
+#define TRAIT_TURF_IGNORE_SLOWDOWN "turf_ignore_slowdown"
+///Mobs won't slip on a wet turf while it has this trait
+#define TRAIT_TURF_IGNORE_SLIPPERY "turf_ignore_slippery"
+
 /// Mobs with this trait can't send the mining shuttle console when used outside the station itself
 #define TRAIT_FORBID_MINING_SHUTTLE_CONSOLE_OUTSIDE_STATION "forbid_mining_shuttle_console_outside_station"
 
@@ -816,6 +826,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
+
+///Trait applied to turf blocked by a containment field
+#define TRAIT_CONTAINMENT_FIELD "containment_field"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
@@ -1300,3 +1313,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
+///trait given to food that can be baked by /datum/component/bakeable
+#define TRAIT_BAKEABLE "bakeable"
+
+/// Trait given to foam darts that have an insert in them
+#define TRAIT_DART_HAS_INSERT "dart_has_insert"
+
+///Trait granted by janitor skillchip, allows communication with cleanbots
+#define TRAIT_CLEANBOT_WHISPERER "cleanbot_whisperer"
+
+/// Trait given when a mob is currently in invisimin mode
+#define TRAIT_INVISIMIN "invisimin"
+
+///Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+
+// END TRAIT DEFINES

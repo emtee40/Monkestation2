@@ -131,6 +131,12 @@
 	donator_only = TRUE
 	requires_purchase = FALSE
 
+/datum/loadout_item/head/snowman
+	name = "Snowman Head"
+	item_path = /obj/item/clothing/head/costume/snowman
+	donator_only = TRUE
+	requires_purchase = FALSE
+
 /datum/loadout_item/toys/seam_plush
 	name = "Seam Plush"
 	item_path = /obj/item/toy/plush/seam
@@ -322,15 +328,34 @@
 
 //quilark
 /datum/loadout_item/suit/coat_quilark
-	name = "discontinued winter coat"
+	name = "Discontinued Winter Coat"
 	item_path = /obj/item/clothing/suit/toggle/quilark
 	donator_only = TRUE
 	requires_purchase = FALSE
 
 /datum/loadout_item/head/fur_cap_quilark
-	name = "discontinued cross hat"
+	name = "Discontinued Cross Hat"
 	item_path = /obj/item/clothing/head/costume/fur_cap_quilark
 	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/toys/quilark
+	name = "Quilark Plush"
+	item_path = /obj/item/toy/plush/quilark
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/pocket_items/donator/quilava
+	name = "Pet Delivery Beacon - Quil Maid"
+	item_path = /obj/item/choice_beacon/pet/donator/quilava
+	donator_only = TRUE
+	requires_purchase = FALSE
+	ckeywhitelist = list("quilark")
+
+/datum/loadout_item/effects/quilava
+	ckeywhitelist = list("quilark")
+	name = "Quil Maid Transformation"
+	item_path = /obj/item/effect_granter/donator/quilava
 	requires_purchase = FALSE
 
 /datum/loadout_item/suit/org_thirteen
@@ -338,3 +363,48 @@
 	item_path = /obj/item/clothing/suit/hooded/org_thirteen
 	donator_only = TRUE
 	requires_purchase = FALSE
+
+//kumi
+/datum/loadout_item/suit/kimono_kumi
+	name = "Shrine Keeper's Kimono"
+	item_path = /obj/item/clothing/suit/jacket/kimono_kumi
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/under/miscellaneous/sarashi_kumi
+	name = "Shrine Keeper's Sarashi"
+	item_path = /obj/item/clothing/under/sarashi_kumi
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/shoes/sandals_kumi
+	name = "Shrine Keeper's Sandals"
+	item_path = /obj/item/clothing/shoes/sandal/kumi
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/gloves/fingerless_long
+	name = "Long Fingerless Gloves"
+	item_path = /obj/item/clothing/gloves/fingerless/long
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+/datum/loadout_item/neck/bell
+	name = "Bell Necklace"
+	item_path = /obj/item/clothing/neck/bell
+	donator_only = TRUE
+	requires_purchase = FALSE
+//OLIVER ITEMS
+/datum/loadout_item/suit/jacket_oliver
+	name = "Scarved Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket_oliver
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+//GNOB ITEMS
+/datum/loadout_item/glasses/sechud_terminated
+	name = "Terminated Sechuds"
+	item_path = /obj/item/clothing/glasses/hud/security/terminated
+	donator_only = TRUE
+	requires_purchase = FALSE
+	restricted_roles = list(JOB_SECURITY_OFFICER,JOB_SECURITY_ASSISTANT,JOB_HEAD_OF_SECURITY,JOB_WARDEN)
