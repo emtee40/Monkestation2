@@ -4,6 +4,7 @@
 	breed_name = "Void"
 	egg_type = /obj/item/food/egg/void
 	mutation_list = list()
+	liked_foods = list(/obj/item/food/grown/eggplant = 5)
 
 	book_desc = "Born from the suffering of White Chickens, they produce eggs that shrink you in size for a short duration. Research has shown this causes increased physical damage during the duration."
 

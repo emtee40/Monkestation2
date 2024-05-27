@@ -112,6 +112,12 @@
 		layed_egg.production_type = production_type
 
 	if(eggs_fertile)
+		var/rooster_nearby = FALSE
+		for(var/mob/living/basic/chicken/chicken in view(4, src))
+			if(chicken.gender == MALE)
+				rooster_nearby = TRUE
+				break
+
 		if(prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) //25
 			if(mutant)
 				layed_egg.AddComponent(/datum/component/hatching, 100, CALLBACK(layed_egg, TYPE_PROC_REF(/obj/item/food/egg, pre_hatch)), layed_egg.low_temp, layed_egg.high_temp, layed_egg.low_pressure, layed_egg.high_pressure, layed_egg.liquid_depth, layed_egg.turf_requirements, layed_egg.nearby_mob)
