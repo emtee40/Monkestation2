@@ -22,6 +22,10 @@
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	tool_paths = list(/obj/item/spear = 1)
+	time = 20 SECONDS //contemplate for a bit
+	
+/datum/crafting_recipe/laser_musket_prime
+	time = 20
 
 /datum/crafting_recipe/smoothbore_disabler_prime
 	reqs = list(
