@@ -1,3 +1,4 @@
+/* monkestation: replaced by [monkestation\code\datums\records\record.dm]
 /**
  * Record datum. Used for crew records and admin locked records.
  */
@@ -273,3 +274,4 @@
 	printed_paper.update_appearance()
 
 	return printed_paper
+*/
