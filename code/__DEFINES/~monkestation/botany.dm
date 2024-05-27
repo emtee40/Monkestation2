@@ -47,7 +47,11 @@
 #define COMSIG_AGE_ADJUSTMENT "age_adjust"
 #define COMSIG_AGE_RETURN_AGE "age_return"
 #define COMSIG_HAPPINESS_ADJUST "happiness_adjustment"
-#define COMSIG_HAPPINESS_RETURN_VALUE "happiness_return"
+#define COMSIG_HAPPINESS_CHECK_RANGE "happiness_check_range"
 #define COMSIG_HAPPINESS_PASS_HAPPINESS "happiness_pass"
 
 #define COMSIG_MOB_SHEARED "comsig_mob_sheared"
+
+#define POINTER_CREATE(pointer_var) &cd_index
+#define POINTER_RESOLVE(resolved_var, pointer) var/##resolved_var = *pointer
+#define POINTER_SET(pointer, value) *pointer = value
