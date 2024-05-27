@@ -51,7 +51,3 @@
 #define COMSIG_HAPPINESS_PASS_HAPPINESS "happiness_pass"
 
 #define COMSIG_MOB_SHEARED "comsig_mob_sheared"
-
-#define POINTER_CREATE(pointer_var) &cd_index
-#define POINTER_RESOLVE(resolved_var, pointer) var/##resolved_var = *pointer
-#define POINTER_SET(pointer, value) *pointer = value
