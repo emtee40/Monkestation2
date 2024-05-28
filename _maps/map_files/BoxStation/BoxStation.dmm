@@ -441,15 +441,14 @@
 /area/station/security/medical)
 "aiw" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
+/obj/item/storage/bag/tray,
+/obj/item/kitchen/rollingpin{
+	pixel_y = -4;
+	pixel_x = -5
 	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	layer = 3.1;
-	pixel_x = -2;
-	pixel_y = 2
+/obj/item/kitchen/rollingpin{
+	pixel_y = -4;
+	pixel_x = 4
 	},
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
@@ -1413,6 +1412,9 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/turf_decal/trimline/dark_red/arrow_cw{
+	dir = 8
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/prison/shower)
 "azP" = (
@@ -16691,14 +16693,16 @@
 /area/station/security/prison/safe)
 "fFi" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
-/obj/item/storage/bag/tray/cafeteria,
+/obj/item/reagent_containers/condiment/saltshaker{
+	layer = 3.1;
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
+	pixel_x = -8;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "fFr" = (
@@ -17868,6 +17872,16 @@
 "fZB" = (
 /turf/open/floor/wood,
 /area/station/service/bar)
+"fZC" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/duct,
+/obj/effect/turf_decal/trimline/dark_red/arrow_cw{
+	dir = 10
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/station/security/prison/shower)
 "fZD" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -19503,6 +19517,9 @@
 "gAW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 1
+	},
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "gAX" = (
@@ -19517,7 +19534,10 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "gBr" = (
-/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "gBF" = (
@@ -36491,6 +36511,7 @@
 /area/station/engineering/main)
 "mij" = (
 /obj/machinery/grill,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "min" = (
@@ -40709,6 +40730,7 @@
 /area/station/service/hydroponics/garden)
 "nDV" = (
 /obj/machinery/oven/range,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "nEn" = (
@@ -48076,6 +48098,7 @@
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "qds" = (
@@ -50000,6 +50023,7 @@
 "qNz" = (
 /obj/machinery/biogenerator,
 /obj/item/radio/intercom/prison/directional/south,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "qNB" = (
@@ -50184,6 +50208,7 @@
 /area/station/security/execution)
 "qPN" = (
 /obj/machinery/smartfridge,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "qPP" = (
@@ -50938,6 +50963,7 @@
 /area/station/commons/fitness/recreation)
 "rdT" = (
 /obj/machinery/griddle,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "ref" = (
@@ -53235,8 +53261,9 @@
 "rOQ" = (
 /obj/machinery/duct,
 /obj/structure/table/reinforced,
-/obj/structure/reagent_dispensers/servingdish,
-/obj/structure/reagent_dispensers/servingdish,
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1
+	},
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "rOR" = (
@@ -59226,6 +59253,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/light/directional/north,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "tSE" = (
@@ -61058,6 +61086,7 @@
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/seed_extractor,
 /obj/machinery/camera/autoname/directional/south,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "uxh" = (
@@ -61983,6 +62012,7 @@
 "uNU" = (
 /obj/machinery/light/small/directional/south,
 /obj/machinery/composters,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/station/security/prison/garden)
 "uNX" = (
@@ -63410,6 +63440,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/item/soap/homemade,
+/obj/effect/turf_decal/trimline/dark_red/arrow_cw{
+	dir = 8
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/prison/shower)
 "vkX" = (
@@ -64055,6 +64088,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/department/security/brig)
+"vxa" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/duct,
+/obj/effect/turf_decal/trimline/dark_red/arrow_cw,
+/turf/open/floor/iron/showroomfloor,
+/area/station/security/prison/shower)
 "vxd" = (
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
@@ -70747,6 +70788,7 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 9
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/kitchen,
 /area/station/security/prison/mess)
 "xMY" = (
@@ -95286,7 +95328,7 @@ uZS
 eFv
 vkO
 azL
-mEQ
+fZC
 vyJ
 vez
 cCf
@@ -95543,7 +95585,7 @@ sEx
 eEO
 cCf
 nCu
-mEQ
+vxa
 xCo
 cCf
 cCf

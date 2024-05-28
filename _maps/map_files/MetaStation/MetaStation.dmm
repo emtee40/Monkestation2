@@ -3426,6 +3426,9 @@
 "bhV" = (
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
+"bif" = (
+/turf/closed/wall,
+/area/station/bitrunning/den)
 "bii" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -6677,8 +6680,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/machinery/grill,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "cxi" = (
@@ -8537,8 +8540,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/smartfridge,
 /obj/effect/turf_decal/bot,
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo"
+	},
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "djG" = (
@@ -16162,8 +16167,10 @@
 "gcX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/structure/reagent_dispensers/servingdish,
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "gdb" = (
@@ -16908,7 +16915,7 @@
 /area/station/engineering/main)
 "gpG" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/station/bitrunning/den)
 "gpO" = (
@@ -22166,6 +22173,7 @@
 	dir = 1
 	},
 /obj/machinery/deepfryer,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "ijZ" = (
@@ -23516,6 +23524,15 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/item/storage/bag/tray,
+/obj/item/kitchen/rollingpin{
+	pixel_y = -4;
+	pixel_x = -5
+	},
+/obj/item/kitchen/rollingpin{
+	pixel_y = -4;
+	pixel_x = 4
+	},
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "iEE" = (
@@ -30744,6 +30761,16 @@
 "kYg" = (
 /turf/closed/wall,
 /area/station/security/office)
+"kYk" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/station/security/prison/mess)
 "kYn" = (
 /obj/effect/spawner/random/engineering/atmospherics_portable,
 /turf/open/floor/plating,
@@ -48177,9 +48204,6 @@
 /obj/structure/cable,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/maintenance/solars/starboard/fore)
-"rft" = (
-/turf/closed/wall/r_wall,
-/area/station/security/prison/mess)
 "rfY" = (
 /obj/structure/lattice,
 /obj/structure/sign/warning/electric_shock/directional/east,
@@ -55003,7 +55027,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/structure/reagent_dispensers/servingdish,
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/station/security/prison/mess)
 "twr" = (
@@ -56365,6 +56391,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/greater)
+"tXp" = (
+/obj/machinery/smartfridge,
+/turf/closed/wall,
+/area/station/security/prison/mess)
 "tXx" = (
 /obj/effect/turf_decal/trimline/green/filled/corner{
 	dir = 8
@@ -87141,7 +87171,7 @@ lqG
 pVO
 idB
 rxd
-xAY
+bif
 sjp
 xMN
 swM
@@ -87655,7 +87685,7 @@ vje
 nwR
 uWI
 rkf
-xAY
+bif
 rlP
 uuE
 oaH
@@ -88164,14 +88194,14 @@ aaa
 aaa
 aaa
 xAY
-xAY
-xAY
-xAY
+bif
+bif
+bif
 gpG
-xAY
-xAY
-rft
-rft
+bif
+bif
+aXa
+aXa
 aXa
 aXa
 aXa
@@ -89199,7 +89229,7 @@ ljH
 ljH
 ljH
 oZL
-oZL
+kYk
 oZL
 dPI
 aXa
@@ -89457,7 +89487,7 @@ eql
 nJN
 gcX
 twp
-aXa
+tXp
 aIg
 aXa
 myH
