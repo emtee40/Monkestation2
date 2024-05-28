@@ -26,7 +26,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_CREW
 	greyscale_config = /datum/greyscale_config/ties
-	greyscale_config_worn = /datum/greyscale_config/ties/worn
+	greyscale_config_worn = /datum/greyscale_config/ties_worn //Monkestation Edit: renamed from: /datum/greyscale_config/ties/worn
 	greyscale_colors = "#151516ff"
 	flags_1 = IS_PLAYER_COLORABLE_1
 
