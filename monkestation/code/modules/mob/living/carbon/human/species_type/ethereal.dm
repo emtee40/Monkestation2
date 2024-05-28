@@ -10,18 +10,6 @@
 
 #define ETHEREAL_BLOOD_CHARGE_FACTOR 0.224
 
-/*
-100% = Full(Duh) = 560
-75% = Where you take no extra damage from shit : 420
-50% = Above this your good : 280
-
-25% = Below this you start taking toxin : 140
-
-10% = You cannot passively fall below this. : 56
-
-*/
-
-
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
@@ -238,8 +226,9 @@
 		ethereal_light.set_light_on(TRUE)
 		fixed_mut_color = current_color
 	else
-		ethereal_light.set_light_on(FALSE) //FIX BROKEN!!!!!
-		fixed_mut_color = rgb(128,128,128)
+		ethereal_light.set_light_on(FALSE)
+		current_color = rgb(230, 230, 230)
+		fixed_mut_color = current_color
 	ethereal.hair_color = current_color
 	ethereal.facial_hair_color = current_color
 	if(ethereal.organs_slot["horns"])
@@ -274,7 +263,7 @@
 	return TRUE
 
 /// Special handling for getting hit with a light eater
-/datum/species/ethereal/proc/on_light_eater(mob/living/carbon/human/source, datum/light_eater) //MAKE IT SO IT DOESN'T DELETE THE LIGHT FOREVER!!!!
+/datum/species/ethereal/proc/on_light_eater(mob/living/carbon/human/source, datum/light_eater)
 	SIGNAL_HANDLER
 	source.emp_act(EMP_LIGHT)
 	return COMPONENT_BLOCK_LIGHT_EATER
@@ -306,7 +295,6 @@
 
 /datum/species/ethereal/proc/on_after_attackedby(mob/living/lightbulb, obj/item/item, mob/living/user, proximity_flag, click_parameters)
 	SIGNAL_HANDLER
-	//todo: multitool color change
 	var/obj/item/clothing/mask/cigarette/cig = item
 	if(!proximity_flag || !istype(cig) || !istype(user) || cig.lit)
 		return
