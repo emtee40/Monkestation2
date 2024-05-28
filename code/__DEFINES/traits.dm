@@ -1293,7 +1293,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Do IPC's dream of doomsday? The answer is yes
 #define TRAIT_ROBOT_CAN_BLEED "robots_can_bleed"
-
 //monkestation edit end
 /// This atom can have spells cast from it if a mob is within it
 /// This means the "caster" of the spell is changed to the mob's loc
