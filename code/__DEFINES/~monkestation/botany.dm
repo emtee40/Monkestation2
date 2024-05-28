@@ -51,3 +51,8 @@
 #define COMSIG_HAPPINESS_PASS_HAPPINESS "happiness_pass"
 
 #define COMSIG_MOB_SHEARED "comsig_mob_sheared"
+
+
+#define TRAIT_TIN_EATER "tin_eater"
+#define TRAIT_LIVING_DRUNK "living_drunk"
+#define COMSIG_TRY_EAT_TRAIT "try_eat_trait"

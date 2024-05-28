@@ -106,6 +106,9 @@
 	if(!proximity_flag)
 		return
 
+	if(SEND_SIGNAL(src, COMSIG_TRY_EAT_TRAIT, target))
+		return
+
 	. |= AFTERATTACK_PROCESSED_ITEM
 
 	if(!check_allowed_items(target, target_self = TRUE))
