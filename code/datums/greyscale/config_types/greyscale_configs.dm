@@ -637,7 +637,6 @@
 /datum/greyscale_config/ties/worn
 	name = "Ties (Worn)"
 	icon_file = 'icons/mob/clothing/neck.dmi'
-	json_config = 'code/datums/greyscale/json_configs/ties.json'
 
 /datum/greyscale_config/heck_suit
 	name = "H.E.C.K. Suit"
