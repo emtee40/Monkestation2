@@ -100,6 +100,8 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["tail_lizard"] = "Smooth"
 	target.dna.features["tail_monkey"] = "Chimp" //Monkestation Addition
 	target.dna.features["pod_hair"] = "Ivy"
+	target.dna.features["ethereal_horns"] = "None" //Monkestation Addition
+	target.dna.features["ethereal_tail"] = "None" //Monkestation Addition
 	target.dna.features["ipc_screen"] = "BSOD" //Monkestation Addition
 	target.dna.features["ipc_chassis"] = "Bishop Cyberkinetics" //Monkestation Addition
 	target.dna.features["ipc_antenna"] = "None" //Monkestation Addition
@@ -110,8 +112,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["arachnid_chelicerae"] = "Basic" //Monkestation Addition
 	target.dna.features["goblin_ears"] = "Normal" //Monkestation Addition
 	target.dna.features["floran_leaves"] = "Furnivour" //Monkestation Addition
-	target.dna.features["ethereal_horns"] = "None" //Monkestation Addition
-	target.dna.features["ethereal_tail"] = "None" //Monkestation Addition
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent

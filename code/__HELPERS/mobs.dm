@@ -90,6 +90,10 @@
 	if(!length(GLOB.pod_hair_list))
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/pod_hair, GLOB.pod_hair_list)
 //Monkestation Addition Start
+	if(!length(GLOB.ethereal_horns_list))
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/ethereal_horns, GLOB.ethereal_horns_list)
+	if(!length(GLOB.ethereal_tail_list))
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/ethereal, GLOB.ethereal_tail_list)
 	if(!length(GLOB.apid_antenna_list))
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
 	if(!length(GLOB.apid_wings_list))
@@ -116,10 +120,6 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/goblin_ears, GLOB.goblin_ears_list)
 	if(!length(GLOB.floran_leaves_list))
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/floran_leaves, GLOB.floran_leaves_list)
-	if(!length(GLOB.ethereal_horns_list))
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/ethereal_horns, GLOB.ethereal_horns_list)
-	if(!length(GLOB.ethereal_tail_list))
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/ethereal, GLOB.ethereal_tail_list)
 //Monkestation Addition End
 
 	//For now we will always return none for tail_human and ears. | "For now" he says.
@@ -141,6 +141,7 @@
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
+		"ethereal_tail" = pick(GLOB.ethereal_tail_list), //Monkestation Addition
 		"apid_antenna" = pick(GLOB.apid_antenna_list), //Monkestation Addition
 		"apid_wings" = pick(GLOB.apid_wings_list), //Monkestation Addition
 		"ipc_screen" = pick(GLOB.ipc_screens_list), //Monkestation Addition
@@ -157,7 +158,6 @@
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
 		"ethereal_horns" = pick(GLOB.ethereal_horns_list), //Monkestation Addition
-		"ethereal_tail" = pick(GLOB.ethereal_tail_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
