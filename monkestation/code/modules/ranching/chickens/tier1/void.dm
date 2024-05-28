@@ -49,7 +49,7 @@
 
 		user.physiology.brute_mod *= 2
 		user.physiology.burn_mod *= 2
-		user.transform = user.transform.Scale(0.6, 0.6)
+		user.transform = user.transform.Scale(0.5, 0.5)
 	return ..()
 
 /datum/status_effect/ranching/void_egg/on_remove()
