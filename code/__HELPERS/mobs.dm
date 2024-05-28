@@ -141,6 +141,7 @@
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
+		"ethereal_horns" = pick(GLOB.ethereal_horns_list), //Monkestation Addition
 		"ethereal_tail" = pick(GLOB.ethereal_tail_list), //Monkestation Addition
 		"apid_antenna" = pick(GLOB.apid_antenna_list), //Monkestation Addition
 		"apid_wings" = pick(GLOB.apid_wings_list), //Monkestation Addition
@@ -157,7 +158,6 @@
 		"animecolor" = "#[pick("7F","FF")][pick("7F","FF")][pick("7F","FF")]", //Monkestation Addition
 		"goblin_ears" = pick(GLOB.goblin_ears_list), //Monkestation Addition
 		"floran_leaves" = pick(GLOB.floran_leaves_list), //Monkestation Addition
-		"ethereal_horns" = pick(GLOB.ethereal_horns_list), //Monkestation Addition
 	))
 
 /proc/random_hairstyle(gender)
