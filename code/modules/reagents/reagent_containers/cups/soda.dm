@@ -23,10 +23,11 @@
 /obj/item/reagent_containers/cup/soda_cans/Initialize(mapload, vol)
 	. = ..()
 	AddComponent(/datum/component/edible, \
-		initial_reagents = list(/datum/reagent/iron = 10), \
+		initial_reagents = list(/datum/reagent/iron = 20), \
 		foodtypes = JUNKFOOD, \
-		eat_time = 3 SECONDS, \
+		eat_time = 1 SECONDS, \
 		tastes = list("Metalic"), \
+		bite_consumption = 6, \
 		required_trait = TRAIT_TIN_EATER)
 
 /obj/item/reagent_containers/cup/soda_cans/random/Initialize(mapload)
