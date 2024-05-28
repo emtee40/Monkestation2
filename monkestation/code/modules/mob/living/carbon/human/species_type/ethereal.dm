@@ -1,3 +1,27 @@
+
+#define ETHEREAL_BLOOD_CHARGE_NONE 0
+#define ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE 56
+#define ETHEREAL_BLOOD_CHARGE_LOW 140
+#define ETHEREAL_BLOOD_CHARGE_NORMAL 280
+#define ETHEREAL_BLOOD_CHARGE_ALMOSTFULL 420
+#define ETHEREAL_BLOOD_CHARGE_FULL 560
+#define ETHEREAL_BLOOD_CHARGE_OVERLOAD 700
+#define ETHEREAL_BLOOD_CHARGE_DANGEROUS 840
+
+#define ETHEREAL_BLOOD_CHARGE_FACTOR 0.224
+
+/*
+100% = Full(Duh) = 560
+75% = Where you take no extra damage from shit : 420
+50% = Above this your good : 280
+
+25% = Below this you start taking toxin : 140
+
+10% = You cannot passively fall below this. : 56
+
+*/
+
+
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
@@ -15,6 +39,10 @@
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
 	payday_modifier = 1
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_NO_BLOODLOSS_DAMAGE, //we handle that species-side.
+	)
 	species_traits = list(
 		DYNCOLORS,
 		NO_UNDERWEAR,
@@ -109,6 +137,89 @@
 
 /datum/species/ethereal/randomize_features(mob/living/carbon/human/human_mob)
 	human_mob.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+
+
+/datum/species/ethereal/spec_life(mob/living/carbon/human/ethereal, seconds_per_tick, times_fired)
+	if(ethereal.stat == DEAD)
+		return
+	adjust_charge(ethereal, -ETHEREAL_BLOOD_CHARGE_FACTOR * seconds_per_tick, TRUE)
+	handle_charge(ethereal, seconds_per_tick, times_fired)
+
+/datum/species/ethereal/proc/adjust_charge(mob/living/carbon/human/ethereal, amount, passive)
+	if(passive)
+		if(ethereal.blood_volume < ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE) //Do not apply the clamp if its below the passive reduction level(no infinite blood sorry)
+			return
+		if(ethereal.blood_volume + amount < ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE+1)
+			ethereal.blood_volume = ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE+1 //bottom them off here if the end result would be less than the stopping point.
+		ethereal.blood_volume = clamp(ethereal.blood_volume + amount, ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE+1, ETHEREAL_BLOOD_CHARGE_DANGEROUS)
+		return
+	ethereal.blood_volume = clamp(ethereal.blood_volume + amount, ETHEREAL_BLOOD_CHARGE_NONE, ETHEREAL_BLOOD_CHARGE_DANGEROUS)
+
+/datum/species/ethereal/proc/handle_charge(mob/living/carbon/human/ethereal, seconds_per_tick, times_fired)
+	brutemod = 1.15
+	var/word = pick("like you can't breathe","your lungs locking up","extremely lethargic")
+	switch(ethereal.blood_volume)
+		if(-INFINITY to ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE)
+			ethereal.add_mood_event("charge", /datum/mood_event/decharged)
+			ethereal.clear_alert("ethereal_overcharge")
+			ethereal.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/emptycell/ethereal)
+			brutemod = 2
+			if(SPT_PROB(7.5, seconds_per_tick))
+				to_chat(src, span_warning("You feel [word]."))
+			ethereal.adjustOxyLoss(round(0.01 * (ETHEREAL_BLOOD_CHARGE_LOW - ethereal.blood_volume) * seconds_per_tick, 1))
+		if(ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE to ETHEREAL_BLOOD_CHARGE_LOW)
+			ethereal.clear_alert("ethereal_overcharge")
+			ethereal.add_mood_event("charge", /datum/mood_event/decharged)
+			ethereal.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/lowcell/ethereal, 3)
+			brutemod = 1.5
+			if(ethereal.health > 10.5)
+				ethereal.apply_damage(0.155 * seconds_per_tick, TOX, null, null, ethereal)
+		if(ETHEREAL_BLOOD_CHARGE_LOW to ETHEREAL_BLOOD_CHARGE_NORMAL)
+			ethereal.clear_alert("ethereal_overcharge")
+			ethereal.add_mood_event("charge", /datum/mood_event/lowpower)
+			ethereal.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/lowcell/ethereal, 2)
+			brutemod = 1.25
+		if(ETHEREAL_BLOOD_CHARGE_ALMOSTFULL to ETHEREAL_BLOOD_CHARGE_FULL)
+			ethereal.clear_alert("ethereal_overcharge")
+			ethereal.clear_alert("ethereal_charge")
+			ethereal.add_mood_event("charge", /datum/mood_event/charged)
+			brutemod = 1
+		if(ETHEREAL_BLOOD_CHARGE_FULL to ETHEREAL_BLOOD_CHARGE_OVERLOAD)
+			ethereal.clear_alert("ethereal_charge")
+			ethereal.add_mood_event("charge", /datum/mood_event/overcharged)
+			ethereal.throw_alert(ALERT_ETHEREAL_OVERCHARGE, /atom/movable/screen/alert/ethereal_overcharge, 1)
+			brutemod = 1.25
+		if(ETHEREAL_BLOOD_CHARGE_OVERLOAD to ETHEREAL_BLOOD_CHARGE_DANGEROUS)
+			ethereal.clear_alert("ethereal_charge")
+			ethereal.add_mood_event("charge", /datum/mood_event/supercharged)
+			ethereal.throw_alert(ALERT_ETHEREAL_OVERCHARGE, /atom/movable/screen/alert/ethereal_overcharge, 2)
+			ethereal.apply_damage(0.2 * seconds_per_tick, TOX, null, null, ethereal)
+			brutemod = 1.5
+			if(SPT_PROB(5, seconds_per_tick)) // 5% each seacond for ethereals to explosively release excess energy if it reaches dangerous levels
+				discharge_process(ethereal)
+		else
+			ethereal.clear_mood_event("charge")
+			ethereal.clear_alert(ALERT_ETHEREAL_CHARGE)
+			ethereal.clear_alert(ALERT_ETHEREAL_OVERCHARGE)
+
+/datum/species/ethereal/proc/discharge_process(mob/living/carbon/human/ethereal)
+	to_chat(ethereal, span_warning("You begin to lose control over your charge!"))
+	ethereal.visible_message(span_danger("[ethereal] begins to spark violently!"))
+
+	var/static/mutable_appearance/overcharge //shameless copycode from lightning spell
+	overcharge = overcharge || mutable_appearance('icons/effects/effects.dmi', "electricity", EFFECTS_LAYER)
+	ethereal.add_overlay(overcharge)
+
+	if(do_after(ethereal, 5 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_INCAPACITATED)))
+		ethereal.flash_lighting_fx(5, 7, ethereal.dna.species.fixed_mut_color ? ethereal.dna.species.fixed_mut_color : ethereal.dna.features["mcolor"])
+
+		playsound(ethereal, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+		ethereal.cut_overlay(overcharge)
+		tesla_zap(ethereal, 2, ethereal.blood_volume*9, ZAP_OBJ_DAMAGE | ZAP_GENERATES_POWER | ZAP_ALLOW_DUPLICATES)
+		adjust_charge(ethereal, ETHEREAL_BLOOD_CHARGE_FULL - ethereal.blood_volume)
+		ethereal.visible_message(span_danger("[ethereal] violently discharges energy!"), span_warning("You violently discharge energy!"))
+
+		ethereal.Paralyze(100)
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
@@ -252,6 +363,12 @@
 			SPECIES_PERK_ICON = "biohazard",
 			SPECIES_PERK_NAME = "Starving Artist",
 			SPECIES_PERK_DESC = "Ethereals take toxin damage while starving.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "shield-halved",
+			SPECIES_PERK_NAME = "Power(Only) Armor",
+			SPECIES_PERK_DESC = "You take increased brute damage the less power you have.	",
 		),
 	)
 
