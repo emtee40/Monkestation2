@@ -131,6 +131,12 @@
 	donator_only = TRUE
 	requires_purchase = FALSE
 
+/datum/loadout_item/head/snowman
+	name = "Snowman Head"
+	item_path = /obj/item/clothing/head/costume/snowman
+	donator_only = TRUE
+	requires_purchase = FALSE
+
 /datum/loadout_item/toys/seam_plush
 	name = "Seam Plush"
 	item_path = /obj/item/toy/plush/seam
@@ -388,3 +394,17 @@
 	item_path = /obj/item/clothing/neck/bell
 	donator_only = TRUE
 	requires_purchase = FALSE
+//OLIVER ITEMS
+/datum/loadout_item/suit/jacket_oliver
+	name = "Scarved Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket_oliver
+	donator_only = TRUE
+	requires_purchase = FALSE
+
+//GNOB ITEMS
+/datum/loadout_item/glasses/sechud_terminated
+	name = "Terminated Sechuds"
+	item_path = /obj/item/clothing/glasses/hud/security/terminated
+	donator_only = TRUE
+	requires_purchase = FALSE
+	restricted_roles = list(JOB_SECURITY_OFFICER,JOB_SECURITY_ASSISTANT,JOB_HEAD_OF_SECURITY,JOB_WARDEN)
