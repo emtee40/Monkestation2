@@ -39,12 +39,12 @@
 	if(!repairs)
 		adjust_charge(amount / 3.5)
 		return
-	if(owner.blood_volume < ETHEREAL_BLOOD_CHARGE_FULL - amount / 3.5)
+	if(owner.blood_volume < BLOOD_VOLUME_NORMAL - amount / 3.5)
 		adjust_charge(amount / 3.5)
 		return
-	if(owner.blood_volume > ETHEREAL_BLOOD_CHARGE_OVERLOAD) //prevents reduction of charge of overcharged ethereals
+	if(owner.blood_volume > 700) //prevents reduction of charge of overcharged ethereals
 		return
-	adjust_charge(ETHEREAL_BLOOD_CHARGE_FULL - human.blood_volume) //perfectly tops off an ethereal if the amount of power that would be applied would go into overcharge
+	adjust_charge(BLOOD_VOLUME_NORMAL - human.blood_volume) //perfectly tops off an ethereal if the amount of power that would be applied would go into overcharge
 
 /obj/item/organ/internal/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
