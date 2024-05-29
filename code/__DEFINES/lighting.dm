@@ -92,14 +92,24 @@ GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
 /// Returns the blue part of a #RRGGBB hex sequence as number
 #define GETBLUEPART(hexa) hex2num(copytext(hexa, 6, 8))
 
+#ifdef CIBUILDING
+#warn the try/catch is a temporary debugging measure, don't leave this in!!!
+#endif
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \
 	if (source.light_color != COLOR_WHITE) { \
-		var/list/color_map = rgb2num(source.light_color); \
-		source.lum_r = color_map[1] / 255; \
-		source.lum_g = color_map[2] / 255; \
-		source.lum_b = color_map[3] / 255; \
+		try { \
+			var/list/color_map = rgb2num(source.light_color); \
+			source.lum_r = color_map[1] / 255; \
+			source.lum_g = color_map[2] / 255; \
+			source.lum_b = color_map[3] / 255; \
+		} catch() { \
+			stack_trace("Invalid light color on [source]: [source.light_color]"); \
+			source.lum_r = 1; \
+			source.lum_g = 1; \
+			source.lum_b = 1; \
+		} \
 	} else { \
 		source.lum_r = 1; \
 		source.lum_g = 1; \
