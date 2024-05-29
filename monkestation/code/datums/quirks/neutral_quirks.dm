@@ -47,6 +47,9 @@
 	for(var/obj/item/organ/external/organ_path as anything in anime_list)
 		species.external_organs -= organ_path
 
+/datum/quirk/anime/add_unique(client/client_source)
+	quirk_holder.grant_language(/datum/language/nekomimetic, source = LANGUAGE_QUIRK)
+
 /datum/quirk/anime/proc/on_species_gain(datum/source, datum/species/new_species, datum/species/old_species)
 	for(var/obj/item/organ/external/organ_path as anything in anime_list)
 		new_species.external_organs |= organ_path

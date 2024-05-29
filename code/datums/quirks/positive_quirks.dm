@@ -224,7 +224,7 @@
 		language_type = pick(GLOB.roundstart_languages)
 	else
 		language_type = GLOB.language_types_by_name[wanted_language]
-	if(quirk_holder.has_language(language_type))
+	if(quirk_holder.has_language(language_type) || (language_type == /datum/language/nekomimetic && ("Anime" in client_source?.prefs.all_quirks))) // monkestation edit: nekomimetic is given by anime quirk
 		language_type = /datum/language/uncommon
 		if(quirk_holder.has_language(language_type))
 			to_chat(quirk_holder, span_boldnotice("You are already familiar with the quirk in your preferences, so you did not learn one."))
