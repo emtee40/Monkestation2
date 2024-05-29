@@ -33,15 +33,18 @@
 
 /obj/item/organ/internal/stomach/ethereal/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human = owner
 	if(!repairs)
 		adjust_charge(amount / 3.5)
 		return
-	if(crystal_charge < ETHEREAL_CHARGE_FULL - amount / 3.5)
+	if(owner.blood_volume < ETHEREAL_BLOOD_CHARGE_FULL - amount / 3.5)
 		adjust_charge(amount / 3.5)
 		return
-	if(crystal_charge > ETHEREAL_CHARGE_OVERLOAD) //prevents reduction of charge of overcharged ethereals
+	if(owner.blood_volume > ETHEREAL_BLOOD_CHARGE_OVERLOAD) //prevents reduction of charge of overcharged ethereals
 		return
-	adjust_charge(ETHEREAL_CHARGE_FULL - crystal_charge) //perfectly tops off an ethereal if the amount of power that would be applied would go into overcharge
+	adjust_charge(ETHEREAL_BLOOD_CHARGE_FULL - human.blood_volume) //perfectly tops off an ethereal if the amount of power that would be applied would go into overcharge
 
 /obj/item/organ/internal/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
