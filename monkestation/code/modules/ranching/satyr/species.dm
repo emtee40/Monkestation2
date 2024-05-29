@@ -78,9 +78,13 @@
 	. = ..()
 	ADD_TRAIT(C, TRAIT_TIN_EATER, INNATE_TRAIT)
 	C.AddComponent(/datum/component/living_drunk)
+	C.RemoveElement(/datum/element/footstep)
+	C.AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 1, -6)
 
 /datum/species/satyr/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_TIN_EATER, INNATE_TRAIT)
 	var/datum/component/living_drunk/drunk = C.GetComponent(/datum/component/living_drunk)
 	qdel(drunk)
+	C.RemoveElement(/datum/element/footstep)
+	C.AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)

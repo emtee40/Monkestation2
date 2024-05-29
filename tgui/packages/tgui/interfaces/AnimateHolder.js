@@ -91,6 +91,9 @@ const AnimateSteps = (props, context) => {
                 )
               )}
             </LabeledList.Item>
+            <LabeledList.Item label={'Transform'}>
+              <Transform step={steps.indexOf(step) + 1} />
+            </LabeledList.Item>
           </LabeledList>
           <Button
             color="red"
@@ -167,7 +170,7 @@ export const Transform = (props, context) => {
         value={transformValues[0]} // First value of transform
         onChange={(e, value) => handleTransformChange(step, value)}
       />
-      {transformType === 6 && ( // Render second input only if transform type is Scale (value 6)
+      {(transformType === 6 || transformType === 7) && ( // Render second input only if transform type is Scale (value 6)
         <NumberInput
           width="45px"
           minValue={-1000}
