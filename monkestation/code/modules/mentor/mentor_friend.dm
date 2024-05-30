@@ -22,7 +22,7 @@
 			var/list/friendlist = list()
 			for(var/mob/living/friend in GLOB.player_list)
 				friendlist |= friend.client
-			var/client/friendclient = input("Please, select a key.", "Imaginary Friend") as null|anything in sortKey(friendlist)
+			var/client/friendclient = input("Please, select a key.", "Imaginary Friend") as null|anything in sort_key(friendlist)
 			if(!friendclient)
 				return
 			mentee = friendclient.mob
@@ -30,7 +30,7 @@
 			var/list/friendlist = list()
 			for(var/mob/living/friend in GLOB.player_list)
 				friendlist |= friend
-			var/mob/friendmob = input("Please, select a mob.", "Imaginary Friend") as null|anything in sortNames(friendlist)
+			var/mob/friendmob = input("Please, select a mob.", "Imaginary Friend") as null|anything in sort_names(friendlist)
 			if(!friendmob)
 				return
 			mentee = friendmob
@@ -87,7 +87,7 @@
 /mob/camera/imaginary_friend/mentor/Initialize(mapload, mob/owner)
 	. = ..()
 	src.owner = owner
-	copy_languages(owner, LANGUAGE_FRIEND)
+
 	join = new
 	join.Grant(src)
 	hide = new
@@ -97,8 +97,8 @@
 
 
 /mob/camera/imaginary_friend/mentor/setup_friend()
-	name = client.prefs.real_name
-	gender = client.prefs.gender
+	var/gender = pick(MALE, FEMALE)
+	name = random_unique_name(gender)
 	real_name = name
 	human_image = get_flat_human_icon(null, SSjob.GetJobType(/datum/job/assistant), client.prefs,,list(SOUTH),/datum/outfit/job/mentor)
 
@@ -125,14 +125,13 @@
 	name = "Show"
 	desc = "Become visible to your owner."
 	button_icon_state = "unhide"
-	UpdateButtonIcon()
 
 /datum/action/innate/imaginary_leave
 	name = "Leave"
 	desc = "Stop mentoring."
-	icon_icon = 'icons/mob/actions/actions_vr.dmi'
+	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	background_icon_state = "bg_revenant"
-	button_icon_state = "logout"
+	button_icon_state = "mindswap"
 
 /datum/action/innate/imaginary_leave/Activate()
 	var/mob/camera/imaginary_friend/mentor/I = owner
