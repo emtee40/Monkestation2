@@ -17,9 +17,9 @@ export const OverwatchASNManager = (props, context) => {
   const { displayData } = data;
   const [inputIP, setinputIP] = useLocalState(context, 'inputIPkey', '');
   return (
-    <Window width={600} height={500} title="BCCM ASN Panel" theme="admin">
+    <Window width={600} height={500} title="Overwatch ASN Panel" theme="admin">
       <Window.Content scrollable>
-        <Section title="Add ASN to BCCM Banlist">
+        <Section title="Add ASN to Overwatch Banlist">
           <Flex>
             <Flex.Item grow>
               <Input

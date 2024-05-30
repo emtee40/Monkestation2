@@ -21,9 +21,13 @@ export const OverwatchWhitelistPanel = (props, context) => {
     ''
   );
   return (
-    <Window width={600} height={500} title="BCCM Whitelist Panel" theme="admin">
+    <Window
+      width={600}
+      height={500}
+      title="Overwatch Whitelist Panel"
+      theme="admin">
       <Window.Content scrollable>
-        <Section title="Add CKEY to BCCM Whitelist">
+        <Section title="Add CKEY to Overwatch Whitelist">
           <Flex>
             <Flex.Item grow>
               <Input
