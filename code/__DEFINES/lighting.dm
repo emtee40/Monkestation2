@@ -105,7 +105,7 @@ do { \
 			source.lum_g = color_map[2] / 255; \
 			source.lum_b = color_map[3] / 255; \
 		} catch() { \
-			stack_trace("Invalid light color on [source]: [source.light_color]"); \
+			stack_trace("Invalid light color, {[source.source_atom] ([source.source_atom?.type], [REF(source.source_atom)])} -> {[source.top_atom] ([source.top_atom?.type], [REF(source.top_atom)])>}: [json_encode(source.light_color)]"); \
 			source.lum_r = 1; \
 			source.lum_g = 1; \
 			source.lum_b = 1; \
