@@ -144,13 +144,10 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10)
+	obj_flags = parent_type::obj_flags & ~CONDUCTS_ELECTRICITY
 	force = 15
 	throwforce = 15
 	custom_materials = null
-
-/obj/item/knife/combat/bone/Initialize(mapload)
-	flags_1 &= ~CONDUCT_1
-	return ..()
 
 /obj/item/knife/combat/cyborg
 	name = "cyborg knife"
@@ -166,16 +163,13 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A makeshift glass shiv."
+	obj_flags = parent_type::obj_flags & ~CONDUCTS_ELECTRICITY
 	force = 8
 	throwforce = 12
 	attack_verb_continuous = list("shanks", "shivs")
 	attack_verb_simple = list("shank", "shiv")
 	armor_type = /datum/armor/none
 	custom_materials = list(/datum/material/glass = SMALL_MATERIAL_AMOUNT * 4)
-
-/obj/item/knife/shiv/Initialize(mapload)
-	flags_1 &= ~CONDUCT_1
-	return ..()
 
 /obj/item/knife/shiv/plasma
 	name = "plasma shiv"
