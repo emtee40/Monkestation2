@@ -7,11 +7,13 @@
 
 /datum/quirk/gigantism/add()
 	. = ..()
-	if (ishuman(quirk_holder))
-		var/mob/living/carbon/human/gojira = quirk_holder
-		if(gojira.dna)
-			gojira.dna.add_mutation(/datum/mutation/human/gigantism)
-
+	if(ishuman(quirk_holder))
+		if(!HAS_TRAIT(quirk_holder, TRAIT_GENELESS))
+			var/mob/living/carbon/human/gojira = quirk_holder
+			if(gojira.dna)
+				gojira.dna.add_mutation(/datum/mutation/human/gigantism)
+		else
+			quirk_holder.update_transform(1.25) //If they can't have genes, give gigantism's effect
 /datum/quirk/anime
 	name = "Anime"
 	desc = "You are an anime enjoyer! Show your enthusiasm with some fashionable attire."
