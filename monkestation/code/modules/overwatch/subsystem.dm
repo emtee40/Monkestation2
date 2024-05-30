@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(overwatch)
 		if(!postponed)
 			C.log_client_to_db_connection_log()
 		log_access(span_notice("Overwatch: Failed Login: [C.key]/[C.ckey]([C.address])([C.computer_id]) failed to pass Overwatch check."))
-		qdel(C)
+		//qdel(C)
 		return TRUE
 	return FALSE
 
