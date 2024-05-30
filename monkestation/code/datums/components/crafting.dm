@@ -25,13 +25,20 @@
 	time = 20 SECONDS //contemplate for a bit
 	
 /datum/crafting_recipe/laser_musket_prime
+	reqs = list(
+		/obj/item/gun/energy/laser/musket = 1,
+		/obj/item/stack/cable_coil = 15,
+		/obj/item/stock_parts/water_recycler = 1,
+		/datum/reagent/consumable/nuka_cola = 15,
+	)
 	time = 20
 
 /datum/crafting_recipe/smoothbore_disabler_prime
 	reqs = list(
 		/obj/item/gun/energy/disabler/smoothbore = 1,
-		/obj/item/stack/sheet/mineral/gold = 5,
-		/obj/item/stock_parts/cell/super = 1,
+		/obj/item/coin = 1, //Booty
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/cell = 1,
 	)
 
 /datum/crafting_recipe/riflestock
