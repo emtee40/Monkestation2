@@ -1419,7 +1419,7 @@
 			multiplicative_slowdown = immutable_speedies,
 		)
 	else
-				remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod/immutable)
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod/immutable)
 
 	if(speedies)
 		add_or_update_variable_movespeed_modifier(
