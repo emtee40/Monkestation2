@@ -14,6 +14,11 @@
 				gojira.dna.add_mutation(/datum/mutation/human/gigantism)
 		else
 			quirk_holder.update_transform(1.25) //If they can't have genes, give gigantism's effect
+
+/datum/quirk/gigantism/remove()
+	. = ..()
+	if(ishuman(quirk_holder) && HAS_TRAIT(quirk_holder, TRAIT_GENELESS))
+		quirk_holder.update_transform(0.8) //reverts forced gigantism if lost
 /datum/quirk/anime
 	name = "Anime"
 	desc = "You are an anime enjoyer! Show your enthusiasm with some fashionable attire."
