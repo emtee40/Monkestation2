@@ -394,6 +394,12 @@ SUBSYSTEM_DEF(overwatch)
 	return cached_player_age
 
 /datum/controller/subsystem/overwatch/proc/CheckActiveBans(client/C)
+	if(C.ckey in GLOB.interviews.approved_ckeys) // if these are already approved no point querying as they will be allowed regardless
+		return
+	var/living_minutes = C.get_exp_living(TRUE)
+	if(living_minutes >= 30)
+		return
+
 	if(!CONFIG_GET(string/centcom_ban_db))
 		return
 
