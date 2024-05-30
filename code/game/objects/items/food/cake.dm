@@ -632,6 +632,7 @@
 	tastes = list("cake" = 3, "frosting" = 1)
 	foodtypes = GRAIN | DAIRY | SUGAR
 	slice_type = /obj/item/food/cakeslice/wedding
+	yield = 20 //Monkestation Edit: it takes 4 plain cakes to make 4x the output should be fine
 
 /obj/item/food/cakeslice/wedding
 	name = "wedding cake slice"
