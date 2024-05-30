@@ -31,7 +31,7 @@
 		/obj/item/stock_parts/water_recycler = 1,
 		/datum/reagent/consumable/nuka_cola = 15,
 	)
-	time = 20
+	time = 20 SECONDS
 
 /datum/crafting_recipe/smoothbore_disabler_prime
 	reqs = list(
