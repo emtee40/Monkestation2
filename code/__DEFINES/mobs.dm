@@ -348,7 +348,6 @@
 #define AI_ON 1
 #define AI_IDLE 2
 #define AI_OFF 3
-#define AI_Z_OFF 4
 
 //The range at which a mob should wake up if you spawn into the z level near it
 #define MAX_SIMPLEMOB_WAKEUP_RANGE 5
@@ -763,6 +762,7 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 	// to show how many filters are added at a glance
 	// BACK_LAYER (backpacks are big)
 	// BODYPARTS_HIGH_LAYER (arms)
+	// BODY_LAYER (body markings (full body), underwear (full body), eyes)
 	// BODY_ADJ_LAYER (external organs like wings)
 	// BODY_BEHIND_LAYER (external organs like wings)
 	// BODY_FRONT_LAYER (external organs like wings)

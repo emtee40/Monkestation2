@@ -16,7 +16,10 @@
 	var/range = 5
 
 /obj/effect/anomaly/bioscrambler/Initialize(mapload, new_lifespan, drops_core)
-	. = ..()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/anomaly/bioscrambler/LateInitialize()
 	pursuit_target = WEAKREF(find_nearest_target())
 
 /obj/effect/anomaly/bioscrambler/anomalyEffect(seconds_per_tick)
@@ -54,9 +57,11 @@
 		if (target.z != z)
 			continue
 		if (target.status_effects & GODMODE)
-			continue	
+			continue
 		if (target.stat >= UNCONSCIOUS)
 			continue // Don't just haunt a corpse
+		if (contained && get_area(target) != impact_area) // monkestation edit: fix "runaway" bioscramblers
+			continue
 		var/distance_from_target = get_dist(src, target)
 		if(distance_from_target >= closest_distance)
 			continue
