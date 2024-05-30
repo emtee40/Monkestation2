@@ -3,6 +3,8 @@
 	set name = "Spawn Mixtape"
 	set desc = "Select an approved mixtape to spawn at your location."
 
+	if(!holder)
+		return
 	var/list/choices = GLOB.approved_ids
 	if(choices.len <= 0)
 		return
