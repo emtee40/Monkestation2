@@ -38,7 +38,7 @@
 		/obj/item/gun/energy/disabler/smoothbore = 1,
 		/obj/item/coin = 1, //Booty
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/cell = 1,
+		/obj/item/stock_parts/cell = 1, //Might want something more interesting...
 	)
 
 /datum/crafting_recipe/riflestock
