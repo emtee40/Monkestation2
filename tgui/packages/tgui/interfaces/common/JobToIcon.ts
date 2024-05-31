@@ -7,6 +7,7 @@ const BASEICONS = {
   'Bit Avatar': 'code',
   'Bitrunner': 'gamepad',
   'Botanist': 'seedling',
+  'Brig Physician': 'heart',
   'Captain': 'crown',
   'Cargo Technician': 'box',
   'CentCom Commander': 'star',
@@ -226,11 +227,6 @@ const ALTTITLES = {
   'Xenoarchaeologist': BASEICONS['Scientist'],
   'Research Assistant': BASEICONS['Scientist'],
   'Graduate Student': BASEICONS['Scientist'],
-  // Security Medic - heart-pulse
-  'Field Medic': BASEICONS['Security Medic'],
-  'Security Corpsman': BASEICONS['Security Medic'],
-  'Brig Physician': BASEICONS['Security Medic'],
-  'Combat Medic': BASEICONS['Security Medic'],
   // Security Officer - shield-halved
   'Security Operative': BASEICONS['Security Officer'],
   'Peacekeeper': BASEICONS['Security Officer'],
@@ -257,6 +253,13 @@ const ALTTITLES = {
   'Dispatch Officer': BASEICONS['Warden'],
   'Brig Governor': BASEICONS['Warden'],
   'Jailer': BASEICONS['Warden'],
+  // Brig Physician - heart
+  'Brig Physician': BASEICONS['Brig Physician'],
+  'Jail Doctor': BASEICONS['Brig Physician'],
+  'Brig Orderly': BASEICONS['Brig Physician'],
+  'Prison Medic': BASEICONS['Brig Physician'],
+  'Chief Tickler': BASEICONS['Brig Physician'],
+  'Navy Corpsman': BASEICONS['Brig Physician'],
 } as const;
 
 // Combine the Base icons and ALt titles
