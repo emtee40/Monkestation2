@@ -256,6 +256,7 @@
 		"Convict",
 		"Felon",
 		"Inmate",
+		"Gamer",
 	)
 
 /datum/job/psychologist
