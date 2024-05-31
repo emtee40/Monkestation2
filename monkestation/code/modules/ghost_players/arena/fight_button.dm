@@ -1,4 +1,4 @@
-/obj/structure/fight_button
+/obj/structure/fight_button //run them tests
 	name = "duel requestor 3000"
 	desc = "A button that displays your intent to duel as well as the weapon of choice and stakes of the duel."
 
