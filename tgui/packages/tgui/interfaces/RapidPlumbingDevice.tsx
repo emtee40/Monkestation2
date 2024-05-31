@@ -116,7 +116,7 @@ const LayerIconSection = (props, context) => {
   );
 };
 
-export const PlumbingService = (props, context) => {
+export const RapidPlumbingDevice = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { silo_upgraded } = data;
   return (
