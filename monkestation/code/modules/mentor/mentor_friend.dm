@@ -64,9 +64,7 @@
 
 //Section for the Mentor Friend mob.
 /mob/camera/imaginary_friend/mentor
-
 	var/datum/action/innate/imaginary_leave/leave
-
 
 /mob/camera/imaginary_friend/mentor/greet()
 	to_chat(src, "<span class='notice'><b>You are the imaginary friend of [owner]!</b></span>")
