@@ -264,7 +264,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 
 		var/rights = holder.rank_flags()
 		add_verb(src, GLOB.admin_verbs_default)
-		add_verb(GLOB.mentor_verbs)
+		add_verb(GLOB.mentor_verbs) //Monkestation Edit
 		if(rights & R_BUILD)
 			add_verb(src, /client/proc/togglebuildmodeself)
 		if(rights & R_ADMIN)
@@ -312,7 +312,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 		GLOB.admin_verbs_debug_mapping,
 		/client/proc/disable_mapping_verbs,
 		/client/proc/readmin,
-		GLOB.mentor_verbs
+		GLOB.mentor_verbs //Monkestation Edit
 		))
 
 /client/proc/hide_verbs()
