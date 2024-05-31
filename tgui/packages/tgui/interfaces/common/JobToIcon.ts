@@ -7,6 +7,7 @@ const BASEICONS = {
   'Bit Avatar': 'code',
   'Bitrunner': 'gamepad',
   'Botanist': 'seedling',
+  // Really I wanted this to be like heart wings but thats not really an option
   'Brig Physician': 'heart',
   'Captain': 'crown',
   'Cargo Technician': 'box',
