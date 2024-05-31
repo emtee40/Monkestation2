@@ -105,12 +105,6 @@
 		owner.imaginary_group = list(owner)
 	owner.imaginary_group += src
 
-/mob/camera/imaginary_friend/mentor/setup_friend()
-	var/gender = pick(MALE, FEMALE)
-	name = random_unique_name(gender)
-	real_name = name
-	human_image = get_flat_human_icon(null, SSjob.GetJobType(/datum/job/assistant), client.prefs,,list(SOUTH),/datum/outfit/job/mentor)
-
 /mob/camera/imaginary_friend/mentor/proc/unmentor()
 	icon = human_image
 	log_admin("[key_name(src)] stopped being the imaginary friend of [key_name(owner)].")
