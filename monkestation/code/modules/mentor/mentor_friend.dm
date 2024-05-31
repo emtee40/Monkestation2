@@ -84,9 +84,15 @@
 		return
 	unmentor()
 
-/mob/camera/imaginary_friend/mentor/Initialize(mapload, mob/owner)
+/mob/camera/imaginary_friend/mentor/Initialize(mapload, mob/imaginary_friend_owner, datum/preferences/appearance_from_prefs = null)
 	. = ..()
-	src.owner = owner
+
+	owner = imaginary_friend_owner
+
+	if(appearance_from_prefs)
+		INVOKE_ASYNC(src, PROC_REF(setup_friend_from_prefs), appearance_from_prefs)
+	else
+		INVOKE_ASYNC(src, PROC_REF(setup_friend))
 
 	join = new
 	join.Grant(src)
@@ -95,6 +101,9 @@
 	leave = new
 	leave.Grant(src)
 
+	if(!owner.imaginary_group)
+		owner.imaginary_group = list(owner)
+	owner.imaginary_group += src
 
 /mob/camera/imaginary_friend/mentor/setup_friend()
 	var/gender = pick(MALE, FEMALE)
