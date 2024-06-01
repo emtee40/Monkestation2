@@ -253,7 +253,7 @@
 				if(ETHEREAL_BLOOD_CHARGE_OVERLOAD to ETHEREAL_BLOOD_CHARGE_DANGEROUS)
 					msg += "<b>Electricity is arcing off of [t_him]!</b>\n"
 				if(ETHEREAL_BLOOD_CHARGE_FULL to ETHEREAL_BLOOD_CHARGE_OVERLOAD)
-					msg += "[t_His] seems unusually bright, and [t_is] sparking occasionally.\n"
+					msg += "[t_He] seems unusually bright, and [t_is] sparking occasionally.\n"
 				if(ETHEREAL_BLOOD_CHARGE_LOW to ETHEREAL_BLOOD_CHARGE_NORMAL)
 					msg += "[t_His] light is dimming.\n"
 				if(ETHEREAL_BLOOD_CHARGE_LOWEST_PASSIVE to ETHEREAL_BLOOD_CHARGE_LOW)
