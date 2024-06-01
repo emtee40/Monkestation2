@@ -793,7 +793,7 @@
 		. += "It has [charges_left] use\s left."
 	else
 		. += "It is empty."
-	if(examine_override) // MONKESTATION ADDITION: SPRAYCAN GUN (monkestation/code/game/objects/items/spraycan_gun.dm)
+	if(!has_cap) // MONKESTATION ADDITION: SPRAYCAN GUN (monkestation/code/game/objects/items/spraycan_gun.dm)
 		return
 	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"]. Right-click a colored object to match its existing color.")
 

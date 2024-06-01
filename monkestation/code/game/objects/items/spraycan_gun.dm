@@ -1,6 +1,3 @@
-/obj/item/toy/crayon/spraycan
-	var/examine_override = FALSE
-
 /obj/item/toy/crayon/spraycan/use_on(atom/target, mob/user, params)
 	if(istype(target, /obj/item/toy/crayon/spraycan/gun))
 		var/obj/item/toy/crayon/spraycan/gun/gun = target
@@ -23,7 +20,6 @@
 	has_cap = FALSE
 	is_capped = FALSE
 	overlay_paint_colour = FALSE
-	examine_override = TRUE
 
 	var/obj/item/toy/crayon/spraycan/contained_spraycan
 
