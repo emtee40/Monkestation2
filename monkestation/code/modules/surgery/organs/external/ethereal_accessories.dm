@@ -19,6 +19,9 @@
 	return GLOB.ethereal_horns_list
 
 /datum/bodypart_overlay/mutant/ethereal_horns/can_draw_on_bodypart(mob/living/carbon/human/human)
+	if((human.head?.flags_inv & HIDEHAIR) || (human.wear_mask?.flags_inv & HIDEHAIR))
+		return FALSE
+
 	return TRUE
 
 /obj/item/organ/external/tail/ethereal
