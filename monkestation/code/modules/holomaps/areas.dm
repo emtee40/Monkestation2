@@ -112,4 +112,4 @@
 
 
 /area/station/hallway
-	holomap_color = HOLOMAP_AREACOLOR_HALLWAY
+	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
