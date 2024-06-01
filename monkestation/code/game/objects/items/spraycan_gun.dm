@@ -15,6 +15,8 @@
 	name = "Spraycan gun"
 	desc = "used for carefull painting of various surfaces"
 	icon = 'monkestation/icons/obj/misc.dmi'
+	// this actually gets overridden by icon_uncapped because of shitcode in spraycans, use it as a R&D design icon var instead
+	icon_state = "spraycan_gun_filled"
 	icon_uncapped = "spraycan_gun_empty"
 
 	charges = 0
