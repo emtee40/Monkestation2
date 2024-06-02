@@ -12,6 +12,7 @@ describe('ChannelIterator', () => {
     expect(channelIterator.next()).toBe('Radio');
     expect(channelIterator.next()).toBe('Me');
     expect(channelIterator.next()).toBe('OOC');
+    expect(channelIterator.next()).toBe('LOOC');
     expect(channelIterator.next()).toBe('Say'); // Admin is blacklisted so it should be skipped
   });
 
@@ -38,6 +39,16 @@ describe('ChannelIterator', () => {
   it('should return false when current channel is not visible', () => {
     channelIterator.set('OOC');
     expect(channelIterator.isVisible()).toBe(false);
+  });
+
+  it('should return false when current channel is not visible', () => {
+    channelIterator.set('LOOC');
+    expect(channelIterator.isVisible()).toBe(false);
+  });
+
+  it('should not leak a message from a blacklisted channel', () => {
+    channelIterator.set('Mentor');
+    expect(channelIterator.next()).toBe('Mentor');
   });
 
   it('should not leak a message from a blacklisted channel', () => {
