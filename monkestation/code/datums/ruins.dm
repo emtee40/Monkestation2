@@ -24,13 +24,9 @@ GLOBAL_LIST_INIT(ruin_config, load_ruin_config())
 		log_config("ruin token config file is empty, using empty config.")
 		return
 	for(var/ruin_config_id in ruin_config)
-		if(!istext(ruin_config_id))
+		var/ruin_path = text2path(ruin_config_id)
+		if(!ispath(ruin_path, /datum/map_template/ruin))
 			continue
-		for(var/datum/map_template/ruin/ruin_type as anything in subtypesof(/datum/map_template/ruin))
-			var/ruin_id = ruin_type::id
-			if(istext(ruin_id) && cmptext(ruin_config_id, ruin_id))
-				.[ruin_type] = ruin_config[ruin_config_id]
-				log_config("Loaded ruin overrides for [ruin_id] ([ruin_type]).")
-				break
+		.[ruin_path] = ruin_config[ruin_config_id]
 
 #undef RUIN_CONFIG_FILE
