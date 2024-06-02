@@ -212,8 +212,13 @@
 			if(!check_if_greater_rights_than(M.client))
 				to_chat(usr, span_danger("Error: They have more rights than you do."), confidential = TRUE)
 				return
+			/* //MONKESTATION EDIT START - Change this tgui alert to a regular alert
 			if(tgui_alert(usr, "Kick [key_name(M)]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
+			*/ //MONKESTATION EDIT ORIGINAL
+			if(alert(usr, "Kick [key_name(M)]?", "Confirm", "Yes", "No") != "Yes")
+				return
+			//MONKESTATION EDIT END
 			if(!M)
 				to_chat(usr, span_danger("Error: [M] no longer exists!"), confidential = TRUE)
 				return

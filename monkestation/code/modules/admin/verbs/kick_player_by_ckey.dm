@@ -12,7 +12,7 @@
 	if(!to_kick)
 		return
 
-	var/confirmation = tgui_alert(usr, "Kick [key_name(to_kick)]?", "Confirm", list("Yes", "No"))
+	var/confirmation = alert(usr, "Kick [key_name(to_kick)]?", "Confirm", "Yes", "No")
 	if(confirmation != "Yes")
 		return
 
