@@ -471,7 +471,7 @@
 
 /datum/status_effect/stabilized/grey/tick()
 	for(var/mob/living/basic/slime/new_friend in range(3, get_turf(owner)))
-		SEND_SIGNAL(new_friend, COMSIG_FRIENDSHIP_CHANGE, owner, 1)
+		SEND_SIGNAL(new_friend, COMSIG_FRIENDSHIP_CHANGE, owner, 2)
 	return ..()
 
 /datum/status_effect/stabilized/orange

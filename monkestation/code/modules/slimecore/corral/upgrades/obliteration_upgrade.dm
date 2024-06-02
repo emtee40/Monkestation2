@@ -1,5 +1,5 @@
 /datum/corral_upgrade/obliteration_upgrade
-	name = "Slime Obilteration Upgrade"
+	name = "Slime Obliteration Upgrade"
 	desc = "Just obliterates slimes that enter the cage."
 	cost = 5000
 

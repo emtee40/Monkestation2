@@ -40,6 +40,7 @@
 	var/static/list/huntable_trash = typecacheof(list(
 		/obj/item/trash,
 		/obj/item/food/deadmouse,
+		/obj/item/shard
 	))
 
 /datum/slime_trait/cleaner/on_add(mob/living/basic/slime/parent)
