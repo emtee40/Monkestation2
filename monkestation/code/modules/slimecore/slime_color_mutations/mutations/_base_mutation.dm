@@ -36,8 +36,6 @@
 /// Copies mutation progress to the target slime.
 /// Target should always be a slime of the same type.
 /datum/slime_mutation_data/proc/copy_progress(mob/living/basic/slime/target)
-	if (!istype(host, target))
-		CRASH("[host] tried to copy it's mutation progress into incompatible target [target].")
 	var/datum/slime_mutation_data/data
 	for (var/datum/slime_mutation_data/potential_data as anything in target.possible_color_mutations)
 		if (istype(potential_data, type))
