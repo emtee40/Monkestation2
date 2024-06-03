@@ -46,7 +46,7 @@
 	data.needed_items = needed_items.Copy()
 	data.needed_reagents = needed_reagents.Copy()
 	data.latch_needed = latch_needed.Copy()
-	recheck_mutation()
+	data.recheck_mutation()
 
 /datum/slime_mutation_data/proc/recheck_mutation()
 	if(length(latch_needed) || length(needed_reagents) || length(needed_items))
