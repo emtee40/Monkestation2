@@ -5,7 +5,7 @@
 	icon_state = "brass_table-0" //brass table is my best friend
 	base_icon_state = "brass_table" //brass table is my best friend
 	resistance_flags = FIRE_PROOF
-	buildstack = /obj/item/stack/sheet/mineral/sandstone.
+	buildstack = /obj/item/stack/sheet/mineral/sandstone
 	buildstackamount = 6
 	framestackamount = 0
 	smoothing_groups = SMOOTH_GROUP_SANDSTONE_TABLES
