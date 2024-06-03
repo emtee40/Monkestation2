@@ -6,9 +6,9 @@
 	implant_overlay = "chest_implant_overlay"
 	w_class = WEIGHT_CLASS_SMALL
 	encode_info = AUGMENT_NT_LOWLEVEL
-
-	var/double_legged = FALSE
+	implant_overlay = "chest_implant_overlay"
 	slot = ORGAN_SLOT_SPINAL
+	var/double_legged = FALSE
 
 /datum/action/item_action/organ_action/sandy
 	name = "Sandevistan Activation"
