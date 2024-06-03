@@ -46,6 +46,7 @@
 	data.needed_items = needed_items
 	data.needed_reagents = needed_reagents
 	data.latch_needed = latch_needed
+	recheck_mutation()
 
 /datum/slime_mutation_data/proc/recheck_mutation()
 	if(length(latch_needed) || length(needed_reagents) || length(needed_items))
@@ -61,6 +62,7 @@
 	latch_needed[target.type] -= amount
 	if(latch_needed[target.type] <= 0)
 		latch_needed -= target.type
+
 	recheck_mutation()
 
 /datum/slime_mutation_data/proc/check_ate(datum/source, atom/target)
