@@ -273,7 +273,7 @@ export const Transform = (props, context) => {
         icon="sync"
         width="100%"
         onClick={() =>
-          act('confirm_transform', {
+          act('modify_transform', {
             index: step,
           })
         }>
