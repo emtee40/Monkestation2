@@ -58,6 +58,8 @@
 		QDEL_NULL(shadow)
 
 /mob/proc/update_name_tag(passed_name)
+	if(QDELETED(name_tag))
+		return
 	if(!passed_name)
 		passed_name = name
 
