@@ -43,9 +43,9 @@
 			break
 	if (!data)
 		CRASH("[host] tried to copy it's mutation progress into [target], but didn't find compatible mutation data.")
-	data.needed_items = needed_items
-	data.needed_reagents = needed_reagents
-	data.latch_needed = latch_needed
+	data.needed_items = needed_items.Copy()
+	data.needed_reagents = needed_reagents.Copy()
+	data.latch_needed = latch_needed.Copy()
 	recheck_mutation()
 
 /datum/slime_mutation_data/proc/recheck_mutation()
