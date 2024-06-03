@@ -8,7 +8,7 @@
 	tip = "Best paired with hateful manacels for conversion, they are stunned for 6.5 seconds and muted for 13."
 	button_icon_state = "Kindle"
 	power_cost = 125
-	invocation_time = 1 SECONDS
+	invocation_time = 2 SECONDS
 	invocation_text = list("Divinity, show them your light!")
 	after_use_text = "Let the power flow through you!"
 	slab_overlay = "volt"

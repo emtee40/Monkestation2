@@ -69,7 +69,10 @@ GLOBAL_LIST_EMPTY(anchoring_crystals) //list of all anchoring crystals
 	if(crystal_area in crystals_objective?.valid_areas) //if a crystal gets destroyed you cant use that area again
 		crystals_objective.valid_areas -= crystal_area
 
-	SSshuttle.registerHostileEnvironment(src) //removed on destruction or on completetion of charging
+	SSshuttle.registerHostileEnvironment(src) //removed on destruction or once the scripture is off cooldown
+	var/datum/scripture/create_structure/anchoring_crystal/crystal_scripture
+	addtimer(CALLBACK(src, PROC_REF(clear_hostile_environment)), ANCHORING_CRYSTAL_COOLDOWN + initial(crystal_scripture.invocation_time)) //also give them time to invoke
+	GLOB.clock_warp_areas |= crystal_area
 
 /obj/structure/destructible/clockwork/anchoring_crystal/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	COOLDOWN_START(src, recently_hit_cd, CRYSTAL_SHIELD_DELAY)
@@ -154,7 +157,7 @@ GLOBAL_LIST_EMPTY(anchoring_crystals) //list of all anchoring crystals
 	resistance_flags += INDESTRUCTIBLE
 	atom_integrity = INFINITY
 	set_armor(/datum/armor/immune)
-	if(GLOB.anchoring_crystals.len >= 2)
+	if(length(GLOB.anchoring_crystals) >= 2)
 		priority_announce("Reality in [crystal_area] has been destabilized, all personnel are advised to avoid the area.", \
 						  "Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES, has_important_message = TRUE)
 
@@ -199,6 +202,12 @@ GLOBAL_LIST_EMPTY(anchoring_crystals) //list of all anchoring crystals
 		overlay_state = SHIELD_BROKEN
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
 	overlays += shield_appearance
+
+/obj/structure/destructible/clockwork/anchoring_crystal/proc/clear_hostile_environment()
+	if(QDELETED(src))
+		return
+
+	SSshuttle.clearHostileEnvironment(src)
 
 ///return a message based off of what this anchoring crystal did/will do for the cult
 /proc/anchoring_crystal_charge_message(completed = FALSE)

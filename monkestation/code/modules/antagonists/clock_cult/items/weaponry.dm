@@ -17,7 +17,7 @@
 	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "gores")
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "gore")
 	sharpness = SHARP_EDGED
-	wound_bonus = -10 //wounds are really strong for clock cult, so im making their weapons slightly worse then normal at wounding
+	wound_bonus = -15 //wounds are really strong for clock cult, so im making their weapons slightly worse then normal at wounding
 	/// Typecache of valid turfs to have the weapon's special effect on
 	var/static/list/effect_turf_typecache = typecacheof(list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
 
@@ -53,12 +53,13 @@
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
-	icon_state = "ratvarian_spear"
+	base_icon_state = "ratvarian_spear"
+	icon_state = "ratvarian_spear0"
 	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
 	throwforce = 40
-	force = 22
-	armour_penetration = 24
-	block_chance = 40
+	force = 8
+	armour_penetration = 30
+	block_chance = 15
 	clockwork_desc = "Can be summoned back to its last holder every 10 seconds if they are standing on bronze."
 	///ref to our recall spell
 	var/datum/action/cooldown/spell/summon_spear/our_summon = new
@@ -67,13 +68,22 @@
 
 /obj/item/clockwork/weapon/brass_spear/Initialize(mapload)
 	. = ..()
-
+	AddComponent(/datum/component/two_handed, \
+		force_multiplier = 2, \
+		icon_wielded = "[base_icon_state]1", \
+		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
+	)
 	RegisterSignal(src, COMSIG_ITEM_PICKUP, PROC_REF(on_pickup))
 	our_summon.recalled_spear = src
 
 /obj/item/clockwork/weapon/brass_spear/Destroy(force)
 	UnregisterSignal(src, COMSIG_ITEM_PICKUP)
 	QDEL_NULL(our_summon)
+	return ..()
+
+/obj/item/clockwork/weapon/brass_spear/update_icon_state()
+	icon_state = "[base_icon_state]0"
 	return ..()
 
 /obj/item/clockwork/weapon/brass_spear/proc/on_pickup(picked_up, mob/taker)
@@ -90,11 +100,19 @@
 	if(!(locate(our_summon) in taker.actions)) //dont let them have multiple summons
 		our_summon.Grant(taker)
 
+/obj/item/clockwork/weapon/brass_spear/proc/on_wield()
+	attack_speed = max(attack_speed - 3, 1)
+	block_chance += 30
+
+/obj/item/clockwork/weapon/brass_spear/proc/on_unwield()
+	attack_speed += 3 //yes technically this could break with the max() in on_wield() but you should not be getting attack speed that low anyway so its only there for sanity
+	block_chance -= 30
+
 /datum/action/cooldown/spell/summon_spear
 	name = "Summon Brass Spear"
 	desc = "Summons the last brass spear you picked up if you are currently standing on bronze."
 	button_icon = 'monkestation/icons/obj/clock_cult/clockwork_weapons.dmi'
-	button_icon_state = "ratvarian_spear"
+	button_icon_state = "ratvarian_spear0"
 	background_icon = 'monkestation/icons/mob/clock_cult/background_clock.dmi'
 	background_icon_state = "bg_clock"
 	overlay_icon_state = ""
@@ -148,6 +166,7 @@
 	armour_penetration = 6
 	attack_verb_simple = list("bash", "hammer", "attack", "smash")
 	attack_verb_continuous = list("bashes", "hammers", "attacks", "smashes")
+	attack_speed = CLICK_CD_LARGE_WEAPON
 	clockwork_desc = "Enemies hit by this will be flung back while you are on bronze tiles."
 	sharpness = FALSE
 	hitsound = 'sound/weapons/smash.ogg'
@@ -171,17 +190,18 @@
 /obj/item/clockwork/weapon/brass_battlehammer/update_icon_state()
 	icon_state = "[base_icon_state]0"
 	return ..()
+
 /obj/item/clockwork/weapon/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_sword"
-	force = 26
+	force = 24
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb_simple = list("attack", "slash", "cut", "tear", "gore")
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "tears", "gores")
 	clockwork_desc = "Enemies and mechs will be struck with a powerful electromagnetic pulse while you are on bronze tiles, with a cooldown."
-	block_chance = 25
+	block_chance = 20
 	COOLDOWN_DECLARE(emp_cooldown)
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)

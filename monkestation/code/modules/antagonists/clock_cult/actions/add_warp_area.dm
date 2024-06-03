@@ -1,7 +1,7 @@
 ///How much do we subtract from the base cose of adding a new area
 #define AREAS_TO_IGNORE_FOR_COST 10
 ///How many areas are observation consoles able to warp to at the start
-#define STARTING_WARP_AREAS 10
+#define STARTING_WARP_AREAS 8
 
 /datum/action/innate/clockcult/add_warp_area
 	name = "Add Warp Area"
@@ -11,6 +11,8 @@
 	var/static/list/cached_addable_areas
 	///what area types are we blocked from warping to
 	var/static/list/blocked_areas = typecacheof(list(/area/station/service/chapel, /area/station/ai_monitored))
+	///what area types cost double
+	var/static/list/costly_areas = typecacheof(list(/area/station/command, /area/station/security))
 
 /datum/action/innate/clockcult/add_warp_area/New(Target)
 	. = ..()
@@ -30,7 +32,10 @@
 	if(!input_area)
 		return
 
-	var/cost = max((length(GLOB.clock_warp_areas) * 3) - STARTING_WARP_AREAS, 0)
+	var/cost = max((length(GLOB.clock_warp_areas) * 3) - (STARTING_WARP_AREAS * 3), 0)
+	if(is_type_in_typecache(input_area.type, costly_areas))
+		cost *= 2
+
 	if(tgui_alert(owner, "Are you sure you want to add [input_area]? It will cost [cost] vitality.", "Add Area", list("Yes", "No")) == "Yes")
 		if(GLOB.clock_vitality < cost)
 			to_chat(span_brass("Not enough vitality."))
@@ -48,14 +53,25 @@
 		return
 
 	//shuffle_inplace(cached_addable_areas) //this is so our picked maint areas are random without needing to do anything weird
-	for(var/i in 1 to STARTING_WARP_AREAS)
+	var/sanity = 0
+	var/added_areas = 0
+	var/list/temp_list = cached_addable_areas.Copy()
+	while(added_areas < STARTING_WARP_AREAS && sanity < 100 && length(temp_list))
+		sanity++
 		/*if(i <= 2) //always give them 2 maint areas to hopefully be easy to warp from
 			var/area/station/maintenance/maint_area = locate() in cached_addable_areas
 			if(maint_area)
 				cached_addable_areas -= maint_area
 				GLOB.clock_warp_areas += maint_area
 				continue*/ //for if I implement abscond restrictions
-		GLOB.clock_warp_areas += pick_n_take(cached_addable_areas)
+		var/area/picked_area = pick(temp_list)
+		temp_list -= picked_area
+		if(is_type_in_typecache(picked_area.type, costly_areas))
+			continue
+
+		added_areas++
+		GLOB.clock_warp_areas += picked_area
+		cached_addable_areas -= picked_area
 
 /datum/action/innate/clockcult/add_warp_area/proc/build_addable_areas()
 	cached_addable_areas = list()

@@ -24,3 +24,6 @@
 
 ///the map path of the reebe map
 #define REEBE_MAP_PATH "_maps/~monkestation/templates/reebe.dmm"
+
+///how long between uses of the anchoring crystal scripture, also how long the hostile environment lasts if the crystal is not destroyed
+#define ANCHORING_CRYSTAL_COOLDOWN 7 MINUTES
