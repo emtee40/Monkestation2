@@ -1,3 +1,5 @@
+#define OOZE_SUCKER_UPGRADE_DISPOSER "disposer"
+
 ///this cannablizes floor_pump code but rips specific reagents and and such just does stuff itself so it can be expanded easier in the future
 /obj/machinery/plumbing/ooze_sucker
 	name = "ooze sucker"
@@ -36,6 +38,9 @@
 	/// Whether draining was performed last process or not.
 	var/drained_last_process = FALSE
 
+	var/list/upgrades = list()
+	var/list/upgrade_notices = list()
+
 /obj/machinery/plumbing/ooze_sucker/Initialize(mapload, bolt, layer)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt, layer)
@@ -58,6 +63,8 @@
 /obj/machinery/plumbing/ooze_sucker/examine(mob/user)
 	. = ..()
 	. += span_notice("It's currently turned [turned_on ? "ON" : "OFF"].")
+	for(var/notice in upgrade_notices)
+		. += notice
 
 
 /obj/machinery/plumbing/ooze_sucker/update_icon_state()
@@ -66,6 +73,29 @@
 		icon_state = "[base_icon_state]-on"
 	else
 		icon_state = base_icon_state
+
+/obj/machinery/plumbing/ooze_sucker/attackby(obj/item/item, mob/user, params)
+	if(user.istate & ISTATE_HARM)
+		return ..()
+
+	if(istype(item, /obj/item/disk/sucker_upgrade))
+		var/obj/item/disk/sucker_upgrade/upgrade = item
+
+		if(upgrade.upgrade_type in upgrades)
+			to_chat(user, span_warning("[src] already has a [upgrade.upgrade_type] upgrade!"))
+			return
+
+		if(upgrade.notice)
+			upgrade_notices += span_notice(upgrade.notice)
+
+		upgrades += upgrade.upgrade_type
+		upgrade.on_upgrade(src)
+		to_chat(user, span_notice("You install a [upgrade.upgrade_type] upgrade into [src]."))
+		playsound(user, 'sound/machines/click.ogg', 30, TRUE)
+		qdel(upgrade)
+		return
+
+	return ..()
 
 /obj/machinery/plumbing/ooze_sucker/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	. = ..()
@@ -103,7 +133,7 @@
 		&& are_reagents_ready()
 
 /obj/machinery/plumbing/ooze_sucker/proc/are_reagents_ready()
-	return reagents.total_volume < reagents.maximum_volume
+	return reagents.total_volume < reagents.maximum_volume || (OOZE_SUCKER_UPGRADE_DISPOSER in upgrades)
 
 /obj/machinery/plumbing/ooze_sucker/process(seconds_per_tick)
 	if(!can_run())
@@ -155,7 +185,9 @@
 	var/target_value = seconds_per_tick * (drain_flat + (affected_turf.liquids.liquid_group.total_reagent_volume * drain_percent)) * multiplier
 	//Free space handling
 	var/free_space = reagents.maximum_volume - reagents.total_volume
-	if(target_value > free_space)
+	if(target_value > free_space && (OOZE_SUCKER_UPGRADE_DISPOSER in upgrades))
+		reagents.remove_all(target_value - free_space)
+	else if(target_value > free_space)
 		target_value = free_space
 
 	var/datum/liquid_group/targeted_group = affected_turf.liquids.liquid_group
@@ -171,3 +203,20 @@
 	toggle_state()
 	balloon_alert_to_viewers("[turned_on ? "enabled" : "disabled"] ooze sucker")
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/disk/sucker_upgrade
+	name = "ooze sucker upgrade disk"
+	desc = "An upgrade disk for an ooze sucker."
+	icon_state = "rndmajordisk"
+	var/upgrade_type
+	var/notice
+
+/obj/item/disk/sucker_upgrade/proc/on_upgrade(obj/machinery/plumbing/ooze_sucker/sucker)
+
+/obj/item/disk/sucker_upgrade/disposer
+	name = "ooze sucker disposer upgrade disk"
+	desc = "An upgrade disk for an ooze sucker that makes it automatically dispose of excess ooze."
+	upgrade_type = OOZE_SUCKER_UPGRADE_DISPOSER
+	notice = "It's automatically disposing of excess ooze."
+
+#undef OOZE_SUCKER_UPGRADE_DISPOSER

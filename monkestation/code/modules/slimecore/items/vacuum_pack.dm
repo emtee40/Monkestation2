@@ -84,7 +84,7 @@
 		. += span_notice("It has [LAZYLEN(stored)] creatures stored in it.")
 	if(LAZYLEN(upgrades))
 		for(var/upgrade in upgrades)
-			. += span_notice("It has [upgrade] upgrade installed.")
+			. += span_notice("It has \a [upgrade] upgrade installed.")
 
 /obj/item/vacuum_pack/attackby(obj/item/item, mob/living/user, params)
 	if(item == nozzle)
