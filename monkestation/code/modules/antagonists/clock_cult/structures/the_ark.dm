@@ -135,9 +135,9 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(open_gateway)), ARK_READY_PERIOD)
 
 /obj/structure/destructible/clockwork/the_ark/proc/open_gateway()
-	if(current_state >= ARK_STATE_ACTIVE)
+	if(current_state >= ARK_STATE_GRACE)
 		return
-	current_state = ARK_STATE_ACTIVE
+	current_state = ARK_STATE_GRACE
 	SSshuttle.registerHostileEnvironment(src)
 	icon_state = "clockwork_gateway_active"
 	send_clock_message(null, span_bigbrass("The Ark has been activated, you will be transported soon! Dont forget to gather weapons with your \"Clockwork Armaments\" scripture."), \
@@ -173,6 +173,7 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 	log_game("The clock cult has begun opening the Ark of the Clockwork Justiciar.")
 
 /obj/structure/destructible/clockwork/the_ark/proc/begin_assault()
+	current_state = ARK_STATE_ACTIVE
 	START_PROCESSING(SSprocessing, src)
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal \
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
@@ -225,11 +226,11 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 
 /proc/explode_reebe()
 	var/list/reebe_area_list = get_area_turfs(/area/ruin/powered/reebe/city)
-	if(reebe_area_list.len)
+	if(length(reebe_area_list))
 		for(var/i in 1 to 30)
 			explosion(pick(reebe_area_list), 0, 2, 4, 4, FALSE)
 			sleep(5)
-	if(GLOB.abscond_markers.len)
+	if(length(GLOB.abscond_markers))
 		explosion(pick(GLOB.abscond_markers), 50, 40, 30, 30, FALSE, TRUE)
 	SSticker.force_ending = TRUE
 

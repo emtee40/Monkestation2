@@ -16,6 +16,8 @@ GLOBAL_DATUM(main_clock_cult, /datum/team/clock_cult)
 	var/list/non_human_servants = list()
 	/// what warning stage are we at
 	var/warning_stage = CONVERSION_WARNING_NONE
+	/// have we used our recall
+	var/member_recalled = FALSE
 
 /datum/team/clock_cult/add_member(datum/mind/new_member)
 	. = ..()

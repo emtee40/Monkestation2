@@ -81,7 +81,6 @@
 												  healing_turfs = list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
 		RegisterSignal(current, COMSIG_CLOCKWORK_SLAB_USED, PROC_REF(switch_recall_slab))
 		handle_clown_mutation(current, mob_override ? null : "The light of Rat'var allows you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-		ADD_TRAIT(current, TRAIT_KNOW_ENGI_WIRES, CULT_TRAIT)
 		add_forbearance(current)
 
 /datum/antagonist/clock_cultist/remove_innate_effects(mob/living/mob_override)
@@ -97,7 +96,6 @@
 		UnregisterSignal(current, COMSIG_CLOCKWORK_SLAB_USED)
 		QDEL_NULL(owner_turf_healing)
 		handle_clown_mutation(current, removing = FALSE)
-		REMOVE_TRAIT(current, TRAIT_KNOW_ENGI_WIRES, CULT_TRAIT)
 
 /datum/antagonist/clock_cultist/can_be_owned(datum/mind/new_owner)
 	. = ..()

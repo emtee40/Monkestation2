@@ -1,5 +1,6 @@
 #define HAMMER_FLING_DISTANCE 2
 #define HAMMER_THROW_FLING_DISTANCE 3
+#define COGSCARAB_BOW_DRAW_TIME_MULT 20
 
 /obj/item/clockwork/weapon
 	name = "clockwork weapon"
@@ -57,8 +58,8 @@
 	icon_state = "ratvarian_spear0"
 	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
 	throwforce = 40
-	force = 8
-	armour_penetration = 30
+	force = 7
+	armour_penetration = 40
 	block_chance = 15
 	clockwork_desc = "Can be summoned back to its last holder every 10 seconds if they are standing on bronze."
 	///ref to our recall spell
@@ -100,13 +101,16 @@
 	if(!(locate(our_summon) in taker.actions)) //dont let them have multiple summons
 		our_summon.Grant(taker)
 
+/obj/item/clockwork/weapon/brass_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		final_block_chance += 30
+	return ..()
+
 /obj/item/clockwork/weapon/brass_spear/proc/on_wield()
 	attack_speed = max(attack_speed - 3, 1)
-	block_chance += 30
 
 /obj/item/clockwork/weapon/brass_spear/proc/on_unwield()
 	attack_speed += 3 //yes technically this could break with the max() in on_wield() but you should not be getting attack speed that low anyway so its only there for sanity
-	block_chance -= 30
 
 /datum/action/cooldown/spell/summon_spear
 	name = "Summon Brass Spear"
@@ -195,12 +199,12 @@
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_sword"
-	force = 24
+	force = 20
 	throwforce = 20
-	armour_penetration = 12
+	armour_penetration = 15
 	attack_verb_simple = list("attack", "slash", "cut", "tear", "gore")
 	attack_verb_continuous = list("attacks", "slashes", "cuts", "tears", "gores")
-	clockwork_desc = "Enemies and mechs will be struck with a powerful electromagnetic pulse while you are on bronze tiles, with a cooldown."
+	clockwork_desc = "Enemies and mechs will be struck with a powerful electromagnetic pulse while you are on bronze tiles, with a cooldown. It seems to only be able to parry melee attacks."
 	block_chance = 20
 	COOLDOWN_DECLARE(emp_cooldown)
 
@@ -234,6 +238,9 @@
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
 	to_chat(user, span_brass("You strike [target] with an electromagnetic pulse!"))
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
+
+/obj/item/clockwork/weapon/brass_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	return attack_type == MELEE_ATTACK && ..()
 
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, span_brass("[src] glows, indicating the next attack will disrupt electronics of the target."))
@@ -285,7 +292,7 @@
 	if(drawn || !chambered)
 		return
 
-	if(!do_after(user, 0.5 SECONDS, src))
+	if(!do_after(user, 0.5 SECONDS * (iscogscarab(user) ? COGSCARAB_BOW_DRAW_TIME_MULT : 1), src))
 		return
 
 	to_chat(user, span_notice("You draw back the bowstring."))
@@ -341,3 +348,4 @@
 
 #undef HAMMER_FLING_DISTANCE
 #undef HAMMER_THROW_FLING_DISTANCE
+#undef COGSCARAB_BOW_DRAW_TIME_MULT

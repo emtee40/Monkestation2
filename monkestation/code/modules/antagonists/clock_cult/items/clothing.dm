@@ -24,11 +24,9 @@
 	fire = 100
 	acid = 100
 
-
 /obj/item/clothing/suit/clockwork/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clockwork_pickup, ~(ITEM_SLOT_HANDS))
-
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
@@ -346,8 +344,6 @@
 //THIS IS MOST LIKELY BREAKING
 /// Applies the actual effects to the wearer, giving them flash protection and a variety of sight/info bonuses
 /obj/item/clothing/glasses/clockwork/judicial_visor/proc/apply_to_wearer()
-	ADD_TRAIT(wearer, TRAIT_NOFLASH, CLOTHING_TRAIT)
-
 	ADD_TRAIT(wearer, TRAIT_MEDICAL_HUD, CLOTHING_TRAIT)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	med_hud.show_to(wearer)
@@ -356,16 +352,12 @@
 	var/datum/atom_hud/sec_hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	sec_hud.show_to(wearer)
 
-	ADD_TRAIT(wearer, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
-	ADD_TRAIT(wearer, TRAIT_MESON_VISION, CLOTHING_TRAIT)
-	ADD_TRAIT(wearer, TRAIT_KNOW_CYBORG_WIRES, CLOTHING_TRAIT)
+	add_traits(list(TRAIT_KNOW_ENGI_WIRES, TRAIT_MADNESS_IMMUNE, TRAIT_MESON_VISION, TRAIT_KNOW_CYBORG_WIRES, TRAIT_NOFLASH), CLOTHING_TRAIT)
 	color_cutoffs = list(50, 10, 30)
 	wearer.update_sight()
 
 /// Removes the effects to the wearer, removing the flash protection and similar
 /obj/item/clothing/glasses/clockwork/judicial_visor/proc/unapply_to_wearer()
-	REMOVE_TRAIT(wearer, TRAIT_NOFLASH, CLOTHING_TRAIT)
-
 	REMOVE_TRAIT(wearer, TRAIT_MEDICAL_HUD, CLOTHING_TRAIT)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	med_hud.hide_from(wearer)
@@ -374,12 +366,9 @@
 	var/datum/atom_hud/sec_hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	sec_hud.hide_from(wearer)
 
-	REMOVE_TRAIT(wearer, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
-	REMOVE_TRAIT(wearer, TRAIT_MESON_VISION, CLOTHING_TRAIT)
-	REMOVE_TRAIT(wearer, TRAIT_KNOW_CYBORG_WIRES, CLOTHING_TRAIT)
+	remove_traits(list(TRAIT_KNOW_ENGI_WIRES, TRAIT_MADNESS_IMMUNE, TRAIT_MESON_VISION, TRAIT_KNOW_CYBORG_WIRES, TRAIT_NOFLASH), CLOTHING_TRAIT)
 	color_cutoffs = null
 	wearer.update_sight()
-
 
 /obj/item/clothing/glasses/clockwork/judicial_visor/equipped(mob/living/user, slot)
 	. = ..()

@@ -63,7 +63,6 @@
 
 	var/turf/creation_turf = get_turf(target)
 	var/atom/movable/possible_replaced
-
 	if(locate(selected_output.to_create_path) in creation_turf)
 		to_chat(user, span_clockyellow("There is already one of these on this tile!"))
 		return
@@ -87,10 +86,11 @@
 		calculated_creation_delay = selected_output.reebe_mult
 		if(!get_charged_anchor_crystals())
 			calculated_creation_delay += SLOWDOWN_FROM_NO_ANCHOR_CRYSTAL
+		else if(GLOB.clock_ark?.current_state >= ARK_STATE_ACTIVE)
+			calculated_creation_delay += (iscogscarab(user) ? 2.5 : 5)
 	calculated_creation_delay = selected_output.creation_delay * calculated_creation_delay
 
 	var/obj/effect/temp_visual/ratvar/constructing_effect/effect = new(creation_turf, calculated_creation_delay)
-
 	if(!do_after(user, calculated_creation_delay, target))
 		qdel(effect)
 		return
@@ -99,9 +99,7 @@
 		return
 
 	GLOB.clock_power -= selected_output.cost
-
 	var/atom/created
-
 	if(!istype(selected_output, /datum/replica_fabricator_output/turf_output))
 		if(possible_replaced)
 			qdel(possible_replaced)
