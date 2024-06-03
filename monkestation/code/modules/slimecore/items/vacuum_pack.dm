@@ -194,6 +194,13 @@
 	if(!istype(pack))
 		return INITIALIZE_HINT_QDEL
 
+/obj/item/vacuum_nozzle/examine(mob/user)
+	. = ..()
+	if (!pack.illegal)
+		. += span_notice("Activate to change firing modes. Currently set to [pack.give_choice ? "selective" : "indiscriminate"].")
+	else
+		. += span_notice("It's selection mechanism is hotwired to fire indiscriminately.")
+
 /obj/item/vacuum_nozzle/doMove(atom/destination)
 	if(destination && (destination != pack.loc || !ismob(destination)))
 		if (loc != pack)
@@ -203,7 +210,7 @@
 
 /obj/item/vacuum_nozzle/attack_self(mob/user, modifiers)
 	. = ..()
-	if (initial(pack.give_choice) == TRUE)
+	if (!pack.illegal)
 		pack.give_choice = !pack.give_choice
 		var/mode_desc = pack.give_choice ? "selectively" : "indiscriminately"
 		visible_message(
