@@ -201,6 +201,17 @@
 		destination = pack
 	. = ..()
 
+/obj/item/vacuum_nozzle/attack_self(mob/user, modifiers)
+	. = ..()
+	if (initial(pack.give_choice) == TRUE)
+		pack.give_choice = !pack.give_choice
+		var/mode_desc = pack.give_choice ? "selectively" : "indiscriminately"
+		visible_message(
+			span_notice("[user] switches the [pack] to fire [mode_desc]."),
+			span_notice("You switch the [pack] to fire [mode_desc]."),
+			span_hear("You hear a click.")
+		)
+
 /obj/item/vacuum_nozzle/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 
