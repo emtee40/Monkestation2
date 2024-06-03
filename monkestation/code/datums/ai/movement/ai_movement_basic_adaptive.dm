@@ -1,5 +1,3 @@
-// MONKESTATION ADDITION: ADAPTIVE AI MOVEMENT
-
 /datum/ai_movement/basic_avoidance/adaptive
 
 /datum/ai_movement/basic_avoidance/adaptive/post_move(datum/move_loop/source, succeeded)
