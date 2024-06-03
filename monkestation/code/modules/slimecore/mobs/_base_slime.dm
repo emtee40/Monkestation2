@@ -359,6 +359,7 @@
 		data.copy_progress(new_slime)
 	for(var/datum/slime_trait/trait as anything in slime_traits)
 		new_slime.add_trait(trait.type)
+	new_slime.recompile_ai_tree()
 
 /mob/living/basic/slime/proc/start_mutating(random = FALSE)
 	if(!pick_mutation(random))
