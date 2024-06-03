@@ -190,9 +190,12 @@
 				copy_list[item] = rand(range[1], range[2])
 
 		for(var/item in copy_list)
-			if(!parent_values[step_number][item])
+			if(!(item in parent_values[step_number]))
 				continue
-			copy_list[item] += parent.vars[item]
+			if(parent_values[step_number][item])
+				copy_list[item] += parent.vars[item]
+			else
+				copy_list[item] -= parent.vars[item]
 
 		if(first_item)
 			animate(arglist(list(parent) + copy_list))
@@ -240,7 +243,10 @@
 		for(var/item in copy_list)
 			if(!(item in parent_values[step_number]))
 				continue
-			copy_list[item] += animator.vars[item]
+			if(parent_values[step_number][item])
+				copy_list[item] += animator.vars[item]
+			else
+				copy_list[item] -= animator.vars[item]
 
 		if(first_item)
 			animate(arglist(list(animator) + copy_list))
@@ -429,11 +435,12 @@
 	random_vars[step][change_var] = inputs
 
 
-/datum/animate_holder/proc/set_parent_copy(step, change_var)
+/datum/animate_holder/proc/set_parent_copy(step, change_var, adds = TRUE)
 	if(!parent_values[step])
 		parent_values += list()
 		parent_values[step] = list()
 	parent_values[step] |= change_var
+	parent_values[step][change_var] = adds
 
 /datum/animate_holder/proc/set_transform_type(step, matrix_type)
 	transformation_types[step] = matrix_type
