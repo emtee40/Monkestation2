@@ -129,6 +129,7 @@
 
 	RegisterSignal(src, COMSIG_HUNGER_UPDATED, PROC_REF(hunger_updated))
 	RegisterSignal(src, COMSIG_MOB_OVERATE, PROC_REF(attempt_change))
+	RegisterSignals(src, list(COMSIG_AI_BLACKBOARD_KEY_CLEARED(BB_CURRENT_PET_TARGET), COMSIG_AI_BLACKBOARD_KEY_SET(BB_CURRENT_PET_TARGET)), PROC_REF(on_blackboard_key_changed))
 
 	for(var/datum/slime_mutation_data/listed as anything in current_color.possible_mutations)
 		var/datum/slime_mutation_data/data = new listed
@@ -147,8 +148,12 @@
 	. = ..()
 	for(var/datum/slime_trait/trait as anything in slime_traits)
 		remove_trait(trait)
-	UnregisterSignal(src, COMSIG_HUNGER_UPDATED)
-	UnregisterSignal(src, COMSIG_MOB_OVERATE)
+	UnregisterSignal(src, list(
+		COMSIG_HUNGER_UPDATED,
+		COMSIG_MOB_OVERATE,
+		COMSIG_AI_BLACKBOARD_KEY_CLEARED(BB_CURRENT_PET_TARGET),
+		COMSIG_AI_BLACKBOARD_KEY_SET(BB_CURRENT_PET_TARGET),
+		))
 
 	for(var/datum/slime_mutation_data/mutation as anything in possible_color_mutations)
 		possible_color_mutations -= mutation
@@ -169,7 +174,7 @@
 		if(SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_BESTFRIEND))
 			. += span_notice("You are one of [src]'s best friends!")
 		else
-			. += span_notice("You are one of [src]'s friends")
+			. += span_notice("You are one of [src]'s friends.")
 	if(check_secretion())
 		switch(ooze_production)
 			if(-INFINITY to 10)
@@ -196,10 +201,25 @@
 		if(length(data.needed_items))
 			compiled_liked_foods |= data.needed_items
 
+/mob/living/basic/slime/proc/on_blackboard_key_changed(datum/source)
+	SIGNAL_HANDLER
+	update_ai_movement_type()
+
+/mob/living/basic/slime/proc/update_ai_movement_type()
+	var/picked_type = /datum/ai_movement/basic_avoidance
+	if(slime_flags & CLEANER_SLIME)
+		picked_type = /datum/ai_movement/jps/slime_cleaner
+	if(ai_controller.blackboard_key_exists(BB_CURRENT_PET_TARGET))
+		picked_type = /datum/ai_movement/basic_avoidance/adaptive
+	if(!istype(ai_controller.ai_movement, picked_type))
+		ai_controller.change_ai_movement_type(picked_type)
+
 /mob/living/basic/slime/proc/recompile_ai_tree()
 	var/list/new_planning_subtree = list()
 	RemoveElement(/datum/element/basic_eating, food_types = compiled_liked_foods)
 	rebuild_foods()
+
+	update_ai_movement_type()
 
 	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET) // else it'll keep going after things it shouldn't
 
