@@ -104,7 +104,7 @@
 	///the amount of ooze we produce
 	var/ooze_production = 10
 
-/mob/living/basic/slime/Initialize(mapload, datum/slime_color/passed_color)
+/mob/living/basic/slime/Initialize(mapload, datum/slime_color/passed_color, is_split)
 	. = ..()
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_SLIME, 0.5, -11)
 	AddElement(/datum/element/soft_landing)
@@ -137,7 +137,9 @@
 		possible_color_mutations += data
 
 	update_slime_varience()
-	recompile_ai_tree()
+
+	if (!is_split) // no point recalculating twice
+		recompile_ai_tree()
 
 /mob/living/basic/slime/death(gibbed)
 	. = ..()
@@ -352,7 +354,7 @@
 	slime_flags &= ~SPLITTING_SLIME
 	ai_controller.set_ai_status(AI_STATUS_ON)
 
-	var/mob/living/basic/slime/new_slime = new(loc, current_color.type)
+	var/mob/living/basic/slime/new_slime = new(loc, current_color.type, TRUE)
 	new_slime.mutation_chance = mutation_chance
 	new_slime.ooze_production = ooze_production
 	for(var/datum/slime_mutation_data/data as anything in possible_color_mutations)
@@ -483,7 +485,7 @@
 
 /mob/living/basic/slime/random
 
-/mob/living/basic/slime/random/Initialize(mapload, datum/slime_color/passed_color)
+/mob/living/basic/slime/random/Initialize(mapload, datum/slime_color/passed_color, is_split)
 	current_color = pick(subtypesof(/datum/slime_color))
 	. = ..()
 
