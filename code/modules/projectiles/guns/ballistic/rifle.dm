@@ -184,7 +184,7 @@
 	projectile_damage_multiplier = 0.75
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	
-	SET_BASE_PIXEL(-8, 0)
+	SET_BASE_PIXEL(0, 0)
 
 /obj/item/gun/ballistic/rifle/boltaction/pipegun/handle_chamber(mob/living/user, empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	. = ..()
