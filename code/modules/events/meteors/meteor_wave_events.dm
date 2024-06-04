@@ -62,7 +62,7 @@
 	weight = 4 // monke edit: 5 to 4
 	min_players = 20
 	max_occurrences = 3
-	earliest_start = 75 MINUTES //monke edit: 35 to 75
+	earliest_start = 80 MINUTES //monke edit: 35 to 80
 	description = "A meteor wave with higher chance of big meteors."
 
 /datum/round_event/meteor_wave/threatening
@@ -74,7 +74,7 @@
 	weight = 6 // monke edit: 7 to 6
 	min_players = 25
 	max_occurrences = 3
-	earliest_start = 90 MINUTES //monke edit: 45 to 90
+	earliest_start = 100 MINUTES //monke edit: 45 to 100
 	description = "A meteor wave that might summon a tunguska class meteor."
 
 /datum/round_event/meteor_wave/catastrophic
