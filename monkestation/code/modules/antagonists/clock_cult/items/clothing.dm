@@ -13,8 +13,6 @@
 		/obj/item/stack/tile/bronze,
 		/obj/item/gun/ballistic/bow/clockwork,
 	)
-	/// Typecache of valid turfs to have the clothing's special effect on
-	var/static/list/effect_turf_typecache = typecacheof(list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
 
 /datum/armor/suit_clockwork
 	melee = 50
@@ -29,6 +27,7 @@
 /obj/item/clothing/suit/clockwork/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clockwork_pickup, ~(ITEM_SLOT_HANDS))
+	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK, TRUE)
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
@@ -413,7 +412,7 @@
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_HEAD))
 	AddElement(/datum/element/clockwork_pickup, ~(ITEM_SLOT_HANDS))
-
+	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK, TRUE)
 
 /obj/item/clothing/shoes/clockwork
 	name = "brass treads"

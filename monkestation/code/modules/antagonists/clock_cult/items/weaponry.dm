@@ -19,20 +19,28 @@
 	attack_verb_simple = list("attack", "poke", "jab", "tear", "gore")
 	sharpness = SHARP_EDGED
 	wound_bonus = -15 //wounds are really strong for clock cult, so im making their weapons slightly worse then normal at wounding
-	/// Typecache of valid turfs to have the weapon's special effect on
-	var/static/list/effect_turf_typecache = typecacheof(list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
+
+/obj/item/clockwork/weapon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK)
 
 /obj/item/clockwork/weapon/afterattack(mob/living/target, mob/living/user)
 	. = ..()
 	if(!.)
 		return
 
-	var/turf/gotten_turf = get_turf(user)
-	if(!is_type_in_typecache(gotten_turf, effect_turf_typecache))
+	if(!check_turf())
 		return
 
-	if((!QDELETED(target) && (!ismob(target) || (ismob(target) && target.stat != DEAD && !IS_CLOCK(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY)))))
-		hit_effect(target, user)
+	if(QDELETED(target))
+		return
+
+	if(ismob(target))
+		if(target.stat != DEAD && !IS_CLOCK(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+			mob_hit_effect(target, user)
+		return
+
+	atom_hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -43,13 +51,19 @@
 		return
 
 	var/mob/living/target = hit_atom
-
 	if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_CLOCK(target))
-		hit_effect(target, throwingdatum.thrower, TRUE)
+		mob_hit_effect(target, throwingdatum.thrower, TRUE)
 
 /// What occurs to non-holy people when attacked from brass tiles
-/obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
+/obj/item/clockwork/weapon/proc/mob_hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	return
+
+/// What occurs to non-mob atoms when attacked from brass tiles
+/obj/item/clockwork/weapon/proc/atom_hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
+	return
+
+/obj/item/clockwork/weapon/proc/check_turf(check_override)
+	return !(SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK, check_override) & COMPONENT_CHECKER_INVALID_TURF)
 
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
@@ -143,8 +157,7 @@
 	if(!IS_CLOCK(owner))
 		return FALSE
 
-	var/turf/summoner_turf = get_turf(owner)
-	if(!is_type_in_typecache(summoner_turf, recalled_spear?.effect_turf_typecache))
+	if(!recalled_spear.check_turf(owner))
 		if(feedback)
 			to_chat(owner, span_brass("You need to be standing on bronze to do this."))
 		return FALSE
@@ -184,7 +197,7 @@
 		force_wielded = 30, \
 	)
 
-/obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
+/obj/item/clockwork/weapon/brass_battlehammer/mob_hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	if((!thrown && !HAS_TRAIT(src, TRAIT_WIELDED)) || !istype(target))
 		return
 
@@ -208,33 +221,25 @@
 	block_chance = 20
 	COOLDOWN_DECLARE(emp_cooldown)
 
-/obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
+/obj/item/clockwork/weapon/brass_sword/mob_hit_effect(mob/living/target, mob/living/user, thrown)
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 
 	COOLDOWN_START(src, emp_cooldown, 30 SECONDS)
 
 	target.emp_act(EMP_LIGHT)
-	new /obj/effect/temp_visual/emp/pulse(target.loc)
+	new /obj/effect/temp_visual/emp/pulse(get_turf(target))
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 30 SECONDS)
 	to_chat(user, span_brass("You strike [target] with an electromagnetic pulse!"))
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/attacked_obj, mob/living/user, params)
-	. = ..()
-	var/turf/gotten_turf = get_turf(user)
-
-	if(!ismecha(attacked_obj) || !is_type_in_typecache(gotten_turf, effect_turf_typecache))
-		return
-
-	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+/obj/item/clockwork/weapon/brass_sword/atom_hit_effect(obj/vehicle/sealed/mecha/target, mob/living/user, thrown)
+	if(!istype(target) || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
-
-	var/obj/vehicle/sealed/mecha/target = attacked_obj
 	target.emp_act(EMP_HEAVY)
-	new /obj/effect/temp_visual/emp/pulse(target.loc)
+	new /obj/effect/temp_visual/emp/pulse(get_turf(target))
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
 	to_chat(user, span_brass("You strike [target] with an electromagnetic pulse!"))
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
@@ -259,14 +264,13 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockwork
 	/// Time between bolt recharges
 	var/recharge_time = 1.5 SECONDS
-	/// Typecache of valid turfs to have the weapon's special effect on
-	var/static/list/effect_turf_typecache = typecacheof(list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
 
 /obj/item/gun/ballistic/bow/clockwork/Initialize(mapload)
 	. = ..()
 	update_icon_state()
 	AddElement(/datum/element/clockwork_description, "Firing from brass tiles will halve the time that it takes to recharge a bolt.")
 	AddElement(/datum/element/clockwork_pickup)
+	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK)
 
 /obj/item/gun/ballistic/bow/clockwork/afterattack(atom/target, mob/living/user, flag, params, passthrough)
 	if(!drawn || !chambered)
@@ -280,9 +284,7 @@
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
-	var/turf/user_turf = get_turf(user)
-
-	if(is_type_in_typecache(user_turf, effect_turf_typecache))
+	if(!(SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK) & COMPONENT_CHECKER_INVALID_TURF))
 		recharge_time = 0.75 SECONDS
 
 	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
@@ -332,7 +334,7 @@
 	damage = 25
 	damage_type = BURN
 
-//double damage to non clockwork structures and machines
+//double damage to non clockwork structures and machines(if we rework reebe itself this will no longer be needed)
 /obj/projectile/energy/clockbolt/on_hit(atom/target, blocked, pierce_hit)
 	if(ismob(target))
 		var/mob/mob_target = target
