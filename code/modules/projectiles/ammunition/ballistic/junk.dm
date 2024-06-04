@@ -18,7 +18,7 @@
 		/obj/item/ammo_casing/junk = 50,
 		/obj/item/ammo_casing/junk/incendiary = 20,
 		/obj/item/ammo_casing/junk/shock = 20,
-		/obj/item/ammo_casing/junk/hunter = 20,
+//		/obj/item/ammo_casing/junk/hunter = 20, //Monke doesn't have bane, so this is pointless.
 		/obj/item/ammo_casing/junk/phasic = 5,
 		/obj/item/ammo_casing/junk/ripper = 5,
 		/obj/item/ammo_casing/junk/reaper = 1,

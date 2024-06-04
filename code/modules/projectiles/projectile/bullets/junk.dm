@@ -5,13 +5,14 @@
 	icon_state = "trashball"
 	damage = 30
 	embedding = list(embed_chance=15, fall_chance=3, jostle_chance=4, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10)
-	var/bane_mob_biotypes = MOB_ROBOTIC
-	var/bane_multiplier = 1.5
-	var/bane_added_damage = 0
+	// var/bane_mob_biotypes = MOB_ROBOTIC
+	// var/bane_multiplier = 1.5
+	// var/bane_added_damage = 0
+	demolition_mod = 3 //Monkestation doesn't have bane for projectiles, so instead giving a demolition mod.
 
-/obj/projectile/bullet/junk/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/bane, mob_biotypes = bane_mob_biotypes, target_type = /mob/living, damage_multiplier = bane_multiplier, added_damage = bane_added_damage, requires_combat_mode = FALSE)
+// /obj/projectile/bullet/junk/Initialize(mapload)
+//	. = ..()
+//	AddElement(/datum/element/bane, mob_biotypes = bane_mob_biotypes, target_type = /mob/living, damage_multiplier = bane_multiplier, added_damage = bane_added_damage, requires_combat_mode = FALSE)
 
 /obj/projectile/bullet/incendiary/fire/junk
 	name = "burning oil"
@@ -38,12 +39,12 @@
 		var/mob/living/victim = target
 		victim.electrocute_act(damage, src, siemens_coeff = 1, flags = SHOCK_NOSTUN)
 
-/obj/projectile/bullet/junk/hunter
-	name = "junk hunter bullet"
-	icon_state = "gauss"
-	bane_mob_biotypes = MOB_ROBOTIC | MOB_BEAST //Monke doesn't have MOB_SPECIAL
-	bane_multiplier = 0
-	bane_added_damage = 50
+// /obj/projectile/bullet/junk/hunter //No bane, so pointless to have this.
+//	name = "junk hunter bullet"
+//	icon_state = "gauss"
+//	bane_mob_biotypes = MOB_ROBOTIC | MOB_BEAST //Monke doesn't have MOB_SPECIAL
+//	bane_multiplier = 0
+//	bane_added_damage = 50
 
 /obj/projectile/bullet/junk/ripper
 	name = "junk ripper bullet"
