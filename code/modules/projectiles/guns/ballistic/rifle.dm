@@ -215,6 +215,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	can_bayonet = FALSE
 	weapon_weight = WEAPON_MEDIUM
+	
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 
 	SET_BASE_PIXEL(0, 0)
 
