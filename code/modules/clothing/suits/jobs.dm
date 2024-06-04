@@ -160,7 +160,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/t_scanner,
-		/obj/item/gun/ballistic/rifle/boltaction/pipegun/prime,
+		/obj/item/gun/ballistic/rifle/boltaction/pipegun,
 	)
 	resistance_flags = NONE
 	species_exception = list(/datum/species/golem)
