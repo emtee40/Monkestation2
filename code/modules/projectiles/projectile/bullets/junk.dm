@@ -8,7 +8,7 @@
 	// var/bane_mob_biotypes = MOB_ROBOTIC
 	// var/bane_multiplier = 1.5
 	// var/bane_added_damage = 0
-	demolition_mod = 3 //Monkestation doesn't have bane for projectiles, so instead giving a demolition mod.
+	demolition_mod = 1.5 //Monkestation doesn't have bane for projectiles, so instead giving a demolition mod to simulate being good against robots.
 
 // /obj/projectile/bullet/junk/Initialize(mapload)
 //	. = ..()
@@ -31,7 +31,8 @@
 	damage = 15
 	embedding = null
 	shrapnel_type = null
-	bane_multiplier = 3
+//	bane_multiplier = 3
+	demolition_mod = 3
 
 /obj/projectile/bullet/junk/shock/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()

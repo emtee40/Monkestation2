@@ -33,8 +33,8 @@
 /obj/item/ammo_casing/junk/shock
 	projectile_type = /obj/projectile/bullet/junk/shock
 
-/obj/item/ammo_casing/junk/hunter
-	projectile_type = /obj/projectile/bullet/junk/hunter
+// /obj/item/ammo_casing/junk/hunter
+//	projectile_type = /obj/projectile/bullet/junk/hunter
 
 /obj/item/ammo_casing/junk/ripper
 	projectile_type = /obj/projectile/bullet/junk/ripper
