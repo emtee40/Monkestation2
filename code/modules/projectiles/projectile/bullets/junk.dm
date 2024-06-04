@@ -41,7 +41,7 @@
 /obj/projectile/bullet/junk/hunter
 	name = "junk hunter bullet"
 	icon_state = "gauss"
-	bane_mob_biotypes = MOB_ROBOTIC | MOB_BEAST | MOB_SPECIAL
+	bane_mob_biotypes = MOB_ROBOTIC | MOB_BEAST //Monke doesn't have MOB_SPECIAL
 	bane_multiplier = 0
 	bane_added_damage = 50
 
@@ -61,11 +61,11 @@
 	hitscan = TRUE
 	impact_effect_type = null
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
+	hitscan_light_outer_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_DIM_YELLOW
 	muzzle_flash_intensity = 5
 	muzzle_flash_range = 1
 	muzzle_flash_color_override = LIGHT_COLOR_DIM_YELLOW
 	impact_light_intensity = 5
-	impact_light_range = 1
+	impact_light_outer_range = 1
 	impact_light_color_override = LIGHT_COLOR_DIM_YELLOW

@@ -208,7 +208,7 @@
 	icon_state = "pipepistol"
 	inhand_icon_state = "pipepistol"
 	worn_icon_state = "gun"
-	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/pipegun/pistol
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/pipegun/pistol
 	projectile_damage_multiplier = 0.50
 	spread = 15 //kinda inaccurate
 	slot_flags = ITEM_SLOT_BELT
@@ -234,7 +234,7 @@
 		The open palm is no sign of weakness; it is to draw the eyes away from the other hand, lying in wait."
 	icon_state = "regal_pipepistol"
 	inhand_icon_state = "regal_pipepistol"
-	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/pipegun/pistol/prime
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/pipegun/pistol/prime
 	projectile_damage_multiplier = 1
 	spread = 0
 
