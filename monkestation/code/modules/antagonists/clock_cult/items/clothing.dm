@@ -13,6 +13,8 @@
 		/obj/item/stack/tile/bronze,
 		/obj/item/gun/ballistic/bow/clockwork,
 	)
+	/// Typecache of valid turfs to have the clothing's special effect on
+	var/static/list/effect_turf_typecache = typecacheof(list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
 
 /datum/armor/suit_clockwork
 	melee = 50
