@@ -24,6 +24,7 @@
 	name = "junk phasic bullet"
 	icon_state = "gaussphase"
 	projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
+	armour_penetration = 100 //Monke edit, phasic rounds are better at piercing armor.
 
 /obj/projectile/bullet/junk/shock
 	name = "bundle of live electrical parts"
