@@ -219,9 +219,8 @@
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/pipe = 2,
 		/obj/item/weaponcrafting/stock = 1,
-		/obj/item/stack/sticky_tape = 1,
-		/obj/item/storage/toolbox = 1, // for the screws
-		/obj/item/stack/sticky_tape = 1,
+	//	/obj/item/storage/toolbox = 1, // Monke doesn't make pipegun crafting harder.
+	//	/obj/item/stack/sticky_tape = 1,
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	time = 5 SECONDS
@@ -235,11 +234,11 @@
 		/obj/item/pipe = 1,
 		///obj/item/stock_parts/servo = 2, Monke edit, no servos needed.
 		/obj/item/stack/sheet/mineral/wood = 4,
-		/obj/item/storage/toolbox = 1, // for the screws
-		/obj/item/stack/sticky_tape = 1,
+	//	/obj/item/storage/toolbox = 1, // for the screws
+	//	/obj/item/stack/sticky_tape = 1,
 	)
-	//tool_paths = list(/obj/item/hatchet) Monke edit, knife instead of hatchet.
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_KNIFE)
+	tool_paths = list(/obj/item/hatchet)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
 	time = 5 SECONDS
 	category = CAT_WEAPON_RANGED
 
@@ -253,7 +252,7 @@
 		/datum/reagent/consumable/grey_bull = 20,
 		/obj/item/spear = 1,
 		/obj/item/storage/toolbox = 1,
-		/obj/item/clothing/head/costume/crown = 1, // Any ol' crown will do
+	//	/obj/item/clothing/head/costume/crown = 1, // Any ol' crown will do
 	)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	tool_paths = list(/obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas, /obj/item/melee/baton/security/cattleprod)
