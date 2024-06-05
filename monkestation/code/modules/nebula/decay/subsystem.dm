@@ -22,7 +22,7 @@ These procs are incredibly expensive and should only really be run once. That's 
 
 #define LIGHT_FLICKER_PERCENT_CHANCE 10
 
-#define SKIP_CHANCE 0
+#define SKIP_CHANCE 50
 
 SUBSYSTEM_DEF(decay)
 	name = "Decay System"
