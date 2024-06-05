@@ -73,8 +73,6 @@
 	found_pool.cached_group.connected_pump = src
 
 /obj/machinery/pool_pump/process()
-	if(!held_container)
-		return
 	if(!cached_turf)
 		return
 	if(!length(creatable_reagents))
@@ -89,11 +87,8 @@
 
 	if(attached_group.expected_turf_height >= desired_depth)
 		return
-	var/list/converted_to_type = list()
-	for(var/datum/reagent/listed_reagent in creatable_reagents)
-		converted_to_type[listed_reagent.type] = creatable_reagents[listed_reagent]
 
-	attached_group.add_reagents(cached_turf.liquids, converted_to_type, 300)
+	attached_group.add_reagents(cached_turf.liquids, creatable_reagents, 300)
 
 
 /obj/machinery/pool_pump/attack_hand(mob/living/user, list/modifiers)
@@ -123,7 +118,7 @@
 	var/list/synthable_reagents = list()
 	for(var/datum/reagent/listed_reagent in held_container.reagents.reagent_list)
 		if(listed_reagent.chemical_flags & REAGENT_CAN_BE_SYNTHESIZED)
-			synthable_reagents[listed_reagent] = (listed_reagent.volume * 0.1)
+			synthable_reagents[listed_reagent.type] = (listed_reagent.volume * 0.1)
 
 	return synthable_reagents
 
@@ -145,3 +140,17 @@
 
 #undef MINIMUM_POOL_DEPTH
 #undef MAXIMUM_POOL_DEPTH
+
+/obj/machinery/pool_pump/station_pool
+	creatable_reagents = list(/datum/reagent/water = 25)
+	desired_depth = 28
+	anchored = TRUE
+	turned_on = TRUE
+	var/pool_dir = NORTH
+
+/obj/machinery/pool_pump/station_pool/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSmachines, src)
+	var/turf/open/source_turf = get_step(src, pool_dir)
+	if(istype(source_turf, /turf/open/floor/lowered/iron/pool))
+		connect(source_turf)
