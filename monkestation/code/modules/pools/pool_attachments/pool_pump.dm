@@ -35,6 +35,7 @@
 			desc_list += "[round(creatable_reagents[listed_reagent])] units of [listed_reagent.name]"
 	desc_list += "The pump is currently [turned_on ? "Turned On" : "Turned Off"]"
 	desc = desc_list.Join("\n")
+
 /obj/machinery/pool_pump/update_icon(updates)
 	. = ..()
 	if(turned_on)
@@ -82,6 +83,7 @@
 		if(!cached_turf.cached_group)
 			cached_turf.start_fill(creatable_reagents, 300)
 		attached_group = cached_turf.cached_group
+		RegisterSignal(attached_group, COMSIG_LIQUID_GROUP_DESTROYING, PROC_REF(clear_group))
 		return
 
 
@@ -154,3 +156,7 @@
 	var/turf/open/source_turf = get_step(src, pool_dir)
 	if(istype(source_turf, /turf/open/floor/lowered/iron/pool))
 		connect(source_turf)
+
+/obj/machinery/pool_pump/proc/clear_group()
+	UnregisterSignal(attached_group, COMSIG_LIQUID_GROUP_DESTROYING)
+	attached_group = null
