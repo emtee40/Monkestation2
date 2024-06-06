@@ -98,9 +98,6 @@
 	if(heal_level > 100)
 		heal_level = 100
 
-/obj/machinery/clonepod/proc/evilcheck()
-	return FALSE
-
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The <i>linking</i> device can be <i>scanned<i> with a multitool.</span>"

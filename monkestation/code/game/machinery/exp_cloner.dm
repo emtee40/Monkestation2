@@ -24,11 +24,12 @@
 		if(evil)
 			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
 
-/obj/machinery/clonepod/experimental/evilcheck()
+/obj/machinery/clonepod/experimental/RefreshParts()
+	. = ..()
 	if(evil)
-		return TRUE
-	else
-		return FALSE
+		speed_coeff -= 2 // Equivalent to one tier worse parts.
+		if(speed_coeff < 0) // Negative speed_coeff would be bad.
+			speed_coeff = 0
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/experimental/growclone(clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)
