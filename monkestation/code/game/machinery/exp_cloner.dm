@@ -9,7 +9,8 @@
 	internal_radio = FALSE
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
-	var/evil = FALSE
+	/// Am I producing evil clones?
+	evil = FALSE
 	var/role_text
 	var/poll_text
 
@@ -128,9 +129,7 @@
 	if (!(. & EMP_PROTECT_SELF))
 		if(prob(100/severity) && !evil)
 			evil = TRUE
-			//SPEAK(Gibberish("Exposure to electromagnetic fields has caused morality failure." ,0))
 			log_cloning("[src] at [AREACOORD(src)] corrupted due to EMP pulse.")
-			connected_message(Gibberish("EMP-caused Morality Failure", 0))
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
 /obj/machinery/computer/prototype_cloning

@@ -55,6 +55,8 @@
 	var/auto_clone = TRUE
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
+	/// Used in experimental cloner
+	var/evil = FALSE
 
 /obj/machinery/clonepod/Initialize()
 	. = ..()
@@ -101,6 +103,8 @@
 		. += "<span class='notice'>The status display reads: Cloning speed at <b>[speed_coeff*50]%</b>.<br>Predicted amount of cellular damage: <b>[100-heal_level]%</b>.<span>"
 		if(efficiency > 5)
 			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
+		if(evil)
+			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
 
 //Clonepod
 
