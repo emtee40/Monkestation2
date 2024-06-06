@@ -206,7 +206,7 @@
 		var/healto = max(0, damage - amount * 2)
 		item.reagents.remove_all(ROUND_UP(item.reagents.total_volume / amount * (damage - healto) * 0.5)) //only removes however much solution is needed while also taking into account how much of the solution is mannitol
 		set_organ_damage(healto) //heals 2 damage per unit of mannitol, and by using "set_organ_damage", we clear the failing variable if that was up
-		owner.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY) // MONKESTATION EDIT: if you go out of your way to do this, then you shouldn't have to do brain surgery
+		cure_all_traumas(TRAUMA_RESILIENCE_SURGERY) // MONKESTATION EDIT: if you go out of your way to do this, then you shouldn't have to do brain surgery
 		return TRUE
 	return FALSE
 
