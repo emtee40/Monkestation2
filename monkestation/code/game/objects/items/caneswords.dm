@@ -1,12 +1,12 @@
 /obj/item/weapon/cane_sword
-	name = "cane sword"
+	name = "\improper cane sword"
 	desc = "wrong one silly heads this one dont do damage haha"
 	icon = 'monkestation/icons/obj/caneswords/caneswords.dmi'
 	lefthand_file = 'monkestation/icons/obj/caneswords/caneswordinhandL.dmi'
 	righthand_file = 'monkestation/icons/obj/caneswords/caneswordinhandR.dmi'
 
 /obj/item/weapon/cane_sword/CentCom
-	name = "nanotrasen cane sword"
+	name = "\improper nanotrasen cane sword"
 	desc = "OH GOD CENTCOM GENTLEMAN NINJA"
 	icon_state = "CC_canesword1"
 	inhand_icon_state = "CC_sword"
@@ -30,7 +30,7 @@
 	bare_wound_bonus = 25
 
 /obj/item/weapon/cane_sword/syndicate
-	name = "syndicate cane sword"
+	name = "\improper syndicate cane sword"
 	desc = "OH GOD SYNDICATE GENTLEMAN NINJA"
 	icon_state = "S_canesword1"
 	inhand_icon_state = "S_sword"
@@ -54,7 +54,7 @@
 	bare_wound_bonus = 25
 
 /obj/item/weapon/cane_sword/civilian
-	name = "cane sword"
+	name = "\improper cane sword"
 	desc = "OH GOD GENTLEMAN NINJA"
 	icon_state = "canesword1"
 	inhand_icon_state = "sword"
@@ -85,7 +85,7 @@
 	righthand_file = 'monkestation/icons/obj/caneswords/caneswordinhandR.dmi'
 
 /obj/item/storage/canesword/civ
-	name = "Cane"
+	name = "\improper cane"
 	desc = "An ordinary civilian issue cane... or so it looks"
 	icon_state = "canesword0"
 	inhand_icon_state = "cane"
@@ -127,7 +127,7 @@
 
 
 /obj/item/storage/canesword/CentCom
-	name = "Cane"
+	name = "\improper cane"
 	desc = "An ordinary CentCom issue cane... or so it looks"
 	icon_state = "CC_canesword0"
 	inhand_icon_state = "CC_cane"
@@ -168,7 +168,7 @@
 		balloon_alert(user, "it's empty!")
 
 /obj/item/storage/canesword/syndicate
-	name = "Cane"
+	name = "\improper cane"
 	desc = "An ordinary Syndicate issue cane... or so it looks"
 	icon_state = "S_canesword0"
 	inhand_icon_state = "S_cane"
