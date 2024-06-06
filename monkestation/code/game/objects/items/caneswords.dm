@@ -10,6 +10,8 @@
 	desc = "OH GOD CENTCOM GENTLEMAN NINJA"
 	icon_state = "CC_canesword1"
 	inhand_icon_state = "cc_sword"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 20
@@ -32,6 +34,8 @@
 	desc = "OH GOD SYNDICATE GENTLEMAN NINJA"
 	icon_state = "S_canesword1"
 	inhand_icon_state = "S_sword"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 20
@@ -54,6 +58,8 @@
 	desc = "OH GOD GENTLEMAN NINJA"
 	icon_state = "canesword1"
 	inhand_icon_state = "sword"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 12
@@ -83,6 +89,8 @@
 	desc = "An ordinary civilian issue cane... or so it looks"
 	icon_state = "canesword0"
 	inhand_icon_state = "cane"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/canesword/civ/Initialize(mapload)
@@ -114,11 +122,17 @@
 	else
 		balloon_alert(user, "it's empty!")
 
+/obj/item/storage/canesword/civ/PopulateContents()
+	new /obj/item/weapon/cane_sword/civilian(src)
+
+
 /obj/item/storage/canesword/CentCom
 	name = "Cane"
 	desc = "An ordinary CentCom issue cane... or so it looks"
 	icon_state = "CC_canesword0"
 	inhand_icon_state = "CC_cane"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/canesword/CentCom/Initialize(mapload)
@@ -139,6 +153,9 @@
 	if(length(contents))
 		. += span_notice("Alt-click it to quickly draw the blade.")
 
+/obj/item/storage/canesword/CentCom/PopulateContents()
+	new /obj/item/weapon/cane_sword/CentCom(src)
+
 /obj/item/storage/canesword/CentCom/AltClick(mob/user)
 	if(!user.can_perform_action(src, NEED_DEXTERITY|NEED_HANDS))
 		return
@@ -155,6 +172,8 @@
 	desc = "An ordinary Syndicate issue cane... or so it looks"
 	icon_state = "S_canesword0"
 	inhand_icon_state = "S_cane"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/canesword/syndicate/Initialize(mapload)
@@ -185,3 +204,6 @@
 		update_appearance()
 	else
 		balloon_alert(user, "it's empty!")
+
+/obj/item/storage/canesword/syndicate/PopulateContents()
+	new /obj/item/weapon/cane_sword/syndicate(src)
