@@ -88,10 +88,6 @@
 		efficiency += S.tier
 	for(var/datum/stock_part/manipulator/P in component_parts)
 		speed_coeff += P.tier
-	if(evilcheck())
-		speed_coeff -= 2 // Equivalent to having 1 tier lower parts.
-		if(speed_coeff < 0) // Negative speed coefficient would be bad.
-			speed_coeff = 0
 	heal_level = (efficiency * 15) + 10
 	if(heal_level < MINIMUM_HEAL_LEVEL)
 		heal_level = MINIMUM_HEAL_LEVEL
