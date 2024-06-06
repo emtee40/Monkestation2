@@ -121,7 +121,7 @@
 		add_fingerprint(user)
 		log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
 	else
-		to_chat(user, "The cloner is already malfunctioning.")
+		to_chat(user, "<span class='warning'>The cloner is already malfunctioning.")
 
 /obj/machinery/clonepod/experimental/emp_act(severity)
 	. = ..()
