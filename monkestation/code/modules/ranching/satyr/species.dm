@@ -45,6 +45,8 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/satyr,
 	)
 
+	var/datum/action/cooldown/mob_cooldown/dash/headbutt/headbutt
+
 /datum/species/satyr/get_species_description()
 	return "Mythical goat-people. The clacking of hooves and smell of beer follow them around."
 
@@ -86,8 +88,15 @@
 	ADD_TRAIT(C, TRAIT_TIN_EATER, INNATE_TRAIT)
 	C.AddComponent(/datum/component/living_drunk)
 
+	headbutt = new
+	headbutt.Grant(C)
+
 /datum/species/satyr/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_TIN_EATER, INNATE_TRAIT)
 	var/datum/component/living_drunk/drunk = C.GetComponent(/datum/component/living_drunk)
 	qdel(drunk)
+
+	if(headbutt)
+		headbutt.Remove(C)
+		qdel(headbutt)

@@ -59,3 +59,7 @@
 	owner.forceMove(target_turf)
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	SLEEP_CHECK_DEATH(0.1 SECONDS, owner)
+	dash_end(target_turf)
+
+/datum/action/cooldown/mob_cooldown/dash/proc/dash_end(turf/ending_turf)
+	return
