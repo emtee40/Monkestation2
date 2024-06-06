@@ -70,7 +70,7 @@
 		target_mob = clonee,
 		ignore_category = POLL_IGNORE_DEFECTIVECLONE,
 		pic_source = get_clone_preview(clonee.dna) || clonee,
-		role_text
+		role_name_text = role_text
 	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/candidate = pick(candidates)

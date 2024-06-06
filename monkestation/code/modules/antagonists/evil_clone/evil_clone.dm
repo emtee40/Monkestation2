@@ -3,7 +3,6 @@
 	show_in_antagpanel = TRUE
 	roundend_category = "evil clones"
 	antagpanel_category = "Evil Clones"
-	job_rank = ROLE_EVIL_CLONE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 
