@@ -9,12 +9,26 @@
 	internal_radio = FALSE
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
+	/// Am I producing evil clones?
+	var/evil = FALSE
 	var/role_text
 	var/poll_text
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
 	return ..()
+
+/obj/machinery/clonepod/experimental/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		if(evil)
+			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
+
+/obj/machinery/clonepod/experimental/evilcheck()
+	if(evil)
+		return TRUE
+	else
+		return FALSE
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/experimental/growclone(clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)

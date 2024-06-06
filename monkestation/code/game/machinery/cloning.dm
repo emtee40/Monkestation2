@@ -55,7 +55,6 @@
 	var/auto_clone = TRUE
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
-	var/evil = FALSE
 
 /obj/machinery/clonepod/Initialize()
 	. = ..()
@@ -89,7 +88,7 @@
 		efficiency += S.tier
 	for(var/datum/stock_part/manipulator/P in component_parts)
 		speed_coeff += P.tier
-	if(evil)
+	if(evilcheck())
 		speed_coeff -= 2 // Equivalent to having 1 tier lower parts.
 		if(speed_coeff < 0) // Negative speed coefficient would be bad.
 			speed_coeff = 0
@@ -99,6 +98,9 @@
 	if(heal_level > 100)
 		heal_level = 100
 
+/obj/machinery/clonepod/proc/evilcheck()
+	return FALSE
+
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The <i>linking</i> device can be <i>scanned<i> with a multitool.</span>"
@@ -106,8 +108,6 @@
 		. += "<span class='notice'>The status display reads: Cloning speed at <b>[speed_coeff*50]%</b>.<br>Predicted amount of cellular damage: <b>[100-heal_level]%</b>.<span>"
 		if(efficiency > 5)
 			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
-		if(evil)
-			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
 
 //Clonepod
 
