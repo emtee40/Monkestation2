@@ -197,7 +197,7 @@
 
 		user.visible_message(span_notice("[user] pours the contents of [item] onto [src], causing it to form a proper cytoplasm and outer membrane."), span_notice("You pour the contents of [item] onto [src], causing it to form a proper cytoplasm and outer membrane."))
 		item.reagents.clear_reagents() //removes the whole shit
-		rebuild_body()
+		rebuild_body(user)
 		return TRUE
 	return FALSE
 
@@ -206,7 +206,7 @@
 		item.forceMove(turf)
 		stored_items -= item
 
-/obj/item/organ/internal/brain/slime/proc/rebuild_body()
+/obj/item/organ/internal/brain/slime/proc/rebuild_body(mob/user)
 	if(rebuilt)
 		return
 	rebuilt = TRUE
@@ -217,37 +217,46 @@
 		qdel(GetComponent(/datum/component/gps))
 
 	//we have the plasma. we can rebuild them.
-	var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(src.loc)
+	brainmob.mind.grab_ghost()
+	if(isnull(brainmob))
+		user?.balloon_alert(user, "This brain is not a viable candidate for repair!")
+		return TRUE
+	if(isnull(brainmob.stored_dna))
+		user?.balloon_alert(user, "This brain does not contain any dna!")
+		return TRUE
+	if(isnull(brainmob.client))
+		user?.balloon_alert(user, "This brain does not contain a mind!")
+		return TRUE
+	var/mob/living/carbon/human/new_body = new /mob/living/carbon/human(drop_location())
 
+	brainmob.client?.prefs?.safe_transfer_prefs_to(new_body)
 	new_body.underwear = "Nude"
 	new_body.undershirt = "Nude" //Which undershirt the player wants
 	new_body.socks = "Nude" //Which socks the player wants
-	stored_dna.transfer_identity(new_body, transfer_SE=1)
+	stored_dna.transfer_identity(new_body, transfer_SE = TRUE)
 	new_body.dna.features["mcolor"] = new_body.dna.features["mcolor"]
 	new_body.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 	new_body.real_name = new_body.dna.real_name
 	new_body.name = new_body.dna.real_name
-	new_body.updateappearance(mutcolor_update=1)
+	new_body.updateappearance(mutcolor_update = TRUE)
 	new_body.domutcheck()
-	new_body.forceMove(get_turf(src))
-	new_body.blood_volume = BLOOD_VOLUME_SAFE+60
+	new_body.forceMove(drop_location())
+	new_body.blood_volume = BLOOD_VOLUME_SAFE + 60
 	REMOVE_TRAIT(new_body, TRAIT_NO_TRANSFORM, REF(src))
-	if(brainmob)
+	if(!QDELETED(brainmob))
 		SSquirks.AssignQuirks(new_body, brainmob.client)
 	var/obj/item/organ/internal/brain/new_body_brain = new_body.get_organ_slot(ORGAN_SLOT_BRAIN)
 	qdel(new_body_brain)
-	src.forceMove(new_body)
+	forceMove(new_body)
 	Insert(new_body)
-	for(var/obj/item/bodypart/bodypart as anything in new_body.bodyparts)
+	for(var/obj/item/bodypart as anything in new_body.bodyparts)
 		if(!istype(bodypart, /obj/item/bodypart/chest))
 			qdel(bodypart)
 			continue
-
-	new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from their core, yet to form the rest."))
+	new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from [new_body.p_their()] core, yet to form the rest."))
 	to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
 
-	if(brainmob)
-		brainmob.mind.transfer_to(new_body)
-		new_body.grab_ghost()
+	brainmob?.mind?.transfer_to(new_body)
+	new_body.grab_ghost()
 
-	drop_items_to_ground(get_turf(new_body))
+	drop_items_to_ground(new_body.drop_location())
