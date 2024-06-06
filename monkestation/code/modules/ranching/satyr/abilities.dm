@@ -21,3 +21,4 @@
 		if(!knocked)
 			var/mob/living/owner_mob = owner
 			owner_mob.AdjustKnockdown(0.2 SECONDS)
+			knocked = TRUE
