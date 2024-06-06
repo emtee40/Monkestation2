@@ -18,4 +18,6 @@
 			var/mob/living/carbon/carbon = mob
 			carbon.stamina.adjust(-55)
 		log_combat(owner, mob, "headbutted (10 brute damage)")
-		owner.AdjustKnockdown(0.2 SECONDS)
+		if(!knocked)
+			var/mob/living/owner_mob = owner
+			owner_mob.AdjustKnockdown(0.2 SECONDS)
