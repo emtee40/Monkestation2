@@ -128,11 +128,11 @@
 /obj/machinery/clonepod/experimental/emag_act(mob/user)
 	if(!evil)
 		evil = TRUE //Cloner will make EVIL clones from now on.
-		to_chat(user, "<span class='warning'>You corrupt the genetic compiler.</span>")
+		to_chat(user, span_warning("You corrupt the genetic compiler."))
 		add_fingerprint(user)
 		log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
 	else
-		to_chat(user, "<span class='warning'>The cloner is already malfunctioning.")
+		to_chat(user, span_warning("The cloner is already malfunctioning."))
 
 /obj/machinery/clonepod/experimental/emp_act(severity)
 	. = ..()
