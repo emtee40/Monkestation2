@@ -104,7 +104,7 @@
 		if(efficiency > 5)
 			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
 		if(evil)
-			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
+			. += span_warning("You notice an ominous, flashing red LED light.")
 
 //Clonepod
 
