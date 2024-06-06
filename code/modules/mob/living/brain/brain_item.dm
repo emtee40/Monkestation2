@@ -194,9 +194,7 @@
 
 /obj/item/organ/internal/brain/proc/check_for_repair(obj/item/item, mob/user)
 	if(damage && item.is_drainable() && item.reagents.has_reagent(/datum/reagent/medicine/mannitol) && (status == ORGAN_ORGANIC)) //attempt to heal the brain
-		if(brainmob?.health <= HEALTH_THRESHOLD_DEAD) //if the brain is fucked anyway, do nothing
-			to_chat(user, span_warning("[src] is far too damaged, there's nothing else we can do for it!"))
-			return TRUE
+		// MONKESTATION NOTE: There was a check for the brain being completely dead here. But that's like, the only case when you'd want to do this. Pretty sure it isn't on tg, so I'm leaving this here for documentation.
 
 		user.visible_message(span_notice("[user] starts to slowly pour the contents of [item] onto [src]."), span_notice("You start to slowly pour the contents of [item] onto [src]."))
 		if(!do_after(user, 3 SECONDS, src))
