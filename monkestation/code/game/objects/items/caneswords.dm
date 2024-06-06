@@ -9,7 +9,7 @@
 	name = "nanotrasen cane sword"
 	desc = "OH GOD CENTCOM GENTLEMAN NINJA"
 	icon_state = "CC_canesword1"
-	inhand_icon_state = "cc_sword"
+	inhand_icon_state = "CC_sword"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	flags_1 = CONDUCT_1
