@@ -25,6 +25,33 @@
 
 	///are we turned on right now?
 	var/turned_on = FALSE
+	///this is our mapping var
+	var/pool_dir = NORTH
+
+
+/obj/machinery/pool_pump/station_pool/Initialize(mapload)
+	. = ..()
+	register_context()
+	if(turned_on)
+		START_PROCESSING(SSmachines, src)
+		var/turf/open/source_turf = get_step(src, pool_dir)
+		if(istype(source_turf, /turf/open/floor/lowered/iron/pool))
+			connect(source_turf)
+
+/obj/machinery/pool_pump/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_container)
+		if(is_reagent_container(held_item))
+			context[SCREENTIP_CONTEXT_LMB] = "Replace Beaker"
+		else
+			context[SCREENTIP_CONTEXT_LMB] = "Remove Beaker"
+	if(!held_container)
+		if(is_reagent_container(held_item))
+			context[SCREENTIP_CONTEXT_LMB] = "Add Beaker"
+
+	context[SCREENTIP_CONTEXT_ALT_LMB] = "Toggle Pumping"
+	context[SCREENTIP_CONTEXT_RMB] = "Set Desired Depth"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/pool_pump/update_desc(updates)
 	. = ..()
@@ -148,14 +175,6 @@
 	desired_depth = 28
 	anchored = TRUE
 	turned_on = TRUE
-	var/pool_dir = NORTH
-
-/obj/machinery/pool_pump/station_pool/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSmachines, src)
-	var/turf/open/source_turf = get_step(src, pool_dir)
-	if(istype(source_turf, /turf/open/floor/lowered/iron/pool))
-		connect(source_turf)
 
 /obj/machinery/pool_pump/proc/clear_group()
 	UnregisterSignal(attached_group, COMSIG_LIQUID_GROUP_DESTROYING)
