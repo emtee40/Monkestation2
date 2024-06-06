@@ -51,6 +51,20 @@
 		new_species.external_organs |= organ_path
 
 
+/datum/quirk/tattoo
+	name = "Tattoo'd"
+	desc = ""
+	mob_trait = TRAIT_TATTOO
+	value = 0
+	icon = FA_ICON_SKULL
+	quirk_flags = QUIRK_CHANGES_APPEARANCE
+
+		//var/list/tattoo_list = list() | gotta test
+
+/datum/quirk/tattoo/add(client/client_source)
+	. = .. ()
+
+
 /datum/quirk/clown_disbelief
 	name = "Clown Disbelief"
 	desc = "You never really believed in clowns."

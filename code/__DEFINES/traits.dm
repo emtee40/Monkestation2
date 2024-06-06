@@ -783,6 +783,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_STABLE_ASS		"stable_ass"
 #define TRAIT_KLEPTOMANIAC		"kleptomaniac"
 #define TRAIT_ANIME				"anime"
+#define TRAIT_TATTOO			"Tattoo'd"
 #define TRAIT_CAT				"cat"
 #define TRAIT_HIDDEN_IMAGE		"generic-hidden-image"
 #define TRAIT_HIDDEN_CLOWN		"clown_disbelief"
