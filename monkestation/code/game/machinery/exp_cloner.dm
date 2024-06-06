@@ -9,24 +9,12 @@
 	internal_radio = FALSE
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
-	/// Am I producing evil clones?
-	var/evil = FALSE
 	var/role_text
 	var/poll_text
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
 	return ..()
-
-/obj/machinery/clonepod/experimental/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>The <i>linking</i> device can be <i>scanned<i> with a multitool.</span>"
-	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Cloning speed at <b>[speed_coeff*50]%</b>.<br>Predicted amount of cellular damage: <b>[100-heal_level]%</b>.<span>"
-		if(efficiency > 5)
-			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
-		if(evil)
-			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/experimental/growclone(clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)
@@ -131,6 +119,7 @@
 		to_chat(user, span_warning("You corrupt the genetic compiler."))
 		add_fingerprint(user)
 		log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
+		RefreshParts()
 	else
 		to_chat(user, span_warning("The cloner is already malfunctioning."))
 
@@ -139,6 +128,7 @@
 	if (!(. & EMP_PROTECT_SELF))
 		if(prob(100/severity) && !evil)
 			evil = TRUE
+			RefreshParts()
 			log_cloning("[src] at [AREACOORD(src)] corrupted due to EMP pulse.")
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
