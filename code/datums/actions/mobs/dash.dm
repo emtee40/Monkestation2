@@ -16,6 +16,7 @@
 	return TRUE
 
 /datum/action/cooldown/mob_cooldown/dash/proc/dash_to(atom/dash_target)
+	owner.face_atom(dash_target)
 	var/list/accessable_turfs = list()
 	var/self_dist_to_target = 0
 	var/turf/own_turf = get_turf(owner)
