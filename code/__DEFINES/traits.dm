@@ -293,6 +293,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
 /// The user can do things like use magic staffs without penalty
 #define TRAIT_MAGICALLY_GIFTED "magically_gifted"
+/// This object innately spawns with fantasy variables already applied (the magical component is given to it on initialize), and thus we never want to give it the component again.
+#define TRAIT_INNATELY_FANTASTICAL_ITEM "innately_fantastical_item"
 #define TRAIT_DEPRESSION "depression"
 #define TRAIT_BLOOD_DEFICIENCY "blood_deficiency"
 #define TRAIT_JOLLY "jolly"
@@ -1294,6 +1296,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// One can breath under water, you get me?
 #define TRAIT_WATER_BREATHING "water_breathing"
 
+/// Does not take damage from bloodloss(or any blood shenanigans)
+#define TRAIT_NO_BLOODLOSS_DAMAGE "no_bloodloss_damage"
+
 /// Do IPC's dream of doomsday? The answer is yes
 #define TRAIT_ROBOT_CAN_BLEED "robots_can_bleed"
 //monkestation edit end
@@ -1316,6 +1321,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
+
+/// Trait determines if this mob has examined an eldritch painting
+#define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
+
+/// Trait used by the /datum/brain_trauma/severe/flesh_desire trauma to change their preferences of what they eat
+#define TRAIT_FLESH_DESIRE "flesh_desire"
+
 ///trait given to food that can be baked by /datum/component/bakeable
 #define TRAIT_BAKEABLE "bakeable"
 
