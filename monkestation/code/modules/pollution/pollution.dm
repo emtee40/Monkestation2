@@ -20,6 +20,19 @@
 	my_turf.pollution = src
 	REGISTER_POLLUTION(src)
 
+/datum/pollution/Destroy()
+	if(managed_overlay)
+		my_turf?.vis_contents -= managed_overlay
+		if(LAZYLEN(managed_overlay.vis_locs) == 0)
+			qdel(managed_overlay)
+		managed_overlay = null
+	REMOVE_POLLUTION_CURRENTRUN(src)
+	SET_UNACTIVE_POLLUTION(src)
+	UNREGISTER_POLLUTION(src)
+	if(my_turf?.pollution == src)
+		my_turf.pollution = null
+	return ..()
+
 /datum/pollution/proc/touch_act(mob/living/carbon/victim)
 	if(!victim.can_inject())
 		return
@@ -121,18 +134,6 @@
 
 /datum/pollution/proc/calculate_height(passed_amount)
 	return CEILING(passed_amount / POLLUTION_HEIGHT_DIVISOR, 1)
-
-/datum/pollution/Destroy()
-	if(managed_overlay)
-		my_turf?.vis_contents -= managed_overlay
-		if(LAZYLEN(managed_overlay.vis_locs) == 0)
-			qdel(managed_overlay)
-		managed_overlay = null
-	REMOVE_POLLUTION_CURRENTRUN(src)
-	SET_UNACTIVE_POLLUTION(src)
-	UNREGISTER_POLLUTION(src)
-	my_turf?.pollution = null
-	return ..()
 
 /datum/pollution/proc/process_cell()
 	if(height <= 1)
