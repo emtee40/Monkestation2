@@ -28,8 +28,8 @@ GLOBAL_LIST_INIT(cassette_reviews, list())
 /obj/item/device/cassette_tape/proc/generate_cassette_json()
 	if(approved_tape)
 		return
-	if(!length(GLOB.approved_ids))
-		GLOB.approved_ids = json_decode(file2text("data/cassette_storage/ids.json"))
+	if(!length(GLOB.approved_cassettes))
+		GLOB.approved_cassettes = initialize_approved_cassettes()
 	var/list/data = list()
 	data["name"] = name
 	data["desc"] = cassette_desc_string
@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(cassette_reviews, list())
 	var/list/names = json_decode(file2text(file("data/cassette_storage/ids.json")))
 	fdel(file("data/cassette_storage/ids.json"))
 	names += json_name
-	GLOB.approved_ids += json_name
+	GLOB.approved_cassettes += new /datum/cassette/cassette_tape(json_name)
 	WRITE_FILE(file("data/cassette_storage/ids.json"), json_encode(names))
 
 /datum/cassette_review
