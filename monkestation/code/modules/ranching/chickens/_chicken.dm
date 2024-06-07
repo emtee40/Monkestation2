@@ -59,8 +59,11 @@
 
 	RegisterSignal(src, COMSIG_HUNGER_UPDATED, PROC_REF(handle_hunger_updates))
 
-	if(prob(40))
+	if(prob(40) && !forced_gender)
 		gender = MALE
+
+	if(forced_gender)
+		gender = forced_gender
 
 	assign_chicken_icon()
 	if(gender == MALE && breed_name)
@@ -118,7 +121,7 @@
 				rooster_nearby = TRUE
 				break
 
-		if(prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) //25
+		if((prob(20 + (fertility_boosting * 0.1)) || length(layed_egg.possible_mutations)) && rooster_nearby) //25
 			if(mutant)
 				layed_egg.AddComponent(/datum/component/hatching, 100, CALLBACK(layed_egg, TYPE_PROC_REF(/obj/item/food/egg, pre_hatch)), layed_egg.low_temp, layed_egg.high_temp, layed_egg.low_pressure, layed_egg.high_pressure, layed_egg.liquid_depth, layed_egg.turf_requirements, layed_egg.nearby_mob)
 			else
