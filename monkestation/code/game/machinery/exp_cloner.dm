@@ -22,7 +22,7 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(evil)
-			. += "<span class='warning'>You notice an ominous, flashing red LED light.<span>"
+			. += span_warning("You notice an ominous, flashing red LED light.")
 
 /obj/machinery/clonepod/experimental/RefreshParts()
 	. = ..()
