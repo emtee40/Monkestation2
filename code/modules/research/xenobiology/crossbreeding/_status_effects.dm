@@ -609,7 +609,7 @@
 	var/obj/item/item = owner.get_active_held_item()
 	if(item)
 		if(IS_EDIBLE(item) && (item.microwave_act(microwaver = owner) & COMPONENT_MICROWAVE_SUCCESS))
-			to_chat(owner, span_warning("[linked_extract] flares up brightly, and your hands alone are enough cook [item]!"))
+			to_chat(owner, span_warning("[linked_extract] flares up brightly, and your hands alone are enough to cook [item]!"))
 		else
 			item.attackby(fire, owner)
 	return ..()
