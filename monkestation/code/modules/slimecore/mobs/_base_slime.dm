@@ -293,7 +293,7 @@
 
 /mob/living/basic/slime/proc/hunger_updated(datum/source, current_hunger, max_hunger)
 	hunger_precent = current_hunger / max_hunger
-	if(hunger_precent > 0.6)
+	if(hunger_precent > production_precent)
 		slime_flags |= ADULT_SLIME
 	else
 		slime_flags &= ~ADULT_SLIME
@@ -349,7 +349,6 @@
 
 /mob/living/basic/slime/proc/finish_splitting()
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_HUNGER, -200)
-	update_slime_varience()
 
 	slime_flags &= ~SPLITTING_SLIME
 	ai_controller.set_ai_status(AI_STATUS_ON)
@@ -373,7 +372,6 @@
 	slime_flags |= MUTATING_SLIME
 
 	ungulate()
-
 
 	addtimer(CALLBACK(src, PROC_REF(finish_mutating)), 30 SECONDS)
 	mutation_chance = 30
@@ -454,7 +452,7 @@
 	if(worn_accessory)
 		visible_message("[user] takes the [worn_accessory] off the [src].")
 		balloon_alert_to_viewers("removed accessory")
-		worn_accessory.forceMove(user.drop_location())
+		user.put_in_hands(worn_accessory)
 		worn_accessory = null
 		update_appearance()
 
