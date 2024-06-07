@@ -1,6 +1,7 @@
 #ifndef ANERI
 
 //#define ANERI_OVERRIDE_PICK
+#define ANERI_OVERRIDE_PICK_WEIGHT
 //#define ANERI_OVERRIDE_SORT
 #define ANERI_OVERRIDE_RAND
 
@@ -70,9 +71,12 @@
 /proc/aneri_replace_chars_prob(input, replacement, probability = 25, skip_whitespace = FALSE)
 	return ANERI_CALL("replace_chars_prob", input, replacement, probability, skip_whitespace)
 
+#if defined(ANERI_OVERRIDE_PICK) || defined(ANERI_OVERRIDE_PICK_WEIGHT)
+#define pick_weight(list)		ANERI_CALL("pick_weighted", list)
+#endif
+
 #ifdef ANERI_OVERRIDE_PICK
 #define pick(list...)			_apick(list)
-#define pick_weight(list)		ANERI_CALL("pick_weighted", list)
 
 /proc/_apick(...)
 	switch(length(args))
