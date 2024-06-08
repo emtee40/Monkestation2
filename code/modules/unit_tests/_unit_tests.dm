@@ -75,6 +75,7 @@
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
 // BEGIN_INCLUDE
+#include "abductor_baton_spell.dm"
 #include "ablative_hud.dm"
 #include "achievements.dm"
 #include "anchored_mobs.dm"
@@ -151,6 +152,7 @@
 #include "mob_chains.dm"
 #include "mob_faction.dm"
 #include "mob_spawn.dm"
+#include "modify_fantasy_variable.dm"
 #include "modsuit.dm"
 #include "modular_map_loader.dm"
 #include "mouse_bite_cable.dm"

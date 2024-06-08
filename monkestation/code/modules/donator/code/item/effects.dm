@@ -70,3 +70,16 @@
 	name = "plantcrab transformation"
 	icon_state = "crab_plant"
 	animal_transformation = /mob/living/basic/crab/plant
+
+
+//Quilark
+/obj/item/effect_granter/donator/quilava
+	name = "quilava transformation"
+	icon_state = "quil_maid"
+	animal_transformation = /mob/living/basic/pet/quilmaid
+
+//ellie
+/obj/item/effect_granter/donator/gumball_goblin
+	name = "gumball goblin transformation"
+	icon_state = "gumball_goblin"
+	animal_transformation = /mob/living/basic/pet/gumball_goblin

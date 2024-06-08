@@ -96,7 +96,6 @@
 
 	/// Commands you can give this carp once it is tamed, not static because subtypes can modify it
 	var/friendship_commands = list(
-		/datum/pet_command/idle,
 		/datum/pet_command/free,
 		/datum/pet_command/follow,
 		/datum/pet_command/point_targeting/attack/latch,
@@ -155,6 +154,7 @@
 	UnregisterSignal(src, COMSIG_MOB_OVERATE)
 
 	for(var/datum/slime_mutation_data/mutation as anything in possible_color_mutations)
+		possible_color_mutations -= mutation
 		qdel(mutation)
 
 	QDEL_NULL(current_color)
@@ -162,6 +162,7 @@
 /mob/living/basic/slime/mob_try_pickup(mob/living/user, instant)
 	if(!SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHECK_LEVEL, user, FRIENDSHIP_FRIEND))
 		to_chat(user, span_notice("[src] doesn't trust you enough to let you pick them up"))
+		balloon_alert(user, "not enough trust!")
 		return FALSE
 	. = ..()
 
@@ -188,9 +189,8 @@
 
 /mob/living/basic/slime/proc/recompile_ai_tree()
 	var/list/new_planning_subtree = list()
+	RemoveElement(/datum/element/basic_eating, food_types = compiled_liked_foods)
 	rebuild_foods()
-
-	RemoveElement(/datum/element/basic_eating)
 
 	new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/pet_planning)
 
@@ -199,7 +199,7 @@
 		new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/flee_target)
 
 	if(slime_flags & CLEANER_SLIME)
-		new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/cleaning_subtree)
+		new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/cleaning_subtree_slime)
 
 	if(!(slime_flags & PASSIVE_SLIME))
 		new_planning_subtree |= add_or_replace_tree(/datum/ai_planning_subtree/simple_find_target_no_trait/slime)
@@ -303,6 +303,7 @@
 		else
 			name = "[current_color.name] [(slime_flags & ADULT_SLIME) ? "adult" : "baby"] slime ([number])"
 		real_name = name
+	update_name_tag()
 	return ..()
 
 /mob/living/basic/slime/proc/start_split()
@@ -310,6 +311,7 @@
 	slime_flags |= SPLITTING_SLIME
 
 	visible_message(span_notice("[name] starts to flatten, it looks to be splitting."))
+	balloon_alert_to_viewers("splitting...")
 
 	addtimer(CALLBACK(src, PROC_REF(finish_splitting)), 15 SECONDS)
 
@@ -331,6 +333,7 @@
 
 	ai_controller.set_ai_status(AI_STATUS_OFF)
 	visible_message(span_notice("[name] starts to undulate, it looks to be mutating."))
+	balloon_alert_to_viewers("mutating...")
 	slime_flags |= MUTATING_SLIME
 
 	ungulate()
@@ -382,6 +385,8 @@
 		if(random && listed.syringe_blocked)
 			continue
 		valid_choices += listed
+		if(!(listed.type in GLOB.mutated_slime_colors))
+			listed.weight *= 100
 		valid_choices[listed] = listed.weight
 	if(!length(valid_choices))
 		return FALSE
@@ -390,6 +395,8 @@
 	if(!picked)
 		return FALSE
 	mutating_into = picked.output
+	if(!(mutating_into.type in GLOB.mutated_slime_colors))
+		GLOB.mutated_slime_colors |= mutating_into.type
 	return TRUE
 
 /mob/living/basic/slime/proc/attempt_change(datum/source, hunger_precent)
@@ -414,8 +421,9 @@
 	. = ..()
 	if(worn_accessory)
 		visible_message("[user] takes the [worn_accessory] off the [src].")
+		balloon_alert_to_viewers("removed accessory")
+		worn_accessory.forceMove(user.drop_location())
 		worn_accessory = null
-		worn_accessory.forceMove(get_turf(user))
 		update_appearance()
 
 /mob/living/basic/slime/Life(seconds_per_tick, times_fired)

@@ -44,7 +44,6 @@
 		return
 	if(!carbon_mob.density)
 		return
-	carbon_mob.is_leaning = TRUE
 	var/turf/checked_turf = get_step(carbon_mob, turn(carbon_mob.dir, 180))
 	if(checked_turf == src)
 		carbon_mob.start_leaning(src)
@@ -67,6 +66,7 @@
 						span_notice("You lean against \the [wall]!"))
 	RegisterSignals(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_GET_PULLED, COMSIG_MOVABLE_TELEPORTING, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_leaning))
 	update_fov()
+	is_leaning = TRUE
 
 /mob/living/carbon/proc/stop_leaning()
 	SIGNAL_HANDLER
@@ -130,7 +130,7 @@
 	for(var/obj/O in src.contents) //Eject contents!
 		if(istype(O, /obj/structure/sign/poster))
 			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
+			INVOKE_ASYNC(P, TYPE_PROC_REF(/obj/structure/sign/poster, roll_and_drop), src)
 	if(decon_type)
 		ChangeTurf(decon_type, flags = CHANGETURF_INHERIT_AIR)
 	else

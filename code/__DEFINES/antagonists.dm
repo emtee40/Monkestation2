@@ -81,6 +81,7 @@
 #define PATH_BLADE "Blade Path"
 #define PATH_COSMIC "Cosmic Path"
 #define PATH_KNOCK "Knock Path"
+#define PATH_MOON "Moon Path"
 
 /// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
 #define HERETIC_NO_HEART_ORGAN -1
@@ -219,8 +220,10 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 /// Check if the given mob is a heretic monster.
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-/// Checks if the given mob is either a heretic or a heretic monster.
-#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
+/// Check if the given mob is a  lunatic
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob) || IS_LUNATIC(mob))
 
 /// Checks if the given mob is a wizard
 #define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
@@ -340,3 +343,23 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 
 /// For changelings, this is how many recent say lines are retained when absorbing a mob
 #define LING_ABSORB_RECENT_SPEECH 8
+
+// Various abductor equipment modes.
+
+#define VEST_STEALTH 1
+#define VEST_COMBAT 2
+
+#define GIZMO_SCAN 1
+#define GIZMO_MARK 2
+
+#define MIND_DEVICE_MESSAGE 1
+#define MIND_DEVICE_CONTROL 2
+
+#define TOOLSET_MEDICAL 1
+#define TOOLSET_HACKING 2
+
+#define BATON_STUN 0
+#define BATON_SLEEP 1
+#define BATON_CUFF 2
+#define BATON_PROBE 3
+#define BATON_MODES 4

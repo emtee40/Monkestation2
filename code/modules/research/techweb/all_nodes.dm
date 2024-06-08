@@ -245,9 +245,11 @@
 		"razor",
 		"screwdriver",
 		"secateurs",
+		"chicken_carrier",
 		"shovel",
 		"spade",
 		"spraycan",
+		"spraycan_gun", // MONKESTATION ADDITION (monkestation/code/game/objects/items/spraycan_gun.dm)
 		"tile_sprayer",
 		"tscanner",
 		"welding_helmet",
@@ -297,6 +299,13 @@
 		"syringe",
 		"xlarge_beaker",
 		"vial",
+		"synth_eyes",
+		"synth_tongue",
+		"synth_liver",
+		"synth_lungs",
+		"synth_stomach",
+		"synth_ears",
+		"synth_heart",
 	)
 
 /datum/techweb_node/basic_circuitry
@@ -439,6 +448,7 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
+		"sleeper",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 2000,
@@ -621,6 +631,8 @@
 		"thermomachine",
 		"w-recycler",
 		"welding_goggles",
+		"teg",
+		"teg-circ",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	discount_experiments = list(/datum/experiment/scanning/random/material/easy = 7500)
@@ -1421,6 +1433,7 @@
 		"superresonator",
 		"triggermod",
 		"mining_scanner",
+		"mat_analyzer",
 	)//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

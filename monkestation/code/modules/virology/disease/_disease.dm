@@ -133,8 +133,9 @@ GLOBAL_LIST_INIT(virusDB, list())
 			machine = dish.loc
 
 	if(specified_stage)
-		for(var/datum/symptom/e in symptoms)
-			if(e.stage == specified_stage)
+		for(var/x in symptoms.len)
+			if(x == specified_stage)
+				var/datum/symptom/e = symptoms[x]
 				e.multiplier_tweak(0.1 * rand(1, 3))
 				minormutate(specified_stage)
 				if(e.chance == e.max_chance && prob(strength) && e.max_chance <= initial(e.max_chance) * 3)
@@ -381,9 +382,6 @@ GLOBAL_LIST_INIT(virusDB, list())
 	if(mob.immune_system)
 		if(prob(8))
 			mob.immune_system.NaturalImmune()
-			//Slowly decay back to regular strength immune system while you are sick
-			if(mob.immune_system.strength > 1)
-				mob.immune_system.strength = max(1, mob.immune_system.strength - 0.01)
 
 	if(!mob.immune_system.CanInfect(src))
 		cure(mob)

@@ -82,12 +82,6 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/nicotine = 15) // 6 per 2 seconds
 
-	//Nicotine is used as a pesticide IRL.
-/datum/reagent/drug/nicotine/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_toxic(round(chems.get_reagent_amount(type)))
-		mytray.adjust_pestlevel(-rand(1,2))
 
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(SPT_PROB(0.5, seconds_per_tick))
@@ -170,9 +164,9 @@
 	var/effective_impurity = min(1, (1 - creation_purity)/0.5)
 	color = BlendRGB(initial(color), "#FAFAFA", effective_impurity)
 
-/datum/reagent/drug/methamphetamine/feed_interaction(mob/living/basic/chicken/target, volume)
+/datum/reagent/drug/methamphetamine/feed_interaction(mob/living/basic/chicken/target, volume, mob/user)
 	.=..()
-	target.adjust_happiness(0.5*volume)
+	target.adjust_happiness(0.5*volume, user)
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
 	..()

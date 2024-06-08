@@ -60,14 +60,9 @@
 	var/brute_heal = 1
 	var/burn_heal = 0
 
-/datum/reagent/consumable/nutriment/feed_interaction(mob/living/basic/chicken/target, volume)
+/datum/reagent/consumable/nutriment/feed_interaction(mob/living/basic/chicken/target, volume, mob/user)
 	. = ..()
 	target.fertility_boosting += min(25, volume * 0.5)
-
-/datum/reagent/consumable/nutriment/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(round(chems.get_reagent_amount(type) * 0.2))
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
 	if(SPT_PROB(30, seconds_per_tick))
@@ -236,17 +231,10 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/condiment/sugar
 
-// Plants should not have sugar, they can't use it and it prevents them getting water/ nutients, it is good for mold though...
-/datum/reagent/consumable/sugar/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_weedlevel(rand(1,2))
-		mytray.adjust_pestlevel(rand(1,2))
 
-
-/datum/reagent/consumable/sugar/feed_interaction(mob/living/basic/chicken/target, volume)
+/datum/reagent/consumable/sugar/feed_interaction(mob/living/basic/chicken/target, volume, mob/user)
 	.=..()
-	target.adjust_happiness(0.1*volume)
+	target.adjust_happiness(0.1*volume, user)
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
@@ -265,12 +253,6 @@
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-	// Compost for EVERYTHING
-/datum/reagent/consumable/virus_food/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(-round(chems.get_reagent_amount(type) * 0.5))
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -780,16 +762,6 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/condiment/honey
 
-	// On the other hand, honey has been known to carry pollen with it rarely. Can be used to take in a lot of plant qualities all at once, or harm the plant.
-/datum/reagent/consumable/honey/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		if(myseed && prob(80))
-			mytray.adjust_weedlevel(rand(1,2))
-			mytray.adjust_pestlevel(rand(1,2))
-			myseed.adjust_maturation(rand(1,2))
-			myseed.adjust_lifespan(rand(1,2))
-
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * seconds_per_tick)
 	if(SPT_PROB(33, seconds_per_tick))
@@ -1195,3 +1167,50 @@
 		affected_mob.investigate_log("has been gibbed by consuming [src] while fat.", INVESTIGATE_DEATHS)
 		affected_mob.inflate_gib()
 	return ..()
+
+/datum/reagent/consumable/worcestershire
+	name = "Worcestershire Sauce"
+	description = "That's \"Woostershire\" sauce, by the way."
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	color = "#572b26"
+	taste_description = "sweet fish"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	default_container = /obj/item/reagent_containers/condiment/worcestershire
+
+/datum/reagent/consumable/red_bay
+	name = "Red Bay Seasoning"
+	description = "A secret blend of herbs and spices that goes well with anything- according to Martians, at least."
+	color = "#8E4C00"
+	taste_description = "spice"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	default_container = /obj/item/reagent_containers/condiment/red_bay
+
+/datum/reagent/consumable/curry_powder
+	name = "Curry Powder"
+	description = "One of humanity's most common spices. Typically used to make curry."
+	color = "#F6C800"
+	taste_description = "dry curry"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	default_container = /obj/item/reagent_containers/condiment/curry_powder
+
+/datum/reagent/consumable/dashi_concentrate
+	name = "Dashi Concentrate"
+	description = "A concentrated form of dashi. Simmer with water in a 1:8 ratio to produce a tasty dashi broth."
+	color = "#372926"
+	taste_description = "extreme umami"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	default_container = /obj/item/reagent_containers/condiment/dashi_concentrate
+
+/datum/reagent/consumable/martian_batter
+	name = "Martian Batter"
+	description = "A thick batter made with dashi and flour, used for making dishes such as okonomiyaki and takoyaki."
+	color = "#D49D26"
+	taste_description = "umami dough"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/grounding_solution
+	name = "Grounding Solution"
+	description = "A food-safe ionic solution designed to neutralise the enigmatic \"liquid electricity\" that is common to food from Sprout, forming harmless salt on contact."
+	color = "#efeff0"
+	taste_description = "metallic salt"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
