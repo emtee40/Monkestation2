@@ -42,7 +42,6 @@
 
 	var/list/upgrade_disks = list()
 	var/list/upgrades = list()
-	var/list/overridden_upgrades = list()
 
 /obj/machinery/plumbing/ooze_sucker/Initialize(mapload, bolt, layer)
 	. = ..()
@@ -83,35 +82,32 @@
 	if(user.istate & ISTATE_HARM)
 		return ..()
 
-	if(istype(item, /obj/item/disk/sucker_upgrade))
-		var/obj/item/disk/sucker_upgrade/upgrade = item
+	if(!istype(item, /obj/item/disk/sucker_upgrade))
+		return ..()
 
-		for(var/overridden in overridden_upgrades)
-			if(upgrade.upgrade_type == overridden)
-				balloon_alert(user, "incompatible with [overridden] upgrade!")
-				return
+	var/obj/item/disk/sucker_upgrade/upgrade = item
 
-		if(upgrade.upgrade_type in upgrades)
-			balloon_alert(user, "already installed!")
+	for(var/obj/item/disk/sucker_upgrade/upgrade_disk as anything in upgrade_disks)
+		if(upgrade.upgrade_type in upgrade_disk.override_types)
+			balloon_alert(user, "incompatible with [upgrade_disk.upgrade_type] upgrade!")
 			return
 
-		for(var/obj/item/disk/sucker_upgrade/upgrade_disk as anything in upgrade_disks.Copy())
-			if(upgrade_disk.upgrade_type in upgrade.override_types)
-				remove_upgrade(upgrade_disk)
-
-		add_upgrade(upgrade)
-
-		to_chat(user, span_notice("You install a [upgrade.upgrade_type] upgrade into [src]."))
-		playsound(user, 'sound/machines/click.ogg', 30, TRUE)
-
+	if(upgrade.upgrade_type in upgrades)
+		balloon_alert(user, "already installed!")
 		return
 
-	return ..()
+	for(var/obj/item/disk/sucker_upgrade/upgrade_disk as anything in upgrade_disks.Copy())
+		if(upgrade_disk.upgrade_type in upgrade.override_types)
+			remove_upgrade(upgrade_disk)
+
+	add_upgrade(upgrade)
+
+	to_chat(user, span_notice("You install a [upgrade.upgrade_type] upgrade into [src]."))
+	playsound(user, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/machinery/plumbing/ooze_sucker/proc/add_upgrade(obj/item/disk/sucker_upgrade/upgrade)
 	upgrades += upgrade.upgrade_type
 	upgrades += upgrade.additional_types
-	overridden_upgrades += upgrade.override_types
 	upgrade_disks += upgrade
 	upgrade.forceMove(src)
 	upgrade.on_upgrade(src)
@@ -119,7 +115,6 @@
 /obj/machinery/plumbing/ooze_sucker/proc/remove_upgrade(obj/item/disk/sucker_upgrade/upgrade)
 	upgrades -= upgrade.upgrade_type
 	upgrades -= upgrade.additional_types
-	overridden_upgrades -= upgrade.override_types
 	upgrade_disks -= upgrade
 	upgrade.forceMove(drop_location())
 	upgrade.on_remove(src)
