@@ -7,7 +7,7 @@
 /datum/slime_store_item/sucker_capacity
 	name = "Ooze Sucker Capacity Upgrade"
 	desc = "A module for ooze suckers that doubles their capacity."
-	item_path = /obj/item/disk/sucker_upgrade/disposer
+	item_path = /obj/item/disk/sucker_upgrade/capacity
 	cost = 8000
 
 /datum/slime_store_item/sucker_balancer
