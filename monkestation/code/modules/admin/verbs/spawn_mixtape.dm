@@ -3,24 +3,59 @@
 	set name = "Spawn Mixtape"
 	set desc = "Select an approved mixtape to spawn at your location."
 
-	/*
-	TODO: TGUI SHIT (RPD has a good baseline for what i want iirc)
-	*/
+	var/datum/mixtape_spawner/tgui = new(usr)//create the datum
+	tgui.ui_interact(usr)//datum has a tgui component, here we open the window
 
-	if(!holder)
-		return
+/datum/mixtape_spawner
+	var/client/holder //client of whoever is using this datum
+
+/datum/mixtape_spawner/New(user)//user can either be a client or a mob due to byondcode(tm)
+	if (istype(user, /client))
+		var/client/user_client = user
+		holder = user_client //if its a client, assign it to holder
+	else
+		var/mob/user_mob = user
+		holder = user_mob.client //if its a mob, assign the mob's client to holder
+
+/datum/mixtape_spawner/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/mixtape_spawner/ui_close()
+	qdel(src)
+
+/datum/mixtape_spawner/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MixtapeSpawner")
+		ui.open()
+
+/datum/mixtape_spawner/ui_data(mob/user)
+	var/list/data = list()
 	if(!length(GLOB.approved_cassettes))
 		GLOB.approved_cassettes = initialize_approved_cassettes()
-	var/list/choices = list()
-	for (var/datum/cassette/cassette_tape/tape as anything in GLOB.approved_cassettes)
-		choices += tape.id
-	if(choices.len <= 0)
+	if(!length(GLOB.approved_cassettes))
 		return
-	var/choice = tgui_input_list(src, "Select which tape to spawn. These are IDs, not names, but the IDs should end with the ckey.", "Select Mixtape to Spawn", choices)
-	if(isnull(choice))
+	var/datum/cassette/cassette_tape/first = GLOB.approved_cassettes[1]
+	data["selected_id"] = first.id
+	for(var/datum/cassette/cassette_tape/cassette in GLOB.approved_cassettes)
+		data["approved_cassettes"] += list(list(
+			"name" = cassette.name,
+			"desc" = cassette.desc,
+			"icon_state" = cassette.icon_state,
+			"id" = cassette.id,
+			"creator_ckey" = cassette.creator_ckey,
+			"creator_name" = cassette.creator_name,
+			"song_names" = cassette.song_names
+		))
+	return data
+
+/datum/mixtape_spawner/ui_act(action, params)
+	. = ..()
+	if(.)
 		return
-
-	new/obj/item/device/cassette_tape(usr.loc, choice)
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Mixtape")
-	log_admin("[key_name(usr)] created mixtape [choice] at [usr.loc].")
+	switch(action)
+		if("spawn")
+			if (params["id"])
+				new/obj/item/device/cassette_tape(usr.loc, params["id"])
+				SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Mixtape")
+				log_admin("[key_name(usr)] created mixtape [params["id"]] at [usr.loc].")
