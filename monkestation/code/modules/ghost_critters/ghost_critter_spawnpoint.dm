@@ -9,10 +9,18 @@
 
 	time_left -= world.time
 	var/obj/effect/overlay/hover/data = new(null)
-	data.maptext = "You have [DisplayTimeText(time_left)] left until you can spawn as a ghost critter again."
+	data.icon = 'icons/effects/effects.dmi'
+	data.icon_state = "empty"
+	data.maptext = "<span class='pixel c ol'><span style='font-size: 6px; text-align: center;'>You have [DisplayTimeText(time_left)] left until you can spawn as a ghost critter again.</span></span>"
 	data.maptext_width = 256
+	data.maptext_height = 128
+	data.maptext_y = 28
+	data.maptext_x = -120
+	data.plane = source.plane
+	data.layer = source.layer + 1
 	var/image/new_image = new(source)
 	new_image.appearance = data.appearance
+	new_image.loc = source
 	SET_PLANE_EXPLICIT(new_image, new_image.plane, source)
 	add_client_image(new_image, enterer.client)
 

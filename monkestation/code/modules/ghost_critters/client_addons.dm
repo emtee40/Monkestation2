@@ -14,6 +14,8 @@
 
 	var/list/mobs_to_pick = list()
 
+	mobs_to_pick += return_donator_mobs()
+
 	if(patreon.has_access(ACCESS_ASSISTANT_RANK))
 		mobs_to_pick += basic_list
 
@@ -34,6 +36,11 @@
 		mob.mind = new /datum/mind(key)
 
 	mob.mind.transfer_to(created_mob, TRUE)
+
+	if(patreon.has_access(ACCESS_NUKIE_RANK) || is_admin(src))
+		created_mob.AddComponent(/datum/component/basic_inhands, y_offset = -6)
+		created_mob.AddComponent(/datum/component/max_held_weight, WEIGHT_CLASS_SMALL)
+		created_mob.AddElement(/datum/element/dextrous)
 	ADD_TRAIT(created_mob, TRAIT_MUTE, INNATE_TRAIT)
 
 	init_verbs()

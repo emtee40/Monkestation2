@@ -156,6 +156,8 @@
 	icon_dead = "gumball_goblin_dead"
 	gold_core_spawnable = NO_SPAWN
 
+	ckeywhitelist = list("elliethedarksun")
+
 	///Ability
 	var/datum/action/cooldown/lay_gumball/gumball_ability
 
