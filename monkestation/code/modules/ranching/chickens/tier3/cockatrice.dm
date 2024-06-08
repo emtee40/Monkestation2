@@ -54,7 +54,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/user = target
-		user.petrify(10)
+		user.petrify(1 SECONDS)
 
 /datum/action/cooldown/mob_cooldown/chicken/petrifying_gaze
 	name = "Petrifying Gaze"
