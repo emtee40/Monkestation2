@@ -19,18 +19,12 @@
 
 	switch(input("Select by:", "Imaginary Friend") as null|anything in list("Key", "Mob"))
 		if("Key")
-			var/list/friendlist = list()
-			for(var/mob/living/friend in GLOB.player_list)
-				friendlist |= friend.client
-			var/client/friendclient = input("Please, select a key.", "Imaginary Friend") as null|anything in sort_key(friendlist)
+			var/client/friendclient = input("Please, select a key.", "Imaginary Friend") as null|anything in sort_key(GLOB.clients)
 			if(!friendclient)
 				return
 			mentee = friendclient.mob
 		if("Mob")
-			var/list/friendlist = list()
-			for(var/mob/living/friend in GLOB.player_list)
-				friendlist |= friend
-			var/mob/friendmob = input("Please, select a mob.", "Imaginary Friend") as null|anything in sort_names(friendlist)
+			var/mob/friendmob = input("Please, select a mob.", "Imaginary Friend") as null|anything in sort_names(GLOB.alive_player_list)
 			if(!friendmob)
 				return
 			mentee = friendmob
