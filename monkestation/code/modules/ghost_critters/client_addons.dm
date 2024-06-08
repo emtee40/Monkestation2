@@ -9,14 +9,14 @@
 		/mob/living/basic/butterfly,
 		/mob/living/basic/crab
 	)
-	if(!patreon.has_access(ACCESS_ASSISTANT_RANK))
+	if(!patreon.has_access(ACCESS_ASSISTANT_RANK) && !is_admin(src))
 		return pick(basic_list)
 
 	var/list/mobs_to_pick = list()
 
 	mobs_to_pick += return_donator_mobs()
 
-	if(patreon.has_access(ACCESS_ASSISTANT_RANK))
+	if(patreon.has_access(ACCESS_ASSISTANT_RANK) || is_admin(src))
 		mobs_to_pick += basic_list
 
 	var/choice = show_radial_menu(mob, spawner, mobs_to_pick, tooltips = TRUE)
