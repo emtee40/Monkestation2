@@ -57,7 +57,6 @@
 /// Brings a savefile up to date with modular preferences. Called if savefile_needs_update_monkestation() returned a value higher than 0
 /datum/preferences/proc/update_character_monkestation(current_version, list/save_data)
 	if(current_version < 4)
-		to_chat(world, "Updating Character: [save_data["real_name"]]")
 		monkestation_set_ipc_genders(save_data)
 
 
