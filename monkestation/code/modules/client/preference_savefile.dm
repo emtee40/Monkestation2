@@ -3,7 +3,7 @@
  * You can't really use the non-modular version, least you eventually want asinine merge
  * conflicts and/or potentially disastrous issues to arise, so here's your own.
  */
-#define MODULAR_SAVEFILE_VERSION_MAX 3
+#define MODULAR_SAVEFILE_VERSION_MAX 4
 
 #define MODULAR_SAVEFILE_UP_TO_DATE -1
 
@@ -56,7 +56,9 @@
 
 /// Brings a savefile up to date with modular preferences. Called if savefile_needs_update_monkestation() returned a value higher than 0
 /datum/preferences/proc/update_character_monkestation(current_version, list/save_data)
-	return
+	if(current_version < 4)
+		to_chat(world, "Updating Character: [save_data["real_name"]]")
+		monkestation_set_ipc_genders(save_data)
 
 
 /// Saves the modular customizations of a character on the savefile
