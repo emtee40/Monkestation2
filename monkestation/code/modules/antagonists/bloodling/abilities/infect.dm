@@ -29,10 +29,10 @@
 	var/mob/living/carbon/human/carbon_mob = owner.pulling
 
 
-	var/infest_time = 20 SECONDS
+	var/infest_time = 10 SECONDS
 
 	if(HAS_TRAIT(carbon_mob, TRAIT_MINDSHIELD))
-		infest_time *= 4
+		infest_time *= 2
 
 	if(!do_after(owner, infest_time))
 		return FALSE
