@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(loki)
 	var/list/built = list()
 	built["streams"] = list()
 	built["streams"]["stream"] = list("target" = "[target]", "source" = "[source]", "category" = "[category]", "level" = "[severity]")
-	built["streams"]["values"] = list("[rustg_unix_timestamp() * 1000000000]", message)
+	built["streams"]["values"] = list("[text2num(rustg_unix_timestamp()) * 1000000000]", message)
 
 	push_data(built)
 
