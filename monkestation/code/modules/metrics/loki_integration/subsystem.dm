@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(loki)
 	var/list/built = list()
 	built["streams"] = list()
 	built["streams"]["stream"] = list("target" = "[target]", "source" = "[source]", "category" = "[category]", "level" = "[severity]")
-	built["streams"]["values"] = list("[text2num(rustg_unix_timestamp()) * 1000000000]", message)
+	built["streams"]["values"] = list("[text2num(rustg_unix_timestamp()) * 1000 * 1000 * 1000]", message)
 
 	push_data(built)
 
@@ -39,6 +39,7 @@ SUBSYSTEM_DEF(loki)
 	if(!json || !CONFIG_GET(flag/loki_enabled))
 		message_admins("NOT ABLE TO SEND")
 		return
+	message_admins("[text2num(rustg_unix_timestamp()) * 1000 * 1000 * 1000]")
 	var/list/headers = list()
 	headers["Content-Type"] = "application/json"
 	var/datum/http_request/request = new()
