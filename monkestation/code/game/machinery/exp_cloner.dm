@@ -10,7 +10,10 @@
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
 	/// Am I producing evil clones?
-	var/evil = FALSE
+	var/evil_objective = null
+	/// Can my objective be changed?
+	var/locked = FALSE
+	var/datum/antagonist/evil_clone/antag_object
 	var/role_text
 	var/poll_text
 
@@ -21,15 +24,14 @@
 /obj/machinery/clonepod/experimental/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		if(evil)
+		if(!isnull(evil_objective))
 			. += span_warning("You notice an ominous, flashing red LED light.")
 
 /obj/machinery/clonepod/experimental/RefreshParts()
 	. = ..()
-	if(evil)
-		speed_coeff -= 2 // Equivalent to one tier worse parts.
-		if(speed_coeff < 0) // Negative speed_coeff would be bad.
-			speed_coeff = 0
+	if(!isnull(evil_objective))
+		speed_coeff /= 2 // So better parts have half the speed increase.
+		speed_coeff += 1 // I still want basic parts to have base 100% speed.
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/experimental/growclone(clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)
@@ -71,7 +73,7 @@
 	ADD_TRAIT(clonee, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
 	clonee.Unconscious(80)
 
-	if(evil)
+	if(!isnull(evil_objective))
 		role_text = "evil clone"
 		poll_text = "Do you want to play as [clonename]'s evil clone?"
 	else
@@ -108,8 +110,10 @@
 /obj/machinery/clonepod/experimental/exp_clone_check(mob/living/carbon/human/mob_occupant)
 	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
-	else if(evil)
-		mob_occupant.mind.add_antag_datum(/datum/antagonist/evil_clone)
+	else if(!isnull(evil_objective))
+		antag_object = mob_occupant.mind.add_antag_datum(/datum/antagonist/evil_clone)
+		antag_object.objectives += new evil_objective()
+		mob_occupant.mind.announce_objectives()
 
 /obj/machinery/clonepod/experimental/proc/get_clone_preview(datum/dna/clone_dna)
 	RETURN_TYPE(/image)
@@ -129,8 +133,9 @@
 	return preview
 
 /obj/machinery/clonepod/experimental/emag_act(mob/user)
-	if(!evil)
-		evil = TRUE //Cloner will make EVIL clones from now on.
+	if(!locked)
+		evil_objective = /datum/objective/evil_clone/murder //Emags will give a nasty objective.
+		locked = TRUE
 		to_chat(user, span_warning("You corrupt the genetic compiler."))
 		add_fingerprint(user)
 		log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
@@ -141,8 +146,8 @@
 /obj/machinery/clonepod/experimental/emp_act(severity)
 	. = ..()
 	if (!(. & EMP_PROTECT_SELF))
-		if(prob(100/severity) && !evil)
-			evil = TRUE
+		if(prob(100/severity) && !locked)
+			evil_objective = pick(subtypesof(/datum/objective/evil_clone/))
 			RefreshParts()
 			log_cloning("[src] at [AREACOORD(src)] corrupted due to EMP pulse.")
 

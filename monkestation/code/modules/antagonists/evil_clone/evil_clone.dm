@@ -8,12 +8,7 @@
 
 /datum/antagonist/evil_clone/greet()
 	. = ..()
-	owner.announce_objectives()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/revolutionary_tide.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-
-/datum/antagonist/evil_clone/on_gain()
-	forge_objectives()
-	. = ..()
 
 /datum/antagonist/evil_clone/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -25,8 +20,3 @@
 	var/mob/living/current = owner.current
 	if (HAS_TRAIT(current, TRAIT_UNNATURAL_RED_GLOWY_EYES))
 		current.RemoveElement(/datum/element/cult_eyes)
-
-/datum/antagonist/evil_clone/forge_objectives()
-	var/datum/objective/evil_clone/objective = new
-	objective.owner = owner
-	objectives += objective
