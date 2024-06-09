@@ -8,7 +8,7 @@
 
 /datum/objective/evil_clone/rule
 	name = "rightful rule"
-	explanation_text = "You and your fellow clones are the rightful rulers of the station, take control."
+	explanation_text = "You and your fellow clones of yourself are the rightful rulers of the station, take control."
 
 /datum/objective/evil_clone/minion
 	name = "minion"
@@ -36,7 +36,7 @@
 
 /datum/objective/evil_clone/territorial
 	name = "territorial"
-	explanation_text = "The clonepod which created you is a holy site only you and your fellow clones are worthy to be in the presence of. Secure the area around the clonepod and ensure no non-clones threaten it."
+	explanation_text = "The clonepod which created you is a holy site only you and your fellow clones of yourself are worthy to be in the presence of. Secure the area around the clonepod and ensure no non-clones threaten it."
 
 /datum/objective/evil_clone/check_completion()
 	return TRUE
