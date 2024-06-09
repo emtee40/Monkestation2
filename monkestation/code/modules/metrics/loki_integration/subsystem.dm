@@ -37,6 +37,7 @@ SUBSYSTEM_DEF(loki)
 
 /datum/controller/subsystem/loki/proc/push_data(json)
 	if(!json || !CONFIG_GET(flag/loki_enabled))
+		message_admins("NOT ABLE TO SEND")
 		return
 	var/list/headers = list()
 	headers["Content-Type"] = "application/json"
@@ -44,4 +45,4 @@ SUBSYSTEM_DEF(loki)
 	//note about this, the loki_url also contains the api and userkey needed to actually send data if you are sending data outside of host box.
 	request.prepare(RUSTG_HTTP_METHOD_POST, "[CONFIG_GET(string/loki_url)]/loki/api/v1/push", json_encode(json), headers, "tmp/response.json")
 	request.begin_async()
-
+	message_admins("SENT LOG")

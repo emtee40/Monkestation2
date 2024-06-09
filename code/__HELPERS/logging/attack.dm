@@ -32,10 +32,13 @@
 	var/message = "[what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
 
-	var/source_key = living_user.key
-	var/target_key = living_target.key
-	if(source_key && living_user?.client.test_marked)
-		SSloki.send_user_log(LOG_CATEGORY_ATTACK, message, "warning", source_key, target_key)
+	if(isliving(source))
+		var/source_key = living_user.key
+		var/target_key = null
+		if(isliving(target))
+			target_key = living_target.key
+		if(source_key && living_user?.client.test_marked)
+			SSloki.send_user_log(LOG_CATEGORY_ATTACK, message, "warning", source_key, target_key)
 
 	if(user != target)
 		var/reverse_message = "was [what_done] by [ssource][postfix]"
