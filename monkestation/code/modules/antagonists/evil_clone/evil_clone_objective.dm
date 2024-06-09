@@ -1,7 +1,42 @@
-/datum/objective/evil_clone
+/datum/objective/evil_clone/murder
 	name = "clone supremacy"
-	explanation_text = "Kill everyone who isn't a clone of yourself."
-	admin_grantable = TRUE
+	explanation_text = "Kill everyone who isn't a clone of yourself. Do not spare the original."
+
+/datum/objective/evil_clone/sole
+	name = "real one"
+	explanation_text = "All other versions of you are imposters, eliminate them."
+
+/datum/objective/evil_clone/rule
+	name = "rightful rule"
+	explanation_text = "You and your fellow clones are the rightful rulers of the station, take control."
+
+/datum/objective/evil_clone/minion
+	name = "minion"
+	explanation_text = "Find the most evil being you can, and become their minion."
+
+/datum/objective/evil_clone/dud
+	name = "peaceful clone"
+	explanation_text = "You find it really mean that some people don't like you because of your red eyes."
+
+/datum/objective/evil_clone/tide
+	name = "tider"
+	explanation_text = "Crime is your religion, commit as much crime as possible. Only seriously injure people if they try to stop crime."
+
+/datum/objective/evil_clone/fake_cult
+	name = "fake cultist"
+	explanation_text = "Praise"
+
+/datum/objective/evil_clone/fake_cult/New()
+	var/god = pick(list("Rat'var", "Nar'sie", "the Honkmother")) //So clones with different gods will fight eachother.
+	explanation_text+=" [god]! They haven't answered your prayers yet, but surely if you pray enough and make elaborate enough rituals they will inevitably come. Make sure no heretical religions prosper."
+
+/datum/objective/evil_clone/singuloose
+	name = "release engine"
+	explanation_text = "Deep within engineering a shackled beast lies dormant, release it!" //Is there a better way to tell clones to release the engine?
+
+/datum/objective/evil_clone/territorial
+	name = "territorial"
+	explanation_text = "The clonepod which birthed you is a holy site only you and your fellow clones are worthy to be in the presence of. Secure the area around the clonepod and ensure no non-clones threaten it."
 
 /datum/objective/evil_clone/check_completion()
 	return TRUE
