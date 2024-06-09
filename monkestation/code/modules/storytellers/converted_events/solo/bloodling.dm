@@ -33,7 +33,7 @@
 	maximum_antags = 2
 	denominator = 30
 
-/datum/round_event_control/antagonist/solo/brother/roundstart
+/datum/round_event_control/antagonist/solo/bloodling/roundstart
 	name = "Bloodling"
 	roundstart = TRUE
 	earliest_start = 0 SECONDS
