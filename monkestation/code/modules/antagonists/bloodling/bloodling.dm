@@ -16,6 +16,11 @@
 	forge_objectives()
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE) //Grants omnitongue. We are a horrific blob of flesh who can manifest a million tongues.
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_alert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	// The midround version of this antag begins as a bloodling, not as a human
+	if(!ishuman(owner.current))
+		return ..()
+	var/datum/action/cooldown/bloodling_infect/infect = new /datum/action/cooldown/bloodling_infect()
+	infect.Grant(owner.current)
 	return ..()
 
 /datum/antagonist/bloodling/forge_objectives()

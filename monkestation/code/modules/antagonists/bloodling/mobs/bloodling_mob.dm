@@ -166,13 +166,6 @@
 	new_bloodling.add_biomass(biomass)
 	qdel(src)
 
-/// Our health hud is based on biomass, since our health is infinite
-/mob/living/basic/bloodling/proper/update_health_hud()
-	if(isnull(hud_used))
-		return
-
-	hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='red'>[biomass]E</font></div>")
-
 /// Checks for damage to update the bloodlings biomass accordingly
 /mob/living/basic/bloodling/proper/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
