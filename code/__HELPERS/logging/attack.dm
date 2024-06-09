@@ -32,7 +32,7 @@
 	var/message = "[what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
 
-	if(isliving(source))
+	if(isliving(user))
 		var/source_key = living_user.key
 		var/target_key = null
 		if(isliving(target))
