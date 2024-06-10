@@ -77,6 +77,9 @@
 	. = ..()
 
 	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
+	// All evolutions over 2 (3,4,5) are spess proof
+	if(evolution_level > 2)
+		ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/basic/bloodling/proper/adjust_health(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced)
