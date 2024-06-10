@@ -14,8 +14,6 @@
 	/// Can my objective be changed?
 	var/locked = FALSE
 	var/datum/antagonist/evil_clone/antag_object
-	var/role_text
-	var/poll_text
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
@@ -73,6 +71,8 @@
 	ADD_TRAIT(clonee, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
 	clonee.Unconscious(80)
 
+	var/role_text
+	var/poll_text
 	if(!isnull(evil_objective))
 		role_text = "evil clone"
 		poll_text = "Do you want to play as [clonename]'s evil clone?"
