@@ -18,8 +18,7 @@
 	if(!patreon.has_access(ACCESS_ASSISTANT_RANK) && !is_admin(src) && !length(mobs_to_pick))
 		return pick(basic_list)
 
-	if(patreon.has_access(ACCESS_ASSISTANT_RANK) || is_admin(src))
-		mobs_to_pick += basic_list
+	mobs_to_pick += basic_list
 
 	var/list/spawned_mobs = list()
 	var/list/deletors = list()
