@@ -14,6 +14,8 @@
 	/// Can my objective be changed?
 	var/locked = FALSE
 	var/datum/antagonist/evil_clone/antag_object
+	var/role_text
+	var/poll_text
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
@@ -72,11 +74,11 @@
 	clonee.Unconscious(80)
 
 	if(!isnull(evil_objective))
-		var/role_text = "evil clone"
-		var/poll_text = "Do you want to play as [clonename]'s evil clone?"
+		role_text = "evil clone"
+		poll_text = "Do you want to play as [clonename]'s evil clone?"
 	else
-		var/role_text = "defective clone"
-		var/poll_text = "Do you want to play as [clonename]'s defective clone?"
+		role_text = "defective clone"
+		poll_text = "Do you want to play as [clonename]'s defective clone?"
 
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(
 		poll_text,
