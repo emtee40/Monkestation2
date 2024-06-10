@@ -4,7 +4,7 @@
 	max_occurrences = 1
 	weight = 3
 	category = EVENT_CATEGORY_ENTITIES //Kinda, evil clones ARE entities.
-	track = EVENT_TRACK_MODERATE //What do I set this to? Evil clones start with no gear and are obvious, they'll get slaughtered the moment they get found out. (Which will probably be soon as cloners tend to be made in public areas.)
+	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_DESTRUCTIVE, TAG_COMBAT)
 
 /datum/round_event/cloner_corruption/start()

@@ -13,7 +13,6 @@
 	var/evil_objective = null
 	/// Can my objective be changed?
 	var/locked = FALSE
-	var/datum/antagonist/evil_clone/antag_object
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
@@ -28,7 +27,7 @@
 /obj/machinery/clonepod/experimental/RefreshParts()
 	. = ..()
 	if(!isnull(evil_objective))
-		speed_coeff /= 2 // So better parts have half the speed increase.
+		speed_coeff = round(speed_coeff / 2) // So better parts have half the speed increase.
 		speed_coeff += 1 // I still want basic parts to have base 100% speed.
 
 //Start growing a human clone in the pod!
