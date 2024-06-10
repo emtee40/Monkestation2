@@ -11,4 +11,6 @@
 	for(var/obj/machinery/clonepod/experimental/cloner in GLOB.machines)
 		if(!cloner.locked)
 			cloner.evil_objective = pick(subtypesof(/datum/objective/evil_clone))
+			cloner.role_text = "evil clone"
+			cloner.poll_text = "Do you want to play as [clonename]'s evil clone?"
 			cloner.RefreshParts()
