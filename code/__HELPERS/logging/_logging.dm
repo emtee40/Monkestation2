@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(isliving(src) && loki)
 		var/mob/living/source = src
 		if(source.client)
-			SSloki.send_user_log(category, log_text, severity, source.key, null)
+			SSloki.send_user_log(category, message, severity, source.key, "No Target")
 
 	switch(message_type)
 		/// ship both attack logs and victim logs to the end of round attack.log just to ensure we don't lose information
