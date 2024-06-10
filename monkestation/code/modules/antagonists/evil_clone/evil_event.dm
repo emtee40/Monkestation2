@@ -2,7 +2,7 @@
 	name = "Experimental Cloner Corruption"
 	typepath = /datum/round_event/cloner_corruption
 	max_occurrences = 10
-	weight = 5
+	weight = 5 //What do I set this to?
 	alert_observers = TRUE
 	category = EVENT_CATEGORY_ENTITIES //Kinda, evil clones ARE entities.
 	cost = 1 //What do I set this to? I guess often times there won't be any experimental cloners so it'd be wasted.
