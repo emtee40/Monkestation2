@@ -111,9 +111,9 @@
 	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
 	else if(!isnull(evil_objective))
-		antag_object = mob_occupant.mind.add_antag_datum(/datum/antagonist/evil_clone)
+		antag_object = new /datum/antagonist/evil_clone()
 		antag_object.objectives += new evil_objective()
-		mob_occupant.mind.announce_objectives()
+		mob_occupant.mind.add_antag_datum(antag_object)
 
 /obj/machinery/clonepod/experimental/proc/get_clone_preview(datum/dna/clone_dna)
 	RETURN_TYPE(/image)

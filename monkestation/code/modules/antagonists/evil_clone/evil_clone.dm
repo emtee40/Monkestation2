@@ -8,6 +8,7 @@
 
 /datum/antagonist/evil_clone/greet()
 	. = ..()
+	owner.announce_objectives()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/revolutionary_tide.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/evil_clone/apply_innate_effects(mob/living/mob_override)
