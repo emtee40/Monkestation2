@@ -23,7 +23,7 @@
 
 /obj/machinery/clonepod/experimental/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) || isobserver(user))
+	if(evil_objective && (in_range(user, src) || isobserver(user)))
 		if(!isnull(evil_objective))
 			. += span_warning("You notice an ominous, flashing red LED light.")
 
@@ -111,7 +111,7 @@
 	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
 	else if(!isnull(evil_objective))
-		antag_object = new /datum/antagonist/evil_clone()
+		var/datum/antagonist/evil_clone/antag_object = new
 		antag_object.objectives += new evil_objective()
 		mob_occupant.mind.add_antag_datum(antag_object)
 
@@ -147,7 +147,7 @@
 	. = ..()
 	if (!(. & EMP_PROTECT_SELF))
 		if(prob(100/severity) && !locked)
-			evil_objective = pick(subtypesof(/datum/objective/evil_clone/))
+			evil_objective = pick(subtypesof(/datum/objective/evil_clone) - /datum/objective/evil_clone/murder)
 			RefreshParts()
 			log_cloning("[src] at [AREACOORD(src)] corrupted due to EMP pulse.")
 

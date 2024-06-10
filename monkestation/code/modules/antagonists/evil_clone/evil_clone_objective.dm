@@ -1,6 +1,6 @@
 /datum/objective/evil_clone/murder // The existance of the murderbone objective makes evil clones properly feared, so even when they aren't murderboning they will still be shunned and persecuted.
 	name = "clone supremacy"
-	explanation_text = "Kill everyone who isn't a clone of yourself. Do not spare the original."
+	explanation_text = "Make sure clones of yourself are the only ones alive. Do not spare the original."
 
 /datum/objective/evil_clone/sole
 	name = "real one"
