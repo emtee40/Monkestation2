@@ -14,8 +14,6 @@
 	/// Can my objective be changed?
 	var/locked = FALSE
 	var/datum/antagonist/evil_clone/antag_object
-	var/role_text = "defective clone"
-	var/poll_text = "Do you want to play as [clonename]'s defective clone?"
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
@@ -76,6 +74,9 @@
 	if(!isnull(evil_objective))
 		var/role_text = "evil clone"
 		var/poll_text = "Do you want to play as [clonename]'s evil clone?"
+	else
+		var/role_text = "defective clone"
+		var/poll_text = "Do you want to play as [clonename]'s defective clone?"
 
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob(
 		poll_text,
@@ -132,8 +133,6 @@
 /obj/machinery/clonepod/experimental/emag_act(mob/user)
 	if(!locked)
 		evil_objective = /datum/objective/evil_clone/murder //Emags will give a nasty objective.
-		role_text = "evil clone"
-		poll_text = "Do you want to play as [clonename]'s evil clone?"
 		locked = TRUE
 		to_chat(user, span_warning("You corrupt the genetic compiler."))
 		add_fingerprint(user)
@@ -147,8 +146,6 @@
 	if (!(. & EMP_PROTECT_SELF))
 		if(prob(100/severity) && !locked)
 			evil_objective = pick(subtypesof(/datum/objective/evil_clone) - /datum/objective/evil_clone/murder)
-			role_text = "evil clone"
-			poll_text = "Do you want to play as [clonename]'s evil clone?"
 			RefreshParts()
 			log_cloning("[src] at [AREACOORD(src)] corrupted due to EMP pulse.")
 
