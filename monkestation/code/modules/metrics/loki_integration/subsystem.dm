@@ -28,21 +28,17 @@ SUBSYSTEM_DEF(loki)
 
 
 /datum/controller/subsystem/loki/proc/send_user_log(category, message, severity, source, target)
-	var/list/built = list()
 	var/time = rustg_unix_timestamp()
 	time = replacetext(time, ".", "")
 	time += "000"
-	built["streams"] = list()
-	built["streams"]["stream"] = list("target" = "[target]", "source" = "[source]", "category" = "[category]", "level" = "[severity]")
-	built["streams"]["values"] = list("[time]", message)
-
-	push_data(built)
+	var/built_json = "{\"streams\":\[{\"stream\":{\"level\":\"[severity]\",\"target\":\"[target]\",\"source\":\"[source]\",\"category\":\"[category]\"},\"values\":\[\[\"[time]\", \"[message]\"\]\]}\]}"
+	push_data(built_json)
 
 /datum/controller/subsystem/loki/proc/push_data(json)
 	if(!json || !CONFIG_GET(flag/loki_enabled))
 		message_admins("NOT ABLE TO SEND")
 		return
-	var/payload = json_encode(json)
+	var/payload = json
 	message_admins(payload)
 	var/list/headers = list()
 	headers["Content-Type"] = "application/json"
