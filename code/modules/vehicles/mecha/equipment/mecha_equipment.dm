@@ -205,7 +205,7 @@
 	log_message("[src] removed from equipment.", LOG_MECHA)
 	chassis = null
 
-/obj/item/mecha_parts/mecha_equipment/log_message(message, message_type=LOG_GAME, color=null, log_globally)
+/obj/item/mecha_parts/mecha_equipment/log_message(message, message_type=LOG_GAME, color=null, log_globally, loki = TRUE, severity = "info", category)
 	if(chassis)
 		return chassis.log_message("ATTACHMENT: [src] [message]", message_type, color)
 	return ..()

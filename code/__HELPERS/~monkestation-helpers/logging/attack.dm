@@ -12,7 +12,19 @@
 	if(user)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			bomb_message = "(while pacifist) [bomb_message]"
-		user.log_message(bomb_message, LOG_ATTACK) //let it go to individual logs as well as the game log
+		user.log_message(bomb_message, LOG_ATTACK, loki = FALSE) //let it go to individual logs as well as the game log
+		var/user_key
+		var/target_key
+
+		if(isliving(target))
+			var/mob/living/target_living = target
+			target_key = target_living.key
+
+		if(isliving(user))
+			var/mob/living/living_user = user
+			user_key = living_user.key
+
+		SSloki.send_user_log(LOG_CATEGORY_BOMBING, bomb_message, "critical", user_key, target_key)
 		bomb_message = "[key_name(user)] at [AREACOORD(user)] [bomb_message]."
 	else
 		log_attack(bomb_message)
