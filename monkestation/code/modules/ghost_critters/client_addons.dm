@@ -7,22 +7,37 @@
 		/mob/living/basic/mouse,
 		/mob/living/basic/axolotl,
 		/mob/living/basic/butterfly,
-		/mob/living/basic/crab
+		/mob/living/basic/crab,
+		/mob/living/basic/mothroach
 	)
-	if(!patreon.has_access(ACCESS_ASSISTANT_RANK) && !is_admin(src))
-		return pick(basic_list)
 
 	var/list/mobs_to_pick = list()
 
 	mobs_to_pick += return_donator_mobs()
 
+	if(!patreon.has_access(ACCESS_ASSISTANT_RANK) && !is_admin(src) && !length(mobs_to_pick))
+		return pick(basic_list)
+
 	if(patreon.has_access(ACCESS_ASSISTANT_RANK) || is_admin(src))
 		mobs_to_pick += basic_list
 
-	var/choice = show_radial_menu(mob, spawner, mobs_to_pick, tooltips = TRUE)
+	var/list/spawned_mobs = list()
+	var/list/deletors = list()
+	for(var/mob/living/basic/basic as anything in mobs_to_pick)
+		var/mob/living/basic/created = new basic()
+		spawned_mobs += list(created.name = created)
+		deletors += created
+
+	var/choice = show_radial_menu(mob, spawner, spawned_mobs, tooltips = TRUE)
 	if(!choice)
+		spawned_mobs = null
+		QDEL_LIST(deletors)
 		return pick(basic_list)
-	return choice
+	var/mob/living/basic/picked = spawned_mobs[choice]
+	var/mob_type = picked.type
+	spawned_mobs = null
+	QDEL_LIST(deletors)
+	return mob_type
 
 /client/proc/try_critter_spawn(obj/structure/ghost_critter_spawn/spawner)
 	var/turf/open/turf = get_turf(spawner)
