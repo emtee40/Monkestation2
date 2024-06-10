@@ -30,10 +30,6 @@
 	var/god = pick(list("Rat'var", "Nar'sie")) //So clones with different gods will fight eachother.
 	explanation_text+=" [god]! They haven't answered your prayers yet, but surely if you pray enough and make elaborate enough rituals they will inevitably come. Make sure no heretical religions prosper."
 
-/datum/objective/evil_clone/singuloose
-	name = "release engine"
-	explanation_text = "Deep within engineering a shackled beast lies dormant, release it!" //Is there a better way to tell clones to release the engine?
-
 /datum/objective/evil_clone/territorial
 	name = "territorial"
 	explanation_text = "The clonepod which created you is a holy site only you and your fellow clones of yourself are worthy to be in the presence of. Secure the area around the clonepod and ensure no non-clones threaten it."
