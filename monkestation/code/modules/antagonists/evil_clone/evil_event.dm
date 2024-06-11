@@ -6,6 +6,7 @@
 	category = EVENT_CATEGORY_ENTITIES //Kinda, evil clones ARE entities.
 	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_DESTRUCTIVE, TAG_COMBAT)
+	earliest_start = 40 //This requires an experimental cloner to be made, so should wait until later to fire when there's better chance one has been set up.
 
 /datum/round_event/cloner_corruption/start()
 	for(var/obj/machinery/clonepod/experimental/cloner in GLOB.machines)
