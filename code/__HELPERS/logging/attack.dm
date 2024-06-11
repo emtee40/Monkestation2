@@ -34,7 +34,7 @@
 
 	if(isliving(user))
 		var/source_key = living_user.key
-		var/target_key = "No Target"
+		var/target_key = null
 		if(isliving(target))
 			target_key = living_target.key
 		SSloki.send_user_log(LOG_CATEGORY_ATTACK, message, severity, source_key, target_key)
