@@ -44,6 +44,7 @@
 	var/mob/living/basic/spawned_mob = get_critter_spawn(spawner)
 	var/mob/living/basic/created_mob = new spawned_mob(turf)
 
+	var/cooldown_tiem = get_critter_cooldown()
 	ghost_critter_cooldown = world.time + 15 MINUTES
 
 	if(!mob.mind)
@@ -58,3 +59,20 @@
 	ADD_TRAIT(created_mob, TRAIT_MUTE, INNATE_TRAIT)
 
 	init_verbs()
+
+/client/proc/get_critter_cooldown()
+	var/base_time = 25 MINUTES
+
+	switch(patreon.access_rank)
+		if(0, 1)
+			return base_time
+		if(2)
+			return base_time - 5 MINUTES
+		if(3)
+			return base_time - 10 MINUTES
+		if(4)
+			return base_time - 15 MINUTES
+		if(5)
+			return base_time - 20 MINUTES
+		else
+			return 1 MINUTES
