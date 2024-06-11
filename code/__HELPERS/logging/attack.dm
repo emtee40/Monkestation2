@@ -12,7 +12,7 @@
  * * atom/object - is a tool with which the action was made (usually an item)
  * * addition - is any additional text, which will be appended to the rest of the log line
  */
-/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null, severity = "error")
+/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
 
@@ -30,14 +30,15 @@
 	var/postfix = "[sobject][saddition][hp]"
 
 	var/message = "[what_done] [starget][postfix]"
-	user.log_message(message, LOG_ATTACK, color="red", loki = FALSE)
+	user.log_message(message, LOG_ATTACK, color="red")
 
 	if(isliving(user))
 		var/source_key = living_user.key
 		var/target_key = null
 		if(isliving(target))
 			target_key = living_target.key
-		SSloki.send_user_log(LOG_CATEGORY_ATTACK, message, severity, source_key, target_key)
+		if(source_key && living_user?.client.test_marked)
+			SSloki.send_user_log(LOG_CATEGORY_ATTACK, message, "warning", source_key, target_key)
 
 	if(user != target)
 		var/reverse_message = "was [what_done] by [ssource][postfix]"

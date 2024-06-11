@@ -83,32 +83,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 #define log_reftracker(msg)
 #endif
 
-/atom/proc/return_category(type)
-	switch(type)
-		if(LOG_ATTACK, LOG_VICTIM)
-			return LOG_CATEGORY_ATTACK
-		if(LOG_SAY, LOG_WHISPER, LOG_DSAY, LOG_CHAT, LOG_PDA)
-			return LOG_CATEGORY_GAME_SAY
-		if(LOG_EMOTE)
-			return LOG_CATEGORY_GAME_EMOTE
-		if(LOG_OOC)
-			return LOG_CATEGORY_GAME_OOC
-		if(LOG_ADMIN, LOG_ASAY, LOG_ADMIN_PRIVATE)
-			return LOG_CATEGORY_ADMIN
-		if(LOG_VIRUS)
-			return LOG_CATEGORY_VIRUS
-		if(LOG_GAME)
-			return LOG_CATEGORY_GAME
-		if(LOG_MECHA)
-			return LOG_CATEGORY_MECHA
-		if(LOG_MECHCOMP)
-			return LOG_CATEGORY_MECHCOMP
-		if(LOG_CLONING)
-			return LOG_CATEGORY_CLONING
-		if(LOG_ECON)
-			return LOG_CATEGORY_ECONOMY
-		else
-			return LOG_CATEGORY_GAME
 /**
  * Generic logging helper
  *
@@ -121,20 +95,11 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  * * color - color of the log text
  * * log_globally - boolean checking whether or not we write this log to the log file
  */
-/atom/proc/log_message(message, message_type, color = null, log_globally = TRUE, loki = TRUE, severity = "info", category)
+/atom/proc/log_message(message, message_type, color = null, log_globally = TRUE)
 	if(!log_globally)
 		return
 
-	if(!category)
-		category = return_category(message_type)
-
 	var/log_text = "[key_name(src)] [message] [loc_name(src)]"
-
-	if(isliving(src) && loki)
-		var/mob/living/source = src
-		if(source.client)
-			SSloki.send_user_log(category, log_text, severity, source.key, null)
-
 	switch(message_type)
 		/// ship both attack logs and victim logs to the end of round attack.log just to ensure we don't lose information
 		if(LOG_ATTACK, LOG_VICTIM)
