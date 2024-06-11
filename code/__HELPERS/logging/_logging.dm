@@ -122,6 +122,9 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  * * log_globally - boolean checking whether or not we write this log to the log file
  */
 /atom/proc/log_message(message, message_type, color = null, log_globally = TRUE, loki = TRUE, severity = "info", category)
+	if(!log_globally)
+		return
+
 	if(!category)
 		category = return_category(message_type)
 
@@ -131,9 +134,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 		var/mob/living/source = src
 		if(source.client)
 			SSloki.send_user_log(category, message, severity, source.key, "No Target")
-
-	if(!log_globally)
-		return
 
 	switch(message_type)
 		/// ship both attack logs and victim logs to the end of round attack.log just to ensure we don't lose information
