@@ -7073,7 +7073,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/north{
-	name = "SM internals";
+	name = "Loop APC West";
 	start_charge = 180
 	},
 /turf/open/floor/engine,
@@ -10327,10 +10327,6 @@
 	},
 /obj/effect/turf_decal/tile/orange/anticorner{
 	dir = 8
-	},
-/obj/machinery/airalarm/engine{
-	dir = 1;
-	pixel_y = 23
 	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
@@ -15187,7 +15183,7 @@
 /area/station/security/medical)
 "ghH" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/door/window/left/directional/north,
 /turf/open/floor/circuit/green,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "ghJ" = (
@@ -32589,6 +32585,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/icebox_bar)
 "nek" = (
@@ -36173,10 +36170,6 @@
 	name = "Gas to Filter"
 	},
 /obj/effect/turf_decal/tile/blue/anticorner,
-/obj/machinery/airalarm/engine{
-	dir = 1;
-	pixel_y = 23
-	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/icebox_bar)
 "oBU" = (
@@ -38569,6 +38562,11 @@
 /obj/structure/table,
 /turf/open/floor/iron,
 /area/station/maintenance/disposal/incinerator)
+"pAi" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/light/directional/east,
+/turf/open/floor/engine,
+/area/station/engineering/supermatter/room)
 "pAk" = (
 /obj/machinery/camera/directional/north,
 /turf/open/floor/iron/dark,
@@ -39666,6 +39664,10 @@
 /area/station/medical/pharmacy)
 "pVr" = (
 /obj/effect/mapping_helpers/broken_floor,
+/obj/machinery/airalarm/directional/north{
+	pixel_y = -5;
+	pixel_x = 27
+	},
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/station/service/kitchen/coldroom)
 "pVs" = (
@@ -40031,10 +40033,6 @@
 "qdq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible/layer2{
 	dir = 4
-	},
-/obj/machinery/airalarm/mixingchamber{
-	dir = 4;
-	pixel_x = 25
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
@@ -42443,7 +42441,7 @@
 "rch" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/north{
-	name = "Loop APC";
+	name = "Loop APC East";
 	verb_exclaim = null;
 	start_charge = 180
 	},
@@ -42681,6 +42679,7 @@
 /area/station/hallway/primary/fore)
 "rgx" = (
 /obj/machinery/light/directional/east,
+/mob/living/basic/bot/cleanbot/autopatrol,
 /turf/open/floor/iron,
 /area/station/service/janitor)
 "rgz" = (
@@ -44579,6 +44578,7 @@
 /obj/effect/turf_decal/tile/orange/anticorner,
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/power/apc/auto_name/directional/north,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "rSC" = (
@@ -49854,7 +49854,9 @@
 /area/station/security/evidence)
 "tVM" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/door/window/right{
+	dir = 1
+	},
 /turf/open/floor/circuit/green,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "tVN" = (
@@ -50296,9 +50298,10 @@
 /turf/open/floor/iron,
 /area/station/bitrunning/den)
 "udx" = (
-/mob/living/simple_animal/bot/medbot/autopatrol,
-/turf/open/floor/glass/reinforced,
-/area/station/medical/medbay/lobby)
+/obj/effect/turf_decal/trimline/blue/filled/line,
+/mob/living/basic/bot/medbot/autopatrol,
+/turf/open/floor/iron/white,
+/area/station/medical/office)
 "udB" = (
 /obj/structure/chair{
 	dir = 4
@@ -55085,9 +55088,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "wdh" = (
-/obj/machinery/airalarm/kitchen_cold_room,
-/turf/closed/wall,
-/area/station/service/kitchen/coldroom)
+/mob/living/basic/bot/medbot/autopatrol,
+/turf/open/floor/iron/white,
+/area/station/medical/office)
 "wdk" = (
 /obj/structure/table/wood,
 /obj/structure/cassette_rack{
@@ -91196,7 +91199,7 @@ nCa
 nCa
 rcI
 hnc
-udx
+nMX
 nMX
 teq
 foU
@@ -95371,7 +95374,7 @@ vKh
 dkA
 cCT
 thA
-wdh
+jdH
 mpy
 sXi
 vaQ
@@ -96610,10 +96613,10 @@ aIx
 piB
 tEm
 bNi
+wdh
 bNi
 bNi
-bNi
-jvF
+udx
 pzy
 aOa
 jVc
@@ -106287,7 +106290,7 @@ bHu
 bHu
 bHu
 bHu
-bHu
+pAi
 oRF
 gvB
 gvB
@@ -106543,7 +106546,7 @@ gvB
 gvB
 gvB
 gvB
-gvB
+kwg
 xbK
 cTM
 gvB
@@ -106801,7 +106804,7 @@ gvB
 gvB
 gvB
 gvB
-mnT
+gvB
 gvB
 gvB
 gvB
