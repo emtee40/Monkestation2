@@ -30,7 +30,7 @@
 	QDEL_NULL(fly)
 	return ..()
 
-/obj/item/organ/external/wings/functional/Insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/external/wings/functional/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
 	. = ..()
 	if(!.)
 		return
