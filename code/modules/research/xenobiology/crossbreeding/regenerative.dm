@@ -15,7 +15,7 @@ Regenerative extracts:
 /obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
 	return
 
-/obj/item/slimecross/regenerative/afterattack(atom/target,mob/user,prox)
+/obj/item/slimecross/regenerative/afterattack(atom/target,mob/user,prox, instant = FALSE) //Monkedit: instant variable to see if this should be done with no do_after.
 	. = ..()
 	if(!prox || !isliving(target))
 		return
@@ -23,9 +23,10 @@ Regenerative extracts:
 	if(H.stat == DEAD)
 		to_chat(user, span_warning("[src] will not work on the dead!"))
 		return
-	if(!do_after(user, 1.5 SECONDS, target)) //Monke, has a 1.5 do_after.
-		balloon_alert(user, "interrupted!")
-		return
+	if(!instant)
+		if(!do_after(user, 1.5 SECONDS, target)) //Monke, has a 1.5 do_after.
+			balloon_alert(user, "interrupted!")
+			return
 	if(H != user)
 		user.visible_message(span_notice("[user] crushes [src] over [H], the milky goo quickly regenerating all of [H.p_their()] injuries!"),
 			span_notice("You squeeze [src], and it bursts over [H], the milky goo regenerating [H.p_their()] injuries."))
