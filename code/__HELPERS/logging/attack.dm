@@ -17,7 +17,6 @@
 	var/starget = key_name(target)
 
 	var/mob/living/living_target = target
-	var/mob/living/living_user = user
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
 
 	var/sobject = ""

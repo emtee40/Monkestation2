@@ -44,8 +44,8 @@
 	var/mob/living/basic/spawned_mob = get_critter_spawn(spawner)
 	var/mob/living/basic/created_mob = new spawned_mob(turf)
 
-	var/cooldown_tiem = get_critter_cooldown()
-	ghost_critter_cooldown = world.time + 15 MINUTES
+	var/cooldown_time = get_critter_cooldown()
+	ghost_critter_cooldown = cooldown_time
 
 	if(!mob.mind)
 		mob.mind = new /datum/mind(key)
