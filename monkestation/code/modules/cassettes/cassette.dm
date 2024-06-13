@@ -122,24 +122,6 @@
 	var/list/songs = list("side1" = list(),
 						  "side2" = list())
 
-/datum/cassette/cassette_tape/New(set_id)
-	var/file = file("data/cassette_storage/[set_id].json")
-	if(!fexists(file))
-		return
-
-	var/list/data = json_decode(file2text(file))
-	id = set_id
-	name = data["name"]
-	desc = data["desc"]
-	icon_state = data["side1_icon"]
-	side1_icon = data["side1_icon"]
-	side2_icon = data["side2_icon"]
-	songs = data["songs"]
-	song_names = data["song_names"]
-	creator_name = data["author_name"]
-	creator_ckey = data["author_ckey"]
-	approved = data["approved"]
-
 /obj/item/device/cassette_tape/blank
 	id = "blank"
 
