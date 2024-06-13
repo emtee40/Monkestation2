@@ -387,7 +387,7 @@
 
 /obj/item/storage/toolbox/guncase/soviet/sakhno
 	desc = "A weapon's case. This one is green and looks pretty old, but is otherwise in decent condition."
-	icon = 'monkestation/code/modules/blueshift/icons/obj/company_and_or_faction_based/cases.dmi'
+	icon = 'icons/obj/storage/case.dmi'
 	material_flags = NONE // ????? Why do these have materials enabled??
 
 // Evil .585 smg that blueshields spawn with that will throw your screen like hell but itll sure kill whoever threatens a head really good
