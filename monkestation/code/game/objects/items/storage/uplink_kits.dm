@@ -160,6 +160,30 @@
 	new /obj/item/lighter(src)
 	new /obj/item/jammer(src)
 
+/obj/item/storage/box/clonearmy
+	name = "Syndicate clone army kit"
+	desc = "A box containing everything you need to make a clone army. The disk inside cunningly disguised as a DNA data disk is used to give all clones a directive they must follow."
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/clonearmy/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/disk/clonearmy = 1,
+		/obj/item/stack/sheet/iron = 15,
+		/obj/item/stack/sheet/glass = 4,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/circuitboard/machine/clonepod/experimental = 1,
+		/obj/item/circuitboard/machine/clonescanner = 1,
+		/obj/item/circuitboard/computer/cloning = 1,
+		/obj/item/stock_parts/manipulator/pico = 2, // The syndicate is so cool they gave you tier three parts instead of tier one parts. (This was funnier when I gave tier two parts.)
+		/obj/item/stock_parts/scanning_module/phasic = 3,
+		/obj/item/stock_parts/micro_laser/ultra = 1,
+		/obj/item/stock_parts/matter_bin/super = 1,
+		/obj/item/wrench = 1,
+		/obj/item/screwdriver/nuke = 1,
+		/obj/item/multitool = 1, // For those who want space between the cloning console and pod.
+		/obj/item/language_manual/codespeak_manual/unlimited = 1,)
+	generate_items_inside(items_inside, src)
+
 #undef KIT_ITEM_CATEGORY_SUPPORT
 #undef KIT_ITEM_CATEGORY_WEAPONS
 #undef KIT_ITEM_CATEGORY_MISC

@@ -13,6 +13,8 @@
 	var/evil_objective = null
 	/// Can my objective be changed?
 	var/locked = FALSE
+	/// The custom objective given by the traitor item.
+	var/custom_objective = null
 
 /obj/machinery/clonepod/experimental/Destroy()
 	clear_human_dummy(REF(src))
@@ -26,7 +28,7 @@
 
 /obj/machinery/clonepod/experimental/RefreshParts()
 	. = ..()
-	if(!isnull(evil_objective))
+	if(!isnull(evil_objective) || !isnull(custom_objective))
 		speed_coeff = round(speed_coeff / 2) // So better parts have half the speed increase.
 		speed_coeff += 1 // I still want basic parts to have base 100% speed.
 
@@ -109,6 +111,12 @@
 /obj/machinery/clonepod/experimental/exp_clone_check(mob/living/carbon/human/mob_occupant)
 	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
+	else if(!isnull(custom_objective))
+		var/datum/antagonist/evil_clone/antag_object = new
+		var/datum/objective/evil_clone/custom = new
+		custom.explanation_text = custom_objective
+		antag_object.objectives += custom
+		mob_occupant.mind.add_antag_datum(antag_object)
 	else if(!isnull(evil_objective))
 		var/datum/antagonist/evil_clone/antag_object = new
 		antag_object.objectives += new evil_objective()
