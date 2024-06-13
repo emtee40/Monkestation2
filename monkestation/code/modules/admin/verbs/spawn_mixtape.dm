@@ -31,21 +31,17 @@
 
 /datum/mixtape_spawner/ui_data(mob/user)
 	var/list/data = list()
-	if(!length(GLOB.approved_cassettes))
-		GLOB.approved_cassettes = initialize_approved_cassettes()
-	if(!length(GLOB.approved_cassettes))
+	if(!length(SScassette_storage.cassette_datums))
 		return
-	var/datum/cassette/cassette_tape/first = GLOB.approved_cassettes[1]
-	data["selected_id"] = first.id
-	for(var/datum/cassette/cassette_tape/cassette in GLOB.approved_cassettes)
+	for(var/datum/cassette_data/cassette in SScassette_storage.cassette_datums)
 		data["approved_cassettes"] += list(list(
-			"name" = cassette.name,
-			"desc" = cassette.desc,
-			"icon_state" = cassette.icon_state,
-			"id" = cassette.id,
-			"creator_ckey" = cassette.creator_ckey,
-			"creator_name" = cassette.creator_name,
-			"song_names" = cassette.song_names
+			"name" = cassette.cassette_name,
+			"desc" = cassette.cassette_desc,
+			"cassette_design_front" = cassette.cassette_design_front,
+			"creator_ckey" = cassette.cassette_author_ckey,
+			"creator_name" = cassette.cassette_author,
+			"song_names" = cassette.song_names,
+			"id" = cassette.cassette_id
 		))
 	return data
 

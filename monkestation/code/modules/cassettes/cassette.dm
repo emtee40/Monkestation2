@@ -30,17 +30,14 @@
 
 /obj/item/device/cassette_tape/Initialize(mapload, spawned_id)
 	. = ..()
-	if(!length(GLOB.approved_cassettes))
-		GLOB.approved_cassettes = initialize_approved_cassettes()
+	if(!length(GLOB.approved_ids))
+		GLOB.approved_ids = initialize_approved_ids()
 
-	if(length(GLOB.approved_cassettes))
-		var/list/cassette_ids = list()
-		for (var/datum/cassette/cassette_tape/tape in GLOB.approved_cassettes)
-			cassette_ids += tape.id
-		if(spawned_id && (spawned_id in cassette_ids))
+	if(length(GLOB.approved_ids))
+		if(spawned_id && (spawned_id in GLOB.approved_ids))
 			id = spawned_id
 		else if(random)
-			id = pick(GLOB.approved_cassettes)
+			id = pick(GLOB.approved_ids)
 
 	var/file = file("data/cassette_storage/[id].json")
 	if(!fexists(file))

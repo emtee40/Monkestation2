@@ -9,11 +9,11 @@ type Data = {
 type Cassette = {
   name: string;
   desc: string;
-  icon_state: string;
-  id: string;
+  cassette_design_front: string;
   creator_ckey: string;
   creator_name: string;
   song_names: SongNames;
+  id: string;
 };
 
 type SongNames = {
@@ -44,7 +44,7 @@ export const MixtapeSpawner = (props, context) => {
                     color="transparent"
                     selected={cassette.id === selected_cassette.id}
                     onClick={() => setSelectedCassette(cassette)}>
-                    {cassette.id}
+                    {cassette.name}
                   </Tabs.Tab>
                 ))}
               </Tabs>
