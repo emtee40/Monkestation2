@@ -67,7 +67,7 @@
 	var/mob/living/carbon/carbon_target = target
 	to_chat(carbon_target, span_danger("You hear echoing laughter from above"))
 	carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp")
-	carbon_target.mob_mood.set_sanity(carbon_target.mob_mood.sanity-30)
+	carbon_target.mob_mood?.set_sanity(carbon_target.mob_mood.sanity - 30)
 
 /datum/heretic_knowledge/spell/moon_smile
 	name = "Smile of the moon"
@@ -104,7 +104,7 @@
 	// Also refunds 75% of charge!
 	var/datum/action/cooldown/spell/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp)
-		grasp.next_use_time = min(round(grasp.next_use_time - grasp.cooldown_time * 0.75, 0), 0)
+		grasp.next_use_time = min(round(grasp.next_use_time - grasp.cooldown_time * 0.75), 0)
 		grasp.build_all_button_icons()
 
 /datum/heretic_knowledge/knowledge_ritual/moon
@@ -233,7 +233,7 @@
 			to_chat(crewmate, span_boldwarning("[user]'s rise is influencing those who are weak willed. Their minds shall rend." ))
 			continue
 		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
-		if(HAS_TRAIT(crewmate, TRAIT_MINDSHIELD) || crewmate.can_block_magic(MAGIC_RESISTANCE))
+		if(HAS_TRAIT(crewmate, TRAIT_MINDSHIELD) || crewmate.can_block_magic(MAGIC_RESISTANCE) || HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE)) // monkestation edit: TRAIT_UNCONVERTABLE
 			to_chat(crewmate, span_boldwarning("You feel shielded from something." ))
 			continue
 		if(amount_of_lunatics > length(GLOB.human_list) * 0.2)

@@ -10,7 +10,7 @@
 	animal.mind_initialize()
 	var/datum/mind/granters_mind = granter.mind
 	granters_mind.transfer_to(animal)
-	animal.adjust_hand_count(2)
+	animal.AddComponent()
 	qdel(granter)
 	. = ..()
 
@@ -78,4 +78,8 @@
 	icon_state = "quil_maid"
 	animal_transformation = /mob/living/basic/pet/quilmaid
 
-
+//ellie
+/obj/item/effect_granter/donator/gumball_goblin
+	name = "gumball goblin transformation"
+	icon_state = "gumball_goblin"
+	animal_transformation = /mob/living/basic/pet/gumball_goblin
