@@ -669,7 +669,7 @@
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
 		/obj/item/food/grown/ambrosia/vulgaris = 1,
-		/obj/item/food/butter = 1, //monkestation edit: no butterslices yet, is intended to be 2 slices
+		/obj/item/food/butterslice = 2,
 	)
 	result = /obj/item/food/cake/spekkoek
 	category = CAT_MARTIAN
@@ -700,7 +700,7 @@
 	name = "Boh loh yah"
 	reqs = list(
 		/obj/item/food/doughslice = 1,
-		/obj/item/food/butter = 1, //monkestation edit: no butterslices yet, is intended to be 1 slice
+		/obj/item/food/butterslice = 1,
 		/datum/reagent/consumable/sugar = 5,
 	)
 	result = /obj/item/food/boh_loh_yah
