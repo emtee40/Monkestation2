@@ -30,7 +30,10 @@
 			balloon_alert(user, "broken!")
 			return
 		if(allowed(user))
-			atom_storage.locked = !locked
+			if(atom_storage.locked)
+				atom_storage.locked = STORAGE_NOT_LOCKED
+			else
+				atom_storage.locked = STORAGE_FULLY_LOCKED
 			locked = atom_storage.locked
 			if(locked)
 				icon_state = icon_locked
@@ -52,7 +55,7 @@
 /obj/item/storage/lockbox/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(!broken)
 		broken = TRUE
-		atom_storage.locked = FALSE
+		atom_storage.locked = STORAGE_NOT_LOCKED
 		icon_state = src.icon_broken
 		balloon_alert(user, "lock destroyed")
 		if (emag_card && user)
@@ -247,22 +250,33 @@
 	ADD_TRAIT(src, TRAIT_NO_MISSING_ITEM_ERROR, TRAIT_GENERIC)
 
 /obj/item/storage/lockbox/order/attackby(obj/item/W, mob/user, params)
-	var/obj/item/card/id/id_card = W.GetID()
-	if(!id_card)
+	var/locked = atom_storage.locked
+	if(W.GetID())
+		if(broken)
+			balloon_alert(user, "broken!")
+			return
+		if(allowed(user))
+			if(atom_storage.locked)
+				atom_storage.locked = STORAGE_NOT_LOCKED
+			else
+				atom_storage.locked = STORAGE_FULLY_LOCKED
+			locked = atom_storage.locked
+			if(locked)
+				icon_state = icon_locked
+				atom_storage.close_all()
+			else
+				icon_state = icon_closed
+
+			balloon_alert(user, locked ? "locked" : "unlocked")
+			return
+
+		else
+			balloon_alert(user, "access denied!")
+			return
+	if(!locked)
 		return ..()
-
-	if(iscarbon(user))
-		add_fingerprint(user)
-
-	if(id_card.registered_account != buyer_account)
-		balloon_alert(user, "incorrect bank account!")
-		return
-
-	atom_storage.locked = !privacy_lock
-	privacy_lock = atom_storage.locked
-	user.visible_message(span_notice("[user] [privacy_lock ? "" : "un"]locks [src]'s privacy lock."),
-					span_notice("You [privacy_lock ? "" : "un"]lock [src]'s privacy lock."))
-
+	else
+		balloon_alert(user, "locked!")
 ///screentips for lockboxes
 /obj/item/storage/lockbox/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	if(!held_item)
