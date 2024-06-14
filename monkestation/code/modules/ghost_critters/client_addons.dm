@@ -56,7 +56,7 @@
 	if(!mob.mind)
 		mob.mind = new /datum/mind(key)
 
-	mob.mind.transfer_to(created_mob, TRUE)
+	created_mob = mob.key
 
 	init_verbs()
 
