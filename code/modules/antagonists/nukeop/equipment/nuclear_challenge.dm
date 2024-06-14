@@ -86,6 +86,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 			A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
 	distribute_tc()
+	prison_riot()
 	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
 	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
 
@@ -130,6 +131,18 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 				C.visible_message(span_notice("[C] coughs up a half-digested telecrystal"),span_notice("You cough up a half-digested telecrystal!"))
 				break
 
+/obj/item/nuclear_challenge/proc/prison_riot()
+	for(var/mob/living/carbon/human/prisoner in GLOB.player_list)
+		if(!(prisoner.mind.assigned_role.job_flags & JOB_PRISONER))
+			return
+		var/datum/antagonist/nukeop/nuke_datum = new()
+		nuke_datum.send_to_spawnpoint = FALSE
+		nuke_datum.nukeop_outfit = null
+		prisoner.mind?.add_antag_datum(nuke_datum)
+		prisoner.faction |= ROLE_SYNDICATE
+		to_chat(human_target, span_warning("TEST!"))
+		to_chat(human_target, span_userdanger("TEST!"))
+	
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
