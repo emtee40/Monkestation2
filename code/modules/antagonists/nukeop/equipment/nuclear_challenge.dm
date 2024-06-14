@@ -142,7 +142,6 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 		prisoner.faction |= ROLE_SYNDICATE
 		to_chat(human_target, span_warning("TEST!"))
 		to_chat(human_target, span_userdanger("TEST!"))
-	
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
