@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(cracker_reactions, cracker_reactions_list())
 	anchored = TRUE
 	density = FALSE
 	circuit = null
-	heating_power = 20 KILO JOULES
+	heating_power = 20 KW
 	efficiency = 10000
 	display_panel = TRUE
 	/// What this repacks into when its wrenched off a wall
@@ -427,7 +427,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/space_heater/wall_mounted, 29)
 
 /obj/machinery/space_heater/wall_mounted/RefreshParts()
 	. = ..()
-	heating_power = 20 KILO JOULES
+	heating_power = 20 KW
 	efficiency = 10000
 
 /obj/machinery/space_heater/wall_mounted/default_deconstruction_crowbar()
@@ -471,7 +471,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/space_heater/wall_mounted, 29)
 	base_icon_state = "wall_charger"
 	circuit = null
 	max_batteries = 3
-	charge_rate = 900 KILO WATTS
+	charge_rate = 900 KW
 	/// The item we turn into when repacked
 	var/repacked_type = /obj/item/wallframe/cell_charger_multi
 
@@ -507,7 +507,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/cell_charger_multi/wall_mounted, 29)
 
 /obj/machinery/cell_charger_multi/wall_mounted/RefreshParts()
 	. = ..()
-	charge_rate = 900 KILO WATTS // Nuh uh!
+	charge_rate = 900 KW // Nuh uh!
 
 // Item for creating the arc furnace or carrying it around
 
