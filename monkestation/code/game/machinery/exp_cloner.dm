@@ -7,6 +7,7 @@
 	req_access = null
 	circuit = /obj/item/circuitboard/machine/clonepod/experimental
 	internal_radio = FALSE
+	grab_ghost_when = CLONER_FRESH_CLONE // This helps with getting the objective for evil clones to display.
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
 	/// Am I producing evil clones?
@@ -22,8 +23,8 @@
 
 /obj/machinery/clonepod/experimental/examine(mob/user)
 	. = ..()
-	if(evil_objective && (in_range(user, src) || isobserver(user)))
-		if(!isnull(evil_objective))
+	if((evil_objective || custom_objective) && (in_range(user, src) || isobserver(user)))
+		if(!isnull(evil_objective) || !isnull(custom_objective))
 			. += span_warning("You notice an ominous, flashing red LED light.")
 
 /obj/machinery/clonepod/experimental/RefreshParts()
@@ -74,7 +75,10 @@
 
 	var/role_text
 	var/poll_text
-	if(!isnull(evil_objective))
+	if(!isnull(custom_objective))
+		role_text = "syndicate clone"
+		poll_text = "Do you want to play as [clonename]'s syndicate clone?"
+	else if(!isnull(evil_objective))
 		role_text = "evil clone"
 		poll_text = "Do you want to play as [clonename]'s evil clone?"
 	else
