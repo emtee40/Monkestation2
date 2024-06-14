@@ -374,6 +374,7 @@
 		if(!locate_cart || locate_cart.trailer == src)
 			continue
 		add_trailer(locate_cart)
+		locate_cart.add_trailer(src)
 		break
 
 /datum/component/riding/vehicle/rail_cart
