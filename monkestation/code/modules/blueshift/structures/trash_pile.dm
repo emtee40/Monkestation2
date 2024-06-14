@@ -74,7 +74,7 @@
 	var/obj/item/hidden_item = new lootspawn(get_turf(src))
 	return hidden_item
 
-/obj/structure/trash_pile/mouse_drop_receive(atom/dropping, mob/user, params)
+/obj/structure/trash_pile/MouseDrop_T(atom/dropping, mob/user)
 	if(user == dropping && iscarbon(dropping))
 		var/mob/living/dropped_mob = dropping
 		if(dropped_mob.mobility_flags & MOBILITY_MOVE)
@@ -112,7 +112,7 @@
 	return TRUE
 
 /obj/structure/trash_pile/attackby(obj/item/hidden_item, mob/living/user, params)
-	if(!user.combat_mode)
+	if(!(user.istate & ISTATE_HARM))
 		if(can_hide_item(hidden_item))
 			balloon_alert(user, "hiding item...")
 			if(do_after(user, hide_item_time, user))
