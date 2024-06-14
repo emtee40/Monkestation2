@@ -2,6 +2,10 @@
 	name = "ascend"
 	martyr_compatible = TRUE
 	admin_grantable = FALSE
+	explanation_text = "Use the infect ability on a human you are strangling to burst as a bloodling and begin your ascension!"
+
+/datum/objective/bloodling_ascend/update_explanation_text()
+	..()
 	explanation_text = "Ascend as the ultimate being"
 
 /datum/objective/bloodling_ascend/check_completion()
