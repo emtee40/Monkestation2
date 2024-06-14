@@ -5,8 +5,6 @@
 
 	new /obj/item/fish/goldfish/gill(src)
 
-	reagents.add_reagent(/datum/reagent/consumable/nutriment, 2)
-
 /obj/item/fish/goldfish/gill
 	name = "McGill"
 	desc = "A great rubber duck tool for Lawyers who can't get a grasp over their case."
