@@ -65,7 +65,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	priority = PREFERENCE_PRIORITY_NAMES
-	max_length = MAX_MESSAGE_LEN
+	max_length = MAX_FLAVOR_LEN
 
 /datum/preference/multiline_text/record/New()
 	. = ..()
