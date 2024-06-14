@@ -151,6 +151,8 @@ GLOBAL_LIST_INIT(monke_wood_recipes, list(
 GLOBAL_LIST_INIT(monke_iron_recipes, list(
 	new/datum/stack_recipe("stack of rails", /obj/item/stack/rail_track, res_amount = 5, max_res_amount = 5, time = 0, on_solid_ground = TRUE, category = CAT_MISC), \
 	new/datum/stack_recipe("minecart", /obj/vehicle/ridden/rail_cart, 10, time = 3 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_MISC),
+	new/datum/stack_recipe("forge", /obj/structure/reagent_forge, 10, time = 2 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_TOOLS),
+	new/datum/stack_recipe("throwing wheel", /obj/structure/throwing_wheel, 10, time = 2 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_TOOLS),
 ))
 
 /obj/item/stack/sheet/iron/get_main_recipes()
