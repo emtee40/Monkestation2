@@ -1,9 +1,9 @@
-/obj/structure/closet/crate/secure/gear/blueshift
-	desc = "Contains alternative outfits for the station's private security force. Has enough outfits for five security officers. Originally produced for a now defunct research station."
-	name = "\improper Blue Shift Uniform Crate"
+/obj/structure/closet/crate/secure/gear/blueshirt
+	desc = "Contains an alternative outfit for the station's private security force. Has enough outfits for five security officers. Originally produced for a now defunct research station."
+	name = "\improper Blue Shirt Uniform Crate"
 	req_access = list(ACCESS_BRIG)
 
-/obj/structure/closet/crate/secure/gear/blueshift/PopulateContents()
+/obj/structure/closet/crate/secure/gear/blueshirt/PopulateContents()
 	. = ..()
 	new /obj/item/clothing/head/helmet/blueshirt(src)
 	new /obj/item/clothing/head/helmet/blueshirt(src)
