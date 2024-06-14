@@ -147,3 +147,12 @@ GLOBAL_LIST_INIT(monke_wood_recipes, list(
 /obj/item/stack/sheet/mineral/wood/get_main_recipes()
 	. = ..()
 	. += GLOB.monke_wood_recipes
+
+GLOBAL_LIST_INIT(monke_iron_recipes, list(
+	new/datum/stack_recipe("stack of rails", /obj/item/stack/rail_track, res_amount = 5, time = 0, on_solid_ground = TRUE, category = CAT_MISC), \
+	new/datum/stack_recipe("minecart", /obj/vehicle/ridden/rail_cart, 10, time = 3 SECONDS, one_per_turf = TRUE, on_solid_ground = TRUE, category = CAT_MISC),
+))
+
+/obj/item/stack/sheet/iron/get_main_recipes()
+	. = ..()
+	. += GLOB.monke_iron_recipes
