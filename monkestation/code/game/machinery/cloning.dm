@@ -386,7 +386,7 @@
 	if(!mob_occupant)
 		return
 		
-	exp_clone_check(mob_occupant)
+	var/move = exp_clone_check(mob_occupant)
 	
 	current_insurance = null
 	REMOVE_TRAIT(mob_occupant, TRAIT_STABLEHEART, CLONING_POD_TRAIT)
@@ -407,7 +407,8 @@
 
 	mob_occupant.adjustOrganLoss(ORGAN_SLOT_BRAIN, mob_occupant.getCloneLoss())
 
-	occupant.forceMove(T)
+	if(move) // Preventing runtime
+		occupant.forceMove(T)
 	icon_state = "pod_0"
 	mob_occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
 	for(var/fl in unattached_flesh)
@@ -417,7 +418,7 @@
 	occupant = null
 	
 /obj/machinery/clonepod/proc/exp_clone_check(mob_occupant)
-	return
+	return TRUE
 
 /obj/machinery/clonepod/proc/malfunction()
 	var/mob/living/mob_occupant = occupant

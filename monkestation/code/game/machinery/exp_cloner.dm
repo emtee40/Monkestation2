@@ -115,6 +115,7 @@
 /obj/machinery/clonepod/experimental/exp_clone_check(mob/living/carbon/human/mob_occupant)
 	if(!mob_occupant?.mind) //When experimental cloner fails to get a ghost, it won't spit out a body, so we don't get an army of brainless rejects.
 		qdel(mob_occupant)
+		return FALSE
 	else if(!isnull(custom_objective))
 		var/datum/antagonist/evil_clone/antag_object = new
 		var/datum/objective/evil_clone/custom = new
@@ -124,10 +125,12 @@
 		mob_occupant.grant_language(/datum/language/codespeak) // So you don't have to remember to grant each and every identical clone codespeak with the manual.
 		mob_occupant.remove_blocked_language(/datum/language/codespeak, source=LANGUAGE_ALL) // All the effects the codespeak manual would have.
 		ADD_TRAIT(mob_occupant, TRAIT_TOWER_OF_BABEL, MAGIC_TRAIT)
+		return TRUE
 	else if(!isnull(evil_objective))
 		var/datum/antagonist/evil_clone/antag_object = new
 		antag_object.objectives += new evil_objective()
 		mob_occupant.mind.add_antag_datum(antag_object)
+		return TRUE
 
 /obj/machinery/clonepod/experimental/proc/get_clone_preview(datum/dna/clone_dna)
 	RETURN_TYPE(/image)
