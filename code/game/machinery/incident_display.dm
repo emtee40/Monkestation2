@@ -94,7 +94,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/tram, 32)
 	return ..()
 
 /obj/machinery/incident_display/welder_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode)
+	if(user.istate & ISTATE_HARM)
 		return FALSE
 
 	if(atom_integrity >= max_integrity && !(machine_stat & BROKEN))
@@ -113,7 +113,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/tram, 32)
 
 // Switch modes with multitool
 /obj/machinery/incident_display/multitool_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode)
+	if(user.istate & ISTATE_HARM)
 		return FALSE
 
 	if(sign_features == DISPLAY_TRAM)
@@ -195,7 +195,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/tram, 32)
 
 	if(machine_stat & BROKEN)
 		icon_state = "stat_display_broken"
-		set_light(l_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_DARK_BLUE)
+		set_light(l_outer_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_DARK_BLUE)
 		return
 
 	if(sign_features == (DISPLAY_DELAM + DISPLAY_TRAM))
@@ -205,7 +205,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/tram, 32)
 	else if(sign_features == DISPLAY_TRAM)
 		icon_state = "stat_display_tram"
 
-	set_light(l_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_FAINT_BLUE)
+	set_light(l_outer_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_FAINT_BLUE)
 
 /obj/machinery/incident_display/update_overlays()
 	. = ..()
