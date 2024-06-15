@@ -1276,7 +1276,7 @@ TREK
 	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/shoes/boots/boots_worn.json'
 
 /datum/greyscale_config/boots/worn/digi
-	icon_file = 'monkestation/code/modules/blueshift/gags/json_configs/shoes/shoes_digi.dmi'
+	icon_file = 'monkestation/code/modules/blueshift/gags/icons/shoes/shoes_digi.dmi'
 
 /datum/greyscale_config/boots/christmasboots
 	name = "christmas_boots"
