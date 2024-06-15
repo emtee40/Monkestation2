@@ -56,7 +56,8 @@
 	if(!mob.mind)
 		mob.mind = new /datum/mind(key)
 
-	created_mob = mob.key
+	var/datum/mind/new_mind = new /datum/mind(key)
+	created_mob.mind = new_mind
 
 	init_verbs()
 

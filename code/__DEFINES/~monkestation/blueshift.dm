@@ -113,3 +113,6 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 #define DIVINE_INTERVENTION 3
 /// Sent when supermatter begins its delam countdown/when the suppression system is triggered: (var/trigger_reason)
 #define COMSIG_MAIN_SM_DELAMINATING "delam_time"
+
+#define ACCOUNT_CMD "CMD"
+#define ACCOUNT_CMD_NAME "Command Budget"
