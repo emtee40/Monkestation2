@@ -11,8 +11,8 @@
 	if(!internal_cell || !internal_cell.charge)
 		return FALSE
 
-	if(!internal_cell.use(amount))
-		internal_cell.use(min(amount, internal_cell.charge)) //drain it anyways.
+	if(!internal_cell.use(amount JOULES))
+		internal_cell.use(min(amount JOULES, internal_cell.charge)) //drain it anyways.
 		return FALSE
 	return TRUE
 
