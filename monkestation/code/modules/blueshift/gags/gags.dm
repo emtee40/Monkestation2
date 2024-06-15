@@ -1275,6 +1275,8 @@ TREK
 	name = "Colorable Boots (Worn)"
 	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/shoes/boots/boots_worn.json'
 
+/datum/greyscale_config/boots/worn/digi
+	icon_file = 'modular_nova/modules/GAGS/icons/shoes/shoes_digi.dmi'
 
 /datum/greyscale_config/boots/christmasboots
 	name = "christmas_boots"
