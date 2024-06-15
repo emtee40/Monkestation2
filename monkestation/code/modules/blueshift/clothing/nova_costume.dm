@@ -141,3 +141,19 @@
 /obj/item/clothing/under/trek/medsci
 	greyscale_config_worn_digitigrade =  /datum/greyscale_config/trek/worn/digi
 	flags_1 = IS_PLAYER_COLORABLE_1
+
+//Cyberpunk PI Costume - Sprites from Eris, slightly modified
+/obj/item/clothing/under/costume/cybersleek
+	name = "sleek modern coat"
+	desc = "A modern-styled coat typically worn on more urban planets, made with a neo-laminated fiber lining."
+	icon = 'monkestation/code/modules/blueshift/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/uniform.dmi'
+	icon_state = "cyberpunksleek"
+	body_parts_covered = CHEST|ARMS|GROIN|LEGS
+	supports_variations_flags = NONE
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/cybersleek/long
+	name = "long modern coat"
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	icon_state = "cyberpunksleek_long"
