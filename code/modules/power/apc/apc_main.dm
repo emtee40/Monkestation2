@@ -503,7 +503,7 @@
 	var/cellused
 	if(cell && !shorted)
 		// draw power from cell as before to power the area
-		cellused = min(cell.charge, lastused_total) // clamp deduction to a max, amount left in cell
+		cellused = min(cell.charge, lastused_total JOULES) // clamp deduction to a max, amount left in cell
 		cell.use(cellused)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged/corrupted cells can randomly explode after use().
@@ -516,7 +516,7 @@
 
 		else // no excess, and not enough per-apc
 			if((cell.charge WATTS + excess) >= lastused_total) // can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + excess) //recharge with what we can
+				cell.charge = min(cell.maxcharge, cell.charge + excess JOULES) //recharge with what we can
 				add_load(excess) // so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 
@@ -578,7 +578,7 @@
 		if(chargemode && charging == APC_CHARGING && operating)
 			if(excess > 0) // check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess, cell.maxcharge)
+				var/ch = min(excess JOULES, cell.maxcharge JOULES)
 				add_load(ch WATTS) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
