@@ -15,7 +15,7 @@
 	/// Number of concurrent batteries that can be charged
 	var/max_batteries = 4
 	/// The base charge rate when spawned
-	var/charge_rate = 375 KW
+	var/charge_rate = 375
 
 /obj/machinery/cell_charger_multi/update_overlays()
 	. = ..()
@@ -128,7 +128,7 @@
 /obj/machinery/cell_charger_multi/RefreshParts()
 	. = ..()
 	charge_rate = 0 // No, you cant get free charging speed!
-	var/charge_rate_base = 250 KW
+	var/charge_rate_base = 250
 	for(var/datum/stock_part/capacitor/capacitor in component_parts)
 		charge_rate += (charge_rate_base * capacitor.tier) / 4
 
