@@ -30,7 +30,7 @@
 		return TRUE
 
 /obj/machinery/digital_clock/welder_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode)
+	if(user.istate & ISTATE_HARM)
 		return
 	if(atom_integrity >= max_integrity)
 		balloon_alert(user, "it doesn't need repairs!")
@@ -45,7 +45,7 @@
 	return TRUE
 
 /obj/machinery/digital_clock/multitool_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode)
+	if(user.istate & ISTATE_HARM)
 		return
 	if(!(obj_flags & EMAGGED))
 		return
@@ -98,7 +98,7 @@
 	if(machine_stat & (NOPOWER|BROKEN))
 		set_light(0)
 		return
-	set_light(l_range = 1.5, l_power = 0.7, l_color = LIGHT_COLOR_BLUE) // blue light
+	set_light(l_outer_range = 1.5, l_power = 0.7, l_color = LIGHT_COLOR_BLUE) // blue light
 
 /obj/machinery/digital_clock/update_overlays()
 	. = ..()
