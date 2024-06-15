@@ -188,11 +188,7 @@
 
 /obj/machinery/LateInitialize()
 	. = ..()
-	power_change()
-	if(use_power == NO_POWER_USE)
-		return
-	update_current_power_usage()
-	setup_area_power_relationship()
+	post_machine_initialize()
 
 /obj/machinery/Destroy()
 	GLOB.machines.Remove(src)
@@ -210,6 +206,21 @@
 	QDEL_NULL(circuit)
 	unset_static_power()
 	return ..()
+
+/**
+ * Called in LateInitialize meant to be the machine replacement to it
+ * This sets up power for the machine and requires parent be called,
+ * ensuring power works on all machines unless exempted with NO_POWER_USE.
+ * This is the proc to override if you want to do anything in LateInitialize.
+ */
+/obj/machinery/proc/post_machine_initialize()
+	SHOULD_CALL_PARENT(TRUE)
+	power_change()
+	if(use_power == NO_POWER_USE)
+		return
+	update_current_power_usage()
+	setup_area_power_relationship()
+
 
 /**
  * proc to call when the machine starts to require power after a duration of not requiring power

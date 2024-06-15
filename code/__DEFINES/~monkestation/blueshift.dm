@@ -109,3 +109,7 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 #define HANDCUFFS_TYPE_WEAK 0
 // Handcuffs... alien handcuffs. Can be cut through only by jaws of life.
 #define HANDCUFFS_TYPE_STRONG 1
+
+#define DIVINE_INTERVENTION 3
+/// Sent when supermatter begins its delam countdown/when the suppression system is triggered: (var/trigger_reason)
+#define COMSIG_MAIN_SM_DELAMINATING "delam_time"

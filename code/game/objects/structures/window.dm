@@ -658,6 +658,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/spawner, 0)
 	name = "frosted window"
 	icon_state = "fwindow"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/frosted/spawner, 0)
+
 /* Full Tile Windows (more atom_integrity) */
 
 /obj/structure/window/fulltile

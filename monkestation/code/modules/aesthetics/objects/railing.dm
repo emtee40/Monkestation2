@@ -139,9 +139,3 @@
 					if(WEST)
 						pix_offset_y = 32
 				overlays += image(icon, "mcorneroverlay_l[density]", pixel_x = pix_offset_x, pixel_y = pix_offset_y)
-
-/obj/structure/railing/wrestling
-	name = "boxing ring"
-	icon = 'monkestation/code/modules/aesthetics/icons/railing_wrestling.dmi'
-	material_flags = null
-	standard_smoothing = FALSE

@@ -158,3 +158,140 @@
 
 /obj/effect/turf_decal/trimline/red/real_red/filled/shrink_ccw
 	icon_state = "trimline_shrink_ccw"
+
+/obj/effect/turf_decal/nova_decals
+	icon = 'monkestation/code/modules/blueshift/icons/turf/turf_decals.dmi'
+	icon_state = "bad_coder"
+
+/obj/effect/decal/fakelattice/passthru	//Why the hell did TG make it dense anyways
+	density = FALSE
+
+/obj/effect/decal/fakelattice/passthru/NeverShouldHaveComeHere(turf/here_turf)
+	return !isclosedturf(here_turf) && ..()
+
+///SYNDICATE EMBLEM///
+//Bottom
+/obj/effect/turf_decal/nova_decals/syndicate/bottom/left
+	icon_state = "1,1"
+
+/obj/effect/turf_decal/nova_decals/syndicate/bottom/middle
+	icon_state = "1,2"
+
+/obj/effect/turf_decal/nova_decals/syndicate/bottom/right
+	icon_state = "1,3"
+//Middle
+/obj/effect/turf_decal/nova_decals/syndicate/middle/left
+	icon_state = "2,1"
+
+/obj/effect/turf_decal/nova_decals/syndicate/middle/middle
+	icon_state = "2,2"
+
+/obj/effect/turf_decal/nova_decals/syndicate/middle/right
+	icon_state = "2,3"
+//Top
+/obj/effect/turf_decal/nova_decals/syndicate/top/left
+	icon_state = "3,1"
+
+/obj/effect/turf_decal/nova_decals/syndicate/top/middle
+	icon_state = "3,2"
+
+/obj/effect/turf_decal/nova_decals/syndicate/top/right
+	icon_state = "3,3"
+
+///ENCLAVE EMBLEM///
+/obj/effect/turf_decal/nova_decals/enclave
+	layer = TURF_PLATING_DECAL_LAYER
+	alpha = 110
+	color = "#A46106"
+//Bottom
+/obj/effect/turf_decal/nova_decals/enclave/bottom/left
+	icon_state = "e1,1"
+
+/obj/effect/turf_decal/nova_decals/enclave/bottom/middle
+	icon_state = "e1,2"
+
+/obj/effect/turf_decal/nova_decals/enclave/bottom/right
+	icon_state = "e1,3"
+//Middle
+/obj/effect/turf_decal/nova_decals/enclave/middle/left
+	icon_state = "e2,1"
+
+/obj/effect/turf_decal/nova_decals/enclave/middle/middle
+	icon_state = "e2,2"
+
+/obj/effect/turf_decal/nova_decals/enclave/middle/right
+	icon_state = "e2,3"
+//Top
+/obj/effect/turf_decal/nova_decals/enclave/top/left
+	icon_state = "e3,1"
+
+/obj/effect/turf_decal/nova_decals/enclave/top/middle
+	icon_state = "e3,2"
+
+/obj/effect/turf_decal/nova_decals/enclave/top/right
+	icon_state = "e3,3"
+
+///Departments///
+/obj/effect/turf_decal/nova_decals/departments/bridge
+	icon_state = "bridge"
+
+///DS-2 Sign///
+/obj/effect/turf_decal/nova_decals/ds2/left
+	icon_state = "ds1"
+
+/obj/effect/turf_decal/nova_decals/ds2/middle
+	icon_state = "ds2"
+
+/obj/effect/turf_decal/nova_decals/ds2/right
+	icon_state = "ds3"
+
+///Misc///
+/obj/effect/turf_decal/nova_decals/misc/handicapped
+	icon_state = "handicapped"
+
+/obj/structure/sign/shuttleg250
+	name = "Transfer Shuttle G250"
+	desc = "Transfer Shuttle G250."
+	icon = 'monkestation/code/modules/blueshift/icons/g250.dmi' //LARGE icon
+	icon_state = "g250"
+
+/obj/structure/fans/tiny/forcefield
+	name = "forcefield"
+	desc = "A fluctuating forcefield for ships to cross."
+	icon = 'monkestation/code/modules/blueshift/icons/effects.dmi'
+	icon_state = "forcefield"
+
+//Floor Decals -----
+/obj/effect/turf_decal/shuttle/exploration
+	icon = 'monkestation/code/modules/blueshift/icons/exploration_floor.dmi'
+	icon_state = "decal1"
+
+/obj/effect/turf_decal/shuttle/exploration/medbay
+	icon_state = "decalmed"
+
+/obj/effect/turf_decal/shuttle/exploration/cargostore
+	icon_state = "decalstore"
+
+/obj/effect/turf_decal/shuttle/exploration/bridge
+	icon_state = "decalbridge"
+
+/obj/effect/turf_decal/shuttle/exploration/o2
+	icon_state = "decalo2"
+
+/obj/effect/turf_decal/shuttle/exploration/typhon
+	icon_state = "decal2"
+
+/obj/effect/turf_decal/shuttle/exploration/echidna
+	icon_state = "decal1"
+
+/obj/effect/turf_decal/shuttle/exploration/weapons
+	icon_state = "decal3"
+
+/obj/effect/turf_decal/shuttle/exploration/airlock
+	icon_state = "decal4"
+
+/obj/effect/turf_decal/shuttle/exploration/hazardstripe
+	icon_state = "hazard_decal"
+
+/obj/effect/turf_decal/shuttle/exploration/bot
+	icon_state = "bot_decal"

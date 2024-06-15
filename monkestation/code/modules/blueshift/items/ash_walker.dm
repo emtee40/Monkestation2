@@ -413,3 +413,21 @@
 /datum/crafting_recipe/ash_recipe/ash_chisel
 	name = "Ash Chisel"
 	result = /obj/item/chisel/ashwalker
+
+/obj/item/forging
+	icon = 'monkestation/code/modules/blueshift/icons/forge_items.dmi'
+	lefthand_file = 'monkestation/code/modules/blueshift/icons/mob/forge_weapon_l.dmi'
+	righthand_file = 'monkestation/code/modules/blueshift/icons/mob/forge_weapon_r.dmi'
+	toolspeed = 1 SECONDS
+	///whether the item is in use or not
+	var/in_use = FALSE
+
+/obj/item/forging/billow
+	name = "forging billow"
+	desc = "A billow specifically crafted for use in forging. Used to stoke the flames and keep the forge lit."
+	icon_state = "billow"
+	tool_behaviour = TOOL_BILLOW
+
+/obj/item/forging/billow/primitive
+	name = "primitive forging billow"
+	toolspeed = 2 SECONDS
