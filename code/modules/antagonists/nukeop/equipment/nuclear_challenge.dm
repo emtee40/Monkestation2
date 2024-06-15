@@ -138,10 +138,10 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 		var/datum/antagonist/nukeop/nuke_datum = new()
 		nuke_datum.send_to_spawnpoint = FALSE
 		nuke_datum.nukeop_outfit = null
-		prisoner.mind?.add_antag_datum(nuke_datum)
+		prisoner.mind.add_antag_datum(nuke_datum)
 		prisoner.faction |= ROLE_SYNDICATE
-		to_chat(human_target, span_warning("TEST!"))
-		to_chat(human_target, span_userdanger("TEST!"))
+		to_chat(prisoner, span_warning("TEST!"))
+		to_chat(prisoner, span_userdanger("TEST!"))
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
