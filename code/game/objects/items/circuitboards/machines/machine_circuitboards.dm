@@ -1070,7 +1070,7 @@
 	build_path = /obj/machinery/photobooth
 	req_components = list(
 		/datum/stock_part/matter_bin = 1,
-		/datum/stock_part/servo = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 
 /obj/item/circuitboard/machine/photobooth/security
