@@ -139,18 +139,22 @@
 		say("One or more of the players have left the area, match has been cancelled!")
 		return
 
+	var/obj/effect/landmark/duel_arena/dueler_spawn/one/spawn_one = locate() in GLOB.landmarks_list
+	var/obj/effect/landmark/duel_arena/dueler_spawn/two/spawn_two = locate() in GLOB.landmarks_list
+	if(!spawn_one || !spawn_two)
+		say("An error occurred while trying to start the match: The currently spawned arena does not have the proper spawn points. Please report this issue to the coders, including a description of the current duel arena.")
+		CRASH("The spawned duel arena is missing one or more dueler spawns. Please check that it has a dueler spawner for both player one and player two.")
+
 	if(!player_one.client.prefs.adjust_metacoins(player_one.ckey, -payout, "Added to the Payout"))
 		return
 	if(!player_two.client.prefs.adjust_metacoins(player_two.ckey, -payout, "Added to the Payout"))
 		player_one.client.prefs.adjust_metacoins(player_one.ckey, payout, "Opponent did not have enough funds, reimbursed.", donator_multipler = FALSE)
 		return
 
-	var/turf/player_one_spot = locate(148, 34, SSmapping.levels_by_trait(ZTRAIT_CENTCOM)[1])
-	prep_player(player_one, player_one_spot)
-	var/turf/player_two_spot = locate(164, 34, SSmapping.levels_by_trait(ZTRAIT_CENTCOM)[1])
-	prep_player(player_two, player_two_spot)
+	prep_player(player_one, spawn_one)
+	prep_player(player_two, spawn_two)
 
-/obj/structure/fight_button/proc/prep_player(mob/living/carbon/human/ghost/player, turf/move_to)
+/obj/structure/fight_button/proc/prep_player(mob/living/carbon/human/ghost/player, obj/effect/landmark/duel_arena/dueler_spawn/spawn_location)
 	player.unequip_everything()
 	player.fully_heal()
 
@@ -161,7 +165,7 @@
 
 	var/obj/item/weapon = new weapon_of_choice(src)
 	spawned_weapons += WEAKREF(weapon)
-	player.forceMove(move_to)
+	player.forceMove(get_turf(spawn_location))
 	player.equipOutfit(/datum/outfit/ghost_player)
 	player.put_in_active_hand(weapon, TRUE)
 	player.dueling = TRUE
