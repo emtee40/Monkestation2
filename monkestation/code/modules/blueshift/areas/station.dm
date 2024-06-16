@@ -165,16 +165,16 @@
 
 // BlueShift Night Club
 /area/station/common/night_club
-	name = "Night Club"
+	name = "Dive Bar"
 	icon = 'monkestation/code/modules/blueshift/icons/areas/areas_station.dmi'
 	icon_state = "nightclub"
 
 /area/station/common/night_club/back_stage
-	name = "Night Club Backstage"
+	name = "Dive Bar Backstage"
 	icon_state = "nightclub_backstage"
 
 /area/station/common/night_club/changing_room
-	name = "Night Club Changing Room"
+	name = "Dive Bar Changing Room"
 	icon_state = "nightclub_changing_room"
 
 // Rec related areas
