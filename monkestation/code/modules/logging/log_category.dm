@@ -21,9 +21,9 @@
 	var/static/list/cached_visibility
 	if(!cached_visibility)
 		cached_visibility = list(/datum/log_category = FALSE)
+	var/datum/log_category/category_path = ispath(category) ? category : (istext(category) ? logger.log_categories[category]?.type : category?.type)
 	if(!category)
 		return FALSE
-	var/datum/log_category/category_path = ispath(category) ? category : (istext(category) ? logger.log_categories[category].type : category.type)
 	if(!isnull(cached_visibility[category_path]))
 		. = cached_visibility[category_path]
 	else if(!isnull(category_path::debugger_visible))
