@@ -17,5 +17,5 @@
 	if(!mob.reagents)
 		return
 	var/volume_to_use = mob.reagents.total_volume * conversion_precent
-	mob.reagents.remove_any(volume_to_use)
+	mob.reagents.remove_all(volume_to_use)
 	mob.reagents.add_reagent(converted_reagent, volume_to_use)
