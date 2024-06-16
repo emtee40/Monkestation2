@@ -268,6 +268,9 @@
 	use_power = NO_POWER_USE
 	light_color = LIGHT_COLOR_INTENSE_RED
 	light_power = 0.7
+	icon_state = "button"
+	skin = null
+	base_icon_state = "button"
 	///one use only!
 	var/button_stage = BUTTON_IDLE
 	///our internal radio
