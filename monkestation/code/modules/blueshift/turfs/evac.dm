@@ -291,7 +291,7 @@
 	icon = 'monkestation/code/modules/blueshift/icons/unique/spaceships/shipwalls.dmi'
 	icon_state = "ship_walls-0"
 	base_icon_state = "ship_walls"
-	sheet_type = /obj/item/stack/sheet/spaceship
+	//sheet_type = /obj/item/stack/sheet/spaceship
 	smoothing_groups = SMOOTH_GROUP_SHIPWALLS + SMOOTH_GROUP_WALLS + SMOOTH_GROUP_CLOSED_TURFS
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_SHIPWALLS + SMOOTH_GROUP_SURVIVAL_TITANIUM_POD
 
@@ -331,7 +331,7 @@
 	icon = 'monkestation/code/modules/blueshift/icons/unique/spaceships/shipwindows.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
-	glass_type = /obj/item/stack/sheet/spaceshipglass
+	//glass_type = /obj/item/stack/sheet/spaceshipglass
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_SHIPWALLS
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
