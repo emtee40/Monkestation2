@@ -71,8 +71,6 @@
 	if(!player_one)
 		if(!set_rules(user))
 			return
-		if(player_one)
-			to_chat(user, span_warning("Someone else signed up as player one before you could. Try again later."))
 		player_one = user
 		player_one.linked_button = src
 		update_maptext()
@@ -130,11 +128,16 @@
 	var/choice = tgui_input_number(user, "How much would you like to wager?", "[src.name]", default = min(max_amount, 100), max_value = max_amount, min_value = 0)
 	if(!isnum(choice))
 		return FALSE
-	payout = choice
 
 	var/weapon_choice = tgui_input_list(user, "Choose the dueling weapon", "[src.name]", weapon_choices)
 	if(!weapon_choice)
 		return FALSE
+
+	if(player_one)
+		to_chat(user, span_warning("Someone else signed up as player one before you could. Try again later."))
+		return FALSE
+
+	payout = choice
 	weapon_of_choice = weapon_choice
 	return TRUE
 
