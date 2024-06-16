@@ -71,6 +71,8 @@
 	if(!player_one)
 		if(!set_rules(user))
 			return
+		if(player_one)
+			to_chat(user, span_warning("Someone else signed up as player one before you could. Try again later."))
 		player_one = user
 		player_one.linked_button = src
 		update_maptext()
@@ -80,6 +82,9 @@
 			return
 		var/choice = tgui_alert(user, "Do you wish to enter the duel? The wager is [payout].", "[src.name]", list("Yes", "No"))
 		if(choice != "Yes")
+			return
+		if(player_two)
+			to_chat(user, span_warning("Someone else signed up as player two before you could. Try again later."))
 			return
 		player_two = user
 		player_two.linked_button = src
