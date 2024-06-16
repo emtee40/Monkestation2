@@ -534,6 +534,14 @@
 	icon = 'monkestation/code/modules/blueshift/icons/areas/areas_station.dmi'
 	icon_state = "xenobio_dispose"
 
+/area/station/service/forge
+	name = "Forge"
+	icon = 'monkestation/code/modules/blueshift/icons/areas/areas_station.dmi'
+	icon_state = "forge"
+
+/area/station/security/mechbay
+	name = "Security Mechbay"
+
 // BlueShift unique rooms, or rooms for ship-class "stations"
 // Thruster rooms
 /area/station/maintenance/thruster_room

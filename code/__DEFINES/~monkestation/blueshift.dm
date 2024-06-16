@@ -116,3 +116,5 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 
 #define ACCOUNT_CMD "CMD"
 #define ACCOUNT_CMD_NAME "Command Budget"
+
+#define PLAYTIME_GREEN 6000 // 100 hours
