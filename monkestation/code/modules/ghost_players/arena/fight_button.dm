@@ -59,6 +59,9 @@
 /obj/structure/fight_button/proc/update_maptext()
 	maptext = "<span class='ol c pixel'><span style='color: #40b0ff;'>[src.get_duel_data()]</span></span>"
 
+/obj/structure/fight_button/examine(mob/user)
+	. = ..()
+	. += span_info(src.get_duel_data())
 
 /obj/structure/fight_button/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
