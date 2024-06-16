@@ -11,7 +11,7 @@
 	VAR_PRIVATE
 		static/list/image/cached_clone_images
 	/// Am I producing evil clones?
-	var/evil_objective = null
+	var/datum/objective/evil_clone/evil_objective = null
 	/// Can my objective be changed?
 	var/locked = FALSE
 	/// The custom objective given by the traitor item.
@@ -26,6 +26,11 @@
 	if((evil_objective || custom_objective) && (in_range(user, src) || isobserver(user)))
 		if(!isnull(evil_objective) || !isnull(custom_objective))
 			. += span_warning("You notice an ominous, flashing red LED light.")
+			if(isobserver(user))
+				if(!isnull(custom_objective))
+					. += span_notice("Those cloned will have the objective: [custom_objective]") //This doesn't look the best I think.
+				else
+					. += span_notice("Those cloned will have the objective: [evil_objective.explanation_text]")
 
 /obj/machinery/clonepod/experimental/RefreshParts()
 	. = ..()
