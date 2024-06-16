@@ -8,6 +8,11 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
+	maptext_height = 256
+	maptext_width = 128
+	maptext_x = -32
+	maptext_y = 18
+
 	///player vars
 	var/mob/living/carbon/human/ghost/player_one
 	var/mob/living/carbon/human/ghost/player_two
@@ -45,17 +50,14 @@
 	context[SCREENTIP_CONTEXT_RMB] = "Leave Duel"
 	return CONTEXTUAL_SCREENTIP_SET
 
+/obj/structure/fight_button/proc/get_duel_data()
+	. = "Player One: [player_one ? player_one.real_name : "No One"]"
+	. += "\nPlayer Two: [player_two ? player_two.real_name : "No One"]"
+	. += "\nWeapon: [initial(weapon_of_choice.name)]"
+	. += "\nWager: [payout]"
+
 /obj/structure/fight_button/proc/update_maptext()
-	var/string = "<span class='ol c pixel'><span style='color: #40b0ff;'>Player One:[player_one ? "[player_one.real_name]" : "No One"] \nPlayer Two:[player_two ? "[player_two.real_name]" : "No One"] \nWeapon: [initial(weapon_of_choice.name)]\nWager: [payout]</span></span>"
-
-	maptext_height = 256
-	maptext_width = 128
-	maptext_x = -32
-	maptext_y = 18
-
-	maptext = string
-
-	desc = "A button that displays your intent to duel aswell as the weapon of choice and stakes of the duel.Player One:[player_one ? "[player_one.real_name]" : "No One"] \nPlayer Two:[player_two ? "[player_two.real_name]" : "No One"] \nWeapon: [initial(weapon_of_choice.name)]\nWager: [payout]"
+	maptext = "<span class='ol c pixel'><span style='color: #40b0ff;'>[src.get_duel_data()]</span></span>"
 
 
 /obj/structure/fight_button/attack_hand(mob/living/user, list/modifiers)
