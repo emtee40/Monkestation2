@@ -3807,12 +3807,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
-"aOx" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/dark,
-/area/station/security/execution/transfer)
 "aOC" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -12526,8 +12520,10 @@
 /area/station/medical/medbay/central)
 "cwC" = (
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker,
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/machinery/door/airlock/mining{
+	name = "Cargo Bay"
+	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
 	},
@@ -12801,7 +12797,6 @@
 	name = "Free Acces Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -12810,6 +12805,9 @@
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/public/glass{
+	name = "Arrivals"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/entry)
 "cyX" = (
@@ -13391,13 +13389,16 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/merge_conflict_marker,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "Captainprivacy";
 	name = "Privacy Shutters"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/machinery/door/airlock/captain{
+	id_tag = "Capoffice";
+	name = "Captain's Office"
+	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "cEu" = (
@@ -19335,8 +19336,10 @@
 /turf/open/floor/iron/dark/side,
 /area/station/security/brig)
 "dMP" = (
-/obj/merge_conflict_marker,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/prison/workout)
 "dMV" = (
@@ -20695,6 +20698,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/central)
+"ebN" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Flight Control"
+	},
+/turf/closed/wall/r_wall,
+/area/station/security/range)
 "ecd" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes{
@@ -29407,11 +29416,6 @@
 /obj/structure/sign/calendar/directional/south,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/nt_rep)
-"fNz" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/dark,
-/area/station/security/execution/transfer)
 "fNB" = (
 /obj/machinery/power/shuttle_engine/large,
 /turf/open/floor/plating/airless,
@@ -44295,9 +44299,11 @@
 "iQb" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/airlock/security/glass{
+	name = "Flight Control"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/execution/transfer)
 "iQi" = (
@@ -51985,6 +51991,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/duct,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/prison/workout)
 "knr" = (
@@ -53640,6 +53649,10 @@
 /area/station/service/cafeteria)
 "kDv" = (
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/machinery/door/airlock/mining{
+	name = "Cargo Bay"
+	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 1
 	},
@@ -61481,6 +61494,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/duct,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
+	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "mjA" = (
@@ -61996,6 +62012,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Arrivals"
+	},
 /turf/open/floor/iron/stairs/left{
 	dir = 8
 	},
@@ -87028,10 +87047,12 @@
 /turf/open/floor/wood,
 /area/station/service/bar/atrium)
 "rme" = (
-/obj/merge_conflict_marker,
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/airlock/security/glass{
+	name = "Flight Control"
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/execution/transfer)
 "rmf" = (
@@ -96082,6 +96103,11 @@
 	id = "Captainprivacy";
 	name = "Privacy Shutters"
 	},
+/obj/machinery/door/airlock/captain{
+	id_tag = "Capoffice";
+	name = "Captain's Office"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "taZ" = (
@@ -98597,9 +98623,11 @@
 /turf/open/floor/iron,
 /area/station/medical/aslyum)
 "tAy" = (
-/obj/merge_conflict_marker,
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Arrivals"
+	},
 /turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
@@ -107990,7 +108018,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "vsl" = (
-/obj/merge_conflict_marker,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -107999,6 +108026,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
 	},
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
@@ -109782,6 +109812,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/landmark/navigate_destination,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
+	},
 /turf/open/floor/wood,
 /area/station/service/lawoffice)
 "vIs" = (
@@ -119420,8 +119453,10 @@
 "xDH" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/merge_conflict_marker,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Hallway"
+	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "xDM" = (
@@ -122294,6 +122329,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/navigate_destination,
+/obj/machinery/door/airlock/public/glass{
+	name = "Arrivals"
+	},
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/entry)
 "ygL" = (
@@ -146525,9 +146563,9 @@ glU
 euE
 euE
 euE
-fNz
+rme
 euE
-aOx
+iQb
 tcI
 ctM
 vpO
@@ -151140,7 +151178,7 @@ hiY
 hiY
 hiY
 lJt
-lJt
+ebN
 lJt
 vcQ
 xwM
