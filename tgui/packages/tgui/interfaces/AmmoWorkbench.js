@@ -1,33 +1,16 @@
-// THIS IS A NOVA SECTOR UI FILE
 import { toTitleCase } from 'common/string';
-import { useState } from 'react';
-
-import { useBackend, useSharedState } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  NoticeBox,
-  NumberInput,
-  ProgressBar,
-  RoundGauge,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-  Tooltip,
-} from '../components';
+import { useBackend, useSharedState, useLocalState } from '../backend';
+import { Box, Button, NumberInput, NoticeBox, ProgressBar, Section, Flex, Stack, RoundGauge, Tabs, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
 
-export const AmmoWorkbench = (props) => {
-  const [tab, setTab] = useSharedState('tab', 1);
+export const AmmoWorkbench = (props, context) => {
+  const [tab, setTab] = useSharedState(context, 'tab', 1);
   return (
     <Window
       width={600}
       height={600}
       theme="hackerman"
-      title="Ammunitions Workbench"
-    >
+      title="Ammunitions Workbench">
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
@@ -48,8 +31,8 @@ export const AmmoWorkbench = (props) => {
   );
 };
 
-export const AmmunitionsTab = (props) => {
-  const { act, data } = useBackend();
+export const AmmunitionsTab = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     mag_loaded,
     system_busy,
@@ -86,8 +69,7 @@ export const AmmunitionsTab = (props) => {
         <Button.Checkbox
           textAlign="right"
           checked={turboBoost}
-          onClick={() => act('turboBoost')}
-        >
+          onClick={() => act('turboBoost')}>
           Turbo Boost
         </Button.Checkbox>
       </Section>
@@ -111,8 +93,7 @@ export const AmmunitionsTab = (props) => {
               onClick={() => act('EjectMag')}
             />
           </>
-        }
-      >
+        }>
         {!!mag_loaded && <Box>{mag_name}</Box>}
         {!!mag_loaded && (
           <Box bold textAlign="right">
@@ -128,13 +109,11 @@ export const AmmunitionsTab = (props) => {
                 key={available_round.name}
                 className="candystripe"
                 p={1}
-                pb={2}
-              >
+                pb={2}>
                 <Stack.Item>
                   <Tooltip
                     content={available_round.mats_list}
-                    position={'right'}
-                  >
+                    position={'right'}>
                     <Button
                       content={available_round.name}
                       disabled={system_busy}
@@ -162,8 +141,8 @@ export const AmmunitionsTab = (props) => {
   );
 };
 
-export const MaterialsTab = (props) => {
-  const { act, data } = useBackend();
+export const MaterialsTab = (props, context) => {
+  const { act, data } = useBackend(context);
   const { materials = [] } = data;
   return (
     <Section title="Materials">
@@ -185,8 +164,8 @@ export const MaterialsTab = (props) => {
   );
 };
 
-export const DatadiskTab = (props) => {
-  const { act, data } = useBackend();
+export const DatadiskTab = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     loaded_datadisks = [],
     datadisk_loaded,
@@ -219,8 +198,7 @@ export const DatadiskTab = (props) => {
               onClick={() => act('EjectDisk')}
             />
           </>
-        }
-      >
+        }>
         {!!datadisk_loaded && (
           <Box>
             Inserted Datadisk: {datadisk_name}
@@ -244,10 +222,14 @@ export const DatadiskTab = (props) => {
   );
 };
 
-const MaterialRow = (props) => {
+const MaterialRow = (props, context) => {
   const { material, onRelease } = props;
 
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useLocalState(
+    context,
+    'amount' + material.name,
+    1
+  );
 
   const amountAvailable = Math.floor(material.amount);
   return (
