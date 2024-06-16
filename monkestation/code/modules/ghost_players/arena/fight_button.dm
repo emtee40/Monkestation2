@@ -142,7 +142,7 @@
 	if(!player_one.client.prefs.adjust_metacoins(player_one.ckey, -payout, "Added to the Payout"))
 		return
 	if(!player_two.client.prefs.adjust_metacoins(player_two.ckey, -payout, "Added to the Payout"))
-		player_one.client.prefs.adjust_metacoins(player_one.ckey, payout, "Opponent left, reimbursed.")
+		player_one.client.prefs.adjust_metacoins(player_one.ckey, payout, "Opponent did not have enough funds, reimbursed.", donator_multipler = FALSE)
 		return
 
 	var/turf/player_one_spot = locate(148, 34, SSmapping.levels_by_trait(ZTRAIT_CENTCOM)[1])
