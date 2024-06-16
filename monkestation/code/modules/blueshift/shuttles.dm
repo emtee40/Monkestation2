@@ -16,3 +16,10 @@
 	description = "Nanotrasen's standard issue emergency shuttle."
 	prefix = "_maps/shuttles/nova/"
 	suffix = "nova"
+
+
+/datum/map_template/shuttle/arrival/nova
+	name = "Blueshift Arrival"
+	description = "Nanotrasen's standard issue arrival shuttle."
+	prefix = "_maps/shuttles/nova/"
+	suffix = "nova"
