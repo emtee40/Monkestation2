@@ -1,5 +1,4 @@
 
-///Hud type with targetting dol and a nutrition bar
 /datum/hud/bloodling/New(mob/living/owner)
 	. = ..()
 	var/atom/movable/screen/using
