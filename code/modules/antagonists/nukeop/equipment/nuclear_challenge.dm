@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 			A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
 	distribute_tc()
-	prison_riot()
+	prison_riot() //Monke Edit, prisoners riot when nukies declare war.
 	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), CHALLENGE_SHUTTLE_DELAY))
 	SSblackbox.record_feedback("amount", "nuclear_challenge_mode", 1)
 
@@ -131,17 +131,20 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 				C.visible_message(span_notice("[C] coughs up a half-digested telecrystal"),span_notice("You cough up a half-digested telecrystal!"))
 				break
 
-/obj/item/nuclear_challenge/proc/prison_riot()
+/obj/item/nuclear_challenge/proc/prison_riot() // Monke function to make prisoners riot when war is declared.
 	for(var/mob/living/carbon/human/prisoner in GLOB.player_list)
-		if(!(prisoner.mind.assigned_role.job_flags & JOB_PRISONER))
-			return
+		if(!(prisoner.mind.assigned_role.title == JOB_PRISONER))
+			continue
 		var/datum/antagonist/nukeop/nuke_datum = new()
 		nuke_datum.send_to_spawnpoint = FALSE
 		nuke_datum.nukeop_outfit = null
 		prisoner.mind.add_antag_datum(nuke_datum)
+		prisoner.grant_language(/datum/language/codespeak) // Codespeak manual effects.
+		prisoner.remove_blocked_language(/datum/language/codespeak, source=LANGUAGE_ALL)
+		ADD_TRAIT(prisoner, TRAIT_TOWER_OF_BABEL, MAGIC_TRAIT)
 		prisoner.faction |= ROLE_SYNDICATE
-		to_chat(prisoner, span_warning("TEST!"))
-		to_chat(prisoner, span_userdanger("TEST!"))
+		to_chat(prisoner, span_userdanger("The syndicate is coming to wage war against your captors! Aid the nuclear operatives in any way possible!"))
+		to_chat(prisoner, span_notice("The syndicate has managed to inform you of the nuke code and taught you codespeak."))
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
