@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 		prisoner.faction |= ROLE_SYNDICATE
 		to_chat(prisoner, span_userdanger("The syndicate is coming to wage war against your captors! Aid the nuclear operatives in any way possible!"))
 		to_chat(prisoner, span_notice("The syndicate has managed to inform you of the nuke code and taught you codespeak."))
-		for(var/datum/job/job as anything in SSjob.joinable_occupations) // I assume there's a better way tp do this, but I don't know what, to make sure no more prisoners join after the riot has started.
+		for(var/datum/job/job as anything in SSjob.joinable_occupations) // I assume there's a better way to do this, but I don't know what, to make sure no more prisoners join after the riot has started.
 			if(!(job.title == JOB_PRISONER))
 				continue
 			job.allow_bureaucratic_error = FALSE
