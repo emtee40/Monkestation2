@@ -417,7 +417,7 @@
 
 /obj/projectile/bullet/c40sol
 	name = ".40 Sol Long bullet"
-	damage = 35
+	damage = 20
 
 	wound_bonus = 10
 	bare_wound_bonus = 20
@@ -456,7 +456,7 @@
 
 /obj/projectile/bullet/c40sol/fragmentation
 	name = ".40 Sol Long fragmentation bullet"
-	damage = 15
+	damage = 10
 	stamina = 30
 
 	weak_against_armour = TRUE
@@ -512,7 +512,7 @@
 
 	speed = 0.5
 
-	damage = 25
+	damage = 15
 	armour_penetration = 20
 
 	wound_bonus = -30
@@ -568,7 +568,7 @@
 	name = ".40 Sol Long incendiary bullet"
 	icon_state = "redtrac"
 
-	damage = 25
+	damage = 15
 
 	/// How many firestacks the bullet should impart upon a target when impacting
 	var/firestacks_to_give = 1
@@ -609,7 +609,7 @@
 
 /obj/projectile/bullet/strilka310/rubber
 	name = ".310 rubber bullet"
-	damage = 15
+	damage = 10
 	stamina = 55
 	ricochets_max = 5
 	ricochet_incidence_leeway = 0
@@ -652,7 +652,7 @@
 
 /obj/projectile/bullet/c585trappiste
 	name = ".585 Trappiste bullet"
-	damage = 45
+	damage = 25
 	wound_bonus = 0 // Normal bullets are 20
 
 /obj/item/ammo_box/c585trappiste
@@ -683,7 +683,7 @@
 
 /obj/projectile/bullet/c585trappiste/incapacitator
 	name = ".585 Trappiste flathead bullet"
-	damage = 20
+	damage = 9
 	stamina = 40
 	wound_bonus = 10
 
@@ -714,7 +714,7 @@
 
 /obj/projectile/bullet/c585trappiste/hollowpoint
 	name = ".585 Trappiste hollowhead bullet"
-	damage = 35
+	damage = 25
 
 	weak_against_armour = TRUE
 
@@ -782,8 +782,8 @@
 
 /obj/projectile/bullet/c27_54cesarzowa/rubber
 	name = ".27-54 Cesarzowa rubber bullet"
-	stamina = 20
-	damage = 10
+	stamina = 30
+	damage = 6
 	weak_against_armour = TRUE
 	wound_bonus = -30
 	bare_wound_bonus = -10
