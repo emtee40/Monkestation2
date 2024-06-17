@@ -67,6 +67,7 @@
 	maxHealth = INFINITE // Bloodlings have unlimited health, instead biomass acts as their health
 	health = INFINITE
 	sight = SEE_SELF|SEE_MOBS
+	hud_type = /datum/hud/bloodling
 
 	biomass = 50
 	biomass_max = 750
@@ -92,6 +93,16 @@
 		update_health_hud()
 
 	return .
+
+/mob/living/basic/bloodling/update_health_hud()
+	. = ..()
+
+	if(hud_used?.action_intent)
+		hud_used.action_intent.maptext = MAPTEXT("Your biomass: [biomass] / [biomass_max] \n")
+		hud_used.action_intent.maptext_height = 400
+		hud_used.action_intent.maptext_width = 400
+		hud_used.action_intent.maptext_y = 64
+		hud_used.action_intent.maptext_x = -64
 
 // Bloodlings health and damage needs updating when biomass is added
 /mob/living/basic/bloodling/proper/add_biomass(amount)
