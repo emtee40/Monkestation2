@@ -23,3 +23,13 @@
 	description = "Nanotrasen's standard issue arrival shuttle."
 	prefix = "_maps/shuttles/nova/"
 	suffix = "nova"
+
+/datum/map_template/shuttle/labour/nova
+	name = "NMC Drudge (Labour)"
+	prefix = "_maps/shuttles/nova/"
+	suffix = "nova"
+
+/datum/map_template/shuttle/mining_common/nova
+	name = "NMC Chimera (Mining)"
+	prefix = "_maps/shuttles/nova/"
+	suffix = "nova"
