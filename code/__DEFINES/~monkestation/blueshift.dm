@@ -122,3 +122,17 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 /// Macro to turn a number of laser shots into an energy cost, based on the above define
 /// e.g. LASER_SHOTS(12, STANDARD_CELL_CHARGE) means 12 shots
 #define LASER_SHOTS(X, MAX_CHARGE) (((100 * MAX_CHARGE) - ((100 * MAX_CHARGE) % X)) / (100 * X)) // I wish I could just use round, but it can't be used in datum members
+
+/// Trait source for xeno innate abilities
+#define TRAIT_XENO_INNATE "xeno_innate"
+/// Trait source for something added BY a xeno ability
+#define TRAIT_XENO_ABILITY_GIVEN "xeno_ability_given"
+/// Determines if something can receive healing from a xeno
+#define TRAIT_XENO_HEAL_AURA "trait_xeno_heal_aura"
+
+/// Takes in a typepath of a `/datum/action` and adds it to `src`.
+/// Only useful if you want to add the action and never desire to reference it again ever.
+#define GRANT_ACTION(typepath) do {\
+	var/datum/action/_ability = new typepath(src);\
+	_ability.Grant(src);\
+} while (FALSE)

@@ -50,7 +50,7 @@
 		return FALSE
 
 	return TRUE
-
+/*
 /datum/action/cooldown/alien/larva_evolve/Activate(atom/target)
 	var/mob/living/carbon/alien/larva/larva = owner
 	var/static/list/caste_options
@@ -104,3 +104,4 @@
 
 	larva.alien_evolve(new_xeno)
 	return TRUE
+*/

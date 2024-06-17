@@ -47,7 +47,7 @@
 
 /obj/item/clothing/shoes/high_heels/Initialize(mapload)
 	. = ..()
-	//AddComponent(/datum/component/squeak, list('modular_nova/master_files/sound/effects/heel1.ogg' = 1, 'modular_nova/master_files/sound/effects/heel2.ogg' = 1), 50)
+	//AddComponent(/datum/component/squeak, list('monkestation/code/modules/blueshift/sounds/effects/heel1.ogg' = 1, 'monkestation/code/modules/blueshift/sounds/effects/heel2.ogg' = 1), 50)
 
 /obj/item/clothing/shoes/fancy_heels
 	name = "fancy heels"
@@ -63,7 +63,7 @@
 
 /obj/item/clothing/shoes/fancy_heels/Initialize(mapload)
 	. = ..()
-	//AddComponent(/datum/component/squeak, list('modular_nova/master_files/sound/effects/heel1.ogg' = 1, 'modular_nova/master_files/sound/effects/heel2.ogg' = 1), 50)
+	//AddComponent(/datum/component/squeak, list('monkestation/code/modules/blueshift/sounds/effects/heel1.ogg' = 1, 'monkestation/code/modules/blueshift/sounds/effects/heel2.ogg' = 1), 50)
 
 /obj/item/clothing/shoes/discoshoes
 	name = "green snakeskin shoes"
