@@ -5,6 +5,8 @@
 
 #define SIGIL_TRANSMISSION_RANGE 4
 
+#define MAX_CLOCK_VITALITY 400
+
 ///base state the ark is created in, any state besides this will be a hostile environment
 #define ARK_STATE_BASE 0
 ///state for the grace period after the cult has reached its member count max and have enough activing anchoring crystals to summon

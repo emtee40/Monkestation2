@@ -78,7 +78,7 @@
 			recall.Grant(current)
 
 		owner_turf_healing = current.AddComponent(/datum/component/turf_healing, healing_types = list(TOX = 4), \
-												  healing_turfs = list(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring))
+												  healing_turfs = GLOB.clock_turf_types)
 		RegisterSignal(current, COMSIG_CLOCKWORK_SLAB_USED, PROC_REF(switch_recall_slab))
 		handle_clown_mutation(current, mob_override ? null : "The light of Rat'var allows you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 		add_forbearance(current)

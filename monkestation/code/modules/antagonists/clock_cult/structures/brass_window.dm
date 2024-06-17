@@ -11,9 +11,10 @@
 	glass_amount = 1
 
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
-	. = ..()
 	if(on_reebe(src))
-		decon_speed = 2 SECONDS
+		decon_speed = 1 SECONDS
+		max_integrity = round(max_integrity * 0.5) //I would like to make it take double damage instead but this about works for now
+	. = ..()
 
 /obj/structure/window/reinforced/clockwork/attackby_secondary(obj/item/tool, mob/user, params)
 	if(state == RWINDOW_SECURE)

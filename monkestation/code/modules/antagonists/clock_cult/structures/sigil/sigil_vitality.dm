@@ -86,7 +86,7 @@
 		playsound(loc, 'sound/magic/exit_blood.ogg', 60)
 		to_chat(affected_mob, span_clockred("The last of your life is drained away..."))
 		check_special_role(affected_mob)
-		GLOB.clock_vitality = min(GLOB.clock_vitality + 40, GLOB.max_clock_vitality) // 100 (for clients) total in the ideal situation, since it'll take 6 pulses to go from full to crit
+		GLOB.clock_vitality = min(GLOB.clock_vitality + 40, MAX_CLOCK_VITALITY) // 100 (for clients) total in the ideal situation, since it'll take 6 pulses to go from full to crit
 		if(affected_mob.client)
 			new /obj/item/robot_suit/prebuilt/clockwork(get_turf(src))
 			var/obj/item/mmi/posibrain/soul_vessel/new_vessel = new(get_turf(src))
@@ -96,17 +96,17 @@
 		return
 
 	affected_mob.visible_message(span_clockred("[affected_mob] looks weak as the color fades from their body."), span_clockred("You feel your soul faltering..."))
-	GLOB.clock_vitality = min(GLOB.clock_vitality + (affected_mob.client ? 10 : 1), GLOB.max_clock_vitality) // Monkey or whatever? You get jackshit
+	GLOB.clock_vitality = min(GLOB.clock_vitality + (affected_mob.client ? 10 : 1), MAX_CLOCK_VITALITY) // Monkey or whatever? You get jackshit
 
 
 /// Checks the role of whoever was killed by the vitality sigil, and does any special code if needed.
 /obj/structure/destructible/clockwork/sigil/vitality/proc/check_special_role(mob/living/affected_mob)
 	if(IS_CULTIST(affected_mob)) //for now these just give extra vitality, but at some point I need to make them give something unique, maybe the gun?
 		send_clock_message(null, span_clockred("The dog of Nar'sie, [affected_mob] has had their vitality drained, rejoice!"))
-		GLOB.clock_vitality = min(GLOB.clock_vitality + 20, GLOB.max_clock_vitality)
+		GLOB.clock_vitality = min(GLOB.clock_vitality + 20, MAX_CLOCK_VITALITY)
 	else if(IS_HERETIC(affected_mob))
 		send_clock_message(null, span_clockred("The heretic, [affected_mob] has had their vitality drained, rejoice!"))
-		GLOB.clock_vitality = min(GLOB.clock_vitality + 30, GLOB.max_clock_vitality)
+		GLOB.clock_vitality = min(GLOB.clock_vitality + 30, MAX_CLOCK_VITALITY)
 	else
 		send_clock_message(null, span_clockred("[affected_mob] has had their vitality drained by [src], rejoice!"))
 

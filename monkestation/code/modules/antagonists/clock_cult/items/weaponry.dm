@@ -22,11 +22,11 @@
 
 /obj/item/clockwork/weapon/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK)
+	AddComponent(/datum/component/turf_checker, GLOB.clock_turf_types, COMSIG_CHECK_TURF_CLOCKWORK)
 
-/obj/item/clockwork/weapon/afterattack(mob/living/target, mob/living/user)
+/obj/item/clockwork/weapon/afterattack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!.)
+	if(!proximity_flag)
 		return
 
 	if(!check_turf())
@@ -54,7 +54,7 @@
 	if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_CLOCK(target))
 		mob_hit_effect(target, throwingdatum.thrower, TRUE)
 
-/// What occurs to non-holy people when attacked from brass tiles
+/// What occurs to non-holy mobs when attacked from brass tiles
 /obj/item/clockwork/weapon/proc/mob_hit_effect(mob/living/target, mob/living/user, thrown = FALSE)
 	return
 
@@ -63,7 +63,7 @@
 	return
 
 /obj/item/clockwork/weapon/proc/check_turf(check_override)
-	return !(SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK, check_override) & COMPONENT_CHECKER_INVALID_TURF)
+	return (SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK, check_override) & COMPONENT_CHECKER_VALID_TURF)
 
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
@@ -270,7 +270,7 @@
 	update_icon_state()
 	AddElement(/datum/element/clockwork_description, "Firing from brass tiles will halve the time that it takes to recharge a bolt.")
 	AddElement(/datum/element/clockwork_pickup)
-	AddElement(/datum/element/turf_checker, typesof(/turf/open/floor/bronze, /turf/open/indestructible/reebe_flooring), COMSIG_CHECK_TURF_CLOCKWORK)
+	AddComponent(/datum/component/turf_checker, GLOB.clock_turf_types, COMSIG_CHECK_TURF_CLOCKWORK)
 
 /obj/item/gun/ballistic/bow/clockwork/afterattack(atom/target, mob/living/user, flag, params, passthrough)
 	if(!drawn || !chambered)
@@ -284,7 +284,7 @@
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
-	if(!(SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK) & COMPONENT_CHECKER_INVALID_TURF))
+	if((SEND_SIGNAL(src, COMSIG_CHECK_TURF_CLOCKWORK) & COMPONENT_CHECKER_VALID_TURF))
 		recharge_time = 0.75 SECONDS
 
 	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
