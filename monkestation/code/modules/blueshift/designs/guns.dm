@@ -97,3 +97,15 @@
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
+
+/datum/techweb_node/robotics/New()
+	design_ids += list(
+		"mini_soulcatcher",
+	)
+	return ..()
+
+/datum/techweb_node/neural_programming/New()
+	design_ids += list(
+		"soulcatcher_device",
+	)
+	return ..()

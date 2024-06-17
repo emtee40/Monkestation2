@@ -136,3 +136,46 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 	var/datum/action/_ability = new typepath(src);\
 	_ability.Grant(src);\
 } while (FALSE)
+
+
+/// Whenever we need to check if a mob is currently inside of soulcatcher.
+#define COMSIG_SOULCATCHER_CHECK_SOUL "soulcatcher_check_soul"
+
+/// Whenever we need to get the soul of the mob inside of the soulcatcher.
+#define COMSIG_SOULCATCHER_SCAN_BODY "soulcatcher_scan_body"
+
+#define EXAMINE_SECTION_BREAK "<hr>"
+
+
+/// Trait that was granted by a NIFSoft
+#define TRAIT_NIFSOFT "nifsoft"
+
+/// Trait given to a piece of eyewear that allows the user to use NIFSoft HUDs
+#define TRAIT_NIFSOFT_HUD_GRANTER "nifsoft_hud_granter"
+
+//Bitflags for what kind product category a NIFSoft goes under
+
+#define NIFSOFT_CATEGORY_GENERAL "General"
+#define NIFSOFT_CATEGORY_COSMETIC "Cosmetic"
+#define NIFSOFT_CATEGORY_UTILITY "Utility"
+#define NIFSOFT_CATEGORY_FUN "Fun"
+#define NIFSOFT_CATEGORY_INFORMATION "Information"
+// Trait sources
+#define TRAIT_GHOSTROLE "ghostrole"
+
+/*
+These are the defines for controlling what conditions are required to display
+an items special description.
+
+See the examinemore module for information.
+*/
+
+#define EXAMINE_CHECK_NONE "none"			//Displays the special_desc regardless if it's set.
+#define EXAMINE_CHECK_SYNDICATE "syndicate"		//For displaying descriptors for those with the SYNDICATE faction assigned.
+#define EXAMINE_CHECK_SYNDICATE_TOY "syndicate_toy" //Ditto, only instead of displaying nothing for heathens, it shows "The src looks like a toy, not the real thing."
+#define EXAMINE_CHECK_MINDSHIELD "mindshield"	//For displaying descriptors for those with a mindshield implant.
+#define EXAMINE_CHECK_ROLE "role"			//For displaying description information based on a specific ROLE, e.g. traitor. Remember to set the special_desc_role var on the item.
+#define EXAMINE_CHECK_JOB "job"			//For displaying descriptors for specific jobs, e.g scientist. Remember to set the special_desc_job var on the item.
+#define EXAMINE_CHECK_FACTION "faction"		//For displaying descriptors for mob factions, e.g. a zombie, or... turrets. Or syndicate. Remember to set special_desc_factions.
+#define EXAMINE_CHECK_CONTRACTOR "contractor" // For contractors and syndicate agents.
+#define TRAIT_DETECTIVE "detective_ability" //Given to the detective, if they have this, they can see syndicate special descriptions.

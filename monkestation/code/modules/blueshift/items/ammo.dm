@@ -281,10 +281,11 @@
 
 /obj/projectile/bullet/c35sol
 	name = ".35 Sol Short bullet"
-	damage = 25
+	damage = 20
 
-	wound_bonus = 10 // Normal bullets are 20
-	bare_wound_bonus = 20
+	wound_bonus = -5 // Normal bullets are 20
+	bare_wound_bonus = 5
+	embed_falloff_tile = -4
 
 
 /obj/item/ammo_box/c35sol
