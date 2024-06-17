@@ -94,11 +94,24 @@
 
 	return .
 
-/mob/living/basic/bloodling/update_health_hud()
+/mob/living/basic/bloodling/proper/update_health_hud()
 	. = ..()
+	var/biomass_next_evo
+
+	switch(evolution_level)
+		if(1)
+			biomass_next_evo = 75
+		if(2)
+			biomass_next_evo = 125
+		if(3)
+			biomass_next_evo = 175
+		if(4)
+			biomass_next_evo = 225
+		if(5)
+			biomass_next_evo = biomass_max
 
 	if(hud_used?.action_intent)
-		hud_used.action_intent.maptext = MAPTEXT("Your biomass: [biomass] / [biomass_max] \n")
+		hud_used.action_intent.maptext = MAPTEXT("Your biomass: [biomass] / [biomass_next_evo] \n")
 		hud_used.action_intent.maptext_height = 400
 		hud_used.action_intent.maptext_width = 400
 		hud_used.action_intent.maptext_y = 64
