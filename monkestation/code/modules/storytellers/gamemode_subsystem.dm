@@ -189,8 +189,7 @@ SUBSYSTEM_DEF(gamemode)
 		event_pools[event.track] += event //Add it to the categorized event pools
 
 	load_roundstart_data()
-
-//	return ..()
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/gamemode/fire(resumed = FALSE)
@@ -768,7 +767,7 @@ SUBSYSTEM_DEF(gamemode)
 					event.reoccurence_penalty_multiplier = value
 				if("shared_occurence_type")
 					if(!isnull(value))
-						value = text2path(value)
+						value = "[value]"
 					event.shared_occurence_type = value
 
 /// Loads config values from game_options.txt
