@@ -9,6 +9,7 @@
 
 		if(mob_held_item)
 
+			/*
 			if(check_block(user, damage = 0, attack_text = "[user.name]"))
 				playsound(loc, 'sound/weapons/parry.ogg', 25, TRUE, -1) //Audio feedback to the fact you just got blocked
 				apply_damage(disarm_damage / 2, STAMINA)
@@ -16,6 +17,7 @@
 					span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
 				to_chat(user, span_warning("You attempt to touch [src]!"))
 				return FALSE
+			*/
 
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 25, TRUE, -1) //The sounds of these are changed so the xenos can actually hear they are being non-lethal
 			Knockdown(3 SECONDS)
