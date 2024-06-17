@@ -118,3 +118,7 @@ GLOBAL_LIST_INIT(cable_name_to_layer, list(
 #define ACCOUNT_CMD_NAME "Command Budget"
 
 #define PLAYTIME_GREEN 6000 // 100 hours
+
+/// Macro to turn a number of laser shots into an energy cost, based on the above define
+/// e.g. LASER_SHOTS(12, STANDARD_CELL_CHARGE) means 12 shots
+#define LASER_SHOTS(X, MAX_CHARGE) (((100 * MAX_CHARGE) - ((100 * MAX_CHARGE) % X)) / (100 * X)) // I wish I could just use round, but it can't be used in datum members

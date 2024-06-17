@@ -153,3 +153,17 @@
 		/obj/item/ammo_box/strilka310 = 10,
 		/obj/item/food/rationpack = 1,
 	)
+
+/obj/effect/spawner/armory_spawn/mod_lasers_big
+	guns = list(
+		/obj/item/gun/energy/modular_laser_rifle,
+		/obj/item/gun/energy/modular_laser_rifle,
+		/obj/item/gun/energy/modular_laser_rifle,
+	)
+
+/obj/effect/spawner/armory_spawn/mod_lasers_small
+	guns = list(
+		/obj/item/gun/energy/modular_laser_rifle/carbine,
+		/obj/item/gun/energy/modular_laser_rifle/carbine,
+		/obj/item/gun/energy/modular_laser_rifle/carbine,
+	)
