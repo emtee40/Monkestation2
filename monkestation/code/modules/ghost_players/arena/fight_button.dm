@@ -68,11 +68,16 @@
 	if(!istype(user, /mob/living/carbon/human/ghost))
 		return
 
+	if(user.GetComponent(/datum/component/centcom_dueler))
+		to_chat(user, span_notice("You're already signed up for a duel. Wait around and see if someone wants to challenge you!"))
+		return
+
 	if(!player_one)
 		if(!set_rules(user))
 			return
 		player_one = user
 		player_one.linked_button = src
+		player_one.AddComponent(/datum/component/centcom_dueler, src)
 		update_maptext()
 	else if(!player_two && user != player_one)
 		if(user.client.prefs.metacoins < payout)
@@ -86,6 +91,7 @@
 			return
 		player_two = user
 		player_two.linked_button = src
+		player_two.AddComponent(/datum/component/centcom_dueler, src)
 		if(player_one && player_two)
 			update_maptext()
 			addtimer(CALLBACK(src, PROC_REF(prep_round)), 5 SECONDS)
@@ -93,24 +99,18 @@
 
 /obj/structure/fight_button/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
-	if(user == player_one)
-		break_off_game()
-		player_one = null
-		update_maptext()
-
-	else if(user == player_two)
-		player_two.linked_button = null
-		player_two = null
-		update_maptext()
-
+	src.remove_user(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/fight_button/proc/remove_user(mob/living/carbon/human/ghost/vanisher)
 	if(player_one == vanisher)
 		break_off_game()
+		qdel(player_one.GetComponent(/datum/component/centcom_dueler))
 		player_one = null
 		update_maptext()
-	if(player_two == vanisher)
+	else if(player_two == vanisher)
+		qdel(player_two.GetComponent(/datum/component/centcom_dueler))
+		player_two.linked_button = null
 		player_two = null
 		update_maptext()
 
@@ -193,6 +193,9 @@
 	SEND_SIGNAL(player_one, COMSIG_HUMAN_END_DUEL)
 	SEND_SIGNAL(player_two, COMSIG_HUMAN_END_DUEL)
 
+	// qdeling of the dueler component should happen in the component itself...
+	qdel(player_one.GetComponent(/datum/component/centcom_dueler))
+	qdel(player_two.GetComponent(/datum/component/centcom_dueler))
 	player_one = null
 	player_two = null
 
@@ -202,3 +205,19 @@
 		var/obj/item/spawned_weapon = weapon?.resolve()
 		if(spawned_weapon)
 			qdel(spawned_weapon)
+
+/datum/component/centcom_dueler
+	var/mob/living/carbon/human/ghost/dueler
+	/// The button we are tied to for dueling
+	var/obj/structure/fight_button/linked_fight_button
+
+/datum/component/centcom_dueler/Initialize(
+	obj/structure/fight_button/fight_button,
+)
+	if(!istype(parent, /mob/living/carbon/human/ghost))
+		return COMPONENT_INCOMPATIBLE
+	if(!istype(fight_button))
+		return COMPONENT_INCOMPATIBLE
+
+	src.dueler = parent
+	src.linked_fight_button = fight_button
