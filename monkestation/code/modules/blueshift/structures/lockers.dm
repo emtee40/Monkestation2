@@ -82,6 +82,8 @@
 	icon = 'monkestation/code/modules/blueshift/icons/obj/closet_wall.dmi'
 	icon_state = "locker_wall"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/generic/wall, 32)
+
 /obj/structure/closet/emcloset/wall
 	door_anim_squish = 0.3
 	door_anim_angle = 115
@@ -94,6 +96,8 @@
 	icon = 'monkestation/code/modules/blueshift/icons/obj/closet_wall.dmi'
 	icon_state = "emergency_wall"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/emcloset/wall, 32)
+
 /obj/structure/closet/firecloset/wall
 	door_anim_squish = 0.3
 	door_anim_angle = 115
@@ -105,6 +109,8 @@
 	anchorable = FALSE
 	icon = 'monkestation/code/modules/blueshift/icons/obj/closet_wall.dmi'
 	icon_state = "fire_wall"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/firecloset/wall, 32)
 
 //These two are pre-locked versions of closet/generic/wall, for mapping only
 /obj/structure/closet/secure_closet/wall
@@ -119,6 +125,8 @@
 	icon = 'monkestation/code/modules/blueshift/icons/obj/closet_wall.dmi'
 	icon_state = "locker_wall"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/secure_closet/wall, 32)
+
 /obj/structure/closet/secure_closet/personal/wall
 	door_anim_squish = 0.3
 	door_anim_angle = 115
@@ -130,6 +138,8 @@
 	anchorable = FALSE
 	icon = 'monkestation/code/modules/blueshift/icons/obj/closet_wall.dmi'
 	icon_state = "locker_wall"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/secure_closet/personal/wall, 32)
 
 //These procs create empty subtypes, for when it's placed by a user rather than mapped in...
 //Secure/personal don't get these since they're made with airlock electronics
