@@ -242,8 +242,8 @@ const NifSettings = (props, context) => {
   );
 };
 
-const NifProductNotes = (props) => {
-  const { act, data } = useBackend();
+const NifProductNotes = (props, context) => {
+  const { act, data } = useBackend(context);
   const { product_notes } = data;
   return <BlockQuote>{product_notes}</BlockQuote>;
 };
