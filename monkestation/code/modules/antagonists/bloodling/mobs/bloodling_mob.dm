@@ -133,19 +133,19 @@
 
 /// Checks if we should evolve, and also calls the evolution proc
 /mob/living/basic/bloodling/proper/proc/check_evolution()
-	if((75 > biomass) && evolution_level != 1)
+	if((75 > biomass) && (evolution_level != 1))
 		evolution(1)
 		return TRUE
-	if((125 > biomass >= 75) && evolution_level != 2)
+	if((125 > biomass >= 75) && (evolution_level != 2))
 		evolution(2)
 		return TRUE
-	if((175 > biomass) >= 125 && evolution_level != 3)
+	if((175 > biomass) >= 125 && (evolution_level != 3))
 		evolution(3)
 		return TRUE
-	if((225 > biomass >= 175) && evolution_level != 4)
+	if((225 > biomass >= 175) && (evolution_level != 4))
 		evolution(4)
 		return TRUE
-	if((biomass >= 225) && evolution_level != 5)
+	if((biomass >= 225) && (evolution_level != 5))
 		evolution(5)
 		return TRUE
 	return FALSE
@@ -180,7 +180,7 @@
 	evolution_mind_change(new_bloodling)
 
 
-/mob/living/basic/bloodling/proper/proc/evolution_mind_change(var/mob/living/basic/bloodling/proper/new_bloodling)
+/mob/living/basic/bloodling/proper/proc/evolution_mind_change(mob/living/basic/bloodling/proper/new_bloodling)
 	new_bloodling.setDir(dir)
 	if(numba)
 		new_bloodling.numba = numba
