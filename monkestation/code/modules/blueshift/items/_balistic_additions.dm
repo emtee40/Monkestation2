@@ -1,3 +1,6 @@
+/obj/item/suppressor/standard
+	desc = "A small-arms suppressor for maximum espionage."
+
 /obj/item/gun/ballistic
 	/// Does this gun have mag and nomag on mob variance?
 	var/alt_icons = FALSE

@@ -1384,3 +1384,45 @@ TREK
 /datum/greyscale_config/fancyheels/worn/digi
 	name = "Fancy Heels (Worn, Digi)"
 	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/shoes/fancyheels/fancyheels_worn_digi.json'
+
+/datum/greyscale_config/cin_surplus_helmet
+	name = "CIN Surplus Helmet"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor.dmi'
+	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/nri_surplus_equipment/helmet.json'
+
+/datum/greyscale_config/cin_surplus_helmet/object
+	name = "CIN Surplus Helmet (OBJ)"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor_object.dmi'
+
+// Undersuit
+/datum/greyscale_config/cin_surplus_undersuit
+	name = "CIN Surplus Undersuit"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor.dmi'
+	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/nri_surplus_equipment/undersuit.json'
+
+/datum/greyscale_config/cin_surplus_undersuit/object
+	name = "CIN Surplus Undersuit (OBJ)"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor_object.dmi'
+
+/datum/greyscale_config/cin_surplus_undersuit/digi
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor_digi.dmi'
+
+// Backpack
+/datum/greyscale_config/cin_surplus_backpack
+	name = "CIN Surplus Backpack"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor.dmi'
+	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/nri_surplus_equipment/backpack.json'
+
+/datum/greyscale_config/cin_surplus_backpack/object
+	name = "CIN Surplus Backpack (OBJ)"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor_object.dmi'
+
+// Chestrig
+/datum/greyscale_config/cin_surplus_chestrig
+	name = "CIN Surplus Chestrig"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor.dmi'
+	json_config = 'monkestation/code/modules/blueshift/gags/json_configs/nri_surplus_equipment/chestrig.json'
+
+/datum/greyscale_config/cin_surplus_chestrig/object
+	name = "CIN Surplus Chestrig (OBJ)"
+	icon_file = 'monkestation/code/modules/blueshift/icons/surplus_armor/surplus_armor_object.dmi'

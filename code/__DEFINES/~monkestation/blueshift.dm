@@ -179,3 +179,111 @@ See the examinemore module for information.
 #define EXAMINE_CHECK_FACTION "faction"		//For displaying descriptors for mob factions, e.g. a zombie, or... turrets. Or syndicate. Remember to set special_desc_factions.
 #define EXAMINE_CHECK_CONTRACTOR "contractor" // For contractors and syndicate agents.
 #define TRAIT_DETECTIVE "detective_ability" //Given to the detective, if they have this, they can see syndicate special descriptions.
+
+// Armament categories
+#define ARMAMENT_CATEGORY_STANDARD "Standard Equipment"
+#define ARMAMENT_CATEGORY_STANDARD_LIMIT 1
+
+// Armament subcategories
+#define ARMAMENT_SUBCATEGORY_NONE "Uncategorised"
+
+/// To identify the limit of the category type in the associative list. Techical stuff.
+#define CATEGORY_LIMIT "Category Limit"
+#define CATEGORY_ENTRY "Category Entry"
+
+// All the categories
+#define ARMAMENT_CATEGORY_MELEE "Melee Weapons"
+#define ARMAMENT_CATEGORY_MELEE_LIMIT 1
+#define ARMAMENT_CATEGORY_PRIMARY "Primary Weapons"
+#define ARMAMENT_CATEGORY_PRIMARY_LIMIT 1
+#define ARMAMENT_CATEGORY_SECONDARY "Secondary Weapons"
+#define ARMAMENT_CATEGORY_SECONDARY_LIMIT 1
+#define ARMAMENT_CATEGORY_ARMOR_HEAD "Headgear"
+#define ARMAMENT_CATEGORY_ARMOR_HEAD_LIMIT 1
+#define ARMAMENT_CATEGORY_MEDICAL "Medical Supplies"
+#define ARMAMENT_CATEGORY_MEDICAL_LIMIT 5
+
+
+// All the subcategories
+#define ARMAMENT_SUBCATEGORY_AMMO "Ammunition"
+#define ARMAMENT_SUBCATEGORY_MELEE_LETHAL "Lethal Weaponry"
+#define ARMAMENT_SUBCATEGORY_MELEE_NONLETHAL "Non-Lethal Weaponry"
+#define ARMAMENT_SUBCATEGORY_SUBMACHINEGUN "Submachine Guns"
+#define ARMAMENT_SUBCATEGORY_ASSAULTRIFLE "Assault Rifles"
+#define ARMAMENT_SUBCATEGORY_SPECIAL "Special Weapons"
+#define ARMAMENT_SUBCATEGORY_PISTOL "Pistols"
+#define ARMAMENT_SUBCATEGORY_HELMET "Helmets"
+#define ARMAMENT_SUBCATEGORY_BERETS "Berets"
+#define ARMAMENT_SUBCATEGORY_MEDKIT "Medkits"
+#define ARMAMENT_SUBCATEGORY_INJECTOR "Injectors"
+#define ARMAMENT_SUBCATEGORY_SHOTGUN "Shotguns"
+#define ARMAMENT_SUBCATEGORY_LASER "Laser Weaponry"
+#define ARMAMENT_SUBCATEGORY_ARMOR "Armor"
+#define ARMAMENT_SUBCATEGORY_GUNPART "Gun Parts"
+#define ARMAMENT_SUBCATEGORY_EMITTER "Phase Emitter"
+#define ARMAMENT_SUBCATEGORY_CELL_UPGRADE "Cell Upgrade"
+#define ARMAMENT_SUBCATEGORY_CHEMICAL "Chemicals"
+#define ARMAMENT_SUBCATEGORY_CQC "Close Quarters"
+
+// Bitflags for what company a cargo order datum should belong to
+#define CARGO_COMPANY_NAKAMURA_MODSUITS (1<<0)
+#define CARGO_COMPANY_BLACKSTEEL (1<<1)
+#define CARGO_COMPANY_NRI_SURPLUS (1<<2)
+#define CARGO_COMPANY_DEFOREST (1<<3)
+#define CARGO_COMPANY_DONK (1<<4)
+#define CARGO_COMPANY_KAHRAMAN (1<<5)
+#define CARGO_COMPANY_FRONTIER_EQUIPMENT (1<<6)
+#define CARGO_COMPANY_SOL_DEFENSE (1<<7)
+#define CARGO_COMPANY_MICROSTAR (1<<8)
+#define CARGO_COMPANY_VITEZSTVI_AMMO (1<<9)
+
+// Company names, because the armament category and company name need to be the exact same, so use defines like this
+#define NAKAMURA_ENGINEERING_MODSUITS_NAME "Nakamura Engineering MOD Divison"
+#define BLACKSTEEL_FOUNDATION_NAME "Jarnsmiour Blacksteel Foundation"
+#define NRI_SURPLUS_COMPANY_NAME "Izlishek Company Military Supplier"
+#define DEFOREST_MEDICAL_NAME "DeForest Medical Corporation"
+#define DONK_CO_NAME "Donk Corporation"
+#define KAHRAMAN_INDUSTRIES_NAME "Kahraman Heavy Industries"
+#define FRONTIER_EQUIPMENT_NAME "Akhter Company Frontier Equipment"
+#define SOL_DEFENSE_DEFENSE_NAME "Sol Defense Imports"
+#define MICROSTAR_ENERGY_NAME "MicroStar Energy Weapon Coalition"
+#define VITEZSTVI_AMMO_NAME "Vitezstvi Ammo & Weapon Accessories"
+
+#define COMPANY_INTEREST_GAIN_BIG 10
+#define COMPANY_INTEREST_GAIN_AVERAGE 5
+#define COMPANY_INTEREST_GAIN_LOW 3
+#define COMPANY_INTEREST_GAIN_PITIFUL 1
+
+#define ARMOR_LEVEL_TINY 10
+#define ARMOR_LEVEL_WEAK 30
+#define ARMOR_LEVEL_MID 50
+#define ARMOR_LEVEL_INSANE 90
+
+#define WOUND_ARMOR_WEAK 10
+#define WOUND_ARMOR_STANDARD 20
+#define WOUND_ARMOR_HIGH 30
+
+//Default text for different messages for the user.
+#define HELMET_UNSEAL_MESSAGE "hisses open"
+#define HELMET_SEAL_MESSAGE "hisses closed"
+#define CHESTPLATE_UNSEAL_MESSAGE "releases your chest"
+#define CHESTPLATE_SEAL_MESSAGE "cinches tightly around your chest"
+#define GAUNTLET_UNSEAL_MESSAGE "become loose around your fingers"
+#define GAUNTLET_SEAL_MESSAGE "tighten around your fingers and wrists"
+#define BOOT_UNSEAL_MESSAGE "relax their grip on your legs"
+#define BOOT_SEAL_MESSAGE "seal around your feet"
+
+/// Colors for pride week
+#define COLOR_PRIDE_RED "#FF6666"
+#define COLOR_PRIDE_ORANGE "#FC9F3C"
+#define COLOR_PRIDE_YELLOW "#EAFF51"
+#define COLOR_PRIDE_GREEN "#41FC66"
+#define COLOR_PRIDE_BLUE "#42FFF2"
+#define COLOR_PRIDE_PURPLE "#5D5DFC"
+
+/// Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_TWITCH_ADAPTED "twitch_adapted"
+
+// Have to put it here so I can use it in the global list of wound series
+/// See muscle.dm and robotic_blunt.dm
+#define WOUND_SERIES_MUSCLE_DAMAGE "nova_wound_series_muscle_damage"
