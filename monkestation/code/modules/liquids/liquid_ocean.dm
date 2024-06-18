@@ -363,8 +363,8 @@ GLOBAL_LIST_INIT(initalized_ocean_areas, list())
 GLOBAL_LIST_INIT(scrollable_turfs, list())
 GLOBAL_LIST_INIT(the_lever, list())
 /turf/open/floor/plating/ocean/false_movement
-	icon = 'goon/icons/turf/ocean.dmi'
-	icon_state = "sand"
+	icon = 'icons/misc/pepe.dmi' // TODO ADD NEW SPRITES
+	icon_state = "rare_pepe"
 	var/scroll_state = "scroll"
 	var/moving = FALSE
 
@@ -642,13 +642,11 @@ GLOBAL_LIST_INIT(the_lever, list())
 /turf/open/floor/plating/ocean/pit
 	name = "pit"
 
-	icon = 'goon/icons/turf/outdoors.dmi'
-	icon_state = "pit"
+	icon = 'icons/misc/pepe.dmi' // TODO ADD NEW SPRITES
+	icon_state = "rare_pepe"
 	baseturfs = /turf/open/floor/plating/ocean/pit
 	catwalk = TRUE
 
-/turf/open/floor/plating/ocean/pit/wall
-	icon_state = "pit_wall"
 
 /turf/open/floor/plating/ocean/pit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

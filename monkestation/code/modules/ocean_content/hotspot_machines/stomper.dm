@@ -131,7 +131,7 @@
 	var/turf/source_turf = get_turf(src)
 
 	///we missed center here
-	if(SShotspots.stomp(source_turf))
+	//if(SShotspots.stomp(source_turf))
 		//playsound(src, 'goon/sounds/impact_sounds/Metal_Hit_Heavy_1.ogg', 100, 1)
 
 	for(var/datum/hotspot/listed_hotspot as anything in SShotspots.retrieve_hotspot_list(source_turf))
