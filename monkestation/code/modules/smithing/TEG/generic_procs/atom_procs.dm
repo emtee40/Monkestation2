@@ -11,7 +11,7 @@
 	chain_appearance.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	chain_appearance.icon_state = "[power][pick("a","b","c")]"
 
-	var/sound = pick(list('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg','sound/effects/sparks5.ogg','goon/sounds/sparks/sparks6.ogg'))
+	var/sound = pick(list('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg'))
 
 	switch(power)
 		if(4)
