@@ -129,6 +129,10 @@
 		mob_occupant.grant_language(/datum/language/codespeak) // So you don't have to remember to grant each and every identical clone codespeak with the manual.
 		mob_occupant.remove_blocked_language(/datum/language/codespeak, source=LANGUAGE_ALL) // All the effects the codespeak manual would have.
 		ADD_TRAIT(mob_occupant, TRAIT_TOWER_OF_BABEL, MAGIC_TRAIT)
+		var/obj/item/implant/radio/syndicate/imp = new(src)
+		imp.implant(mob_occupant)
+		mob_occupant.faction |= ROLE_SYNDICATE
+		mob_occupant.AddComponent(/datum/component/simple_access, list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)) //Basic/syndicate access, and genetics too because clones are genetics stuff.
 	else if(!isnull(evil_objective))
 		var/datum/antagonist/evil_clone/antag_object = new
 		antag_object.objectives += new evil_objective()

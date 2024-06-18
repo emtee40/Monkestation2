@@ -28,7 +28,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
 
 
 /datum/design/board/clonescanner	//hippie end, re-add cloning

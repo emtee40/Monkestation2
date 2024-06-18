@@ -181,7 +181,8 @@
 		/obj/item/wrench = 1,
 		/obj/item/screwdriver/nuke = 1,
 		/obj/item/multitool = 1, // For those who want space between the cloning console and pod.
-		/obj/item/language_manual/codespeak_manual/unlimited = 1,)
+		/obj/item/language_manual/codespeak_manual/unlimited = 1,
+		/obj/item/implanter/radio/syndicate = 1,) // So you can communicate with your clones, instead of having random evil clones roaming the halls with no direction.
 	generate_items_inside(items_inside, src)
 
 #undef KIT_ITEM_CATEGORY_SUPPORT
