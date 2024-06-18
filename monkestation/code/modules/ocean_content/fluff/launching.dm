@@ -36,8 +36,8 @@ GLOBAL_LIST_INIT(cargo_launch_points, list())
 	name = "human capsule missile"
 	desc = "The cheapest way to get people down to the bottom of the ocean"
 
-	icon = 'goon/icons/obj/large/32x64.dmi'
-	icon_state = "arrival_missile"
+	icon = 'icons/misc/pepe.dmi' // TODO ADD NEW SPRITES
+	icon_state = "rare_pepe"
 	bound_width = 32
 	bound_height = 64
 

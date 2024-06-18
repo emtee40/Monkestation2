@@ -401,8 +401,8 @@ GLOBAL_LIST_INIT(the_lever, list())
 	name = "braking lever"
 	desc = "Stops the ship from moving."
 
-	icon = 'goon/icons/obj/decorations.dmi'
-	icon_state = "lever1"
+	icon = 'icons/misc/pepe.dmi' // TODO ADD NEW SPRITES
+	icon_state = "rare_pepe"
 	var/static/lever_on = TRUE
 	var/static/lever_locked = FALSE
 
@@ -438,9 +438,9 @@ GLOBAL_LIST_INIT(the_lever, list())
 
 /obj/machinery/movement_lever/update_icon(updates)
 	. = ..()
-	icon_state = "lever[lever_on]"
+	icon_state = "rare_pepe"
 	if(lever_locked)
-		icon_state = "[icon_state]-locked"
+		icon_state = "rare_pepe"
 
 /datum/component/shuttle_cling/water
 	hyperspace_type = /turf/open/floor/plating/ocean/false_movement
