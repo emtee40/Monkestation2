@@ -200,3 +200,32 @@
 	materials = list(
 		/datum/material/iron = SHEET_MATERIAL_AMOUNT,
 	)
+
+
+/datum/techweb_node/integrated_hud/New()
+	design_ids += list(
+		"health_hud_prescription",
+		"security_hud_prescription",
+		"diagnostic_hud_prescription",
+		"science_hud_prescription",
+		"health_hud_aviator",
+		"security_hud_aviator",
+		"diagnostic_hud_aviator",
+		"meson_hud_aviator",
+		"science_hud_aviator",
+		"health_hud_projector",
+		"security_hud_projector",
+		"diagnostic_hud_projector",
+		"meson_hud_projector",
+		"science_hud_projector",
+		"permit_glasses",
+		"nifsoft_money_sense",
+		"nifsoft_hud_kit",
+		"nifsoft_hud_science",
+		"nifsoft_hud_meson",
+		"nifsoft_hud_medical",
+		"nifsoft_hud_security",
+		"nifsoft_hud_diagnostic",
+		"nifsoft_hud_cargo",
+	)
+	return ..()

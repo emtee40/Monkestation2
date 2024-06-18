@@ -250,33 +250,27 @@
 	ADD_TRAIT(src, TRAIT_NO_MISSING_ITEM_ERROR, TRAIT_GENERIC)
 
 /obj/item/storage/lockbox/order/attackby(obj/item/W, mob/user, params)
-	var/locked = atom_storage.locked
-	if(W.GetID())
-		if(broken)
-			balloon_alert(user, "broken!")
-			return
-		if(allowed(user))
-			if(atom_storage.locked)
-				atom_storage.locked = STORAGE_NOT_LOCKED
-			else
-				atom_storage.locked = STORAGE_FULLY_LOCKED
-			locked = atom_storage.locked
-			if(locked)
-				icon_state = icon_locked
-				atom_storage.close_all()
-			else
-				icon_state = icon_closed
-
-			balloon_alert(user, locked ? "locked" : "unlocked")
-			return
-
-		else
-			balloon_alert(user, "access denied!")
-			return
-	if(!locked)
+	var/obj/item/card/id/id_card = W.GetID()
+	if(!id_card)
 		return ..()
+
+	if(id_card.registered_account != buyer_account)
+		balloon_alert(user, "incorrect bank account!")
+		return FALSE
+
+	if(privacy_lock)
+		atom_storage.locked = STORAGE_NOT_LOCKED
+		icon_state = icon_locked
 	else
-		balloon_alert(user, "locked!")
+		atom_storage.locked = STORAGE_FULLY_LOCKED
+		icon_state = icon_closed
+	privacy_lock = atom_storage.locked
+	user.visible_message(
+		span_notice("[user] [privacy_lock ? "" : "un"]locks [src]'s privacy lock."),
+		span_notice("You [privacy_lock ? "" : "un"]lock [src]'s privacy lock."),
+	)
+	return FALSE
+
 ///screentips for lockboxes
 /obj/item/storage/lockbox/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	if(!held_item)

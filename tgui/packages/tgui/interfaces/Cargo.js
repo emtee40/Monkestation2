@@ -16,7 +16,7 @@ export const Cargo = (props, context) => {
 };
 
 export const CargoContent = (props, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const [tab, setTab] = useSharedState(context, 'tab', 'catalog');
   const { cart = [], requests = [], requestonly } = data;
   const cart_length = cart.reduce((total, entry) => total + entry.amount, 0);
@@ -37,6 +37,12 @@ export const CargoContent = (props, context) => {
             selected={tab === 'requests'}
             onClick={() => setTab('requests')}>
             Requests ({requests.length})
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="clipboard-list"
+            selected={tab === 'company_import_window'}
+            onClick={() => act('company_import_window')}>
+            Company Imports
           </Tabs.Tab>
           {!requestonly && (
             <>
