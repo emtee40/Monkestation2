@@ -9,7 +9,13 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 /obj/machinery/satellite/meteor_shield/Initialize(mapload)
 	. = ..()
 	GLOB.meteor_shield_sats += src
+	RegisterSignal(src, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(on_space_move)) // so these fuckers don't drift off into space when you're trying to position them
 	setup_proximity()
+	register_context()
+
+/obj/machinery/satellite/meteor_shield/proc/on_space_move(datum/source)
+	SIGNAL_HANDLER
+	return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /obj/machinery/satellite/meteor_shield/Destroy()
 	GLOB.meteor_shield_sats -= src
@@ -25,6 +31,12 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 				meteor_monitor?.set_range(kill_range)
 			if(NAMEOF(src, active))
 				setup_proximity()
+
+/obj/machinery/satellite/meteor_shield/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	context[SCREENTIP_CONTEXT_LMB] = active ? "Deactivate" : "Activate"
+	if(!active)
+		context[SCREENTIP_CONTEXT_RMB] = "Pick up"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/satellite/meteor_shield/HasProximity(obj/effect/meteor/meteor)
 	if(!active || !istype(meteor) || QDELING(meteor) || (obj_flags & EMAGGED))
@@ -112,3 +124,28 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 	for(var/datum/round_event_control/event as anything in all_events)
 		if(is_type_in_typecache(event, meteor_event_typecache))
 			event.weight *= mod
+
+/obj/machinery/satellite/meteor_shield/attack_hand_secondary(mob/living/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !can_interact(user))
+		return
+	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(active)
+		balloon_alert(user, "can't pick up while active!")
+		return
+	balloon_alert(user, "picking up satellite...")
+	if(do_after(user, 5 SECONDS, src))
+		var/obj/item/meteor_shield_capsule/capsule = new(drop_location())
+		user.put_in_hands(capsule)
+		qdel(src)
+
+/obj/item/meteor_shield_capsule
+	name = "meteor shield satellite capsule"
+	desc = "A bluespace capsule which a single unit of meteor shield satellite is compressed within. If you activate this capsule, a meteor shield satellite will pop out. You still need to install these."
+	icon_state = "capsule"
+	icon = 'icons/obj/mining.dmi'
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/meteor_shield_capsule/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/deployable, 5 SECONDS, /obj/machinery/satellite/meteor_shield, delete_on_use = TRUE)
