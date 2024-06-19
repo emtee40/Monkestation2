@@ -383,14 +383,14 @@
 
 /obj/item/ammo_casing/energy/cybersun_big_disabler
 	projectile_type = /obj/projectile/beam/cybersun_laser/disable
-	e_cost = 100
+	e_cost = 75
 	select_name = "Disable"
 	harmful = FALSE
 
 /obj/projectile/beam/cybersun_laser/disable
 	icon_state = "disable_large"
 	damage = 0
-	stamina = 50
+	stamina = 35
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = COLOR_BRIGHT_BLUE
 
