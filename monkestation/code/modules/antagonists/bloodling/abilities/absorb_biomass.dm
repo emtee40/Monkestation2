@@ -1,7 +1,7 @@
 /datum/action/cooldown/mob_cooldown/bloodling/absorb
 	name = "Absorb Biomass"
 	desc = "Allows you to absorb a dead carbon or living mob close to you."
-	button_icon_state = "alien_hide"
+	button_icon_state = "absorb"
 
 /datum/action/cooldown/mob_cooldown/bloodling/absorb/PreActivate(atom/target)
 	if(owner == target)
