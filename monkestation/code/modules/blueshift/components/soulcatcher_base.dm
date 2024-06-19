@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(soulcatchers)
 	/// What is the max number of people we can keep in this soulcatcher? If this is set to `FALSE` we don't have a limit
 	var/max_souls = FALSE
 	/// Are are the souls inside able to emote/speak as the parent?
-	var/communicate_as_parent = FALSE
+	var/communicate_as_parent = TRUE
 	/// Is the soulcatcher removable from the parent object?
 	var/removable = FALSE
 
