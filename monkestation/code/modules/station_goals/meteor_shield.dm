@@ -108,6 +108,7 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 			/datum/round_event_control/space_dust,
 			/datum/round_event_control/stray_meteor
 		))
-	for(var/datum/round_event_control/event as anything in SSevents.control + SSgamemode.control)
+	var/list/all_events = SSevents.control | SSgamemode.control
+	for(var/datum/round_event_control/event as anything in all_events)
 		if(is_type_in_typecache(event, meteor_event_typecache))
 			event.weight *= mod
