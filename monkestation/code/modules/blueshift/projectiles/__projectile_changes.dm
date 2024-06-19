@@ -350,14 +350,14 @@
 
 /obj/item/ammo_casing/energy/cybersun_big_kill
 	projectile_type = /obj/projectile/beam/cybersun_laser
-	e_cost = LASER_SHOTS(20, 50 * 2)
+	e_cost = 200
 	select_name = "Kill"
 	fire_sound = 'monkestation/code/modules/blueshift/sounds/laser_firing/laser.ogg'
 
 /obj/projectile/beam/cybersun_laser
 	icon = 'monkestation/code/modules/blueshift/icons/obj/company_and_or_faction_based/saibasan/projectiles.dmi'
 	icon_state = "kill_large"
-	damage = 20
+	damage = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_SOFT_RED
 	wound_falloff_tile = 1
@@ -366,13 +366,13 @@
 
 /obj/item/ammo_casing/energy/cybersun_big_sniper
 	projectile_type = /obj/projectile/beam/cybersun_laser/marksman
-	e_cost = 100
+	e_cost = 300
 	select_name = "Marksman"
 	fire_sound = 'monkestation/code/modules/blueshift/sounds/laser_firing/vaporize.ogg'
 
 /obj/projectile/beam/cybersun_laser/marksman
 	icon_state = "sniper"
-	damage = 50
+	damage = 30
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/yellow_laser
 	speed = 0.4
 	light_outer_range = 2
@@ -383,7 +383,7 @@
 
 /obj/item/ammo_casing/energy/cybersun_big_disabler
 	projectile_type = /obj/projectile/beam/cybersun_laser/disable
-	e_cost = LASER_SHOTS(20, 1000 * 2)
+	e_cost = 100
 	select_name = "Disable"
 	harmful = FALSE
 
@@ -398,7 +398,7 @@
 
 /obj/item/ammo_casing/energy/cybersun_big_launcher
 	projectile_type = /obj/projectile/beam/cybersun_laser/granata
-	e_cost = 200
+	e_cost = 400
 	select_name = "Launcher"
 
 /obj/projectile/beam/cybersun_laser/granata
