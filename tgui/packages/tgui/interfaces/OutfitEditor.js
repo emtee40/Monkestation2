@@ -18,6 +18,7 @@ export const OutfitEditor = (props, context) => {
           src={`data:image/jpeg;base64,${dummy64}`}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
+            'image-rendering': 'pixelated',
           }}
         />
         <Section
@@ -143,6 +144,7 @@ const OutfitSlot = (props, context) => {
               title={currItem?.desc}
               style={{
                 '-ms-interpolation-mode': 'nearest-neighbor',
+                'image-rendering': 'pixelated',
               }}
             />
             <Icon
