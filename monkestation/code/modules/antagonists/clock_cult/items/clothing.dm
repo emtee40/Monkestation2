@@ -170,6 +170,7 @@
 
 	previous_alpha = wearer.alpha
 	animate(wearer, alpha = 80, time = 3 SECONDS)
+	//wearer.add_filter("clock_cloak", 3, list("type" = "blur", "size" = "6"))
 	apply_wibbly_filters(wearer)
 	ADD_TRAIT(wearer, TRAIT_UNKNOWN, CLOTHING_TRAIT)
 
@@ -180,6 +181,7 @@
 		return
 
 	do_sparks(3, FALSE, wearer)
+	//wearer.remove_filter("clock_cloak")
 	remove_wibbly_filters(wearer)
 	animate(wearer, alpha = previous_alpha, time = 3 SECONDS)
 	REMOVE_TRAIT(wearer, TRAIT_UNKNOWN, CLOTHING_TRAIT)

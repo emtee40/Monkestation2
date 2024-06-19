@@ -18,7 +18,7 @@
 	. = ..()
 
 /datum/scripture/create_structure/anchoring_crystal/process(seconds_per_tick)
-	time_until_invokable = time_until_invokable - seconds_per_tick
+	time_until_invokable = time_until_invokable - (seconds_per_tick SECONDS)
 	if(time_until_invokable <= 0)
 		var/datum/scripture/create_structure/anchoring_crystal/global_datum = GLOB.clock_scriptures_by_type[/datum/scripture/create_structure/anchoring_crystal]
 		STOP_PROCESSING(SSprocessing, global_datum)
@@ -34,7 +34,7 @@
 		return FALSE
 
 	var/datum/objective/anchoring_crystals/crystals_objective = locate() in GLOB.main_clock_cult?.objectives
-	if(!crystals_objective?.valid_areas.len)
+	if(!length(crystals_objective?.valid_areas))
 		return FALSE
 
 	if(get_charged_anchor_crystals() && !(get_area(invoker) in crystals_objective.valid_areas))
