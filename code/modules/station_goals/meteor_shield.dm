@@ -172,18 +172,14 @@ monkestation end */
 			say("Warning. Warning. Dark Matt-eor on course for station.")
 			force_event_async(/datum/round_event_control/dark_matteor, "an array of tampered meteor satellites")
 
+/* monkestation edit: reworked in [monkestation\code\modules\station_goals\meteor_shield.dm]
 /obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod)
 	// Update the weight of all meteor events
 	for(var/datum/round_event_control/meteor_wave/meteors in SSevents.control)
 		meteors.weight *= mod
 	for(var/datum/round_event_control/stray_meteor/stray_meteor in SSevents.control)
 		stray_meteor.weight *= mod
-	// monkestation edit: storytellers
-	for(var/datum/round_event_control/meteor_wave/meteors in SSgamemode.control)
-		meteors.weight *= mod
-	for(var/datum/round_event_control/stray_meteor/stray_meteor in SSgamemode.control)
-		stray_meteor.weight *= mod
-	// monkestation end
+monkestation end */
 
 #undef EMAGGED_METEOR_SHIELD_THRESHOLD_ONE
 #undef EMAGGED_METEOR_SHIELD_THRESHOLD_TWO

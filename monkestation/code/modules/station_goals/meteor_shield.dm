@@ -98,3 +98,16 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 			covered_tiles |= range(sat.kill_range, sat)
 	return length(covered_tiles)
 
+
+/obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod = 1)
+	var/static/list/meteor_event_typecache
+	if(!meteor_event_typecache)
+		meteor_event_typecache = typecacheof(list(
+			/datum/round_event_control/meteor_wave,
+			/datum/round_event_control/sandstorm,
+			/datum/round_event_control/space_dust,
+			/datum/round_event_control/stray_meteor
+		))
+	for(var/datum/round_event_control/event as anything in SSevents.control + SSgamemode.control)
+		if(is_type_in_typecache(event, meteor_event_typecache))
+			event.weight *= mod
