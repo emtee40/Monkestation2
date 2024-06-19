@@ -317,7 +317,7 @@
 /obj/projectile/bullet/c10mm/rubber
 	name = "10mm rubber bullet"
 	damage = 10
-	stamina = 35
+	stamina = 37
 	ricochets_max = 6
 	ricochet_incidence_leeway = 0
 	ricochet_chance = 130
