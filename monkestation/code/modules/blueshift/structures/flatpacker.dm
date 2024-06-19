@@ -77,6 +77,9 @@
 
 	update_static_data_for_all_viewers()
 
+/obj/machinery/rnd/production/colony_lathe/calculate_efficiency()
+	return
+
 // Item for carrying the lathe around and building it
 
 /obj/item/flatpacked_machine
