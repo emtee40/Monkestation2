@@ -97,7 +97,15 @@
 	if(!loaded_magazine)
 		return
 	var/obj/item/ammo_casing/ammo_type = loaded_magazine.ammo_type
-	possible_ammo_types = list(ammo_type) // literally just for the niche edgecase of shotgun slug boxes
+	var/ammo_caliber = initial(ammo_type.caliber)
+	var/obj/item/ammo_casing/ammo_parent_type = type2parent(ammo_type)
+
+	if(loaded_magazine.multitype)
+		if(ammo_caliber == initial(ammo_parent_type.caliber) && ammo_caliber != null)
+			ammo_type = ammo_parent_type
+		possible_ammo_types = typesof(ammo_type)
+	else
+		possible_ammo_types = list(ammo_type) // literally just for the niche edgecase of shotgun slug boxes
 
 	for(var/obj/item/ammo_casing/our_casing as anything in possible_ammo_types) // this is a list of TYPES, not INSTANCES
 		if(!adminbus)

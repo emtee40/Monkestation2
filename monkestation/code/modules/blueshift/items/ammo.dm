@@ -14,6 +14,11 @@
 
 #define GRENADE_SMOKE_RANGE 0.75
 
+/obj/item/ammo_box
+	/// When inserted into an ammo workbench, does this ammo box check for parent ammunition to search for subtypes of? Relevant for surplus clips, multi-sprite magazines.
+	/// Maybe don't enable this for shotgun ammo boxes.
+	var/multitype = TRUE
+
 // .980 grenades
 // Grenades that can be given a range to detonate at by their firing gun
 
@@ -1008,7 +1013,7 @@
 	icon_state = "slug"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 15
-	//multitype = FALSE // if you enable this and set the box's caliber var to CALIBER_SHOTGUN (at time of writing, "shotgun"), then you can have the fabled any-ammo shellbox
+	multitype = FALSE // if you enable this and set the box's caliber var to CALIBER_SHOTGUN (at time of writing, "shotgun"), then you can have the fabled any-ammo shellbox
 
 /obj/item/ammo_box/advanced/s12gauge/buckshot
 	name = "Buckshot ammo box"
