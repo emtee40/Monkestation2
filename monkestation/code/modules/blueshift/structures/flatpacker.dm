@@ -31,6 +31,12 @@
 	QDEL_NULL(soundloop)
 	return ..()
 
+/obj/machinery/rnd/production/colony_lathe/on_deconstruction()
+	. = ..()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.retrieve_all()
+
+
 // previously NO_DECONSTRUCTION
 /obj/machinery/rnd/production/colony_lathe/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
 	return NONE
