@@ -182,7 +182,7 @@ export const OpposingForceTab = (props, context) => {
           </Stack>
           <Stack>
             <Stack.Item>
-              <a href="https://docs.google.com/document/u/0/d/e/2PACX-1vRVI8-SmicLDV7ny_8BwJ3s8nIYBPU-nhrFDNA95VQxfpmGeUWEuqsnHr1_YDBoEUYRSITEoUbnWlru/pub?pli=1">
+              <a href="https://wiki.monkestation.com/en/opfor">
                 <Button
                   icon="info"
                   color="orange"
@@ -192,7 +192,7 @@ export const OpposingForceTab = (props, context) => {
               </a>
             </Stack.Item>
             <Stack.Item>
-              <a href="https://wiki.novasector13.com/index.php/Antagonist_Policy#Opfor_Related_Stuff:">
+              <a href="https://wiki.monkestation.com/en/opfor">
                 <Button
                   icon="wrench"
                   color="red"
@@ -202,7 +202,7 @@ export const OpposingForceTab = (props, context) => {
               </a>
             </Stack.Item>
             <Stack.Item>
-              <a href="https://wiki.novasector13.com/index.php/Server_Rules#Rule_10:_No_Self-Antagging">
+              <a href="https://wiki.monkestation.com/en/home">
                 <Button
                   icon="question"
                   color="yellow"
