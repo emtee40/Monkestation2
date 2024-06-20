@@ -187,6 +187,7 @@ const BloodsuckerClan = (props: any, context: any) => {
                     src={resolveAsset(`bloodsucker.${ClanInfo.clan_icon}.png`)}
                     style={{
                       '-ms-interpolation-mode': 'nearest-neighbor',
+                      'image-rendering': 'pixelated',
                       'position': 'absolute',
                     }}
                   />

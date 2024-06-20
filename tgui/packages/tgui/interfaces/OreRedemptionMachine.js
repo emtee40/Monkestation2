@@ -181,6 +181,7 @@ const MaterialRow = (props, context) => {
             width="18px"
             style={{
               '-ms-interpolation-mode': 'nearest-neighbor',
+              'image-rendering': 'pixelated',
               'vertical-align': 'middle',
             }}
           />
