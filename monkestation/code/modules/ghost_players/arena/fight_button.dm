@@ -164,19 +164,10 @@
 
 /obj/structure/fight_button/proc/prep_player(mob/living/carbon/human/ghost/player, obj/effect/landmark/duel_arena/dueler_spawn/spawn_location)
 	player.unequip_everything()
-	player.fully_heal()
-
-	if(HAS_TRAIT(player, TRAIT_PACIFISM))
-		to_chat(player, span_notice("Your pacifism has been removed."))
-		// null will remove the trait from all sources
-		REMOVE_TRAIT(player, TRAIT_PACIFISM, null)
-
 	var/obj/item/weapon = new weapon_of_choice(src)
 	spawned_weapons += WEAKREF(weapon)
 	player.forceMove(get_turf(spawn_location))
-	player.equipOutfit(/datum/outfit/ghost_player)
 	player.put_in_active_hand(weapon, TRUE)
-	player.dueling = TRUE
 	SEND_SIGNAL(player, COMSIG_HUMAN_BEGIN_DUEL)
 
 /obj/structure/fight_button/proc/end_duel(mob/living/carbon/human/ghost/loser)
@@ -186,16 +177,9 @@
 		player_one.client.prefs.adjust_metacoins(player_one.ckey, payout * 2, "Won Duel.", donator_multipler = FALSE)
 	addtimer(CALLBACK(src, GLOBAL_PROC_REF(reset_arena_area)), 5 SECONDS)
 
-	player_one.linked_button = null
-	player_two.linked_button = null
-	player_one.dueling = FALSE
-	player_two.dueling = FALSE
 	SEND_SIGNAL(player_one, COMSIG_HUMAN_END_DUEL)
 	SEND_SIGNAL(player_two, COMSIG_HUMAN_END_DUEL)
 
-	// qdeling of the dueler component should happen in the component itself...
-	qdel(player_one.GetComponent(/datum/component/centcom_dueler))
-	qdel(player_two.GetComponent(/datum/component/centcom_dueler))
 	player_one = null
 	player_two = null
 
@@ -221,3 +205,28 @@
 
 	src.dueler = parent
 	src.linked_fight_button = fight_button
+
+/datum/component/centcom_dueler/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_HUMAN_BEGIN_DUEL, PROC_REF(begin_duel))
+	RegisterSignal(parent, COMSIG_HUMAN_END_DUEL, PROC_REF(end_duel))
+
+/datum/component/centcom_dueler/UnregisterFromParent()
+	UnregisterSignal(parent, list(COMSIG_HUMAN_BEGIN_DUEL, COMSIG_HUMAN_END_DUEL))
+
+/datum/component/centcom_dueler/proc/begin_duel()
+	src.dueler.fully_heal()
+
+	if(HAS_TRAIT(src.dueler, TRAIT_PACIFISM))
+		to_chat(src.dueler, span_notice("Your pacifism has been removed."))
+		// null will remove the trait from all sources
+		REMOVE_TRAIT(src.dueler, TRAIT_PACIFISM, null)
+
+	src.dueler.equipOutfit(/datum/outfit/ghost_player)
+	src.dueler.dueling = TRUE
+
+	// TODO: We still need to handle spawning weapons and moving the player to their spawn location
+
+/datum/component/centcom_dueler/proc/end_duel()
+	src.dueler.dueling = FALSE
+
+	qdel(src)
