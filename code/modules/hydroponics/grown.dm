@@ -75,6 +75,10 @@
 
 	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
 
+	var/datum/plant_gene/trait/trait_noreact = seed.get_gene(/datum/plant_gene/trait/noreact)
+	if(trait_noreact)
+		trait_noreact.on_new_plant(src, loc)
+
 	seed.prepare_result(src)
 	transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 
