@@ -260,3 +260,6 @@
 
 /obj/item/gun/ballistic/revolver/syndicate/nuclear
 	pin = /obj/item/firing_pin/implant/pindicate
+
+/obj/item/gun/ballistic/bow/can_trigger_gun(mob/living/user, akimbo_usage)
+	return TRUE
