@@ -20,8 +20,6 @@
 	var/obj/item/weapon_of_choice = /obj/item/storage/toolbox
 	///the wager in monkecoins thats paid out to the winner
 	var/payout = 0
-	///list of weakrefs to spawned weapons for deletion on duel end
-	var/list/spawned_weapons = list()
 
 	///what weapons can players choose to duel with
 	var/list/weapon_choices = list(
@@ -165,9 +163,10 @@
 /obj/structure/fight_button/proc/prep_player(mob/living/carbon/human/ghost/player, obj/effect/landmark/duel_arena/dueler_spawn/spawn_location)
 	player.unequip_everything()
 	var/obj/item/weapon = new weapon_of_choice(src)
-	spawned_weapons += WEAKREF(weapon)
 	player.forceMove(get_turf(spawn_location))
 	player.put_in_active_hand(weapon, TRUE)
+	weapon.AddElement(/datum/element/area_locked, list(get_turf(spawn_location)))
+
 	SEND_SIGNAL(player, COMSIG_HUMAN_BEGIN_DUEL)
 
 /obj/structure/fight_button/proc/end_duel(mob/living/carbon/human/ghost/loser)
@@ -185,10 +184,6 @@
 
 	payout = 0
 	update_maptext()
-	for(var/datum/weakref/weapon in spawned_weapons)
-		var/obj/item/spawned_weapon = weapon?.resolve()
-		if(spawned_weapon)
-			qdel(spawned_weapon)
 
 /datum/component/centcom_dueler
 	var/mob/living/carbon/human/ghost/dueler
