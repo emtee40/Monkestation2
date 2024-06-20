@@ -240,3 +240,18 @@
 	greyscale_config_worn = /datum/greyscale_config/sweet_bow/worn
 	greyscale_colors = "#7b9ab5"
 	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/head/beret/sec/nri
+	name = "commander's beret"
+	desc = "Za rodinu!!"
+	armor_type = /datum/armor/sec_nri
+
+/datum/armor/sec_nri
+	melee = 40
+	bullet = 35
+	laser = 30
+	energy = 40
+	bomb = 25
+	fire = 20
+	acid = 50
+	wound = 20

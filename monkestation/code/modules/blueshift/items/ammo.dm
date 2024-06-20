@@ -1414,3 +1414,41 @@
 /obj/projectile/bullet/honkshot/on_range()
 	do_sparks(1, TRUE, src)
 	return ..()
+
+
+/obj/item/ammo_box/magazine/c980_grenade/thunderdome_fire
+	ammo_type = /obj/item/ammo_casing/c980grenade/shrapnel/phosphor
+
+/obj/item/ammo_box/magazine/c980_grenade/thunderdome_shrapnel
+	ammo_type = /obj/item/ammo_casing/c980grenade/shrapnel
+
+/obj/item/ammo_box/magazine/c980_grenade/thunderdome_smoke
+	ammo_type = /obj/item/ammo_casing/c980grenade/smoke
+
+/obj/item/ammo_box/magazine/c980_grenade/thunderdome_gas
+	ammo_type = /obj/item/ammo_casing/c980grenade/riot
+
+/obj/item/ammo_box/magazine/c980_grenade/drum
+	name = "\improper Kiboko grenade drum"
+	desc = "A drum for .980 grenades, holds six shells."
+
+	icon_state = "granata_drum"
+
+	w_class = WEIGHT_CLASS_NORMAL
+
+	max_ammo = 6
+
+/obj/item/ammo_box/magazine/c980_grenade/drum/starts_empty
+	start_empty = TRUE
+
+/obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_fire
+	ammo_type = /obj/item/ammo_casing/c980grenade/shrapnel/phosphor
+
+/obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_shrapnel
+	ammo_type = /obj/item/ammo_casing/c980grenade/shrapnel
+
+/obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_smoke
+	ammo_type = /obj/item/ammo_casing/c980grenade/smoke
+
+/obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_gas
+	ammo_type = /obj/item/ammo_casing/c980grenade/riot
