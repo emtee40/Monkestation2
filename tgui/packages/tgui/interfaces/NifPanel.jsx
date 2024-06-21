@@ -12,10 +12,7 @@ export const NifPanel = (props) => {
     max_power,
     current_theme,
   } = data;
-  const [settingsOpen, setSettingsOpen] = useLocalState(
-    'settingsOpen',
-    false
-  );
+  const [settingsOpen, setSettingsOpen] = useLocalState('settingsOpen', false);
 
   return (
     <Window
