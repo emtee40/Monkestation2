@@ -13,6 +13,7 @@
 	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/under/skirts_dresses.dmi'
 
 /obj/item/clothing/under/dress/skirt/nova	//Just so they can stay under TG's skirts in case code needs subtypes of them (also SDMM dropdown looks nicer like this)
+	icon_state = "long_skirt"
 	icon = 'monkestation/code/modules/blueshift/icons/obj/clothing/under/skirts_dresses.dmi'
 	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/under/skirts_dresses.dmi'
 

@@ -338,7 +338,7 @@
 		Has a higher capacity than standard Sakhno rifles, fitting ten .310 cartridges."
 	icon = 'monkestation/code/modules/blueshift/icons/obj/company_and_or_faction_based/xhihao_light_arms/guns40x.dmi'
 	icon_state = "rengo"
-	inhand_icon_state = "enchanted_rifle"
+	inhand_icon_state = "moistnugget"
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/bubba
 	can_be_sawn_off = FALSE
 	knife_x_offset = 35
