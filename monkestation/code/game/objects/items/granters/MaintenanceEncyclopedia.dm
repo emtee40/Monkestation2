@@ -10,12 +10,9 @@
 		/datum/crafting_recipe/trashball,
 	)
 	remarks = list(
-		"Seems they found a way to strap a bomb to a spear.",
-		"This doesnt seem very safe.",
-		"How do I survive a point blank impact from this?",
-		"Whats a bomb suit and why would I need one?",
-		"Just tie a bomb to a spear?",
-		"I just realised why this book is charred.",
+		"I never knew assistants could be this creative.",
+		"You can make that with what?",
+		"Why would I make these when I can just buy a gun from cargo?", // Maybe needs more.
 	)
 
 /obj/item/book/granter/crafting_recipe/maintgodgranter/recoil(mob/living/user)
