@@ -308,11 +308,6 @@
 	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/hands.dmi'
 	icon_state = "combat"
 
-// Remove the override for these subtypes
-/obj/item/clothing/gloves/combat/floortile
-	icon = 'icons/obj/clothing/gloves.dmi'
-	worn_icon = null
-
 /obj/item/clothing/gloves/combat/wizard
 	icon = 'icons/obj/clothing/gloves.dmi'
 	worn_icon = null
@@ -510,6 +505,14 @@
 	icon = 'monkestation/code/modules/blueshift/icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/suits/armor.dmi'
 	current_skin = "ip_officercloak" //prevents reskinning
+
+/obj/item/clothing/suit/toggle/labcoat/nova
+	name = "MONKE LABCOAT SUIT DEBUG"
+	desc = "REPORT THIS IF FOUND"
+	icon = 'monkestation/code/modules/blueshift/icons/obj/clothing/suits/labcoat.dmi'
+	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/suits/labcoat.dmi'
+	icon_state = null //Keeps this from showing up under the chameleon hat
+
 
 /obj/item/clothing/suit/toggle/labcoat/nova/interdyne_labcoat/black
 	name = "interdyne black labcoat"

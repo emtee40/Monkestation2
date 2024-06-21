@@ -125,3 +125,8 @@
 	icon_state = "hood_blueshield"
 	desc = "A comfy kevlar-lined hood to go with the comfy kevlar-lined coat."
 	armor_type = /datum/armor/suit_armor
+
+/obj/item/clothing/head/hooded/winterhood/nova
+	icon = 'monkestation/code/modules/blueshift/icons/obj/clothing/head/winterhood.dmi'
+	worn_icon = 'monkestation/code/modules/blueshift/icons/mob/clothing/head/winterhood.dmi'
+	icon_state = "hood_aformal"
