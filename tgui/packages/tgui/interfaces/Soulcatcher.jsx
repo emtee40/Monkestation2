@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { BlockQuote, Box, Button, Collapsible, Divider, Flex, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Soulcatcher = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Soulcatcher = (props) => {
+  const { act, data } = useBackend();
   const {
     require_approval,
     current_rooms = [],

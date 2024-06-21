@@ -5,9 +5,9 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Collapsible, Input, LabeledList, NoticeBox, NumberInput, Section, Slider, Stack, Tabs, TextArea } from '../components';
 import { Window } from '../layouts';
 
-export const OpposingForcePanel = (props, context) => {
-  const [tab, setTab] = useLocalState(context, 'tab', 1);
-  const { act, data } = useBackend(context);
+export const OpposingForcePanel = (props) => {
+  const [tab, setTab] = useLocalState('tab', 1);
+  const { act, data } = useBackend();
   const { admin_mode, creator_ckey, owner_antag, opt_in_enabled } = data;
   return (
     <Window
@@ -85,8 +85,8 @@ export const OpposingForcePanel = (props, context) => {
   );
 };
 
-export const OpposingForceTab = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OpposingForceTab = (props) => {
+  const { act, data } = useBackend();
   const {
     creator_ckey,
     objectives = [],
@@ -251,12 +251,11 @@ export const OpposingForceTab = (props, context) => {
   );
 };
 
-export const OpposingForceObjectives = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OpposingForceObjectives = (props) => {
+  const { act, data } = useBackend();
   const { objectives = [], can_edit } = data;
 
   const [selectedObjectiveID, setSelectedObjective] = useLocalState(
-    context,
     'objectives',
     objectives[0]?.id
   );
@@ -501,8 +500,8 @@ export const OpposingForceObjectives = (props, context) => {
   );
 };
 
-export const EquipmentTab = (props, context) => {
-  const { act, data } = useBackend(context);
+export const EquipmentTab = (props) => {
+  const { act, data } = useBackend();
   const { equipment_list = [], selected_equipment = [], can_edit } = data;
   return (
     <Stack vertical grow>
@@ -612,8 +611,8 @@ export const EquipmentTab = (props, context) => {
   );
 };
 
-export const AdminChatTab = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AdminChatTab = (props) => {
+  const { act, data } = useBackend();
   const { messages = [] } = data;
   return (
     <Stack vertical fill>
@@ -642,8 +641,8 @@ export const AdminChatTab = (props, context) => {
   );
 };
 
-export const AdminTab = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AdminTab = (props) => {
+  const { act, data } = useBackend();
   const {
     request_updates_muted,
     approved,
@@ -926,8 +925,8 @@ export const AdminTab = (props, context) => {
   );
 };
 
-export const TargetTab = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TargetTab = (props) => {
+  const { act, data } = useBackend();
   const { current_crew = [], opt_in_colors = { optin, color } } = data;
   return (
     <Stack vertical fill>

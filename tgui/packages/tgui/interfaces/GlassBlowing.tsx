@@ -34,7 +34,7 @@ type RemainingSteps = {
 };
 
 export const GlassBlowing = (_: any, context: any) => {
-  const { act, data } = useBackend<GlassData>(context);
+  const { act, data } = useBackend<GlassData>();
   const { glass, inUse } = data;
 
   return (
