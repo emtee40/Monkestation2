@@ -2,6 +2,7 @@
 
 /obj/machinery/power/solar/deployable
 	icon = 'monkestation/code/modules/blueshift/icons/machines.dmi'
+	flags_1 = parent_type::flags_1 | NODECONSTRUCT_1
 	/// The item we turn into when repacked
 	var/repacked_type = /obj/item/flatpacked_machine/solar
 
@@ -13,7 +14,7 @@
 /obj/machinery/power/solar/deployable/crowbar_act(mob/user, obj/item/I)
 	return
 
-/obj/machinery/power/solar/deployable/on_deconstruction(disassembled)
+/obj/machinery/power/solar/deployable/deconstruct(disassembled)
 	var/obj/item/solar_assembly/assembly = locate() in src
 	if(assembly)
 		qdel(assembly)
