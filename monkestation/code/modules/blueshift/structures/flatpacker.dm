@@ -97,12 +97,14 @@
 	var/obj/type_to_deploy = /obj/machinery/rnd/production/colony_lathe
 	/// How long it takes to create the structure in question.
 	var/deploy_time = 4 SECONDS
+	var/skips_deployable_component = FALSE
 
 /obj/item/flatpacked_machine/Initialize(mapload)
 	. = ..()
-	desc = initial(type_to_deploy.desc)
-	give_deployable_component()
-	give_manufacturer_examine()
+	if(!skips_deployable_component)
+		desc = initial(type_to_deploy.desc)
+		give_deployable_component()
+		give_manufacturer_examine()
 
 /// Adds the deployable component, so that it can be overridden in case that's wanted
 /obj/item/flatpacked_machine/proc/give_deployable_component()
@@ -119,3 +121,13 @@
 /obj/item/borg/apparatus/circuit/Initialize(mapload)
 	. = ..()
 	storable += /obj/item/flatpacked_machine
+
+
+/obj/item/flatpacked_machine/generic
+	name = "generic flat-packed machine"
+	skips_deployable_component = TRUE
+
+/obj/item/flatpacked_machine/generic/proc/after_set()
+	name = "flat-packed [initial(type_to_deploy.name)]"
+	desc = initial(type_to_deploy.desc)
+	give_deployable_component()

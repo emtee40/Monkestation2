@@ -9,15 +9,21 @@
 	var/repacking_time
 	/// Do we tell objects destroyed that we disassembled them?
 	var/disassemble_objects
+	///are we a generic repack?
+	var/generic_repack
 
-/datum/element/repackable/Attach(datum/target, item_to_pack_into = /obj/item, repacking_time = 1 SECONDS, disassemble_objects = TRUE)
+/datum/element/repackable/Attach(datum/target, item_to_pack_into = /obj/item/flatpacked_machine, repacking_time = 1 SECONDS, disassemble_objects = TRUE, generic_repack = FALSE)
 	. = ..()
 	if(!isatom(target))
+		return ELEMENT_INCOMPATIBLE
+
+	if(generic_repack && !ispath(item_to_pack_into, /obj/item/flatpacked_machine/generic))
 		return ELEMENT_INCOMPATIBLE
 
 	src.item_to_pack_into = item_to_pack_into
 	src.repacking_time = repacking_time
 	src.disassemble_objects = disassemble_objects
+	src.generic_repack = generic_repack
 
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(on_right_click))
@@ -51,7 +57,12 @@
 
 	playsound(source, 'sound/items/ratchet.ogg', 50, TRUE)
 
-	new item_to_pack_into(source.drop_location())
+	if(generic_repack)
+		var/obj/item/flatpacked_machine/generic/new_pack = new item_to_pack_into(source.drop_location())
+		new_pack.type_to_deploy = source.type
+		new_pack.after_set()
+	else
+		new item_to_pack_into(source.drop_location())
 
 	if(istype(source, /obj))
 		var/obj/source_object = source
