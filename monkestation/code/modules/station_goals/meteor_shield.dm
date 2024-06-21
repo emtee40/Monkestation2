@@ -15,6 +15,10 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 	setup_proximity()
 	register_context()
 
+/obj/machinery/satellite/meteor_shield/examine(mob/user)
+	. = ..()
+	. += span_info("It has stopped <b>[meteors_zapped]</b> meteors so far.")
+
 /obj/machinery/satellite/meteor_shield/proc/on_space_move(datum/source)
 	SIGNAL_HANDLER
 	return COMSIG_MOVABLE_STOP_SPACEMOVE
