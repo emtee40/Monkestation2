@@ -113,8 +113,8 @@
 		affected_human.update_body_parts()
 	//Only like gross food
 	affected_human.dna?.species.liked_food = GROSS
-	affected_human.dna?.species.disliked_food = NONE
-	affected_human.dna?.species.toxic_food = ~(GROSS | RAW | GORE | MEAT) // Monke, you can eat raw rats and whatnot.
+	affected_human.dna?.species.disliked_food = TOXIC // Toxic food won't kill you, but it doesn't taste good still.
+	affected_human.dna?.species.toxic_food = ~(GROSS | RAW | GORE | MEAT | BUGS | TOXIC | ALCOHOL) // Monke, you can eat raw rats and whatnot.
 
 /datum/addiction/maintenance_drugs/withdrawal_enters_stage_3(mob/living/carbon/affected_carbon)
 	. = ..()
