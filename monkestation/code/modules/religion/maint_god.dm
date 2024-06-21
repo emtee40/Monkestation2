@@ -66,9 +66,9 @@
 	name = "Maintenance apparition"
 	desc = "Summons a pile of loot from the depths of maintenance."
 	ritual_length = 5 SECONDS
-	ritual_invocations =list( "Let your will power our forges.",
-							"...Help us in our great conquest!")
-	invoke_msg = "The end of flesh is near!"
+	ritual_invocations =list( "The tunnels are an infinite bounty.",
+							"They nourish us.")
+	invoke_msg = "Let us reap the harvest!"
 	favor_cost = 50
 	var/amount = 5
 
