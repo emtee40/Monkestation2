@@ -50,7 +50,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod, 32)
 
 /obj/machinery/computer/cryopod/Initialize(mapload)
 	. = ..()
-	REGISTER_REQUIRED_MAP_ITEM(1, INFINITY)
 	GLOB.cryopod_computers += src
 	radio = new radio(src)
 
