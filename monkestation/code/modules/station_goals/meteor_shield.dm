@@ -5,6 +5,8 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 	var/check_sight = TRUE
 	/// The proximity monitor used to detect meteors entering the shield's range.
 	var/datum/proximity_monitor/meteor_monitor
+	/// A counter for how many meteors this specific satellite has zapped.
+	var/meteors_zapped = 0
 
 /obj/machinery/satellite/meteor_shield/Initialize(mapload)
 	. = ..()
@@ -49,6 +51,8 @@ GLOBAL_LIST_EMPTY(meteor_shield_sats)
 	if(meteor.shield_defense(src))
 		new /obj/effect/temp_visual/explosion(meteor_turf)
 		INVOKE_ASYNC(src, PROC_REF(play_zap_sound), meteor_turf)
+		SSblackbox.record_feedback("tally", "meteors_zapped", 1, "[meteor.type]")
+		meteors_zapped++
 		qdel(meteor)
 
 /obj/machinery/satellite/meteor_shield/proc/check_los(turf/source, turf/target) as num
