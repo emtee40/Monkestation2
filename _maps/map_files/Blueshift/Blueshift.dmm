@@ -4708,6 +4708,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 9
 	},
+/obj/machinery/computer/department_orders/science{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/science/lab)
 "aXj" = (
@@ -14698,6 +14701,17 @@
 /obj/item/mod/module/plasma_stabilizer,
 /obj/item/mod/module/signlang_radio,
 /obj/item/mod/module/thermal_regulator,
+/obj/item/storage/box/rxglasses{
+	pixel_y = 5
+	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 4;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -8;
+	pixel_y = 8
+	},
 /turf/open/floor/iron,
 /area/station/medical/storage)
 "cMX" = (
@@ -27593,6 +27607,10 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/wood/parquet,
 /area/station/command/heads_quarters/nt_rep)
+"fnT" = (
+/obj/structure/curtain,
+/turf/closed/wall,
+/area/station/medical/cryo)
 "fnY" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8;
@@ -33373,22 +33391,13 @@
 /turf/open/floor/iron/dark/herringbone,
 /area/station/common/night_club/back_stage)
 "gww" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 6
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/east,
-/obj/item/storage/box/bodybags{
-	pixel_x = 4;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/item/storage/box/rxglasses{
-	pixel_y = 5
+/obj/machinery/computer/department_orders/medical{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/storage)
@@ -47675,7 +47684,11 @@
 	},
 /obj/machinery/shower/directional/west,
 /obj/structure/drain,
-/turf/open/floor/iron/dark,
+/obj/structure/curtain,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/noslip,
 /area/station/medical/treatment_center)
 "jpD" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -49135,6 +49148,9 @@
 /area/station/security/brig)
 "jDW" = (
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/computer/department_orders/service{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/side,
 /area/station/hallway/secondary/service)
 "jEg" = (
@@ -64883,7 +64899,9 @@
 	},
 /obj/machinery/shower/directional/west,
 /obj/structure/drain,
-/turf/open/floor/iron/dark,
+/obj/structure/curtain,
+/obj/structure/railing,
+/turf/open/floor/noslip,
 /area/station/medical/treatment_center)
 "mIr" = (
 /obj/effect/turf_decal/stripes{
@@ -107640,13 +107658,13 @@
 /area/station/maintenance/abandon_exam/cat)
 "uTu" = (
 /obj/structure/cable,
-/obj/machinery/modular_computer/preset/engineering{
-	dir = 8
-	},
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/item/paper/fluff{
 	default_raw_text = "To the Engineers of BlueShift, we would like to inform you that the power draw at the start of your shift may be something you're not used to while working on stations. BlueShift is equipped with departmental power banks. You should NEVER connect departments into the main power net to avoid issues. These power banks are located in maintenance around their respective departments, and the head of said department may come in at their leisure. If you ever encounter issues, please have your Chief Engineer contact Central Command. Have a secure shift.";
 	name = "Note to Electricians"
+	},
+/obj/machinery/computer/department_orders/engineering{
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/engine_smes)
@@ -230939,7 +230957,7 @@ nHw
 nHw
 nHw
 wEY
-qWK
+fnT
 qWK
 qWK
 qWK
