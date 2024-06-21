@@ -21,11 +21,10 @@ type SongNames = {
   side2: string[];
 };
 
-export const MixtapeSpawner = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const MixtapeSpawner = (props) => {
+  const { act, data } = useBackend<Data>();
   const { approved_cassettes } = data;
   const [selected_cassette, setSelectedCassette] = useLocalState(
-    context,
     'selected_cassette',
     approved_cassettes[0]
   );
