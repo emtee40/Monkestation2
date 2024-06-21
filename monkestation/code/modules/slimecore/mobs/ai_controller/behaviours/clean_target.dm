@@ -17,7 +17,8 @@
 		finish_action(controller, FALSE, target_key)
 		return
 
-	living_pawn.visible_message(span_notice("[living_pawn] dissolves the [target]."))
+	living_pawn.balloon_alert_to_viewers("cleaned")
+	living_pawn.visible_message(span_notice("[living_pawn] dissolves \the [target]."))
 	SEND_SIGNAL(living_pawn, COMSIG_MOB_FEED, target, 20)
 	qdel(target) // Sent to the shadow realm to never be seen again
 	finish_action(controller, TRUE, target_key)
@@ -36,7 +37,10 @@
 	action_cooldown = 2 SECONDS
 
 /datum/ai_behavior/find_and_set/in_list/clean_targets_slime/search_tactic(datum/ai_controller/controller, locate_paths, search_range)
-	var/list/found = typecache_filter_list(oview(search_range, controller.pawn), locate_paths)
-	if(length(found))
-		return pick(found)
+	var/list/found
+	for(var/obj/item as anything in spiral_range(search_range, controller.pawn, TRUE))
+		if(QDELETED(item))
+			continue
+		if(is_type_in_typecache(item, locate_paths) || HAS_TRAIT(item, TRAIT_TRASH_ITEM))
+			return item
 
