@@ -62,15 +62,15 @@
 	rite_target.visible_message(span_notice("[rite_target] has been converted by the rite of [name]!"))
 	return TRUE
 
-/datum/religion_rites/maint_loot
+/datum/religion_rites/maint_loot //Useful for when maintenance has been picked clean of anything interesting.
 	name = "Maintenance apparition"
-	desc = "Receive a blessing from the machine god to further your ascension."
+	desc = "Summons a pile of loot from the depths of maintenance."
 	ritual_length = 5 SECONDS
 	ritual_invocations =list( "Let your will power our forges.",
 							"...Help us in our great conquest!")
 	invoke_msg = "The end of flesh is near!"
 	favor_cost = 50
-	var/amount = 3
+	var/amount = 5
 
 /datum/religion_rites/maint_loot/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
@@ -79,5 +79,5 @@
 		var/lootspawn = pick_weight(GLOB.good_maintenance_loot)
 		while(islist(lootspawn))
 			lootspawn = pick_weight(lootspawn)
-		var/atom/movable/loot = new lootspawn(altar_turf)
+		new lootspawn(altar_turf)
 	return TRUE
