@@ -303,7 +303,7 @@
 	for(var/mob/living/L in oview(5, host_mob))
 		if(!prob(25))
 			continue
-		if(!(L.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD)))
+		if(!((L.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD)) | HAS_TRAIT(L, TRAIT_NANITEOK)))
 			continue
 		target_hosts += L
 	if(!target_hosts.len)
