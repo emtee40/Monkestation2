@@ -173,7 +173,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/thermal_regulator,
 	)
-	complexity_max = DEFAULT_MAX_COMPLEXITY * 2
+	complexity_max = DEFAULT_MAX_COMPLEXITY * 5
 
 /obj/item/mod/control/pre_equipped/frontier_colonist/Initialize(mapload)
 	. = ..()
