@@ -1,11 +1,12 @@
-/mob/living/carbon/extrapolator_act(mob/user, obj/item/extrapolator/extrapolator, scan = TRUE)
-	if(istype(extrapolator) && length(diseases))
+/mob/living/carbon/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
+	if(istype(E) && diseases.len)
 		if(scan)
-			extrapolator.scan(src, diseases, user)
+			E.scan(src, diseases, user)
 		else
-			extrapolator.extrapolate(src, diseases, user)
+			E.extrapolate(src, diseases, user)
 		return TRUE
-	return FALSE
+	else
+		return FALSE
 
 /mob/living/carbon/is_pepper_proof(check_flags = ALL)
 	if(HAS_TRAIT(src, TRAIT_NOBREATH) && is_eyes_covered())

@@ -11,9 +11,8 @@
 	set desc = "View/retrieve logfiles for the current round."
 	set category = "Admin.Logging"
 
-	browseserverlogs(current = TRUE)
+	browseserverlogs(current=TRUE)
 
-/* monkestation edit: replaced in [monkestation\code\modules\admin\verbs\getlogs.dm]
 /client/proc/browseserverlogs(current=FALSE)
 	var/path = browse_files(current ? BROWSE_ROOT_CURRENT_LOGS : BROWSE_ROOT_ALL_LOGS)
 	if(!path)
@@ -34,4 +33,3 @@
 			return
 	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.", confidential = TRUE)
 	return
-*/

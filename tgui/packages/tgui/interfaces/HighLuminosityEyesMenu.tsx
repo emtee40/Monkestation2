@@ -22,8 +22,8 @@ enum ToUpdate {
   RightEye,
 }
 
-const LightColorDisplay = (props) => {
-  const { act, data } = useBackend<Data>();
+const LightColorDisplay = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { lightColor } = data;
   return (
     <LabeledList.Item label="Color">
@@ -53,8 +53,8 @@ const LightColorDisplay = (props) => {
   );
 };
 
-const RangeDisplay = (props) => {
-  const { act, data } = useBackend<Data>();
+const RangeDisplay = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { range } = data;
   return (
     <LabeledList.Item label="Range">
@@ -86,8 +86,8 @@ const RangeDisplay = (props) => {
   );
 };
 
-const EyeColorDisplay = (props) => {
-  const { act, data } = useBackend<Data>();
+const EyeColorDisplay = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { eyeColor } = data;
   return (
     <>
@@ -160,8 +160,8 @@ const EyeColorDisplay = (props) => {
   );
 };
 
-export const HighLuminosityEyesMenu = (props) => {
-  const { act, data } = useBackend<Data>();
+export const HighLuminosityEyesMenu = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { eyeColor } = data;
   return (
     <Window

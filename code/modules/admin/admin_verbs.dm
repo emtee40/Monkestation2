@@ -180,8 +180,6 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/toggle_hub,
 	/client/proc/toggle_interviews,
 	/client/proc/toggle_random_events,
-	/client/proc/Overwatch_ASN_panel,
-	/client/proc/Overwatch_WhitelistPanel,
 	)
 GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
 GLOBAL_PROTECT(admin_verbs_debug)
@@ -253,10 +251,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/validate_cards,
 	/client/proc/validate_puzzgrids,
 	/client/proc/view_runtimes,
-	// monkestation verbs: debugger tools
-	/client/proc/log_viewer_new,
-	/client/proc/getserverlogs_debug,
-	/client/proc/getcurrentlogs_debug,
 	)
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
 GLOBAL_PROTECT(admin_verbs_possess)

@@ -5,8 +5,8 @@ import { RequestsData } from './types';
 import { RequestsConsoleHeader } from './RequestsConsoleHeader';
 import { RequestMainScreen } from './RequestsConsoleMainScreen';
 
-export const RequestsConsole = (props) => {
-  const { act, data } = useBackend<RequestsData>();
+export const RequestsConsole = (props, context) => {
+  const { act, data } = useBackend<RequestsData>(context);
   const { department } = data;
   return (
     <Window title={department + ' Requests Console'} width={500} height={600}>
@@ -17,8 +17,8 @@ export const RequestsConsole = (props) => {
   );
 };
 
-const RequestsConsoleContent = (props) => {
-  const { act, data } = useBackend<RequestsData>();
+const RequestsConsoleContent = (props, context) => {
+  const { act, data } = useBackend<RequestsData>(context);
   return (
     <Stack vertical fill>
       <RequestsConsoleHeader />
@@ -28,8 +28,8 @@ const RequestsConsoleContent = (props) => {
   );
 };
 
-const RequestsConsoleFooter = (props) => {
-  const { act, data } = useBackend<RequestsData>();
+const RequestsConsoleFooter = (props, context) => {
+  const { act, data } = useBackend<RequestsData>(context);
   const { silent } = data;
   return (
     <Stack.Item>

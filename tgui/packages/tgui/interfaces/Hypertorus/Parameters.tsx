@@ -26,8 +26,8 @@ type Data = {
  * Parameters with dangerous thresholds also display warnings at the
  * relevant levels.
  */
-export const HypertorusParameters = (props) => {
-  const { data } = useBackend<Data>();
+export const HypertorusParameters = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const {
     apc_energy,
     energy_level,

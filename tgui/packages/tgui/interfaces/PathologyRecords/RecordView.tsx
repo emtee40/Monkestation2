@@ -4,11 +4,11 @@ import { useBackend, useLocalState } from '../../backend';
 import { MedicalRecordData } from './types';
 
 /** Views a selected record. */
-export const MedicalRecordView = (props) => {
-  const foundRecord = getMedicalRecord();
+export const MedicalRecordView = (props, context) => {
+  const foundRecord = getMedicalRecord(context);
   if (!foundRecord) return <NoticeBox>No record selected.</NoticeBox>;
 
-  const { act, data } = useBackend<MedicalRecordData>();
+  const { act, data } = useBackend<MedicalRecordData>(context);
   const { assigned_view, station_z } = data;
 
   const {
@@ -84,12 +84,13 @@ type Props = {
   text: string;
 };
 
-const EditableText = (props: Props) => {
+const EditableText = (props: Props, context) => {
   const { color, field, target_ref, text } = props;
   if (!field) return <> </>;
 
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const [editing, setEditing] = useLocalState<boolean>(
+    context,
     `editing_${field}`,
     false
   );

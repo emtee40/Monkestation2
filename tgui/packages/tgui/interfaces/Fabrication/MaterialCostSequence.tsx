@@ -47,7 +47,10 @@ export type MaterialCostSequenceProps = {
  *
  * Otherwise, the labels are white.
  */
-export const MaterialCostSequence = (props: MaterialCostSequenceProps) => {
+export const MaterialCostSequence = (
+  props: MaterialCostSequenceProps,
+  context
+) => {
   const { design, amount, available, align, justify } = props;
   let { costMap } = props;
 

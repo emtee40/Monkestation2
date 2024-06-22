@@ -17,8 +17,8 @@ type CirculatorData = {
   pressure_outlet: number | null;
 };
 
-export const ThermoElectricGenerator = (props) => {
-  const { act, data } = useBackend<Data>();
+export const ThermoElectricGenerator = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     error_message,
     last_power_output,

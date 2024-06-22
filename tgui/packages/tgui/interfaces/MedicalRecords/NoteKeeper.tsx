@@ -5,18 +5,18 @@ import { getMedicalRecord } from './helpers';
 import { MedicalNote, MedicalRecordData } from './types';
 
 /** Small section for adding notes. Passes a ref and note to Byond. */
-export const NoteKeeper = (props) => {
-  const foundRecord = getMedicalRecord();
+export const NoteKeeper = (props, context) => {
+  const foundRecord = getMedicalRecord(context);
   if (!foundRecord) return <> </>;
 
-  const { act } = useBackend<MedicalRecordData>();
+  const { act } = useBackend<MedicalRecordData>(context);
   const { crew_ref } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<
     MedicalNote | undefined
-  >('selectedNote', undefined);
+  >(context, 'selectedNote', undefined);
 
-  const [writing, setWriting] = useLocalState('note', false);
+  const [writing, setWriting] = useLocalState(context, 'note', false);
 
   const addNote = (event, value: string) => {
     act('add_note', {
@@ -71,15 +71,15 @@ export const NoteKeeper = (props) => {
 };
 
 /** Displays the notes with an add tab next to. */
-const NoteTabs = (props) => {
-  const foundRecord = getMedicalRecord();
+const NoteTabs = (props, context) => {
+  const foundRecord = getMedicalRecord(context);
   if (!foundRecord) return <> </>;
   const { notes } = foundRecord;
 
   const [selectedNote, setSelectedNote] = useLocalState<
     MedicalNote | undefined
-  >('selectedNote', undefined);
-  const [writing, setWriting] = useLocalState('note', false);
+  >(context, 'selectedNote', undefined);
+  const [writing, setWriting] = useLocalState(context, 'note', false);
 
   /** Selects or deselects a note. */
   const setNote = (note: MedicalNote) => {

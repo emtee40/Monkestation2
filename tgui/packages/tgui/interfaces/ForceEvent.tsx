@@ -62,7 +62,7 @@ type ForceEventData = {
   events: Event[];
 };
 
-export const ForceEvent = (props) => {
+export const ForceEvent = (props, context) => {
   return (
     <Window theme="admin" title="Force Event" width={450} height={450}>
       <Window.Content>
@@ -79,10 +79,14 @@ export const ForceEvent = (props) => {
   );
 };
 
-export const PanelOptions = (props) => {
-  const [searchQuery, setSearchQuery] = useLocalState('searchQuery', '');
+export const PanelOptions = (props, context) => {
+  const [searchQuery, setSearchQuery] = useLocalState(
+    context,
+    'searchQuery',
+    ''
+  );
 
-  const [announce, setAnnounce] = useLocalState('announce', true);
+  const [announce, setAnnounce] = useLocalState(context, 'announce', true);
 
   return (
     <Stack width="240px">
@@ -110,13 +114,13 @@ export const PanelOptions = (props) => {
   );
 };
 
-export const EventSection = (props) => {
-  const { data, act } = useBackend<ForceEventData>();
+export const EventSection = (props, context) => {
+  const { data, act } = useBackend<ForceEventData>(context);
   const { categories, events } = data;
 
-  const [category] = useLocalState('category', categories[0]);
-  const [searchQuery] = useLocalState('searchQuery', '');
-  const [announce] = useLocalState('announce', true);
+  const [category] = useLocalState(context, 'category', categories[0]);
+  const [searchQuery] = useLocalState(context, 'searchQuery', '');
+  const [announce] = useLocalState(context, 'announce', true);
 
   const preparedEvents = paginateEvents(
     events.filter((event) => {
@@ -172,11 +176,15 @@ export const EventSection = (props) => {
   );
 };
 
-export const EventTabs = (props) => {
-  const { data } = useBackend<ForceEventData>();
+export const EventTabs = (props, context) => {
+  const { data } = useBackend<ForceEventData>(context);
   const { categories } = data;
 
-  const [category, setCategory] = useLocalState('category', categories[0]);
+  const [category, setCategory] = useLocalState(
+    context,
+    'category',
+    categories[0]
+  );
 
   const layerCats = paginate(categories, CATEGORY_PAGE_ITEMS);
 

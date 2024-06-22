@@ -17,8 +17,8 @@ type Drawable = {
   name: string;
 };
 
-export const Crayon = (props) => {
-  const { act, data } = useBackend<Data>();
+export const Crayon = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     has_cap,
     can_change_colour,

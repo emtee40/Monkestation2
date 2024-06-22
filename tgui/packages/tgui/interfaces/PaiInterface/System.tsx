@@ -3,7 +3,7 @@ import { Box, Button, LabeledList, Section, Stack } from 'tgui/components';
 import { ICON_MAP } from './constants';
 import { PaiData } from './types';
 
-export const SystemDisplay = (props) => {
+export const SystemDisplay = (props, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item grow={3}>
@@ -17,8 +17,8 @@ export const SystemDisplay = (props) => {
 };
 
 /** Renders some ASCII art. Changes to red on emag. */
-const SystemWallpaper = (props) => {
-  const { data } = useBackend<PaiData>();
+const SystemWallpaper = (props, context) => {
+  const { data } = useBackend<PaiData>(context);
   const { emagged } = data;
 
   const owner = !emagged ? 'NANOTRASEN' : ' SYNDICATE';
@@ -62,8 +62,8 @@ const SystemWallpaper = (props) => {
 /** Displays master info.
  * You can check their DNA and change your image here.
  */
-const SystemInfo = (props) => {
-  const { act, data } = useBackend<PaiData>();
+const SystemInfo = (props, context) => {
+  const { act, data } = useBackend<PaiData>(context);
   const { image, master_dna, master_name } = data;
 
   return (

@@ -20,12 +20,12 @@
 /datum/antagonist/vassal/revenge/roundend_report()
 	var/list/report = list()
 	report += printplayer(owner)
-	if(length(objectives))
+	if(objectives.len)
 		report += printobjectives(objectives)
 
 	// Now list their vassals
-	if(length(ex_vassals))
-		report += span_header("The Vassals brought back into the fold were...")
+	if(ex_vassals.len)
+		report += "<span class='header'>The Vassals brought back into the fold were...</span>"
 		for(var/datum/antagonist/ex_vassal/all_vassals as anything in ex_vassals)
 			if(!all_vassals.owner)
 				continue

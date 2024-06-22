@@ -43,7 +43,6 @@
 #define DISEASE_ROBOT "robot"
 #define DISEASE_COLD "cold"
 #define DISEASE_HEART "heart"
-#define DISEASE_SANDWICH "sandwich"
 #define DISEASE_TRAUMA "trauma"
 #define DISEASE_DECLONING "decloning"
 #define DISEASE_ANXIETY "anxiety"

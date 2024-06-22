@@ -42,6 +42,3 @@
 	icon = 'monkestation/icons/obj/medical/organs/organs.dmi'
 	eye_icon_state = "floraneyes"
 	icon_state = "floran_eyeballs"
-
-/obj/item/organ/internal/eyes/ethereal
-	eye_icon_state = "etherealeyes"

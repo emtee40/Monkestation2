@@ -27,8 +27,8 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_) => {
-  const { data } = useBackend<ColorPickerData>();
+export const ColorPickerModal = (_, context) => {
+  const { data } = useBackend<ColorPickerData>(context);
   const {
     timeout,
     message,
@@ -37,6 +37,7 @@ export const ColorPickerModal = (_) => {
     default_color = '#000000',
   } = data;
   let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
+    context,
     'color_picker_choice',
     hexToHsva(default_color)
   );
@@ -74,15 +75,14 @@ export const ColorPickerModal = (_) => {
   );
 };
 
-export const ColorSelector = ({
-  color,
-  setColor,
-  defaultColor,
-}: {
-  color: HsvaColor;
-  setColor;
-  defaultColor: string;
-}) => {
+export const ColorSelector = (
+  {
+    color,
+    setColor,
+    defaultColor,
+  }: { color: HsvaColor; setColor; defaultColor: string },
+  context
+) => {
   const handleChange = (params: Partial<HsvaColor>) => {
     setColor((current: HsvaColor) => {
       return Object.assign({}, current, params);

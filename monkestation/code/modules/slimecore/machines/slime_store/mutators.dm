@@ -37,7 +37,7 @@
 /datum/slime_store_item/random_color_mutator
 	name = "Random Color Mutation Syringe"
 	desc = "Adds the No Ooze Slime mutation to a single slime."
-	item_path = /obj/item/slime_mutation_syringe/random_color
+	item_path = /obj/item/slime_mutation_syringe_random
 	cost = 3000
 
 /datum/slime_store_item/soda_slime

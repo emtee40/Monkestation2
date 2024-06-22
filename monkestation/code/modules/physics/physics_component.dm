@@ -123,8 +123,10 @@
 
 /datum/component/movable_physics/Destroy(force, silent)
 	. = ..()
-	bounce_callback = null
-	stop_callback = null
+	if(bounce_callback)
+		QDEL_NULL(bounce_callback)
+	if(stop_callback)
+		QDEL_NULL(stop_callback)
 	cached_transform = null
 
 /datum/component/movable_physics/RegisterWithParent()

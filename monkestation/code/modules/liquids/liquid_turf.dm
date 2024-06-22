@@ -23,13 +23,12 @@
 			if(!T.liquids)
 				return
 
-/turf/proc/add_liquid_from_reagents(datum/reagents/giver, no_react = FALSE, chem_temp, amount)
+/turf/proc/add_liquid_from_reagents(datum/reagents/giver, no_react = FALSE, chem_temp)
 	var/list/compiled_list = list()
-	var/multiplier = amount ? amount / giver.total_volume : 1
 	for(var/r in giver.reagent_list)
 		var/datum/reagent/R = r
 		if(!(R.type in GLOB.liquid_blacklist))
-			compiled_list[R.type] = R.volume * multiplier
+			compiled_list[R.type] = R.volume
 	if(!compiled_list.len) //No reagents to add, don't bother going further
 		return
 	if(!liquids)

@@ -1,8 +1,8 @@
 ///Uncomment this to enable testing of Bloodsucker features (such as vassalizing people with a mind instead of a client).
 //#define BLOODSUCKER_TESTING
 
-/// You have special interactions with bloodsuckers and the occult
-#define TRAIT_OCCULTIST "occultists"
+/// You have special interactions with Bloodsuckers
+#define TRAIT_OCCULTIST "occultist"
 
 /**
  * Blood-level defines
@@ -165,10 +165,6 @@
  */
 /// Source trait for Bloodsuckers-related traits
 #define BLOODSUCKER_TRAIT "bloodsucker_trait"
-/// Source trait for bloodsuckers in torpor.
-#define TORPOR_TRAIT "torpor_trait"
-/// Source trait for bloodsucker mesmerization.
-#define MESMERIZED_TRAIT "mesmerized_trait"
 /// Source trait for Monster Hunter-related traits
 #define HUNTER_TRAIT "monsterhunter_trait"
 /// Source trait while Feeding

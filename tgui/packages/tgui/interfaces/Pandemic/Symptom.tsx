@@ -6,7 +6,7 @@ import { Threshold } from './types';
  * Similar to the virus info display.
  * Returns info about symptoms as collapsibles.
  */
-export const SymptomDisplay = (props) => {
+export const SymptomDisplay = (props, context) => {
   const { symptoms = [] } = props;
   if (!symptoms?.length) {
     return <NoticeBox>No symptoms detected.</NoticeBox>;
@@ -36,7 +36,7 @@ export const SymptomDisplay = (props) => {
 };
 
 /** Displays threshold data */
-const Thresholds = (props) => {
+const Thresholds = (props, context) => {
   const { thresholds = [] } = props;
   let convertedThresholds = Object.entries<Threshold>(thresholds);
 
@@ -60,7 +60,7 @@ const Thresholds = (props) => {
 };
 
 /** Displays the numerical trait modifiers for a virus symptom */
-const Traits = (props) => {
+const Traits = (props, context) => {
   const {
     symptom: { level, resistance, stage_speed, stealth, transmission },
   } = props;

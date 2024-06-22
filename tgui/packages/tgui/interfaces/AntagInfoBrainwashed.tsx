@@ -7,8 +7,8 @@ type Data = {
   objectives: Objective[];
 };
 
-export const AntagInfoBrainwashed = (porps) => {
-  const { data } = useBackend<Data>();
+export const AntagInfoBrainwashed = (porps, context) => {
+  const { data } = useBackend<Data>(context);
 
   return (
     <Window width={400} height={400} theme="abductor">

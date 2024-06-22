@@ -39,8 +39,8 @@ type Message = {
   recipient: string;
 };
 
-const RequestLogsScreen = (props) => {
-  const { act, data } = useBackend<Data>();
+const RequestLogsScreen = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { requests = [] } = data;
   return (
     <Stack fill vertical>
@@ -86,8 +86,8 @@ const RequestLogsScreen = (props) => {
   );
 };
 
-const MessageLogsScreen = (props) => {
-  const { act, data } = useBackend<Data>();
+const MessageLogsScreen = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { messages = [] } = data;
   return (
     <Stack fill vertical>
@@ -131,7 +131,7 @@ const MessageLogsScreen = (props) => {
   );
 };
 
-const HackedScreen = (props) => {
+const HackedScreen = (props, context) => {
   return (
     <Stack.Item grow>
       <Stack fill vertical>
@@ -149,10 +149,11 @@ const HackedScreen = (props) => {
   );
 };
 
-const MainScreenAuth = (props) => {
-  const { act, data } = useBackend<Data>();
+const MainScreenAuth = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { status, is_malf, password } = data;
   const [auth_password, setPassword] = useLocalState(
+    context,
     'input_password',
     password
   );
@@ -249,10 +250,11 @@ const MainScreenAuth = (props) => {
   );
 };
 
-const MainScreenNotAuth = (props) => {
-  const { act, data } = useBackend<Data>();
+const MainScreenNotAuth = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { status, is_malf, password } = data;
   const [auth_password, setPassword] = useLocalState(
+    context,
     'input_password',
     password
   );
@@ -305,8 +307,8 @@ const MainScreenNotAuth = (props) => {
   );
 };
 
-const MainScreen = (props) => {
-  const { act, data } = useBackend<Data>();
+const MainScreen = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { auth } = data;
   return (
     <Stack fill vertical>
@@ -315,8 +317,8 @@ const MainScreen = (props) => {
   );
 };
 
-export const MessageMonitor = (props) => {
-  const { act, data } = useBackend<Data>();
+export const MessageMonitor = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     screen,
     error_message,

@@ -94,7 +94,6 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		pAI.host_scan(PAI_SCAN_MASTER)
 		return TRUE
-
 /atom/movable/screen/pai/crew_manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"

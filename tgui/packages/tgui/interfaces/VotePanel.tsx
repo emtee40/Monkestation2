@@ -51,8 +51,8 @@ type Data = {
   voting: string[];
 };
 
-export const VotePanel = (props) => {
-  const { data } = useBackend<Data>();
+export const VotePanel = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { currentVote, user } = data;
 
   /**
@@ -87,8 +87,8 @@ export const VotePanel = (props) => {
  * The create vote options menu. Only upper admins can disable voting.
  * @returns A section visible to everyone with vote options.
  */
-const VoteOptions = (props) => {
-  const { act, data } = useBackend<Data>();
+const VoteOptions = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { possibleVotes, user } = data;
 
   return (
@@ -137,8 +137,8 @@ const VoteOptions = (props) => {
  * View Voters by ckey. Admin only.
  * @returns A collapsible list of voters
  */
-const VotersList = (props) => {
-  const { data } = useBackend<Data>();
+const VotersList = (props, context) => {
+  const { data } = useBackend<Data>(context);
 
   return (
     <Stack.Item>
@@ -160,8 +160,8 @@ const VotersList = (props) => {
  * The choices panel which displays all options in the list.
  * @returns A section visible to all users.
  */
-const ChoicesPanel = (props) => {
-  const { act, data } = useBackend<Data>();
+const ChoicesPanel = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentVote, user } = data;
 
   return (
@@ -252,8 +252,8 @@ const ChoicesPanel = (props) => {
  * Countdown timer at the bottom. Includes a cancel vote option for admins.
  * @returns A section visible to everyone.
  */
-const TimePanel = (props) => {
-  const { act, data } = useBackend<Data>();
+const TimePanel = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentVote, user } = data;
 
   return (

@@ -19,12 +19,13 @@ type Props = {
  * Ensure that you have the corresponding action case in your Byond code.
  *
  */
-export const EditableText = (props: Props) => {
+export const EditableText = (props: Props, context) => {
   const { color, field, target_ref, text } = props;
   if (!field) return <> </>;
 
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   const [editing, setEditing] = useLocalState<boolean>(
+    context,
     `editing_${field}`,
     false
   );

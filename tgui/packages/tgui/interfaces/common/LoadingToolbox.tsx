@@ -18,7 +18,7 @@ import { Stack, Icon, Dimmer } from '../../components';
  * )
  * ```
  */
-export const LoadingScreen = (props) => {
+export const LoadingScreen = (props, context) => {
   return (
     <Dimmer>
       <Stack align="center" fill justify="center" vertical>

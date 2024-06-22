@@ -56,7 +56,7 @@ type MenuBarProps = {
   aboutNotepadDialog: () => void;
 };
 
-const NtosNotepadMenuBar = (props: MenuBarProps) => {
+const NtosNotepadMenuBar = (props: MenuBarProps, context) => {
   const {
     onSave,
     onExit,
@@ -71,8 +71,13 @@ const NtosNotepadMenuBar = (props: MenuBarProps) => {
     setWordWrap,
     aboutNotepadDialog,
   } = props;
-  const [openOnHover, setOpenOnHover] = useLocalState('openOnHover', false);
+  const [openOnHover, setOpenOnHover] = useLocalState(
+    context,
+    'openOnHover',
+    false
+  );
   const [openMenuBar, setOpenMenuBar] = useLocalState<string | null>(
+    context,
     'openMenuBar',
     null
   );
@@ -361,36 +366,45 @@ type NoteData = {
 };
 type RetryActionType = (retrying?: boolean) => void;
 
-export const NtosNotepad = (props) => {
-  const { act, data, config } = useBackend<NoteData>();
+export const NtosNotepad = (props, context) => {
+  const { act, data, config } = useBackend<NoteData>(context);
   const { note } = data;
   const [documentName, setDocumentName] = useLocalState<string>(
+    context,
     'documentName',
     DEFAULT_DOCUMENT_NAME
   );
   const [originalText, setOriginalText] = useLocalState<string>(
+    context,
     'originalText',
     note
   );
   console.log(note);
-  const [text, setText] = useLocalState<string>('text', note);
-  const [statuses, setStatuses] = useLocalState<Statuses>('statuses', {
+  const [text, setText] = useLocalState<string>(context, 'text', note);
+  const [statuses, setStatuses] = useLocalState<Statuses>(context, 'statuses', {
     line: 0,
     column: 0,
   });
   const [activeDialog, setActiveDialog] = useLocalState<Dialogs>(
+    context,
     'activeDialog',
     Dialogs.NONE
   );
   const [retryAction, setRetryAction] = useLocalState<RetryActionType | null>(
+    context,
     'activeAction',
     null
   );
   const [showStatusBar, setShowStatusBar] = useLocalState<boolean>(
+    context,
     'showStatusBar',
     true
   );
-  const [wordWrap, setWordWrap] = useLocalState<boolean>('wordWrap', true);
+  const [wordWrap, setWordWrap] = useLocalState<boolean>(
+    context,
+    'wordWrap',
+    true
+  );
   const handleCloseDialog = () => setActiveDialog(Dialogs.NONE);
   const handleSave = (newDocumentName: string = documentName) => {
     logger.log(`Saving the document as ${newDocumentName}`);

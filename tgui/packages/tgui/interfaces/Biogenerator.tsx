@@ -32,8 +32,8 @@ type Design = {
   amount: number;
 };
 
-export const Biogenerator = (props) => {
-  const { act, data } = useBackend<BiogeneratorData>();
+export const Biogenerator = (props, context) => {
+  const { act, data } = useBackend<BiogeneratorData>(context);
   const {
     processing,
     beaker,
@@ -48,6 +48,7 @@ export const Biogenerator = (props) => {
     categories,
   } = data;
   const [selectedCategory, setSelectedCategory] = useLocalState<string>(
+    context,
     'category',
     data.categories[0]?.name
   );
@@ -162,10 +163,11 @@ export const Biogenerator = (props) => {
   );
 };
 
-const ItemList = (props) => {
-  const { act } = useBackend();
+const ItemList = (props, context) => {
+  const { act } = useBackend(context);
   const items = props.items.map((item) => {
     const [amount, setAmount] = useLocalState(
+      context,
       'amount' + item.name,
       item.is_reagent ? Math.min(Math.max(props.space, 1), 10) : 1
     );

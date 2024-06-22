@@ -46,8 +46,8 @@ const PuzzgridButton: Inferno.SFC<{
   );
 };
 
-export const Puzzgrid = (props) => {
-  const { act, data } = useBackend<PuzzgridData>();
+export const Puzzgrid = (props, context) => {
+  const { act, data } = useBackend<PuzzgridData>(context);
 
   const answersLeft = data.answers.filter(
     (answer) =>

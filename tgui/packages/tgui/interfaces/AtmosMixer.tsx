@@ -11,8 +11,8 @@ type Data = {
   node2_concentration: number;
 };
 
-export const AtmosMixer = (props) => {
-  const { act, data } = useBackend<Data>();
+export const AtmosMixer = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     on,
     set_pressure,

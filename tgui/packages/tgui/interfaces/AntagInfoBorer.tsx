@@ -29,8 +29,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props: any) => {
-  const { data } = useBackend<Info>();
+const ObjectivePrintout = (props: any, context: any) => {
+  const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
     <Stack vertical>
@@ -47,8 +47,8 @@ const ObjectivePrintout = (props: any) => {
   );
 };
 
-export const AntagInfoBorer = (props: any) => {
-  const [tab, setTab] = useLocalState('tab', 1);
+export const AntagInfoBorer = (props: any, context: any) => {
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Window width={620} height={580} theme="ntos_cat">
       <Window.Content>
@@ -168,8 +168,8 @@ const MainPage = () => {
   );
 };
 
-const BorerAbilities = (props: any) => {
-  const { act, data } = useBackend<BorerInformation>();
+const BorerAbilities = (props: any, context: any) => {
+  const { act, data } = useBackend<BorerInformation>(context);
   return (
     <Stack vertical fill>
       <Stack.Item minHeight="42rem">
@@ -179,14 +179,15 @@ const BorerAbilities = (props: any) => {
   );
 };
 
-const AbilitySection = (props: any) => {
-  const { act, data } = useBackend<BorerInformation>();
+const AbilitySection = (props: any, context: any) => {
+  const { act, data } = useBackend<BorerInformation>(context);
   const { ability } = data;
   if (!ability) {
     return <Section minHeight="300px" />;
   }
 
   const [selectedAbility, setSelectedAbility] = useLocalState(
+    context,
     'ability',
     ability[0]
   );

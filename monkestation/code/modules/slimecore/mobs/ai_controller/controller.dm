@@ -20,6 +20,3 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/slime,
 	)
 	can_idle = FALSE // we want these to be running always
-
-/datum/ai_movement/jps/slime_cleaner
-	maximum_length = 80

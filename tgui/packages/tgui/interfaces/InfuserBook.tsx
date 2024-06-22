@@ -68,11 +68,12 @@ const TIER2TIERDATA: TierData[] = [
   },
 ];
 
-export const InfuserBook = (props) => {
-  const { data } = useBackend<DnaInfuserData>();
+export const InfuserBook = (props, context) => {
+  const { data } = useBackend<DnaInfuserData>(context);
   const { entries } = data;
 
   const [bookPosition, setBookPosition] = useLocalState<BookPosition>(
+    context,
     'bookPosition',
     {
       chapter: 0,
@@ -188,7 +189,7 @@ export const InfuserBook = (props) => {
   );
 };
 
-export const InfuserInstructions = (props) => {
+export const InfuserInstructions = (props, context) => {
   return (
     <Section title="DNA Infusion Guide" height={PAGE_HEIGHT}>
       <Stack vertical>
@@ -228,7 +229,7 @@ type InfuserEntryProps = {
   entry: Entry;
 };
 
-const InfuserEntry = (props: InfuserEntryProps) => {
+const InfuserEntry = (props: InfuserEntryProps, context) => {
   const { entry } = props;
 
   const tierData = TIER2TIERDATA[entry.tier];

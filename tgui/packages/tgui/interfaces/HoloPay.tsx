@@ -20,10 +20,10 @@ Use of departmental funds is prohibited. For more information, visit
 the Head of Personnel. All rights reserved. All trademarks are property
 of their respective owners.`;
 
-export const HoloPay = (props) => {
-  const { data } = useBackend<HoloPayData>();
+export const HoloPay = (props, context) => {
+  const { data } = useBackend<HoloPayData>(context);
   const { owner } = data;
-  const [setupMode, setSetupMode] = useLocalState('setupMode', false);
+  const [setupMode, setSetupMode] = useLocalState(context, 'setupMode', false);
   // User clicked the "Setup" or "Done" button.
   const onClick = () => {
     setSetupMode(!setupMode);
@@ -56,8 +56,8 @@ export const HoloPay = (props) => {
 /**
  * Displays the current user's bank information (if any)
  */
-const AccountDisplay = (props) => {
-  const { data } = useBackend<HoloPayData>();
+const AccountDisplay = (props, context) => {
+  const { data } = useBackend<HoloPayData>(context);
   const { user } = data;
   if (!user) {
     return <NoticeBox>Error! No account detected.</NoticeBox>;
@@ -88,8 +88,8 @@ const AccountDisplay = (props) => {
  * Displays the payment processor. This is the main display.
  * Shows icon, name, payment button.
  */
-const TerminalDisplay = (props) => {
-  const { act, data } = useBackend<HoloPayData>();
+const TerminalDisplay = (props, context) => {
+  const { act, data } = useBackend<HoloPayData>(context);
   const { description, force_fee, name, owner, user, shop_logo } = data;
   const { onClick } = props;
   const is_owner = owner === user?.name;
@@ -168,8 +168,8 @@ const TerminalDisplay = (props) => {
 /**
  * User has clicked "setup" button. Changes vars on the holopay.
  */
-const SetupDisplay = (props) => {
-  const { act, data } = useBackend<HoloPayData>();
+const SetupDisplay = (props, context) => {
+  const { act, data } = useBackend<HoloPayData>(context);
   const { available_logos = [], force_fee, max_fee, name, shop_logo } = data;
   const { onClick } = props;
 

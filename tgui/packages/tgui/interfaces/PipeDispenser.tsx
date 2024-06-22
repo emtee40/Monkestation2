@@ -50,10 +50,11 @@ type Recipe = {
   dir: number;
 };
 
-const PipeTypeSection = (props) => {
-  const { act, data } = useBackend<Data>();
+const PipeTypeSection = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { categories = [] } = data;
   const [categoryName, setCategoryName] = useLocalState(
+    context,
     'categoryName',
     categories[0].cat_name
   );
@@ -94,8 +95,8 @@ const PipeTypeSection = (props) => {
   );
 };
 
-export const PipeDispenser = (props) => {
-  const { act, data } = useBackend<Data>();
+export const PipeDispenser = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { category: rootCategoryIndex } = data;
   return (
     <Window width={530} height={530}>

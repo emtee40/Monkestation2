@@ -67,8 +67,7 @@
 
 /datum/component/jetpack/Destroy()
 	QDEL_NULL(trail)
-	check_on_move = null
-	get_mover = null
+	QDEL_NULL(check_on_move)
 	return ..()
 
 /datum/component/jetpack/proc/setup_trail()

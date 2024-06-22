@@ -67,7 +67,6 @@
 	new /obj/item/storage/photo_album/hos(src)
 	new /obj/item/gun/ballistic/automatic/pistol/paco(src) //monkestation edit: paco sec
 	new /obj/item/ammo_box/magazine/m35(src) //monkestation edit: paco sec
-	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/hos/populate_contents_immediate()
 	. = ..()
@@ -101,7 +100,6 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/gloves/krav_maga/sec(src)
 	new /obj/item/door_remote/head_of_security(src)
-	new /obj/item/storage/box/bodycamera(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -118,7 +116,6 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/ammo_box/magazine/m35/rubber(src) //monkestation edit: Paco sec
-	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -178,7 +175,6 @@
 	new /obj/item/binoculars(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
 	new /obj/item/clothing/head/fedora/inspector_hat(src)
-	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

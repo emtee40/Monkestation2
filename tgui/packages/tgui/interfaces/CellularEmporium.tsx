@@ -24,9 +24,10 @@ type Ability = {
   dna_required: number; // Checks against dna_count
 };
 
-export const CellularEmporium = (props) => {
-  const { act, data } = useBackend<CellularEmporiumContext>();
+export const CellularEmporium = (props, context) => {
+  const { act, data } = useBackend<CellularEmporiumContext>(context);
   const [searchAbilities, setSearchAbilities] = useLocalState(
+    context,
     'searchAbilities',
     ''
   );
@@ -77,9 +78,9 @@ export const CellularEmporium = (props) => {
   );
 };
 
-const AbilityList = (props) => {
-  const { act, data } = useBackend<CellularEmporiumContext>();
-  const [searchAbilities] = useLocalState('searchAbilities', '');
+const AbilityList = (props, context) => {
+  const { act, data } = useBackend<CellularEmporiumContext>(context);
+  const [searchAbilities] = useLocalState(context, 'searchAbilities', '');
   const {
     abilities,
     owned_abilities,

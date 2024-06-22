@@ -21,14 +21,19 @@ type Outfit = {
   type: string;
 };
 
-export const NetpodOutfits = (props) => {
-  const { act, data } = useBackend<Data>();
+export const NetpodOutfits = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { netsuit, collections = [] } = data;
   const [selectedType, setSelectedType] = useLocalState<Collection>(
+    context,
     'selectedType',
     collections[0]
   );
-  const [search, setSearch] = useLocalState<string>('outfitSearch', '');
+  const [search, setSearch] = useLocalState<string>(
+    context,
+    'outfitSearch',
+    ''
+  );
 
   const searchFn = createSearch(search, (outfit: Outfit) => outfit.name);
 

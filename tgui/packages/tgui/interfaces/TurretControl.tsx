@@ -12,8 +12,8 @@ type Data = {
   siliconUser: BooleanLike;
 };
 
-export const TurretControl = (props) => {
-  const { act, data } = useBackend<Data>();
+export const TurretControl = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { enabled, lethal, locked, siliconUser, shootCyborgs } = data;
   const isLocked = locked && !siliconUser;
 

@@ -14,8 +14,8 @@ type Props = {
   buttonColor: string;
 };
 
-export const ChemFilterPane = (props: Props) => {
-  const { act } = useBackend();
+export const ChemFilterPane = (props: Props, context) => {
+  const { act } = useBackend(context);
   const { title, list, buttonColor } = props;
   const titleKey = title.toLowerCase();
 
@@ -54,8 +54,8 @@ export const ChemFilterPane = (props: Props) => {
   );
 };
 
-export const ChemFilter = (props) => {
-  const { data } = useBackend<Data>();
+export const ChemFilter = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { left = [], right = [] } = data;
 
   return (

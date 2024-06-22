@@ -4,7 +4,6 @@
 	breed_name_male = "Pigeon"
 	breed_name_female = "Pigeon"
 	egg_type = /obj/item/food/egg/pigeon
-	liked_foods = list(/obj/item/food/grown/peas = 2)
 
 	///the radio that is inside the pigeon
 	var/obj/item/radio/pigeon/egg_radio = null

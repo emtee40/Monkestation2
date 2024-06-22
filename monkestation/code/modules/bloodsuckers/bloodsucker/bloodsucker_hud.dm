@@ -43,7 +43,8 @@
 	else if(bloodsucker_blood_volume > BLOOD_VOLUME_BAD)
 		valuecolor = "#FFAAAA"
 
-	blood_display?.maptext = FORMAT_BLOODSUCKER_HUD_TEXT(valuecolor, bloodsucker_blood_volume)
+	if(blood_display)
+		blood_display.maptext = FORMAT_BLOODSUCKER_HUD_TEXT(valuecolor, bloodsucker_blood_volume)
 
 	if(vamprank_display)
 		if(bloodsucker_level_unspent > 0)

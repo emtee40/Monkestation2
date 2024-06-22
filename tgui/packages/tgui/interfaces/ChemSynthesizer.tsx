@@ -10,8 +10,8 @@ type Data = {
   possible_amounts: number[];
 };
 
-export const ChemSynthesizer = (props) => {
-  const { act, data } = useBackend<Data>();
+export const ChemSynthesizer = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     amount,
     current_reagent,

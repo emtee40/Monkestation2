@@ -27,8 +27,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props: any) => {
-  const { data } = useBackend<Info>();
+const ObjectivePrintout = (props: any, context: any) => {
+  const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
     <Stack vertical>
@@ -45,7 +45,7 @@ const ObjectivePrintout = (props: any) => {
   );
 };
 
-export const AntagInfoRevengeVassal = (props: any) => {
+export const AntagInfoRevengeVassal = (props: any, context: any) => {
   return (
     <Window width={620} height={300}>
       <Window.Content>
@@ -92,14 +92,18 @@ const VassalInfo = () => {
   );
 };
 
-const PowerSection = (props: any) => {
-  const { act, data } = useBackend<BloodsuckerInformation>();
+const PowerSection = (props: any, context: any) => {
+  const { act, data } = useBackend<BloodsuckerInformation>(context);
   const { power } = data;
   if (!power) {
     return <Section minHeight="220px" />;
   }
 
-  const [selectedPower, setSelectedPower] = useLocalState('power', power[0]);
+  const [selectedPower, setSelectedPower] = useLocalState(
+    context,
+    'power',
+    power[0]
+  );
 
   return (
     <Section

@@ -29,7 +29,7 @@ type ObjectivePrintoutProps = {
   titleMessage?: string;
 };
 
-export const ObjectivePrintout = (props: ObjectivePrintoutProps) => {
+export const ObjectivePrintout = (props: ObjectivePrintoutProps, context) => {
   const {
     fill,
     objectiveFollowup,
@@ -67,14 +67,17 @@ type ReplaceObjectivesProps = {
   button_tooltip?: string;
 };
 
-export const ReplaceObjectivesButton = (props: ReplaceObjectivesProps) => {
+export const ReplaceObjectivesButton = (
+  props: ReplaceObjectivesProps,
+  context
+) => {
   const {
     can_change_objective,
     button_title,
     button_colour,
     button_tooltip = 'Replace your existing objectives with a custom one. This action can only be taken once',
   } = props;
-  const { act } = useBackend();
+  const { act } = useBackend(context);
   if (!can_change_objective) {
     return null;
   }

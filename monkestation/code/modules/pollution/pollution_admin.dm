@@ -7,7 +7,7 @@
 	var/choice = tgui_input_list(usr, "What type of pollutant would you like to spawn?", "Spawn Pollution", singleton_list)
 	if(!choice)
 		return
-	var/amount_choice = tgui_input_number(usr, "Amount of pollution", "Spawn Pollution")
+	var/amount_choice = input("Amount of pollution:") as null|num
 	if(!amount_choice)
 		return
 	var/turf/epicenter = get_turf(mob)

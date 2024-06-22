@@ -1,6 +1,6 @@
 import './styles/main.scss';
 import { createRenderer } from 'tgui/renderer';
-import { TguiSay } from './TguiSay';
+import { TguiSay } from './interfaces/TguiSay';
 
 const renderApp = createRenderer(() => {
   return <TguiSay />;

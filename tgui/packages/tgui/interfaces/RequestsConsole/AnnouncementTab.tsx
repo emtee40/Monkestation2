@@ -2,10 +2,14 @@ import { useBackend, useLocalState } from '../../backend';
 import { Button, NoticeBox, Section, TextArea } from '../../components';
 import { RequestsData } from './types';
 
-export const AnnouncementTab = (props) => {
-  const { act, data } = useBackend<RequestsData>();
+export const AnnouncementTab = (props, context) => {
+  const { act, data } = useBackend<RequestsData>(context);
   const { authentication_data, is_admin_ghost_ai } = data;
-  const [messageText, setMessageText] = useLocalState('messageText', '');
+  const [messageText, setMessageText] = useLocalState(
+    context,
+    'messageText',
+    ''
+  );
   return (
     <Section>
       <TextArea
@@ -55,8 +59,8 @@ export const AnnouncementTab = (props) => {
   );
 };
 
-const AuthenticationNoticeBox = (props) => {
-  const { act, data } = useBackend<RequestsData>();
+const AuthenticationNoticeBox = (props, context) => {
+  const { act, data } = useBackend<RequestsData>(context);
   const { authentication_data, is_admin_ghost_ai } = data;
   return (
     (!authentication_data.announcement_authenticated && !is_admin_ghost_ai && (

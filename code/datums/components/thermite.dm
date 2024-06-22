@@ -54,7 +54,8 @@
 
 /datum/component/thermite/Destroy()
 	thermite_overlay = null
-	burn_callback = null
+	if(burn_callback)
+		QDEL_NULL(burn_callback)
 	if(burn_timer)
 		deltimer(burn_timer)
 		burn_timer = null

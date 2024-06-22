@@ -93,7 +93,7 @@
 		return TRUE
 	if(stat >= UNCONSCIOUS)
 		return TRUE
-	if(HAS_TRAIT_FROM(src, TRAIT_NODEATH, TORPOR_TRAIT))
+	if(HAS_TRAIT(src, TRAIT_NODEATH))
 		return TRUE
 	return FALSE
 
@@ -155,7 +155,7 @@
 	if(bloodsuckerdatum)
 		// If DEAD or TORPID... Kill Bloodsucker!
 		if(target.StakeCanKillMe())
-			bloodsuckerdatum.final_death()
+			bloodsuckerdatum.FinalDeath()
 		else
 			to_chat(target, span_userdanger("You have been staked! Your powers are useless, your death forever, while it remains in place."))
 			target.balloon_alert(target, "you have been staked!")

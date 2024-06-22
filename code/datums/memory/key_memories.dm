@@ -115,7 +115,7 @@
 	return ..()
 
 /datum/memory/key/quirk_smoker/get_names()
-	return list("[protagonist_name]'s addiction to [preferred_brand] cigarettes.")
+	return list("[protagonist_name]'s smoking problem.")
 
 /datum/memory/key/quirk_smoker/get_starts()
 	return list(

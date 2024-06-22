@@ -1,5 +1,4 @@
 /datum/mutation/ranching
-	var/mob/living/basic/baby
 	///Required Happiness
 	var/happiness
 	///temperature required
@@ -48,7 +47,15 @@
 
 /datum/mutation/ranching/proc/check_happiness(atom/checkee, is_egg)
 	if(happiness)
-		return SEND_SIGNAL(checkee, COMSIG_HAPPINESS_CHECK_RANGE, happiness)
+		var/checked_happiness = 0
+		checked_happiness = SEND_SIGNAL(checkee, COMSIG_HAPPINESS_RETURN_VALUE)
+
+		if(happiness > 0)
+			if(!(checked_happiness > happiness))
+				return FALSE
+		else
+			if(!(checked_happiness < happiness))
+				return FALSE
 	return TRUE
 
 /datum/mutation/ranching/proc/check_food(atom/checkee, is_egg)

@@ -80,7 +80,7 @@
 	linked_mobs.Cut()
 	QDEL_NULL(linker_action)
 	QDEL_NULL(master_speech)
-	post_unlink_callback = null
+	QDEL_NULL(post_unlink_callback)
 	return ..()
 
 /datum/component/mind_linker/RegisterWithParent()

@@ -224,7 +224,6 @@
 	borg.mmi.brainmob.real_name = brainopsname
 	borg.mmi.brainmob.name = brainopsname
 	borg.real_name = borg.name
-	borg.update_name_tag() // monkestation edit: name tags
 
 	borg.key = C.key
 

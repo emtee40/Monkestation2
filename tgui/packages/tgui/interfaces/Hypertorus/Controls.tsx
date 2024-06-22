@@ -37,7 +37,7 @@ type WasteData = {
  * This module holds user interactable controls. Some may be good candidates
  * for generalizing and refactoring.
  */
-const ComboKnob = (props: ComboProps) => {
+const ComboKnob = (props: ComboProps, context) => {
   const {
     color = false,
     defaultValue,
@@ -52,7 +52,7 @@ const ComboKnob = (props: ComboProps) => {
     ...rest
   } = props;
 
-  const { act } = useBackend();
+  const { act } = useBackend(context);
 
   const iconProps = {
     rotation: 0,
@@ -118,8 +118,8 @@ const ComboKnob = (props: ComboProps) => {
   );
 };
 
-export const HypertorusSecondaryControls = (props) => {
-  const { data } = useBackend<ControlsData>();
+export const HypertorusSecondaryControls = (props, context) => {
+  const { data } = useBackend<ControlsData>(context);
   const {
     cooling_volume,
     current_damper,
@@ -188,8 +188,8 @@ export const HypertorusSecondaryControls = (props) => {
   );
 };
 
-export const HypertorusWasteRemove = (props) => {
-  const { act, data } = useBackend<WasteData>();
+export const HypertorusWasteRemove = (props, context) => {
+  const { act, data } = useBackend<WasteData>(context);
   const { filter_types = [], waste_remove, mod_filtering_rate } = data;
 
   return (

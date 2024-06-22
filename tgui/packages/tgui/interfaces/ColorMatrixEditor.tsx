@@ -10,8 +10,8 @@ type Data = {
 
 const PREFIXES = ['r', 'g', 'b', 'a', 'c'] as const;
 
-export const ColorMatrixEditor = (props) => {
-  const { act, data } = useBackend<Data>();
+export const ColorMatrixEditor = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { mapRef, currentColor } = data;
 
   return (

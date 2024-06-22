@@ -1,5 +1,5 @@
-import { AppTechweb } from './Techweb.jsx';
+import { AppTechweb } from './Techweb.js';
 
-export const NtosTechweb = (props) => {
+export const NtosTechweb = (props, context) => {
   return <AppTechweb />;
 };

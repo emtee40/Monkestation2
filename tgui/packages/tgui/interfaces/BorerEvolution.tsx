@@ -31,7 +31,7 @@ type Info = {
   evolution_points: number;
 };
 
-export const BorerEvolution = (props) => {
+export const BorerEvolution = (props, context) => {
   return (
     <Window width={675} height={600} theme="wizard" title="Evolution Tree">
       <Window.Content>
@@ -45,8 +45,8 @@ export const BorerEvolution = (props) => {
   );
 };
 
-const PastEvolutions = (props) => {
-  const { data } = useBackend<EvolutionInfo>();
+const PastEvolutions = (props, context) => {
+  const { data } = useBackend<EvolutionInfo>(context);
   const { learnedEvolution } = data;
 
   return (
@@ -72,8 +72,8 @@ const PastEvolutions = (props) => {
   );
 };
 
-const EvolutionList = (props) => {
-  const { data, act } = useBackend<EvolutionInfo>();
+const EvolutionList = (props, context) => {
+  const { data, act } = useBackend<EvolutionInfo>(context);
   const { learnableEvolution } = data;
 
   return (
@@ -114,8 +114,8 @@ const EvolutionList = (props) => {
   );
 };
 
-const EvoInfo = (props) => {
-  const { data } = useBackend<Info>();
+const EvoInfo = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { evolution_points } = data;
 
   return (

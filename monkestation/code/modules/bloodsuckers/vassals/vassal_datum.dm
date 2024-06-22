@@ -28,7 +28,6 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	current_mob.apply_status_effect(/datum/status_effect/agent_pinpointer/vassal_edition)
-	current_mob.clear_mood_event("vampcandle")
 	add_team_hud(current_mob)
 
 /datum/antagonist/vassal/add_team_hud(mob/target)
@@ -101,7 +100,7 @@
 	UnregisterSignal(owner.current, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 	//Free them from their Master
-	if(!QDELETED(master?.owner))
+	if(master && master.owner)
 		if(special_type && master.special_vassals[special_type])
 			master.special_vassals[special_type] -= src
 		master.vassals -= src
@@ -110,7 +109,7 @@
 	for(var/allstatus_traits in owner.current._status_traits)
 		REMOVE_TRAIT(owner.current, allstatus_traits, BLOODSUCKER_TRAIT)
 	//Remove Recuperate Power
-	while(length(powers))
+	while(powers.len)
 		var/datum/action/cooldown/bloodsucker/power = pick(powers)
 		powers -= power
 		power.Remove(owner.current)

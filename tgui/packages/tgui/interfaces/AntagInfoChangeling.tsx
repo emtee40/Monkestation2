@@ -54,7 +54,7 @@ type Info = {
   can_change_objective: BooleanLike;
 };
 
-export const AntagInfoChangeling = (props) => {
+export const AntagInfoChangeling = (props, context) => {
   return (
     <Window width={720} height={750}>
       <Window.Content
@@ -87,8 +87,8 @@ export const AntagInfoChangeling = (props) => {
   );
 };
 
-const HivemindSection = (props) => {
-  const { act, data } = useBackend<Info>();
+const HivemindSection = (props, context) => {
+  const { act, data } = useBackend<Info>(context);
   const { true_name } = data;
   return (
     <Section fill title="Hivemind">
@@ -115,8 +115,8 @@ const HivemindSection = (props) => {
   );
 };
 
-const IntroductionSection = (props) => {
-  const { act, data } = useBackend<Info>();
+const IntroductionSection = (props, context) => {
+  const { act, data } = useBackend<Info>(context);
   const { true_name, hive_name, objectives, can_change_objective } = data;
   return (
     <Section
@@ -145,8 +145,8 @@ const IntroductionSection = (props) => {
   );
 };
 
-const AbilitiesSection = (props) => {
-  const { data } = useBackend<Info>();
+const AbilitiesSection = (props, context) => {
+  const { data } = useBackend<Info>(context);
   return (
     <Section fill title="Abilities">
       <Stack fill>
@@ -195,10 +195,11 @@ const AbilitiesSection = (props) => {
   );
 };
 
-const MemoriesSection = (props) => {
-  const { data } = useBackend<Info>();
+const MemoriesSection = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { memories } = data;
   const [selectedMemory, setSelectedMemory] = useSharedState(
+    context,
     'memory',
     (!!memories && memories[0]) || null
   );
@@ -244,8 +245,8 @@ const MemoriesSection = (props) => {
   );
 };
 
-const VictimPatternsSection = (props) => {
-  const { data } = useBackend<Info>();
+const VictimPatternsSection = (props, context) => {
+  const { data } = useBackend<Info>(context);
   const { stolen_antag_info } = data;
   return (
     <Section

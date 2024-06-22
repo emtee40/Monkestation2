@@ -27,7 +27,7 @@ type Target = {
   locx: number;
 };
 
-export const NtosRadar = (props) => {
+export const NtosRadar = (props, context) => {
   return (
     <NtosWindow width={800} height={600} theme="ntos">
       <NtosRadarContent />
@@ -35,7 +35,7 @@ export const NtosRadar = (props) => {
   );
 };
 
-export const NtosRadarContent = (props) => {
+export const NtosRadarContent = (props, context) => {
   return (
     <Stack fill>
       <Stack.Item position="relative" width={20.5}>
@@ -60,8 +60,8 @@ export const NtosRadarContent = (props) => {
 };
 
 /** Returns object information */
-const ObjectDisplay = (props) => {
-  const { act, data } = useBackend<Data>();
+const ObjectDisplay = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { object = [], scanning, selected } = data;
 
   return (
@@ -101,8 +101,8 @@ const ObjectDisplay = (props) => {
 };
 
 /** Returns target information */
-const TargetDisplay = (props) => {
-  const { data } = useBackend<Data>();
+const TargetDisplay = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { selected, target } = data;
 
   if (!selected || !target) {

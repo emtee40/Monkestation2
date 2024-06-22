@@ -23,8 +23,8 @@ export const removeAllSkiplines = (toSanitize: string) => {
   return toSanitize.replace(/[\r\n]+/, '');
 };
 
-export const TextInputModal = (props) => {
-  const { act, data } = useBackend<TextInputData>();
+export const TextInputModal = (props, context) => {
+  const { act, data } = useBackend<TextInputData>(context);
   const {
     large_buttons,
     max_length,
@@ -34,7 +34,11 @@ export const TextInputModal = (props) => {
     timeout,
     title,
   } = data;
-  const [input, setInput] = useLocalState<string>('input', placeholder || '');
+  const [input, setInput] = useLocalState<string>(
+    context,
+    'input',
+    placeholder || ''
+  );
   const onType = (value: string) => {
     if (value === input) {
       return;
@@ -88,8 +92,8 @@ export const TextInputModal = (props) => {
 };
 
 /** Gets the user input and invalidates if there's a constraint. */
-const InputArea = (props) => {
-  const { act, data } = useBackend<TextInputData>();
+const InputArea = (props, context) => {
+  const { act, data } = useBackend<TextInputData>(context);
   const { max_length, multiline } = data;
   const { input, onType } = props;
 

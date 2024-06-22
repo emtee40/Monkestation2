@@ -1,4 +1,3 @@
-/* // MONKESTATION removal
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
@@ -233,4 +232,3 @@
 	)
 
 	return to_add
-*/

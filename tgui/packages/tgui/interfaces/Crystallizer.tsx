@@ -30,7 +30,7 @@ type Gas = {
 
 const logScale = (value) => Math.log2(16 + Math.max(0, value)) - 4;
 
-export const Crystallizer = (props) => {
+export const Crystallizer = (props, context) => {
   return (
     <Window width={500} height={600}>
       <Window.Content scrollable>
@@ -42,8 +42,8 @@ export const Crystallizer = (props) => {
   );
 };
 
-const Controls = (props) => {
-  const { act, data } = useBackend<Data>();
+const Controls = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { gas_input, on, selected, selected_recipes = [] } = data;
 
   return (
@@ -91,8 +91,8 @@ const Controls = (props) => {
   );
 };
 
-const Requirements = (props) => {
-  const { act, data } = useBackend<Data>();
+const Requirements = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { requirements, internal_temperature, progress_bar } = data;
 
   return (
@@ -132,8 +132,8 @@ const Requirements = (props) => {
   );
 };
 
-const Gases = (props) => {
-  const { data } = useBackend<Data>();
+const Gases = (props, context) => {
+  const { data } = useBackend<Data>(context);
   const { internal_gas_data = [] } = data;
 
   return (

@@ -93,7 +93,6 @@
 		/obj/item/suppressor,
 		/obj/item/ammo_box/magazine/m9mm,
 		/obj/item/ammo_box/magazine/m10mm,
-		/obj/item/ammo_box/magazine/m35, //Monkestation Edit
 		/obj/item/ammo_box/magazine/m45,
 		/obj/item/ammo_box/magazine/toy/pistol,
 		/obj/item/ammo_casing,

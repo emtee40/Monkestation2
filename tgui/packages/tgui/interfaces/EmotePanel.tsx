@@ -19,48 +19,60 @@ type EmotePanelData = {
   emotes: Emote[];
 };
 
-export const EmotePanelContent = (props) => {
-  const { act, data } = useBackend<EmotePanelData>();
+export const EmotePanelContent = (props, context) => {
+  const { act, data } = useBackend<EmotePanelData>(context);
   const { emotes } = data;
 
   const [filterVisible, toggleVisualFilter] = useLocalState<boolean>(
+    context,
     'filterVisible',
     false
   );
 
   const [filterAudible, toggleAudibleFilter] = useLocalState<boolean>(
+    context,
     'filterAudible',
     false
   );
 
   const [filterSound, toggleSoundFilter] = useLocalState<boolean>(
+    context,
     'filterSound',
     false
   );
 
   const [filterHands, toggleHandsFilter] = useLocalState<boolean>(
+    context,
     'filterHands',
     false
   );
 
   const [filterUseParams, toggleUseParamsFilter] = useLocalState<boolean>(
+    context,
     'filterUseParams',
     false
   );
 
   const [useParams, toggleUseParams] = useLocalState<boolean>(
+    context,
     'useParams',
     false
   );
 
-  const [searchText, setSearchText] = useLocalState<string>('search_text', '');
+  const [searchText, setSearchText] = useLocalState<string>(
+    context,
+    'search_text',
+    ''
+  );
 
   const [showNames, toggleShowNames] = useLocalState<boolean>(
+    context,
     'showNames',
     true
   );
 
   const [showIcons, toggleShowIcons] = useLocalState<boolean>(
+    context,
     'showIcons',
     false
   );
@@ -221,7 +233,7 @@ export const EmotePanelContent = (props) => {
   );
 };
 
-const EmoteIcons = (props) => {
+const EmoteIcons = (props, context) => {
   const { visible, audible, sound, hands, use_params, margin } = props;
 
   return (
@@ -260,7 +272,7 @@ const EmoteIcons = (props) => {
   );
 };
 
-export const EmotePanel = (props) => {
+export const EmotePanel = (props, context) => {
   return (
     <Window width={630} height={500}>
       <Window.Content scrollable>

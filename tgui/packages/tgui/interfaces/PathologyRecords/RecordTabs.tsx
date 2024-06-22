@@ -5,15 +5,15 @@ import { Stack, Section, Tabs, NoticeBox, Box, Icon } from 'tgui/components';
 import { MedicalRecord, MedicalRecordData } from './types';
 
 /** Displays all found records. */
-export const MedicalRecordTabs = (props) => {
-  const { act, data } = useBackend<MedicalRecordData>();
+export const MedicalRecordTabs = (props, context) => {
+  const { act, data } = useBackend<MedicalRecordData>(context);
   const { records = [], station_z } = data;
 
   const errorMessage = !records.length
     ? 'No records found.'
     : 'No match. Refine your search.';
 
-  const [search, setSearch] = useLocalState('search', '');
+  const [search, setSearch] = useLocalState(context, 'search', '');
 
   const sorted: MedicalRecord[] = flow([
     sortBy((record: MedicalRecord) => record.name?.toLowerCase()),
@@ -39,12 +39,12 @@ export const MedicalRecordTabs = (props) => {
 };
 
 /** Individual crew tab */
-const CrewTab = (props: { record: MedicalRecord }) => {
+const CrewTab = (props: { record: MedicalRecord }, context) => {
   const [selectedRecord, setSelectedRecord] = useLocalState<
     MedicalRecord | undefined
-  >('medicalRecord', undefined);
+  >(context, 'medicalRecord', undefined);
 
-  const { act, data } = useBackend<MedicalRecordData>();
+  const { act, data } = useBackend<MedicalRecordData>(context);
   const { assigned_view } = data;
   const { record } = props;
   const { crew_ref, name, nickname } = record;

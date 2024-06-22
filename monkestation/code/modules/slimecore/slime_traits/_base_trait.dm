@@ -23,7 +23,6 @@
 	if(trait_flags & TRAIT_VISUAL)
 		RegisterSignal(host, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_overlays))
 		host.update_overlays()
-		host.update_appearance()
 
 /datum/slime_trait/proc/on_remove(mob/living/basic/slime/parent)
 	return

@@ -13,8 +13,8 @@ type BasketballPanelData = {
   }[];
 };
 
-export const BasketballPanel = (props) => {
-  const { act, data } = useBackend<BasketballPanelData>();
+export const BasketballPanel = (props, context) => {
+  const { act, data } = useBackend<BasketballPanelData>(context);
 
   return (
     <Window title="Basketball" width={650} height={580}>

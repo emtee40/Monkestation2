@@ -137,7 +137,6 @@
 	var/mob/living/carbon/C = clone
 	if(istype(C) && istype(O))
 		C.real_name = O.real_name
-		C.update_name_tag(C.real_name) // monkestation edit: name tags
 		O.dna.transfer_identity(C)
 		C.updateappearance(mutcolor_update=1)
 	if(owner.mind)
@@ -472,7 +471,7 @@
 
 /datum/status_effect/stabilized/grey/tick()
 	for(var/mob/living/basic/slime/new_friend in range(3, get_turf(owner)))
-		SEND_SIGNAL(new_friend, COMSIG_FRIENDSHIP_CHANGE, owner, 2)
+		SEND_SIGNAL(new_friend, COMSIG_FRIENDSHIP_CHANGE, owner, 1)
 	return ..()
 
 /datum/status_effect/stabilized/orange
@@ -610,7 +609,7 @@
 	var/obj/item/item = owner.get_active_held_item()
 	if(item)
 		if(IS_EDIBLE(item) && (item.microwave_act(microwaver = owner) & COMPONENT_MICROWAVE_SUCCESS))
-			to_chat(owner, span_warning("[linked_extract] flares up brightly, and your hands alone are enough to cook [item]!"))
+			to_chat(owner, span_warning("[linked_extract] flares up brightly, and your hands alone are enough cook [item]!"))
 		else
 			item.attackby(fire, owner)
 	return ..()
@@ -740,7 +739,6 @@
 	var/mob/living/carbon/C = clone
 	if(istype(C) && istype(O))
 		C.real_name = O.real_name
-		C.update_name_tag(C.real_name) // monkestation edit: name tags
 		O.dna.transfer_identity(C)
 		C.updateappearance(mutcolor_update=1)
 	return ..()
@@ -822,7 +820,6 @@
 		var/mob/living/carbon/human/H = owner
 		originalDNA.transfer_identity(H)
 		H.real_name = originalname
-		H.update_name_tag(originalname) // monkestation edit: name tags
 		H.updateappearance(mutcolor_update=1)
 
 /datum/status_effect/brokenpeace

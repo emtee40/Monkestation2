@@ -491,7 +491,7 @@
 		return FALSE
 	if(isnull(target.mind) || !GET_CLIENT(target))
 		return FALSE
-	if(HAS_MIND_TRAIT(target, TRAIT_UNCONVERTABLE)) // monkestation edit: mind.unconvertable -> TRAIT_UNCONVERTABLE
+	if(target.mind.unconvertable)
 		return FALSE
 	if(ishuman(target) && target.mind.holy_role)
 		return FALSE

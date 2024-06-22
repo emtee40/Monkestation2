@@ -9,7 +9,7 @@ PROCESSING_SUBSYSTEM_DEF(pollution_emitters)
 	argument_hash_start_idx = 2
 
 	/// List of all affected atoms
-	var/list/affected
+	var/list/affected = list()
 	/// Type of the spawned pollutions
 	var/pollutant_type
 	/// Amount of the pollutants spawned per process
@@ -21,18 +21,19 @@ PROCESSING_SUBSYSTEM_DEF(pollution_emitters)
 		return ELEMENT_INCOMPATIBLE
 	src.pollutant_type = pollutant_type
 	src.pollutant_amount = pollutant_amount
-	LAZYSET(affected, target, TRUE)
+	affected[target] = TRUE
+
 	START_PROCESSING(SSpollution_emitters, src)
 
 /datum/element/pollution_emitter/Detach(datum/target)
 	. = ..()
-	LAZYREMOVE(affected, target)
-	if(!LAZYLEN(affected))
+
+	affected -= target
+
+	if(!affected.len)
 		STOP_PROCESSING(SSpollution_emitters, src)
 
 /datum/element/pollution_emitter/process(seconds_per_tick)
-	if(!LAZYLEN(affected))
-		return PROCESS_KILL
 	for(var/atom/affected_atom as anything in affected)
 		var/turf/my_turf = get_turf(affected_atom)
 		my_turf.pollute_turf(pollutant_type, pollutant_amount)

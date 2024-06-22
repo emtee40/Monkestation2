@@ -19,8 +19,8 @@ export const AvailableDisplay = () => {
 };
 
 /** Displays the remaining RAM left as a progressbar. */
-const MemoryDisplay = (props) => {
-  const { data } = useBackend<PaiData>();
+const MemoryDisplay = (props, context) => {
+  const { data } = useBackend<PaiData>(context);
   const { ram } = data;
 
   return (
@@ -51,8 +51,8 @@ const MemoryDisplay = (props) => {
 /** A list of available software.
  *  creates table rows for each, like a vendor.
  */
-const SoftwareList = (props) => {
-  const { data } = useBackend<PaiData>();
+const SoftwareList = (props, context) => {
+  const { data } = useBackend<PaiData>(context);
   const { available } = data;
   if (!available) {
     return null;
@@ -72,8 +72,8 @@ const SoftwareList = (props) => {
 };
 
 /** A row for an individual software listing. */
-const ListItem = (props) => {
-  const { act, data } = useBackend<PaiData>();
+const ListItem = (props, context) => {
+  const { act, data } = useBackend<PaiData>(context);
   const { installed, ram } = data;
   const { cost, name } = props;
   const purchased = installed.includes(name);

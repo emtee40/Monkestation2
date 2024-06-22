@@ -51,7 +51,6 @@
 	icon_state = "crowbar_cyborg"
 	inhand_icon_state = "crowbar"
 	item_flags = NO_MAT_REDEMPTION
-	toolspeed = 0.5 //Monke, drone tools are as fast as borg tools.
 
 /obj/item/screwdriver/drone
 	name = "built-in screwdriver"
@@ -61,7 +60,6 @@
 	inhand_icon_state = "screwdriver"
 	item_flags = NO_MAT_REDEMPTION
 	random_color = FALSE
-	toolspeed = 0.5 //Monke, drone tools are as fast as borg tools.
 
 
 /obj/item/screwdriver/drone/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
@@ -80,7 +78,6 @@
 	icon_state = "wrench_cyborg"
 	inhand_icon_state = "wrench"
 	item_flags = NO_MAT_REDEMPTION
-	toolspeed = 0.5 //Monke, drone tools are as fast as borg tools.
 
 /obj/item/weldingtool/drone
 	name = "built-in welding tool"
@@ -88,8 +85,6 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "indwelder_cyborg"
 	item_flags = NO_MAT_REDEMPTION
-	toolspeed = 0.5 //Monke, drone tools are as fast as borg tools.
-	max_fuel = 40 //And have large welding tanks.
 
 /obj/item/wirecutters/drone
 	name = "built-in wirecutters"
@@ -99,7 +94,6 @@
 	inhand_icon_state = "cutters"
 	item_flags = NO_MAT_REDEMPTION
 	random_color = FALSE
-	toolspeed = 0.5 //Monke, drone tools are as fast as borg tools.
 
 /obj/item/multitool/drone
 	name = "built-in multitool"

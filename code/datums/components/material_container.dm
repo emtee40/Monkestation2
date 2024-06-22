@@ -73,9 +73,12 @@
 /datum/component/material_container/Destroy(force, silent)
 	materials = null
 	allowed_materials = null
-	insertion_check = null
-	precondition = null
-	after_insert = null
+	if(insertion_check)
+		QDEL_NULL(insertion_check)
+	if(precondition)
+		QDEL_NULL(precondition)
+	if(after_insert)
+		QDEL_NULL(after_insert)
 	return ..()
 
 

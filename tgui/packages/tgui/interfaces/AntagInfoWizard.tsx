@@ -48,8 +48,8 @@ type Info = {
   can_change_objective: BooleanLike;
 };
 
-export const AntagInfoWizard = (props) => {
-  const { data, act } = useBackend<Info>();
+export const AntagInfoWizard = (props, context) => {
+  const { data, act } = useBackend<Info>(context);
   const { ritual, objectives, can_change_objective } = data;
 
   return (
@@ -152,7 +152,7 @@ export const AntagInfoWizard = (props) => {
   );
 };
 
-const RitualPrintout = (props: { ritual: GrandRitual }) => {
+const RitualPrintout = (props: { ritual: GrandRitual }, context) => {
   const { ritual } = props;
   if (!ritual.next_area) {
     return null;

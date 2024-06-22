@@ -13,7 +13,6 @@
 		JOB_SECURITY_ASSISTANT,
 		JOB_WARDEN,
 	)
-	shared_occurence_type = SHARED_HIGH_THREAT
 	maximum_antags = 1
 	exclusive_roles = list(JOB_AI)
 	required_enemies = 4

@@ -10,7 +10,6 @@ export const createHighlightSetting = (obj) => ({
   highlightWholeMessage: true,
   matchWord: false,
   matchCase: false,
-  enabled: true,
   ...obj,
 });
 

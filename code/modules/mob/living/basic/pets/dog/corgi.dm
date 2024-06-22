@@ -378,7 +378,7 @@
 
 /mob/living/basic/pet/dog/corgi/ian/Destroy()
 	LAZYREMOVE(SSticker.round_end_events, i_will_survive) //cleanup the survival callback
-	i_will_survive = null
+	QDEL_NULL(i_will_survive)
 	return ..()
 
 /mob/living/basic/pet/dog/corgi/ian/death()

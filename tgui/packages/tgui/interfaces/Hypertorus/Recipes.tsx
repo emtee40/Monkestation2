@@ -133,9 +133,9 @@ const GasCellItem = (props: GasCellProps) => {
   );
 };
 
-export const HypertorusRecipes = (props: RecipeProps) => {
+export const HypertorusRecipes = (props: RecipeProps, context) => {
   const { enableRecipeSelection, onRecipe, ...rest } = props;
-  const { data } = useBackend<HypertorusData>();
+  const { data } = useBackend<HypertorusData>(context);
   const { selectable_fuel, selected } = data;
 
   return (

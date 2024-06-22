@@ -317,7 +317,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 	ignore += typesof(/datum/weather_event)
 	ignore += typesof(/datum/particle_weather)
 	ignore += typesof(/mob/living/basic/aquatic)
-	ignore += typesof(/obj/machinery/station_map)
 
 	return ignore
 

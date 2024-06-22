@@ -30,8 +30,8 @@ type VariableButtonProps = {
   value: any;
 };
 
-const VariableItem = (props: VariableButtonProps) => {
-  const { act } = useBackend<Data>();
+const VariableItem = (props: VariableButtonProps, context) => {
+  const { act } = useBackend<Data>(context);
   const { label, variable, value } = props;
 
   return (
@@ -43,8 +43,8 @@ const VariableItem = (props: VariableButtonProps) => {
   );
 };
 
-export const MovablePhysicsTester = (props) => {
-  const { act, data } = useBackend<Data>();
+export const MovablePhysicsTester = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const {
     target_name,
     physics_flags,

@@ -53,8 +53,8 @@ const SUFFIXES = [
   'Jr.',
 ] as const;
 
-export const CodexGigas = (props) => {
-  const { act, data } = useBackend<Data>();
+export const CodexGigas = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { name, currentSection } = data;
 
   return (
@@ -81,8 +81,8 @@ export const CodexGigas = (props) => {
   );
 };
 
-const Prefixes = (props) => {
-  const { act, data } = useBackend<Data>();
+const Prefixes = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentSection } = data;
 
   return (
@@ -99,8 +99,8 @@ const Prefixes = (props) => {
   );
 };
 
-const Titles = (props) => {
-  const { act, data } = useBackend<Data>();
+const Titles = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentSection } = data;
 
   return (
@@ -117,8 +117,8 @@ const Titles = (props) => {
   );
 };
 
-const Names = (props) => {
-  const { act, data } = useBackend<Data>();
+const Names = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentSection } = data;
 
   return (
@@ -135,8 +135,8 @@ const Names = (props) => {
   );
 };
 
-const Suffixes = (props) => {
-  const { act, data } = useBackend<Data>();
+const Suffixes = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { currentSection } = data;
 
   return (

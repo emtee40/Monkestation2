@@ -15,10 +15,11 @@ type Data = {
 type Filter = {
   enabled: BooleanLike;
   gas_id: string;
+  name: string;
 };
 
-export const AtmosFilter = (props) => {
-  const { act, data } = useBackend<Data>();
+export const AtmosFilter = (props, context) => {
+  const { act, data } = useBackend<Data>(context);
   const { filter_types = [], on, rate, max_rate } = data;
 
   return (

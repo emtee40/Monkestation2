@@ -56,13 +56,13 @@ module.exports = (env = {}, argv) => {
       publicPath: '/',
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.jsx'],
+      extensions: ['.tsx', '.ts', '.js'],
       alias: {},
     },
     module: {
       rules: [
         {
-          test: /\.(js|jsx|cjs|ts|tsx)$/,
+          test: /\.(js|cjs|ts|tsx)$/,
           use: [
             {
               loader: require.resolve('babel-loader'),

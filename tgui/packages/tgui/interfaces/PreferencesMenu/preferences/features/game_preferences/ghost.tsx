@@ -20,9 +20,10 @@ const insertGhostForm = binaryInsertWith<{
 }>(({ value }) => value);
 
 const GhostFormInput = (
-  props: FeatureValueProps<string, string, FeatureChoicedServerData>
+  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  context
 ) => {
-  const { data } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<PreferencesMenuData>(context);
 
   const serverData = props.serverData;
   if (!serverData) {
@@ -103,9 +104,10 @@ export const ghost_orbit: FeatureChoiced = {
     Requires BYOND membership.
   `,
   component: (
-    props: FeatureValueProps<string, string, FeatureChoicedServerData>
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+    context
   ) => {
-    const { data } = useBackend<PreferencesMenuData>();
+    const { data } = useBackend<PreferencesMenuData>(context);
 
     return (
       <FeatureDropdownInput {...props} disabled={!data.content_unlocked} />
