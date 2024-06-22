@@ -37,7 +37,6 @@
 	action_cooldown = 2 SECONDS
 
 /datum/ai_behavior/find_and_set/in_list/clean_targets_slime/search_tactic(datum/ai_controller/controller, locate_paths, search_range)
-	var/list/found
 	for(var/obj/item as anything in spiral_range(search_range, controller.pawn, TRUE))
 		if(QDELETED(item))
 			continue

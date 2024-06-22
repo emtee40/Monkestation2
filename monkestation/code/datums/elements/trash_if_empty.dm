@@ -48,7 +48,7 @@
 	)
 
 /datum/element/trash_if_empty/reagent_container/register_signals(obj/item/reagent_containers/source)
-	RegisterSignal(source.reagents, reagent_signals, PROC_REF(update_trash_trait))
+	RegisterSignals(source.reagents, reagent_signals, PROC_REF(update_trash_trait))
 
 /datum/element/trash_if_empty/reagent_container/unregister_signals(obj/item/reagent_containers/source)
 	UnregisterSignal(source.reagents, reagent_signals)
