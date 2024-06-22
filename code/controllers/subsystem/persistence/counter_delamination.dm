@@ -11,9 +11,11 @@
 
 
 /datum/controller/subsystem/persistence/proc/save_delamination_counter()
-	rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_COUNT_FILEPATH)
+	aneri_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_COUNT_FILEPATH)
 	if((rounds_since_engine_exploded + 1) > delam_highscore)
-		rustg_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_HIGHSCORE_FILEPATH)
+		aneri_file_write("[rounds_since_engine_exploded + 1]", DELAMINATION_HIGHSCORE_FILEPATH)
 
+/* TODO: uncomment these whenever dreamchecker removes the outdated lint
 #undef DELAMINATION_COUNT_FILEPATH
 #undef DELAMINATION_HIGHSCORE_FILEPATH
+*/
