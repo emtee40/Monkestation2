@@ -15,8 +15,8 @@
 	return TRUE
 
 /datum/religion_rites/shadowascension
-	name = "Shadow Ascension"
-	desc = "Ascends a maintenance adapted being into a shadowperson. Buckle a human to convert them, otherwise it will convert you."
+	name = "Shadow Descent"
+	desc = "Descends a maintenance adapted being into a shadowperson. Buckle a human to convert them, otherwise it will convert you." // Quite a bit copied from android conversion.
 	ritual_length = 15 SECONDS
 	invoke_msg = "I no longer want to see the light!"
 	favor_cost = 300
