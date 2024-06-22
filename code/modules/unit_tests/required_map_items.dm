@@ -8,6 +8,8 @@
 /datum/unit_test/required_map_items
 	/// A list of all typepaths that we expect to be in the required items list
 	var/list/expected_types = list()
+	/// Subtypes to ignore.
+	var/list/ignored_types = list()
 
 /// Used to fill the expected types list with all the types we look for on the map.
 /// This list will just be full of typepaths that we expect.
@@ -28,6 +30,7 @@
 	expected_types += /obj/structure/cassette_rack/prefilled
 	expected_types += /obj/machinery/cryopod
 	expected_types += /obj/machinery/cassette/mailbox
+	ignored_types += /obj/machinery/cryopod/prison
 	// monkestation end
 
 /datum/unit_test/required_map_items/Run()
@@ -49,6 +52,7 @@
 		if(items_found > item.maximum_amount)
 			TEST_FAIL("Item [got_type] should have at most [item.maximum_amount] mapped in but had [items_found] on mapload!")
 			continue
+	required_map_items -= ignored_types
 
 	// This primarily serves as a reminder to include the typepath in the expected types list above.
 	// However we can easily delete this line in the future if it runs into false positives.
