@@ -102,7 +102,7 @@
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY - 7
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_inactive = 1.5
 	slowdown_active = 1
@@ -173,7 +173,6 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/thermal_regulator,
 	)
-	complexity_max = DEFAULT_MAX_COMPLEXITY * 5
 
 /obj/item/mod/control/pre_equipped/frontier_colonist/Initialize(mapload)
 	. = ..()
