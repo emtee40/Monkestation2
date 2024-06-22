@@ -40,6 +40,8 @@
 	for(var/obj/item as anything in spiral_range(search_range, controller.pawn, TRUE))
 		if(QDELETED(item))
 			continue
-		if(is_type_in_typecache(item, locate_paths) || HAS_TRAIT(item, TRAIT_TRASH_ITEM))
+		if(!is_type_in_typecache(item, locate_paths) || !HAS_TRAIT(item, TRAIT_TRASH_ITEM))
+			continue
+		if(length(get_path_to(controller.pawn, item, max_distance = search_range, simulated_only = FALSE)))
 			return item
 
