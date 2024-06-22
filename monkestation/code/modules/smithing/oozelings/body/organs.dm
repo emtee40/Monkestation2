@@ -48,10 +48,13 @@
 	name = "core"
 	desc = "The center core of a slimeperson, technically their 'extract.' Where the cytoplasm, membrane, and organelles come from; perhaps this is also a mitochondria?"
 	zone = BODY_ZONE_CHEST
-	var/obj/effect/death_melt_type = /obj/effect/temp_visual/wizard/out
-	var/core_color = COLOR_WHITE
 	icon = 'monkestation/code/modules/smithing/icons/oozeling.dmi'
 	icon_state = "slime_core"
+	resistance_flags = FIRE_PROOF
+
+	var/obj/effect/death_melt_type = /obj/effect/temp_visual/wizard/out
+	var/core_color = COLOR_WHITE
+
 	var/core_ejected = FALSE
 	var/gps_active = TRUE
 
@@ -106,7 +109,7 @@
 	RegisterSignal(organ_owner, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
 
 /obj/item/organ/internal/brain/slime/proc/colorize()
-	if(owner && isoozeling(owner))
+	if(isoozeling(owner))
 		core_color = owner.dna.features["mcolor"]
 		add_atom_colour(core_color, FIXED_COLOUR_PRIORITY)
 
@@ -120,9 +123,7 @@
 
 /obj/item/organ/internal/brain/slime/proc/enable_coredeath()
 	coredeath = TRUE
-	if(owner)
-		if(owner.stat != DEAD)
-			return
+	if(owner?.stat == DEAD)
 		addtimer(CALLBACK(src, PROC_REF(core_ejection), owner), 0)
 
 ///////
@@ -132,7 +133,7 @@
 /obj/item/organ/internal/brain/slime/proc/core_ejection(mob/living/carbon/human/victim, new_stat, turf/loc_override)
 	if(core_ejected || !coredeath)
 		return
-	if(!stored_dna)
+	if(QDELETED(stored_dna))
 		stored_dna = new
 
 	victim.dna.copy_dna(stored_dna)
@@ -140,12 +141,10 @@
 	victim.visible_message(span_warning("[victim]'s body completely dissolves, collapsing outwards!"), span_notice("Your body completely dissolves, collapsing outwards!"), span_notice("You hear liquid splattering."))
 	var/turf/death_turf = get_turf(victim)
 
-	var/list/items = list()
-	items |= victim.get_equipped_items(TRUE)
-	for(var/atom/movable/I as anything in items)
-		victim.dropItemToGround(I)
-		stored_items |= I
-		I.forceMove(src)
+	for(var/atom/movable/item as anything in victim.get_equipped_items(include_pockets = TRUE))
+		victim.dropItemToGround(item)
+		stored_items |= item
+		item.forceMove(src)
 
 	if(victim.get_organ_slot(ORGAN_SLOT_BRAIN) == src)
 		Remove(victim)
@@ -166,15 +165,16 @@
 		if(target_ling)
 			if(target_ling.oozeling_revives > 0)
 				target_ling.oozeling_revives--
-				addtimer(CALLBACK(src, PROC_REF(rebuild_body)), 30 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(rebuild_body), null, FALSE), 30 SECONDS)
 
 		if(IS_BLOODSUCKER(brainmob))
 			var/datum/antagonist/bloodsucker/target_bloodsucker = brainmob.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 			if(target_bloodsucker.bloodsucker_blood_volume >= target_bloodsucker.max_blood_volume * 0.4)
-				addtimer(CALLBACK(src, PROC_REF(rebuild_body)), 30 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(rebuild_body), null, FALSE), 30 SECONDS)
 				target_bloodsucker.bloodsucker_blood_volume -= target_bloodsucker.max_blood_volume * 0.15
 
 	rebuilt = FALSE
+	victim.transfer_observers_to(src)
 	Remove(victim)
 	qdel(victim)
 
@@ -221,9 +221,9 @@
 /obj/item/organ/internal/brain/slime/proc/drop_items_to_ground(turf/turf)
 	for(var/atom/movable/item as anything in stored_items)
 		item.forceMove(turf)
-		stored_items -= item
+	stored_items.Cut()
 
-/obj/item/organ/internal/brain/slime/proc/rebuild_body(mob/user)
+/obj/item/organ/internal/brain/slime/proc/rebuild_body(mob/user, nugget = TRUE)
 	if(rebuilt)
 		return
 	rebuilt = TRUE
@@ -234,7 +234,7 @@
 		qdel(GetComponent(/datum/component/gps))
 
 	//we have the plasma. we can rebuild them.
-	brainmob.mind.grab_ghost()
+	brainmob?.mind?.grab_ghost()
 	if(isnull(brainmob))
 		user?.balloon_alert(user, "This brain is not a viable candidate for repair!")
 		return TRUE
@@ -258,7 +258,9 @@
 	new_body.updateappearance(mutcolor_update = TRUE)
 	new_body.domutcheck()
 	new_body.forceMove(drop_location())
-	new_body.blood_volume = BLOOD_VOLUME_SAFE + 60
+	if(!nugget)
+		new_body.set_nutrition(NUTRITION_LEVEL_FED)
+	new_body.blood_volume = nugget ? (BLOOD_VOLUME_SAFE + 60) : BLOOD_VOLUME_NORMAL
 	REMOVE_TRAIT(new_body, TRAIT_NO_TRANSFORM, REF(src))
 	if(!QDELETED(brainmob))
 		SSquirks.AssignQuirks(new_body, brainmob.client)
@@ -266,14 +268,19 @@
 	qdel(new_body_brain)
 	forceMove(new_body)
 	Insert(new_body)
-	for(var/obj/item/bodypart as anything in new_body.bodyparts)
-		if(!istype(bodypart, /obj/item/bodypart/chest))
+	if(nugget)
+		for(var/obj/item/bodypart as anything in new_body.bodyparts)
+			if(istype(bodypart, /obj/item/bodypart/chest))
+				continue
 			qdel(bodypart)
-			continue
-	new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from [new_body.p_their()] core, yet to form the rest."))
-	to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
+		new_body.visible_message(span_warning("[new_body]'s torso \"forms\" from [new_body.p_their()] core, yet to form the rest."))
+		to_chat(owner, span_purple("Your torso fully forms out of your core, yet to form the rest."))
+	else
+		new_body.visible_message(span_warning("[new_body]'s body fully forms from [new_body.p_their()] core!"))
+		to_chat(owner, span_purple("Your body fully forms from your core!"))
 
 	brainmob?.mind?.transfer_to(new_body)
 	new_body.grab_ghost()
+	transfer_observers_to(new_body)
 
 	drop_items_to_ground(new_body.drop_location())
