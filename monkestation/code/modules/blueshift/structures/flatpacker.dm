@@ -31,12 +31,6 @@
 	QDEL_NULL(soundloop)
 	return ..()
 
-/obj/machinery/rnd/production/colony_lathe/on_deconstruction()
-	. = ..()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	materials.retrieve_all()
-
-
 // previously NO_DECONSTRUCTION
 /obj/machinery/rnd/production/colony_lathe/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
 	return NONE
@@ -82,9 +76,6 @@
 		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 
 	update_static_data_for_all_viewers()
-
-/obj/machinery/rnd/production/colony_lathe/calculate_efficiency()
-	return
 
 // Item for carrying the lathe around and building it
 
