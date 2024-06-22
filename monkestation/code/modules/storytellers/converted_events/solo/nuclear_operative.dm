@@ -67,9 +67,9 @@
 		if(antag_mind != most_experienced)
 			var/mob/living/leader_mob = most_experienced.current
 			SSjob.FreeRole(most_experienced.assigned_role.title)
-			var/list/items = leader_mob.get_equipped_items(TRUE)
+			var/list/leader_items = leader_mob.get_equipped_items(TRUE)
 			leader_mob.unequip_everything()
-			for(var/obj/item/item as anything in items)
+			for(var/obj/item/item as anything in leader_items)
 				qdel(item)
 		most_experienced.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
 		most_experienced.special_role = ROLE_NUCLEAR_OPERATIVE
