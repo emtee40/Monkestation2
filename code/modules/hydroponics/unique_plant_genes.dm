@@ -501,12 +501,8 @@
 		return
 		
 	var/obj/item/food/grown/grown_plant = our_plant
-	var/obj/item/seeds/our_seed = our_plant.get_plant_seed()
 	if(istype(grown_plant))
-		if(our_seed.get_gene(/datum/plant_gene/trait/maxchem))
-			grown_plant.max_volume = new_capcity*2
-		else
-			grown_plant.max_volume = new_capcity
+		grown_plant.max_volume = new_capcity
 
 /// Omegaweed's funny 420 max volume gene
 /datum/plant_gene/trait/modified_volume/omega_weed
