@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(anchoring_crystals) //list of all anchoring crystals
 		finish_charging()
 		return
 
-	if(charge_state < CRYSTAL_LOCATION_ANNOUNCED && charging_for >= (CRYSTAL_CHARGE_TIMER * 0.5))
+	if(charge_state < CRYSTAL_LOCATION_ANNOUNCED && charging_for >= (CRYSTAL_CHARGE_TIMER * 0.4))
 		charge_state = CRYSTAL_LOCATION_ANNOUNCED
 		if(length(GLOB.anchoring_crystals) >= 2)
 			priority_announce("Reality warping object located in [crystal_area].", "Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES, has_important_message = TRUE)

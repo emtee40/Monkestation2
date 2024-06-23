@@ -34,6 +34,33 @@ GLOBAL_LIST_EMPTY(abscond_markers)
 		CRASH("Failed to load the Reebe template.")
 	return TRUE
 
+///Send a pod full of helpful items to the station's bridge
+/proc/send_station_support_package(sent_message = "We are sending a support package to the bridge to help deal with the threats to the station.")
+	var/turf/bridge_turf = pick(GLOB.areas_by_type[/area/station/command/bridge].contained_turfs)
+	if(!bridge_turf)
+		return
+
+	priority_announce(sent_message, has_important_message = TRUE)
+	podspawn(list("target" = bridge_turf, "spawn" = list(
+		/obj/item/storage/medkit/advanced,
+		/obj/item/storage/medkit/brute,
+		/obj/item/storage/medkit/fire,
+		/obj/item/storage/medkit/regular,
+		/obj/item/gun/medbeam,
+		/obj/item/storage/part_replacer/cargo,
+		/obj/item/storage/box/recharger_parts,
+	)))
+
+/obj/item/storage/box/recharger_parts
+	name = "Recharger Parts"
+
+/obj/item/storage/box/recharger_parts/PopulateContents()
+	. = ..() //there is actually a helper for this but I cant remember the name
+	var/list/spawned_list = list(/obj/item/circuitboard/machine/recharger = 5, /obj/item/stack/cable_coil = 1, /obj/item/stack/sheet/iron/fifty = 1)
+	for(var/type in spawned_list)
+		for(var/i in 1 to spawned_list[type])
+			new type(src)
+
 /obj/effect/mob_spawn/corpse/human/blood_cultist
 	name = "Blood Cultist"
 	outfit = /datum/outfit/blood_cultist

@@ -199,9 +199,7 @@
 
 /datum/antagonist/clock_cultist/proc/add_forbearance(mob/apply_to)
 	if(GLOB.clock_ark?.current_state >= ARK_STATE_ACTIVE)
-		apply_to.add_filter("forbearance", 3, list("type" = "outline", "color" = "#FAE48E", "size" = 2, /*"falloff" = 1,*/ "alpha" = 100))
-		//var/filter = apply_to.get_filter("forbearance") //add_filter does not actually return anything so we have to do this
-		//var/image/filter(type, size, color, x, y, offset, flags, border, render_source, icon, space, transform, blend_mode, density, threshold, factor, repeat, radius, falloff, alpha)
+		apply_to.add_filter("forbearance", 3, list("type" = "outline", "color" = "#FAE48E", "size" = 2, "alpha" = 100))
 
 /datum/antagonist/clock_cultist/eminence
 	name = "Eminence"
