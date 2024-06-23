@@ -59,6 +59,8 @@ SUBSYSTEM_DEF(garbage)
 	/// Toggle for enabling/disabling hard deletes. Objects that don't explicitly request hard deletion with this disabled will leak.
 	var/enable_hard_deletes = FALSE
 
+	var/list/failed_hard_deletes = list()
+
 /datum/controller/subsystem/garbage/PreInit()
 	InitQueues()
 
@@ -232,7 +234,8 @@ SUBSYSTEM_DEF(garbage)
 					#endif
 					continue
 			if (GC_QUEUE_HARDDELETE)
-				HardDelete(D)
+				if(!HardDelete(D))
+					D = null
 				if (MC_TICK_CHECK)
 					return
 				continue
@@ -270,6 +273,7 @@ SUBSYSTEM_DEF(garbage)
 		return
 
 	if (!override && !enable_hard_deletes)
+		failed_hard_deletes |= D
 		return
 
 	++delslasttick
@@ -318,6 +322,7 @@ SUBSYSTEM_DEF(garbage)
 			var/overrun_limit = CONFIG_GET(number/hard_deletes_overrun_limit)
 			if (overrun_limit && I.hard_deletes_over_threshold >= overrun_limit)
 				I.qdel_flags |= QDEL_ITEM_SUSPENDED_FOR_LAG
+	return TRUE
 
 /datum/controller/subsystem/garbage/Recover()
 	InitQueues() //We first need to create the queues before recovering data
