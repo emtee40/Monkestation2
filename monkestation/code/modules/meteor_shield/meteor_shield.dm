@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(meteor_shield_sats)
+GLOBAL_LIST_EMPTY_TYPED(meteor_shield_sats, /obj/machinery/satellite/meteor_shield)
 
 /obj/machinery/satellite/meteor_shield
 	/// Whether the meteor sat checks for line of sight to determine if it can intercept a meteor.
