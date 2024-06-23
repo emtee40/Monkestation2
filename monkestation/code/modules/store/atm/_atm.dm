@@ -23,6 +23,7 @@
 
 /obj/machinery/atm/Initialize(mapload)
 	. = ..()
+	REGISTER_REQUIRED_MAP_ITEM(1, INFINITY)
 	if(!lottery_running)
 		lottery_running = TRUE
 		addtimer(CALLBACK(src, PROC_REF(pull_lottery_winner)), 20 MINUTES)
