@@ -135,9 +135,9 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(open_gateway)), ARK_READY_PERIOD)
 
 /obj/structure/destructible/clockwork/the_ark/proc/open_gateway()
-	if(current_state >= ARK_STATE_ACTIVE)
+	if(current_state >= ARK_STATE_GRACE)
 		return
-	current_state = ARK_STATE_ACTIVE
+	current_state = ARK_STATE_GRACE
 	SSshuttle.registerHostileEnvironment(src)
 	icon_state = "clockwork_gateway_active"
 	send_clock_message(null, span_bigbrass("The Ark has been activated, you will be transported soon! Dont forget to gather weapons with your \"Clockwork Armaments\" scripture."), \
@@ -151,15 +151,14 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 
 	for(var/datum/mind/servant_mind in GLOB.main_clock_cult.members)
 		var/mob/living/servant_mob = servant_mind.current
-		if(!servant_mob || QDELETED(servant_mob))
+		if(QDELETED(servant_mob))
 			continue
+
 		if(GLOB.abscond_markers)
 			try_servant_warp(servant_mob, get_turf(pick(GLOB.abscond_markers)))
-		if(ishuman(servant_mob))
-			var/datum/antagonist/clock_cultist/servant_antag = servant_mind.has_antag_datum(/datum/antagonist/clock_cultist)
-			if(servant_antag)
-				servant_antag.forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
-				servant_mob.add_overlay(servant_antag.forbearance)
+
+		var/datum/antagonist/clock_cultist/servant_antag = servant_mind.has_antag_datum(/datum/antagonist/clock_cultist)
+		servant_antag?.add_forbearance(servant_mob)
 
 	sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 50)
 	SSsecurity_level.set_level(3)
@@ -174,6 +173,7 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 	log_game("The clock cult has begun opening the Ark of the Clockwork Justiciar.")
 
 /obj/structure/destructible/clockwork/the_ark/proc/begin_assault()
+	current_state = ARK_STATE_ACTIVE
 	START_PROCESSING(SSprocessing, src)
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal \
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
@@ -226,11 +226,11 @@ GLOBAL_VAR_INIT(ratvar_risen, FALSE)
 
 /proc/explode_reebe()
 	var/list/reebe_area_list = get_area_turfs(/area/ruin/powered/reebe/city)
-	if(reebe_area_list.len)
+	if(length(reebe_area_list))
 		for(var/i in 1 to 30)
 			explosion(pick(reebe_area_list), 0, 2, 4, 4, FALSE)
 			sleep(5)
-	if(GLOB.abscond_markers.len)
+	if(length(GLOB.abscond_markers))
 		explosion(pick(GLOB.abscond_markers), 50, 40, 30, 30, FALSE, TRUE)
 	SSticker.force_ending = TRUE
 
