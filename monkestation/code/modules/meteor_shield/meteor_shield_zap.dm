@@ -11,6 +11,7 @@
 		INVOKE_ASYNC(src, PROC_REF(play_zap_sound), meteor_turf)
 		SSblackbox.record_feedback("tally", "meteors_zapped", 1, "[meteor.type]")
 		meteors_zapped++
+		GLOB.total_meteors_zapped++
 		meteor.make_debris()
 		qdel(meteor)
 

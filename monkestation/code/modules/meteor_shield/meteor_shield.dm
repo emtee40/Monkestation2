@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY_TYPED(meteor_shield_sats, /obj/machinery/satellite/meteor_shield)
+GLOBAL_VAR_INIT(total_meteors_zapped, 0)
 
 /obj/machinery/satellite/meteor_shield
 	/// Whether the meteor sat checks for line of sight to determine if it can intercept a meteor.
@@ -18,6 +19,7 @@ GLOBAL_LIST_EMPTY_TYPED(meteor_shield_sats, /obj/machinery/satellite/meteor_shie
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
 	. += span_info("It has stopped <b>[meteors_zapped]</b> meteors so far.")
+	. += span_info("Overall, all meteor shield satellites have stopped a combined <b>[GLOB.total_meteors_zapped]</b> meteors this shift.")
 
 /obj/machinery/satellite/meteor_shield/proc/on_space_move(datum/source)
 	SIGNAL_HANDLER
