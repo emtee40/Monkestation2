@@ -2,8 +2,7 @@
 /datum/unit_test/linked_xenobio_pens
 
 /datum/unit_test/linked_xenobio_pens/Run()
-	var/list/used_map_ids = list()
-	var/list/used_map_ids_suckers = list()
+	var/list/obj/machinery/plumbing/ooze_sucker/used_map_ids = list()
 	for(var/obj/machinery/slime_pen_controller/pen as anything in GLOB.slime_pen_controllers)
 		if(!pen.mapping_id)
 			TEST_FAIL("Found a slime pen management console without a mapping ID at [AREACOORD(pen)]!")
